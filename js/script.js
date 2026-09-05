@@ -13,7 +13,7 @@ const CONFIG = {
 };
 
 // ===== БАЗОВЫЙ URL ДЛЯ GITHUB PAGES =====
-const BASE_URL = 'https://manspo.github.io/kindercapsule';
+const BASE_URL = 'https://manspo.github.io';
 
 // ===== УПРАВЛЕНИЕ ЗАГРУЗКОЙ (НОВАЯ ВЕРСИЯ) =====
 
@@ -446,7 +446,7 @@ function generateQRCode(figureId, seriesId, figureName, isSeries = false) {
 
     // Схема для приложения
     const APP_SCHEME = 'kindercapsule://open';
-    const WEB_BASE = 'https://manspo.github.io/kindercapsule';
+    const WEB_BASE = 'https://manspo.github.io';
     
     // Формируем URL для QR-кода (используем универсальную ссылку)
     let qrUrl;

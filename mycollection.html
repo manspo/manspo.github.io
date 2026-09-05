@@ -23,7 +23,7 @@
 <header class="header">
   <div class="header-left">
     <a href="index.html" class="brand">
-      <img src="images/logo.png" class="logo-img" alt="Logo">
+      <img src="images/logo.webp" class="logo-img" alt="Logo">
       <span class="logo" data-i18n="site_name">Капсула</span>
     </a>
   </div>
@@ -88,7 +88,7 @@
 <script>
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/js/sw.js')
+    navigator.serviceWorker.register('/sw.js')
       .then(reg => console.log('✅ SW registered:', reg))
       .catch(err => console.log('❌ SW error:', err));
   });

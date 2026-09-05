@@ -1,4 +1,4 @@
-const CACHE_NAME = 'capsule-v5';
+const CACHE_NAME = 'capsule-v6';
 const urlsToCache = [
   '/',
   '/index.html',
@@ -66,7 +66,7 @@ self.addEventListener('fetch', event => {
   const request = event.request;
   const url = new URL(request.url);
 
-  // ===== ИЗОБРАЖЕНИЯ С GITHUB PAGES =====
+  // ===== ИЗОБРАЖЕНИЯ С САЙТА =====
   if (url.hostname === 'manspo.github.io' && url.pathname.includes('/images/')) {
     event.respondWith(
       caches.open('images-cache').then(cache => {
@@ -89,7 +89,7 @@ self.addEventListener('fetch', event => {
     return;
   }
 
-  // ===== ДАННЫЕ С GITHUB PAGES (НЕ КЕШИРУЕМ) =====
+  // ===== ДАННЫЕ С САЙТА (НЕ КЕШИРУЕМ) =====
   if (url.hostname === 'manspo.github.io' && url.pathname.includes('/data/')) {
     event.respondWith(
       fetch(request).catch(() => {
@@ -137,8 +137,8 @@ self.addEventListener('fetch', event => {
 self.addEventListener('push', event => {
   const options = {
     body: event.data ? event.data.text() : 'Новое обновление в Капсуле!',
-    icon: 'images/icon-192x192.webp',
-    badge: 'images/icon-72x72.webp',
+    icon: '/images/icon-192x192.webp',
+    badge: '/images/icon-72x72.webp',
     vibrate: [200, 100, 200],
     data: { url: '/' }
   };
