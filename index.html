@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="preconnect" href="https://manspo.github.io">
+  <link rel="dns-prefetch" href="https://manspo.github.io">
+  
+  <script>
+  (function() {
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+  })();
+  </script>
+  
+  <!-- ===== ПАРАЛЛЕЛЬНАЯ ЗАГРУЗКА ДАННЫХ ===== -->
+  <script>
+    window.dataPromise = fetch('https://manspo.github.io/kindercapsule/data/index.json').then(r => r.json());
+  </script>
+  
+  <title data-i18n="title_home">Капсула — каталог коллекций</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#4f46e5">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Капсула">
+  <link rel="apple-touch-icon" href="images/icon-192x192.webp">
+  <meta name="mobile-web-app-capable" content="yes">
+
+  <style>
+    /* ===== СТИЛИ ДЛЯ ЗАГРУЗКИ ===== */
+    
+    /* Оверлей загрузки */
+    #loadingOverlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+        background: rgba(0, 0, 0, 0.15);
+        backdrop-filter: blur(2px);
+        -webkit-backdrop-filter: blur(2px);
+        transition: opacity 0.6s ease, visibility 0.6s ease;
+    }
+
+    #loadingOverlay.hidden {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+    }
+
+    /* Для тёмной темы */
+    [data-theme="dark"] #loadingOverlay {
+        background: rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+    }
+
+    [data-theme="dark"] #loadingOverlay .loader {
+        border-color: rgba(255,255,255,0.2);
+        border-top-color: var(--primary);
+    }
+
+    [data-theme="dark"] #loadingOverlay #loadingStatus {
+        background: rgba(30, 30, 46, 0.9);
+        color: var(--text);
+    }
+
+    [data-theme="dark"] #loadingOverlay #progressText {
+        background: rgba(0,0,0,0.5);
+        color: rgba(255,255,255,0.7);
+    }
+
+    /* Анимация спиннера */
+    .loader {
+        width: 48px;
+        height: 48px;
+        border: 4px solid rgba(255,255,255,0.3);
+        border-top: 4px solid var(--primary);
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+    }
+
+    [data-theme="dark"] .loader {
+        border-color: rgba(255,255,255,0.15);
+        border-top-color: var(--primary);
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    /* Статус загрузки */
+    #loadingStatus {
+        font-size: 18px;
+        font-weight: 600;
+        color: var(--text);
+        background: rgba(255, 255, 255, 0.85);
+        padding: 8px 24px;
+        border-radius: 30px;
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+        transition: all 0.3s ease;
+        text-align: center;
+    }
+
+    /* Прогресс-бар */
+    .progress-container {
+        width: 200px;
+        height: 4px;
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 4px;
+        overflow: hidden;
+    }
+
+    [data-theme="dark"] .progress-container {
+        background: rgba(255, 255, 255, 0.1);
+    }
+
+    .progress-container .bar {
+        width: 0%;
+        height: 100%;
+        background: var(--primary);
+        border-radius: 4px;
+        transition: width 0.3s ease;
+    }
+
+    #progressText {
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.8);
+        background: rgba(0, 0, 0, 0.3);
+        padding: 4px 16px;
+        border-radius: 20px;
+        transition: all 0.3s ease;
+    }
+
+    [data-theme="dark"] #progressText {
+        background: rgba(0, 0, 0, 0.5);
+        color: rgba(255, 255, 255, 0.7);
+    }
+
+    /* Кнопка "Повторить" */
+    .retry-btn {
+        padding: 12px 32px;
+        background: var(--primary);
+        color: white;
+        border: none;
+        border-radius: 30px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        pointer-events: all;
+        transition: transform 0.2s;
+        margin-top: 10px;
+    }
+
+    .retry-btn:hover {
+        transform: scale(1.05);
+    }
+
+    /* Размытый контент во время загрузки */
+    #mainContent.loading {
+        filter: blur(4px);
+        transition: filter 0.6s ease;
+    }
+
+    #mainContent.loaded {
+        filter: blur(0px);
+        transition: filter 0.6s ease;
+    }
+
+    /* Мобильные устройства */
+    @media (max-width: 768px) {
+        #loadingStatus {
+            font-size: 15px;
+            padding: 6px 18px;
+        }
+        .loader {
+            width: 36px;
+            height: 36px;
+        }
+        .progress-container {
+            width: 150px;
+        }
+    }
+  </style>
+</head>
+<body>
+<script>
+  // Определяем Capacitor
+  if (window.Capacitor && window.Capacitor.isNativePlatform()) {
+    document.documentElement.classList.add('capacitor-app');
+    document.documentElement.setAttribute('data-platform', 'capacitor');
+  }
+</script>
+
+<!-- ===== ОСНОВНОЙ КОНТЕНТ (ВИДЕН СРАЗУ, НО РАЗМЫТ) ===== -->
+<div id="mainContent" class="loading">
+
+  <header class="header">
+    <div class="header-left">
+      <a href="index.html" class="brand">
+        <img src="images/logo.webp" class="logo-img" alt="Logo">
+        <span class="logo" data-i18n="site_name">Капсула</span>
+      </a>
+    </div>
+    <div class="header-tagline">
+      <span class="tagline-main" data-i18n="home_title">Каталог коллекций игрушек</span>
+      <span class="tagline-sub" data-i18n="home_sub">Kinder, Nestle, Landrin и другие производители</span>
+    </div>
+  </header>
+
+  <main class="home">
+    <section class="hero-image">
+      <img src="images/hero/collection.webp" alt="Collection" class="hero-img" loading="lazy" decoding="async">
+    </section>
+
+    <section class="main-grid">
+      <div class="row">
+        <a href="catalog.html" class="home-card" data-page="catalog">
+          <div class="icon">📦</div>
+          <div class="home-title" data-i18n="nav_catalog">Каталог серий</div>
+        </a>
+        <a href="mycollection.html" class="home-card" data-page="mycollection">
+          <div class="icon">🏷️</div>
+          <div class="home-title" data-i18n="my_collections">Мои коллекции</div>
+        </a>
+        <a href="forsale.html" class="home-card" data-page="forsale">
+          <div class="icon">💰</div>
+          <div class="home-title" data-i18n="forsale">На продажу</div>
+        </a>
+        <a href="about.html" class="home-card" data-page="about">
+          <div class="icon">📖</div>
+          <div class="home-title" data-i18n="nav_about">О сайте</div>
+        </a>
+      </div>
+    </section>
+
+    <section class="social-grid">
+      <h2 data-i18n="social_title" class="section-title">Мы в соцсетях</h2>
+      <div class="home-grid" id="socialGrid">
+        <div class="loading-spinner">⏳ Загрузка...</div>
+      </div>
+    </section>
+
+    <section class="stats">
+      <div class="stat-item">
+        <div class="stat-number" id="totalSeries">0</div>
+        <div class="stat-label" data-i18n="total_series">серий</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" id="totalFigures">0</div>
+        <div class="stat-label" data-i18n="total_figures">фигурок</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" id="totalInserts">0</div>
+        <div class="stat-label" data-i18n="total_inserts">вкладышей</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" id="totalForSaleItems">0</div>
+        <div class="stat-label" data-i18n="total_forsale">в продаже</div>
+      </div>
+    </section>
+
+    <section class="featured-series">
+      <h2 data-i18n="latest_series">Последние добавленные</h2>
+      <div class="featured-grid" id="featuredGrid">
+        <div class="loading-spinner">⏳ Загрузка...</div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-controls">
+      <div class="lang-switch-footer">
+        <img src="images/flags/ru.png" data-lang="ru" class="flag" onclick="setLang('ru')" style="cursor: pointer;">
+        <img src="images/flags/en.png" data-lang="en" class="flag" onclick="setLang('en')" style="cursor: pointer;">
+      </div>
+      <div class="theme-switch">🌙</div>
+    </div>
+    <div class="support-buttons">
+      <a href="https://dalink.to/mansurdm" class="support-btn" data-i18n="support_project">Поддержать проект</a>
+    </div>
+    <div class="copyright" data-i18n="footer_copyright">© 2026 Капсула</div>
+  </footer>
+</div>
+
+<!-- ===== ОВЕРЛЕЙ ЗАГРУЗКИ (ПОВЕРХ РАЗМЫТОГО КОНТЕНТА) ===== -->
+<div id="loadingOverlay">
+    <div class="loader"></div>
+    
+    <div id="loadingStatus">Загрузка данных...</div>
+    
+    <div class="progress-container">
+        <div class="bar" id="progressBar" style="width: 0%;"></div>
+    </div>
+    
+    <div id="progressText">Подготовка...</div>
+</div>
+
+<script src="js/script.js"></script>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js')
+      .then(registration => console.log('✅ SW registered:', registration))
+      .catch(error => console.log('❌ SW error:', error));
+  });
+}
+</script>
+
+<script>
+let refreshing = false;
+navigator.serviceWorker.addEventListener('controllerchange', () => {
+  if (!refreshing) {
+    refreshing = true;
+    window.location.reload();
+  }
+});
+</script>
+
+<script>
+// ============================================================
+// НАВИГАЦИЯ
+// ============================================================
+
+(function() {
+  let exitTimer = null;
+
+  function getCurrentPage() {
+    const path = window.location.pathname.toLowerCase();
+    if (path.includes('series.html')) return 'series';
+    if (path.includes('figure.html')) return 'figure';
+    if (path.includes('catalog.html')) return 'catalog';
+    if (path.includes('mycollection.html')) return 'collection';
+    if (path.includes('forsale.html')) return 'forsale';
+    if (path.includes('about.html')) return 'about';
+    return 'home';
+  }
+
+  function showExitToast() {
+    let toast = document.getElementById('exitToast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'exitToast';
+      toast.style.cssText = `
+        position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%);
+        background: rgba(0,0,0,0.85); color: white; padding: 12px 24px;
+        border-radius: 30px; z-index: 999999; font-size: 16px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        font-family: system-ui, sans-serif; transition: opacity 0.3s;
+        opacity: 0; pointer-events: none;
+      `;
+      document.body.appendChild(toast);
+    }
+    toast.textContent = 'Нажмите ещё раз, чтобы выйти';
+    toast.style.opacity = '1';
+    clearTimeout(exitTimer);
+    exitTimer = setTimeout(() => {
+      toast.style.opacity = '0';
+    }, 2000);
+  }
+
+  function handleBack() {
+    const current = getCurrentPage();
+    const referrer = document.referrer || '';
+
+    const lightbox = document.getElementById('lightbox');
+    if (lightbox && lightbox.style.display === 'flex') {
+      if (typeof window.closeLightbox === 'function') {
+        window.closeLightbox();
+      } else {
+        lightbox.style.display = 'none';
+        document.body.style.overflow = '';
+      }
+      return;
+    }
+
+    const qrModal = document.querySelector('.qr-modal');
+    if (qrModal) {
+      qrModal.remove();
+      return;
+    }
+
+    if (current === 'home') {
+      showExitToast();
+      if (window._backPressCount && Date.now() - window._backPressTime < 2000) {
+        if (window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.App) {
+          window.Capacitor.Plugins.App.exitApp();
+        } else if (navigator.app) {
+          navigator.app.exitApp();
+        }
+        window._backPressCount = 0;
+      } else {
+        window._backPressCount = 1;
+        window._backPressTime = Date.now();
+        setTimeout(() => { window._backPressCount = 0; }, 2000);
+      }
+      return;
+    }
+
+    if (current === 'figure') {
+      const params = new URLSearchParams(window.location.search);
+      const seriesId = params.get('series');
+      if (seriesId) {
+        window.location.href = `series.html?id=${encodeURIComponent(seriesId)}`;
+      } else {
+        window.location.href = 'catalog.html';
+      }
+      return;
+    }
+
+    if (current === 'series') {
+      if (referrer.includes('mycollection.html')) {
+        window.location.href = 'mycollection.html';
+      } else if (referrer.includes('forsale.html')) {
+        window.location.href = 'forsale.html';
+      } else {
+        window.location.href = 'catalog.html';
+      }
+      return;
+    }
+
+    if (['catalog', 'collection', 'forsale', 'about'].includes(current)) {
+      window.location.href = 'index.html';
+      return;
+    }
+
+    window.location.href = 'index.html';
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    if (window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.App) {
+      window.Capacitor.Plugins.App.addListener('backButton', handleBack);
+      console.log('✅ Capacitor backButton подключен');
+    } else {
+      window.addEventListener('popstate', handleBack);
+      window.history.pushState(null, '', window.location.href);
+      console.log('⚠️ Используется fallback для браузера');
+    }
+  });
+
+})();
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  if (window.Capacitor && window.Capacitor.isNativePlatform()) {
+    console.log('✅ Capacitor приложение запущено');
+    if (window.Capacitor.Plugins && window.Capacitor.Plugins.Filesystem) {
+      console.log('✅ Filesystem плагин доступен');
+    }
+    if (window.Capacitor.Plugins && window.Capacitor.Plugins.Share) {
+      console.log('✅ Share плагин доступен');
+    }
+  }
+});
+</script>
+
+<script>
+if (window.Capacitor && window.Capacitor.Plugins) {
+  const Permissions = window.Capacitor.Plugins.Permissions;
+  if (Permissions) {
+    Permissions.requestPermissions({
+      permissions: [
+        'android.permission.WRITE_EXTERNAL_STORAGE',
+        'android.permission.READ_EXTERNAL_STORAGE'
+      ]
+    }).then(result => {
+      console.log('Разрешения:', result);
+    }).catch(err => {
+      console.warn('Ошибка запроса разрешений:', err);
+    });
+  }
+}
+</script>
+
+<!-- ===== ОБРАБОТКА ГЛУБОКИХ ССЫЛОК ===== -->
+<script>
+(function() {
+  function handleDeepLink() {
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('id');
+    
+    if (id) {
+      console.log('📱 Открыто через глубокую ссылку, серия:', id);
+      setTimeout(() => {
+        window.location.href = `series.html?id=${id}`;
+      }, 100);
+      return true;
+    }
+    return false;
+  }
+
+  // Проверяем при загрузке
+  if (document.readyState === 'complete') {
+    handleDeepLink();
+  } else {
+    document.addEventListener('DOMContentLoaded', handleDeepLink);
+  }
+})();
+</script>
+
+</body>
+</html>

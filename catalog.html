@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <script>
+  (function() {
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+  })();
+  </script>
+  <title data-i18n="title_catalog">Каталог серий — Капсула</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#4f46e5">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Капсула">
+  <link rel="apple-touch-icon" href="images/icon-192x192.webp">
+</head>
+<body>
+<header class="header">
+  <div class="header-left">
+    <a href="index.html" class="brand">
+      <img src="images/logo.webp" class="logo-img" alt="Logo">
+      <span class="logo" data-i18n="site_name">Капсула</span>
+    </a>
+  </div>
+  <div class="header-tagline">
+    <span class="tagline-main" data-i18n="home_title">Каталог коллекций игрушек</span>
+    <span class="tagline-sub" data-i18n="home_sub">Kinder, Nestle, Landrin и другие производители</span>
+  </div>
+</header>
+
+<main class="catalog">
+  <button class="back-button" onclick="history.back()">
+    <span class="back-arrow">←</span> <span data-i18n="back">Назад</span>
+  </button>
+
+<div class="page-header">
+  <h1 data-i18n="catalog_title">Каталог серий</h1>
+</div>
+  
+  <div class="catalog-header">
+    <div class="search-box">
+      <input type="text" id="searchInput" class="search-input" data-i18n="search_placeholder" placeholder="🔍 Поиск по названию, году или коду фигурки...">
+    </div>
+    
+    <div class="controls-wrapper">
+      <div class="filter-group" id="manufacturerFilters"></div>
+      <div class="sort-group">
+        <select id="sortSelect" class="sort-select">
+          <option value="date-desc" data-i18n="sort_date_desc">Недавно добавленные</option>
+          <option value="name" data-i18n="sort_name_asc">По названию (А-Я)</option>
+          <option value="name-desc" data-i18n="sort_name_desc">По названию (Я-А)</option>
+          <option value="year" data-i18n="sort_year_asc">По году (старые → новые)</option>
+          <option value="year-desc" data-i18n="sort_year_desc">По году (новые → старые)</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  
+  <div class="kind-filters-wrapper" id="kindFiltersWrapper">
+    <div class="kind-filters" id="kindFilters"></div>
+  </div>
+
+  <div id="catalogGrid" class="catalog-grid"></div>
+</main>
+
+<footer class="footer">
+  <div class="footer-controls">
+    <div class="lang-switch-footer">
+      <img src="images/flags/ru.png" data-lang="ru" class="flag" onclick="setLang('ru')" style="cursor: pointer;">
+      <img src="images/flags/en.png" data-lang="en" class="flag" onclick="setLang('en')" style="cursor: pointer;">
+    </div>
+    <div class="theme-switch">🌙</div>
+  </div>
+  <div class="support-buttons">
+    <a href="https://dalink.to/mansurdm" class="support-btn" data-i18n="support_project">Поддержать проект</a>
+  </div>
+  <div class="copyright" data-i18n="footer_copyright">© 2026 Капсула</div>
+</footer>
+
+<script src="js/script.js"></script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js')
+      .then(reg => console.log('✅ SW registered:', reg))
+      .catch(err => console.log('❌ SW error:', err));
+  });
+}
+</script>
+<script>
+let refreshing = false;
+navigator.serviceWorker.addEventListener('controllerchange', () => {
+  if (!refreshing) {
+    refreshing = true;
+    window.location.reload();
+  }
+});
+</script>
+
+</body>
+</html>

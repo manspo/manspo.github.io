@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<script src="js/qrcode.min.js"></script>
+  <meta charset="UTF-8" />
+  <script>
+  // Применяем тему ДО загрузки CSS, чтобы избежать вспышки
+  (function() {
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+  })();
+</script>
+  <title data-i18n="title_manufacturers">Производители — Капсула</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- PWA Meta Tags -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#4f46e5">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Капсула">
+  <link rel="apple-touch-icon" href="images/icon-192x192.webp">
+</head>
+
+<body>
+<header class="header">
+  <a href="index.html" class="brand">
+    <img src="images/logo.webp" class="logo-img" alt="Logo">
+    <span class="logo" data-i18n="site_name">Капсула</span>
+  </a>
+</header>
+
+<main class="manufacturers">
+<button class="back-button" onclick="history.back()">
+  <span class="back-arrow">←</span> <span data-i18n="back">Назад</span>
+</button>
+
+  <h1 data-i18n="nav_manufacturers">Производители</h1>
+
+  <div class="manufacturers-grid" id="manufacturersGrid">
+    <!-- Будут добавлены через JS -->
+  </div>
+
+</main>
+
+<footer class="footer">
+  <div class="footer-controls">
+    <div class="lang-switch-footer">
+      <img src="images/flags/ru.png" data-lang="ru" class="flag" onclick="setLang('ru')" style="cursor: pointer;">
+      <img src="images/flags/en.png" data-lang="en" class="flag" onclick="setLang('en')" style="cursor: pointer;">
+    </div>
+    <div class="theme-switch">🌙</div>
+  </div>
+  <div class="support-buttons">
+    <a href="https://dalink.to/mansurdm" class="support-btn" data-i18n="support_project">Поддержать проект</a>
+  </div>
+  <div class="copyright" data-i18n="footer_copyright">© 2026 Капсула</div>
+</footer>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js')
+      .then(reg => console.log('✅ SW registered:', reg))
+      .catch(err => console.log('❌ SW error:', err));
+  });
+}
+</script>
+<!-- В каждый HTML после регистрации SW -->
+<script>
+// Проверка обновлений SW
+let refreshing = false;
+navigator.serviceWorker.addEventListener('controllerchange', () => {
+  if (!refreshing) {
+    refreshing = true;
+    window.location.reload();
+  }
+});
+</script>
+<script src="js/script.js"></script>
+</body>
+</html>

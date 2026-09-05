@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<script src="js/qrcode.min.js"></script>
+  <meta charset="UTF-8" />
+  <script>
+  (function() {
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+  })();
+  </script>
+  <title>Серия — Капсула</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#4f46e5">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Капсула">
+  <link rel="apple-touch-icon" href="images/icon-192x192.webp">
+</head>
+
+<body>
+<header class="header">
+  <div class="header-left">
+    <a href="index.html" class="brand">
+      <img src="images/logo.webp" class="logo-img" alt="Logo">
+      <span class="logo" data-i18n="site_name">Капсула</span>
+    </a>
+  </div>
+  <div class="header-tagline">
+    <span class="tagline-main" data-i18n="home_title">Каталог коллекций игрушек</span>
+    <span class="tagline-sub" data-i18n="home_sub">Kinder, Nestle, Landrin и другие производители</span>
+  </div>
+</header>
+
+<main class="series-page">
+<button class="back-button" onclick="goBack()">
+  <span class="back-arrow">←</span> <span data-i18n="back">Назад</span>
+</button>
+  <div id="seriesContainer"></div>
+</main>
+
+<!-- Lightbox -->
+<div id="lightbox" class="lightbox" onclick="closeLightbox()">
+  <span class="lightbox-prev" onclick="event.stopPropagation(); prevLightboxImage()">&#10094;</span>
+  <span class="lightbox-next" onclick="event.stopPropagation(); nextLightboxImage()">&#10095;</span>
+  <div class="lightbox-zoom-container">
+    <img id="lightboxImg" class="lightbox-content">
+  </div>
+  <div id="imageCounter" class="lightbox-counter"></div>
+  <div class="lightbox-zoom-controls">
+    <button class="zoom-btn" id="zoomInBtn" title="Увеличить">➕</button>
+    <button class="zoom-btn" id="zoomOutBtn" title="Уменьшить">➖</button>
+    <button class="zoom-btn" id="zoomResetBtn" title="Сбросить">⟳</button>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-controls">
+    <div class="lang-switch-footer">
+      <img src="images/flags/ru.png" data-lang="ru" class="flag" onclick="setLang('ru')" style="cursor: pointer;">
+      <img src="images/flags/en.png" data-lang="en" class="flag" onclick="setLang('en')" style="cursor: pointer;">
+    </div>
+    <div class="theme-switch">🌙</div>
+  </div>
+  <div class="support-buttons">
+    <a href="https://dalink.to/mansurdm" class="support-btn" data-i18n="support_project">Поддержать проект</a>
+  </div>
+  <div class="copyright" data-i18n="footer_copyright">© 2026 Капсула</div>
+</footer>
+
+<script>
+function goBack() {
+  if (document.referrer && document.referrer !== '') {
+    window.history.back();
+  } else {
+    window.location.href = 'index.html';
+  }
+}
+</script>
+<script src="js/script.js"></script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js')
+      .then(reg => console.log('✅ SW registered:', reg))
+      .catch(err => console.log('❌ SW error:', err));
+  });
+}
+</script>
+<!-- В каждый HTML после регистрации SW -->
+<script>
+// Проверка обновлений SW
+let refreshing = false;
+navigator.serviceWorker.addEventListener('controllerchange', () => {
+  if (!refreshing) {
+    refreshing = true;
+    window.location.reload();
+  }
+});
+</script>
+</body>
+</html>

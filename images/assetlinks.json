@@ -1,0 +1,8 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.kindercapsule.app",
+    "sha256_cert_fingerprints": ["CA:F4:59:61:45:0D:17:AB:6B:99:16:DE:53:5A:EF:8C:C4:E0:8E:0C:F4:E1:26:FD:AE:12:90:5C:9C:D9:75:AB"]
+  }
+}]

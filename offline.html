@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Нет интернета</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      background: #f5f7fb;
+      color: #1f2937;
+      text-align: center;
+      padding: 20px;
+    }
+    .offline-box {
+      background: white;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      max-width: 400px;
+    }
+    h1 { font-size: 48px; margin: 0 0 10px; }
+    p { color: #6b7280; margin: 10px 0; }
+    .retry-btn {
+      margin-top: 20px;
+      padding: 12px 32px;
+      background: #4f46e5;
+      color: white;
+      border: none;
+      border-radius: 30px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .retry-btn:hover { background: #4338ca; }
+  </style>
+</head>
+<body>
+  <div class="offline-box">
+    <h1>📡</h1>
+    <h2>Нет соединения</h2>
+    <p>Проверьте подключение к интернету</p>
+    <button class="retry-btn" onclick="location.reload()">🔄 Попробовать снова</button>
+  </div>
+</body>
+</html>

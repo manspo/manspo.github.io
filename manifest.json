@@ -1,0 +1,65 @@
+{
+  "name": "Капсула - Каталог коллекций",
+  "short_name": "Капсула",
+  "description": "Каталог коллекций игрушек Kinder, Nestle, Landrin и других производителей",
+  "start_url": "/kindercapsule/",
+  "display": "standalone",
+  "theme_color": "#4f46e5",
+  "background_color": "#f5f7fb",
+  "orientation": "portrait",
+  "scope": "/kindercapsule/",
+  "id": "/kindercapsule/",
+  "lang": "ru",
+  "dir": "ltr",
+  "categories": ["lifestyle", "entertainment"],
+  "icons": [
+    {
+      "src": "/kindercapsule/images/icon-72x72.webp",
+      "sizes": "72x72",
+      "type": "image/webp",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/kindercapsule/images/icon-96x96.webp",
+      "sizes": "96x96",
+      "type": "image/webp",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/kindercapsule/images/icon-128x128.webp",
+      "sizes": "128x128",
+      "type": "image/webp",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/kindercapsule/images/icon-144x144.webp",
+      "sizes": "144x144",
+      "type": "image/webp",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/kindercapsule/images/icon-152x152.webp",
+      "sizes": "152x152",
+      "type": "image/webp",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/kindercapsule/images/icon-192x192.webp",
+      "sizes": "192x192",
+      "type": "image/webp",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/kindercapsule/images/icon-384x384.webp",
+      "sizes": "384x384",
+      "type": "image/webp",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/kindercapsule/images/icon-512x512.webp",
+      "sizes": "512x512",
+      "type": "image/webp",
+      "purpose": "any maskable"
+    }
+  ]
+}
