@@ -1,0 +1,99 @@
+{
+  "id": "toy-story-by-nestle-1998",
+  "name": "История Игрушек от Нестле",
+  "name_en": "Toy Story by Nestle",
+  "year": 1998,
+  "manufacturer": "nestle",
+  "cover": "images/series/nestle/toystory/01b.webp",
+  "description": "Серия по культовому мультфильму История Игрушек",
+  "description_en": "A series based on the cult cartoon Toy Story",
+  "kind": "",
+  "visible": true,
+  "fullSeriesForSale": false,
+  "fullSeriesAvito": "",
+  "fullSeriesPrice": "",
+  "figures": [
+    {
+      "id": "toystory_fig1",
+      "name": "Вуди",
+      "name_en": "Figure 1",
+      "image": "images/series/nestle/toystory/01.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "toystory_fig2",
+      "name": "Рекс",
+      "name_en": "Figure 2",
+      "image": "images/series/nestle/toystory/02.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "toystory_fig3",
+      "name": "Базз Лайтер",
+      "name_en": "Figure 3",
+      "image": "images/series/nestle/toystory/03.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    }
+  ],
+  "extras": [],
+  "variants": [],
+  "inserts": [
+    {
+      "id": "toystory_insert1",
+      "name": "Вкладыш 1",
+      "name_en": "Insert 1",
+      "image": "images/series/nestle/toystory/01b.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "toystory_insert2",
+      "name": "Вкладыш 2",
+      "name_en": "Insert 2",
+      "image": "images/series/nestle/toystory/02b.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "toystory_insert3",
+      "name": "Вкладыш 3",
+      "name_en": "Insert 3",
+      "image": "images/series/nestle/toystory/03b.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "toystory_insert4",
+      "name": "Вкладыш 4",
+      "name_en": "Insert 4",
+      "image": "images/series/nestle/toystory/04b.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "toystory_insert4",
+      "name": "Вкладыш 5",
+      "name_en": "Insert 5",
+      "image": "images/series/nestle/toystory/05b.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    }
+  ],
+  "other": [],
+  "videos": {
+    "youtube": [],
+    "vk": [],
+    "tiktok": []
+  }
+}

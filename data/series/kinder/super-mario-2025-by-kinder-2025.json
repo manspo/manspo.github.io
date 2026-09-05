@@ -1,0 +1,496 @@
+{
+  "id": "super-mario-2025-by-kinder-2025",
+  "name": "Супер Марио от Киндер",
+  "name_en": "Super Mario (2025) by Kinder",
+  "year": 2025,
+  "manufacturer": "kinder",
+  "cover": "images/series/kinder/supermario2025/cover.webp",
+  "description": "Серия по игровой франшизе - Братья из Супер Марио",
+  "description_en": "Game franchise series - Super Mario Brothers",
+  "kind": "joy",
+  "visible": true,
+  "fullSeriesForSale": false,
+  "fullSeriesAvito": "",
+  "fullSeriesPrice": "",
+  "figures": [
+    {
+      "id": "supermario2025_fig1",
+      "image": "images/series/kinder/supermario2025/partnerships_supermario_DV548_popup_1_dsk.webp",
+      "name": "Фигурка 1",
+      "name_en": "Figure 1",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "supermario2025_fig2",
+      "image": "images/series/kinder/supermario2025/partnerships_supermario_DV548A_popup_1_dsk.webp",
+      "name": "Фигурка 2",
+      "name_en": "Figure 2",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "supermario2025_fig3",
+      "image": "images/series/kinder/supermario2025/partnerships_supermario_DV549_popup_1_dsk.webp",
+      "name": "Фигурка 3",
+      "name_en": "Figure 3",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "supermario2025_fig4",
+      "image": "images/series/kinder/supermario2025/partnerships_supermario_DV549A_popup_1_dsk.webp",
+      "name": "Фигурка 4",
+      "name_en": "Figure 4",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "supermario2025_fig5",
+      "image": "images/series/kinder/supermario2025/partnerships_supermario_DV550_popup_1_dsk.webp",
+      "name": "Фигурка 5",
+      "name_en": "Figure 5",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "supermario2025_fig6",
+      "image": "images/series/kinder/supermario2025/partnerships_supermario_DV550A_popup_1_dsk.webp",
+      "name": "Фигурка 6",
+      "name_en": "Figure 6",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "supermario2025_fig7",
+      "image": "images/series/kinder/supermario2025/partnerships_supermario_VQ397_popup_1_dsk.webp",
+      "name": "Фигурка 7",
+      "name_en": "Figure 7",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "supermario2025_fig8",
+      "image": "images/series/kinder/supermario2025/partnerships_supermario_VQ401_popup_1_dsk.webp",
+      "name": "Фигурка 8",
+      "name_en": "Figure 8",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "supermario2025_fig9",
+      "image": "images/series/kinder/supermario2025/partnerships_supermario_VQ402_popup_1_dsk.webp",
+      "name": "Фигурка 9",
+      "name_en": "Figure 9",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "supermario2025_fig10",
+      "image": "images/series/kinder/supermario2025/partnerships_supermario_VQ402A_popup_1_dsk.webp",
+      "name": "Фигурка 10",
+      "name_en": "Figure 10",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "supermario2025_fig11",
+      "image": "images/series/kinder/supermario2025/partnerships_supermario_VQ422_popup_1_dsk.webp",
+      "name": "Фигурка 11",
+      "name_en": "Figure 11",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "supermario2025_fig12",
+      "image": "images/series/kinder/supermario2025/partnerships_supermario_VQ422A_popup_1_dsk.webp",
+      "name": "Фигурка 12",
+      "name_en": "Figure 12",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    }
+  ],
+  "extras": [
+    {
+      "id": "supermario2025_extra1",
+      "image": "images/series/kinder/supermario2025/partnerships_supermario_VQ390_popup_1_dsk.webp",
+      "name": "Доп 1",
+      "name_en": "Extra 1",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "supermario2025_extra2",
+      "image": "images/series/kinder/supermario2025/partnerships_supermario_VQ390A_popup_1_dsk.webp",
+      "name": "Доп 2",
+      "name_en": "Extra 2",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "supermario2025_extra3",
+      "image": "images/series/kinder/supermario2025/partnerships_supermario_VQ392_popup_1_dsk.webp",
+      "name": "Доп 3",
+      "name_en": "Extra 3",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "supermario2025_extra4",
+      "image": "images/series/kinder/supermario2025/partnerships_supermario_VQ393_popup_1_dsk.webp",
+      "name": "Доп 4",
+      "name_en": "Extra 4",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "supermario2025_extra5",
+      "image": "images/series/kinder/supermario2025/partnerships_supermario_VQ393A_popup_1_dsk.webp",
+      "name": "Доп 5",
+      "name_en": "Extra 5",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "supermario2025_extra6",
+      "image": "images/series/kinder/supermario2025/partnerships_supermario_VQ394_popup_1_dsk.webp",
+      "name": "Доп 6",
+      "name_en": "Extra 6",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "supermario2025_extra7",
+      "image": "images/series/kinder/supermario2025/partnerships_supermario_VQ406_popup_1_dsk.webp",
+      "name": "Доп 7",
+      "name_en": "Extra 7",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "supermario2025_extra8",
+      "image": "images/series/kinder/supermario2025/partnerships_supermario_VQ412_popup_1_dsk.webp",
+      "name": "Доп 8",
+      "name_en": "Extra 8",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "supermario2025_extra9",
+      "image": "images/series/kinder/supermario2025/partnerships_supermario_VQ413_popup_1_dsk.webp",
+      "name": "Доп 9",
+      "name_en": "Extra 9",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "supermario2025_extra10",
+      "image": "images/series/kinder/supermario2025/partnerships_supermario_VQ414_popup_1_dsk.webp",
+      "name": "Доп 10",
+      "name_en": "Extra 10",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "supermario2025_extra11",
+      "image": "images/series/kinder/supermario2025/partnerships_supermario_VQ415_popup_1_dsk.webp",
+      "name": "Доп 11",
+      "name_en": "Extra 11",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "supermario2025_extra12",
+      "image": "images/series/kinder/supermario2025/partnerships_supermario_VQ416_popup_1_dsk.webp",
+      "name": "Доп 12",
+      "name_en": "Extra 12",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "supermario2025_extra13",
+      "image": "images/series/kinder/supermario2025/partnerships_supermario_VQ417_popup_1_dsk.webp",
+      "name": "Доп 13",
+      "name_en": "Extra 13",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "supermario2025_extra14",
+      "image": "images/series/kinder/supermario2025/partnerships_supermario_VQ420_popup_1_dsk.webp",
+      "name": "Доп 14",
+      "name_en": "Extra 14",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    }
+  ],
+  "variants": [],
+  "inserts": [
+    {
+      "id": "supermario2025_insert1",
+      "image": "images/series/kinder/supermario2025/partnerships_supermario_DV548_popup_2_dsk.webp",
+      "name": "Вкладыш 1",
+      "name_en": "Insert 1",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "supermario2025_insert2",
+      "image": "images/series/kinder/supermario2025/partnerships_supermario_DV548A_popup_2_dsk.webp",
+      "name": "Вкладыш 2",
+      "name_en": "Insert 2",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "supermario2025_insert3",
+      "image": "images/series/kinder/supermario2025/partnerships_supermario_DV549_popup_2_dsk.webp",
+      "name": "Вкладыш 3",
+      "name_en": "Insert 3",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "supermario2025_insert4",
+      "image": "images/series/kinder/supermario2025/partnerships_supermario_DV549A_popup_2_dsk.webp",
+      "name": "Вкладыш 4",
+      "name_en": "Insert 4",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "supermario2025_insert5",
+      "image": "images/series/kinder/supermario2025/partnerships_supermario_DV550_popup_2_dsk.webp",
+      "name": "Вкладыш 5",
+      "name_en": "Insert 5",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "supermario2025_insert6",
+      "image": "images/series/kinder/supermario2025/partnerships_supermario_DV550A_popup_2_dsk.webp",
+      "name": "Вкладыш 6",
+      "name_en": "Insert 6",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "supermario2025_insert7",
+      "image": "images/series/kinder/supermario2025/partnerships_supermario_VQ390_popup_2_dsk.webp",
+      "name": "Вкладыш 7",
+      "name_en": "Insert 7",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "supermario2025_insert8",
+      "image": "images/series/kinder/supermario2025/partnerships_supermario_VQ390A_popup_2_dsk.webp",
+      "name": "Вкладыш 8",
+      "name_en": "Insert 8",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "supermario2025_insert9",
+      "image": "images/series/kinder/supermario2025/partnerships_supermario_VQ392_popup_2_dsk.webp",
+      "name": "Вкладыш 9",
+      "name_en": "Insert 9",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "supermario2025_insert10",
+      "image": "images/series/kinder/supermario2025/partnerships_supermario_VQ393_popup_2_dsk.webp",
+      "name": "Вкладыш 10",
+      "name_en": "Insert 10",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "supermario2025_insert11",
+      "image": "images/series/kinder/supermario2025/partnerships_supermario_VQ393A_popup_2_dsk.webp",
+      "name": "Вкладыш 11",
+      "name_en": "Insert 11",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "supermario2025_insert12",
+      "image": "images/series/kinder/supermario2025/partnerships_supermario_VQ394_popup_2_dsk.webp",
+      "name": "Вкладыш 12",
+      "name_en": "Insert 12",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "supermario2025_insert13",
+      "image": "images/series/kinder/supermario2025/partnerships_supermario_VQ397_popup_2_dsk.webp",
+      "name": "Вкладыш 13",
+      "name_en": "Insert 13",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "supermario2025_insert14",
+      "image": "images/series/kinder/supermario2025/partnerships_supermario_VQ401_popup_2_dsk.webp",
+      "name": "Вкладыш 14",
+      "name_en": "Insert 14",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "supermario2025_insert15",
+      "image": "images/series/kinder/supermario2025/partnerships_supermario_VQ402_popup_2_dsk.webp",
+      "name": "Вкладыш 15",
+      "name_en": "Insert 15",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "supermario2025_insert16",
+      "image": "images/series/kinder/supermario2025/partnerships_supermario_VQ402A_popup_2_dsk.webp",
+      "name": "Вкладыш 16",
+      "name_en": "Insert 16",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "supermario2025_insert17",
+      "image": "images/series/kinder/supermario2025/partnerships_supermario_VQ406_popup_2_dsk.webp",
+      "name": "Вкладыш 17",
+      "name_en": "Insert 17",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "supermario2025_insert18",
+      "image": "images/series/kinder/supermario2025/partnerships_supermario_VQ412_popup_2_dsk.webp",
+      "name": "Вкладыш 18",
+      "name_en": "Insert 18",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "supermario2025_insert19",
+      "image": "images/series/kinder/supermario2025/partnerships_supermario_VQ413_popup_2_dsk.webp",
+      "name": "Вкладыш 19",
+      "name_en": "Insert 19",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "supermario2025_insert20",
+      "image": "images/series/kinder/supermario2025/partnerships_supermario_VQ414_popup_2_dsk.webp",
+      "name": "Вкладыш 20",
+      "name_en": "Insert 20",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "supermario2025_insert21",
+      "image": "images/series/kinder/supermario2025/partnerships_supermario_VQ415_popup_2_dsk.webp",
+      "name": "Вкладыш 21",
+      "name_en": "Insert 21",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "supermario2025_insert22",
+      "image": "images/series/kinder/supermario2025/partnerships_supermario_VQ416_popup_2_dsk.webp",
+      "name": "Вкладыш 22",
+      "name_en": "Insert 22",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "supermario2025_insert23",
+      "image": "images/series/kinder/supermario2025/partnerships_supermario_VQ417_popup_2_dsk.webp",
+      "name": "Вкладыш 23",
+      "name_en": "Insert 23",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "supermario2025_insert24",
+      "image": "images/series/kinder/supermario2025/partnerships_supermario_VQ420_popup_2_dsk.webp",
+      "name": "Вкладыш 24",
+      "name_en": "Insert 24",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "supermario2025_insert25",
+      "image": "images/series/kinder/supermario2025/partnerships_supermario_VQ422_popup_2_dsk.webp",
+      "name": "Вкладыш 25",
+      "name_en": "Insert 25",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "supermario2025_insert26",
+      "image": "images/series/kinder/supermario2025/partnerships_supermario_VQ422A_popup_2_dsk.webp",
+      "name": "Вкладыш 26",
+      "name_en": "Insert 26",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    }
+  ],
+  "other": [],
+  "videos": {
+    "youtube": [],
+    "vk": [],
+    "tiktok": []
+  }
+}

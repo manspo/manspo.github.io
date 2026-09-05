@@ -1,0 +1,351 @@
+{
+  "id": "racing-by-kinder-2025",
+  "name": "Гонки от Киндер",
+  "name_en": "Racing by Kinder",
+  "year": 2025,
+  "manufacturer": "kinder",
+  "cover": "images/series/kinder/racing/cover.webp",
+  "description": "Серия посвященная гонкам",
+  "description_en": "Series dedicated to racing",
+  "kind": "",
+  "visible": true,
+  "fullSeriesForSale": false,
+  "fullSeriesAvito": "",
+  "fullSeriesPrice": "",
+  "figures": [
+    {
+      "id": "racing_fig1",
+      "image": "images/series/kinder/racing/01.webp",
+      "name": "Фигурка 1",
+      "name_en": "Figure 1",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "racing_fig2",
+      "image": "images/series/kinder/racing/02.webp",
+      "name": "Фигурка 2",
+      "name_en": "Figure 2",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "racing_fig3",
+      "image": "images/series/kinder/racing/03.webp",
+      "name": "Фигурка 3",
+      "name_en": "Figure 3",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "racing_fig4",
+      "image": "images/series/kinder/racing/04.webp",
+      "name": "Фигурка 4",
+      "name_en": "Figure 4",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "racing_fig5",
+      "image": "images/series/kinder/racing/05.webp",
+      "name": "Фигурка 5",
+      "name_en": "Figure 5",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "racing_fig6",
+      "image": "images/series/kinder/racing/06.webp",
+      "name": "Фигурка 6",
+      "name_en": "Figure 6",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "racing_fig7",
+      "image": "images/series/kinder/racing/07.webp",
+      "name": "Фигурка 7",
+      "name_en": "Figure 7",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "racing_fig8",
+      "image": "images/series/kinder/racing/08.webp",
+      "name": "Фигурка 8",
+      "name_en": "Figure 8",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "racing_fig9",
+      "image": "images/series/kinder/racing/09.webp",
+      "name": "Фигурка 9",
+      "name_en": "Figure 9",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "racing_fig10",
+      "image": "images/series/kinder/racing/10.webp",
+      "name": "Фигурка 10",
+      "name_en": "Figure 10",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "racing_fig11",
+      "image": "images/series/kinder/racing/11.webp",
+      "name": "Фигурка 11",
+      "name_en": "Figure 11",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "racing_fig12",
+      "image": "images/series/kinder/racing/12.webp",
+      "name": "Фигурка 12",
+      "name_en": "Figure 12",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "racing_fig13",
+      "image": "images/series/kinder/racing/13.webp",
+      "name": "Фигурка 13",
+      "name_en": "Figure 13",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "racing_fig14",
+      "image": "images/series/kinder/racing/14.webp",
+      "name": "Фигурка 14",
+      "name_en": "Figure 14",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "racing_fig15",
+      "image": "images/series/kinder/racing/11.webp",
+      "name": "Фигурка 11",
+      "name_en": "Figure 11",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "racing_fig16",
+      "image": "images/series/kinder/racing/15.webp",
+      "name": "Фигурка 15",
+      "name_en": "Figure 15",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "racing_fig17",
+      "image": "images/series/kinder/racing/16.webp",
+      "name": "Фигурка 16",
+      "name_en": "Figure 16",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "racing_fig18",
+      "image": "images/series/kinder/racing/17.webp",
+      "name": "Фигурка 17",
+      "name_en": "Figure 17",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    }
+  ],
+  "extras": [],
+  "variants": [],
+  "inserts": [
+    {
+      "id": "racing_insert1",
+      "image": "images/series/kinder/racing/01b.webp",
+      "name": "Вкладыш 1",
+      "name_en": "Insert 1",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "racing_insert2",
+      "image": "images/series/kinder/racing/02b.webp",
+      "name": "Вкладыш 2",
+      "name_en": "Insert 2",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "racing_insert3",
+      "image": "images/series/kinder/racing/03b.webp",
+      "name": "Вкладыш 3",
+      "name_en": "Insert 3",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "racing_insert4",
+      "image": "images/series/kinder/racing/04b.webp",
+      "name": "Вкладыш 4",
+      "name_en": "Insert 4",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "racing_insert5",
+      "image": "images/series/kinder/racing/05b.webp",
+      "name": "Вкладыш 4",
+      "name_en": "Insert 4",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "racing_insert6",
+      "image": "images/series/kinder/racing/05b.webp",
+      "name": "Вкладыш 5",
+      "name_en": "Insert 5",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "racing_insert7",
+      "image": "images/series/kinder/racing/07b.webp",
+      "name": "Вкладыш 7",
+      "name_en": "Insert 7",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "racing_insert8",
+      "image": "images/series/kinder/racing/08b.webp",
+      "name": "Вкладыш 8",
+      "name_en": "Insert 8",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "racing_insert9",
+      "image": "images/series/kinder/racing/09b.webp",
+      "name": "Вкладыш 9",
+      "name_en": "Insert 9",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "racing_insert10",
+      "image": "images/series/kinder/racing/10b.webp",
+      "name": "Вкладыш 10",
+      "name_en": "Insert 10",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "racing_insert11",
+      "image": "images/series/kinder/racing/07b.webp",
+      "name": "Вкладыш 11",
+      "name_en": "Insert 11",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "racing_insert12",
+      "image": "images/series/kinder/racing/12b.webp",
+      "name": "Вкладыш 12",
+      "name_en": "Insert 12",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "racing_insert13",
+      "image": "images/series/kinder/racing/13b.webp",
+      "name": "Вкладыш 13",
+      "name_en": "Insert 15",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "racing_insert14",
+      "image": "images/series/kinder/racing/14b.webp",
+      "name": "Вкладыш 14",
+      "name_en": "Insert 14",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "racing_insert15",
+      "image": "images/series/kinder/racing/15b.webp",
+      "name": "Вкладыш 15",
+      "name_en": "Insert 15",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "racing_insert16",
+      "image": "images/series/kinder/racing/16b.webp",
+      "name": "Вкладыш 16",
+      "name_en": "Insert 16",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "racing_insert17",
+      "image": "images/series/kinder/racing/17b.webp",
+      "name": "Вкладыш 17",
+      "name_en": "Insert 17",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "racing_insert18",
+      "image": "images/series/kinder/racing/18b.webp",
+      "name": "Вкладыш 18",
+      "name_en": "Insert 18",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    }
+  ],
+  "other": [],
+  "videos": {
+    "youtube": [],
+    "vk": [],
+    "tiktok": []
+  }
+}

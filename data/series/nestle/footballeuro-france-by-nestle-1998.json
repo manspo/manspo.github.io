@@ -1,0 +1,108 @@
+{
+  "id": "footballeuro-france-by-nestle-1998",
+  "name": "Футболевро (Франция) от Нестле",
+  "name_en": "FootballEuro (France) by Nestle",
+  "year": 1998,
+  "manufacturer": "nestle",
+  "cover": "images/series/nestle/footballeuro/cover.webp",
+  "description": "Серия приуроченная к чемпионату мира по футболу 1998 года",
+  "description_en": "Series dedicated to the 1998 FIFA World Cup",
+  "kind": "",
+  "visible": true,
+  "fullSeriesForSale": false,
+  "fullSeriesAvito": "",
+  "fullSeriesPrice": "",
+  "figures": [
+    {
+      "id": "footballeuro_fig1",
+      "image": "images/series/nestle/footballeuro/1.webp",
+      "name": "Фигурка 1",
+      "name_en": "Figure 1",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "footballeuro_fig2",
+      "image": "images/series/nestle/footballeuro/2.webp",
+      "name": "Фигурка 2",
+      "name_en": "Figure 2",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "footballeuro_fig3",
+      "image": "images/series/nestle/footballeuro/3.webp",
+      "name": "Фигурка 3",
+      "name_en": "Figure 3",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "footballeuro_fig4",
+      "image": "images/series/nestle/footballeuro/4.webp",
+      "name": "Фигурка 4",
+      "name_en": "Figure 4",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "footballeuro_fig5",
+      "image": "images/series/nestle/footballeuro/5.webp",
+      "name": "Фигурка 5",
+      "name_en": "Figure 5",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "footballeuro_fig6",
+      "image": "images/series/nestle/footballeuro/6.webp",
+      "name": "Фигурка 6",
+      "name_en": "Figure 6",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "footballeuro_fig7",
+      "image": "images/series/nestle/footballeuro/7.webp",
+      "name": "Фигурка 7",
+      "name_en": "Figure 7",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "footballeuro_fig8",
+      "image": "images/series/nestle/footballeuro/8.webp",
+      "name": "Фигурка 8",
+      "name_en": "Figure 8",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    }
+  ],
+  "extras": [],
+  "variants": [],
+  "inserts": [
+    {
+      "id": "footballeuro_insert1",
+      "image": "images/series/nestle/footballeuro/BPZ.webp",
+      "name": "Вкладыш 1",
+      "name_en": "Insert 1",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    }
+  ],
+  "other": [],
+  "videos": {
+    "youtube": [],
+    "vk": [],
+    "tiktok": []
+  }
+}

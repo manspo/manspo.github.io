@@ -1,0 +1,118 @@
+{
+  "id": "the-simpsons-by-tombola-1991",
+  "name": "Симпсоны от Томбола",
+  "name_en": "The Simpsons by Tombola",
+  "year": 1991,
+  "manufacturer": "tombola",
+  "cover": "images/series/tombola/thesimpsons/cover.webp",
+  "description": "Знаменитые Симпсоны",
+  "description_en": "Famous Simpsons",
+  "kind": "",
+  "visible": true,
+  "fullSeriesForSale": false,
+  "fullSeriesAvito": "",
+  "fullSeriesPrice": "",
+  "figures": [
+    {
+      "id": "thesimpsonstombola_fig1",
+      "name": "Барт Симпсон",
+      "name_en": "Bart Simpson",
+      "code": "",
+      "image": "images/series/tombola/thesimpsons/Барт.webp",
+      "owned": true,
+      "forsale": false,
+      "avito": "",
+      "price": "",
+      "condition": "",
+      "condition_en": ""
+    },
+    {
+      "id": "thesimpsonstombola_fig2",
+      "name": "Гомер Симпсон",
+      "name_en": "Homer Simpson",
+      "code": "",
+      "image": "images/series/tombola/thesimpsons/Гомер.webp",
+      "owned": true,
+      "forsale": false,
+      "avito": "",
+      "price": "",
+      "condition": "",
+      "condition_en": ""
+    },
+    {
+      "id": "thesimpsonstombola_fig3",
+      "name": "Лиза Симпсон",
+      "name_en": "Lisa Simpson",
+      "code": "",
+      "image": "images/series/tombola/thesimpsons/Лиза.webp",
+      "owned": true,
+      "forsale": false,
+      "avito": "",
+      "price": "",
+      "condition": "",
+      "condition_en": ""
+    },
+    {
+      "id": "thesimpsonstombola_fig4",
+      "name": "Мардж Симпсон",
+      "name_en": "Marge Simpson",
+      "code": "",
+      "image": "images/series/tombola/thesimpsons/Мардж.webp",
+      "owned": true,
+      "forsale": false,
+      "avito": "",
+      "price": "",
+      "condition": "",
+      "condition_en": ""
+    },
+    {
+      "id": "thesimpsonstombola_fig5",
+      "name": "Мэгги Симпсон",
+      "name_en": "Maggie Simpson",
+      "code": "",
+      "image": "images/series/tombola/thesimpsons/Мегги.webp",
+      "owned": true,
+      "forsale": false,
+      "avito": "",
+      "price": "",
+      "condition": "",
+      "condition_en": ""
+    }
+  ],
+  "extras": [],
+  "variants": [],
+  "inserts": [
+    {
+      "id": "thesimpsonstombola_insert1",
+      "name": "Вкладыш 1",
+      "name_en": "Insert 1",
+      "code": "",
+      "image": "images/series/tombola/thesimpsons/cover.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": "",
+      "price": "",
+      "condition": "",
+      "condition_en": ""
+    },
+    {
+      "id": "thesimpsonstombola_insert2",
+      "name": "Вкладыш 2",
+      "name_en": "Insert 2",
+      "code": "",
+      "image": "images/series/tombola/thesimpsons/01b.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": "",
+      "price": "",
+      "condition": "",
+      "condition_en": ""
+    }
+  ],
+  "other": [],
+  "videos": {
+    "youtube": [],
+    "vk": [],
+    "tiktok": []
+  }
+}

@@ -1,0 +1,531 @@
+{
+  "id": "minecraft-by-kinder-2026",
+  "name": "Майнкрафт от Киндер",
+  "name_en": "Minecraft by Kinder",
+  "year": 2026,
+  "manufacturer": "kinder",
+  "cover": "images/series/kinder/minecraft/cover.webp",
+  "description": "Серия к популярной игре Майнкрафт",
+  "description_en": "Series for the popular game Minecraft",
+  "kind": "joy",
+  "visible": true,
+  "fullSeriesForSale": true,
+  "fullSeriesAvito": "https://www.avito.ru/...",
+  "fullSeriesPrice": "",
+  "figures": [
+    {
+      "id": "minecraft_fig1",
+      "image": "images/series/kinder/minecraft/01.webp",
+      "name": "Фигурка 1",
+      "name_en": "Figure 1",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "minecraft_fig2",
+      "image": "images/series/kinder/minecraft/02.webp",
+      "name": "Фигурка 2",
+      "name_en": "Figure 2",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "minecraft_fig3",
+      "image": "images/series/kinder/minecraft/03.webp",
+      "name": "Фигурка 3",
+      "name_en": "Figure 3",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "minecraft_fig4",
+      "image": "images/series/kinder/minecraft/04.webp",
+      "name": "Фигурка 4",
+      "name_en": "Figure 4",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "minecraft_fig5",
+      "image": "images/series/kinder/minecraft/05.webp",
+      "name": "Фигурка 5",
+      "name_en": "Figure 5",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "minecraft_fig6",
+      "image": "images/series/kinder/minecraft/06.webp",
+      "name": "Фигурка 6",
+      "name_en": "Figure 6",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "minecraft_fig7",
+      "image": "images/series/kinder/minecraft/07.webp",
+      "name": "Фигурка 7",
+      "name_en": "Figure 7",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "minecraft_fig8",
+      "image": "images/series/kinder/minecraft/08.webp",
+      "name": "Фигурка 8",
+      "name_en": "Figure 8",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "minecraft_fig9",
+      "image": "images/series/kinder/minecraft/09.webp",
+      "name": "Фигурка 9",
+      "name_en": "Figure 9",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "minecraft_fig10",
+      "image": "images/series/kinder/minecraft/10.webp",
+      "name": "Фигурка 10",
+      "name_en": "Figure 10",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "minecraft_fig11",
+      "image": "images/series/kinder/minecraft/11.webp",
+      "name": "Фигурка 11",
+      "name_en": "Figure 11",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "minecraft_fig12",
+      "image": "images/series/kinder/minecraft/12.webp",
+      "name": "Фигурка 12",
+      "name_en": "Figure 12",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "minecraft_fig13",
+      "image": "images/series/kinder/minecraft/13.webp",
+      "name": "Фигурка 13",
+      "name_en": "Figure 13",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "minecraft_fig14",
+      "image": "images/series/kinder/minecraft/14.webp",
+      "name": "Фигурка 14",
+      "name_en": "Figure 14",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "minecraft_fig15",
+      "image": "images/series/kinder/minecraft/15.webp",
+      "name": "Фигурка 15",
+      "name_en": "Figure 15",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "minecraft_fig16",
+      "image": "images/series/kinder/minecraft/16.webp",
+      "name": "Фигурка 16",
+      "name_en": "Figure 16",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "minecraft_fig17",
+      "image": "images/series/kinder/minecraft/17.webp",
+      "name": "Фигурка 17",
+      "name_en": "Figure 17",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "minecraft_fig18",
+      "image": "images/series/kinder/minecraft/18.webp",
+      "name": "Фигурка 18",
+      "name_en": "Figure 18",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "minecraft_fig19",
+      "image": "images/series/kinder/minecraft/19.webp",
+      "name": "Фигурка 19",
+      "name_en": "Figure 19",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "minecraft_fig20",
+      "image": "images/series/kinder/minecraft/20.webp",
+      "name": "Фигурка 20",
+      "name_en": "Figure 20",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "minecraft_fig21",
+      "image": "images/series/kinder/minecraft/21.webp",
+      "name": "Фигурка 21",
+      "name_en": "Figure 21",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "minecraft_fig22",
+      "image": "images/series/kinder/minecraft/22.webp",
+      "name": "Фигурка 22",
+      "name_en": "Figure 22",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "minecraft_fig23",
+      "image": "images/series/kinder/minecraft/23.webp",
+      "name": "Фигурка 23",
+      "name_en": "Figure 23",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "minecraft_fig24",
+      "image": "images/series/kinder/minecraft/24.webp",
+      "name": "Фигурка 24",
+      "name_en": "Figure 24",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "minecraft_fig25",
+      "image": "images/series/kinder/minecraft/25.webp",
+      "name": "Фигурка 25",
+      "name_en": "Figure 25",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "minecraft_fig26",
+      "image": "images/series/kinder/minecraft/26.webp",
+      "name": "Фигурка 26",
+      "name_en": "Figure 26",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "minecraft_fig27",
+      "image": "images/series/kinder/minecraft/27.webp",
+      "name": "Фигурка 27",
+      "name_en": "Figure 27",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "minecraft_fig28",
+      "image": "images/series/kinder/minecraft/28.webp",
+      "name": "Фигурка 28",
+      "name_en": "Figure 28",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    }
+  ],
+  "extras": [],
+  "variants": [],
+  "inserts": [
+    {
+      "id": "minecraft_insert1",
+      "image": "images/series/kinder/minecraft/01b.webp",
+      "name": "Вкладыш 1",
+      "name_en": "Insert 1",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "minecraft_insert2",
+      "image": "images/series/kinder/minecraft/02b.webp",
+      "name": "Вкладыш 2",
+      "name_en": "Insert 2",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "minecraft_insert3",
+      "image": "images/series/kinder/minecraft/03b.webp",
+      "name": "Вкладыш 3",
+      "name_en": "Insert 3",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "minecraft_insert4",
+      "image": "images/series/kinder/minecraft/04b.webp",
+      "name": "Вкладыш 4",
+      "name_en": "Insert 4",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "minecraft_insert5",
+      "image": "images/series/kinder/minecraft/05b.webp",
+      "name": "Вкладыш 5",
+      "name_en": "Insert 5",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "minecraft_insert6",
+      "image": "images/series/kinder/minecraft/06b.webp",
+      "name": "Вкладыш 6",
+      "name_en": "Insert 6",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "minecraft_insert7",
+      "image": "images/series/kinder/minecraft/07b.webp",
+      "name": "Вкладыш 7",
+      "name_en": "Insert 7",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "minecraft_insert8",
+      "image": "images/series/kinder/minecraft/08b.webp",
+      "name": "Вкладыш 8",
+      "name_en": "Insert 8",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "minecraft_insert9",
+      "image": "images/series/kinder/minecraft/09b.webp",
+      "name": "Вкладыш 9",
+      "name_en": "Insert 9",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "minecraft_insert10",
+      "image": "images/series/kinder/minecraft/10b.webp",
+      "name": "Вкладыш 10",
+      "name_en": "Insert 10",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "minecraft_insert11",
+      "image": "images/series/kinder/minecraft/11b.webp",
+      "name": "Вкладыш 11",
+      "name_en": "Insert 11",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "minecraft_insert12",
+      "image": "images/series/kinder/minecraft/12b.webp",
+      "name": "Вкладыш 12",
+      "name_en": "Insert 12",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "minecraft_insert13",
+      "image": "images/series/kinder/minecraft/13b.webp",
+      "name": "Вкладыш 13",
+      "name_en": "Insert 13",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "minecraft_insert14",
+      "image": "images/series/kinder/minecraft/14b.webp",
+      "name": "Вкладыш 14",
+      "name_en": "Insert 14",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "minecraft_insert15",
+      "image": "images/series/kinder/minecraft/15b.webp",
+      "name": "Вкладыш 15",
+      "name_en": "Insert 15",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "minecraft_insert16",
+      "image": "images/series/kinder/minecraft/16b.webp",
+      "name": "Вкладыш 16",
+      "name_en": "Insert 16",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "minecraft_insert17",
+      "image": "images/series/kinder/minecraft/17b.webp",
+      "name": "Вкладыш 17",
+      "name_en": "Insert 17",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "minecraft_insert18",
+      "image": "images/series/kinder/minecraft/18b.webp",
+      "name": "Вкладыш 18",
+      "name_en": "Insert 18",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "minecraft_insert19",
+      "image": "images/series/kinder/minecraft/19b.webp",
+      "name": "Вкладыш 19",
+      "name_en": "Insert 19",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "minecraft_insert20",
+      "image": "images/series/kinder/minecraft/20b.webp",
+      "name": "Вкладыш 20",
+      "name_en": "Insert 20",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "minecraft_insert21",
+      "image": "images/series/kinder/minecraft/21b.webp",
+      "name": "Вкладыш 21",
+      "name_en": "Insert 21",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "minecraft_insert22",
+      "image": "images/series/kinder/minecraft/22b.webp",
+      "name": "Вкладыш 22",
+      "name_en": "Insert 22",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "minecraft_insert23",
+      "image": "images/series/kinder/minecraft/23b.webp",
+      "name": "Вкладыш 23",
+      "name_en": "Insert 23",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "minecraft_insert24",
+      "image": "images/series/kinder/minecraft/24b.webp",
+      "name": "Вкладыш 24",
+      "name_en": "Insert 24",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "minecraft_insert25",
+      "image": "images/series/kinder/minecraft/25b.webp",
+      "name": "Вкладыш 25",
+      "name_en": "Insert 25",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "minecraft_insert26",
+      "image": "images/series/kinder/minecraft/26b.webp",
+      "name": "Вкладыш 26",
+      "name_en": "Insert 26",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "minecraft_insert27",
+      "image": "images/series/kinder/minecraft/27b.webp",
+      "name": "Вкладыш 27",
+      "name_en": "Insert 27",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "minecraft_insert28",
+      "image": "images/series/kinder/minecraft/28b.webp",
+      "name": "Вкладыш 28",
+      "name_en": "Insert 28",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    }
+  ],
+  "other": [],
+  "videos": {
+    "youtube": [],
+    "vk": [],
+    "tiktok": []
+  }
+}

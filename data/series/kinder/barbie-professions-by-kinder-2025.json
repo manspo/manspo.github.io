@@ -1,0 +1,171 @@
+{
+  "id": "barbie-professions-by-kinder-2025",
+  "name": "Барби - Профессии от Киндер",
+  "name_en": "Barbie Professions by Kinder",
+  "year": 2025,
+  "manufacturer": "kinder",
+  "cover": "images/series/kinder/barbieprofessions/cover.webp",
+  "description": "Барби в различных профессиях",
+  "description_en": "Barbie in various professions",
+  "kind": "joy",
+  "visible": true,
+  "fullSeriesForSale": false,
+  "fullSeriesAvito": "",
+  "fullSeriesPrice": "",
+  "figures": [
+    {
+      "id": "barbieprofessions_fig1",
+      "image": "images/series/kinder/barbieprofessions/01.webp",
+      "name": "Фигурка 1",
+      "name_en": "Figure 1",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "barbieprofessions_fig2",
+      "image": "images/series/kinder/barbieprofessions/02.webp",
+      "name": "Фигурка 2",
+      "name_en": "Figure 2",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "barbieprofessions_fig3",
+      "image": "images/series/kinder/barbieprofessions/03.webp",
+      "name": "Фигурка 3",
+      "name_en": "Figure 3",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "barbieprofessions_fig4",
+      "image": "images/series/kinder/barbieprofessions/04.webp",
+      "name": "Фигурка 4",
+      "name_en": "Figure 4",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "barbieprofessions_fig5",
+      "image": "images/series/kinder/barbieprofessions/05.webp",
+      "name": "Фигурка 5",
+      "name_en": "Figure 5",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "barbieprofessions_fig6",
+      "image": "images/series/kinder/barbieprofessions/06.webp",
+      "name": "Фигурка 6",
+      "name_en": "Figure 6",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "barbieprofessions_fig7",
+      "image": "images/series/kinder/barbieprofessions/07.webp",
+      "name": "Фигурка 7",
+      "name_en": "Figure 7",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "barbieprofessions_fig8",
+      "image": "images/series/kinder/barbieprofessions/08.webp",
+      "name": "Фигурка 8",
+      "name_en": "Figure 8",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    }
+  ],
+  "extras": [],
+  "variants": [],
+  "inserts": [
+    {
+      "id": "barbieprofessions_insert1",
+      "image": "images/series/kinder/barbieprofessions/01b.webp",
+      "name": "Вкладыш 1",
+      "name_en": "Insert 1",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "barbieprofessions_insert2",
+      "image": "images/series/kinder/barbieprofessions/02b.webp",
+      "name": "Вкладыш 2",
+      "name_en": "Insert 2",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "barbieprofessions_insert3",
+      "image": "images/series/kinder/barbieprofessions/03b.webp",
+      "name": "Вкладыш 3",
+      "name_en": "Insert 3",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "barbieprofessions_insert4",
+      "image": "images/series/kinder/barbieprofessions/04b.webp",
+      "name": "Вкладыш 4",
+      "name_en": "Insert 4",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "barbieprofessions_insert5",
+      "image": "images/series/kinder/barbieprofessions/05b.webp",
+      "name": "Вкладыш 5",
+      "name_en": "Insert 5",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "barbieprofessions_insert6",
+      "image": "images/series/kinder/barbieprofessions/06b.webp",
+      "name": "Вкладыш 6",
+      "name_en": "Insert 6",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "barbieprofessions_insert7",
+      "image": "images/series/kinder/barbieprofessions/07b.webp",
+      "name": "Вкладыш 7",
+      "name_en": "Insert 7",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "barbieprofessions_insert8",
+      "image": "images/series/kinder/barbieprofessions/08b.webp",
+      "name": "Вкладыш 8",
+      "name_en": "Insert 8",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    }
+  ],
+  "other": [],
+  "videos": {
+    "youtube": [],
+    "vk": [],
+    "tiktok": []
+  }
+}

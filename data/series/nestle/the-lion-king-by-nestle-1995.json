@@ -1,0 +1,126 @@
+{
+  "id": "the-lion-king-by-nestle-1995",
+  "name": "Король Лев от Нестле",
+  "name_en": "The Lion King by Nestle",
+  "year": 1995,
+  "manufacturer": "nestle",
+  "cover": "images/series/nestle/lionking/cover.webp",
+  "description": "Серия по знаменитому мультфильму Король Лев от Дисней",
+  "description_en": "A series based on the famous Disney cartoon - The Lion King",
+  "kind": "",
+  "visible": true,
+  "fullSeriesForSale": false,
+  "fullSeriesAvito": "",
+  "fullSeriesPrice": "",
+  "figures": [
+    {
+      "id": "lionking_fig1",
+      "image": "images/series/nestle/lionking/01.webp",
+      "name": "Фигурка 1",
+      "name_en": "Figure 1",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "lionking_fig2",
+      "image": "images/series/nestle/lionking/02.webp",
+      "name": "Фигурка 2",
+      "name_en": "Figure 2",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "lionking_fig3",
+      "image": "images/series/nestle/lionking/03.webp",
+      "name": "Фигурка 3",
+      "name_en": "Figure 3",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "lionking_fig4",
+      "image": "images/series/nestle/lionking/04.webp",
+      "name": "Фигурка 4",
+      "name_en": "Figure 4",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "lionking_fig5",
+      "image": "images/series/nestle/lionking/05.webp",
+      "name": "Фигурка 5",
+      "name_en": "Figure 5",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "lionking_fig6",
+      "image": "images/series/nestle/lionking/06.webp",
+      "name": "Фигурка 6",
+      "name_en": "Figure 6",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "lionking_fig7",
+      "image": "images/series/nestle/lionking/07.webp",
+      "name": "Фигурка 7",
+      "name_en": "Figure 7",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "lionking_fig8",
+      "image": "images/series/nestle/lionking/08.webp",
+      "name": "Фигурка 8",
+      "name_en": "Figure 8",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "lionking_fig9",
+      "image": "images/series/nestle/lionking/09.webp",
+      "name": "Фигурка 9",
+      "name_en": "Figure 9",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "lionking_fig10",
+      "image": "images/series/nestle/lionking/10.webp",
+      "name": "Фигурка 10",
+      "name_en": "Figure 10",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    }
+  ],
+  "extras": [],
+  "variants": [],
+  "inserts": [
+    {
+      "id": "lionking",
+      "image": "images/series/nestle/lionking/01b.webp",
+      "name": "Вкладыш",
+      "name_en": "BPZ",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    }
+  ],
+  "other": [],
+  "videos": {
+    "youtube": [],
+    "vk": [],
+    "tiktok": []
+  }
+}

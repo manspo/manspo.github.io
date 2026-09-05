@@ -1,0 +1,244 @@
+{
+  "id": "spider-man-by-kinder-2026",
+  "name": "Человек-Паук от Киндер ",
+  "name_en": "Spider-Man by Kinder",
+  "year": 2026,
+  "manufacturer": "kinder",
+  "cover": "images/series/kinder/spiderman/cover.webp",
+  "description": "Серия с героями комикса Человек-Паук",
+  "description_en": "Series with comic book characters Spider-Man",
+  "kind": "joy",
+  "visible": true,
+  "fullSeriesForSale": false,
+  "fullSeriesAvito": "",
+  "fullSeriesPrice": "",
+  "figures": [
+    {
+      "id": "spiderman_fig1",
+      "image": "images/series/kinder/spiderman/01.webp",
+      "name": "Фигурка 1",
+      "name_en": "Figure 1",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "spiderman_fig2",
+      "image": "images/series/kinder/spiderman/02.webp",
+      "name": "Фигурка 2",
+      "name_en": "Figure 2",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "spiderman_fig3",
+      "image": "images/series/kinder/spiderman/03.webp",
+      "name": "Фигурка 3",
+      "name_en": "Figure 3",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "spiderman_fig4",
+      "image": "images/series/kinder/spiderman/04.webp",
+      "name": "Фигурка 4",
+      "name_en": "Figure 4",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "spiderman_fig5",
+      "image": "images/series/kinder/spiderman/05.webp",
+      "name": "Фигурка 5",
+      "name_en": "Figure 5",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "spiderman_fig6",
+      "image": "images/series/kinder/spiderman/06.webp",
+      "name": "Фигурка 6",
+      "name_en": "Figure 6",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "spiderman_fig7",
+      "image": "images/series/kinder/spiderman/07.webp",
+      "name": "Фигурка 7",
+      "name_en": "Figure 7",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "spiderman_fig8",
+      "image": "images/series/kinder/spiderman/08.webp",
+      "name": "Фигурка 8",
+      "name_en": "Figure 8",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    }
+  ],
+  "extras": [
+    {
+      "id": "spiderman_extra1",
+      "image": "images/series/kinder/spiderman/09.webp",
+      "name": "Доп 1",
+      "name_en": "Extra 1",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "spiderman_extra2",
+      "image": "images/series/kinder/spiderman/10.webp",
+      "name": "Доп 2",
+      "name_en": "Extra 2",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "spiderman_extra3",
+      "image": "images/series/kinder/spiderman/11.webp",
+      "name": "Доп 3",
+      "name_en": "Extra 3",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "spiderman_extra4",
+      "image": "images/series/kinder/spiderman/12.webp",
+      "name": "Доп 4",
+      "name_en": "Extra 4",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    }
+  ],
+  "variants": [],
+  "inserts": [
+    {
+      "id": "spiderman_insert1",
+      "image": "images/series/kinder/spiderman/01b.webp",
+      "name": "Вкладыш 1",
+      "name_en": "Insert 1",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "spiderman_insert2",
+      "image": "images/series/kinder/spiderman/02b.webp",
+      "name": "Вкладыш 2",
+      "name_en": "Insert 2",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "spiderman_insert3",
+      "image": "images/series/kinder/spiderman/03b.webp",
+      "name": "Вкладыш 3",
+      "name_en": "Insert 3",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "spiderman_insert4",
+      "image": "images/series/kinder/spiderman/04b.webp",
+      "name": "Вкладыш 4",
+      "name_en": "Insert 4",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "spiderman_insert5",
+      "image": "images/series/kinder/spiderman/05b.webp",
+      "name": "Вкладыш 5",
+      "name_en": "Insert 5",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "spiderman_insert6",
+      "image": "images/series/kinder/spiderman/06b.webp",
+      "name": "Вкладыш 6",
+      "name_en": "Insert 6",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "spiderman_insert7",
+      "image": "images/series/kinder/spiderman/07b.webp",
+      "name": "Вкладыш 7",
+      "name_en": "Insert 7",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "spiderman_insert8",
+      "image": "images/series/kinder/spiderman/08b.webp",
+      "name": "Вкладыш 8",
+      "name_en": "Insert 8",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "spiderman_insert9",
+      "image": "images/series/kinder/spiderman/09b.webp",
+      "name": "Вкладыш 9",
+      "name_en": "Insert 9",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "spiderman_insert10",
+      "image": "images/series/kinder/spiderman/10b.webp",
+      "name": "Вкладыш 10",
+      "name_en": "Insert 10",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "spiderman_insert11",
+      "image": "images/series/kinder/spiderman/11b.webp",
+      "name": "Вкладыш 11",
+      "name_en": "Insert 11",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "spiderman_insert12",
+      "image": "images/series/kinder/spiderman/12b.webp",
+      "name": "Вкладыш 12",
+      "name_en": "Insert 12",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    }
+  ],
+  "other": [],
+  "videos": {
+    "youtube": [],
+    "vk": [],
+    "tiktok": []
+  }
+}

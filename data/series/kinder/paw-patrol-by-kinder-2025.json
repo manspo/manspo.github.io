@@ -1,0 +1,171 @@
+{
+  "id": "paw-patrol-by-kinder-2025",
+  "name": "Щенячий Патруль от Киндер",
+  "name_en": "Paw Patrol by Kinder",
+  "year": 2025,
+  "manufacturer": "kinder",
+  "cover": "images/series/kinder/pawpatrol/cover.webp",
+  "description": "Серия по мотивам мультфильма \"Щенячий Патруль\"",
+  "description_en": "Series based on the cartoon \"Paw Patrol\"",
+  "kind": "",
+  "visible": true,
+  "fullSeriesForSale": false,
+  "fullSeriesAvito": "",
+  "fullSeriesPrice": "",
+  "figures": [
+    {
+      "id": "pawpatrol_fig1",
+      "image": "images/series/kinder/pawpatrol/01.webp",
+      "name": "Фигурка 1",
+      "name_en": "Figure 1",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "pawpatrol_fig2",
+      "image": "images/series/kinder/pawpatrol/02.webp",
+      "name": "Фигурка 2",
+      "name_en": "Figure 2",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "pawpatrol_fig3",
+      "image": "images/series/kinder/pawpatrol/03.webp",
+      "name": "Фигурка 3",
+      "name_en": "Figure 3",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "pawpatrol_fig4",
+      "image": "images/series/kinder/pawpatrol/04.webp",
+      "name": "Фигурка 4",
+      "name_en": "Figure 4",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "pawpatrol_fig5",
+      "image": "images/series/kinder/pawpatrol/05.webp",
+      "name": "Фигурка 5",
+      "name_en": "Figure 5",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "pawpatrol_fig6",
+      "image": "images/series/kinder/pawpatrol/06.webp",
+      "name": "Фигурка 6",
+      "name_en": "Figure 6",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "pawpatrol_fig7",
+      "image": "images/series/kinder/pawpatrol/07.webp",
+      "name": "Фигурка 7",
+      "name_en": "Figure 7",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "pawpatrol_fig8",
+      "image": "images/series/kinder/pawpatrol/08.webp",
+      "name": "Фигурка 8",
+      "name_en": "Figure 8",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    }
+  ],
+  "extras": [],
+  "variants": [],
+  "inserts": [
+    {
+      "id": "pawpatrol_insert1",
+      "image": "images/series/kinder/pawpatrol/01b.webp",
+      "name": "Вкладыш 1",
+      "name_en": "Insert 1",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "pawpatrol_insert2",
+      "image": "images/series/kinder/pawpatrol/02b.webp",
+      "name": "Вкладыш 2",
+      "name_en": "Insert 2",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "pawpatrol_insert3",
+      "image": "images/series/kinder/pawpatrol/03b.webp",
+      "name": "Вкладыш 3",
+      "name_en": "Insert 3",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "pawpatrol_insert4",
+      "image": "images/series/kinder/pawpatrol/04b.webp",
+      "name": "Вкладыш 4",
+      "name_en": "Insert 4",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "pawpatrol_insert5",
+      "image": "images/series/kinder/pawpatrol/05b.webp",
+      "name": "Вкладыш 5",
+      "name_en": "Insert 5",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "pawpatrol_insert6",
+      "image": "images/series/kinder/pawpatrol/06b.webp",
+      "name": "Вкладыш 6",
+      "name_en": "Insert 6",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "pawpatrol_insert7",
+      "image": "images/series/kinder/pawpatrol/07b.webp",
+      "name": "Вкладыш 7",
+      "name_en": "Insert 7",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "pawpatrol_insert8",
+      "image": "images/series/kinder/pawpatrol/08b.webp",
+      "name": "Вкладыш 8",
+      "name_en": "Insert 8",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    }
+  ],
+  "other": [],
+  "videos": {
+    "youtube": [],
+    "vk": [],
+    "tiktok": []
+  }
+}

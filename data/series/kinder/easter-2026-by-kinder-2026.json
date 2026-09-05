@@ -1,0 +1,261 @@
+{
+  "id": "easter-2026-by-kinder-2026",
+  "name": "Пасха 2026 от Киндер",
+  "name_en": "Easter 2026 by Kinder",
+  "year": 2026,
+  "manufacturer": "kinder",
+  "cover": "images/series/kinder/easter2026/cover.webp",
+  "description": "Пасхальная серия с эксклюзивным золотым зайцем, найдя которого вы могли получить приз",
+  "description_en": "Easter series with an exclusive golden bunny, upon finding which you could get a prize",
+  "kind": "",
+  "visible": true,
+  "fullSeriesForSale": false,
+  "fullSeriesAvito": "",
+  "fullSeriesPrice": "",
+  "figures": [
+    {
+      "id": "easter2026_fig1",
+      "image": "images/series/kinder/easter2026/01.webp",
+      "name": "Фигурка 1",
+      "name_en": "Figure 1",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "easter2026_fig2",
+      "image": "images/series/kinder/easter2026/02.webp",
+      "name": "Фигурка 2",
+      "name_en": "Figure 2",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "easter2026_fig3",
+      "image": "images/series/kinder/easter2026/03.webp",
+      "name": "Фигурка 3",
+      "name_en": "Figure 3",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "easter2026_fig4",
+      "image": "images/series/kinder/easter2026/04.webp",
+      "name": "Фигурка 4",
+      "name_en": "Figure 4",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "easter2026_fig5",
+      "image": "images/series/kinder/easter2026/05.webp",
+      "name": "Фигурка 5",
+      "name_en": "Figure 5",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "easter2026_fig6",
+      "image": "images/series/kinder/easter2026/06.webp",
+      "name": "Фигурка 6",
+      "name_en": "Figure 6",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "easter2026_fig7",
+      "image": "images/series/kinder/easter2026/07.webp",
+      "name": "Фигурка 7",
+      "name_en": "Figure 7",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "easter2026_fig8",
+      "image": "images/series/kinder/easter2026/08.webp",
+      "name": "Фигурка 8",
+      "name_en": "Figure 8",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "easter2026_fig9",
+      "image": "images/series/kinder/easter2026/09.webp",
+      "name": "Фигурка 9",
+      "name_en": "Figure 9",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "easter2026_fig10",
+      "image": "images/series/kinder/easter2026/10.webp",
+      "name": "Фигурка 10",
+      "name_en": "Figure 10",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "easter2026_fig11",
+      "image": "images/series/kinder/easter2026/11.webp",
+      "name": "Фигурка 11",
+      "name_en": "Figure 11",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "easter2026_fig12",
+      "image": "images/series/kinder/easter2026/12.webp",
+      "name": "Фигурка 12",
+      "name_en": "Figure 12",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "easter2026_fig13",
+      "image": "images/series/kinder/easter2026/13.webp",
+      "name": "Фигурка 13 - редкая",
+      "name_en": "Figure 13 - rare",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    }
+  ],
+  "extras": [],
+  "variants": [],
+  "inserts": [
+    {
+      "id": "easter2026_insert1",
+      "image": "images/series/kinder/easter2026/01b.webp",
+      "name": "Вкладыш 1",
+      "name_en": "Insert 1",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "easter2026_insert2",
+      "image": "images/series/kinder/easter2026/02b.webp",
+      "name": "Вкладыш 2",
+      "name_en": "Insert 2",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "easter2026_insert3",
+      "image": "images/series/kinder/easter2026/03b.webp",
+      "name": "Вкладыш 3",
+      "name_en": "Insert 3",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "easter2026_insert4",
+      "image": "images/series/kinder/easter2026/04b.webp",
+      "name": "Вкладыш 4",
+      "name_en": "Insert 4",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "easter2026_insert5",
+      "image": "images/series/kinder/easter2026/05b.webp",
+      "name": "Вкладыш 5",
+      "name_en": "Insert 5",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "easter2026_insert6",
+      "image": "images/series/kinder/easter2026/06b.webp",
+      "name": "Вкладыш 6",
+      "name_en": "Insert 6",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "easter2026_insert7",
+      "image": "images/series/kinder/easter2026/07b.webp",
+      "name": "Вкладыш 7",
+      "name_en": "Insert 7",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "easter2026_insert8",
+      "image": "images/series/kinder/easter2026/08b.webp",
+      "name": "Вкладыш 8",
+      "name_en": "Insert 8",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "easter2026_insert9",
+      "image": "images/series/kinder/easter2026/09b.webp",
+      "name": "Вкладыш 9",
+      "name_en": "Insert 9",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "easter2026_insert10",
+      "image": "images/series/kinder/easter2026/10b.webp",
+      "name": "Вкладыш 10",
+      "name_en": "Insert 10",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "easter2026_insert11",
+      "image": "images/series/kinder/easter2026/11b.webp",
+      "name": "Вкладыш 11",
+      "name_en": "Insert 11",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "easter2026_insert12",
+      "image": "images/series/kinder/easter2026/12b.webp",
+      "name": "Вкладыш 12",
+      "name_en": "Insert 12",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "easter2026_insert13",
+      "image": "images/series/kinder/easter2026/13b.webp",
+      "name": "Вкладыш 13",
+      "name_en": "Insert 13",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    }
+  ],
+  "other": [],
+  "videos": {
+    "youtube": [],
+    "vk": [],
+    "tiktok": []
+  }
+}

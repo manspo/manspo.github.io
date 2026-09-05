@@ -1,0 +1,153 @@
+{
+  "id": "robin-hood-by-nestle-1998",
+  "name": "Робин Гуд от Нестле",
+  "name_en": "Robin Hood by Nestle",
+  "year": 1998,
+  "manufacturer": "nestle",
+  "cover": "images/series/nestle/robinhood/01b.webp",
+  "description": "Знаменитая серия посвященная Робину Гуду",
+  "description_en": "The famous series dedicated to Robin Hood",
+  "kind": "",
+  "visible": true,
+  "fullSeriesForSale": false,
+  "fullSeriesAvito": "",
+  "fullSeriesPrice": "",
+  "figures": [
+    {
+      "id": "robinhood_fig1",
+      "name": "Робин Гуд",
+      "name_en": "Figure 1",
+      "image": "images/series/nestle/robinhood/01.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "robinhood_fig2",
+      "name": "Принц Джон",
+      "name_en": "Figure 2",
+      "image": "images/series/nestle/robinhood/02.webp",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "robinhood_fig3",
+      "name": "Шериф Ноттингемский",
+      "name_en": "Figure 3",
+      "image": "images/series/nestle/robinhood/03.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "robinhood_fig4",
+      "name": "Крошка Джон",
+      "name_en": "Figure 4",
+      "image": "images/series/nestle/robinhood/04.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "robinhood_fig5",
+      "name": "Сэр Хисс",
+      "name_en": "Figure 5",
+      "image": "images/series/nestle/robinhood/05.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "robinhood_fig6",
+      "name": "Стражник-носорог",
+      "name_en": "Figure 6",
+      "image": "images/series/nestle/robinhood/06.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    }
+  ],
+  "extras": [],
+  "variants": [],
+  "inserts": [
+    {
+      "id": "robinhood_insert1",
+      "name": "Вкладыш 1",
+      "name_en": "Insert 1",
+      "image": "images/series/nestle/robinhood/01b.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "robinhood_insert2",
+      "name": "Вкладыш 2",
+      "name_en": "Insert 2",
+      "image": "images/series/nestle/robinhood/02b.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "robinhood_insert3",
+      "name": "Вкладыш 3",
+      "name_en": "Insert 3",
+      "image": "images/series/nestle/robinhood/03b.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "robinhood_insert4",
+      "name": "Вкладыш 4",
+      "name_en": "Insert 4",
+      "image": "images/series/nestle/robinhood/04b.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "robinhood_insert5",
+      "name": "Вкладыш 5",
+      "name_en": "Insert 5",
+      "image": "images/series/nestle/robinhood/05b.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "robinhood_insert6",
+      "name": "Вкладыш 6",
+      "name_en": "Insert 6",
+      "image": "images/series/nestle/robinhood/06b.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "robinhood_insert7",
+      "name": "Вкладыш 7",
+      "name_en": "Insert 7",
+      "image": "images/series/nestle/robinhood/07b.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "robinhood_insert7",
+      "name": "Вкладыш 7",
+      "name_en": "Insert 7",
+      "image": "images/series/nestle/robinhood/08b.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    }
+  ],
+  "other": [],
+  "videos": {
+    "youtube": [],
+    "vk": [],
+    "tiktok": []
+  }
+}

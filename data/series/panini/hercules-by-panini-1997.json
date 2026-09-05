@@ -1,0 +1,277 @@
+{
+  "id": "hercules-by-panini-1997",
+  "name": "Геркулес от Панини",
+  "name_en": "Hercules by Panini",
+  "year": 1997,
+  "manufacturer": "panini",
+  "cover": "images/series/panini/hercules/cover.webp",
+  "description": "Перед вами великолепная серия из 24 фигурок от Панини на тему мультфильма Геркулес - диснеевская версия. Выпущены в 1997 году в упаковке из 6 картинок. Гравировка, расположение и цвета зачастую исключительны.",
+  "description_en": "Here is a magnificent series of 24 figurines from Panini, on the theme of the cartoon Hercules, a Disney version. We could get them ourselves in 1997, in the pack of 6 pictures corresponding to the album. Engraving, the positions and colors is often exceptional. ",
+  "kind": "",
+  "visible": true,
+  "fullSeriesForSale": false,
+  "fullSeriesAvito": "",
+  "fullSeriesPrice": "",
+  "figures": [
+    {
+      "id": "panini-hercules-1997_fig1",
+      "name": "Геркулес 1",
+      "name_en": "Hercules 1",
+      "code": "",
+      "image": "images/series/panini/hercules/01.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "panini-hercules-1997_fig2",
+      "name": "Геркулес 2",
+      "name_en": "Hercules 2",
+      "code": "",
+      "image": "images/series/panini/hercules/02.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "panini-hercules-1997_fig3",
+      "name": "Пегас",
+      "name_en": "Pegasus",
+      "code": "",
+      "image": "images/series/panini/hercules/03.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "panini-hercules-1997_fig4",
+      "name": "Несс",
+      "name_en": "Nessus",
+      "code": "",
+      "image": "images/series/panini/hercules/04.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "panini-hercules-1997_fig5",
+      "name": "Мойры",
+      "name_en": "The Fates",
+      "code": "",
+      "image": "images/series/panini/hercules/05.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "panini-hercules-1997_fig6",
+      "name": "Мегара",
+      "name_en": "Megara",
+      "code": "",
+      "image": "images/series/panini/hercules/06.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "panini-hercules-1997_fig7",
+      "name": "Гера",
+      "name_en": "Hera",
+      "code": "",
+      "image": "images/series/panini/hercules/07.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "panini-hercules-1997_fig8",
+      "name": "Талия",
+      "name_en": "Thalie",
+      "code": "",
+      "image": "images/series/panini/hercules/08.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "panini-hercules-1997_fig9",
+      "name": "Клио",
+      "name_en": "Clio",
+      "code": "",
+      "image": "images/series/panini/hercules/09.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "panini-hercules-1997_fig10",
+      "name": "Терпсихора",
+      "name_en": "Terpsichore",
+      "code": "",
+      "image": "images/series/panini/hercules/10.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "panini-hercules-1997_fig11",
+      "name": "Каллиопа",
+      "name_en": "Calliope",
+      "code": "",
+      "image": "images/series/panini/hercules/11.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "panini-hercules-1997_fig12",
+      "name": "Мельпомена",
+      "name_en": "Melpomene",
+      "code": "",
+      "image": "images/series/panini/hercules/24.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "panini-hercules-1997_fig13",
+      "name": "Зевс",
+      "name_en": "Zeus",
+      "code": "",
+      "image": "images/series/panini/hercules/12.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "panini-hercules-1997_fig14",
+      "name": "Аид",
+      "name_en": "Hades",
+      "code": "",
+      "image": "images/series/panini/hercules/13.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "panini-hercules-1997_fig15",
+      "name": "Молодой Геркулес",
+      "name_en": "Hercules young",
+      "code": "",
+      "image": "images/series/panini/hercules/14.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "panini-hercules-1997_fig16",
+      "name": "Гермес",
+      "name_en": "Hermes",
+      "code": "",
+      "image": "images/series/panini/hercules/15.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "panini-hercules-1997_fig17",
+      "name": "Гидра",
+      "name_en": "Hydra",
+      "code": "",
+      "image": "images/series/panini/hercules/16.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "panini-hercules-1997_fig18",
+      "name": "Минотавр",
+      "name_en": "Minotaur",
+      "code": "",
+      "image": "images/series/panini/hercules/17.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "panini-hercules-1997_fig19",
+      "name": "Филоктет",
+      "name_en": "Philoctete",
+      "code": "",
+      "image": "images/series/panini/hercules/18.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "panini-hercules-1997_fig20",
+      "name": "Пегас и Геркулес",
+      "name_en": "Pegasus and Hercules child",
+      "code": "",
+      "image": "images/series/panini/hercules/19.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "panini-hercules-1997_fig21",
+      "name": "Циклоп",
+      "name_en": "The cyclops",
+      "code": "",
+      "image": "images/series/panini/hercules/20.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "panini-hercules-1997_fig22",
+      "name": "Литос",
+      "name_en": "Lythos",
+      "code": "",
+      "image": "images/series/panini/hercules/21.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "panini-hercules-1997_fig23",
+      "name": "Каледонский кабан",
+      "name_en": "Caledonia boar",
+      "code": "",
+      "image": "images/series/panini/hercules/22.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "panini-hercules-1997_fig24",
+      "name": "Паника и Боль",
+      "name_en": "Panic and Pain",
+      "code": "",
+      "image": "images/series/panini/hercules/23.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    }
+  ],
+  "extras": [],
+  "variants": [],
+  "inserts": [
+    {
+      "id": "panini-hercules-1997_insert1",
+      "name": "Вкладыш",
+      "name_en": "Insert",
+      "code": "",
+      "image": "images/series/panini/hercules/BPZ.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    }
+  ],
+  "other": [],
+  "videos": {
+    "youtube": [],
+    "vk": [],
+    "tiktok": []
+  }
+}

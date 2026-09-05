@@ -1,0 +1,118 @@
+{
+  "id": "the-dark-knight-batman-by-nestle-2008",
+  "name": "Темный Рыцарь (Бэтмен) от Нестле",
+  "name_en": "The Dark Knight (Batman) by Nestle",
+  "year": 2008,
+  "manufacturer": "nestle",
+  "cover": "images/series/nestle/batman/cover.webp",
+  "description": "Серия приуроченная с фильму Темный Рыцарь",
+  "description_en": "Series dedicated to the film The Dark Knight",
+  "kind": "",
+  "visible": true,
+  "fullSeriesForSale": false,
+  "fullSeriesAvito": "",
+  "fullSeriesPrice": "",
+  "figures": [
+    {
+      "id": "batman_fig1",
+      "image": "images/series/nestle/batman/01.webp",
+      "name": "Фигурка 1",
+      "name_en": "Figure 1",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "batman_fig2",
+      "image": "images/series/nestle/batman/02.webp",
+      "name": "Фигурка 2",
+      "name_en": "Figure 2",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "batman_fig3",
+      "image": "images/series/nestle/batman/03.webp",
+      "name": "Фигурка 3",
+      "name_en": "Figure 3",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "batman_fig4",
+      "image": "images/series/nestle/batman/04.webp",
+      "name": "Фигурка 4",
+      "name_en": "Figure 4",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "batman_fig5",
+      "image": "images/series/nestle/batman/05.webp",
+      "name": "Фигурка 5",
+      "name_en": "Figure 5",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    }
+  ],
+  "extras": [
+    {
+      "id": "batman_extra1",
+      "image": "images/series/nestle/batman/001.webp",
+      "name": "Доп 1",
+      "name_en": "Extra 1",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "batman_extra2",
+      "image": "images/series/nestle/batman/002.webp",
+      "name": "Доп 2",
+      "name_en": "Extra 2",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "batman_extra3",
+      "image": "images/series/nestle/batman/003.webp",
+      "name": "Доп 3",
+      "name_en": "Extra 3",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    }
+  ],
+  "variants": [],
+  "inserts": [
+    {
+      "id": "batman_insert1",
+      "image": "images/series/nestle/batman/BPZ.webp",
+      "name": "Вкладыш 1",
+      "name_en": "Insert 1",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "batman_insert1",
+      "image": "images/series/nestle/batman/BPZBIG.webp",
+      "name": "Вкладыш увеличенный",
+      "name_en": "Insert zoomed in",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    }
+  ],
+  "other": [],
+  "videos": {
+    "youtube": [],
+    "vk": [],
+    "tiktok": []
+  }
+}

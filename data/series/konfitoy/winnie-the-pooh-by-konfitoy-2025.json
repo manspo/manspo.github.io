@@ -1,0 +1,150 @@
+{
+  "id": "winnie-the-pooh-by-konfitoy-2025",
+  "name": "Винни-Пух от Конфитой",
+  "name_en": "Winnie-the-Pooh by Konfitoy",
+  "year": 2025,
+  "manufacturer": "konfitoy",
+  "cover": "images/series/konfitoy/winniethepooh/cover.webp",
+  "description": "Серия посвященная советскому Винни-Пуху",
+  "description_en": "A series dedicated to the Soviet Winnie the Pooh",
+  "kind": "",
+  "visible": true,
+  "fullSeriesForSale": false,
+  "fullSeriesAvito": "",
+  "fullSeriesPrice": "",
+  "figures": [
+    {
+      "id": "winniethepooh_fig1",
+      "name": "Винни-Пух с банкой",
+      "name_en": "Winnie-the-Pooh with a honey",
+      "code": "",
+      "image": "images/series/konfitoy/winniethepooh/Винни_1.webp",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "winniethepooh_fig2",
+      "name": "Заяц",
+      "name_en": "Rabbit",
+      "code": "",
+      "image": "images/series/konfitoy/winniethepooh/Заяц.webp",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "winniethepooh_fig3",
+      "name": "Осел",
+      "name_en": "Donkey",
+      "code": "",
+      "image": "images/series/konfitoy/winniethepooh/Осел.webp",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "winniethepooh_fig4",
+      "name": "Пятачок",
+      "name_en": "Piglet",
+      "code": "",
+      "image": "images/series/konfitoy/winniethepooh/Пятачок.webp",
+      "owned": true,
+      "forsale": false,
+      "condition": "Без вкладыша",
+      "condition_en": "Without BPZ",
+      "avito": ""
+    },
+    {
+      "id": "winniethepooh_fig5",
+      "name": "Сова",
+      "name_en": "Owl",
+      "code": "",
+      "image": "images/series/konfitoy/winniethepooh/Сова.webp",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "winniethepooh_fig6",
+      "name": "Винни-Пух 2",
+      "name_en": "Winnie-the-Pooh 2",
+      "code": "",
+      "image": "images/series/konfitoy/winniethepooh/Винни_2.webp",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    }
+  ],
+  "extras": [],
+  "variants": [],
+  "inserts": [
+    {
+      "id": "winniethepooh_insert1",
+      "name": "Вкладыш",
+      "name_en": "Insert",
+      "code": "",
+      "image": "images/series/konfitoy/winniethepooh/BPZ.webp",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    }
+  ],
+  "other": [
+    {
+      "id": "winniethepooh_other1",
+      "name": "Коробка",
+      "name_en": "Box",
+      "code": "",
+      "image": "images/series/konfitoy/winniethepooh/Коробка.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "winniethepooh_other2",
+      "name": "Фольга 1",
+      "name_en": "Wrapper 1",
+      "code": "",
+      "image": "images/series/konfitoy/winniethepooh/Фольга1.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "winniethepooh_other3",
+      "name": "Фольга 2",
+      "name_en": "Wrapper 2",
+      "code": "",
+      "image": "images/series/konfitoy/winniethepooh/Фольга2.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "winniethepooh_other4",
+      "name": "Фольга 3",
+      "name_en": "Wrapper 3",
+      "code": "",
+      "image": "images/series/konfitoy/winniethepooh/Фольга3.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "winniethepooh_other5",
+      "name": "Фольга 4",
+      "name_en": "Wrapper 4",
+      "code": "",
+      "image": "images/series/konfitoy/winniethepooh/Фольга4.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    }
+  ],
+  "videos": {
+    "youtube": [],
+    "vk": [],
+    "tiktok": []
+  }
+}

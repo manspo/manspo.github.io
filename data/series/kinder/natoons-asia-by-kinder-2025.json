@@ -1,0 +1,144 @@
+{
+  "id": "natoons-asia-by-kinder-2025",
+  "name": "Натунс Азия от Киндер",
+  "name_en": "Natoons Asia by Kinder",
+  "year": 2025,
+  "manufacturer": "kinder",
+  "cover": "images/series/kinder/natoonsasia/cover.webp",
+  "description": "Серия с животными Азии",
+  "description_en": "Series with Asian animals",
+  "kind": "joy",
+  "visible": true,
+  "fullSeriesForSale": false,
+  "fullSeriesAvito": "",
+  "fullSeriesPrice": "",
+  "figures": [
+    {
+      "id": "natoonsasia_fig1",
+      "image": "images/series/kinder/natoonsasia/chamaleon-vd478b.webp",
+      "name": "Фигурка 1",
+      "name_en": "Figure 1",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "natoonsasia_fig2",
+      "image": "images/series/kinder/natoonsasia/deer-vq125b.webp",
+      "name": "Фигурка 2",
+      "name_en": "Figure 2",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "natoonsasia_fig3",
+      "image": "images/series/kinder/natoonsasia/fish-vv276c.webp",
+      "name": "Фигурка 3",
+      "name_en": "Figure 3",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "natoonsasia_fig4",
+      "image": "images/series/kinder/natoonsasia/flamingo-vd407b.webp",
+      "name": "Фигурка 4",
+      "name_en": "Figure 4",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "natoonsasia_fig5",
+      "image": "images/series/kinder/natoonsasia/gaur-vt384a.webp",
+      "name": "Фигурка 5",
+      "name_en": "Figure 5",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "natoonsasia_fig6",
+      "image": "images/series/kinder/natoonsasia/horse-vd398b.webp",
+      "name": "Фигурка 6",
+      "name_en": "Figure 6",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "natoonsasia_fig7",
+      "image": "images/series/kinder/natoonsasia/owl-vu229b.webp",
+      "name": "Фигурка 7",
+      "name_en": "Figure 7",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "natoonsasia_fig8",
+      "image": "images/series/kinder/natoonsasia/seahorse-vd398a.webp",
+      "name": "Фигурка 8",
+      "name_en": "Figure 8",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "natoonsasia_fig9",
+      "image": "images/series/kinder/natoonsasia/tiger-vt386a.webp",
+      "name": "Фигурка 9",
+      "name_en": "Figure 9",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "natoonsasia_fig10",
+      "image": "images/series/kinder/natoonsasia/turtle-en266a.webp",
+      "name": "Фигурка 10",
+      "name_en": "Figure 10",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "natoonsasia_fig11",
+      "image": "images/series/kinder/natoonsasia/vt381_panther.webp",
+      "name": "Фигурка 11",
+      "name_en": "Figure 11",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "natoonsasia_fig12",
+      "image": "images/series/kinder/natoonsasia/vt385_indian_elephant.webp",
+      "name": "Фигурка 12",
+      "name_en": "Figure 12",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    }
+  ],
+  "extras": [],
+  "variants": [],
+  "inserts": [
+    {
+      "id": "natoonsasia_insert1",
+      "image": "images/series/kinder/natoonsasia/cover.webp",
+      "name": "Вкладыш 1",
+      "name_en": "Insert 1",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    }
+  ],
+  "other": [],
+  "videos": {
+    "youtube": [],
+    "vk": [],
+    "tiktok": []
+  }
+}

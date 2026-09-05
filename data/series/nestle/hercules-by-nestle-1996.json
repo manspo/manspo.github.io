@@ -1,0 +1,273 @@
+{
+  "id": "hercules-by-nestle-1996",
+  "name": "Геркулес от Нестле",
+  "name_en": "Hercules by Nestle",
+  "year": 1996,
+  "manufacturer": "nestle",
+  "cover": "images/series/nestle/hercules/cover.webp",
+  "description": "Знамения серия с персонажами из мультфильма Геркулес от Дисней",
+  "description_en": "Signs series with characters from the cartoon Hercules from Disney",
+  "kind": "",
+  "visible": true,
+  "fullSeriesForSale": false,
+  "fullSeriesAvito": "",
+  "fullSeriesPrice": "",
+  "figures": [
+    {
+      "id": "hercules_fig1",
+      "image": "images/series/nestle/hercules/01.webp",
+      "name": "Гермес",
+      "name_en": "Figure 1",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "hercules_fig2",
+      "image": "images/series/nestle/hercules/02.webp",
+      "name": "Гидра",
+      "name_en": "Figure 2",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "hercules_fig3",
+      "image": "images/series/nestle/hercules/03.webp",
+      "name": "Боль",
+      "name_en": "Figure 3",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "hercules_fig4",
+      "image": "images/series/nestle/hercules/04.webp",
+      "name": "Зевс",
+      "name_en": "Figure 4",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "hercules_fig5",
+      "image": "images/series/nestle/hercules/05.webp",
+      "name": "Малыш Геркулес",
+      "name_en": "Figure 5",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "hercules_fig6",
+      "image": "images/series/nestle/hercules/06.webp",
+      "name": "Геркулес",
+      "name_en": "Figure 6",
+      "owned": true,
+      "forsale": false,
+      "avito": "",
+      "condition": "Отсутствует меч",
+      "condition_en": "Without a sword"
+    },
+    {
+      "id": "hercules_fig7",
+      "image": "images/series/nestle/hercules/07.webp",
+      "name": "Аид",
+      "name_en": "Figure 7",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "hercules_fig8",
+      "image": "images/series/nestle/hercules/08.webp",
+      "name": "Гера",
+      "name_en": "Figure 8",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "hercules_fig9",
+      "image": "images/series/nestle/hercules/09.webp",
+      "name": "Пегас",
+      "name_en": "Figure 9",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "hercules_fig10",
+      "image": "images/series/nestle/hercules/10.webp",
+      "name": "Филоктет",
+      "name_en": "Figure 10",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "hercules_fig11",
+      "image": "images/series/nestle/hercules/11.webp",
+      "name": "Паник",
+      "name_en": "Figure 11",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "hercules_fig12",
+      "image": "images/series/nestle/hercules/12.webp",
+      "name": "Мегара",
+      "name_en": "Figure 12",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    }
+  ],
+  "extras": [
+    {
+      "id": "hercules_extra1",
+      "image": "images/series/nestle/hercules/001.webp",
+      "name": "Геркулес и Пегас",
+      "name_en": "Extra 1",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "hercules_extra2",
+      "image": "images/series/nestle/hercules/011.webp",
+      "name": "Такси из Фив",
+      "name_en": "Extra 2",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "hercules_extra3",
+      "image": "images/series/nestle/hercules/012.webp",
+      "name": "Сундук",
+      "name_en": "Extra 3",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "hercules_extra4",
+      "image": "images/series/nestle/hercules/002.webp",
+      "name": "Движущиеся монстры",
+      "name_en": "Extra 4",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "hercules_extra5",
+      "image": "images/series/nestle/hercules/003.webp",
+      "name": "Фермер",
+      "name_en": "Extra 5",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "hercules_extra6",
+      "image": "images/series/nestle/hercules/004.webp",
+      "name": "Кентавр Несс",
+      "name_en": "Extra 6",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "hercules_extra7",
+      "image": "images/series/nestle/hercules/005.webp",
+      "name": "Коза-Газонокосилка",
+      "name_en": "Extra 7",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "hercules_extra8",
+      "image": "images/series/nestle/hercules/006.webp",
+      "name": "Литос",
+      "name_en": "Extra 8",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "hercules_extra9",
+      "image": "images/series/nestle/hercules/007.webp",
+      "name": "Рыночная тележка",
+      "name_en": "Extra 9",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "hercules_extra10",
+      "image": "images/series/nestle/hercules/008.webp",
+      "name": "Мойра",
+      "name_en": "Extra 10",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "hercules_extra11",
+      "image": "images/series/nestle/hercules/009.webp",
+      "name": "Арка",
+      "name_en": "Extra 11",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "hercules_extra12",
+      "image": "images/series/nestle/hercules/010.webp",
+      "name": "Пирос",
+      "name_en": "Extra 12",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    }
+  ],
+  "variants": [],
+  "inserts": [
+    {
+      "id": "hercules_insert1",
+      "image": "images/series/nestle/hercules/cover.webp",
+      "name": "Вкладыш 1",
+      "name_en": "Insert 1",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "hercules_insert2",
+      "image": "images/series/nestle/hercules/01b.webp",
+      "name": "Вкладыш 2",
+      "name_en": "Insert 2",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "hercules_insert3",
+      "image": "images/series/nestle/hercules/02b.webp",
+      "name": "Вкладыш 3",
+      "name_en": "Insert 3",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    }
+  ],
+  "other": [],
+  "videos": {
+    "youtube": [],
+    "vk": [],
+    "tiktok": []
+  }
+}

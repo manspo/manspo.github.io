@@ -1,0 +1,244 @@
+{
+  "id": "ali-baba-and-the-40-thieves-by-landrin-2011",
+  "name": "Али Баба и 40 Разбойников от Ландрин",
+  "name_en": "Ali Baba and the 40 Thieves by Landrin",
+  "year": 2011,
+  "manufacturer": "landrin",
+  "cover": "images/series/landrin/alibaba40/cover.webp",
+  "description": "По мотивам сказки из Тысячи и одной ночи",
+  "description_en": "Based on the tale from One Thousand and One Nights",
+  "kind": "",
+  "visible": true,
+  "fullSeriesForSale": false,
+  "fullSeriesAvito": "",
+  "fullSeriesPrice": "",
+  "figures": [
+    {
+      "id": "alibaba40_fig1",
+      "image": "images/series/landrin/alibaba40/01.webp",
+      "name": "Фигурка 1",
+      "name_en": "Figure 1",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "alibaba40_fig2",
+      "image": "images/series/landrin/alibaba40/02.webp",
+      "name": "Фигурка 2",
+      "name_en": "Figure 2",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "alibaba40_fig3",
+      "image": "images/series/landrin/alibaba40/03.webp",
+      "name": "Фигурка 3",
+      "name_en": "Figure 3",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "alibaba40_fig4",
+      "image": "images/series/landrin/alibaba40/06.webp",
+      "name": "Фигурка 4",
+      "name_en": "Figure 4",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "alibaba40_fig5",
+      "image": "images/series/landrin/alibaba40/04.webp",
+      "name": "Фигурка 5",
+      "name_en": "Figure 5",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "alibaba40_fig6",
+      "image": "images/series/landrin/alibaba40/05.webp",
+      "name": "Фигурка 6",
+      "name_en": "Figure 6",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "alibaba40_fig7",
+      "image": "images/series/landrin/alibaba40/07.webp",
+      "name": "Фигурка 7",
+      "name_en": "Figure 7",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "alibaba40_fig8",
+      "image": "images/series/landrin/alibaba40/12.webp",
+      "name": "Фигурка 8",
+      "name_en": "Figure 8",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "alibaba40_fig9",
+      "image": "images/series/landrin/alibaba40/11.webp",
+      "name": "Фигурка 9",
+      "name_en": "Figure 9",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "alibaba40_fig10",
+      "image": "images/series/landrin/alibaba40/13.webp",
+      "name": "Фигурка 10",
+      "name_en": "Figure 10",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "alibaba40_fig11",
+      "image": "images/series/landrin/alibaba40/21.webp",
+      "name": "Фигурка 11",
+      "name_en": "Figure 11",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "alibaba40_fig12",
+      "image": "images/series/landrin/alibaba40/20.webp",
+      "name": "Фигурка 12",
+      "name_en": "Figure 12",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "alibaba40_fig13",
+      "image": "images/series/landrin/alibaba40/17.webp",
+      "name": "Фигурка 13",
+      "name_en": "Figure 13",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "alibaba40_fig14",
+      "image": "images/series/landrin/alibaba40/18.webp",
+      "name": "Фигурка 14",
+      "name_en": "Figure 14",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "alibaba40_fig15",
+      "image": "images/series/landrin/alibaba40/16.webp",
+      "name": "Фигурка 15",
+      "name_en": "Figure 15",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "alibaba40_fig16",
+      "image": "images/series/landrin/alibaba40/15.webp",
+      "name": "Фигурка 16",
+      "name_en": "Figure 16",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "alibaba40_fig17",
+      "image": "images/series/landrin/alibaba40/19.webp",
+      "name": "Фигурка 17",
+      "name_en": "Figure 17",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "alibaba40_fig18",
+      "image": "images/series/landrin/alibaba40/14.webp",
+      "name": "Фигурка 18",
+      "name_en": "Figure 18",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    }
+  ],
+  "extras": [
+    {
+      "id": "alibaba40_extra1",
+      "image": "images/series/landrin/alibaba40/08.webp",
+      "name": "Доп 1",
+      "name_en": "Extra 1",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "alibaba40_extra2",
+      "image": "images/series/landrin/alibaba40/09.webp",
+      "name": "Доп 2",
+      "name_en": "Extra 2",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "alibaba40_extra3",
+      "image": "images/series/landrin/alibaba40/10.webp",
+      "name": "Доп 3",
+      "name_en": "Extra 3",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    }
+  ],
+  "variants": [],
+  "inserts": [
+    {
+      "id": "alibaba40_insert1",
+      "image": "images/series/landrin/alibaba40/01b.webp",
+      "name": "Вкладыш 1",
+      "name_en": "Insert 1",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "alibaba40_insert2",
+      "image": "images/series/landrin/alibaba40/02b.webp",
+      "name": "Вкладыш 2",
+      "name_en": "Insert 2",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "alibaba40_insert2",
+      "image": "images/series/landrin/alibaba40/03b.webp",
+      "name": "Вкладыш 3",
+      "name_en": "Insert 3",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    }
+  ],
+  "other": [],
+  "videos": {
+    "youtube": [],
+    "vk": [],
+    "tiktok": []
+  }
+}

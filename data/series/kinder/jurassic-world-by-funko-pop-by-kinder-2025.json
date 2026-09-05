@@ -1,0 +1,486 @@
+{
+  "id": "jurassic-world-by-funko-pop-by-kinder-2025",
+  "name": "Мир Юрского периода от Funko Pop от Киндер",
+  "name_en": "Jurassic World by Funko Pop by Kinder",
+  "year": 2025,
+  "manufacturer": "kinder",
+  "cover": "images/series/kinder/jurassicworldpop/cover.webp",
+  "description": "Серия созданная совместно с Funko Pop по мотивами фильма Парк Юрского Периода",
+  "description_en": "A series created in collaboration with Funko Pop based on the film Jurassic Park",
+  "kind": "joy",
+  "visible": true,
+  "fullSeriesForSale": false,
+  "fullSeriesAvito": "",
+  "fullSeriesPrice": "",
+  "figures": [
+    {
+      "id": "jurassicworldpop_fig1",
+      "image": "images/series/kinder/jurassicworldpop/01.webp",
+      "name": "Фигурка 1",
+      "name_en": "Figure 1",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "jurassicworldpop_fig2",
+      "image": "images/series/kinder/jurassicworldpop/02.webp",
+      "name": "Фигурка 2",
+      "name_en": "Figure 2",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "jurassicworldpop_fig3",
+      "image": "images/series/kinder/jurassicworldpop/03.webp",
+      "name": "Фигурка 3",
+      "name_en": "Figure 3",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "jurassicworldpop_fig4",
+      "image": "images/series/kinder/jurassicworldpop/04.webp",
+      "name": "Фигурка 4",
+      "name_en": "Figure 4",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "jurassicworldpop_fig5",
+      "image": "images/series/kinder/jurassicworldpop/05.webp",
+      "name": "Фигурка 5",
+      "name_en": "Figure 5",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "jurassicworldpop_fig6",
+      "image": "images/series/kinder/jurassicworldpop/06.webp",
+      "name": "Фигурка 6",
+      "name_en": "Figure 6",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "jurassicworldpop_fig7",
+      "image": "images/series/kinder/jurassicworldpop/07.webp",
+      "name": "Фигурка 7",
+      "name_en": "Figure 7",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "jurassicworldpop_fig8",
+      "image": "images/series/kinder/jurassicworldpop/08.webp",
+      "name": "Фигурка 8",
+      "name_en": "Figure 8",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "jurassicworldpop_fig9",
+      "image": "images/series/kinder/jurassicworldpop/09.webp",
+      "name": "Фигурка 9",
+      "name_en": "Figure 9",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "jurassicworldpop_fig10",
+      "image": "images/series/kinder/jurassicworldpop/10.webp",
+      "name": "Фигурка 10",
+      "name_en": "Figure 10",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "jurassicworldpop_fig11",
+      "image": "images/series/kinder/jurassicworldpop/11.webp",
+      "name": "Фигурка 11",
+      "name_en": "Figure 11",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "jurassicworldpop_fig12",
+      "image": "images/series/kinder/jurassicworldpop/12.webp",
+      "name": "Фигурка 12",
+      "name_en": "Figure 12",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "jurassicworldpop_fig13",
+      "image": "images/series/kinder/jurassicworldpop/13.webp",
+      "name": "Фигурка 13",
+      "name_en": "Figure 13",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "jurassicworldpop_fig14",
+      "image": "images/series/kinder/jurassicworldpop/14.webp",
+      "name": "Фигурка 14",
+      "name_en": "Figure 14",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "jurassicworldpop_fig15",
+      "image": "images/series/kinder/jurassicworldpop/15.webp",
+      "name": "Фигурка 15",
+      "name_en": "Figure 15",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "jurassicworldpop_fig16",
+      "image": "images/series/kinder/jurassicworldpop/16.webp",
+      "name": "Фигурка 16",
+      "name_en": "Figure 16",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "jurassicworldpop_fig17",
+      "image": "images/series/kinder/jurassicworldpop/17.webp",
+      "name": "Фигурка 17",
+      "name_en": "Figure 17",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "jurassicworldpop_fig18",
+      "image": "images/series/kinder/jurassicworldpop/18.webp",
+      "name": "Фигурка 18",
+      "name_en": "Figure 18",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "jurassicworldpop_fig19",
+      "image": "images/series/kinder/jurassicworldpop/19.webp",
+      "name": "Фигурка 19",
+      "name_en": "Figure 19",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "jurassicworldpop_fig20",
+      "image": "images/series/kinder/jurassicworldpop/20.webp",
+      "name": "Фигурка 20",
+      "name_en": "Figure 20",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "jurassicworldpop_fig21",
+      "image": "images/series/kinder/jurassicworldpop/21.webp",
+      "name": "Фигурка 21",
+      "name_en": "Figure 21",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "jurassicworldpop_fig22",
+      "image": "images/series/kinder/jurassicworldpop/22.webp",
+      "name": "Фигурка 22",
+      "name_en": "Figure 22",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "jurassicworldpop_fig23",
+      "image": "images/series/kinder/jurassicworldpop/23.webp",
+      "name": "Фигурка 23",
+      "name_en": "Figure 23",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "jurassicworldpop_fig24",
+      "image": "images/series/kinder/jurassicworldpop/24.webp",
+      "name": "Фигурка 24",
+      "name_en": "Figure 24",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "jurassicworldpop_fig25",
+      "image": "images/series/kinder/jurassicworldpop/25.webp",
+      "name": "Фигурка 25 - вариативная",
+      "name_en": "Figure 25 - variable",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "jurassicworldpop_fig26",
+      "image": "images/series/kinder/jurassicworldpop/26.webp",
+      "name": "Фигурка 26 - вариативная (VQ287A)",
+      "name_en": "Figure 26 - variable (VQ287A)",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    }
+  ],
+  "extras": [],
+  "variants": [],
+  "inserts": [
+    {
+      "id": "jurassicworldpop_insert1",
+      "image": "images/series/kinder/jurassicworldpop/01b.webp",
+      "name": "Вкладыш 1",
+      "name_en": "Insert 1",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "jurassicworldpop_insert2",
+      "image": "images/series/kinder/jurassicworldpop/02b.webp",
+      "name": "Вкладыш 2",
+      "name_en": "Insert 2",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "jurassicworldpop_insert3",
+      "image": "images/series/kinder/jurassicworldpop/03b.webp",
+      "name": "Вкладыш 3",
+      "name_en": "Insert 3",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "jurassicworldpop_insert4",
+      "image": "images/series/kinder/jurassicworldpop/04b.webp",
+      "name": "Вкладыш 4",
+      "name_en": "Insert 4",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "jurassicworldpop_insert5",
+      "image": "images/series/kinder/jurassicworldpop/05b.webp",
+      "name": "Вкладыш 5",
+      "name_en": "Insert 5",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "jurassicworldpop_insert6",
+      "image": "images/series/kinder/jurassicworldpop/06b.webp",
+      "name": "Вкладыш 6",
+      "name_en": "Insert 6",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "jurassicworldpop_insert7",
+      "image": "images/series/kinder/jurassicworldpop/07b.webp",
+      "name": "Вкладыш 7",
+      "name_en": "Insert 7",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "jurassicworldpop_insert8",
+      "image": "images/series/kinder/jurassicworldpop/08b.webp",
+      "name": "Вкладыш 8",
+      "name_en": "Insert 8",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "jurassicworldpop_insert9",
+      "image": "images/series/kinder/jurassicworldpop/09b.webp",
+      "name": "Вкладыш 9",
+      "name_en": "Insert 9",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "jurassicworldpop_insert10",
+      "image": "images/series/kinder/jurassicworldpop/10b.webp",
+      "name": "Вкладыш 10",
+      "name_en": "Insert 10",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "jurassicworldpop_insert11",
+      "image": "images/series/kinder/jurassicworldpop/11b.webp",
+      "name": "Вкладыш 11",
+      "name_en": "Insert 11",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "jurassicworldpop_insert12",
+      "image": "images/series/kinder/jurassicworldpop/12b.webp",
+      "name": "Вкладыш 12",
+      "name_en": "Insert 12",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "jurassicworldpop_insert13",
+      "image": "images/series/kinder/jurassicworldpop/13b.webp",
+      "name": "Вкладыш 13",
+      "name_en": "Insert 13",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "jurassicworldpop_insert14",
+      "image": "images/series/kinder/jurassicworldpop/14b.webp",
+      "name": "Вкладыш 14",
+      "name_en": "Insert 14",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "jurassicworldpop_insert15",
+      "image": "images/series/kinder/jurassicworldpop/15b.webp",
+      "name": "Вкладыш 15",
+      "name_en": "Insert 15",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "jurassicworldpop_insert16",
+      "image": "images/series/kinder/jurassicworldpop/16b.webp",
+      "name": "Вкладыш 16",
+      "name_en": "Insert 16",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "jurassicworldpop_insert17",
+      "image": "images/series/kinder/jurassicworldpop/17b.webp",
+      "name": "Вкладыш 17",
+      "name_en": "Insert 17",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "jurassicworldpop_insert18",
+      "image": "images/series/kinder/jurassicworldpop/18b.webp",
+      "name": "Вкладыш 18",
+      "name_en": "Insert 18",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "jurassicworldpop_insert19",
+      "image": "images/series/kinder/jurassicworldpop/19b.webp",
+      "name": "Вкладыш 19",
+      "name_en": "Insert 19",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "jurassicworldpop_insert20",
+      "image": "images/series/kinder/jurassicworldpop/20b.webp",
+      "name": "Вкладыш 20",
+      "name_en": "Insert 20",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "jurassicworldpop_insert21",
+      "image": "images/series/kinder/jurassicworldpop/21b.webp",
+      "name": "Вкладыш 21",
+      "name_en": "Insert 21",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "jurassicworldpop_insert22",
+      "image": "images/series/kinder/jurassicworldpop/22b.webp",
+      "name": "Вкладыш 22",
+      "name_en": "Insert 22",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "jurassicworldpop_insert23",
+      "image": "images/series/kinder/jurassicworldpop/23b.webp",
+      "name": "Вкладыш 23",
+      "name_en": "Insert 23",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "jurassicworldpop_insert24",
+      "image": "images/series/kinder/jurassicworldpop/24b.webp",
+      "name": "Вкладыш 24",
+      "name_en": "Insert 24",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "jurassicworldpop_insert25",
+      "image": "images/series/kinder/jurassicworldpop/25b.webp",
+      "name": "Вкладыш 25",
+      "name_en": "Insert 25",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    }
+  ],
+  "other": [],
+  "videos": {
+    "youtube": [],
+    "vk": [],
+    "tiktok": []
+  }
+}

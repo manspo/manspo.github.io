@@ -1,0 +1,163 @@
+{
+  "id": "the-little-mermaid-by-nestle-1998",
+  "name": "Русалочка от Нестле",
+  "name_en": "The Little Mermaid by Nestle",
+  "year": 1998,
+  "manufacturer": "nestle",
+  "cover": "images/series/nestle/littlemermaid/01b.webp",
+  "description": "Фигурки по мотивам мультфильма «Русалочка»",
+  "description_en": "Figures based on the cartoon \"The Little Mermaid\"",
+  "kind": "",
+  "visible": true,
+  "fullSeriesForSale": false,
+  "fullSeriesAvito": "",
+  "fullSeriesPrice": "",
+  "figures": [
+    {
+      "id": "littlemermaid_fig1",
+      "name": "Тритон",
+      "name_en": "Figure 1",
+      "image": "images/series/nestle/littlemermaid/01.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "littlemermaid_fig2",
+      "name": "Акула и Флаундер",
+      "name_en": "Figure 2",
+      "image": "images/series/nestle/littlemermaid/02.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "littlemermaid_fig3",
+      "name": "Урсула",
+      "name_en": "Figure 3",
+      "image": "images/series/nestle/littlemermaid/03.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "littlemermaid_fig4",
+      "name": "Флаундер",
+      "name_en": "Figure 4",
+      "image": "images/series/nestle/littlemermaid/04.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "littlemermaid_fig5",
+      "name": "Себастьян",
+      "name_en": "Figure 5",
+      "image": "images/series/nestle/littlemermaid/05.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "littlemermaid_fig6",
+      "name": "Ариэль",
+      "name_en": "Figure 6",
+      "image": "images/series/nestle/littlemermaid/06.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    }
+  ],
+  "extras": [
+    {
+      "id": "littlemermaid_extra1",
+      "name": "Одетая Ариэль",
+      "name_en": "Dressed",
+      "image": "images/series/nestle/littlemermaid/07.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    }
+  ],
+  "variants": [],
+  "inserts": [
+    {
+      "id": "littlemermaid_insert1",
+      "name": "Вкладыш 1",
+      "name_en": "Insert 1",
+      "image": "images/series/nestle/littlemermaid/01b.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "littlemermaid_insert2",
+      "name": "Вкладыш 2",
+      "name_en": "Insert 2",
+      "image": "images/series/nestle/littlemermaid/02b.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "littlemermaid_insert3",
+      "name": "Вкладыш 3",
+      "name_en": "Insert 3",
+      "image": "images/series/nestle/littlemermaid/03b.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "littlemermaid_insert4",
+      "name": "Вкладыш 4",
+      "name_en": "Insert 4",
+      "image": "images/series/nestle/littlemermaid/04b.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "littlemermaid_insert5",
+      "name": "Вкладыш 5",
+      "name_en": "Insert 5",
+      "image": "images/series/nestle/littlemermaid/05b.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "littlemermaid_insert6",
+      "name": "Вкладыш 6",
+      "name_en": "Insert 6",
+      "image": "images/series/nestle/littlemermaid/06b.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "littlemermaid_insert7",
+      "name": "Вкладыш 7",
+      "name_en": "Insert 7",
+      "image": "images/series/nestle/littlemermaid/07b.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "littlemermaid_insert7",
+      "name": "Вкладыш 7",
+      "name_en": "Insert 7",
+      "image": "images/series/nestle/littlemermaid/08b.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    }
+  ],
+  "other": [],
+  "videos": {
+    "youtube": [],
+    "vk": [],
+    "tiktok": []
+  }
+}

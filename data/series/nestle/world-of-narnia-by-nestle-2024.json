@@ -1,0 +1,90 @@
+{
+  "id": "world-of-narnia-by-nestle-2024",
+  "name": "Хроники Нарнии от Нестле",
+  "name_en": "World of Narnia by Nestle",
+  "year": 2024,
+  "manufacturer": "nestle",
+  "cover": "images/series/nestle/narnia/cover.webp",
+  "description": "Эта серия из хлопьев Nesquik 2005 года. Состоит из 6 фигурок в Германии и в России и из 4 во Франции. Сатир и Орей отсутствуют.\nОсобенность этой серии – совершенно уникальное изобретение - поместив их в морозилку фигурка приобретает синеватый цвет, а персонаж кажется неподвижным, как на льду.",
+  "description_en": "This series of cereal Nesquik dates 2005. She consists of 6 characters in Germany and in Russia and only 4 in France. The satyr and Oreius are absent.\nThe peculiarity of this series is a completely unique invention. By placing them in the freezer, the figurine takes a bluish color and the character seems motionless as of the ice.",
+  "kind": "",
+  "visible": true,
+  "fullSeriesForSale": false,
+  "fullSeriesAvito": "",
+  "fullSeriesPrice": "",
+  "figures": [
+    {
+      "id": "narnia_fig1",
+      "image": "images/series/nestle/narnia/6.webp",
+      "name": "Фигурка 1",
+      "name_en": "Figure 1",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "narnia_fig2",
+      "image": "images/series/nestle/narnia/5.webp",
+      "name": "Фигурка 2",
+      "name_en": "Figure 2",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "narnia_fig3",
+      "image": "images/series/nestle/narnia/4.webp",
+      "name": "Фигурка 3",
+      "name_en": "Figure 3",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "narnia_fig4",
+      "image": "images/series/nestle/narnia/3.webp",
+      "name": "Фигурка 4",
+      "name_en": "Figure 4",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "narnia_fig5",
+      "image": "images/series/nestle/narnia/2.webp",
+      "name": "Фигурка 5",
+      "name_en": "Figure 5",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "narnia_fig6",
+      "image": "images/series/nestle/narnia/1.webp",
+      "name": "Фигурка 6",
+      "name_en": "Figure 6",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    }
+  ],
+  "extras": [],
+  "variants": [],
+  "inserts": [
+    {
+      "id": "narnia_insert1",
+      "image": "images/series/nestle/narnia/BPZ.webp",
+      "name": "Вкладыш 1",
+      "name_en": "Insert 1",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    }
+  ],
+  "other": [],
+  "videos": {
+    "youtube": [],
+    "vk": [],
+    "tiktok": []
+  }
+}

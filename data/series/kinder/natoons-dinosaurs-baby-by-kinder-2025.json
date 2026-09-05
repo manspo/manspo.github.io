@@ -1,0 +1,315 @@
+{
+  "id": "natoons-dinosaurs-baby-by-kinder-2025",
+  "name": "Натунс Детеныши Динозавров от Киндер",
+  "name_en": "Natoons Dinosaurs Baby by Kinder",
+  "year": 2025,
+  "manufacturer": "kinder",
+  "cover": "images/series/kinder/natoonsdinobaby/cover.webp",
+  "description": "На этот раз уже детеныши динозавров. Фигурка под номером 2 имела вариативную альтернативу с небольшим изменением цвета. Возможно это был брак",
+  "description_en": "This time there are baby dinosaurs",
+  "kind": "",
+  "visible": true,
+  "fullSeriesForSale": false,
+  "fullSeriesAvito": "",
+  "fullSeriesPrice": "",
+  "figures": [
+    {
+      "id": "natoonsdinobaby_fig1",
+      "image": "images/series/kinder/natoonsdinobaby/01.webp",
+      "name": "Фигурка 1",
+      "name_en": "Figure 1",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "natoonsdinobaby_fig2",
+      "image": "images/series/kinder/natoonsdinobaby/02.webp",
+      "name": "Фигурка 2",
+      "name_en": "Figure 2",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "natoonsdinobaby_fig3",
+      "image": "images/series/kinder/natoonsdinobaby/03.webp",
+      "name": "Фигурка 3",
+      "name_en": "Figure 3",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "natoonsdinobaby_fig4",
+      "image": "images/series/kinder/natoonsdinobaby/04.webp",
+      "name": "Фигурка 4",
+      "name_en": "Figure 4",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "natoonsdinobaby_fig5",
+      "image": "images/series/kinder/natoonsdinobaby/05.webp",
+      "name": "Фигурка 5",
+      "name_en": "Figure 5",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "natoonsdinobaby_fig6",
+      "image": "images/series/kinder/natoonsdinobaby/06.webp",
+      "name": "Фигурка 6",
+      "name_en": "Figure 6",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "natoonsdinobaby_fig7",
+      "image": "images/series/kinder/natoonsdinobaby/07.webp",
+      "name": "Фигурка 7",
+      "name_en": "Figure 7",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "natoonsdinobaby_fig8",
+      "image": "images/series/kinder/natoonsdinobaby/08.webp",
+      "name": "Фигурка 8",
+      "name_en": "Figure 8",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "natoonsdinobaby_fig9",
+      "image": "images/series/kinder/natoonsdinobaby/09.webp",
+      "name": "Фигурка 9",
+      "name_en": "Figure 9",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "natoonsdinobaby_fig10",
+      "image": "images/series/kinder/natoonsdinobaby/10.webp",
+      "name": "Фигурка 10",
+      "name_en": "Figure 10",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "natoonsdinobaby_fig11",
+      "image": "images/series/kinder/natoonsdinobaby/11.webp",
+      "name": "Фигурка 11",
+      "name_en": "Figure 11",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "natoonsdinobaby_fig12",
+      "image": "images/series/kinder/natoonsdinobaby/12.webp",
+      "name": "Фигурка 12",
+      "name_en": "Figure 12",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "natoonsdinobaby_fig13",
+      "image": "images/series/kinder/natoonsdinobaby/13.webp",
+      "name": "Фигурка 13",
+      "name_en": "Figure 13",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "natoonsdinobaby_fig14",
+      "image": "images/series/kinder/natoonsdinobaby/14.webp",
+      "name": "Фигурка 14",
+      "name_en": "Figure 14",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "natoonsdinobaby_fig15",
+      "image": "images/series/kinder/natoonsdinobaby/15.webp",
+      "name": "Фигурка 15",
+      "name_en": "Figure 15",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "natoonsdinobaby_fig16",
+      "image": "images/series/kinder/natoonsdinobaby/16.webp",
+      "name": "Фигурка 16",
+      "name_en": "Figure 16",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    }
+  ],
+  "extras": [],
+  "variants": [],
+  "inserts": [
+    {
+      "id": "natoonsdinobaby_insert1",
+      "image": "images/series/kinder/natoonsdinobaby/01b.webp",
+      "name": "Вкладыш 1",
+      "name_en": "Insert 1",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "natoonsdinobaby_insert2",
+      "image": "images/series/kinder/natoonsdinobaby/02b.webp",
+      "name": "Вкладыш 2",
+      "name_en": "Insert 2",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "natoonsdinobaby_insert3",
+      "image": "images/series/kinder/natoonsdinobaby/03b.webp",
+      "name": "Вкладыш 3",
+      "name_en": "Insert 3",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "natoonsdinobaby_insert4",
+      "image": "images/series/kinder/natoonsdinobaby/04b.webp",
+      "name": "Вкладыш 4",
+      "name_en": "Insert 4",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "natoonsdinobaby_insert5",
+      "image": "images/series/kinder/natoonsdinobaby/05b.webp",
+      "name": "Вкладыш 5",
+      "name_en": "Insert 5",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "natoonsdinobaby_insert6",
+      "image": "images/series/kinder/natoonsdinobaby/06b.webp",
+      "name": "Вкладыш 6",
+      "name_en": "Insert 6",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "natoonsdinobaby_insert7",
+      "image": "images/series/kinder/natoonsdinobaby/07b.webp",
+      "name": "Вкладыш 7",
+      "name_en": "Insert 7",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "natoonsdinobaby_insert8",
+      "image": "images/series/kinder/natoonsdinobaby/08b.webp",
+      "name": "Вкладыш 8",
+      "name_en": "Insert 8",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "natoonsdinobaby_insert9",
+      "image": "images/series/kinder/natoonsdinobaby/09b.webp",
+      "name": "Вкладыш 9",
+      "name_en": "Insert 9",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "natoonsdinobaby_insert10",
+      "image": "images/series/kinder/natoonsdinobaby/10b.webp",
+      "name": "Вкладыш 10",
+      "name_en": "Insert 10",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "natoonsdinobaby_insert11",
+      "image": "images/series/kinder/natoonsdinobaby/11b.webp",
+      "name": "Вкладыш 11",
+      "name_en": "Insert 11",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "natoonsdinobaby_insert12",
+      "image": "images/series/kinder/natoonsdinobaby/12b.webp",
+      "name": "Вкладыш 12",
+      "name_en": "Insert 12",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "natoonsdinobaby_insert13",
+      "image": "images/series/kinder/natoonsdinobaby/13b.webp",
+      "name": "Вкладыш 13",
+      "name_en": "Insert 13",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "natoonsdinobaby_insert14",
+      "image": "images/series/kinder/natoonsdinobaby/14b.webp",
+      "name": "Вкладыш 14",
+      "name_en": "Insert 14",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "natoonsdinobaby_insert15",
+      "image": "images/series/kinder/natoonsdinobaby/15b.webp",
+      "name": "Вкладыш 15",
+      "name_en": "Insert 15",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "natoonsdinobaby_insert16",
+      "image": "images/series/kinder/natoonsdinobaby/16b.webp",
+      "name": "Вкладыш 16",
+      "name_en": "Insert 16",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    }
+  ],
+  "other": [],
+  "videos": {
+    "youtube": [],
+    "vk": [],
+    "tiktok": []
+  }
+}

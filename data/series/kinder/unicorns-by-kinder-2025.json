@@ -1,0 +1,639 @@
+{
+  "id": "unicorns-by-kinder-2025",
+  "name": "Единороги от Киндер",
+  "name_en": "Unicorns by Kinder",
+  "year": 2025,
+  "manufacturer": "kinder",
+  "cover": "images/series/kinder/unicorn/cover.webp",
+  "description": "Сборка с единорогами",
+  "description_en": "Unicorn series",
+  "kind": "",
+  "visible": true,
+  "fullSeriesForSale": false,
+  "fullSeriesAvito": "",
+  "fullSeriesPrice": "",
+  "figures": [
+    {
+      "id": "unicorn_fig1",
+      "image": "images/series/kinder/unicorn/01.webp",
+      "name": "Фигурка 1",
+      "name_en": "Figure 1",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "unicorn_fig2",
+      "image": "images/series/kinder/unicorn/02.webp",
+      "name": "Фигурка 2",
+      "name_en": "Figure 2",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "unicorn_fig3",
+      "image": "images/series/kinder/unicorn/03.webp",
+      "name": "Фигурка 3",
+      "name_en": "Figure 3",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "unicorn_fig4",
+      "image": "images/series/kinder/unicorn/04.webp",
+      "name": "Фигурка 4",
+      "name_en": "Figure 4",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "unicorn_fig5",
+      "image": "images/series/kinder/unicorn/05.webp",
+      "name": "Фигурка 5",
+      "name_en": "Figure 5",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "unicorn_fig6",
+      "image": "images/series/kinder/unicorn/06.webp",
+      "name": "Фигурка 6",
+      "name_en": "Figure 6",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "unicorn_fig7",
+      "image": "images/series/kinder/unicorn/07.webp",
+      "name": "Фигурка 7",
+      "name_en": "Figure 7",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "unicorn_fig8",
+      "image": "images/series/kinder/unicorn/08.webp",
+      "name": "Фигурка 8",
+      "name_en": "Figure 8",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "unicorn_fig9",
+      "image": "images/series/kinder/unicorn/09.webp",
+      "name": "Фигурка 9",
+      "name_en": "Figure 9",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "unicorn_fig10",
+      "image": "images/series/kinder/unicorn/10.webp",
+      "name": "Фигурка 10",
+      "name_en": "Figure 10",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "unicorn_fig11",
+      "image": "images/series/kinder/unicorn/11.webp",
+      "name": "Фигурка 11",
+      "name_en": "Figure 11",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "unicorn_fig12",
+      "image": "images/series/kinder/unicorn/12.webp",
+      "name": "Фигурка 12",
+      "name_en": "Figure 12",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "unicorn_fig13",
+      "image": "images/series/kinder/unicorn/13.webp",
+      "name": "Фигурка 13",
+      "name_en": "Figure 13",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "unicorn_fig14",
+      "image": "images/series/kinder/unicorn/14.webp",
+      "name": "Фигурка 14",
+      "name_en": "Figure 14",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "unicorn_fig15",
+      "image": "images/series/kinder/unicorn/15.webp",
+      "name": "Фигурка 15",
+      "name_en": "Figure 15",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "unicorn_fig16",
+      "image": "images/series/kinder/unicorn/16.webp",
+      "name": "Фигурка 16",
+      "name_en": "Figure 16",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "unicorn_fig17",
+      "image": "images/series/kinder/unicorn/17.webp",
+      "name": "Фигурка 17",
+      "name_en": "Figure 17",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "unicorn_fig18",
+      "image": "images/series/kinder/unicorn/18.webp",
+      "name": "Фигурка 18",
+      "name_en": "Figure 18",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "unicorn_fig19",
+      "image": "images/series/kinder/unicorn/19.webp",
+      "name": "Фигурка 19",
+      "name_en": "Figure 19",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "unicorn_fig20",
+      "image": "images/series/kinder/unicorn/20.webp",
+      "name": "Фигурка 20",
+      "name_en": "Figure 20",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "unicorn_fig21",
+      "image": "images/series/kinder/unicorn/21.webp",
+      "name": "Фигурка 21",
+      "name_en": "Figure 21",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "unicorn_fig22",
+      "image": "images/series/kinder/unicorn/22.webp",
+      "name": "Фигурка 22",
+      "name_en": "Figure 22",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "unicorn_fig23",
+      "image": "images/series/kinder/unicorn/23.webp",
+      "name": "Фигурка 23",
+      "name_en": "Figure 23",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "unicorn_fig24",
+      "image": "images/series/kinder/unicorn/24.webp",
+      "name": "Фигурка 24",
+      "name_en": "Figure 24",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "unicorn_fig25",
+      "image": "images/series/kinder/unicorn/25.webp",
+      "name": "Фигурка 25",
+      "name_en": "Figure 25",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "unicorn_fig26",
+      "image": "images/series/kinder/unicorn/26.webp",
+      "name": "Фигурка 26",
+      "name_en": "Figure 26",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "unicorn_fig27",
+      "image": "images/series/kinder/unicorn/27.webp",
+      "name": "Фигурка 27",
+      "name_en": "Figure 27",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "unicorn_fig28",
+      "image": "images/series/kinder/unicorn/28.webp",
+      "name": "Фигурка 28",
+      "name_en": "Figure 28",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "unicorn_fig29",
+      "image": "images/series/kinder/unicorn/29.webp",
+      "name": "Фигурка 29",
+      "name_en": "Figure 29",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "unicorn_fig30",
+      "image": "images/series/kinder/unicorn/30.webp",
+      "name": "Фигурка 30",
+      "name_en": "Figure 30",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "unicorn_fig31",
+      "image": "images/series/kinder/unicorn/31.webp",
+      "name": "Фигурка 31",
+      "name_en": "Figure 31",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "unicorn_fig32",
+      "image": "images/series/kinder/unicorn/32.webp",
+      "name": "Фигурка 32",
+      "name_en": "Figure 32",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "unicorn_fig33",
+      "image": "images/series/kinder/unicorn/33.webp",
+      "name": "Фигурка 33",
+      "name_en": "Figure 33",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "unicorn_fig34",
+      "image": "images/series/kinder/unicorn/34.webp",
+      "name": "Фигурка 34",
+      "name_en": "Figure 34",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    }
+  ],
+  "extras": [],
+  "variants": [],
+  "inserts": [
+    {
+      "id": "unicorn_insert1",
+      "image": "images/series/kinder/unicorn/01b.webp",
+      "name": "Вкладыш 1",
+      "name_en": "Insert 1",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "unicorn_insert2",
+      "image": "images/series/kinder/unicorn/02b.webp",
+      "name": "Вкладыш 2",
+      "name_en": "Insert 2",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "unicorn_insert3",
+      "image": "images/series/kinder/unicorn/03b.webp",
+      "name": "Вкладыш 3",
+      "name_en": "Insert 3",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "unicorn_insert4",
+      "image": "images/series/kinder/unicorn/04b.webp",
+      "name": "Вкладыш 4",
+      "name_en": "Insert 4",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "unicorn_insert5",
+      "image": "images/series/kinder/unicorn/05b.webp",
+      "name": "Вкладыш 5",
+      "name_en": "Insert 5",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "unicorn_insert6",
+      "image": "images/series/kinder/unicorn/06b.webp",
+      "name": "Вкладыш 6",
+      "name_en": "Insert 6",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "unicorn_insert7",
+      "image": "images/series/kinder/unicorn/07b.webp",
+      "name": "Вкладыш 7",
+      "name_en": "Insert 7",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "unicorn_insert8",
+      "image": "images/series/kinder/unicorn/08b.webp",
+      "name": "Вкладыш 8",
+      "name_en": "Insert 8",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "unicorn_insert9",
+      "image": "images/series/kinder/unicorn/09b.webp",
+      "name": "Вкладыш 9",
+      "name_en": "Insert 9",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "unicorn_insert10",
+      "image": "images/series/kinder/unicorn/10b.webp",
+      "name": "Вкладыш 10",
+      "name_en": "Insert 10",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "unicorn_insert11",
+      "image": "images/series/kinder/unicorn/11b.webp",
+      "name": "Вкладыш 11",
+      "name_en": "Insert 11",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "unicorn_insert12",
+      "image": "images/series/kinder/unicorn/12b.webp",
+      "name": "Вкладыш 12",
+      "name_en": "Insert 12",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "unicorn_insert13",
+      "image": "images/series/kinder/unicorn/13b.webp",
+      "name": "Вкладыш 13",
+      "name_en": "Insert 13",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "unicorn_insert14",
+      "image": "images/series/kinder/unicorn/14b.webp",
+      "name": "Вкладыш 14",
+      "name_en": "Insert 14",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "unicorn_insert15",
+      "image": "images/series/kinder/unicorn/15b.webp",
+      "name": "Вкладыш 15",
+      "name_en": "Insert 15",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "unicorn_insert16",
+      "image": "images/series/kinder/unicorn/16b.webp",
+      "name": "Вкладыш 16",
+      "name_en": "Insert 16",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "unicorn_insert17",
+      "image": "images/series/kinder/unicorn/17b.webp",
+      "name": "Вкладыш 17",
+      "name_en": "Insert 17",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "unicorn_insert18",
+      "image": "images/series/kinder/unicorn/18b.webp",
+      "name": "Вкладыш 18",
+      "name_en": "Insert 18",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "unicorn_insert19",
+      "image": "images/series/kinder/unicorn/19b.webp",
+      "name": "Вкладыш 19",
+      "name_en": "Insert 19",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "unicorn_insert20",
+      "image": "images/series/kinder/unicorn/20b.webp",
+      "name": "Вкладыш 20",
+      "name_en": "Insert 20",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "unicorn_insert21",
+      "image": "images/series/kinder/unicorn/21b.webp",
+      "name": "Вкладыш 21",
+      "name_en": "Insert 21",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "unicorn_insert22",
+      "image": "images/series/kinder/unicorn/22b.webp",
+      "name": "Вкладыш 22",
+      "name_en": "Insert 22",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "unicorn_insert23",
+      "image": "images/series/kinder/unicorn/23b.webp",
+      "name": "Вкладыш 23",
+      "name_en": "Insert 23",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "unicorn_insert24",
+      "image": "images/series/kinder/unicorn/24b.webp",
+      "name": "Вкладыш 24",
+      "name_en": "Insert 24",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "unicorn_insert25",
+      "image": "images/series/kinder/unicorn/25b.webp",
+      "name": "Вкладыш 25",
+      "name_en": "Insert 25",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "unicorn_insert26",
+      "image": "images/series/kinder/unicorn/26b.webp",
+      "name": "Вкладыш 26",
+      "name_en": "Insert 26",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "unicorn_insert27",
+      "image": "images/series/kinder/unicorn/27b.webp",
+      "name": "Вкладыш 27",
+      "name_en": "Insert 27",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "unicorn_insert28",
+      "image": "images/series/kinder/unicorn/28b.webp",
+      "name": "Вкладыш 28",
+      "name_en": "Insert 28",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "unicorn_insert29",
+      "image": "images/series/kinder/unicorn/29b.webp",
+      "name": "Вкладыш 29",
+      "name_en": "Insert 29",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "unicorn_insert30",
+      "image": "images/series/kinder/unicorn/30b.webp",
+      "name": "Вкладыш 30",
+      "name_en": "Insert 30",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "unicorn_insert31",
+      "image": "images/series/kinder/unicorn/31b.webp",
+      "name": "Вкладыш 31",
+      "name_en": "Insert 31",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "unicorn_insert32",
+      "image": "images/series/kinder/unicorn/32b.webp",
+      "name": "Вкладыш 32",
+      "name_en": "Insert 32",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "unicorn_insert33",
+      "image": "images/series/kinder/unicorn/33b.webp",
+      "name": "Вкладыш 33",
+      "name_en": "Insert 33",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "unicorn_insert34",
+      "image": "images/series/kinder/unicorn/34b.webp",
+      "name": "Вкладыш 34",
+      "name_en": "Insert 34",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    }
+  ],
+  "other": [],
+  "videos": {
+    "youtube": [],
+    "vk": [],
+    "tiktok": []
+  }
+}

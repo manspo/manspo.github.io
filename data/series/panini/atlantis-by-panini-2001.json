@@ -1,0 +1,118 @@
+{
+  "id": "atlantis-by-panini-2001",
+  "name": "Атлантида от Панини",
+  "name_en": "Atlantis by Panini",
+  "year": 2001,
+  "manufacturer": "panini",
+  "cover": "images/series/panini/atlantis/cover.webp",
+  "description": "Серия по одноименному мультфильму Атлантида (Дисней).",
+  "description_en": "A series based on the cartoon of the same name Atlantis (Disney).",
+  "kind": "",
+  "visible": true,
+  "fullSeriesForSale": false,
+  "fullSeriesAvito": "",
+  "fullSeriesPrice": "",
+  "figures": [
+    {
+      "id": "atlantispanini_fig1",
+      "name": "Майло Джеймс Татч",
+      "name_en": "Milo James Thatch",
+      "code": "",
+      "image": "images/series/panini/atlantis/1.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": "",
+      "price": "",
+      "condition": "",
+      "condition_en": ""
+    },
+    {
+      "id": "atlantispanini_fig2",
+      "name": "Джебедая Аллардис Фарнсворт (Кекс)",
+      "name_en": "Jebidiah Allardyce \"Cookie\" Farnsworth",
+      "code": "",
+      "image": "images/series/panini/atlantis/2.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": "",
+      "price": "",
+      "condition": "",
+      "condition_en": ""
+    },
+    {
+      "id": "atlantispanini_fig3",
+      "name": "Хельга Катрина Синклер",
+      "name_en": "Helga Katrina Sinclair",
+      "code": "",
+      "image": "images/series/panini/atlantis/3.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": "",
+      "price": "",
+      "condition": "",
+      "condition_en": ""
+    },
+    {
+      "id": "atlantispanini_fig4",
+      "name": "Командир Лайл Тиберий Рурк",
+      "name_en": "Commander Lyle Tiberius Rourke",
+      "code": "",
+      "image": "images/series/panini/atlantis/4.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": "",
+      "price": "",
+      "condition": "",
+      "condition_en": ""
+    },
+    {
+      "id": "atlantispanini_fig5",
+      "name": "Винчензо Санторини",
+      "name_en": "Vincenzo Santorini",
+      "code": "",
+      "image": "images/series/panini/atlantis/5.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": "",
+      "price": "",
+      "condition": "",
+      "condition_en": ""
+    },
+    {
+      "id": "atlantispanini_fig6",
+      "name": "Гаэтан Мольер (Крот)",
+      "name_en": "Gaetan Molière (Mole)",
+      "code": "",
+      "image": "images/series/panini/atlantis/6.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": "",
+      "price": "",
+      "condition": "",
+      "condition_en": ""
+    }
+  ],
+  "extras": [],
+  "variants": [],
+  "inserts": [
+    {
+      "id": "atlantispanini_insert1",
+      "name": "Вкладыш 1",
+      "name_en": "Insert 1",
+      "code": "",
+      "image": "images/series/panini/atlantis/BPZ.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": "",
+      "price": "",
+      "condition": "",
+      "condition_en": ""
+    }
+  ],
+  "other": [],
+  "videos": {
+    "youtube": [],
+    "vk": [],
+    "tiktok": []
+  }
+}

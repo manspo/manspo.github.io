@@ -1,0 +1,92 @@
+{
+  "id": "cars-by-ozmo-2025",
+  "name": "Автомобили от Озмо",
+  "name_en": "Cars by Ozmo",
+  "year": 2025,
+  "manufacturer": "ozmo",
+  "cover": "images/series/ozmo/arabalarcars/cover.webp",
+  "description": "Маленькая серия по 2 автомобилям",
+  "description_en": "Small series of 2 cars",
+  "kind": "",
+  "visible": true,
+  "fullSeriesForSale": false,
+  "fullSeriesAvito": "",
+  "fullSeriesPrice": "",
+  "figures": [
+    {
+      "id": "arabalarcars_fig1",
+      "name": "Фигурка 1",
+      "name_en": "Figure 1",
+      "code": "",
+      "image": "images/series/ozmo/arabalarcars/01.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": "",
+      "price": "",
+      "condition": "",
+      "condition_en": ""
+    },
+    {
+      "id": "arabalarcars_fig2",
+      "name": "Фигурка 2",
+      "name_en": "Figure 2",
+      "code": "",
+      "image": "images/series/ozmo/arabalarcars/02.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": "",
+      "price": "",
+      "condition": "",
+      "condition_en": ""
+    }
+  ],
+  "extras": [],
+  "variants": [],
+  "inserts": [
+    {
+      "id": "arabalarcars_insert1",
+      "name": "Вкладыш 1",
+      "name_en": "Insert 1",
+      "code": "",
+      "image": "images/series/ozmo/arabalarcars/BPZ.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": "",
+      "price": "",
+      "condition": "",
+      "condition_en": ""
+    },
+    {
+      "id": "arabalarcars_insert2",
+      "name": "Вкладыш 2",
+      "name_en": "Insert 2",
+      "code": "",
+      "image": "images/series/ozmo/arabalarcars/BPZ2.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": "",
+      "price": "",
+      "condition": "",
+      "condition_en": ""
+    },
+    {
+      "id": "arabalarcars_insert3",
+      "name": "Вкладыш 3",
+      "name_en": "Insert 3",
+      "code": "",
+      "image": "images/series/ozmo/arabalarcars/BPZ3.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": "",
+      "price": "",
+      "condition": "",
+      "condition_en": ""
+    }
+  ],
+  "other": [],
+  "videos": {
+    "youtube": [],
+    "vk": [],
+    "tiktok": []
+  }
+}

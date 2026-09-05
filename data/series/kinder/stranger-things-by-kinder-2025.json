@@ -1,0 +1,459 @@
+{
+  "id": "stranger-things-by-kinder-2025",
+  "name": "Очень Странные Дела от Киндер",
+  "name_en": "Stranger Things by Kinder",
+  "year": 2025,
+  "manufacturer": "kinder",
+  "cover": "images/series/kinder/strangerthings/cover.webp",
+  "description": "Серия по мотивами сериала Очень Странные Дела от Нетфликс при участии Funko Pop",
+  "description_en": "A series based on the series Stranger Things from Netflix with the participation of Funko Pop",
+  "kind": "joy",
+  "visible": true,
+  "fullSeriesForSale": false,
+  "fullSeriesAvito": "",
+  "fullSeriesPrice": "",
+  "figures": [
+    {
+      "id": "strangerthings_fig1",
+      "image": "images/series/kinder/strangerthings/01.webp",
+      "name": "Фигурка 1",
+      "name_en": "Figure 1",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "strangerthings_fig2",
+      "image": "images/series/kinder/strangerthings/02.webp",
+      "name": "Фигурка 2",
+      "name_en": "Figure 2",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "strangerthings_fig3",
+      "image": "images/series/kinder/strangerthings/03.webp",
+      "name": "Фигурка 3",
+      "name_en": "Figure 3",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "strangerthings_fig4",
+      "image": "images/series/kinder/strangerthings/04.webp",
+      "name": "Фигурка 4",
+      "name_en": "Figure 4",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "strangerthings_fig5",
+      "image": "images/series/kinder/strangerthings/05.webp",
+      "name": "Фигурка 5",
+      "name_en": "Figure 5",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "strangerthings_fig6",
+      "image": "images/series/kinder/strangerthings/06.webp",
+      "name": "Фигурка 6",
+      "name_en": "Figure 6",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "strangerthings_fig7",
+      "image": "images/series/kinder/strangerthings/07.webp",
+      "name": "Фигурка 7",
+      "name_en": "Figure 7",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "strangerthings_fig8",
+      "image": "images/series/kinder/strangerthings/08.webp",
+      "name": "Фигурка 8",
+      "name_en": "Figure 8",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "strangerthings_fig9",
+      "image": "images/series/kinder/strangerthings/09.webp",
+      "name": "Фигурка 9",
+      "name_en": "Figure 9",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "strangerthings_fig10",
+      "image": "images/series/kinder/strangerthings/10.webp",
+      "name": "Фигурка 10",
+      "name_en": "Figure 10",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "strangerthings_fig11",
+      "image": "images/series/kinder/strangerthings/11.webp",
+      "name": "Фигурка 11",
+      "name_en": "Figure 11",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "strangerthings_fig12",
+      "image": "images/series/kinder/strangerthings/12.webp",
+      "name": "Фигурка 12",
+      "name_en": "Figure 12",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "strangerthings_fig13",
+      "image": "images/series/kinder/strangerthings/13.webp",
+      "name": "Фигурка 13",
+      "name_en": "Figure 13",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "strangerthings_fig14",
+      "image": "images/series/kinder/strangerthings/14.webp",
+      "name": "Фигурка 14",
+      "name_en": "Figure 14",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "strangerthings_fig15",
+      "image": "images/series/kinder/strangerthings/15.webp",
+      "name": "Фигурка 15",
+      "name_en": "Figure 15",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "strangerthings_fig16",
+      "image": "images/series/kinder/strangerthings/16.webp",
+      "name": "Фигурка 16",
+      "name_en": "Figure 16",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "strangerthings_fig17",
+      "image": "images/series/kinder/strangerthings/17.webp",
+      "name": "Фигурка 17",
+      "name_en": "Figure 17",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "strangerthings_fig18",
+      "image": "images/series/kinder/strangerthings/18.webp",
+      "name": "Фигурка 18",
+      "name_en": "Figure 18",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "strangerthings_fig19",
+      "image": "images/series/kinder/strangerthings/19.webp",
+      "name": "Фигурка 19",
+      "name_en": "Figure 19",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "strangerthings_fig20",
+      "image": "images/series/kinder/strangerthings/20.webp",
+      "name": "Фигурка 20",
+      "name_en": "Figure 20",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "strangerthings_fig21",
+      "image": "images/series/kinder/strangerthings/21.webp",
+      "name": "Фигурка 21",
+      "name_en": "Figure 21",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "strangerthings_fig22",
+      "image": "images/series/kinder/strangerthings/22.webp",
+      "name": "Фигурка 22",
+      "name_en": "Figure 22",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "strangerthings_fig23",
+      "image": "images/series/kinder/strangerthings/23.webp",
+      "name": "Фигурка 23",
+      "name_en": "Figure 23",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "strangerthings_fig24",
+      "image": "images/series/kinder/strangerthings/24.webp",
+      "name": "Фигурка 24",
+      "name_en": "Figure 24",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    }
+  ],
+  "extras": [],
+  "variants": [],
+  "inserts": [
+    {
+      "id": "strangerthings_insert1",
+      "image": "images/series/kinder/strangerthings/01b.webp",
+      "name": "Вкладыш 1",
+      "name_en": "Insert 1",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "strangerthings_insert2",
+      "image": "images/series/kinder/strangerthings/02b.webp",
+      "name": "Вкладыш 2",
+      "name_en": "Insert 2",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "strangerthings_insert3",
+      "image": "images/series/kinder/strangerthings/03b.webp",
+      "name": "Вкладыш 3",
+      "name_en": "Insert 3",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "strangerthings_insert4",
+      "image": "images/series/kinder/strangerthings/04b.webp",
+      "name": "Вкладыш 4",
+      "name_en": "Insert 4",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "strangerthings_insert5",
+      "image": "images/series/kinder/strangerthings/05b.webp",
+      "name": "Вкладыш 5",
+      "name_en": "Insert 5",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "strangerthings_insert6",
+      "image": "images/series/kinder/strangerthings/06b.webp",
+      "name": "Вкладыш 6",
+      "name_en": "Insert 6",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "strangerthings_insert7",
+      "image": "images/series/kinder/strangerthings/07b.webp",
+      "name": "Вкладыш 7",
+      "name_en": "Insert 7",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "strangerthings_insert8",
+      "image": "images/series/kinder/strangerthings/08b.webp",
+      "name": "Вкладыш 8",
+      "name_en": "Insert 8",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "strangerthings_insert9",
+      "image": "images/series/kinder/strangerthings/09b.webp",
+      "name": "Вкладыш 9",
+      "name_en": "Insert 9",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "strangerthings_insert10",
+      "image": "images/series/kinder/strangerthings/10b.webp",
+      "name": "Вкладыш 10",
+      "name_en": "Insert 10",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "strangerthings_insert11",
+      "image": "images/series/kinder/strangerthings/11b.webp",
+      "name": "Вкладыш 11",
+      "name_en": "Insert 11",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "strangerthings_insert12",
+      "image": "images/series/kinder/strangerthings/12b.webp",
+      "name": "Вкладыш 12",
+      "name_en": "Insert 12",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "strangerthings_insert13",
+      "image": "images/series/kinder/strangerthings/13b.webp",
+      "name": "Вкладыш 13",
+      "name_en": "Insert 13",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "strangerthings_insert14",
+      "image": "images/series/kinder/strangerthings/14b.webp",
+      "name": "Вкладыш 14",
+      "name_en": "Insert 14",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "strangerthings_insert15",
+      "image": "images/series/kinder/strangerthings/15b.webp",
+      "name": "Вкладыш 15",
+      "name_en": "Insert 15",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "strangerthings_insert16",
+      "image": "images/series/kinder/strangerthings/16b.webp",
+      "name": "Вкладыш 16",
+      "name_en": "Insert 16",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "strangerthings_insert17",
+      "image": "images/series/kinder/strangerthings/17b.webp",
+      "name": "Вкладыш 17",
+      "name_en": "Insert 17",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "strangerthings_insert18",
+      "image": "images/series/kinder/strangerthings/18b.webp",
+      "name": "Вкладыш 18",
+      "name_en": "Insert 18",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "strangerthings_insert19",
+      "image": "images/series/kinder/strangerthings/19b.webp",
+      "name": "Вкладыш 19",
+      "name_en": "Insert 19",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "strangerthings_insert20",
+      "image": "images/series/kinder/strangerthings/20b.webp",
+      "name": "Вкладыш 20",
+      "name_en": "Insert 20",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "strangerthings_insert21",
+      "image": "images/series/kinder/strangerthings/21b.webp",
+      "name": "Вкладыш 21",
+      "name_en": "Insert 21",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "strangerthings_insert22",
+      "image": "images/series/kinder/strangerthings/22b.webp",
+      "name": "Вкладыш 22",
+      "name_en": "Insert 22",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "strangerthings_insert23",
+      "image": "images/series/kinder/strangerthings/23b.webp",
+      "name": "Вкладыш 23",
+      "name_en": "Insert 23",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "strangerthings_insert24",
+      "image": "images/series/kinder/strangerthings/24b.webp",
+      "name": "Вкладыш 24",
+      "name_en": "Insert 24",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    }
+  ],
+  "other": [],
+  "videos": {
+    "youtube": [],
+    "vk": [],
+    "tiktok": []
+  }
+}

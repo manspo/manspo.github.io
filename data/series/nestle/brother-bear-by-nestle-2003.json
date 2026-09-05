@@ -1,0 +1,118 @@
+{
+  "id": "brother-bear-by-nestle-2003",
+  "name": "Братец Медвежонок от Нестле",
+  "name_en": "Brother Bear by Nestle",
+  "year": 2003,
+  "manufacturer": "nestle",
+  "cover": "images/series/nestle/brotherbear/cover.webp",
+  "description": "Серия по одноименному мультфильму - Братец Медвежонок",
+  "description_en": "Series based on the cartoon of the same name - Brother Bear",
+  "kind": "",
+  "visible": true,
+  "fullSeriesForSale": false,
+  "fullSeriesAvito": "",
+  "fullSeriesPrice": "",
+  "figures": [
+    {
+      "id": "brotherbear_fig1",
+      "name": "Кенай",
+      "name_en": "Kenai",
+      "code": "",
+      "image": "images/series/nestle/brotherbear/01.webp",
+      "owned": true,
+      "forsale": false,
+      "avito": "",
+      "price": "",
+      "condition": "",
+      "condition_en": ""
+    },
+    {
+      "id": "brotherbear_fig2",
+      "name": "Мамонт",
+      "name_en": "Mammoth",
+      "code": "",
+      "image": "images/series/nestle/brotherbear/02.webp",
+      "owned": true,
+      "forsale": false,
+      "avito": "",
+      "price": "",
+      "condition": "",
+      "condition_en": ""
+    },
+    {
+      "id": "brotherbear_fig3",
+      "name": "Тьюк",
+      "name_en": "Tuke",
+      "code": "",
+      "image": "images/series/nestle/brotherbear/03.webp",
+      "owned": true,
+      "forsale": false,
+      "avito": "",
+      "price": "",
+      "condition": "",
+      "condition_en": ""
+    },
+    {
+      "id": "brotherbear_fig4",
+      "name": "Ратт",
+      "name_en": "Rutt",
+      "code": "",
+      "image": "images/series/nestle/brotherbear/04.webp",
+      "owned": true,
+      "forsale": false,
+      "avito": "",
+      "price": "",
+      "condition": "",
+      "condition_en": ""
+    },
+    {
+      "id": "brotherbear_fig5",
+      "name": "Кода",
+      "name_en": "Koda",
+      "code": "",
+      "image": "images/series/nestle/brotherbear/05.webp",
+      "owned": true,
+      "forsale": false,
+      "avito": "",
+      "price": "",
+      "condition": "",
+      "condition_en": ""
+    }
+  ],
+  "extras": [],
+  "variants": [],
+  "inserts": [
+    {
+      "id": "brotherbear_insert1",
+      "name": "Вкладыш 1",
+      "name_en": "Insert 1",
+      "code": "",
+      "image": "images/series/nestle/brotherbear/01b.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": "",
+      "price": "",
+      "condition": "",
+      "condition_en": ""
+    },
+    {
+      "id": "brotherbear_insert2",
+      "name": "Вкладыш 2",
+      "name_en": "Insert 2",
+      "code": "",
+      "image": "images/series/nestle/brotherbear/02b.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": "",
+      "price": "",
+      "condition": "",
+      "condition_en": ""
+    }
+  ],
+  "other": [],
+  "videos": {
+    "youtube": [],
+    "vk": [],
+    "tiktok": []
+  }
+}

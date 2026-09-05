@@ -1,0 +1,81 @@
+{
+  "id": "natoons-baby-maxi-by-kinder-2025",
+  "name": "Натунс Детеныши Макси от Киндер",
+  "name_en": "Natoons Baby Maxi by Kinder",
+  "year": 2025,
+  "manufacturer": "kinder",
+  "cover": "images/series/kinder/kindermaxinatoonsbaby/cover.webp",
+  "description": "Большая версия детенышей животных",
+  "description_en": "Large version of baby animals",
+  "kind": "maxi",
+  "visible": true,
+  "fullSeriesForSale": false,
+  "fullSeriesAvito": "",
+  "fullSeriesPrice": "",
+  "figures": [
+    {
+      "id": "kindermaxinatoonsbaby_fig1",
+      "image": "images/series/kinder/kindermaxinatoonsbaby/01.avif",
+      "name": "Фигурка 1",
+      "name_en": "Figure 1",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "kindermaxinatoonsbaby_fig2",
+      "image": "images/series/kinder/kindermaxinatoonsbaby/02.avif",
+      "name": "Фигурка 2",
+      "name_en": "Figure 2",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "kindermaxinatoonsbaby_fig3",
+      "image": "images/series/kinder/kindermaxinatoonsbaby/03.avif",
+      "name": "Фигурка 3",
+      "name_en": "Figure 3",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "kindermaxinatoonsbaby_fig4",
+      "image": "images/series/kinder/kindermaxinatoonsbaby/04.avif",
+      "name": "Фигурка 4",
+      "name_en": "Figure 4",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "kindermaxinatoonsbaby_fig5",
+      "image": "images/series/kinder/kindermaxinatoonsbaby/05.avif",
+      "name": "Фигурка 5",
+      "name_en": "Figure 5",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    }
+  ],
+  "extras": [],
+  "variants": [],
+  "inserts": [
+    {
+      "id": "kindermaxinatoonsbaby_insert1",
+      "image": "images/series/kinder/kindermaxinatoonsbaby/BPZ.avif",
+      "name": "Вкладыш 1",
+      "name_en": "Insert 1",
+      "owned": false,
+      "forsale": false,
+      "avito": ""
+    }
+  ],
+  "other": [],
+  "videos": {
+    "youtube": [],
+    "vk": [],
+    "tiktok": []
+  }
+}
