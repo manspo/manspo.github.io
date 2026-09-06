@@ -1,5 +1,29 @@
 [
   {
+    "id": "mermaids-by-kinder-2026",
+    "name": "Русалочки от Киндер",
+    "name_en": "Mermaids by Kinder",
+    "year": 2026,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/mermaids-by-kinder-2026/cover.webp",
+    "kind": "",
+    "description": "Серия посвященная русалочкам.",
+    "description_en": "A series dedicated to the little mermaids.",
+    "visible": true
+  },
+  {
+    "id": "one-piece-by-kinder-2026",
+    "name": "Ван-Пис от Киндер",
+    "name_en": "One Piece by Kinder",
+    "year": 2026,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/one-piece-by-kinder-2026/cover.webp",
+    "kind": "joy",
+    "description": "Король пиратов, Роджер Гол Д., был единственным, кому покорился весь Гранд Лайн от начала до конца. Захват Роджера 22 года тому назад Мировым правительством стал немыслимым потрясением. Последние слова Короля пиратов перед казнью пролили свет на расположение величайшего сокровища — Ван-Пис. Так началась Великая эра пиратства, в которой тысячи авантюристов устремились за золотом и титулом нового короля пиратов.",
+    "description_en": "The Pirate King, Roger Gol D., was the only one who conquered the entire Grand Line from beginning to end. Roger's capture 22 years ago by the World Government was an unimaginable shock. The last words of the Pirate King before his execution shed light on the location of the greatest treasure - the One Piece. Thus began the Great Age of Piracy,\nin which thousands of adventurers rushed for gold and the title of the new pirate king.",
+    "visible": true
+  },
+  {
     "id": "colored-pencils-transport-by-kinder-1998",
     "name": "Цветные Карандаши Транспорт от Киндер",
     "name_en": "Colored Pencils Transport by Kinder",
