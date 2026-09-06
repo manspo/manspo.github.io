@@ -1,5 +1,53 @@
 [
   {
+    "id": "fairies-by-kinder-2026",
+    "name": "Феи от Киндер",
+    "name_en": "Fairies by Kinder",
+    "year": 2026,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/fairies-by-kinder-2026/cover.webp",
+    "kind": "",
+    "description": "Серия-сборка на тематику Фей.",
+    "description_en": "A collection of series on the theme of Fairies.",
+    "visible": true
+  },
+  {
+    "id": "playmobile-disney-by-kinder-2026",
+    "name": "Плеймобил Дисней от Киндер",
+    "name_en": "Playmobile Disney by Kinder",
+    "year": 2026,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/playmobile-disney-by-kinder-2026/cover.webp",
+    "kind": "",
+    "description": "Очень крутая серия посвященная персонажам диснеевских мультфильмов.",
+    "description_en": "A very cool series dedicated to Disney cartoon characters.",
+    "visible": true
+  },
+  {
+    "id": "unisex-by-kinder-2026",
+    "name": "Сборка ЮНИ от Киндер",
+    "name_en": "Unisex by Kinder",
+    "year": 2026,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/unisex-by-kinder-2026/cover.webp",
+    "kind": "",
+    "description": "Сборка для мальчиков и девочек 2026 года.",
+    "description_en": "Assembly for boys and girls 2026.",
+    "visible": true
+  },
+  {
+    "id": "colorbots-by-kinder-2026",
+    "name": "Цветные роботы от Киндер",
+    "name_en": "Colorbots by Kinder",
+    "year": 2026,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/colorbots-by-kinder-2026/cover.webp",
+    "kind": "",
+    "description": "Цветные роботы - сборка 2026 года",
+    "description_en": "Colored Robots - 2026 build",
+    "visible": true
+  },
+  {
     "id": "mermaids-by-kinder-2026",
     "name": "Русалочки от Киндер",
     "name_en": "Mermaids by Kinder",
