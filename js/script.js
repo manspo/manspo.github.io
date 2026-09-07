@@ -2526,114 +2526,153 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
 
 // ===== СКАЧИВАНИЕ ЧЕК-ЛИСТА (ИСПРАВЛЕННАЯ ВЕРСИЯ) =====
 async function downloadCollage(seriesId, seriesName) {
-  try {
-    const lang = localStorage.getItem("lang") || "ru";
-    showLoadingToast(lang === 'ru' ? 'Генерация чек-листа...' : 'Generating checklist...');
-    
-    const series = await loadSeriesById(seriesId);
-    if (!series) {
-      showError(lang === 'ru' ? 'Ошибка загрузки серии' : 'Error loading series');
-      hideLoadingToast();
-      return;
-    }
-    
-    const figures = series.figures || [];
-    const extras = series.extras || [];
-    const variants = series.variants || [];
-    
-    if (figures.length === 0 && extras.length === 0 && variants.length === 0) {
-      showError(lang === 'ru' ? 'Нет элементов для чек-листа' : 'No items for checklist');
-      hideLoadingToast();
-      return;
-    }
-    
-    const jpegData = await generateCollage(seriesId, series.name, figures, extras, variants, lang);
-    const base64Data = jpegData.split(',')[1];
-    const safeName = seriesName.replace(/[^a-zа-яё0-9]/gi, '_');
-    const fileName = `checklist_${safeName}_${Date.now()}.jpg`;
-    
-    if (window.Capacitor && window.Capacitor.isNativePlatform()) {
-      console.log('✅ Capacitor нативная платформа для чек-листа');
-      
-      if (window.FileHelper) {
-        try {
-          console.log('✅ Используем нативный FileHelper для чек-листа');
-          
-          const savedPath = await saveChecklistNative(base64Data, fileName);
-          
-          if (savedPath) {
-            const msg = lang === 'ru'
-              ? `✅ Чек-лист сохранен в галерею!\n\n📁 Путь: ${savedPath}\n\nПроверьте галерею или папку "Капсула"`
-              : `✅ Checklist saved to gallery!\n\n📁 Path: ${savedPath}\n\nCheck gallery or "Капсула" folder`;
-            
-            alert(msg);
-            hideLoadingToast();
-            showSuccess('✅ Чек-лист сохранен в галерею');
-            return;
-          }
-        } catch (nativeError) {
-          console.warn('❌ Нативный метод не сработал:', nativeError);
-        }
-      }
-      
-      try {
-        const Filesystem = window.Capacitor.Plugins.Filesystem;
-        const Share = window.Capacitor.Plugins.Share;
+    try {
+        const lang = localStorage.getItem("lang") || "ru";
+        showLoadingToast(lang === 'ru' ? 'Генерация чек-листа...' : 'Generating checklist...');
         
-        if (Filesystem) {
-          console.log('📁 Пробуем Filesystem для чек-листа...');
-          
-          const dirs = [
-            { dir: 3, name: 'Documents' },
-            { dir: 2, name: 'Cache' },
-            { dir: 1, name: 'Data' }
-          ];
-          
-          for (const d of dirs) {
-            try {
-              const result = await Filesystem.writeFile({
-                path: fileName,
-                data: base64Data,
-                directory: d.dir,
-                recursive: true
-              });
-              
-              console.log(`✅ Чек-лист сохранен в ${d.name}:`, result.uri);
-              
-              const msg = lang === 'ru'
-                ? `✅ Чек-лист сохранен!\n\n📁 Папка: ${d.name}\n📄 Файл: ${fileName}`
-                : `✅ Checklist saved!\n\n📁 Folder: ${d.name}\n📄 File: ${fileName}`;
-              
-              alert(msg);
-              
-              if (Share) {
-                try {
-                  await Share.share({
-                    title: 'Чек-лист',
-                    text: `Чек-лист серии ${seriesName}`,
-                    url: result.uri,
-                    dialogTitle: 'Открыть файл'
-                  });
-                } catch (shareError) {
-                  console.warn('Share не доступен:', shareError);
-                }
-              }
-              
-              hideLoadingToast();
-              showSuccess(`✅ Чек-лист сохранен в ${d.name}`);
-              return;
-              
-            } catch (dirError) {
-              console.warn(`❌ Не удалось сохранить в ${d.name}:`, dirError.message);
-            }
-          }
+        const series = await loadSeriesById(seriesId);
+        if (!series) {
+            showError(lang === 'ru' ? 'Ошибка загрузки серии' : 'Error loading series');
+            hideLoadingToast();
+            return;
         }
-      } catch (fsError) {
-        console.error('❌ Ошибка Filesystem:', fsError);
-      }
-      
-      throw new Error('Не удалось сохранить чек-лист. Попробуйте другой метод.');
+        
+        const figures = series.figures || [];
+        const extras = series.extras || [];
+        const variants = series.variants || [];
+        
+        if (figures.length === 0 && extras.length === 0 && variants.length === 0) {
+            showError(lang === 'ru' ? 'Нет элементов для чек-листа' : 'No items for checklist');
+            hideLoadingToast();
+            return;
+        }
+        
+        // ===== ВЫБИРАЕМ НАЗВАНИЕ ПО ЯЗЫКУ =====
+        const seriesTitle = lang === 'en' && series.name_en ? series.name_en : series.name;
+        
+        const jpegData = await generateCollage(seriesId, seriesTitle, figures, extras, variants, lang);
+        const base64Data = jpegData.split(',')[1];
+        const safeName = seriesTitle.replace(/[^a-zа-яё0-9]/gi, '_');
+        const fileName = `checklist_${safeName}_${Date.now()}.jpg`;
+        
+        if (window.Capacitor && window.Capacitor.isNativePlatform()) {
+            console.log('✅ Capacitor нативная платформа для чек-листа');
+            
+            if (window.FileHelper) {
+                try {
+                    console.log('✅ Используем нативный FileHelper для чек-листа');
+                    
+                    const savedPath = await saveChecklistNative(base64Data, fileName);
+                    
+                    if (savedPath) {
+                        const msg = lang === 'ru'
+                            ? `✅ Чек-лист сохранен в галерею!\n\n📁 Путь: ${savedPath}\n\nПроверьте галерею или папку "Капсула"`
+                            : `✅ Checklist saved to gallery!\n\n📁 Path: ${savedPath}\n\nCheck gallery or "Капсула" folder`;
+                        
+                        alert(msg);
+                        hideLoadingToast();
+                        showSuccess('✅ Чек-лист сохранен в галерею');
+                        return;
+                    }
+                } catch (nativeError) {
+                    console.warn('❌ Нативный метод не сработал:', nativeError);
+                }
+            }
+            
+            try {
+                const Filesystem = window.Capacitor.Plugins.Filesystem;
+                const Share = window.Capacitor.Plugins.Share;
+                
+                if (Filesystem) {
+                    console.log('📁 Пробуем Filesystem для чек-листа...');
+                    
+                    const dirs = [
+                        { dir: 3, name: 'Documents' },
+                        { dir: 2, name: 'Cache' },
+                        { dir: 1, name: 'Data' }
+                    ];
+                    
+                    for (const d of dirs) {
+                        try {
+                            const result = await Filesystem.writeFile({
+                                path: fileName,
+                                data: base64Data,
+                                directory: d.dir,
+                                recursive: true
+                            });
+                            
+                            console.log(`✅ Чек-лист сохранен в ${d.name}:`, result.uri);
+                            
+                            const msg = lang === 'ru'
+                                ? `✅ Чек-лист сохранен!\n\n📁 Папка: ${d.name}\n📄 Файл: ${fileName}`
+                                : `✅ Checklist saved!\n\n📁 Folder: ${d.name}\n📄 File: ${fileName}`;
+                            
+                            alert(msg);
+                            
+                            if (Share) {
+                                try {
+                                    await Share.share({
+                                        title: 'Чек-лист',
+                                        text: `Чек-лист серии ${seriesTitle}`,
+                                        url: result.uri,
+                                        dialogTitle: 'Открыть файл'
+                                    });
+                                } catch (shareError) {
+                                    console.warn('Share не доступен:', shareError);
+                                }
+                            }
+                            
+                            hideLoadingToast();
+                            showSuccess(`✅ Чек-лист сохранен в ${d.name}`);
+                            return;
+                            
+                        } catch (dirError) {
+                            console.warn(`❌ Не удалось сохранить в ${d.name}:`, dirError.message);
+                        }
+                    }
+                }
+            } catch (fsError) {
+                console.error('❌ Ошибка Filesystem:', fsError);
+            }
+            
+            throw new Error('Не удалось сохранить чек-лист. Попробуйте другой метод.');
+        }
+        
+        console.log('🌐 Используем браузерный fallback для чек-листа');
+        const link = document.createElement("a");
+        link.href = jpegData;
+        link.download = `checklist_${safeName}.jpg`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        hideLoadingToast();
+        showSuccess('✅ Чек-лист скачан');
+        
+    } catch (error) {
+        console.error('❌ Ошибка сохранения чек-листа:', error);
+        hideLoadingToast();
+        const lang = localStorage.getItem("lang") || "ru";
+        showError(lang === 'ru' ? 'Не удалось сохранить чек-лист: ' + error.message : 'Failed to save checklist: ' + error.message);
     }
+}
+        
+        console.log('🌐 Используем браузерный fallback для чек-листа');
+        const link = document.createElement("a");
+        link.href = jpegData;
+        link.download = `checklist_${safeName}.jpg`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        hideLoadingToast();
+        showSuccess('✅ Чек-лист скачан');
+        
+    } catch (error) {
+        console.error('❌ Ошибка сохранения чек-листа:', error);
+        hideLoadingToast();
+        const lang = localStorage.getItem("lang") || "ru";
+        showError(lang === 'ru' ? 'Не удалось сохранить чек-лист: ' + error.message : 'Failed to save checklist: ' + error.message);
+    }
+}
     
     console.log('🌐 Используем браузерный fallback для чек-листа');
     const link = document.createElement("a");
