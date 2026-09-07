@@ -2520,7 +2520,7 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
 }
 
 // ===== СКАЧИВАНИЕ ЧЕК-ЛИСТА (ИСПРАВЛЕННАЯ ВЕРСИЯ) =====
-// ===== СКАЧИВАНИЕ ЧЕК-ЛИСТА (ПОЛНАЯ ВЕРСИЯ) =====
+// ===== СКАЧИВАНИЕ ЧЕК-ЛИСТА =====
 async function downloadCollage(seriesId, seriesName) {
     try {
         const lang = localStorage.getItem("lang") || "ru";
@@ -2543,7 +2543,6 @@ async function downloadCollage(seriesId, seriesName) {
             return;
         }
         
-        // ===== НАЗВАНИЕ ПО ЯЗЫКУ =====
         const seriesTitle = lang === 'en' && series.name_en ? series.name_en : series.name;
         
         const jpegData = await generateCollage(seriesId, seriesTitle, figures, extras, variants, lang);
@@ -2551,21 +2550,17 @@ async function downloadCollage(seriesId, seriesName) {
         const safeName = seriesTitle.replace(/[^a-zа-яё0-9]/gi, '_');
         const fileName = `checklist_${safeName}_${Date.now()}.jpg`;
         
-        // ===== ЕСЛИ МЫ В ПРИЛОЖЕНИИ (Capacitor) =====
         if (window.Capacitor && window.Capacitor.isNativePlatform()) {
             console.log('✅ Capacitor нативная платформа для чек-листа');
             
             if (window.FileHelper) {
                 try {
                     console.log('✅ Используем нативный FileHelper для чек-листа');
-                    
                     const savedPath = await saveChecklistNative(base64Data, fileName);
-                    
                     if (savedPath) {
                         const msg = lang === 'ru'
                             ? `✅ Чек-лист сохранен в галерею!\n\n📁 Путь: ${savedPath}\n\nПроверьте галерею или папку "Капсула"`
                             : `✅ Checklist saved to gallery!\n\n📁 Path: ${savedPath}\n\nCheck gallery or "Капсула" folder`;
-                        
                         alert(msg);
                         hideLoadingToast();
                         showSuccess('✅ Чек-лист сохранен в галерею');
@@ -2576,20 +2571,16 @@ async function downloadCollage(seriesId, seriesName) {
                 }
             }
             
-            // ===== FALLBACK: Пробуем Filesystem =====
             try {
                 const Filesystem = window.Capacitor.Plugins.Filesystem;
                 const Share = window.Capacitor.Plugins.Share;
-                
                 if (Filesystem) {
                     console.log('📁 Пробуем Filesystem для чек-листа...');
-                    
                     const dirs = [
                         { dir: 3, name: 'Documents' },
                         { dir: 2, name: 'Cache' },
                         { dir: 1, name: 'Data' }
                     ];
-                    
                     for (const d of dirs) {
                         try {
                             const result = await Filesystem.writeFile({
@@ -2598,15 +2589,11 @@ async function downloadCollage(seriesId, seriesName) {
                                 directory: d.dir,
                                 recursive: true
                             });
-                            
                             console.log(`✅ Чек-лист сохранен в ${d.name}:`, result.uri);
-                            
                             const msg = lang === 'ru'
                                 ? `✅ Чек-лист сохранен!\n\n📁 Папка: ${d.name}\n📄 Файл: ${fileName}`
                                 : `✅ Checklist saved!\n\n📁 Folder: ${d.name}\n📄 File: ${fileName}`;
-                            
                             alert(msg);
-                            
                             if (Share) {
                                 try {
                                     await Share.share({
@@ -2619,11 +2606,9 @@ async function downloadCollage(seriesId, seriesName) {
                                     console.warn('Share не доступен:', shareError);
                                 }
                             }
-                            
                             hideLoadingToast();
                             showSuccess(`✅ Чек-лист сохранен в ${d.name}`);
                             return;
-                            
                         } catch (dirError) {
                             console.warn(`❌ Не удалось сохранить в ${d.name}:`, dirError.message);
                         }
@@ -2636,7 +2621,6 @@ async function downloadCollage(seriesId, seriesName) {
             throw new Error('Не удалось сохранить чек-лист. Попробуйте другой метод.');
         }
         
-        // ===== БРАУЗЕР (обычный fallback) =====
         console.log('🌐 Используем браузерный fallback для чек-листа');
         const link = document.createElement("a");
         link.href = jpegData;
