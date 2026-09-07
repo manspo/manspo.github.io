@@ -2520,6 +2520,7 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
 }
 
 // ===== СКАЧИВАНИЕ ЧЕК-ЛИСТА (ИСПРАВЛЕННАЯ ВЕРСИЯ) =====
+// ===== СКАЧИВАНИЕ ЧЕК-ЛИСТА (ПОЛНАЯ ВЕРСИЯ) =====
 async function downloadCollage(seriesId, seriesName) {
     try {
         const lang = localStorage.getItem("lang") || "ru";
@@ -2542,7 +2543,7 @@ async function downloadCollage(seriesId, seriesName) {
             return;
         }
         
-        // ===== ВЫБИРАЕМ НАЗВАНИЕ ПО ЯЗЫКУ =====
+        // ===== НАЗВАНИЕ ПО ЯЗЫКУ =====
         const seriesTitle = lang === 'en' && series.name_en ? series.name_en : series.name;
         
         const jpegData = await generateCollage(seriesId, seriesTitle, figures, extras, variants, lang);
@@ -2550,6 +2551,7 @@ async function downloadCollage(seriesId, seriesName) {
         const safeName = seriesTitle.replace(/[^a-zа-яё0-9]/gi, '_');
         const fileName = `checklist_${safeName}_${Date.now()}.jpg`;
         
+        // ===== ЕСЛИ МЫ В ПРИЛОЖЕНИИ (Capacitor) =====
         if (window.Capacitor && window.Capacitor.isNativePlatform()) {
             console.log('✅ Capacitor нативная платформа для чек-листа');
             
@@ -2574,6 +2576,7 @@ async function downloadCollage(seriesId, seriesName) {
                 }
             }
             
+            // ===== FALLBACK: Пробуем Filesystem =====
             try {
                 const Filesystem = window.Capacitor.Plugins.Filesystem;
                 const Share = window.Capacitor.Plugins.Share;
@@ -2632,6 +2635,25 @@ async function downloadCollage(seriesId, seriesName) {
             
             throw new Error('Не удалось сохранить чек-лист. Попробуйте другой метод.');
         }
+        
+        // ===== БРАУЗЕР (обычный fallback) =====
+        console.log('🌐 Используем браузерный fallback для чек-листа');
+        const link = document.createElement("a");
+        link.href = jpegData;
+        link.download = `checklist_${safeName}.jpg`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        hideLoadingToast();
+        showSuccess('✅ Чек-лист скачан');
+        
+    } catch (error) {
+        console.error('❌ Ошибка сохранения чек-листа:', error);
+        hideLoadingToast();
+        const lang = localStorage.getItem("lang") || "ru";
+        showError(lang === 'ru' ? 'Не удалось сохранить чек-лист: ' + error.message : 'Failed to save checklist: ' + error.message);
+    }
+}
         
         console.log('🌐 Используем браузерный fallback для чек-листа');
         const link = document.createElement("a");
