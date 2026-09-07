@@ -2370,12 +2370,7 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                 ctx.fillText('QR', qrX + qrSize/2, qrY + qrSize/2);
             }
             
-            // ===== ССЫЛКА ПОД QR-КОДОМ =====
-            ctx.font = 'bold 16px monospace';
-            ctx.fillStyle = '#4f46e5';
-            ctx.textAlign = 'right';
-            ctx.textBaseline = 'top';
-            ctx.fillText('manspo.github.io', totalWidth - padding, qrY + qrSize + 8);
+
             
             // ===== НАЗВАНИЕ СЕРИИ =====
             ctx.font = `bold 26px Inter, system-ui`;
@@ -2386,7 +2381,7 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
             
             // ===== МЕТКА "CAPSULE" =====
             ctx.font = 'bold 16px Inter, system-ui';
-            ctx.fillStyle = '#cbd5e1';
+            ctx.fillStyle = '#78E05C';
             ctx.textAlign = 'right';
             ctx.textBaseline = 'bottom';
             ctx.fillText(currentLang.capsule, totalWidth - padding - qrSize - 20, padding + 50);
@@ -2503,8 +2498,8 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                 currentY += padding;
             }
             
-            // ===== НИЖНИЙ КОЛОНТИТУЛ =====
-            ctx.font = '16px Inter, system-ui';
+            // ===== НИЖНИЙ КОЛОНТИТУЛ (ПОЛНАЯ ССЫЛКА) =====
+            ctx.font = '22px Inter, system-ui';
             ctx.fillStyle = '#6b7280';
             ctx.textAlign = 'center';
             ctx.textBaseline = 'bottom';
