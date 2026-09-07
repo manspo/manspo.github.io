@@ -2351,54 +2351,24 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
             ctx.fillStyle = '#ffffff';
             ctx.fillRect(0, 0, totalWidth, totalHeight);
             
-            // ===== ГЕНЕРАЦИЯ QR-КОДА =====
-            const qrCanvas = document.createElement('canvas');
-            qrCanvas.width = qrSize;
-            qrCanvas.height = qrSize;
-            
-            // ПРОВЕРКА: используем правильный URL
-            const qrUrl = `https://manspo.github.io/series.html?id=${seriesId}`;
-            
-            if (typeof QRCode !== 'undefined') {
-                try {
-                    new QRCode(qrCanvas, {
-                        text: qrUrl,
-                        width: qrSize,
-                        height: qrSize,
-                        colorDark: "#000000",
-                        colorLight: "#ffffff",
-                        correctLevel: QRCode.CorrectLevel.H
-                    });
-                } catch (e) {
-                    console.warn('Ошибка генерации QR-кода:', e);
-                    const ctx2 = qrCanvas.getContext('2d');
-                    ctx2.fillStyle = '#f0f0f0';
-                    ctx2.fillRect(0, 0, qrSize, qrSize);
-                    ctx2.fillStyle = '#4f46e5';
-                    ctx2.font = '16px monospace';
-                    ctx2.textAlign = 'center';
-                    ctx2.textBaseline = 'middle';
-                    ctx2.fillText('QR', qrSize/2, qrSize/2 - 10);
-                    ctx2.font = '10px monospace';
-                    ctx2.fillText(qrUrl.substring(0, 30)+'...', qrSize/2, qrSize/2 + 20);
-                }
-            } else {
-                const ctx2 = qrCanvas.getContext('2d');
-                ctx2.fillStyle = '#f0f0f0';
-                ctx2.fillRect(0, 0, qrSize, qrSize);
-                ctx2.fillStyle = '#ef4444';
-                ctx2.font = '14px monospace';
-                ctx2.textAlign = 'center';
-                ctx2.textBaseline = 'middle';
-                ctx2.fillText('QR Code', qrSize/2, qrSize/2 - 10);
-                ctx2.font = '10px monospace';
-                ctx2.fillText('library not loaded', qrSize/2, qrSize/2 + 20);
-            }
+            // ===== ЗАГРУЗКА ГОТОВОГО QR-КОДА =====
+            const qrImage = await loadImage(`${BASE_URL}/images/qrcodesite.png`);
             
             // ===== РИСУЕМ QR-КОД В ПРАВОМ ВЕРХНЕМ УГЛУ =====
             const qrX = totalWidth - qrSize - padding;
             const qrY = padding;
-            ctx.drawImage(qrCanvas, qrX, qrY, qrSize, qrSize);
+            if (qrImage && qrImage.complete && qrImage.naturalWidth > 0) {
+                ctx.drawImage(qrImage, qrX, qrY, qrSize, qrSize);
+            } else {
+                // Заглушка, если картинка не загрузилась
+                ctx.fillStyle = '#f0f0f0';
+                ctx.fillRect(qrX, qrY, qrSize, qrSize);
+                ctx.fillStyle = '#999';
+                ctx.font = '16px monospace';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText('QR', qrX + qrSize/2, qrY + qrSize/2);
+            }
             
             // ===== ССЫЛКА ПОД QR-КОДОМ =====
             ctx.font = 'bold 16px monospace';
