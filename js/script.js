@@ -2520,6 +2520,7 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
 }
 
 // ===== СКАЧИВАНИЕ ЧЕК-ЛИСТА (ИСПРАВЛЕННАЯ ВЕРСИЯ) =====
+
 // ===== СКАЧИВАНИЕ ЧЕК-ЛИСТА =====
 async function downloadCollage(seriesId, seriesName) {
     try {
