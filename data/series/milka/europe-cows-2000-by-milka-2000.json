@@ -1,10 +1,10 @@
 {
-  "id": "europe-cows-2000-by-milka-2000",
+  "id": "europe-cows-by-milka-2000",
   "name": "Европейские Коровы от Милка",
   "name_en": "Europe Cows 2000 by Milka",
   "year": 2000,
   "manufacturer": "milka",
-  "cover": "images/series/milka/europe-cows-2000-by-milka-2000/cover.webp",
+  "cover": "images/series/milka/europe-cows-by-milka-2000/cover.webp",
   "description": "Немецкая серия 2000 года включает в себя 10 фигурок. Имена персонажей имеют важное значение, поскольку они предназначены для настольной игры.",
   "description_en": "German series of year 2000 have 10 figurines. The first names have to have their importance, because the characters are planned for a board game (see opposite).\nAttention not to confuse French and Dutch. We could think that the latter has a French flag, but by imagining hir foot on the ground, the flag becomes the voucher. Also note however this character they are round cheeses which he transports.",
   "kind": "",
@@ -14,11 +14,11 @@
   "fullSeriesPrice": "",
   "figures": [
     {
-      "id": "europe-cows-2000-by-milka-2000_fig1",
+      "id": "europe-cows-by-milka-2000_fig1",
       "name": "Германия - Хорст",
       "name_en": "Deutchland - Horst",
       "code": "",
-      "image": "images/series/milka/europe-cows-2000-by-milka-2000/01.webp",
+      "image": "images/series/milka/europe-cows-by-milka-2000/01.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -28,11 +28,11 @@
       "parentFigureId": ""
     },
     {
-      "id": "europe-cows-2000-by-milka-2000_fig2",
+      "id": "europe-cows-by-milka-2000_fig2",
       "name": "Австрия - Йозеф",
       "name_en": "Austria - Josef",
       "code": "",
-      "image": "images/series/milka/europe-cows-2000-by-milka-2000/02.webp",
+      "image": "images/series/milka/europe-cows-by-milka-2000/02.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -42,11 +42,11 @@
       "parentFigureId": ""
     },
     {
-      "id": "europe-cows-2000-by-milka-2000_fig3",
+      "id": "europe-cows-by-milka-2000_fig3",
       "name": "Испания - Хосе",
       "name_en": "Spain - José",
       "code": "",
-      "image": "images/series/milka/europe-cows-2000-by-milka-2000/03.webp",
+      "image": "images/series/milka/europe-cows-by-milka-2000/03.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -56,11 +56,11 @@
       "parentFigureId": ""
     },
     {
-      "id": "europe-cows-2000-by-milka-2000_fig4",
+      "id": "europe-cows-by-milka-2000_fig4",
       "name": "Италия - Джованни",
       "name_en": "Italy - Giovanni",
       "code": "",
-      "image": "images/series/milka/europe-cows-2000-by-milka-2000/04.webp",
+      "image": "images/series/milka/europe-cows-by-milka-2000/04.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -70,11 +70,11 @@
       "parentFigureId": ""
     },
     {
-      "id": "europe-cows-2000-by-milka-2000_fig5",
+      "id": "europe-cows-by-milka-2000_fig5",
       "name": "Великобритания - Шерлок",
       "name_en": "UK - Sherlock",
       "code": "",
-      "image": "images/series/milka/europe-cows-2000-by-milka-2000/05.webp",
+      "image": "images/series/milka/europe-cows-by-milka-2000/05.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -84,11 +84,11 @@
       "parentFigureId": ""
     },
     {
-      "id": "europe-cows-2000-by-milka-2000_fig6",
+      "id": "europe-cows-by-milka-2000_fig6",
       "name": "Дания – Уве",
       "name_en": "Denmark - Ove",
       "code": "",
-      "image": "images/series/milka/europe-cows-2000-by-milka-2000/06.webp",
+      "image": "images/series/milka/europe-cows-by-milka-2000/06.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -98,11 +98,11 @@
       "parentFigureId": ""
     },
     {
-      "id": "europe-cows-2000-by-milka-2000_fig7",
+      "id": "europe-cows-by-milka-2000_fig7",
       "name": "Нидерланды – Ян",
       "name_en": "Netherland - Jan",
       "code": "",
-      "image": "images/series/milka/europe-cows-2000-by-milka-2000/07.webp",
+      "image": "images/series/milka/europe-cows-by-milka-2000/07.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -112,11 +112,11 @@
       "parentFigureId": ""
     },
     {
-      "id": "europe-cows-2000-by-milka-2000_fig8",
+      "id": "europe-cows-by-milka-2000_fig8",
       "name": "Греция - Янис",
       "name_en": "Greece - Janis",
       "code": "",
-      "image": "images/series/milka/europe-cows-2000-by-milka-2000/08.webp",
+      "image": "images/series/milka/europe-cows-by-milka-2000/08.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -126,11 +126,11 @@
       "parentFigureId": ""
     },
     {
-      "id": "europe-cows-2000-by-milka-2000_fig9",
+      "id": "europe-cows-by-milka-2000_fig9",
       "name": "Финляндия - Мика",
       "name_en": "Finland - Mika",
       "code": "",
-      "image": "images/series/milka/europe-cows-2000-by-milka-2000/09.webp",
+      "image": "images/series/milka/europe-cows-by-milka-2000/09.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -140,11 +140,11 @@
       "parentFigureId": ""
     },
     {
-      "id": "europe-cows-2000-by-milka-2000_fig10",
+      "id": "europe-cows-by-milka-2000_fig10",
       "name": "Франция - Джон",
       "name_en": "France - Jean",
       "code": "",
-      "image": "images/series/milka/europe-cows-2000-by-milka-2000/10.webp",
+      "image": "images/series/milka/europe-cows-by-milka-2000/10.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -158,11 +158,11 @@
   "variants": [],
   "inserts": [
     {
-      "id": "europe-cows-2000-by-milka-2000_insert1",
+      "id": "europe-cows-by-milka-2000_insert1",
       "name": "Вкладыш 1",
       "name_en": "Insert 1",
       "code": "",
-      "image": "images/series/milka/europe-cows-2000-by-milka-2000/bpz1.webp",
+      "image": "images/series/milka/europe-cows-by-milka-2000/bpz1.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -172,11 +172,11 @@
       "parentFigureId": ""
     },
     {
-      "id": "europe-cows-2000-by-milka-2000_insert2",
+      "id": "europe-cows-by-milka-2000_insert2",
       "name": "Вкладыш 2",
       "name_en": "Insert 2",
       "code": "",
-      "image": "images/series/milka/europe-cows-2000-by-milka-2000/bpz2.webp",
+      "image": "images/series/milka/europe-cows-by-milka-2000/bpz2.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -188,11 +188,11 @@
   ],
   "other": [
     {
-      "id": "europe-cows-2000-by-milka-2000_other1",
-      "name": "Прочее 1",
-      "name_en": "Other 1",
+      "id": "europe-cows-by-milka-2000_other1",
+      "name": "Настольная игра",
+      "name_en": "Desktop game",
       "code": "",
-      "image": "images/series/milka/europe-cows-2000-by-milka-2000/box.webp",
+      "image": "images/series/milka/europe-cows-by-milka-2000/box.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
