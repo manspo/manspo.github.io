@@ -1,5 +1,53 @@
 [
   {
+    "id": "simpsons-2-by-panini-1999",
+    "name": "Симпсоны 2 от Панини",
+    "name_en": "Simpsons 2 by Panini",
+    "year": 1999,
+    "manufacturer": "panini",
+    "cover": "images/series/panini/simpsons-2-by-panini-1999/cover.webp",
+    "kind": "",
+    "description": "2 cерия фигурок 1999 года от Панини.",
+    "description_en": "2nd series of 1999 figurines from Panini.",
+    "visible": true
+  },
+  {
+    "id": "simpsons-1-by-panini-1999",
+    "name": "Симпсоны 1 от Панини",
+    "name_en": "Simpsons 1 by Panini",
+    "year": 1999,
+    "manufacturer": "panini",
+    "cover": "images/series/panini/simpsons-1-by-panini-1999/cover.webp",
+    "kind": "",
+    "description": "Серия фигурок датируется 1999 годом и представляет главных героев в очень качественной гравюре.",
+    "description_en": "The series of figurines date 1999 and resume the main characters in a very good engraving.",
+    "visible": true
+  },
+  {
+    "id": "harry-potter-pop-mini-by-kinder-2026",
+    "name": "Гарри Поттер ПОП Мини от Киндер",
+    "name_en": "harry Potter POP Mini by Kinder",
+    "year": 2026,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/harry-potter-pop-mini-by-kinder-2026/cover.webp",
+    "kind": "",
+    "description": "Мини-серия посвященная Гарри Поттеру",
+    "description_en": "A mini-series dedicated to Harry Potter",
+    "visible": true
+  },
+  {
+    "id": "natoons-savannah-families-by-kinder-2026",
+    "name": "Семьи Натунс Саванна от Киндер",
+    "name_en": "Natoons Savannah Families by Kinder",
+    "year": 2026,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/natoons-savannah-families-by-kinder-2026/cover.webp",
+    "kind": "",
+    "description": "Серия посвященная семьям животных Саванны",
+    "description_en": "A series dedicated to the animal families of the Savannah",
+    "visible": true
+  },
+  {
     "id": "special-fairies-by-kinder-2026",
     "name": "Особенные Феи от Киндер",
     "name_en": "Special Fairies by Kinder",
@@ -26,10 +74,10 @@
   {
     "id": "unisex-by-kinder-2026",
     "name": "Сборка ЮНИ от Киндер",
-    "name_en": "Unisex 2 by Kinder",
+    "name_en": "Unisex by Kinder",
     "year": 2026,
     "manufacturer": "kinder",
-    "cover": "images/series/kinder/unisex-2-by-kinder-2026/cover.webp",
+    "cover": "images/series/kinder/unisex-by-kinder-2026/cover.webp",
     "kind": "",
     "description": "Самая большая сборка в которой можно сказать собраны несколько разных подсерий.",
     "description_en": "The largest assembly in which several different subseries can be said to be collected.",
@@ -62,7 +110,7 @@
   {
     "id": "unisex-2-by-kinder-2026",
     "name": "Сборка ЮНИ 2 от Киндер",
-    "name_en": "Unisex 2 by Kinder",
+    "name_en": "Unisex by Kinder",
     "year": 2026,
     "manufacturer": "kinder",
     "cover": "images/series/kinder/unisex-2-by-kinder-2026/cover.webp",
