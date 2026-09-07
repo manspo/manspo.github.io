@@ -42,7 +42,6 @@ function showErrorScreen(message) {
         status.style.color = 'white';
     }
     
-    // Показываем кнопку "Повторить"
     const existingBtn = document.querySelector('#loadingOverlay .retry-btn');
     if (!existingBtn) {
         const btn = document.createElement('button');
@@ -99,13 +98,10 @@ function updateProgress(percent, text) {
     }
 }
 
-// ===== ПОВТОРНАЯ ЗАГРУЗКА =====
 async function retryLoadData() {
-    // Удаляем кнопку "Повторить"
     const btn = document.querySelector('#loadingOverlay .retry-btn');
     if (btn) btn.remove();
     
-    // Сбрасываем статус
     const status = document.getElementById('loadingStatus');
     if (status) {
         status.textContent = 'Повторная попытка...';
@@ -124,7 +120,6 @@ async function retryLoadData() {
         showErrorScreen('Не удалось загрузить данные. Проверьте интернет.');
     }
 }
-
 
 // ===== УТИЛИТЫ =====
 
@@ -208,9 +203,7 @@ let seriesCache = {};
 let seriesManufacturerMap = {};
 let allSeriesData = null;
 
-// 1. Загрузка индекса (списка всех серий) с параллельной предзагрузкой
 async function loadData() {
-    // Если данные уже загружаются через preload - ждем их
     if (window.dataPromise) {
         try {
             const index = await window.dataPromise;
@@ -220,7 +213,6 @@ async function loadData() {
             return index;
         } catch (error) {
             console.error('Ошибка предзагрузки:', error);
-            // Продолжаем с обычной загрузкой
         }
     }
     
@@ -239,7 +231,6 @@ async function loadData() {
     }
 }
 
-// 2. Загрузка конкретной серии
 async function loadSeriesById(id) {
   if (seriesCache[id]) return seriesCache[id];
   
@@ -265,7 +256,6 @@ async function loadSeriesById(id) {
   }
 }
 
-// 3. Загрузка всех серий
 async function loadAllSeries() {
   try {
     const index = await loadData();
@@ -292,7 +282,6 @@ async function loadAllSeries() {
   }
 }
 
-// 4. Загрузка производителей
 async function loadManufacturers() {
   try {
     const res = await fetch(`${BASE_URL}/data/manufacturers.json`);
@@ -304,7 +293,6 @@ async function loadManufacturers() {
   }
 }
 
-// 5. Загрузка социальных ссылок
 async function loadSocialLinks() {
   try {
     const res = await fetch(`${BASE_URL}/data/social.json`);
@@ -316,7 +304,6 @@ async function loadSocialLinks() {
   }
 }
 
-// 6. Загрузка с кешем
 async function loadAllDataWithCache(forceReload = false) {
   if (allSeriesData && !forceReload) return allSeriesData;
   
@@ -444,11 +431,9 @@ function generateQRCode(figureId, seriesId, figureName, isSeries = false) {
   try {
     const currentLang = localStorage.getItem("lang") || "ru";
 
-    // Схема для приложения
     const APP_SCHEME = 'kindercapsule://open';
     const WEB_BASE = 'https://manspo.github.io';
     
-    // Формируем URL для QR-кода (используем универсальную ссылку)
     let qrUrl;
     if (isSeries) {
       qrUrl = `${WEB_BASE}/series.html?id=${encodeURIComponent(seriesId)}`;
@@ -480,9 +465,6 @@ function generateQRCode(figureId, seriesId, figureName, isSeries = false) {
       return;
     }
 
-    // Генерируем QR-код с URL, который ведет на сайт
-    // При сканировании на Android с установленным приложением - откроется приложение
-    // Благодаря intent-filter в манифесте
     new QRCode(qrContainer, {
       text: qrUrl,
       width: 240,
@@ -513,11 +495,9 @@ function generateQRCode(figureId, seriesId, figureName, isSeries = false) {
           console.log('📝 Имя файла:', fileName);
           console.log('📝 Capacitor:', window.Capacitor);
 
-          // --- ЕСЛИ МЫ В ПРИЛОЖЕНИИ (Capacitor) ---
           if (window.Capacitor && window.Capacitor.isNativePlatform()) {
             console.log('✅ Capacitor нативная платформа');
             
-            // ПРОБУЕМ НАТИВНЫЙ МЕТОД ЧЕРЕЗ FileHelper
             if (window.FileHelper) {
               try {
                 console.log('✅ Используем нативный FileHelper');
@@ -539,7 +519,6 @@ function generateQRCode(figureId, seriesId, figureName, isSeries = false) {
               }
             }
             
-            // FALLBACK: Пробуем Filesystem
             try {
               const Filesystem = window.Capacitor.Plugins.Filesystem;
               const Share = window.Capacitor.Plugins.Share;
@@ -599,7 +578,6 @@ function generateQRCode(figureId, seriesId, figureName, isSeries = false) {
             throw new Error('Не удалось сохранить QR-код. Попробуйте другой метод.');
           }
           
-          // ===== FALLBACK (браузер) =====
           console.log('🌐 Используем браузерный fallback');
           const link = document.createElement("a");
           link.href = dataUrl;
@@ -627,14 +605,11 @@ function generateQRCode(figureId, seriesId, figureName, isSeries = false) {
 
 // ===== ОБРАБОТКА ГЛУБОКИХ ССЫЛОК =====
 (function handleDeepLinkInApp() {
-    // Проверяем, есть ли параметр id в URL
     const params = new URLSearchParams(window.location.search);
     const id = params.get('id');
     
     if (id && window.location.pathname.includes('series.html')) {
         console.log('📱 Открыто через глубокую ссылку, серия:', id);
-        // Если уже на странице series.html, ничего не делаем
-        // Страница уже загружена
     }
 })();
 
@@ -1010,7 +985,6 @@ async function initHome() {
     
     updateProgress(20, 'Загрузка списка серий...');
     
-    // Загружаем всё параллельно
     const [data, manufacturers] = await Promise.all([
       loadData(),
       loadManufacturers()
@@ -1032,8 +1006,6 @@ async function initHome() {
     applyTranslations();
     
     updateProgress(100, 'Готово!');
-    
-    // Небольшая задержка для плавного перехода
     setTimeout(showContent, 400);
     
   } catch(error) {
@@ -2360,7 +2332,6 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
             if (qrImage && qrImage.complete && qrImage.naturalWidth > 0) {
                 ctx.drawImage(qrImage, qrX, qrY, qrSize, qrSize);
             } else {
-                // Заглушка, если картинка не загрузилась
                 ctx.fillStyle = '#f0f0f0';
                 ctx.fillRect(qrX, qrY, qrSize, qrSize);
                 ctx.fillStyle = '#999';
@@ -2369,8 +2340,6 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                 ctx.textBaseline = 'middle';
                 ctx.fillText('QR', qrX + qrSize/2, qrY + qrSize/2);
             }
-            
-
             
             // ===== НАЗВАНИЕ СЕРИИ =====
             ctx.font = `bold 26px Inter, system-ui`;
@@ -2519,8 +2488,6 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
     });
 }
 
-// ===== СКАЧИВАНИЕ ЧЕК-ЛИСТА (ИСПРАВЛЕННАЯ ВЕРСИЯ) =====
-
 // ===== СКАЧИВАНИЕ ЧЕК-ЛИСТА =====
 async function downloadCollage(seriesId, seriesName) {
     try {
@@ -2639,31 +2606,12 @@ async function downloadCollage(seriesId, seriesName) {
         showError(lang === 'ru' ? 'Не удалось сохранить чек-лист: ' + error.message : 'Failed to save checklist: ' + error.message);
     }
 }
-        
-        console.log('🌐 Используем браузерный fallback для чек-листа');
-        const link = document.createElement("a");
-        link.href = jpegData;
-        link.download = `checklist_${safeName}.jpg`;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        hideLoadingToast();
-        showSuccess('✅ Чек-лист скачан');
-        
-    } catch (error) {
-        console.error('❌ Ошибка сохранения чек-листа:', error);
-        hideLoadingToast();
-        const lang = localStorage.getItem("lang") || "ru";
-        showError(lang === 'ru' ? 'Не удалось сохранить чек-лист: ' + error.message : 'Failed to save checklist: ' + error.message);
-    }
 
 // ===== ОБРАБОТКА ГЛУБОКИХ ССЫЛОК ДЛЯ QR-КОДОВ =====
 function handleDeepLink() {
-    // Проверяем URL на наличие параметра id
     const params = new URLSearchParams(window.location.search);
     const id = params.get('id');
     
-    // Также проверяем hash (для ссылок вида #figure-xxx)
     const hash = window.location.hash;
     const figureMatch = hash.match(/figure-([^&]+)/);
     
@@ -2671,7 +2619,6 @@ function handleDeepLink() {
     
     if (id) {
         console.log('📱 Открыто через глубокую ссылку, серия:', id);
-        // Перенаправляем на страницу серии
         setTimeout(() => {
             window.location.href = `series.html?id=${id}`;
         }, 100);
@@ -2681,8 +2628,6 @@ function handleDeepLink() {
     if (figureMatch) {
         const figureId = figureMatch[1];
         console.log('📱 Открыто через глубокую ссылку, фигурка:', figureId);
-        // Перенаправляем на страницу фигурки (нужно найти серию)
-        // В данном случае просто показываем сообщение
         showSuccess(`🔍 Открыта фигурка: ${figureId}`);
         return true;
     }
@@ -2690,9 +2635,7 @@ function handleDeepLink() {
     return false;
 }
 
-// Вызываем при загрузке страницы
 document.addEventListener('DOMContentLoaded', function() {
-    // Если это главная страница, проверяем глубокие ссылки
     if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
         handleDeepLink();
     }
