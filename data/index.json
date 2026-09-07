@@ -1,5 +1,41 @@
 [
   {
+    "id": "special-fairies-by-kinder-2026",
+    "name": "Особенные Феи от Киндер",
+    "name_en": "Special Fairies by Kinder",
+    "year": 2026,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/special-fairies-by-kinder-2026/cover.webp",
+    "kind": "",
+    "description": "Сборка посвященная феям",
+    "description_en": "A collection dedicated to fairies",
+    "visible": true
+  },
+  {
+    "id": "dragons-by-kinder-2025",
+    "name": "Драконы от Киндер",
+    "name_en": "Dragons by Kinder",
+    "year": 2025,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/dragons-by-kinder-2025/cover.webp",
+    "kind": "",
+    "description": "Сборка посвященная драконам",
+    "description_en": "A collection dedicated to dragons",
+    "visible": true
+  },
+  {
+    "id": "unisex-by-kinder-2026",
+    "name": "Сборка ЮНИ от Киндер",
+    "name_en": "Unisex 2 by Kinder",
+    "year": 2026,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/unisex-2-by-kinder-2026/cover.webp",
+    "kind": "",
+    "description": "Самая большая сборка в которой можно сказать собраны несколько разных подсерий.",
+    "description_en": "The largest assembly in which several different subseries can be said to be collected.",
+    "visible": true
+  },
+  {
     "id": "fairies-by-kinder-2026",
     "name": "Феи от Киндер",
     "name_en": "Fairies by Kinder",
@@ -24,12 +60,12 @@
     "visible": true
   },
   {
-    "id": "unisex-by-kinder-2026",
-    "name": "Сборка ЮНИ от Киндер",
-    "name_en": "Unisex by Kinder",
+    "id": "unisex-2-by-kinder-2026",
+    "name": "Сборка ЮНИ 2 от Киндер",
+    "name_en": "Unisex 2 by Kinder",
     "year": 2026,
     "manufacturer": "kinder",
-    "cover": "images/series/kinder/unisex-by-kinder-2026/cover.webp",
+    "cover": "images/series/kinder/unisex-2-by-kinder-2026/cover.webp",
     "kind": "",
     "description": "Сборка для мальчиков и девочек 2026 года.",
     "description_en": "Assembly for boys and girls 2026.",
