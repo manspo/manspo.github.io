@@ -2309,9 +2309,9 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
             const itemsPerRow = 4;
             const itemSize = 300;
             const padding = 20;
-            const headerHeight = 100; // ← УВЕЛИЧЕНО
-            const footerHeight = 80;  // ← УВЕЛИЧЕНО
-            const qrSize = 180; // ← УВЕЛИЧЕНО (как размер фигурки)
+            const headerHeight = 100;
+            const footerHeight = 80;
+            const qrSize = 180;
             
             const figureRows = Math.ceil(figures.length / itemsPerRow);
             const extraRows = Math.ceil(extras.length / itemsPerRow);
@@ -2328,6 +2328,25 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
             canvas.height = totalHeight;
             const ctx = canvas.getContext('2d');
             
+            // ===== ЯЗЫКОВЫЕ НАЗВАНИЯ =====
+            const langData = {
+                ru: {
+                    figures: 'ФИГУРКИ',
+                    extras: 'ДОПЫ',
+                    variants: 'ВАРИАНТЫ',
+                    footer: 'Скачано с ',
+                    capsule: 'CAPSULE'
+                },
+                en: {
+                    figures: 'FIGURES',
+                    extras: 'EXTRAS',
+                    variants: 'VARIANTS',
+                    footer: 'Downloaded from ',
+                    capsule: 'CAPSULE'
+                }
+            };
+            const currentLang = langData[lang] || langData.ru;
+            
             // ===== ФОН =====
             ctx.fillStyle = '#ffffff';
             ctx.fillRect(0, 0, totalWidth, totalHeight);
@@ -2337,42 +2356,69 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
             qrCanvas.width = qrSize;
             qrCanvas.height = qrSize;
             
-            // Генерируем QR-код
             const qrUrl = `https://manspo.github.io/series.html?id=${seriesId}`;
-            new QRCode(qrCanvas, {
-                text: qrUrl,
-                width: qrSize,
-                height: qrSize,
-                colorDark: "#000000",
-                colorLight: "#ffffff",
-                correctLevel: QRCode.CorrectLevel.H
-            });
+            
+            if (typeof QRCode !== 'undefined') {
+                try {
+                    new QRCode(qrCanvas, {
+                        text: qrUrl,
+                        width: qrSize,
+                        height: qrSize,
+                        colorDark: "#000000",
+                        colorLight: "#ffffff",
+                        correctLevel: QRCode.CorrectLevel.H
+                    });
+                } catch (e) {
+                    console.warn('Ошибка генерации QR-кода:', e);
+                    const ctx2 = qrCanvas.getContext('2d');
+                    ctx2.fillStyle = '#f0f0f0';
+                    ctx2.fillRect(0, 0, qrSize, qrSize);
+                    ctx2.fillStyle = '#4f46e5';
+                    ctx2.font = '16px monospace';
+                    ctx2.textAlign = 'center';
+                    ctx2.textBaseline = 'middle';
+                    ctx2.fillText('QR', qrSize/2, qrSize/2 - 10);
+                    ctx2.font = '10px monospace';
+                    ctx2.fillText(qrUrl.substring(0, 30)+'...', qrSize/2, qrSize/2 + 20);
+                }
+            } else {
+                const ctx2 = qrCanvas.getContext('2d');
+                ctx2.fillStyle = '#f0f0f0';
+                ctx2.fillRect(0, 0, qrSize, qrSize);
+                ctx2.fillStyle = '#ef4444';
+                ctx2.font = '14px monospace';
+                ctx2.textAlign = 'center';
+                ctx2.textBaseline = 'middle';
+                ctx2.fillText('QR Code', qrSize/2, qrSize/2 - 10);
+                ctx2.font = '10px monospace';
+                ctx2.fillText('library not loaded', qrSize/2, qrSize/2 + 20);
+            }
             
             // ===== РИСУЕМ QR-КОД В ПРАВОМ ВЕРХНЕМ УГЛУ =====
             const qrX = totalWidth - qrSize - padding;
             const qrY = padding;
             ctx.drawImage(qrCanvas, qrX, qrY, qrSize, qrSize);
             
-            // ===== РИСУЕМ ССЫЛКУ ПОД QR-КОДОМ (увеличенный шрифт) =====
+            // ===== ССЫЛКА ПОД QR-КОДОМ =====
             ctx.font = 'bold 16px monospace';
             ctx.fillStyle = '#4f46e5';
             ctx.textAlign = 'right';
             ctx.textBaseline = 'top';
             ctx.fillText('manspo.github.io', totalWidth - padding, qrY + qrSize + 8);
             
-            // ===== РИСУЕМ ЗАГОЛОВОК С НАЗВАНИЕМ СЕРИИ (увеличенный шрифт) =====
+            // ===== НАЗВАНИЕ СЕРИИ =====
             ctx.font = `bold 26px Inter, system-ui`;
             ctx.fillStyle = '#1f2937';
             ctx.textAlign = 'left';
             ctx.textBaseline = 'top';
             ctx.fillText(seriesName || 'Checklist', padding, padding + 10);
             
-            // ===== ДОБАВЛЯЕМ МЕТКУ "CAPSULE" =====
+            // ===== МЕТКА "CAPSULE" =====
             ctx.font = 'bold 16px Inter, system-ui';
             ctx.fillStyle = '#cbd5e1';
             ctx.textAlign = 'right';
             ctx.textBaseline = 'bottom';
-            ctx.fillText('CAPSULE', totalWidth - padding - qrSize - 20, padding + 50);
+            ctx.fillText(currentLang.capsule, totalWidth - padding - qrSize - 20, padding + 50);
             
             let currentY = padding + headerHeight;
             
@@ -2384,13 +2430,6 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                 ctx.textAlign = 'left';
                 ctx.textBaseline = 'top';
                 ctx.fillText(title, padding, y + 10);
-                
-                // Рисуем ссылку справа от заголовка
-                ctx.font = 'bold 14px monospace';
-                ctx.fillStyle = '#4f46e5';
-                ctx.textAlign = 'right';
-                ctx.textBaseline = 'top';
-                ctx.fillText('manspo.github.io', totalWidth - padding, y + 14);
                 
                 y += headerHeight;
                 
@@ -2450,7 +2489,7 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                     ctx.fillText('CAPSULE', 0, 0);
                     ctx.restore();
                     
-                    // Номер (увеличен)
+                    // Номер
                     ctx.font = `bold ${Math.floor(itemSize * 0.16)}px Inter, system-ui`;
                     ctx.fillStyle = '#4f46e5';
                     ctx.shadowColor = 'transparent';
@@ -2458,7 +2497,7 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                     ctx.textBaseline = 'top';
                     ctx.fillText(num.toString(), currentX + 15, y + 15);
                     
-                    // Код (с отступом, чтобы не слипался)
+                    // Код (если есть)
                     if (itemCode) {
                         ctx.font = `bold ${Math.floor(itemSize * 0.1)}px monospace`;
                         ctx.fillStyle = '#6b7280';
@@ -2481,24 +2520,28 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
             
             // ===== ОТРИСОВКА ГРУПП =====
             if (figures.length > 0) {
-                currentY = await drawGroup(figures, lang === 'ru' ? 'ФИГУРКИ' : 'FIGURES', currentY);
+                currentY = await drawGroup(figures, currentLang.figures, currentY);
                 currentY += padding;
             }
             if (extras.length > 0) {
-                currentY = await drawGroup(extras, lang === 'ru' ? 'ДОПЫ' : 'EXTRAS', currentY);
+                currentY = await drawGroup(extras, currentLang.extras, currentY);
                 currentY += padding;
             }
             if (variants.length > 0) {
-                currentY = await drawGroup(variants, lang === 'ru' ? 'ВАРИАНТЫ' : 'VARIANTS', currentY);
+                currentY = await drawGroup(variants, currentLang.variants, currentY);
                 currentY += padding;
             }
             
-            // ===== НИЖНИЙ КОЛОНТИТУЛ С ССЫЛКОЙ (увеличенный шрифт) =====
+            // ===== НИЖНИЙ КОЛОНТИТУЛ =====
             ctx.font = '16px Inter, system-ui';
             ctx.fillStyle = '#6b7280';
             ctx.textAlign = 'center';
             ctx.textBaseline = 'bottom';
-            const footerText = `Скачано с https://manspo.github.io  •  ${new Date().toLocaleDateString('ru-RU', { day: '2-digit', month: '2-digit', year: 'numeric' })}`;
+            const dateStr = new Date().toLocaleDateString(
+                lang === 'en' ? 'en-US' : 'ru-RU',
+                { day: '2-digit', month: '2-digit', year: 'numeric' }
+            );
+            const footerText = `${currentLang.footer} https://manspo.github.io  •  ${dateStr}`;
             ctx.fillText(footerText, totalWidth / 2, totalHeight - 12);
             
             const jpegData = canvas.toDataURL('image/jpeg', 0.95);
