@@ -2335,7 +2335,7 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                     extras: 'ДОПЫ',
                     variants: 'ВАРИАНТЫ',
                     footer: 'Скачано с ',
-                    capsule: 'CAPSULE'
+                    capsule: 'КАПСУЛА'
                 },
                 en: {
                     figures: 'FIGURES',

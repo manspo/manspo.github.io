@@ -1,10 +1,10 @@
 {
-  "id": "playmobile-disney-by-kinder-2026",
+  "id": "playmobil-disney-by-kinder-2026",
   "name": "Плеймобил Дисней от Киндер",
-  "name_en": "Playmobile Disney by Kinder",
+  "name_en": "Playmobil Disney by Kinder",
   "year": 2026,
   "manufacturer": "kinder",
-  "cover": "images/series/kinder/playmobile-disney-by-kinder-2026/cover.webp",
+  "cover": "images/series/kinder/playmobil-disney-by-kinder-2026/cover.webp",
   "description": "Очень крутая серия посвященная персонажам диснеевских мультфильмов.",
   "description_en": "A very cool series dedicated to Disney cartoon characters.",
   "kind": "",
@@ -14,11 +14,11 @@
   "fullSeriesPrice": "",
   "figures": [
     {
-      "id": "playmobile-disney-by-kinder-2026_fig1",
+      "id": "playmobil-disney-by-kinder-2026_fig1",
       "name": "Фигурка 1",
       "name_en": "Figure 1",
       "code": "VS401",
-      "image": "images/series/kinder/playmobile-disney-by-kinder-2026/kindersurprise_playmobildisney_VS401.webp",
+      "image": "images/series/kinder/playmobil-disney-by-kinder-2026/kindersurprise_playmobildisney_VS401.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -28,11 +28,11 @@
       "parentFigureId": ""
     },
     {
-      "id": "playmobile-disney-by-kinder-2026_fig2",
+      "id": "playmobil-disney-by-kinder-2026_fig2",
       "name": "Фигурка 2",
       "name_en": "Figure 2",
       "code": "VS406",
-      "image": "images/series/kinder/playmobile-disney-by-kinder-2026/kindersurprise_playmobildisney_VS406.webp",
+      "image": "images/series/kinder/playmobil-disney-by-kinder-2026/kindersurprise_playmobildisney_VS406.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -42,11 +42,11 @@
       "parentFigureId": ""
     },
     {
-      "id": "playmobile-disney-by-kinder-2026_fig3",
+      "id": "playmobil-disney-by-kinder-2026_fig3",
       "name": "Фигурка 3",
       "name_en": "Figure 3",
       "code": "VS407",
-      "image": "images/series/kinder/playmobile-disney-by-kinder-2026/kindersurprise_playmobildisney_VS407.webp",
+      "image": "images/series/kinder/playmobil-disney-by-kinder-2026/kindersurprise_playmobildisney_VS407.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -56,11 +56,11 @@
       "parentFigureId": ""
     },
     {
-      "id": "playmobile-disney-by-kinder-2026_fig4",
+      "id": "playmobil-disney-by-kinder-2026_fig4",
       "name": "Фигурка 4",
       "name_en": "Figure 4",
       "code": "VS417",
-      "image": "images/series/kinder/playmobile-disney-by-kinder-2026/kindersurprise_playmobildisney_VS417.webp",
+      "image": "images/series/kinder/playmobil-disney-by-kinder-2026/kindersurprise_playmobildisney_VS417.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -70,11 +70,11 @@
       "parentFigureId": ""
     },
     {
-      "id": "playmobile-disney-by-kinder-2026_fig5",
+      "id": "playmobil-disney-by-kinder-2026_fig5",
       "name": "Фигурка 5",
       "name_en": "Figure 5",
       "code": "VS418",
-      "image": "images/series/kinder/playmobile-disney-by-kinder-2026/kindersurprise_playmobildisney_VS418.webp",
+      "image": "images/series/kinder/playmobil-disney-by-kinder-2026/kindersurprise_playmobildisney_VS418.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -84,11 +84,11 @@
       "parentFigureId": ""
     },
     {
-      "id": "playmobile-disney-by-kinder-2026_fig6",
+      "id": "playmobil-disney-by-kinder-2026_fig6",
       "name": "Фигурка 6",
       "name_en": "Figure 6",
       "code": "VS420",
-      "image": "images/series/kinder/playmobile-disney-by-kinder-2026/kindersurprise_playmobildisney_VS420.webp",
+      "image": "images/series/kinder/playmobil-disney-by-kinder-2026/kindersurprise_playmobildisney_VS420.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -98,11 +98,11 @@
       "parentFigureId": ""
     },
     {
-      "id": "playmobile-disney-by-kinder-2026_fig7",
+      "id": "playmobil-disney-by-kinder-2026_fig7",
       "name": "Фигурка 7",
       "name_en": "Figure 7",
       "code": "VS421",
-      "image": "images/series/kinder/playmobile-disney-by-kinder-2026/kindersurprise_playmobildisney_VS421.webp",
+      "image": "images/series/kinder/playmobil-disney-by-kinder-2026/kindersurprise_playmobildisney_VS421.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -112,11 +112,11 @@
       "parentFigureId": ""
     },
     {
-      "id": "playmobile-disney-by-kinder-2026_fig8",
+      "id": "playmobil-disney-by-kinder-2026_fig8",
       "name": "Фигурка 8",
       "name_en": "Figure 8",
       "code": "VS422",
-      "image": "images/series/kinder/playmobile-disney-by-kinder-2026/kindersurprise_playmobildisney_VS422.webp",
+      "image": "images/series/kinder/playmobil-disney-by-kinder-2026/kindersurprise_playmobildisney_VS422.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -126,11 +126,11 @@
       "parentFigureId": ""
     },
     {
-      "id": "playmobile-disney-by-kinder-2026_fig9",
+      "id": "playmobil-disney-by-kinder-2026_fig9",
       "name": "Фигурка 9",
       "name_en": "Figure 9",
       "code": "VS423",
-      "image": "images/series/kinder/playmobile-disney-by-kinder-2026/kindersurprise_playmobildisney_VS423.webp",
+      "image": "images/series/kinder/playmobil-disney-by-kinder-2026/kindersurprise_playmobildisney_VS423.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -140,11 +140,11 @@
       "parentFigureId": ""
     },
     {
-      "id": "playmobile-disney-by-kinder-2026_fig10",
+      "id": "playmobil-disney-by-kinder-2026_fig10",
       "name": "Фигурка 10",
       "name_en": "Figure 10",
       "code": "VS424",
-      "image": "images/series/kinder/playmobile-disney-by-kinder-2026/kindersurprise_playmobildisney_VS424.webp",
+      "image": "images/series/kinder/playmobil-disney-by-kinder-2026/kindersurprise_playmobildisney_VS424.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -154,11 +154,11 @@
       "parentFigureId": ""
     },
     {
-      "id": "playmobile-disney-by-kinder-2026_fig11",
+      "id": "playmobil-disney-by-kinder-2026_fig11",
       "name": "Фигурка 11",
       "name_en": "Figure 11",
       "code": "VS425",
-      "image": "images/series/kinder/playmobile-disney-by-kinder-2026/kindersurprise_playmobildisney_VS425.webp",
+      "image": "images/series/kinder/playmobil-disney-by-kinder-2026/kindersurprise_playmobildisney_VS425.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -168,11 +168,11 @@
       "parentFigureId": ""
     },
     {
-      "id": "playmobile-disney-by-kinder-2026_fig12",
+      "id": "playmobil-disney-by-kinder-2026_fig12",
       "name": "Фигурка 12",
       "name_en": "Figure 12",
       "code": "VS429",
-      "image": "images/series/kinder/playmobile-disney-by-kinder-2026/kindersurprise_playmobildisney_VS429.webp",
+      "image": "images/series/kinder/playmobil-disney-by-kinder-2026/kindersurprise_playmobildisney_VS429.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -182,11 +182,11 @@
       "parentFigureId": ""
     },
     {
-      "id": "playmobile-disney-by-kinder-2026_fig13",
+      "id": "playmobil-disney-by-kinder-2026_fig13",
       "name": "Фигурка 13",
       "name_en": "Figure 13",
       "code": "VS430",
-      "image": "images/series/kinder/playmobile-disney-by-kinder-2026/kindersurprise_playmobildisney_VS430.webp",
+      "image": "images/series/kinder/playmobil-disney-by-kinder-2026/kindersurprise_playmobildisney_VS430.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -196,11 +196,11 @@
       "parentFigureId": ""
     },
     {
-      "id": "playmobile-disney-by-kinder-2026_fig14",
+      "id": "playmobil-disney-by-kinder-2026_fig14",
       "name": "Фигурка 14",
-      "name_en": "Figure 14",
+      "name_en": "Figureс14",
       "code": "VS431",
-      "image": "images/series/kinder/playmobile-disney-by-kinder-2026/kindersurprise_playmobildisney_VS431.webp",
+      "image": "images/series/kinder/playmobil-disney-by-kinder-2026/kindersurprise_playmobildisney_VS431.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -210,11 +210,11 @@
       "parentFigureId": ""
     },
     {
-      "id": "playmobile-disney-by-kinder-2026_fig15",
+      "id": "playmobil-disney-by-kinder-2026_fig15",
       "name": "Фигурка 15",
       "name_en": "Figure 15",
       "code": "VS432",
-      "image": "images/series/kinder/playmobile-disney-by-kinder-2026/kindersurprise_playmobildisney_VS432.webp",
+      "image": "images/series/kinder/playmobil-disney-by-kinder-2026/kindersurprise_playmobildisney_VS432.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -224,11 +224,11 @@
       "parentFigureId": ""
     },
     {
-      "id": "playmobile-disney-by-kinder-2026_fig16",
+      "id": "playmobil-disney-by-kinder-2026_fig16",
       "name": "Фигурка 16",
       "name_en": "Figure 16",
       "code": "VS435",
-      "image": "images/series/kinder/playmobile-disney-by-kinder-2026/kindersurprise_playmobildisney_VS435.webp",
+      "image": "images/series/kinder/playmobil-disney-by-kinder-2026/kindersurprise_playmobildisney_VS435.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -238,11 +238,11 @@
       "parentFigureId": ""
     },
     {
-      "id": "playmobile-disney-by-kinder-2026_fig17",
+      "id": "playmobil-disney-by-kinder-2026_fig17",
       "name": "Фигурка 17",
       "name_en": "Figure 17",
       "code": "VS436",
-      "image": "images/series/kinder/playmobile-disney-by-kinder-2026/kindersurprise_playmobildisney_VS436.webp",
+      "image": "images/series/kinder/playmobil-disney-by-kinder-2026/kindersurprise_playmobildisney_VS436.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -252,11 +252,11 @@
       "parentFigureId": ""
     },
     {
-      "id": "playmobile-disney-by-kinder-2026_fig18",
+      "id": "playmobil-disney-by-kinder-2026_fig18",
       "name": "Фигурка 18",
       "name_en": "Figure 18",
       "code": "VS437",
-      "image": "images/series/kinder/playmobile-disney-by-kinder-2026/kindersurprise_playmobildisney_VS437.webp",
+      "image": "images/series/kinder/playmobil-disney-by-kinder-2026/kindersurprise_playmobildisney_VS437.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
