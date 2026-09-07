@@ -2356,6 +2356,7 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
             qrCanvas.width = qrSize;
             qrCanvas.height = qrSize;
             
+            // ПРОВЕРКА: используем правильный URL
             const qrUrl = `https://manspo.github.io/series.html?id=${seriesId}`;
             
             if (typeof QRCode !== 'undefined') {
