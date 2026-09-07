@@ -1,5 +1,17 @@
 [
   {
+    "id": "young-cows-by-milka-1994",
+    "name": "Молодые Коровы от Милка",
+    "name_en": "Young Cows by Milka",
+    "year": 1994,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/young-cows-by-milka-1994/cover.webp",
+    "kind": "",
+    "description": "Перед вами очаровательный итальянская серия 1994 года из 8 молодых коров. Действие происходит в «Волшебной долине Милка», населенной милыми персонажами, под лучами прекрасного солнца и на фоне великолепного голубого неба.\nКоровы носят имя «Милкин».",
+    "description_en": "Here is a charming Italian series of 1994 compound of 8 young cows. The theme takes place in the \"Magic Valley Milka\", populated with nice characters, the whole accompanied with a beautiful sun and with a magnificent blue sky.\nCows bear the name of \"Milkine\".",
+    "visible": true
+  },
+  {
     "id": "simpsons-2-by-panini-1999",
     "name": "Симпсоны 2 от Панини",
     "name_en": "Simpsons 2 by Panini",
