@@ -197,24 +197,51 @@ document.addEventListener('dragstart', function(e) {
   }
 });
 
+// ===== СОЗДАНИЕ ПУСТОГО ИЗОБРАЖЕНИЯ (FALLBACK) =====
+function createEmptyImage() {
+    const canvas = document.createElement('canvas');
+    canvas.width = 200;
+    canvas.height = 200;
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = '#f5f5f5';
+    ctx.fillRect(0, 0, 200, 200);
+    ctx.fillStyle = '#999';
+    ctx.font = '40px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('🖼️', 100, 100);
+    
+    const img = new Image();
+    img.src = canvas.toDataURL();
+    return img;
+}
+
 // ===== DATA LOADING =====
 
 let seriesCache = {};
 let seriesManufacturerMap = {};
 let allSeriesData = null;
+let isLoadingData = false;
 
 async function loadData() {
-    if (window.dataPromise) {
-        try {
-            const index = await window.dataPromise;
-            window.dataPromise = null;
-            index.forEach(s => { seriesManufacturerMap[s.id] = s.manufacturer; });
-            window.seriesIndex = index;
-            return index;
-        } catch (error) {
-            console.error('Ошибка предзагрузки:', error);
-        }
+    // Если уже загружается - ждем
+    if (isLoadingData) {
+        return new Promise((resolve) => {
+            const check = setInterval(() => {
+                if (!isLoadingData && window.seriesIndex) {
+                    clearInterval(check);
+                    resolve(window.seriesIndex);
+                }
+            }, 50);
+        });
     }
+    
+    // Если уже загружено - возвращаем
+    if (window.seriesIndex) {
+        return window.seriesIndex;
+    }
+    
+    isLoadingData = true;
     
     try {
         console.log('🔍 Загрузка данных с:', `${BASE_URL}/data/index.json`);
@@ -223,8 +250,10 @@ async function loadData() {
         const index = await res.json();
         index.forEach(s => { seriesManufacturerMap[s.id] = s.manufacturer; });
         window.seriesIndex = index;
+        isLoadingData = false;
         return index;
     } catch (error) {
+        isLoadingData = false;
         console.error('Ошибка загрузки индекса:', error);
         showError('Не удалось загрузить каталог. Проверьте соединение.');
         return [];
@@ -232,28 +261,36 @@ async function loadData() {
 }
 
 async function loadSeriesById(id) {
-  if (seriesCache[id]) return seriesCache[id];
-  
-  try {
-    const manufacturer = seriesManufacturerMap[id];
-    if (!manufacturer) {
-      await loadData();
-      return loadSeriesById(id);
+    // Если уже в кеше - возвращаем
+    if (seriesCache[id]) return seriesCache[id];
+    
+    // Если нет индекса - загружаем
+    if (!window.seriesIndex) {
+        await loadData();
     }
     
-    const res = await fetch(`${BASE_URL}/data/series/${manufacturer}/${id}.json`);
-    if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+    // Проверяем наличие серии в индексе
+    const manufacturer = seriesManufacturerMap[id];
+    if (!manufacturer) {
+        console.error(`❌ Серия "${id}" не найдена в индексе`);
+        return null;
+    }
     
-    const series = await res.json();
-    if (!series || !series.id) throw new Error(`Серия ${id} не найдена`);
-    
-    seriesCache[id] = series;
-    return series;
-  } catch (error) {
-    console.error('Ошибка загрузки серии:', error);
-    showError(`Не удалось загрузить серию ${id}`);
-    return null;
-  }
+    // Загружаем данные серии
+    try {
+        const res = await fetch(`${BASE_URL}/data/series/${manufacturer}/${id}.json`);
+        if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+        
+        const series = await res.json();
+        if (!series || !series.id) throw new Error(`Серия ${id} не найдена`);
+        
+        seriesCache[id] = series;
+        return series;
+    } catch (error) {
+        console.error('Ошибка загрузки серии:', error);
+        showError(`Не удалось загрузить серию ${id}`);
+        return null;
+    }
 }
 
 async function loadAllSeries() {
@@ -424,6 +461,32 @@ function initTheme() {
       themeBtn.innerHTML = newTheme === 'light' ? '🌙' : '☀️';
     };
   }
+}
+
+// ===== ЗАГРУЗКА ИЗОБРАЖЕНИЙ С ЗАЩИТОЙ =====
+function loadImage(src) {
+    return new Promise((resolve) => {
+        const img = new Image();
+        img.crossOrigin = 'Anonymous';
+        
+        const timeout = setTimeout(() => {
+            console.warn('⏱️ Таймаут загрузки:', src);
+            resolve(createEmptyImage());
+        }, 5000);
+        
+        img.onload = () => {
+            clearTimeout(timeout);
+            resolve(img);
+        };
+        
+        img.onerror = () => {
+            clearTimeout(timeout);
+            console.warn('❌ Ошибка загрузки:', src);
+            resolve(createEmptyImage());
+        };
+        
+        img.src = src;
+    });
 }
 
 // ===== QR-КОДЫ (ПОЛНАЯ ВЕРСИЯ С НАТИВНЫМ СОХРАНЕНИЕМ И ГЛУБОКИМИ ССЫЛКАМИ) =====
@@ -1142,7 +1205,7 @@ function initKindFilters(containerId, currentKind, onKindChange) {
   });
 }
 
-// ===== CATALOG (ИСПРАВЛЕН) =====
+// ===== CATALOG =====
 async function initCatalog() {
   const grid = document.getElementById("catalogGrid");
   if (!grid) return;
@@ -2227,6 +2290,8 @@ async function initFigure() {
 }
 
 // ===== COLLAGE FUNCTIONS =====
+let isDownloadingChecklist = false;
+
 function showLoadingToast(message) {
   let toast = document.getElementById('loadingToast');
   if (!toast) {
@@ -2248,37 +2313,21 @@ function hideLoadingToast() {
   if (toast) toast.style.display = 'none';
 }
 
-function loadImage(src) {
-  return new Promise((resolve) => {
-    const img = new Image();
-    img.crossOrigin = 'Anonymous';
-    img.onload = () => resolve(img);
-    img.onerror = () => {
-      const fallback = new Image();
-      fallback.src = 'images/placeholder.svg';
-      fallback.onload = () => resolve(fallback);
-      fallback.onerror = () => resolve(null);
-    };
-    img.src = src;
-  });
-}
-
 async function generateCollage(seriesId, seriesName, figures, extras, variants, lang) {
     return new Promise(async (resolve, reject) => {
         try {
             const allItems = [...figures, ...extras, ...variants];
-            const loadedImages = [];
+            
+            // Загружаем все изображения с защитой
+            const imageMap = new Map();
             for (const item of allItems) {
                 const imageUrl = item.image ? `${BASE_URL}/${item.image}` : 'images/placeholder.svg';
                 const img = await loadImage(imageUrl);
-                loadedImages.push({ item, img: img || new Image() });
+                // Гарантируем валидный объект
+                imageMap.set(item.id || item.name, img || createEmptyImage());
             }
-            const imageMap = new Map();
-            loadedImages.forEach(({ item, img }) => {
-                imageMap.set(item.id || item.name, img);
-            });
             
-            // ===== НОВЫЕ РАЗМЕРЫ: 6 В РЯД =====
+            // Размеры
             const itemsPerRow = 6;
             const itemSize = 220;
             const padding = 15;
@@ -2301,7 +2350,7 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
             canvas.height = totalHeight;
             const ctx = canvas.getContext('2d');
             
-            // ===== ЯЗЫКОВЫЕ НАЗВАНИЯ =====
+            // Языковые названия
             const langData = {
                 ru: {
                     figures: 'ФИГУРКИ',
@@ -2320,14 +2369,12 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
             };
             const currentLang = langData[lang] || langData.ru;
             
-            // ===== ФОН =====
+            // Фон
             ctx.fillStyle = '#ffffff';
             ctx.fillRect(0, 0, totalWidth, totalHeight);
             
-            // ===== ЗАГРУЗКА ГОТОВОГО QR-КОДА =====
+            // QR-код
             const qrImage = await loadImage(`${BASE_URL}/images/qrcodesite.png`);
-            
-            // ===== РИСУЕМ QR-КОД В ПРАВОМ ВЕРХНЕМ УГЛУ =====
             const qrX = totalWidth - qrSize - padding;
             const qrY = padding;
             if (qrImage && qrImage.complete && qrImage.naturalWidth > 0) {
@@ -2342,14 +2389,14 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                 ctx.fillText('QR', qrX + qrSize/2, qrY + qrSize/2);
             }
             
-            // ===== НАЗВАНИЕ СЕРИИ =====
+            // Название серии
             ctx.font = `bold 22px Inter, system-ui`;
             ctx.fillStyle = '#1f2937';
             ctx.textAlign = 'left';
             ctx.textBaseline = 'top';
             ctx.fillText(seriesName || 'Checklist', padding, padding + 10);
             
-            // ===== МЕТКА "CAPSULE" =====
+            // Метка CAPSULE
             ctx.font = 'bold 14px Inter, system-ui';
             ctx.fillStyle = '#78E05C';
             ctx.textAlign = 'right';
@@ -2358,7 +2405,7 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
             
             let currentY = padding + headerHeight;
             
-            // ===== ФУНКЦИЯ ОТРИСОВКИ ГРУПП =====
+            // Функция отрисовки группы
             async function drawGroup(items, title, startY) {
                 let y = startY;
                 ctx.font = `bold ${Math.floor(headerHeight * 0.35)}px Inter, system-ui`;
@@ -2373,88 +2420,102 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                 let col = 0;
                 
                 for (let i = 0; i < items.length; i++) {
-                    const item = items[i];
-                    const num = i + 1;
-                    const itemCode = item.code || '';
-                    const img = imageMap.get(item.id || item.name);
-                    
-                    // Фон ячейки
-                    ctx.fillStyle = '#f5f7fb';
-                    ctx.fillRect(currentX, y, itemSize, itemSize);
-                    ctx.strokeStyle = '#e5e7eb';
-                    ctx.lineWidth = 1.5;
-                    ctx.strokeRect(currentX, y, itemSize, itemSize);
-                    
-                    // Изображение
-                    if (img && img.complete && img.naturalWidth > 0) {
-                        const maxImgSize = itemSize - 80;
-                        const imgWidth = img.naturalWidth;
-                        const imgHeight = img.naturalHeight;
-                        let drawWidth, drawHeight;
-                        if (imgWidth > imgHeight) {
-                            drawWidth = maxImgSize;
-                            drawHeight = (imgHeight / imgWidth) * maxImgSize;
+                    try {
+                        const item = items[i];
+                        const num = i + 1;
+                        const itemCode = item.code || '';
+                        // Гарантируем валидное изображение
+                        const img = imageMap.get(item.id || item.name) || createEmptyImage();
+                        
+                        // Фон ячейки
+                        ctx.fillStyle = '#f5f7fb';
+                        ctx.fillRect(currentX, y, itemSize, itemSize);
+                        ctx.strokeStyle = '#e5e7eb';
+                        ctx.lineWidth = 1.5;
+                        ctx.strokeRect(currentX, y, itemSize, itemSize);
+                        
+                        // Изображение
+                        if (img && img.complete && img.naturalWidth > 0) {
+                            const maxImgSize = itemSize - 80;
+                            const imgWidth = img.naturalWidth;
+                            const imgHeight = img.naturalHeight;
+                            let drawWidth, drawHeight;
+                            if (imgWidth > imgHeight) {
+                                drawWidth = maxImgSize;
+                                drawHeight = (imgHeight / imgWidth) * maxImgSize;
+                            } else {
+                                drawHeight = maxImgSize;
+                                drawWidth = (imgWidth / imgHeight) * maxImgSize;
+                            }
+                            const imgX = currentX + (itemSize - drawWidth) / 2;
+                            const imgY = y + 40 + (maxImgSize - drawHeight) / 2;
+                            ctx.drawImage(img, imgX, imgY, drawWidth, drawHeight);
                         } else {
-                            drawHeight = maxImgSize;
-                            drawWidth = (imgWidth / imgHeight) * maxImgSize;
+                            ctx.fillStyle = '#e0e0e0';
+                            ctx.fillRect(currentX + 10, y + 40, itemSize - 20, itemSize - 70);
+                            ctx.fillStyle = '#999';
+                            ctx.font = `${Math.floor(itemSize * 0.1)}px Inter`;
+                            ctx.textAlign = 'center';
+                            ctx.textBaseline = 'middle';
+                            ctx.fillText('🖼️', currentX + itemSize/2, y + itemSize/2 + 15);
                         }
-                        const imgX = currentX + (itemSize - drawWidth) / 2;
-                        const imgY = y + 40 + (maxImgSize - drawHeight) / 2;
-                        ctx.drawImage(img, imgX, imgY, drawWidth, drawHeight);
-                    } else {
-                        ctx.fillStyle = '#e0e0e0';
-                        ctx.fillRect(currentX + 10, y + 40, itemSize - 20, itemSize - 70);
-                        ctx.fillStyle = '#999';
-                        ctx.font = `${Math.floor(itemSize * 0.1)}px Inter`;
+                        
+                        // Водяной знак CAPSULE
+                        ctx.save();
+                        ctx.globalAlpha = 0.2;
+                        ctx.translate(currentX + itemSize/2, y + itemSize/2);
+                        ctx.rotate(-Math.PI / 4);
+                        ctx.font = `bold ${Math.floor(itemSize * 0.18)}px Inter, system-ui`;
+                        ctx.fillStyle = '#4f46e5';
+                        ctx.shadowColor = 'rgba(0,0,0,0.05)';
+                        ctx.shadowBlur = 2;
                         ctx.textAlign = 'center';
                         ctx.textBaseline = 'middle';
-                        ctx.fillText('🖼️', currentX + itemSize/2, y + itemSize/2 + 15);
-                    }
-                    
-                    // Водяной знак CAPSULE
-                    ctx.save();
-                    ctx.globalAlpha = 0.2;
-                    ctx.translate(currentX + itemSize/2, y + itemSize/2);
-                    ctx.rotate(-Math.PI / 4);
-                    ctx.font = `bold ${Math.floor(itemSize * 0.18)}px Inter, system-ui`;
-                    ctx.fillStyle = '#4f46e5';
-                    ctx.shadowColor = 'rgba(0,0,0,0.05)';
-                    ctx.shadowBlur = 2;
-                    ctx.textAlign = 'center';
-                    ctx.textBaseline = 'middle';
-                    ctx.fillText('CAPSULE', 0, 0);
-                    ctx.restore();
-                    
-                    // Номер
-                    ctx.font = `bold ${Math.floor(itemSize * 0.15)}px Inter, system-ui`;
-                    ctx.fillStyle = '#4f46e5';
-                    ctx.shadowColor = 'transparent';
-                    ctx.textAlign = 'left';
-                    ctx.textBaseline = 'top';
-                    ctx.fillText(num.toString(), currentX + 10, y + 10);
-                    
-                    // Код (если есть)
-                    if (itemCode) {
-                        ctx.font = `bold ${Math.floor(itemSize * 0.09)}px monospace`;
-                        ctx.fillStyle = '#6b7280';
+                        ctx.fillText('CAPSULE', 0, 0);
+                        ctx.restore();
+                        
+                        // Номер
+                        ctx.font = `bold ${Math.floor(itemSize * 0.15)}px Inter, system-ui`;
+                        ctx.fillStyle = '#4f46e5';
+                        ctx.shadowColor = 'transparent';
                         ctx.textAlign = 'left';
                         ctx.textBaseline = 'top';
-                        ctx.fillText(itemCode, currentX + 10, y + 45);
-                    }
-                    
-                    currentX += itemSize + padding;
-                    col++;
-                    if (col >= itemsPerRow) {
-                        col = 0;
-                        currentX = padding;
-                        y += itemSize + padding;
+                        ctx.fillText(num.toString(), currentX + 10, y + 10);
+                        
+                        // Код (если есть)
+                        if (itemCode) {
+                            ctx.font = `bold ${Math.floor(itemSize * 0.09)}px monospace`;
+                            ctx.fillStyle = '#6b7280';
+                            ctx.textAlign = 'left';
+                            ctx.textBaseline = 'top';
+                            ctx.fillText(itemCode, currentX + 10, y + 45);
+                        }
+                        
+                        currentX += itemSize + padding;
+                        col++;
+                        if (col >= itemsPerRow) {
+                            col = 0;
+                            currentX = padding;
+                            y += itemSize + padding;
+                        }
+                    } catch (error) {
+                        console.warn('Ошибка отрисовки элемента:', item?.id, error);
+                        // Пропускаем элемент
+                        currentX += itemSize + padding;
+                        col++;
+                        if (col >= itemsPerRow) {
+                            col = 0;
+                            currentX = padding;
+                            y += itemSize + padding;
+                        }
+                        continue;
                     }
                 }
                 if (col !== 0) y += itemSize + padding;
                 return y;
             }
             
-            // ===== ОТРИСОВКА ГРУПП =====
+            // Отрисовка групп
             if (figures.length > 0) {
                 currentY = await drawGroup(figures, currentLang.figures, currentY);
                 currentY += padding;
@@ -2468,7 +2529,7 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                 currentY += padding;
             }
             
-            // ===== НИЖНИЙ КОЛОНТИТУЛ =====
+            // Нижний колонтитул
             ctx.font = '18px Inter, system-ui';
             ctx.fillStyle = '#6b7280';
             ctx.textAlign = 'center';
@@ -2491,6 +2552,14 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
 
 // ===== СКАЧИВАНИЕ ЧЕК-ЛИСТА =====
 async function downloadCollage(seriesId, seriesName) {
+    // Защита от повторных кликов
+    if (isDownloadingChecklist) {
+        console.warn('⏳ Уже генерируется чек-лист');
+        return;
+    }
+    
+    isDownloadingChecklist = true;
+    
     try {
         const lang = localStorage.getItem("lang") || "ru";
         showLoadingToast(lang === 'ru' ? 'Генерация чек-листа...' : 'Generating checklist...');
@@ -2499,6 +2568,7 @@ async function downloadCollage(seriesId, seriesName) {
         if (!series) {
             showError(lang === 'ru' ? 'Ошибка загрузки серии' : 'Error loading series');
             hideLoadingToast();
+            isDownloadingChecklist = false;
             return;
         }
         
@@ -2509,6 +2579,7 @@ async function downloadCollage(seriesId, seriesName) {
         if (figures.length === 0 && extras.length === 0 && variants.length === 0) {
             showError(lang === 'ru' ? 'Нет элементов для чек-листа' : 'No items for checklist');
             hideLoadingToast();
+            isDownloadingChecklist = false;
             return;
         }
         
@@ -2533,6 +2604,7 @@ async function downloadCollage(seriesId, seriesName) {
                         alert(msg);
                         hideLoadingToast();
                         showSuccess('✅ Чек-лист сохранен в галерею');
+                        isDownloadingChecklist = false;
                         return;
                     }
                 } catch (nativeError) {
@@ -2577,6 +2649,7 @@ async function downloadCollage(seriesId, seriesName) {
                             }
                             hideLoadingToast();
                             showSuccess(`✅ Чек-лист сохранен в ${d.name}`);
+                            isDownloadingChecklist = false;
                             return;
                         } catch (dirError) {
                             console.warn(`❌ Не удалось сохранить в ${d.name}:`, dirError.message);
@@ -2605,6 +2678,8 @@ async function downloadCollage(seriesId, seriesName) {
         hideLoadingToast();
         const lang = localStorage.getItem("lang") || "ru";
         showError(lang === 'ru' ? 'Не удалось сохранить чек-лист: ' + error.message : 'Failed to save checklist: ' + error.message);
+    } finally {
+        isDownloadingChecklist = false;
     }
 }
 
