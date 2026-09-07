@@ -2656,7 +2656,6 @@ async function downloadCollage(seriesId, seriesName) {
         const lang = localStorage.getItem("lang") || "ru";
         showError(lang === 'ru' ? 'Не удалось сохранить чек-лист: ' + error.message : 'Failed to save checklist: ' + error.message);
     }
-}
 
 // ===== ОБРАБОТКА ГЛУБОКИХ ССЫЛОК ДЛЯ QR-КОДОВ =====
 function handleDeepLink() {
