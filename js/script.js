@@ -2309,16 +2309,16 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
             const itemsPerRow = 4;
             const itemSize = 300;
             const padding = 20;
-            const headerHeight = 80;
-            const footerHeight = 60; // ← НОВО: высота для нижнего колонтитула
-            const qrSize = 80; // ← НОВО: размер QR-кода
+            const headerHeight = 100; // ← УВЕЛИЧЕНО
+            const footerHeight = 80;  // ← УВЕЛИЧЕНО
+            const qrSize = 180; // ← УВЕЛИЧЕНО (как размер фигурки)
             
             const figureRows = Math.ceil(figures.length / itemsPerRow);
             const extraRows = Math.ceil(extras.length / itemsPerRow);
             const variantRows = Math.ceil(variants.length / itemsPerRow);
             
             const totalWidth = itemsPerRow * (itemSize + padding) + padding;
-            let totalHeight = padding + footerHeight; // ← НОВО: добавляем место для футера
+            let totalHeight = padding + footerHeight;
             if (figures.length > 0) totalHeight += headerHeight + figureRows * (itemSize + padding);
             if (extras.length > 0) totalHeight += headerHeight + extraRows * (itemSize + padding);
             if (variants.length > 0) totalHeight += headerHeight + variantRows * (itemSize + padding);
@@ -2336,11 +2336,10 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
             const qrCanvas = document.createElement('canvas');
             qrCanvas.width = qrSize;
             qrCanvas.height = qrSize;
-            const qrCtx = qrCanvas.getContext('2d');
             
             // Генерируем QR-код
             const qrUrl = `https://manspo.github.io/series.html?id=${seriesId}`;
-            const qrCode = new QRCode(qrCanvas, {
+            new QRCode(qrCanvas, {
                 text: qrUrl,
                 width: qrSize,
                 height: qrSize,
@@ -2354,38 +2353,45 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
             const qrY = padding;
             ctx.drawImage(qrCanvas, qrX, qrY, qrSize, qrSize);
             
-            // ===== РИСУЕМ ССЫЛКУ ПОД QR-КОДОМ =====
-            ctx.font = '10px monospace';
+            // ===== РИСУЕМ ССЫЛКУ ПОД QR-КОДОМ (увеличенный шрифт) =====
+            ctx.font = 'bold 16px monospace';
             ctx.fillStyle = '#4f46e5';
             ctx.textAlign = 'right';
             ctx.textBaseline = 'top';
-            const linkText = 'manspo.github.io';
-            ctx.fillText(linkText, totalWidth - padding, qrY + qrSize + 4);
+            ctx.fillText('manspo.github.io', totalWidth - padding, qrY + qrSize + 8);
             
-            // ===== РИСУЕМ ЗАГОЛОВОК С НАЗВАНИЕМ СЕРИИ =====
-            ctx.font = `bold 18px Inter, system-ui`;
-            ctx.fillStyle = '#4f46e5';
+            // ===== РИСУЕМ ЗАГОЛОВОК С НАЗВАНИЕМ СЕРИИ (увеличенный шрифт) =====
+            ctx.font = `bold 26px Inter, system-ui`;
+            ctx.fillStyle = '#1f2937';
             ctx.textAlign = 'left';
             ctx.textBaseline = 'top';
-            ctx.fillText(seriesName || 'Checklist', padding, padding);
+            ctx.fillText(seriesName || 'Checklist', padding, padding + 10);
             
             // ===== ДОБАВЛЯЕМ МЕТКУ "CAPSULE" =====
-            ctx.font = 'bold 14px Inter, system-ui';
+            ctx.font = 'bold 16px Inter, system-ui';
             ctx.fillStyle = '#cbd5e1';
             ctx.textAlign = 'right';
             ctx.textBaseline = 'bottom';
-            ctx.fillText('CAPSULE', totalWidth - padding, padding + 30);
+            ctx.fillText('CAPSULE', totalWidth - padding - qrSize - 20, padding + 50);
             
-            let currentY = padding + footerHeight; // ← СДВИГАЕМ ВНИЗ
+            let currentY = padding + headerHeight;
             
             // ===== ФУНКЦИЯ ОТРИСОВКИ ГРУПП =====
             async function drawGroup(items, title, startY) {
                 let y = startY;
-                ctx.font = `bold ${Math.floor(headerHeight * 0.4)}px Inter, system-ui`;
+                ctx.font = `bold ${Math.floor(headerHeight * 0.35)}px Inter, system-ui`;
                 ctx.fillStyle = '#4f46e5';
                 ctx.textAlign = 'left';
                 ctx.textBaseline = 'top';
                 ctx.fillText(title, padding, y + 10);
+                
+                // Рисуем ссылку справа от заголовка
+                ctx.font = 'bold 14px monospace';
+                ctx.fillStyle = '#4f46e5';
+                ctx.textAlign = 'right';
+                ctx.textBaseline = 'top';
+                ctx.fillText('manspo.github.io', totalWidth - padding, y + 14);
+                
                 y += headerHeight;
                 
                 let currentX = padding;
@@ -2406,7 +2412,7 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                     
                     // Изображение
                     if (img && img.complete && img.naturalWidth > 0) {
-                        const maxImgSize = itemSize - 80;
+                        const maxImgSize = itemSize - 100;
                         const imgWidth = img.naturalWidth;
                         const imgHeight = img.naturalHeight;
                         let drawWidth, drawHeight;
@@ -2418,47 +2424,47 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                             drawWidth = (imgWidth / imgHeight) * maxImgSize;
                         }
                         const imgX = currentX + (itemSize - drawWidth) / 2;
-                        const imgY = y + 35 + (maxImgSize - drawHeight) / 2;
+                        const imgY = y + 50 + (maxImgSize - drawHeight) / 2;
                         ctx.drawImage(img, imgX, imgY, drawWidth, drawHeight);
                     } else {
                         ctx.fillStyle = '#e0e0e0';
-                        ctx.fillRect(currentX + 10, y + 35, itemSize - 20, itemSize - 80);
+                        ctx.fillRect(currentX + 10, y + 50, itemSize - 20, itemSize - 90);
                         ctx.fillStyle = '#999';
                         ctx.font = `${Math.floor(itemSize * 0.1)}px Inter`;
                         ctx.textAlign = 'center';
                         ctx.textBaseline = 'middle';
-                        ctx.fillText('🖼️', currentX + itemSize/2, y + itemSize/2);
+                        ctx.fillText('🖼️', currentX + itemSize/2, y + itemSize/2 + 20);
                     }
                     
                     // Водяной знак CAPSULE
                     ctx.save();
-                    ctx.globalAlpha = 0.4;
+                    ctx.globalAlpha = 0.3;
                     ctx.translate(currentX + itemSize/2, y + itemSize/2);
                     ctx.rotate(-Math.PI / 4);
-                    ctx.font = `bold ${Math.floor(itemSize * 0.22)}px Inter, system-ui`;
-                    ctx.fillStyle = '#ffff00';
-                    ctx.shadowColor = 'rgba(0,0,0,0.5)';
-                    ctx.shadowBlur = 4;
+                    ctx.font = `bold ${Math.floor(itemSize * 0.2)}px Inter, system-ui`;
+                    ctx.fillStyle = '#4f46e5';
+                    ctx.shadowColor = 'rgba(0,0,0,0.1)';
+                    ctx.shadowBlur = 2;
                     ctx.textAlign = 'center';
                     ctx.textBaseline = 'middle';
                     ctx.fillText('CAPSULE', 0, 0);
                     ctx.restore();
                     
-                    // Номер
-                    ctx.font = `bold ${Math.floor(itemSize * 0.14)}px Inter, system-ui`;
+                    // Номер (увеличен)
+                    ctx.font = `bold ${Math.floor(itemSize * 0.16)}px Inter, system-ui`;
                     ctx.fillStyle = '#4f46e5';
                     ctx.shadowColor = 'transparent';
                     ctx.textAlign = 'left';
                     ctx.textBaseline = 'top';
                     ctx.fillText(num.toString(), currentX + 15, y + 15);
                     
-                    // Код
+                    // Код (с отступом, чтобы не слипался)
                     if (itemCode) {
-                        ctx.font = `bold ${Math.floor(itemSize * 0.09)}px monospace`;
-                        ctx.fillStyle = '#4f46e5';
+                        ctx.font = `bold ${Math.floor(itemSize * 0.1)}px monospace`;
+                        ctx.fillStyle = '#6b7280';
                         ctx.textAlign = 'left';
                         ctx.textBaseline = 'top';
-                        ctx.fillText(itemCode, currentX + 15, y + 45);
+                        ctx.fillText(itemCode, currentX + 15, y + 60);
                     }
                     
                     currentX += itemSize + padding;
@@ -2487,13 +2493,13 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                 currentY += padding;
             }
             
-            // ===== НИЖНИЙ КОЛОНТИТУЛ С ССЫЛКОЙ =====
-            ctx.font = '12px Inter, system-ui';
-            ctx.fillStyle = '#94a3b8';
+            // ===== НИЖНИЙ КОЛОНТИТУЛ С ССЫЛКОЙ (увеличенный шрифт) =====
+            ctx.font = '16px Inter, system-ui';
+            ctx.fillStyle = '#6b7280';
             ctx.textAlign = 'center';
             ctx.textBaseline = 'bottom';
-            const footerText = `Скачано с https://manspo.github.io  •  ${new Date().toLocaleDateString()}`;
-            ctx.fillText(footerText, totalWidth / 2, totalHeight - 8);
+            const footerText = `Скачано с https://manspo.github.io  •  ${new Date().toLocaleDateString('ru-RU', { day: '2-digit', month: '2-digit', year: 'numeric' })}`;
+            ctx.fillText(footerText, totalWidth / 2, totalHeight - 12);
             
             const jpegData = canvas.toDataURL('image/jpeg', 0.95);
             resolve(jpegData);
