@@ -2292,147 +2292,216 @@ function loadImage(src) {
 }
 
 async function generateCollage(seriesId, seriesName, figures, extras, variants, lang) {
-  return new Promise(async (resolve, reject) => {
-    try {
-      const allItems = [...figures, ...extras, ...variants];
-      const loadedImages = [];
-      for (const item of allItems) {
-        const imageUrl = item.image ? `${BASE_URL}/${item.image}` : 'images/placeholder.svg';
-        const img = await loadImage(imageUrl);
-        loadedImages.push({ item, img: img || new Image() });
-      }
-      const imageMap = new Map();
-      loadedImages.forEach(({ item, img }) => {
-        imageMap.set(item.id || item.name, img);
-      });
-      
-      const itemsPerRow = 4;
-      const itemSize = 300;
-      const padding = 20;
-      const headerHeight = 80;
-      
-      const figureRows = Math.ceil(figures.length / itemsPerRow);
-      const extraRows = Math.ceil(extras.length / itemsPerRow);
-      const variantRows = Math.ceil(variants.length / itemsPerRow);
-      
-      const totalWidth = itemsPerRow * (itemSize + padding) + padding;
-      let totalHeight = padding;
-      if (figures.length > 0) totalHeight += headerHeight + figureRows * (itemSize + padding);
-      if (extras.length > 0) totalHeight += headerHeight + extraRows * (itemSize + padding);
-      if (variants.length > 0) totalHeight += headerHeight + variantRows * (itemSize + padding);
-      
-      const canvas = document.createElement('canvas');
-      canvas.width = totalWidth;
-      canvas.height = totalHeight;
-      const ctx = canvas.getContext('2d');
-      
-      ctx.fillStyle = '#ffffff';
-      ctx.fillRect(0, 0, totalWidth, totalHeight);
-      
-      let currentY = padding;
-      
-      async function drawGroup(items, title, startY) {
-        let y = startY;
-        ctx.font = `bold ${Math.floor(headerHeight * 0.4)}px Inter, system-ui`;
-        ctx.fillStyle = '#4f46e5';
-        ctx.fillText(title, padding, y + headerHeight * 0.6);
-        y += headerHeight;
-        
-        let currentX = padding;
-        let col = 0;
-        
-        for (let i = 0; i < items.length; i++) {
-          const item = items[i];
-          const num = i + 1;
-          const itemCode = item.code || '';
-          const img = imageMap.get(item.id || item.name);
-          
-          ctx.fillStyle = '#f5f7fb';
-          ctx.fillRect(currentX, y, itemSize, itemSize);
-          ctx.strokeStyle = '#e5e7eb';
-          ctx.lineWidth = 2;
-          ctx.strokeRect(currentX, y, itemSize, itemSize);
-          
-          if (img && img.complete && img.naturalWidth > 0) {
-            const maxImgSize = itemSize - 80;
-            const imgWidth = img.naturalWidth;
-            const imgHeight = img.naturalHeight;
-            let drawWidth, drawHeight;
-            if (imgWidth > imgHeight) {
-              drawWidth = maxImgSize;
-              drawHeight = (imgHeight / imgWidth) * maxImgSize;
-            } else {
-              drawHeight = maxImgSize;
-              drawWidth = (imgWidth / imgHeight) * maxImgSize;
+    return new Promise(async (resolve, reject) => {
+        try {
+            const allItems = [...figures, ...extras, ...variants];
+            const loadedImages = [];
+            for (const item of allItems) {
+                const imageUrl = item.image ? `${BASE_URL}/${item.image}` : 'images/placeholder.svg';
+                const img = await loadImage(imageUrl);
+                loadedImages.push({ item, img: img || new Image() });
             }
-            const imgX = currentX + (itemSize - drawWidth) / 2;
-            const imgY = y + 35 + (maxImgSize - drawHeight) / 2;
-            ctx.drawImage(img, imgX, imgY, drawWidth, drawHeight);
-          } else {
-            ctx.fillStyle = '#e0e0e0';
-            ctx.fillRect(currentX + 10, y + 35, itemSize - 20, itemSize - 80);
-            ctx.fillStyle = '#999';
-            ctx.font = `${Math.floor(itemSize * 0.1)}px Inter`;
-            ctx.fillText('🖼️', currentX + itemSize/2 - 15, y + itemSize/2);
-          }
-          
-          ctx.save();
-          ctx.globalAlpha = 0.4;
-          ctx.translate(currentX + itemSize/2, y + itemSize/2);
-          ctx.rotate(-Math.PI / 4);
-          ctx.font = `bold ${Math.floor(itemSize * 0.22)}px Inter, system-ui`;
-          ctx.fillStyle = '#ffff00';
-          ctx.shadowColor = 'rgba(0,0,0,0.5)';
-          ctx.shadowBlur = 4;
-          ctx.textAlign = 'center';
-          ctx.textBaseline = 'middle';
-          ctx.fillText('CAPSULE', 0, 0);
-          ctx.restore();
-          
-          ctx.font = `bold ${Math.floor(itemSize * 0.14)}px Inter, system-ui`;
-          ctx.fillStyle = '#4f46e5';
-          ctx.shadowColor = 'transparent';
-          ctx.textAlign = 'left';
-          ctx.fillText(num.toString(), currentX + 15, y + 50);
-          
-          if (itemCode) {
-            ctx.font = `bold ${Math.floor(itemSize * 0.09)}px monospace`;
+            const imageMap = new Map();
+            loadedImages.forEach(({ item, img }) => {
+                imageMap.set(item.id || item.name, img);
+            });
+            
+            const itemsPerRow = 4;
+            const itemSize = 300;
+            const padding = 20;
+            const headerHeight = 80;
+            const footerHeight = 60; // ← НОВО: высота для нижнего колонтитула
+            const qrSize = 80; // ← НОВО: размер QR-кода
+            
+            const figureRows = Math.ceil(figures.length / itemsPerRow);
+            const extraRows = Math.ceil(extras.length / itemsPerRow);
+            const variantRows = Math.ceil(variants.length / itemsPerRow);
+            
+            const totalWidth = itemsPerRow * (itemSize + padding) + padding;
+            let totalHeight = padding + footerHeight; // ← НОВО: добавляем место для футера
+            if (figures.length > 0) totalHeight += headerHeight + figureRows * (itemSize + padding);
+            if (extras.length > 0) totalHeight += headerHeight + extraRows * (itemSize + padding);
+            if (variants.length > 0) totalHeight += headerHeight + variantRows * (itemSize + padding);
+            
+            const canvas = document.createElement('canvas');
+            canvas.width = totalWidth;
+            canvas.height = totalHeight;
+            const ctx = canvas.getContext('2d');
+            
+            // ===== ФОН =====
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, totalWidth, totalHeight);
+            
+            // ===== ГЕНЕРАЦИЯ QR-КОДА =====
+            const qrCanvas = document.createElement('canvas');
+            qrCanvas.width = qrSize;
+            qrCanvas.height = qrSize;
+            const qrCtx = qrCanvas.getContext('2d');
+            
+            // Генерируем QR-код
+            const qrUrl = `https://manspo.github.io/series.html?id=${seriesId}`;
+            const qrCode = new QRCode(qrCanvas, {
+                text: qrUrl,
+                width: qrSize,
+                height: qrSize,
+                colorDark: "#000000",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.H
+            });
+            
+            // ===== РИСУЕМ QR-КОД В ПРАВОМ ВЕРХНЕМ УГЛУ =====
+            const qrX = totalWidth - qrSize - padding;
+            const qrY = padding;
+            ctx.drawImage(qrCanvas, qrX, qrY, qrSize, qrSize);
+            
+            // ===== РИСУЕМ ССЫЛКУ ПОД QR-КОДОМ =====
+            ctx.font = '10px monospace';
             ctx.fillStyle = '#4f46e5';
-            ctx.fillText(itemCode, currentX + 15, y + 80);
-          }
-          
-          currentX += itemSize + padding;
-          col++;
-          if (col >= itemsPerRow) {
-            col = 0;
-            currentX = padding;
-            y += itemSize + padding;
-          }
+            ctx.textAlign = 'right';
+            ctx.textBaseline = 'top';
+            const linkText = 'manspo.github.io';
+            ctx.fillText(linkText, totalWidth - padding, qrY + qrSize + 4);
+            
+            // ===== РИСУЕМ ЗАГОЛОВОК С НАЗВАНИЕМ СЕРИИ =====
+            ctx.font = `bold 18px Inter, system-ui`;
+            ctx.fillStyle = '#4f46e5';
+            ctx.textAlign = 'left';
+            ctx.textBaseline = 'top';
+            ctx.fillText(seriesName || 'Checklist', padding, padding);
+            
+            // ===== ДОБАВЛЯЕМ МЕТКУ "CAPSULE" =====
+            ctx.font = 'bold 14px Inter, system-ui';
+            ctx.fillStyle = '#cbd5e1';
+            ctx.textAlign = 'right';
+            ctx.textBaseline = 'bottom';
+            ctx.fillText('CAPSULE', totalWidth - padding, padding + 30);
+            
+            let currentY = padding + footerHeight; // ← СДВИГАЕМ ВНИЗ
+            
+            // ===== ФУНКЦИЯ ОТРИСОВКИ ГРУПП =====
+            async function drawGroup(items, title, startY) {
+                let y = startY;
+                ctx.font = `bold ${Math.floor(headerHeight * 0.4)}px Inter, system-ui`;
+                ctx.fillStyle = '#4f46e5';
+                ctx.textAlign = 'left';
+                ctx.textBaseline = 'top';
+                ctx.fillText(title, padding, y + 10);
+                y += headerHeight;
+                
+                let currentX = padding;
+                let col = 0;
+                
+                for (let i = 0; i < items.length; i++) {
+                    const item = items[i];
+                    const num = i + 1;
+                    const itemCode = item.code || '';
+                    const img = imageMap.get(item.id || item.name);
+                    
+                    // Фон ячейки
+                    ctx.fillStyle = '#f5f7fb';
+                    ctx.fillRect(currentX, y, itemSize, itemSize);
+                    ctx.strokeStyle = '#e5e7eb';
+                    ctx.lineWidth = 2;
+                    ctx.strokeRect(currentX, y, itemSize, itemSize);
+                    
+                    // Изображение
+                    if (img && img.complete && img.naturalWidth > 0) {
+                        const maxImgSize = itemSize - 80;
+                        const imgWidth = img.naturalWidth;
+                        const imgHeight = img.naturalHeight;
+                        let drawWidth, drawHeight;
+                        if (imgWidth > imgHeight) {
+                            drawWidth = maxImgSize;
+                            drawHeight = (imgHeight / imgWidth) * maxImgSize;
+                        } else {
+                            drawHeight = maxImgSize;
+                            drawWidth = (imgWidth / imgHeight) * maxImgSize;
+                        }
+                        const imgX = currentX + (itemSize - drawWidth) / 2;
+                        const imgY = y + 35 + (maxImgSize - drawHeight) / 2;
+                        ctx.drawImage(img, imgX, imgY, drawWidth, drawHeight);
+                    } else {
+                        ctx.fillStyle = '#e0e0e0';
+                        ctx.fillRect(currentX + 10, y + 35, itemSize - 20, itemSize - 80);
+                        ctx.fillStyle = '#999';
+                        ctx.font = `${Math.floor(itemSize * 0.1)}px Inter`;
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'middle';
+                        ctx.fillText('🖼️', currentX + itemSize/2, y + itemSize/2);
+                    }
+                    
+                    // Водяной знак CAPSULE
+                    ctx.save();
+                    ctx.globalAlpha = 0.4;
+                    ctx.translate(currentX + itemSize/2, y + itemSize/2);
+                    ctx.rotate(-Math.PI / 4);
+                    ctx.font = `bold ${Math.floor(itemSize * 0.22)}px Inter, system-ui`;
+                    ctx.fillStyle = '#ffff00';
+                    ctx.shadowColor = 'rgba(0,0,0,0.5)';
+                    ctx.shadowBlur = 4;
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText('CAPSULE', 0, 0);
+                    ctx.restore();
+                    
+                    // Номер
+                    ctx.font = `bold ${Math.floor(itemSize * 0.14)}px Inter, system-ui`;
+                    ctx.fillStyle = '#4f46e5';
+                    ctx.shadowColor = 'transparent';
+                    ctx.textAlign = 'left';
+                    ctx.textBaseline = 'top';
+                    ctx.fillText(num.toString(), currentX + 15, y + 15);
+                    
+                    // Код
+                    if (itemCode) {
+                        ctx.font = `bold ${Math.floor(itemSize * 0.09)}px monospace`;
+                        ctx.fillStyle = '#4f46e5';
+                        ctx.textAlign = 'left';
+                        ctx.textBaseline = 'top';
+                        ctx.fillText(itemCode, currentX + 15, y + 45);
+                    }
+                    
+                    currentX += itemSize + padding;
+                    col++;
+                    if (col >= itemsPerRow) {
+                        col = 0;
+                        currentX = padding;
+                        y += itemSize + padding;
+                    }
+                }
+                if (col !== 0) y += itemSize + padding;
+                return y;
+            }
+            
+            // ===== ОТРИСОВКА ГРУПП =====
+            if (figures.length > 0) {
+                currentY = await drawGroup(figures, lang === 'ru' ? 'ФИГУРКИ' : 'FIGURES', currentY);
+                currentY += padding;
+            }
+            if (extras.length > 0) {
+                currentY = await drawGroup(extras, lang === 'ru' ? 'ДОПЫ' : 'EXTRAS', currentY);
+                currentY += padding;
+            }
+            if (variants.length > 0) {
+                currentY = await drawGroup(variants, lang === 'ru' ? 'ВАРИАНТЫ' : 'VARIANTS', currentY);
+                currentY += padding;
+            }
+            
+            // ===== НИЖНИЙ КОЛОНТИТУЛ С ССЫЛКОЙ =====
+            ctx.font = '12px Inter, system-ui';
+            ctx.fillStyle = '#94a3b8';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'bottom';
+            const footerText = `Скачано с https://manspo.github.io  •  ${new Date().toLocaleDateString()}`;
+            ctx.fillText(footerText, totalWidth / 2, totalHeight - 8);
+            
+            const jpegData = canvas.toDataURL('image/jpeg', 0.95);
+            resolve(jpegData);
+        } catch (error) {
+            console.error('Ошибка создания коллажа:', error);
+            reject(error);
         }
-        if (col !== 0) y += itemSize + padding;
-        return y;
-      }
-      
-      if (figures.length > 0) {
-        currentY = await drawGroup(figures, lang === 'ru' ? 'ФИГУРКИ' : 'FIGURES', currentY);
-        currentY += padding;
-      }
-      if (extras.length > 0) {
-        currentY = await drawGroup(extras, lang === 'ru' ? 'ДОПЫ' : 'EXTRAS', currentY);
-        currentY += padding;
-      }
-      if (variants.length > 0) {
-        currentY = await drawGroup(variants, lang === 'ru' ? 'ВАРИАНТЫ' : 'VARIANTS', currentY);
-        currentY += padding;
-      }
-      
-      const jpegData = canvas.toDataURL('image/jpeg', 0.95);
-      resolve(jpegData);
-    } catch (error) {
-      console.error('Ошибка создания коллажа:', error);
-      reject(error);
-    }
-  });
+    });
 }
 
 // ===== СКАЧИВАНИЕ ЧЕК-ЛИСТА (ИСПРАВЛЕННАЯ ВЕРСИЯ) =====
