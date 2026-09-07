@@ -2655,42 +2655,6 @@ async function downloadCollage(seriesId, seriesName) {
         showError(lang === 'ru' ? 'Не удалось сохранить чек-лист: ' + error.message : 'Failed to save checklist: ' + error.message);
     }
 }
-        
-        console.log('🌐 Используем браузерный fallback для чек-листа');
-        const link = document.createElement("a");
-        link.href = jpegData;
-        link.download = `checklist_${safeName}.jpg`;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        hideLoadingToast();
-        showSuccess('✅ Чек-лист скачан');
-        
-    } catch (error) {
-        console.error('❌ Ошибка сохранения чек-листа:', error);
-        hideLoadingToast();
-        const lang = localStorage.getItem("lang") || "ru";
-        showError(lang === 'ru' ? 'Не удалось сохранить чек-лист: ' + error.message : 'Failed to save checklist: ' + error.message);
-    }
-}
-    
-    console.log('🌐 Используем браузерный fallback для чек-листа');
-    const link = document.createElement("a");
-    link.href = jpegData;
-    link.download = `checklist_${safeName}.jpg`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    hideLoadingToast();
-    showSuccess('✅ Чек-лист скачан');
-    
-  } catch (error) {
-    console.error('❌ Ошибка сохранения чек-листа:', error);
-    hideLoadingToast();
-    const lang = localStorage.getItem("lang") || "ru";
-    showError(lang === 'ru' ? 'Не удалось сохранить чек-лист: ' + error.message : 'Failed to save checklist: ' + error.message);
-  }
-}
 
 // ===== ОБРАБОТКА ГЛУБОКИХ ССЫЛОК ДЛЯ QR-КОДОВ =====
 function handleDeepLink() {
