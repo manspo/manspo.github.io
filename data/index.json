@@ -1,5 +1,41 @@
 [
   {
+    "id": "simpsons-2-by-zaini-2008",
+    "name": "Симпсоны 2 от Заини",
+    "name_en": "Simpsons 2 by Zaini",
+    "year": 2008,
+    "manufacturer": "zaini",
+    "cover": "images/series/zaini/simpsons-2-by-zaini-2008/cover.webp",
+    "kind": "",
+    "description": "Вторая серия фигурок по мотивам «Симпсонов», выпущенная в 2008 году, включающая 11 персонажей.\nЭто творение Мэтта Грейнинга стало настоящим социальным феноменом; некоторые фразы из мультсериала даже вошли в английский язык.",
+    "description_en": "The second series of Simpsons, compound of 11 characters and dating 2008.\nThis Matt Groening's work is a real social phenomenon. Some expressions even entered the English language.",
+    "visible": true
+  },
+  {
+    "id": "simpsons-1-by-zaini-2003",
+    "name": "Симпсоны 1 от Заини",
+    "name_en": "Simpsons 1 by Zaini",
+    "year": 2003,
+    "manufacturer": "zaini",
+    "cover": "images/series/zaini/simpsons-1-by-zaini-2003/cover.webp",
+    "kind": "",
+    "description": "Серия идентичная от Панини 2000 года, но уже не хватает 4 фигурок.",
+    "description_en": "It is an identical series from Panini (2000), but four figures are already missing.",
+    "visible": true
+  },
+  {
+    "id": "simpsons-3-by-panini-2000",
+    "name": "Симпсоны 3 от Панини",
+    "name_en": "Simpsons 3 by Panini",
+    "year": 2000,
+    "manufacturer": "panini",
+    "cover": "images/series/panini/simpsons-3-by-panini-2000/cover.webp",
+    "kind": "",
+    "description": "Это третья серия фигурок по мотивам «Симпсонов», включающая 12 персонажей. Она была выпущена в 2000 году. На этот раз в коллекцию добавлены второстепенные персонажи, что, несомненно, порадует коллекционеров и преданных поклонников этого телесериала.",
+    "description_en": "It is the third series of Simpson. it understands(includes) 12 figurines and her release was produced in 2000. This time the characters of the background are added for the great pleasure of the collectors and the ardent supporters of this television series.",
+    "visible": true
+  },
+  {
     "id": "europe-cows-by-milka-2000",
     "name": "Европейские Коровы от Милка",
     "name_en": "Europe Cows 2000 by Milka",
