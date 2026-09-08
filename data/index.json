@@ -1,5 +1,29 @@
 [
   {
+    "id": "simpsons-by-kinder-2010",
+    "name": "Симпсоны от Киндер",
+    "name_en": "Simpsons by Kinder",
+    "year": 2010,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/simpsons-by-kinder-2010/cover.webp",
+    "kind": "joy",
+    "description": "Вторая серия по \"Симпсонам\", но уже выпущенная в Джоях. Плюсом была флешка.",
+    "description_en": "The second \"Simpsons\" series, but this time released in Joy-type packs. It came with a bonus USB flash drive.",
+    "visible": true
+  },
+  {
+    "id": "simpsons-movie-by-kinder-2007",
+    "name": "Симпсоны в Кино от Киндер",
+    "name_en": "The Simpsons Movie by Kinder",
+    "year": 2007,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/simpsons-movie-by-kinder-2007/01b.webp",
+    "kind": "",
+    "description": "Серия приуроченная к полнометражному мультфильму по знаменитым Симпсонам.",
+    "description_en": "A series tied to the feature-length animated film based on the famous Simpsons.",
+    "visible": true
+  },
+  {
     "id": "simpsons-2-by-zaini-2008",
     "name": "Симпсоны 2 от Заини",
     "name_en": "Simpsons 2 by Zaini",
