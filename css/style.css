@@ -2114,7 +2114,7 @@ img {
 
 /* ===== ГОРИЗОНТАЛЬНЫЕ КАРТОЧКИ ДЛЯ КОЛЛЕКЦИИ ===== */
 @media (max-width: 768px) {
-  .collection-card {
+  #collectionGrid .catalog-card {
     display: flex !important;
     flex-direction: row !important;
     align-items: center !important;
@@ -2129,7 +2129,7 @@ img {
     border: 1px solid var(--border, #e5e7eb) !important;
   }
   
-  .collection-card img {
+  #collectionGrid .catalog-card img {
     width: 100px !important;
     height: 100px !important;
     object-fit: contain !important;
@@ -2139,31 +2139,31 @@ img {
     padding: 8px !important;
   }
   
-  .collection-card .card-body {
+  #collectionGrid .catalog-card .card-body {
     padding: 0 !important;
     flex: 1 !important;
   }
   
-  .collection-card .card-body h3 {
+  #collectionGrid .catalog-card .card-body h3 {
     font-size: 15px !important;
     font-weight: 600 !important;
     margin: 0 0 4px 0 !important;
     line-height: 1.3 !important;
   }
   
-  .collection-card .card-body .year {
+  #collectionGrid .catalog-card .card-body .year {
     font-size: 13px !important;
     color: var(--muted, #6b7280) !important;
     margin: 0 !important;
   }
   
-  .collection-card .card-body .collection-stats {
+  #collectionGrid .catalog-card .card-body .collection-stats {
     font-size: 12px !important;
     color: var(--primary) !important;
     margin-top: 4px !important;
   }
   
-  .collection-card .card-body .forsale-count {
+  #collectionGrid .catalog-card .card-body .forsale-count {
     font-size: 11px !important;
     padding: 2px 8px !important;
     margin-top: 4px !important;
