@@ -2022,7 +2022,6 @@ async function initLot() {
       return;
     }
 
-    // Проверяем, что серия действительно выставлена на продажу целиком
     if (!series.fullSeriesForSale) {
       container.innerHTML = '<p class="error-message">❌ Эта серия не продаётся целиком</p>';
       return;
@@ -2032,14 +2031,15 @@ async function initLot() {
     const manufacturers = await loadManufacturers();
 
     const name = currentLang === 'en' && series.name_en ? series.name_en : series.name;
-    // Для лота используем специальное описание fullSeriesDescription, если оно есть
-const description = currentLang === 'en' 
-    ? (series.fullSeriesDescription_en || series.description_en || series.description || "Описание отсутствует")
-    : (series.fullSeriesDescription || series.description || "Описание отсутствует");
+    
+    // Для лота используем специальное описание fullSeriesDescription
+    const description = currentLang === 'en' 
+        ? (series.fullSeriesDescription_en || series.description_en || series.description || "Описание отсутствует")
+        : (series.fullSeriesDescription || series.description || "Описание отсутствует");
+    
     const manufacturerName = manufacturers[series.manufacturer]?.[currentLang] || series.manufacturer;
     const coverUrl = series.cover ? `${BASE_URL}/${series.cover}` : 'images/placeholder.svg';
 
-    // Данные лота
     const price = series.fullSeriesPrice || 'Цена не указана';
     const avitoLink = series.fullSeriesAvito || '#';
     const condition = currentLang === 'en' 
@@ -2047,7 +2047,7 @@ const description = currentLang === 'en'
       : (series.fullSeriesCondition || 'Состояние не указано');
     const dateAdded = series.fullSeriesDateAdded ? new Date(series.fullSeriesDateAdded).toLocaleDateString() : '';
 
-    // Собираем галерею из всех изображений серии
+    // Собираем галерею
     const allImages = [];
     if (series.figures) allImages.push(...series.figures.map(f => f.image ? `${BASE_URL}/${f.image}` : 'images/placeholder.svg'));
     if (series.extras) allImages.push(...series.extras.map(e => e.image ? `${BASE_URL}/${e.image}` : 'images/placeholder.svg'));
@@ -2056,27 +2056,19 @@ const description = currentLang === 'en'
     if (series.other) allImages.push(...series.other.map(o => o.image ? `${BASE_URL}/${o.image}` : 'images/placeholder.svg'));
     window.seriesGalleryImages = allImages;
 
-    // ОПРЕДЕЛЯЕМ ИЗОБРАЖЕНИЕ ДЛЯ ОТОБРАЖЕНИЯ - ВСЕГДА ОБЛОЖКА, ЕСЛИ ЕСТЬ
+    // Определяем основное изображение
     let mainImageSrc = coverUrl;
     let mainImageIndex = 0;
-
-    // Если есть обложка - используем её как основное изображение
     if (series.cover) {
-        mainImageSrc = coverUrl;
-        // Проверяем, есть ли обложка в галерее
-        const coverFull = `${BASE_URL}/${series.cover}`;
-        const found = allImages.findIndex(img => img === coverFull);
-        if (found !== -1) {
-            mainImageIndex = found;
-        }
-    }
-    // Если обложки нет, но есть другие изображения - берём первое
-    else if (allImages.length > 0) {
-        mainImageSrc = allImages[0];
-        mainImageIndex = 0;
+      mainImageSrc = coverUrl;
+      const coverFull = `${BASE_URL}/${series.cover}`;
+      const found = allImages.findIndex(img => img === coverFull);
+      if (found !== -1) mainImageIndex = found;
+    } else if (allImages.length > 0) {
+      mainImageSrc = allImages[0];
+      mainImageIndex = 0;
     }
 
-    // Формируем HTML для лота
     container.innerHTML = `
       <div class="figure-container lot-page">
         <h1 class="figure-title">${escapeHtml(name)}</h1>
@@ -2118,7 +2110,7 @@ const description = currentLang === 'en'
 
             ${description ? `
               <div class="figure-description">
-                <p>${escapeHtml(description)}</p>
+                <p>${escapeHtml(description).replace(/&lt;br&gt;/g, '<br>')}</p>
               </div>
             ` : ''}
 
@@ -2131,7 +2123,6 @@ const description = currentLang === 'en'
       </div>
     `;
 
-    // Добавляем класс на main для мобильных стилей
     const mainElement = document.querySelector('main');
     if (mainElement) {
         mainElement.classList.add('lot-page');
