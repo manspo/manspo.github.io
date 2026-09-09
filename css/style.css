@@ -134,15 +134,6 @@
   gap: 20px;
 }
 
-@media (max-width: 768px) {
-  .skeleton-stats {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .skeleton-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
 /* ===== СБРОС ===== */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -1578,257 +1569,6 @@ img {
   opacity: 0.7;
 }
 
-
-
-  /* ===== КАТАЛОГ - МОБИЛЬНАЯ ВЕРСИЯ (1 колонка, горизонтальные карточки) ===== */
-  .catalog-grid {
-    grid-template-columns: 1fr !important;
-    gap: 16px !important;
-    padding: 12px !important;
-  }
-  
-  .catalog-card {
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: center !important;
-    padding: 12px !important;
-    gap: 16px !important;
-    min-height: 120px !important;
-    background: var(--card, #ffffff) !important;
-    border-radius: 14px !important;
-    box-shadow: var(--shadow) !important;
-    text-decoration: none !important;
-    color: var(--text, #1f2937) !important;
-    border: 1px solid var(--border, #e5e7eb) !important;
-  }
-  
-  .catalog-card img {
-    width: 100px !important;
-    height: 100px !important;
-    object-fit: contain !important;
-    border-radius: 12px !important;
-    flex-shrink: 0 !important;
-    background: var(--bg, #f5f7fb) !important;
-    padding: 8px !important;
-  }
-  
-  .catalog-card .card-body {
-    padding: 0 !important;
-    flex: 1 !important;
-  }
-  
-  .catalog-card .card-body h3 {
-    font-size: 15px !important;
-    font-weight: 600 !important;
-    margin: 0 0 4px 0 !important;
-    line-height: 1.3 !important;
-    display: -webkit-box !important;
-    -webkit-line-clamp: 2 !important;
-    -webkit-box-orient: vertical !important;
-    overflow: hidden !important;
-  }
-  
-  .catalog-card .card-body .year {
-    font-size: 13px !important;
-    color: var(--muted, #6b7280) !important;
-    margin: 0 !important;
-  }
-
-  .forsale-count { font-size: 10px; padding: 2px 6px; }
-
-  .featured-grid { grid-template-columns: 1fr; }
-  .featured-card { height: 200px; }
-
-  /* ===== FOR SALE - МОБИЛЬНАЯ ВЕРСИЯ ===== */
-  .forsale-grid {
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-    gap: 12px;
-  }
-  .forsale-item-card { display: flex; flex-direction: column; }
-  .forsale-item-card img { width: 100%; height: auto; }
-  .section-divider {
-    font-size: 12px;
-    padding: 6px 12px;
-  }
-  .forsale-item-name {
-    font-size: 13px;
-  }
-  .tag {
-    font-size: 9px;
-    padding: 1px 6px;
-  }
-  .page-header h1 {
-    font-size: 22px;
-  }
-  .stat-card {
-    padding: 10px 20px;
-    min-width: 100px;
-  }
-  .stat-value {
-    font-size: 24px;
-  }
-
-  .series-header { flex-direction: column; align-items: center; text-align: center; }
-  .series-cover { width: 180px; }
-  .figures-list { grid-template-columns: 1fr; }
-  .figure-item { flex-direction: column; text-align: center; }
-  .figure-number { position: absolute; top: 5px; left: 5px; }
-  .figure-item img { width: 100px; height: 100px; margin: 10px auto; }
-
-  .footer-controls { justify-content: flex-end; }
-  .lang-switch-footer { position: static; left: auto; transform: none; flex: 1; justify-content: center; }
-  .theme-switch { margin-left: 0; }
-
-  .qr-btn-series { width: 100%; justify-content: center; }
-  .qr-btn { background: var(--primary); color: white; border-radius: 30px; padding: 8px 12px; }
-
-  .lightbox-prev, .lightbox-next { width: 40px; height: 40px; font-size: 24px; }
-  .lightbox-prev { left: 10px; }
-  .lightbox-next { right: 10px; }
-  .lightbox-zoom-controls { bottom: 20px; right: 10px; }
-  .zoom-btn { width: 36px; height: 36px; font-size: 16px; }
-  
-  .video-section { display: block !important; margin: 20px 0; }
-  .video-wrapper { display: block !important; border-radius: 8px; }
-  .video-source-btn { padding: 6px 12px; font-size: 12px; }
-  .video-links-grid { display: flex !important; flex-wrap: wrap; gap: 8px; justify-content: center; }
-  .video-external-link { padding: 8px 14px; font-size: 13px; flex: 1; min-width: 100px; justify-content: center; }
-  .video-external-link span { font-size: 13px; }
-  
-  body.lightbox-open {
-    overflow: hidden;
-    position: fixed;
-    width: 100%;
-  }
-
-  .history-grid {
-    grid-template-columns: 1fr;
-  }
-  .history-detail h1 {
-    font-size: 24px;
-  }
-  .history-detail-gallery {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .archive-grid {
-    grid-template-columns: 1fr;
-  }
-  .hall-card {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  .hall-rank-col {
-    width: 100%;
-    justify-content: flex-start;
-  }
-  .hall-rank {
-    font-size: 40px;
-  }
-  .hall-stats {
-    gap: 12px;
-  }
-  .hall-stat {
-    padding: 4px 12px;
-  }
-  .hall-stat-icon {
-    font-size: 16px;
-  }
-  .hall-stat-value {
-    font-size: 16px;
-  }
-
-  .figure-content {
-    flex-direction: column;
-    align-items: center;
-  }
-  .figure-image-wrapper {
-    width: 100%;
-    max-width: 280px;
-  }
-  .figure-info {
-    width: 100%;
-  }
-
-  .figure-btn {
-    width: 100%;
-    text-align: center;
-  }
-
-  .about-stats {
-    gap: 16px;
-  }
-  .about-stat-item {
-    padding: 16px 20px;
-    min-width: 100px;
-    flex: 1;
-  }
-  .about-stat-icon {
-    width: 36px;
-    height: 36px;
-  }
-  .about-stat-number {
-    font-size: 28px;
-  }
-  .about-text {
-    font-size: 14px;
-    padding: 0 16px;
-  }
-}
-
-@media (max-width: 480px) {
-  .catalog-card img { width: 80px; height: 80px; }
-  .icon { font-size: 24px; width: 32px; }
-  .home-title { font-size: 15px; }
-  .home-card { padding: 14px 16px; }
-  #socialGrid .home-card { padding: 14px 16px; }
-  .video-external-link { padding: 6px 12px; font-size: 12px; min-width: 80px; }
-  
-  .forsale-grid {
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)) !important;
-    gap: 8px !important;
-  }
-  .forsale-item-body {
-    padding: 8px 10px 10px;
-  }
-  .forsale-item-name {
-    font-size: 12px;
-  }
-  .forsale-item-price {
-    font-size: 11px;
-    padding: 2px 8px;
-  }
-  .forsale-item-series {
-    font-size: 10px;
-  }
-  
-  .stat-card-simple {
-    padding: 10px 16px;
-    min-width: 80px;
-  }
-  .stat-card-simple .stat-number {
-    font-size: 22px;
-  }
-  .stat-card-simple .stat-label {
-    font-size: 12px;
-  }
-}
-
-.figure-actions {
-  display: flex !important;
-  flex-wrap: wrap !important;
-  align-items: center !important;
-  gap: 10px !important;
-  padding-top: 15px;
-  border-top: 1px solid var(--border);
-  margin-top: 10px;
-  width: 100%;
-}
-
-.figure-actions .figure-condition,
-.figure-actions .figure-btn {
-  flex-shrink: 0 !important;
-}
-
 /* ===== ОВЕРЛЕЙ ЗАГРУЗКИ ===== */
 #loadingOverlay {
     position: fixed;
@@ -1952,193 +1692,157 @@ img {
     margin-bottom: 16px;
 }
 
-/* ===== ABOUT - МОБИЛЬНАЯ АДАПТАЦИЯ ===== */
+/* ===== МОБИЛЬНЫЕ СТИЛИ (<= 768px) ===== */
+
+/* ABOUT - мобильная адаптация */
 @media (max-width: 768px) {
     .about-stats {
         grid-template-columns: repeat(3, 1fr);
         gap: 12px;
         margin: 20px 0;
     }
-
     .about-stat-item {
         padding: 16px 12px;
     }
-
     .about-stat-icon {
         width: 32px;
         height: 32px;
     }
-
     .about-stat-number {
         font-size: 24px;
     }
-
     .about-stat-label {
         font-size: 11px;
     }
-
     .about-text {
         font-size: 15px;
         padding: 10px 4px;
         line-height: 1.6;
     }
-    
     .about-banner {
         max-height: 150px;
     }
 }
 
-@media (max-width: 480px) {
-    .about-stats {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 8px;
-    }
-
-    .about-stat-item {
-        padding: 12px 8px;
-    }
-
-    .about-stat-icon {
-        width: 28px;
-        height: 28px;
-    }
-
-    .about-stat-number {
-        font-size: 20px;
-    }
-
-    .about-stat-label {
-        font-size: 10px;
-    }
-
-    .about-text {
-        font-size: 14px;
-    }
-}
-
+/* КАТАЛОГ, МОИ КОЛЛЕКЦИИ, ПРОДАЖА – вертикальные карточки по одной */
 @media (max-width: 768px) {
+    .catalog-grid,
+    #collectionGrid {
+        grid-template-columns: 1fr !important;
+        gap: 20px !important;
+        padding: 0 4px !important;
+    }
 
-  /* ===== КАТАЛОГ И МОИ КОЛЛЕКЦИИ – вертикальные карточки по одной ===== */
-  .catalog-grid,
-  #collectionGrid {
-    grid-template-columns: 1fr !important;
-    gap: 20px !important;
-    padding: 0 4px !important;
-  }
+    .catalog-card,
+    #collectionGrid .catalog-card {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        padding: 0 !important;
+        gap: 0 !important;
+        min-height: auto !important;
+        background: var(--card) !important;
+        border-radius: 14px !important;
+        box-shadow: var(--shadow) !important;
+        border: none !important;
+        overflow: hidden !important;
+    }
 
-  .catalog-card,
-  #collectionGrid .catalog-card {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: stretch !important;
-    padding: 0 !important;
-    gap: 0 !important;
-    min-height: auto !important;
-    background: var(--card) !important;
-    border-radius: 14px !important;
-    box-shadow: var(--shadow) !important;
-    border: none !important;
-    overflow: hidden !important;
-  }
+    .catalog-card img,
+    #collectionGrid .catalog-card img {
+        width: 100% !important;
+        height: auto !important;
+        aspect-ratio: 1/1 !important;
+        object-fit: cover !important;
+        border-radius: 0 !important;
+        flex-shrink: 0 !important;
+        background: var(--bg) !important;
+        padding: 0 !important;
+    }
 
-  .catalog-card img,
-  #collectionGrid .catalog-card img {
-    width: 100% !important;
-    height: auto !important;
-    aspect-ratio: 1/1 !important;
-    object-fit: cover !important;
-    border-radius: 0 !important;
-    flex-shrink: 0 !important;
-    background: var(--bg) !important;
-    padding: 0 !important;
-  }
+    .catalog-card .card-body,
+    #collectionGrid .catalog-card .card-body {
+        padding: 16px !important;
+        flex: 0 !important;
+        display: block !important;
+    }
 
-  .catalog-card .card-body,
-  #collectionGrid .catalog-card .card-body {
-    padding: 16px !important;
-    flex: 0 !important;
-    display: block !important;
-  }
+    .catalog-card .card-body h3,
+    #collectionGrid .catalog-card .card-body h3 {
+        font-size: 18px !important;
+        font-weight: 600 !important;
+        margin: 0 0 8px 0 !important;
+        line-height: 1.3 !important;
+        display: block !important;
+        -webkit-line-clamp: unset !important;
+        overflow: visible !important;
+    }
 
-  .catalog-card .card-body h3,
-  #collectionGrid .catalog-card .card-body h3 {
-    font-size: 18px !important;
-    font-weight: 600 !important;
-    margin: 0 0 8px 0 !important;
-    line-height: 1.3 !important;
-    display: block !important;
-    -webkit-line-clamp: unset !important;
-    overflow: visible !important;
-  }
+    .catalog-card .card-body .year,
+    #collectionGrid .catalog-card .card-body .year {
+        font-size: 14px !important;
+        color: var(--muted) !important;
+        margin: 0 !important;
+    }
 
-  .catalog-card .card-body .year,
-  #collectionGrid .catalog-card .card-body .year {
-    font-size: 14px !important;
-    color: var(--muted) !important;
-    margin: 0 !important;
-  }
+    .catalog-card .card-body .collection-stats,
+    #collectionGrid .catalog-card .card-body .collection-stats {
+        font-size: 14px !important;
+        margin-top: 8px !important;
+        color: var(--primary) !important;
+    }
 
-  .catalog-card .card-body .collection-stats,
-  #collectionGrid .catalog-card .card-body .collection-stats {
-    font-size: 14px !important;
-    margin-top: 8px !important;
-    color: var(--primary) !important;
-  }
+    .catalog-card .card-body .forsale-count {
+        font-size: 13px !important;
+        margin-top: 8px !important;
+        display: inline-block !important;
+    }
 
-  .catalog-card .card-body .forsale-count {
-    font-size: 13px !important;
-    margin-top: 8px !important;
-    display: inline-block !important;
-  }
+    .forsale-grid {
+        grid-template-columns: 1fr !important;
+        gap: 20px !important;
+    }
 
-  /* ===== ПРОДАЖА – одна колонка, крупные карточки ===== */
-  .forsale-grid {
-    grid-template-columns: 1fr !important;
-    gap: 20px !important;
-  }
+    .forsale-item-card {
+        display: flex !important;
+        flex-direction: column !important;
+        border-radius: 14px !important;
+        overflow: hidden !important;
+        background: var(--card) !important;
+        box-shadow: var(--shadow) !important;
+    }
 
-  .forsale-item-card {
-    display: flex !important;
-    flex-direction: column !important;
-    border-radius: 14px !important;
-    overflow: hidden !important;
-    background: var(--card) !important;
-    box-shadow: var(--shadow) !important;
-  }
+    .forsale-item-card img {
+        width: 100% !important;
+        aspect-ratio: 1/1 !important;
+        object-fit: cover !important;
+        padding: 0 !important;
+        background: var(--bg) !important;
+    }
 
-  .forsale-item-card img {
-    width: 100% !important;
-    aspect-ratio: 1/1 !important;
-    object-fit: cover !important;
-    padding: 0 !important;
-    background: var(--bg) !important;
-  }
+    .forsale-item-body {
+        padding: 16px !important;
+    }
 
-  .forsale-item-body {
-    padding: 16px !important;
-  }
+    .forsale-item-name {
+        font-size: 18px !important;
+    }
 
-  .forsale-item-name {
-    font-size: 18px !important;
-  }
+    .forsale-item-price {
+        font-size: 16px !important;
+    }
 
-  .forsale-item-price {
-    font-size: 16px !important;
-  }
+    .tag {
+        font-size: 12px !important;
+        padding: 4px 10px !important;
+    }
 
-  .tag {
-    font-size: 12px !important;
-    padding: 4px 10px !important;
-  }
+    .forsale-item-series {
+        font-size: 14px !important;
+    }
 
-  .forsale-item-series {
-    font-size: 14px !important;
-  }
-
-  .section-divider {
-    font-size: 16px !important;
-    padding: 10px 16px !important;
-  }
-
-  /* ===== ОСТАЛЬНЫЕ СТИЛИ (шапка, статистика, фильтры и т.д.) остаются без изменений ===== */
+    .section-divider {
+        font-size: 16px !important;
+        padding: 10px 16px !important;
+    }
 }
