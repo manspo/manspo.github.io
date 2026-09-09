@@ -2032,7 +2032,10 @@ async function initLot() {
     const manufacturers = await loadManufacturers();
 
     const name = currentLang === 'en' && series.name_en ? series.name_en : series.name;
-    const description = currentLang === 'en' && series.description_en ? series.description_en : (series.description || "Описание отсутствует");
+    // Для лота используем специальное описание fullSeriesDescription, если оно есть
+const description = currentLang === 'en' 
+    ? (series.fullSeriesDescription_en || series.description_en || series.description || "Описание отсутствует")
+    : (series.fullSeriesDescription || series.description || "Описание отсутствует");
     const manufacturerName = manufacturers[series.manufacturer]?.[currentLang] || series.manufacturer;
     const coverUrl = series.cover ? `${BASE_URL}/${series.cover}` : 'images/placeholder.svg';
 
