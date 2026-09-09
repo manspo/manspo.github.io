@@ -2205,3 +2205,35 @@ img {
 .figure-actions .figure-btn {
     flex-shrink: 0 !important;
 }
+
+/* ===== ФИКС ДЛЯ ЦЕНЫ В КАРТОЧКАХ ПРОДАЖ ===== */
+.forsale-item-price {
+    max-width: 45% !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+    font-size: 11px !important;
+    padding: 3px 8px !important;
+    display: inline-block !important;
+    flex-shrink: 0 !important;
+}
+
+/* Для мобильных устройств цена ещё меньше */
+@media (max-width: 768px) {
+    .forsale-item-price {
+        max-width: 40% !important;
+        font-size: 10px !important;
+        padding: 2px 6px !important;
+    }
+    .forsale-item-header {
+        gap: 4px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .forsale-item-price {
+        max-width: 50% !important;
+        font-size: 9px !important;
+        padding: 2px 4px !important;
+    }
+}
