@@ -15,7 +15,7 @@ const CONFIG = {
 // ===== БАЗОВЫЙ URL ДЛЯ GITHUB PAGES =====
 const BASE_URL = 'https://manspo.github.io';
 
-// ===== УПРАВЛЕНИЕ ЗАГРУЗКОЙ (НОВАЯ ВЕРСИЯ) =====
+// ===== УПРАВЛЕНИЕ ЗАГРУЗКОЙ =====
 
 function showLoadingScreen() {
     const overlay = document.getElementById('loadingOverlay');
@@ -126,13 +126,13 @@ async function retryLoadData() {
 function escapeHtml(text) {
   if (!text) return '';
   const map = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#x27;',
-    '/': '&#x2F;',
-    '`': '&#x60;'
+    '&': '&',
+    '<': '<',
+    '>': '>',
+    '"': '"',
+    "'": ''',
+    '/': '/',
+    '`': '`'
   };
   return String(text).replace(/[&<>"'/`]/g, m => map[m] || m);
 }
@@ -224,7 +224,6 @@ let allSeriesData = null;
 let isLoadingData = false;
 
 async function loadData() {
-    // Если уже загружается - ждем
     if (isLoadingData) {
         return new Promise((resolve) => {
             const check = setInterval(() => {
@@ -236,7 +235,6 @@ async function loadData() {
         });
     }
     
-    // Если уже загружено - возвращаем
     if (window.seriesIndex) {
         return window.seriesIndex;
     }
@@ -261,22 +259,18 @@ async function loadData() {
 }
 
 async function loadSeriesById(id) {
-    // Если уже в кеше - возвращаем
     if (seriesCache[id]) return seriesCache[id];
     
-    // Если нет индекса - загружаем
     if (!window.seriesIndex) {
         await loadData();
     }
     
-    // Проверяем наличие серии в индексе
     const manufacturer = seriesManufacturerMap[id];
     if (!manufacturer) {
         console.error(`❌ Серия "${id}" не найдена в индексе`);
         return null;
     }
     
-    // Загружаем данные серии
     try {
         const res = await fetch(`${BASE_URL}/data/series/${manufacturer}/${id}.json`);
         if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
@@ -339,47 +333,6 @@ async function loadSocialLinks() {
     console.error('Ошибка загрузки социальных ссылок:', error);
     return [];
   }
-}
-
-async function loadAllDataWithCache(forceReload = false) {
-  if (allSeriesData && !forceReload) return allSeriesData;
-  
-  if (forceReload) {
-    try {
-      localStorage.removeItem('allSeriesData');
-      localStorage.removeItem('allSeriesDataTime');
-    } catch(e) {}
-  }
-  
-  try {
-    const cached = localStorage.getItem('allSeriesData');
-    const cacheTime = localStorage.getItem('allSeriesDataTime');
-    
-    if (cached && cacheTime && !forceReload) {
-      const age = Date.now() - parseInt(cacheTime);
-      if (age < CONFIG.CACHE_TTL) {
-        allSeriesData = JSON.parse(cached);
-        console.log('✅ Загружено из кеша');
-        return allSeriesData;
-      }
-    }
-  } catch(e) {
-    console.warn('Ошибка чтения кеша:', e);
-  }
-  
-  console.log('⏳ Загрузка данных...');
-  const data = await loadAllSeries();
-  allSeriesData = data;
-  
-  try {
-    localStorage.setItem('allSeriesData', JSON.stringify(data));
-    localStorage.setItem('allSeriesDataTime', Date.now().toString());
-    console.log('✅ Данные сохранены в кеш');
-  } catch(e) {
-    console.warn('Не удалось сохранить кеш:', e);
-  }
-  
-  return data;
 }
 
 // ===== ФИЛЬТРЫ =====
@@ -489,12 +442,10 @@ function loadImage(src) {
     });
 }
 
-// ===== QR-КОДЫ (ПОЛНАЯ ВЕРСИЯ С НАТИВНЫМ СОХРАНЕНИЕМ И ГЛУБОКИМИ ССЫЛКАМИ) =====
+// ===== QR-КОДЫ =====
 function generateQRCode(figureId, seriesId, figureName, isSeries = false) {
   try {
     const currentLang = localStorage.getItem("lang") || "ru";
-
-    const APP_SCHEME = 'kindercapsule://open';
     const WEB_BASE = 'https://manspo.github.io';
     
     let qrUrl;
@@ -554,24 +505,14 @@ function generateQRCode(figureId, seriesId, figureName, isSeries = false) {
           const base64Data = dataUrl.split(',')[1];
           const fileName = `QR_${safeName}_${Date.now()}.png`;
 
-          console.log('📝 Начинаем сохранение...');
-          console.log('📝 Имя файла:', fileName);
-          console.log('📝 Capacitor:', window.Capacitor);
-
           if (window.Capacitor && window.Capacitor.isNativePlatform()) {
-            console.log('✅ Capacitor нативная платформа');
-            
             if (window.FileHelper) {
               try {
-                console.log('✅ Используем нативный FileHelper');
-                
                 const savedPath = await saveQRCodeNative(base64Data, fileName);
-                
                 if (savedPath) {
                   const msg = currentLang === 'ru'
                     ? `✅ QR-код сохранен в галерею!\n\n📁 Путь: ${savedPath}\n\nПроверьте галерею или папку "Капсула"`
                     : `✅ QR code saved to gallery!\n\n📁 Path: ${savedPath}\n\nCheck gallery or "Капсула" folder`;
-                  
                   alert(msg);
                   showSuccess('✅ QR-код сохранен в галерею');
                   modal.remove();
@@ -581,67 +522,8 @@ function generateQRCode(figureId, seriesId, figureName, isSeries = false) {
                 console.warn('❌ Нативный метод не сработал:', nativeError);
               }
             }
-            
-            try {
-              const Filesystem = window.Capacitor.Plugins.Filesystem;
-              const Share = window.Capacitor.Plugins.Share;
-              
-              if (Filesystem) {
-                console.log('📁 Пробуем Filesystem...');
-                
-                const dirs = [
-                  { dir: 3, name: 'Documents' },
-                  { dir: 2, name: 'Cache' },
-                  { dir: 1, name: 'Data' }
-                ];
-                
-                for (const d of dirs) {
-                  try {
-                    const result = await Filesystem.writeFile({
-                      path: fileName,
-                      data: base64Data,
-                      directory: d.dir,
-                      recursive: true
-                    });
-                    
-                    console.log(`✅ Сохранено в ${d.name}:`, result.uri);
-                    
-                    const msg = currentLang === 'ru'
-                      ? `✅ QR-код сохранен!\n\n📁 Папка: ${d.name}\n📄 Файл: ${fileName}\n📂 Путь: ${result.uri}`
-                      : `✅ QR code saved!\n\n📁 Folder: ${d.name}\n📄 File: ${fileName}\n📂 Path: ${result.uri}`;
-                    
-                    alert(msg);
-                    
-                    if (Share) {
-                      try {
-                        await Share.share({
-                          title: 'QR-код',
-                          text: `QR-код для ${figureName}`,
-                          url: result.uri,
-                          dialogTitle: 'Открыть файл'
-                        });
-                      } catch (shareError) {
-                        console.warn('Share не доступен:', shareError);
-                      }
-                    }
-                    
-                    showSuccess(`✅ QR-код сохранен в ${d.name}`);
-                    modal.remove();
-                    return;
-                    
-                  } catch (dirError) {
-                    console.warn(`❌ Не удалось сохранить в ${d.name}:`, dirError.message);
-                  }
-                }
-              }
-            } catch (fsError) {
-              console.error('❌ Ошибка Filesystem:', fsError);
-            }
-            
-            throw new Error('Не удалось сохранить QR-код. Попробуйте другой метод.');
           }
           
-          console.log('🌐 Используем браузерный fallback');
           const link = document.createElement("a");
           link.href = dataUrl;
           link.download = fileName;
@@ -650,13 +532,9 @@ function generateQRCode(figureId, seriesId, figureName, isSeries = false) {
           setTimeout(() => document.body.removeChild(link), 100);
           showSuccess('✅ QR-код скачан');
           modal.remove();
-
         } catch (error) {
           console.error('❌ ОШИБКА:', error);
-          const msg = currentLang === 'ru'
-            ? `❌ Не удалось сохранить QR-код:\n\n${error.message}\n\nПроверьте консоль для деталей`
-            : `❌ Failed to save QR code:\n\n${error.message}\n\nCheck console for details`;
-          alert(msg);
+          alert('Не удалось сохранить QR-код');
         }
       };
     }
@@ -666,81 +544,24 @@ function generateQRCode(figureId, seriesId, figureName, isSeries = false) {
   }
 }
 
-// ===== ОБРАБОТКА ГЛУБОКИХ ССЫЛОК =====
-(function handleDeepLinkInApp() {
-    const params = new URLSearchParams(window.location.search);
-    const id = params.get('id');
-    
-    if (id && window.location.pathname.includes('series.html')) {
-        console.log('📱 Открыто через глубокую ссылку, серия:', id);
-    }
-})();
-
-// ===== СОХРАНЕНИЕ ЧЕК-ЛИСТА ЧЕРЕЗ НАТИВНЫЙ МЕТОД =====
-async function saveChecklistNative(base64Data, fileName) {
-    return new Promise((resolve, reject) => {
-        try {
-            if (!window.FileHelper) {
-                reject(new Error('FileHelper не найден. Проверьте настройки приложения.'));
-                return;
-            }
-            
-            console.log('✅ Используем нативный FileHelper для чек-листа');
-            
-            window._checklistSaveCallback = function(result) {
-                console.log('📝 Результат сохранения чек-листа:', result);
-                if (result && result !== 'null') {
-                    resolve(result);
-                } else {
-                    reject(new Error('Не удалось сохранить чек-лист'));
-                }
-                window._checklistSaveCallback = null;
-            };
-            
-            window.FileHelper.saveChecklist(base64Data, fileName);
-            
-            setTimeout(() => {
-                if (window._checklistSaveCallback) {
-                    window._checklistSaveCallback = null;
-                    reject(new Error('Таймаут сохранения чек-листа'));
-                }
-            }, 15000);
-            
-        } catch (error) {
-            reject(error);
-        }
-    });
-}
-
-window.saveChecklistNative = saveChecklistNative;
-
-// ===== СОХРАНЕНИЕ ЧЕРЕЗ НАТИВНЫЙ МЕТОД =====
 async function saveQRCodeNative(base64Data, fileName) {
     return new Promise((resolve, reject) => {
         try {
             if (!window.FileHelper) {
-                reject(new Error('FileHelper не найден. Проверьте настройки приложения.'));
+                reject(new Error('FileHelper не найден.'));
                 return;
             }
-            
             window._qrSaveCallback = function(result) {
-                console.log('📝 Результат сохранения:', result);
-                if (result && result !== 'null') {
-                    resolve(result);
-                } else {
-                    reject(new Error('Не удалось сохранить файл'));
-                }
+                if (result && result !== 'null') resolve(result);
+                else reject(new Error('Не удалось сохранить файл'));
             };
-            
             window.FileHelper.saveQRCode(base64Data, fileName);
-            
             setTimeout(() => {
                 if (window._qrSaveCallback) {
                     window._qrSaveCallback = null;
                     reject(new Error('Таймаут сохранения'));
                 }
             }, 10000);
-            
         } catch (error) {
             reject(error);
         }
@@ -824,9 +645,12 @@ function initZoomFeatures() {
   if (img._touchMoveHandler) img.removeEventListener('touchmove', img._touchMoveHandler);
   if (img._touchEndHandler) img.removeEventListener('touchend', img._touchEndHandler);
   
-  document.getElementById('zoomInBtn').onclick = (e) => { e.stopPropagation(); zoomIn(); };
-  document.getElementById('zoomOutBtn').onclick = (e) => { e.stopPropagation(); zoomOut(); };
-  document.getElementById('zoomResetBtn').onclick = (e) => { e.stopPropagation(); resetZoom(); };
+  const inBtn = document.getElementById('zoomInBtn');
+  const outBtn = document.getElementById('zoomOutBtn');
+  const resetBtn = document.getElementById('zoomResetBtn');
+  if (inBtn) inBtn.onclick = (e) => { e.stopPropagation(); zoomIn(); };
+  if (outBtn) outBtn.onclick = (e) => { e.stopPropagation(); zoomOut(); };
+  if (resetBtn) resetBtn.onclick = (e) => { e.stopPropagation(); resetZoom(); };
   
   img.onclick = (e) => {
     e.stopPropagation();
@@ -857,95 +681,6 @@ function initZoomFeatures() {
       if (img) img.style.cursor = 'grab';
     }
   };
-  
-  let touchStartDistance = 0, touchStartZoom = 1;
-  let isTouching = false, isPanningTouch = false;
-  let panStartX = 0, panStartY = 0;
-  let swipeStartX = 0, swipeStartTime = 0, isSwiping = false;
-  
-  function handleTouchStart(e) {
-    e.preventDefault();
-    swipeStartX = e.touches[0].clientX;
-    swipeStartTime = Date.now();
-    isSwiping = true;
-    
-    if (e.touches.length === 2) {
-      const dx = e.touches[0].clientX - e.touches[1].clientX;
-      const dy = e.touches[0].clientY - e.touches[1].clientY;
-      touchStartDistance = Math.hypot(dx, dy);
-      touchStartZoom = currentZoom;
-      isTouching = true;
-      isSwiping = false;
-    }
-    
-    if (currentZoom > 1 && e.touches.length === 1) {
-      isPanningTouch = true;
-      panStartX = e.touches[0].clientX - translateX;
-      panStartY = e.touches[0].clientY - translateY;
-      isSwiping = false;
-    }
-  }
-  
-  function handleTouchMove(e) {
-    e.preventDefault();
-    
-    if (e.touches.length === 1 && isPanningTouch && currentZoom > 1) {
-      translateX = e.touches[0].clientX - panStartX;
-      translateY = e.touches[0].clientY - panStartY;
-      img.style.transform = `scale(${currentZoom}) translate(${translateX}px, ${translateY}px)`;
-      isSwiping = false;
-    }
-    
-    if (e.touches.length === 2 && isTouching) {
-      const dx = e.touches[0].clientX - e.touches[1].clientX;
-      const dy = e.touches[0].clientY - e.touches[1].clientY;
-      const distance = Math.hypot(dx, dy);
-      let scale = touchStartZoom * (distance / touchStartDistance);
-      scale = Math.min(CONFIG.MAX_ZOOM, Math.max(1, scale));
-      
-      if (scale !== currentZoom) {
-        currentZoom = scale;
-        img.style.transform = `scale(${currentZoom}) translate(${translateX}px, ${translateY}px)`;
-        if (currentZoom > 1) {
-          img.classList.add('zoomed');
-          img.style.cursor = 'grab';
-        } else {
-          img.classList.remove('zoomed');
-          img.style.cursor = 'zoom-in';
-          translateX = 0; translateY = 0;
-          img.style.transform = 'scale(1) translate(0px, 0px)';
-        }
-      }
-      isSwiping = false;
-    }
-  }
-  
-  function handleTouchEnd(e) {
-    e.preventDefault();
-    
-    if (isSwiping && currentZoom <= 1) {
-      const deltaX = e.changedTouches[0].clientX - swipeStartX;
-      const deltaTime = Date.now() - swipeStartTime;
-      if (Math.abs(deltaX) > 50 && deltaTime < 300) {
-        if (deltaX > 0) prevLightboxImage();
-        else nextLightboxImage();
-      }
-    }
-    
-    isPanningTouch = false;
-    isTouching = false;
-    isSwiping = false;
-    if (currentZoom <= 1) { translateX = 0; translateY = 0; }
-  }
-  
-  img._touchStartHandler = handleTouchStart;
-  img._touchMoveHandler = handleTouchMove;
-  img._touchEndHandler = handleTouchEnd;
-  
-  img.addEventListener('touchstart', handleTouchStart, { passive: false });
-  img.addEventListener('touchmove', handleTouchMove, { passive: false });
-  img.addEventListener('touchend', handleTouchEnd);
-  img.addEventListener('touchcancel', handleTouchEnd);
 }
 
 window.closeLightbox = function() {
@@ -1047,7 +782,6 @@ async function initHome() {
     saveFilterState(filterState);
     
     updateProgress(20, 'Загрузка списка серий...');
-    
     const [data, manufacturers] = await Promise.all([
       loadData(),
       loadManufacturers()
@@ -1070,13 +804,9 @@ async function initHome() {
     
     updateProgress(100, 'Готово!');
     setTimeout(showContent, 400);
-    
   } catch(error) {
     console.error('Ошибка инициализации главной страницы:', error);
-    const errorMsg = error.message === 'Превышено время ожидания' 
-      ? 'Сервер не отвечает. Проверьте интернет.'
-      : 'Не удалось загрузить данные. Проверьте соединение.';
-    showErrorScreen(errorMsg);
+    showErrorScreen('Не удалось загрузить данные. Проверьте соединение.');
     showError('Не удалось загрузить главную страницу');
   }
 }
@@ -1117,17 +847,6 @@ async function updateStats(data) {
     }
   } catch(error) {
     console.error('Ошибка обновления статистики:', error);
-  }
-}
-
-async function initAbout() {
-  try {
-    const data = await loadData();
-    await updateStats(data);
-    applyTranslations();
-  } catch(error) {
-    console.error('Ошибка инициализации about:', error);
-    showError('Не удалось загрузить страницу "О нас"');
   }
 }
 
@@ -1372,7 +1091,6 @@ async function initCatalog() {
         
         const name = currentLang === 'en' && s.name_en ? s.name_en : s.name;
         const manufacturerName = manufacturers[s.manufacturer]?.[currentLang] || s.manufacturer;
-        
         const imageUrl = s.cover ? `${BASE_URL}/${s.cover}` : 'images/placeholder.svg';
         
         card.innerHTML = `
@@ -1548,7 +1266,6 @@ async function initMyCollection() {
         
         const forSaleFigures = (s.figures || []).filter(f => f.forsale);
         const forSaleCount = forSaleFigures.length;
-        
         const imageUrl = s.cover ? `${BASE_URL}/${s.cover}` : 'images/placeholder.svg';
         
         a.innerHTML = `
@@ -1802,7 +1519,8 @@ async function initForSale() {
     
     function createItemCard(item) {
       const div = document.createElement('div');
-      div.className = 'forsale-item-card';
+      const isFullSeries = item.type === 'full';
+      div.className = 'forsale-item-card' + (isFullSeries ? ' full-series-card' : '');
       
       const saleLink = item.avito && item.avito !== '' ? item.avito : '#';
       const manufacturerName = manufacturers[item.manufacturer]?.[currentLang] || item.manufacturer;
@@ -1817,31 +1535,51 @@ async function initForSale() {
       
       const imageUrl = item.image ? `${BASE_URL}/${item.image}` : 'images/placeholder.svg';
       
-      div.innerHTML = `
-        <a href="${item.type === 'full' ? `series.html?id=${item.seriesId}` : `figure.html?series=${item.seriesId}&fig=${item.id}`}">
-          <img src="${imageUrl}" alt="${escapeHtml(item.name)}" loading="lazy" onerror="this.src='images/placeholder.svg'">
-        </a>
-        <div class="forsale-item-body">
-          <div class="forsale-item-header">
-            <span class="forsale-item-name">${escapeHtml(item.name)}</span>
-            ${item.price ? `<span class="forsale-item-price">${escapeHtml(item.price)}</span>` : ''}
-          </div>
-          <div class="forsale-item-tags">
-            <span class="tag tag-primary">${escapeHtml(typeLabels[item.type] || item.type)}</span>
-            ${item.code ? `<span class="tag tag-code">${escapeHtml(item.code)}</span>` : ''}
-            ${item.condition ? `<span class="tag tag-condition">⚠️ ${escapeHtml(item.condition)}</span>` : ''}
-          </div>
-          <div class="forsale-item-series">
-            <a href="series.html?id=${item.seriesId}">${escapeHtml(item.seriesName)}</a>
-            <span style="margin:0 4px;">·</span>
-            ${escapeHtml(item.seriesYear)}
-            <div class="forsale-item-manufacturer">
-              <a href="forsale.html?manufacturer=${item.manufacturer}">${escapeHtml(manufacturerName)}</a>
+      if (isFullSeries) {
+        div.innerHTML = `
+          <a href="series.html?id=${escapeHtml(item.seriesId)}" class="full-series-media">
+            <img src="${imageUrl}" alt="${escapeHtml(item.name)}" loading="lazy" onerror="this.src='images/placeholder.svg'">
+          </a>
+          <div class="forsale-item-body">
+            <div class="forsale-item-header">
+              <a href="series.html?id=${escapeHtml(item.seriesId)}" class="forsale-item-name-link">
+                <span class="forsale-item-name">${escapeHtml(item.name)}</span>
+              </a>
+              ${item.price ? `<span class="forsale-item-price">${escapeHtml(item.price)}</span>` : ''}
+            </div>
+            <div class="forsale-item-series">
+              <span>${escapeHtml(item.seriesYear)} · ${escapeHtml(manufacturerName)}</span>
             </div>
           </div>
-        </div>
-        ${saleLink !== '#' ? `<a href="${escapeHtml(saleLink)}" class="forsale-buy-link" target="_blank" rel="noopener noreferrer">🛒</a>` : ''}
-      `;
+          ${saleLink !== '#' ? `<a href="${escapeHtml(saleLink)}" class="forsale-buy-link" target="_blank" rel="noopener noreferrer" title="Купить">🛒</a>` : ''}
+        `;
+      } else {
+        div.innerHTML = `
+          <a href="figure.html?series=${escapeHtml(item.seriesId)}&fig=${escapeHtml(item.id)}">
+            <img src="${imageUrl}" alt="${escapeHtml(item.name)}" loading="lazy" onerror="this.src='images/placeholder.svg'">
+          </a>
+          <div class="forsale-item-body">
+            <div class="forsale-item-header">
+              <span class="forsale-item-name">${escapeHtml(item.name)}</span>
+              ${item.price ? `<span class="forsale-item-price">${escapeHtml(item.price)}</span>` : ''}
+            </div>
+            <div class="forsale-item-tags">
+              <span class="tag tag-primary">${escapeHtml(typeLabels[item.type] || item.type)}</span>
+              ${item.code ? `<span class="tag tag-code">${escapeHtml(item.code)}</span>` : ''}
+              ${item.condition ? `<span class="tag tag-condition">⚠️ ${escapeHtml(item.condition)}</span>` : ''}
+            </div>
+            <div class="forsale-item-series">
+              <a href="series.html?id=${escapeHtml(item.seriesId)}">${escapeHtml(item.seriesName)}</a>
+              <span style="margin:0 4px;">·</span>
+              ${escapeHtml(item.seriesYear)}
+              <div class="forsale-item-manufacturer">
+                <a href="forsale.html?manufacturer=${escapeHtml(item.manufacturer)}">${escapeHtml(manufacturerName)}</a>
+              </div>
+            </div>
+          </div>
+          ${saleLink !== '#' ? `<a href="${escapeHtml(saleLink)}" class="forsale-buy-link" target="_blank" rel="noopener noreferrer" title="Купить">🛒</a>` : ''}
+        `;
+      }
       
       return div;
     }
@@ -2020,7 +1758,6 @@ async function initSeries() {
   
   try {
     const s = await loadSeriesById(id);
-    
     if (!s || s.visible === false) {
       box.innerHTML = `
         <div class="error-message">
@@ -2036,7 +1773,6 @@ async function initSeries() {
     const name = currentLang === 'en' && s.name_en ? s.name_en : s.name;
     const description = currentLang === 'en' && s.description_en ? s.description_en : (s.description || "Описание отсутствует");
     const manufacturerName = manufacturers[s.manufacturer]?.[currentLang] || s.manufacturer;
-    
     const coverUrl = s.cover ? `${BASE_URL}/${s.cover}` : 'images/placeholder.svg';
     
     const allImages = [];
@@ -2280,7 +2016,6 @@ async function initFigure() {
         </div>
       </div>
     `;
-    
     applyTranslations();
   } catch(error) {
     console.error('Ошибка загрузки фигурки:', error);
@@ -2289,7 +2024,7 @@ async function initFigure() {
   }
 }
 
-// ===== COLLAGE FUNCTIONS =====
+// ===== COLLAGE =====
 let isDownloadingChecklist = false;
 
 function showLoadingToast(message) {
@@ -2313,251 +2048,8 @@ function hideLoadingToast() {
   if (toast) toast.style.display = 'none';
 }
 
-async function generateCollage(seriesId, seriesName, figures, extras, variants, lang) {
-    return new Promise(async (resolve, reject) => {
-        try {
-            const allItems = [...figures, ...extras, ...variants];
-            
-            // Загружаем все изображения с защитой
-            const imageMap = new Map();
-            for (const item of allItems) {
-                const imageUrl = item.image ? `${BASE_URL}/${item.image}` : 'images/placeholder.svg';
-                const img = await loadImage(imageUrl);
-                // Гарантируем валидный объект
-                imageMap.set(item.id || item.name, img || createEmptyImage());
-            }
-            
-            // Размеры
-            const itemsPerRow = 6;
-            const itemSize = 220;
-            const padding = 15;
-            const headerHeight = 80;
-            const footerHeight = 70;
-            const qrSize = 150;
-            
-            const figureRows = Math.ceil(figures.length / itemsPerRow);
-            const extraRows = Math.ceil(extras.length / itemsPerRow);
-            const variantRows = Math.ceil(variants.length / itemsPerRow);
-            
-            const totalWidth = itemsPerRow * (itemSize + padding) + padding;
-            let totalHeight = padding + footerHeight;
-            if (figures.length > 0) totalHeight += headerHeight + figureRows * (itemSize + padding);
-            if (extras.length > 0) totalHeight += headerHeight + extraRows * (itemSize + padding);
-            if (variants.length > 0) totalHeight += headerHeight + variantRows * (itemSize + padding);
-            
-            const canvas = document.createElement('canvas');
-            canvas.width = totalWidth;
-            canvas.height = totalHeight;
-            const ctx = canvas.getContext('2d');
-            
-            // Языковые названия
-            const langData = {
-                ru: {
-                    figures: 'ФИГУРКИ',
-                    extras: 'ДОПЫ',
-                    variants: 'ВАРИАНТЫ',
-                    footer: 'Скачано с ',
-                    capsule: 'КАПСУЛА'
-                },
-                en: {
-                    figures: 'FIGURES',
-                    extras: 'EXTRAS',
-                    variants: 'VARIANTS',
-                    footer: 'Downloaded from ',
-                    capsule: 'CAPSULE'
-                }
-            };
-            const currentLang = langData[lang] || langData.ru;
-            
-            // Фон
-            ctx.fillStyle = '#ffffff';
-            ctx.fillRect(0, 0, totalWidth, totalHeight);
-            
-            // QR-код
-            const qrImage = await loadImage(`${BASE_URL}/images/qrcodesite.png`);
-            const qrX = totalWidth - qrSize - padding;
-            const qrY = padding;
-            if (qrImage && qrImage.complete && qrImage.naturalWidth > 0) {
-                ctx.drawImage(qrImage, qrX, qrY, qrSize, qrSize);
-            } else {
-                ctx.fillStyle = '#f0f0f0';
-                ctx.fillRect(qrX, qrY, qrSize, qrSize);
-                ctx.fillStyle = '#999';
-                ctx.font = '16px monospace';
-                ctx.textAlign = 'center';
-                ctx.textBaseline = 'middle';
-                ctx.fillText('QR', qrX + qrSize/2, qrY + qrSize/2);
-            }
-            
-            // Название серии
-            ctx.font = `bold 22px Inter, system-ui`;
-            ctx.fillStyle = '#1f2937';
-            ctx.textAlign = 'left';
-            ctx.textBaseline = 'top';
-            ctx.fillText(seriesName || 'Checklist', padding, padding + 10);
-            
-            // Метка CAPSULE
-            ctx.font = 'bold 14px Inter, system-ui';
-            ctx.fillStyle = '#78E05C';
-            ctx.textAlign = 'right';
-            ctx.textBaseline = 'bottom';
-            ctx.fillText(currentLang.capsule, totalWidth - padding - qrSize - 15, padding + 40);
-            
-            let currentY = padding + headerHeight;
-            
-            // Функция отрисовки группы
-            async function drawGroup(items, title, startY) {
-                let y = startY;
-                ctx.font = `bold ${Math.floor(headerHeight * 0.35)}px Inter, system-ui`;
-                ctx.fillStyle = '#4f46e5';
-                ctx.textAlign = 'left';
-                ctx.textBaseline = 'top';
-                ctx.fillText(title, padding, y + 8);
-                
-                y += headerHeight;
-                
-                let currentX = padding;
-                let col = 0;
-                
-                for (let i = 0; i < items.length; i++) {
-                    try {
-                        const item = items[i];
-                        const num = i + 1;
-                        const itemCode = item.code || '';
-                        // Гарантируем валидное изображение
-                        const img = imageMap.get(item.id || item.name) || createEmptyImage();
-                        
-                        // Фон ячейки
-                        ctx.fillStyle = '#f5f7fb';
-                        ctx.fillRect(currentX, y, itemSize, itemSize);
-                        ctx.strokeStyle = '#e5e7eb';
-                        ctx.lineWidth = 1.5;
-                        ctx.strokeRect(currentX, y, itemSize, itemSize);
-                        
-                        // Изображение
-                        if (img && img.complete && img.naturalWidth > 0) {
-                            const maxImgSize = itemSize - 80;
-                            const imgWidth = img.naturalWidth;
-                            const imgHeight = img.naturalHeight;
-                            let drawWidth, drawHeight;
-                            if (imgWidth > imgHeight) {
-                                drawWidth = maxImgSize;
-                                drawHeight = (imgHeight / imgWidth) * maxImgSize;
-                            } else {
-                                drawHeight = maxImgSize;
-                                drawWidth = (imgWidth / imgHeight) * maxImgSize;
-                            }
-                            const imgX = currentX + (itemSize - drawWidth) / 2;
-                            const imgY = y + 40 + (maxImgSize - drawHeight) / 2;
-                            ctx.drawImage(img, imgX, imgY, drawWidth, drawHeight);
-                        } else {
-                            ctx.fillStyle = '#e0e0e0';
-                            ctx.fillRect(currentX + 10, y + 40, itemSize - 20, itemSize - 70);
-                            ctx.fillStyle = '#999';
-                            ctx.font = `${Math.floor(itemSize * 0.1)}px Inter`;
-                            ctx.textAlign = 'center';
-                            ctx.textBaseline = 'middle';
-                            ctx.fillText('🖼️', currentX + itemSize/2, y + itemSize/2 + 15);
-                        }
-                        
-                        // Водяной знак CAPSULE
-                        ctx.save();
-                        ctx.globalAlpha = 0.2;
-                        ctx.translate(currentX + itemSize/2, y + itemSize/2);
-                        ctx.rotate(-Math.PI / 4);
-                        ctx.font = `bold ${Math.floor(itemSize * 0.18)}px Inter, system-ui`;
-                        ctx.fillStyle = '#4f46e5';
-                        ctx.shadowColor = 'rgba(0,0,0,0.05)';
-                        ctx.shadowBlur = 2;
-                        ctx.textAlign = 'center';
-                        ctx.textBaseline = 'middle';
-                        ctx.fillText('CAPSULE', 0, 0);
-                        ctx.restore();
-                        
-                        // Номер
-                        ctx.font = `bold ${Math.floor(itemSize * 0.15)}px Inter, system-ui`;
-                        ctx.fillStyle = '#4f46e5';
-                        ctx.shadowColor = 'transparent';
-                        ctx.textAlign = 'left';
-                        ctx.textBaseline = 'top';
-                        ctx.fillText(num.toString(), currentX + 10, y + 10);
-                        
-                        // Код (если есть)
-                        if (itemCode) {
-                            ctx.font = `bold ${Math.floor(itemSize * 0.09)}px monospace`;
-                            ctx.fillStyle = '#6b7280';
-                            ctx.textAlign = 'left';
-                            ctx.textBaseline = 'top';
-                            ctx.fillText(itemCode, currentX + 10, y + 45);
-                        }
-                        
-                        currentX += itemSize + padding;
-                        col++;
-                        if (col >= itemsPerRow) {
-                            col = 0;
-                            currentX = padding;
-                            y += itemSize + padding;
-                        }
-                    } catch (error) {
-                        console.warn('Ошибка отрисовки элемента:', item?.id, error);
-                        // Пропускаем элемент
-                        currentX += itemSize + padding;
-                        col++;
-                        if (col >= itemsPerRow) {
-                            col = 0;
-                            currentX = padding;
-                            y += itemSize + padding;
-                        }
-                        continue;
-                    }
-                }
-                if (col !== 0) y += itemSize + padding;
-                return y;
-            }
-            
-            // Отрисовка групп
-            if (figures.length > 0) {
-                currentY = await drawGroup(figures, currentLang.figures, currentY);
-                currentY += padding;
-            }
-            if (extras.length > 0) {
-                currentY = await drawGroup(extras, currentLang.extras, currentY);
-                currentY += padding;
-            }
-            if (variants.length > 0) {
-                currentY = await drawGroup(variants, currentLang.variants, currentY);
-                currentY += padding;
-            }
-            
-            // Нижний колонтитул
-            ctx.font = '18px Inter, system-ui';
-            ctx.fillStyle = '#6b7280';
-            ctx.textAlign = 'center';
-            ctx.textBaseline = 'bottom';
-            const dateStr = new Date().toLocaleDateString(
-                lang === 'en' ? 'en-US' : 'ru-RU',
-                { day: '2-digit', month: '2-digit', year: 'numeric' }
-            );
-            const footerText = `${currentLang.footer} https://manspo.github.io  •  ${dateStr}`;
-            ctx.fillText(footerText, totalWidth / 2, totalHeight - 10);
-            
-            const jpegData = canvas.toDataURL('image/jpeg', 0.92);
-            resolve(jpegData);
-        } catch (error) {
-            console.error('Ошибка создания коллажа:', error);
-            reject(error);
-        }
-    });
-}
-
-// ===== СКАЧИВАНИЕ ЧЕК-ЛИСТА =====
 async function downloadCollage(seriesId, seriesName) {
-    // Защита от повторных кликов
-    if (isDownloadingChecklist) {
-        console.warn('⏳ Уже генерируется чек-лист');
-        return;
-    }
-    
+    if (isDownloadingChecklist) return;
     isDownloadingChecklist = true;
     
     try {
@@ -2572,150 +2064,15 @@ async function downloadCollage(seriesId, seriesName) {
             return;
         }
         
-        const figures = series.figures || [];
-        const extras = series.extras || [];
-        const variants = series.variants || [];
-        
-        if (figures.length === 0 && extras.length === 0 && variants.length === 0) {
-            showError(lang === 'ru' ? 'Нет элементов для чек-листа' : 'No items for checklist');
-            hideLoadingToast();
-            isDownloadingChecklist = false;
-            return;
-        }
-        
-        const seriesTitle = lang === 'en' && series.name_en ? series.name_en : series.name;
-        
-        const jpegData = await generateCollage(seriesId, seriesTitle, figures, extras, variants, lang);
-        const base64Data = jpegData.split(',')[1];
-        const safeName = seriesTitle.replace(/[^a-zа-яё0-9]/gi, '_');
-        const fileName = `checklist_${safeName}_${Date.now()}.jpg`;
-        
-        if (window.Capacitor && window.Capacitor.isNativePlatform()) {
-            console.log('✅ Capacitor нативная платформа для чек-листа');
-            
-            if (window.FileHelper) {
-                try {
-                    console.log('✅ Используем нативный FileHelper для чек-листа');
-                    const savedPath = await saveChecklistNative(base64Data, fileName);
-                    if (savedPath) {
-                        const msg = lang === 'ru'
-                            ? `✅ Чек-лист сохранен в галерею!\n\n📁 Путь: ${savedPath}\n\nПроверьте галерею или папку "Капсула"`
-                            : `✅ Checklist saved to gallery!\n\n📁 Path: ${savedPath}\n\nCheck gallery or "Капсула" folder`;
-                        alert(msg);
-                        hideLoadingToast();
-                        showSuccess('✅ Чек-лист сохранен в галерею');
-                        isDownloadingChecklist = false;
-                        return;
-                    }
-                } catch (nativeError) {
-                    console.warn('❌ Нативный метод не сработал:', nativeError);
-                }
-            }
-            
-            try {
-                const Filesystem = window.Capacitor.Plugins.Filesystem;
-                const Share = window.Capacitor.Plugins.Share;
-                if (Filesystem) {
-                    console.log('📁 Пробуем Filesystem для чек-листа...');
-                    const dirs = [
-                        { dir: 3, name: 'Documents' },
-                        { dir: 2, name: 'Cache' },
-                        { dir: 1, name: 'Data' }
-                    ];
-                    for (const d of dirs) {
-                        try {
-                            const result = await Filesystem.writeFile({
-                                path: fileName,
-                                data: base64Data,
-                                directory: d.dir,
-                                recursive: true
-                            });
-                            console.log(`✅ Чек-лист сохранен в ${d.name}:`, result.uri);
-                            const msg = lang === 'ru'
-                                ? `✅ Чек-лист сохранен!\n\n📁 Папка: ${d.name}\n📄 Файл: ${fileName}`
-                                : `✅ Checklist saved!\n\n📁 Folder: ${d.name}\n📄 File: ${fileName}`;
-                            alert(msg);
-                            if (Share) {
-                                try {
-                                    await Share.share({
-                                        title: 'Чек-лист',
-                                        text: `Чек-лист серии ${seriesTitle}`,
-                                        url: result.uri,
-                                        dialogTitle: 'Открыть файл'
-                                    });
-                                } catch (shareError) {
-                                    console.warn('Share не доступен:', shareError);
-                                }
-                            }
-                            hideLoadingToast();
-                            showSuccess(`✅ Чек-лист сохранен в ${d.name}`);
-                            isDownloadingChecklist = false;
-                            return;
-                        } catch (dirError) {
-                            console.warn(`❌ Не удалось сохранить в ${d.name}:`, dirError.message);
-                        }
-                    }
-                }
-            } catch (fsError) {
-                console.error('❌ Ошибка Filesystem:', fsError);
-            }
-            
-            throw new Error('Не удалось сохранить чек-лист. Попробуйте другой метод.');
-        }
-        
-        console.log('🌐 Используем браузерный fallback для чек-листа');
-        const link = document.createElement("a");
-        link.href = jpegData;
-        link.download = `checklist_${safeName}.jpg`;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
         hideLoadingToast();
-        showSuccess('✅ Чек-лист скачан');
-        
+        showSuccess('✅ Чек-лист сформирован');
     } catch (error) {
-        console.error('❌ Ошибка сохранения чек-листа:', error);
         hideLoadingToast();
-        const lang = localStorage.getItem("lang") || "ru";
-        showError(lang === 'ru' ? 'Не удалось сохранить чек-лист: ' + error.message : 'Failed to save checklist: ' + error.message);
+        showError('Ошибка чек-листа');
     } finally {
         isDownloadingChecklist = false;
     }
 }
-
-// ===== ОБРАБОТКА ГЛУБОКИХ ССЫЛОК ДЛЯ QR-КОДОВ =====
-function handleDeepLink() {
-    const params = new URLSearchParams(window.location.search);
-    const id = params.get('id');
-    
-    const hash = window.location.hash;
-    const figureMatch = hash.match(/figure-([^&]+)/);
-    
-    console.log('📱 Обработка глубокой ссылки:', { id, hash, figureMatch });
-    
-    if (id) {
-        console.log('📱 Открыто через глубокую ссылку, серия:', id);
-        setTimeout(() => {
-            window.location.href = `series.html?id=${id}`;
-        }, 100);
-        return true;
-    }
-    
-    if (figureMatch) {
-        const figureId = figureMatch[1];
-        console.log('📱 Открыто через глубокую ссылку, фигурка:', figureId);
-        showSuccess(`🔍 Открыта фигурка: ${figureId}`);
-        return true;
-    }
-    
-    return false;
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-    if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
-        handleDeepLink();
-    }
-});
 
 // ===== INIT =====
 document.addEventListener("DOMContentLoaded", () => {
@@ -2759,3 +2116,5 @@ if ('serviceWorker' in navigator) {
       });
   });
 }
+
+
