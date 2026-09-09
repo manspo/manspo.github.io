@@ -2053,21 +2053,33 @@ async function initLot() {
     if (series.other) allImages.push(...series.other.map(o => o.image ? `${BASE_URL}/${o.image}` : 'images/placeholder.svg'));
     window.seriesGalleryImages = allImages;
 
-    // Определяем индекс основного изображения
+    // ОПРЕДЕЛЯЕМ ИЗОБРАЖЕНИЕ ДЛЯ ОТОБРАЖЕНИЯ - ВСЕГДА ОБЛОЖКА, ЕСЛИ ЕСТЬ
+    let mainImageSrc = coverUrl;
     let mainImageIndex = 0;
+
+    // Если есть обложка - используем её как основное изображение
     if (series.cover) {
-      const coverFull = `${BASE_URL}/${series.cover}`;
-      const found = allImages.findIndex(img => img === coverFull);
-      if (found !== -1) mainImageIndex = found;
+        mainImageSrc = coverUrl;
+        // Проверяем, есть ли обложка в галерее
+        const coverFull = `${BASE_URL}/${series.cover}`;
+        const found = allImages.findIndex(img => img === coverFull);
+        if (found !== -1) {
+            mainImageIndex = found;
+        }
+    }
+    // Если обложки нет, но есть другие изображения - берём первое
+    else if (allImages.length > 0) {
+        mainImageSrc = allImages[0];
+        mainImageIndex = 0;
     }
 
     // Формируем HTML для лота
     container.innerHTML = `
-      <div class="figure-container">
+      <div class="figure-container lot-page">
         <h1 class="figure-title">${escapeHtml(name)}</h1>
         <div class="figure-content">
           <div class="figure-image-wrapper">
-            <img src="${escapeHtml(allImages[mainImageIndex] || coverUrl)}" 
+            <img src="${escapeHtml(mainImageSrc)}" 
                  alt="${escapeHtml(name)}" 
                  class="figure-image" 
                  onclick="openLightbox(${mainImageIndex}, window.seriesGalleryImages || [])" 
@@ -2115,6 +2127,12 @@ async function initLot() {
         </div>
       </div>
     `;
+
+    // Добавляем класс на main для мобильных стилей
+    const mainElement = document.querySelector('main');
+    if (mainElement) {
+        mainElement.classList.add('lot-page');
+    }
 
     applyTranslations();
   } catch (error) {

@@ -853,12 +853,6 @@ main {
 .forsale-item-manufacturer a:hover {
   text-decoration: underline;
 }
-.full-series-card .forsale-item-body {
-  padding: 12px 14px 14px;
-}
-.full-series-card .forsale-item-name {
-  font-size: 16px;
-}
 
 .pagination {
   grid-column: 1 / -1;
@@ -1414,10 +1408,13 @@ img {
   width: 100%;
   aspect-ratio: 1;
   object-fit: contain;
-  background: #f5f5f5;
-  border-radius: 12px;
+  background: linear-gradient(135deg, #f5f7fb 0%, #eef2f6 100%);
+  border-radius: 20px;
   padding: 15px;
   cursor: pointer;
+}
+.figure-image:hover {
+  transform: scale(1.02);
 }
 
 .figure-type-badge {
@@ -1444,24 +1441,33 @@ img {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  background: var(--bg);
+  border-radius: 16px;
+  padding: 16px 20px;
 }
 
 .figure-meta-item {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
   font-size: 14px;
+}
+.figure-meta-item:last-child {
+  border-bottom: none;
 }
 
 .meta-icon {
-  font-size: 16px;
+  font-size: 18px;
+  width: 28px;
 }
 
 .meta-link {
   color: var(--primary);
   text-decoration: none;
+  font-weight: 500;
 }
-
 .meta-link:hover {
   text-decoration: underline;
 }
@@ -1472,7 +1478,45 @@ img {
   color: var(--muted);
 }
 
-/* ===== ВСЕ КНОПКИ В ОДНУ СТРОКУ ===== */
+.figure-condition {
+  display: flex !important;
+  align-items: center;
+  gap: 10px;
+  background: #fef3c7;
+  border-radius: 12px;
+  padding: 12px 16px;
+}
+[data-theme="dark"] .figure-condition {
+  background: #451a03;
+}
+.condition-icon {
+  font-size: 18px;
+}
+.condition-text {
+  flex: 1;
+  font-size: 14px;
+  color: #92400e;
+}
+[data-theme="dark"] .condition-text {
+  color: #fde68a;
+}
+
+.figure-description {
+  margin: 10px 0 16px;
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--text);
+  padding: 16px;
+  background: var(--bg);
+  border-radius: 12px;
+}
+.figure-description p {
+  margin: 0 0 8px 0;
+}
+.figure-description p:last-child {
+  margin-bottom: 0;
+}
+
 .figure-actions {
   display: flex !important;
   flex-wrap: wrap !important;
@@ -1484,47 +1528,34 @@ img {
   width: 100%;
 }
 
-.figure-condition {
-  display: inline-flex !important;
-  align-items: center;
-  gap: 6px;
-  background: #fef3c7;
-  padding: 6px 14px;
-  border-radius: 20px;
-  font-size: 14px;
-  color: #92400e;
-  white-space: nowrap;
-}
-[data-theme="dark"] .figure-condition {
-  background: rgba(245, 158, 11, 0.15);
-  color: #fde68a;
-}
-
 .figure-btn {
   display: inline-flex !important;
   align-items: center;
   justify-content: center;
-  padding: 6px 16px;
-  border-radius: 30px;
+  padding: 12px 24px;
+  border-radius: 40px;
   border: none;
-  font-weight: 500;
-  font-size: 14px;
+  font-weight: 600;
+  font-size: 15px;
   cursor: pointer;
   text-decoration: none;
   transition: all 0.2s;
   white-space: nowrap;
-  gap: 6px;
+  gap: 8px;
   height: auto;
-  min-height: 36px;
+  min-height: 44px;
 }
 
 .figure-btn-qr {
-  background: var(--primary);
-  color: white;
+  background: var(--card);
+  color: var(--text);
+  border: 1px solid var(--border);
 }
 .figure-btn-qr:hover {
-  background: var(--primary-2);
-  transform: scale(1.05);
+  background: var(--primary);
+  color: white;
+  transform: translateY(-2px);
+  border-color: var(--primary);
 }
 
 .figure-btn-buy {
@@ -1532,8 +1563,9 @@ img {
   color: white;
 }
 .figure-btn-buy:hover {
+  transform: translateY(-2px);
   background: #fbbf24;
-  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
 }
 
 .figure-btn-disabled {
@@ -1666,7 +1698,9 @@ img {
     margin-bottom: 16px;
 }
 
-/* ===== МОБИЛЬНЫЕ СТИЛИ (≤768px) - ИДЕНТИЧНЫ ВЕРСИИ GEMINI ===== */
+/* ============================================================
+   МОБИЛЬНАЯ ВЕРСИЯ (до 768px)
+   ============================================================ */
 @media (max-width: 768px) {
     .header { flex-direction: column; padding: 10px; }
     .header-left { position: static; margin-bottom: 10px; }
@@ -1760,7 +1794,7 @@ img {
     .featured-grid { grid-template-columns: 1fr; }
     .featured-card { height: 200px; }
 
-    /* ===== КАТАЛОГ И КОЛЛЕКЦИИ: 1 СЕРИЯ В РЯД (КАК НА ГЛАВНОЙ) ===== */
+    /* ===== КАТАЛОГ И КОЛЛЕКЦИИ: 1 СЕРИЯ В РЯД ===== */
     .catalog-grid,
     #collectionGrid {
         grid-template-columns: 1fr !important;
@@ -1863,39 +1897,73 @@ img {
         box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3) !important;
     }
 
-    /* ===== ПРОДАЖА: МОБИЛЬНЫЙ ВИД (2 колонки для обычных, 1 для полных серий) ===== */
+    /* ===== ПРОДАЖА: МОБИЛЬНЫЙ ВИД ===== */
     .forsale-grid {
         grid-template-columns: repeat(2, 1fr) !important;
         gap: 12px !important;
     }
 
-    /* Полные серии на продажу идут по 1 в ряд, вид как на главной */
+    .forsale-item-card {
+        display: flex !important;
+        flex-direction: column !important;
+        border-radius: 12px !important;
+        overflow: hidden !important;
+        background: var(--card) !important;
+        box-shadow: var(--shadow) !important;
+        height: auto !important;
+    }
+
+    .forsale-item-card img {
+        width: 100% !important;
+        aspect-ratio: 1/1 !important;
+        object-fit: contain !important;
+        padding: 8px !important;
+        background: var(--bg) !important;
+    }
+
+    .forsale-item-body {
+        padding: 10px 12px 12px !important;
+    }
+
+    .forsale-item-name {
+        font-size: 13px !important;
+        font-weight: 600 !important;
+    }
+
+    .forsale-item-price {
+        font-size: 12px !important;
+        padding: 2px 8px !important;
+    }
+
+    .tag {
+        font-size: 9px !important;
+        padding: 1px 6px !important;
+    }
+
+    .forsale-item-series {
+        font-size: 11px !important;
+    }
+
+    /* Полные серии в продаже - идут отдельно и крупнее */
     .full-series-card {
         grid-column: 1 / -1 !important;
         position: relative !important;
         display: flex !important;
         flex-direction: column !important;
         justify-content: flex-end !important;
-        height: 200px !important;
-        min-height: 200px !important;
-        border-radius: 16px !important;
+        height: 180px !important;
+        min-height: 180px !important;
+        border-radius: 14px !important;
         overflow: hidden !important;
         box-shadow: var(--shadow) !important;
         border: none !important;
-        background: #1e1e2e !important;
-        color: #ffffff !important;
-    }
-
-    .full-series-card .full-series-media {
-        position: absolute !important;
-        top: 0 !important;
-        left: 0 !important;
-        width: 100% !important;
-        height: 100% !important;
-        display: block !important;
+        background: var(--card) !important;
     }
 
     .full-series-card img {
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
         width: 100% !important;
         height: 100% !important;
         object-fit: cover !important;
@@ -1908,32 +1976,16 @@ img {
         position: relative !important;
         z-index: 1 !important;
         width: 100% !important;
-        box-sizing: border-box !important;
-        padding: 20px 16px 14px !important;
-        background: linear-gradient(to top, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.45) 60%, transparent 100%) !important;
-        display: flex !important;
-        flex-direction: column !important;
-        gap: 4px !important;
+        padding: 16px 14px 12px !important;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.3) 70%, transparent 100%) !important;
         border: none !important;
     }
 
-    .full-series-card .forsale-item-header {
-        display: flex !important;
-        align-items: center !important;
-        justify-content: space-between !important;
-        gap: 8px !important;
-    }
-
     .full-series-card .forsale-item-name {
-        font-size: 18px !important;
+        font-size: 16px !important;
         font-weight: 700 !important;
         color: #ffffff !important;
         text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7) !important;
-    }
-
-    .full-series-card .forsale-item-name-link {
-        text-decoration: none !important;
-        color: inherit !important;
     }
 
     .full-series-card .forsale-item-price {
@@ -1943,37 +1995,44 @@ img {
         color: #ffffff !important;
         padding: 4px 10px !important;
         border-radius: 20px !important;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3) !important;
     }
 
     .full-series-card .forsale-item-series {
-        font-size: 13px !important;
+        font-size: 12px !important;
         color: rgba(255, 255, 255, 0.9) !important;
         border-top: none !important;
         padding-top: 0 !important;
-        margin-top: 0 !important;
+        margin-top: 2px !important;
         text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7) !important;
     }
 
-    .full-series-card .forsale-buy-link {
-        position: absolute !important;
-        top: 12px !important;
-        right: 12px !important;
-        z-index: 2 !important;
-        width: 38px !important;
-        height: 38px !important;
-        background: var(--warning) !important;
-        color: white !important;
-        border-radius: 50% !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        text-decoration: none !important;
-        font-size: 18px !important;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4) !important;
+    .full-series-card .forsale-item-series a {
+        color: rgba(255, 255, 255, 0.95) !important;
     }
 
-    /* Остальные мобильные стили (серия, фигурка, видео, футер и т.д.) */
+    .full-series-card .forsale-item-manufacturer {
+        color: rgba(255, 255, 255, 0.8) !important;
+    }
+
+    .full-series-card .forsale-item-manufacturer a {
+        color: rgba(255, 255, 255, 0.95) !important;
+    }
+
+    .full-series-card .tag {
+        background: rgba(255, 255, 255, 0.2) !important;
+        color: #ffffff !important;
+    }
+
+    .full-series-card .forsale-buy-link {
+        display: none !important;
+    }
+
+    .section-divider {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+
+    /* ===== СТРАНИЦА СЕРИИ ===== */
     .series-header { flex-direction: column; align-items: center; text-align: center; }
     .series-cover { width: 180px; }
     .figures-list { grid-template-columns: 1fr; }
@@ -1981,19 +2040,78 @@ img {
     .figure-number { position: absolute; top: 5px; left: 5px; }
     .figure-item img { width: 100px; height: 100px; margin: 10px auto; }
 
+    /* ===== СТРАНИЦА ФИГУРКИ / ЛОТА ===== */
+    .figure-content {
+        flex-direction: column;
+        align-items: center;
+    }
+    .figure-image-wrapper {
+        width: 100%;
+        max-width: 280px;
+    }
+    .figure-image {
+        width: 100%;
+        aspect-ratio: 1/1;
+        object-fit: contain;
+        padding: 10px;
+    }
+    .figure-info {
+        width: 100%;
+        padding: 0 4px;
+    }
+    .figure-title {
+        font-size: 22px;
+        text-align: center;
+        margin-bottom: 16px;
+    }
+    .figure-meta {
+        padding: 12px 16px;
+        margin-bottom: 0;
+    }
+    .figure-meta-item {
+        justify-content: flex-start;
+        padding: 6px 0;
+        font-size: 13px;
+    }
+    .figure-condition {
+        padding: 10px 14px;
+        font-size: 13px;
+    }
+    .figure-description {
+        font-size: 14px;
+        padding: 12px;
+        margin: 10px 0 16px;
+    }
+    .figure-actions {
+        flex-direction: column;
+        gap: 10px;
+        justify-content: center;
+        margin-top: 8px;
+    }
+    .figure-btn {
+        width: 100%;
+        justify-content: center;
+        padding: 14px 24px;
+        font-size: 16px;
+    }
+
+    /* ===== ФУТЕР ===== */
     .footer-controls { justify-content: flex-end; }
     .lang-switch-footer { position: static; left: auto; transform: none; flex: 1; justify-content: center; }
     .theme-switch { margin-left: 0; }
 
+    /* ===== QR ===== */
     .qr-btn-series { width: 100%; justify-content: center; }
     .qr-btn { background: var(--primary); color: white; border-radius: 30px; padding: 8px 12px; }
 
+    /* ===== LIGHTBOX ===== */
     .lightbox-prev, .lightbox-next { width: 40px; height: 40px; font-size: 24px; }
     .lightbox-prev { left: 10px; }
     .lightbox-next { right: 10px; }
     .lightbox-zoom-controls { bottom: 20px; right: 10px; }
     .zoom-btn { width: 36px; height: 36px; font-size: 16px; }
 
+    /* ===== ВИДЕО ===== */
     .video-section { display: block !important; margin: 20px 0; }
     .video-wrapper { display: block !important; border-radius: 8px; }
     .video-source-btn { padding: 6px 12px; font-size: 12px; }
@@ -2001,8 +2119,8 @@ img {
     .video-external-link { padding: 8px 14px; font-size: 13px; flex: 1; min-width: 100px; justify-content: center; }
     .video-external-link span { font-size: 13px; }
 
+    /* ===== ОСТАЛЬНОЕ ===== */
     body.lightbox-open { overflow: hidden; position: fixed; width: 100%; }
-
     .history-grid { grid-template-columns: 1fr; }
     .history-detail h1 { font-size: 24px; }
     .history-detail-gallery { grid-template-columns: repeat(2, 1fr); }
@@ -2014,17 +2132,18 @@ img {
     .hall-stat { padding: 4px 12px; }
     .hall-stat-icon { font-size: 16px; }
     .hall-stat-value { font-size: 16px; }
-
-    .figure-content { flex-direction: column; align-items: center; }
-    .figure-image-wrapper { width: 100%; max-width: 280px; }
-    .figure-info { width: 100%; }
-    .figure-btn { width: 100%; text-align: center; }
-
     .about-stats { gap: 16px; }
     .about-stat-item { padding: 16px 20px; min-width: 100px; flex: 1; }
     .about-stat-icon { width: 36px; height: 36px; }
     .about-stat-number { font-size: 28px; }
     .about-text { font-size: 14px; padding: 0 16px; }
+    .about-stats { grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 20px 0; }
+    .about-stat-item { padding: 16px 12px; }
+    .about-stat-icon { width: 32px; height: 32px; }
+    .about-stat-number { font-size: 24px; }
+    .about-stat-label { font-size: 11px; }
+    .about-text { font-size: 15px; padding: 10px 4px; line-height: 1.6; }
+    .about-banner { max-height: 150px; }
 }
 
 /* ===== ДОПОЛНИТЕЛЬНАЯ АДАПТАЦИЯ ДЛЯ ОЧЕНЬ МАЛЕНЬКИХ ЭКРАНОВ ===== */
@@ -2054,6 +2173,21 @@ img {
     .about-stat-number { font-size: 20px; }
     .about-stat-label { font-size: 10px; }
     .about-text { font-size: 14px; }
+
+    .figure-image-wrapper {
+        max-width: 220px;
+    }
+    .figure-title {
+        font-size: 20px;
+    }
+    .figure-meta-item {
+        font-size: 12px;
+        padding: 5px 0;
+    }
+    .figure-description {
+        font-size: 13px;
+        padding: 10px;
+    }
 }
 
 /* ===== КНОПКИ ФИГУРКИ (всегда в строку) ===== */
