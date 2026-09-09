@@ -9,14 +9,19 @@
   "description_en": "A series based on the cult cartoon Toy Story",
   "kind": "",
   "visible": true,
-  "fullSeriesForSale": false,
-  "fullSeriesAvito": "",
-  "fullSeriesPrice": "",
+  "fullSeriesForSale": true,
+  "fullSeriesAvito": "https://www.avito.ru/moskva/kollektsionirovanie/polnaya_kollektsiya_igrushek_istoriya_igrushek_1998_123456789",
+  "fullSeriesPrice": "2500 ₽",
+  "fullSeriesCondition": "Отличное состояние. Все фигурки в оригинальных упаковках. Полный комплект из 3 фигурок + 5 вкладышей. Торг возможен.",
+  "fullSeriesCondition_en": "Excellent condition. All figures in original packaging. Complete set of 3 figures + 5 inserts. Negotiable.",
+  "fullSeriesDateAdded": "2026-09-10",
+  "fullSeriesDescription": "Полная коллекция игрушек из серии 'История Игрушек' от Nestle 1998 года. В комплекте: Вуди, Рекс, Базз Лайтер, а также 5 коллекционных вкладышей. Идеально для коллекционеров и поклонников мультфильма. Состояние отличное - все элементы сохранены в оригинальном виде.",
+  "fullSeriesDescription_en": "Complete collection of toys from the 'Toy Story' series by Nestle 1998. Includes: Woody, Rex, Buzz Lightyear, and 5 collectible inserts. Perfect for collectors and fans of the cartoon. Excellent condition - all items preserved in original state.",
   "figures": [
     {
       "id": "toystory_fig1",
       "name": "Вуди",
-      "name_en": "Figure 1",
+      "name_en": "Woody",
       "image": "images/series/nestle/toystory/01.webp",
       "owned": false,
       "forsale": false,
@@ -25,7 +30,7 @@
     {
       "id": "toystory_fig2",
       "name": "Рекс",
-      "name_en": "Figure 2",
+      "name_en": "Rex",
       "image": "images/series/nestle/toystory/02.webp",
       "owned": false,
       "forsale": false,
@@ -34,7 +39,7 @@
     {
       "id": "toystory_fig3",
       "name": "Базз Лайтер",
-      "name_en": "Figure 3",
+      "name_en": "Buzz Lightyear",
       "image": "images/series/nestle/toystory/03.webp",
       "owned": false,
       "forsale": false,
@@ -81,7 +86,7 @@
       "avito": ""
     },
     {
-      "id": "toystory_insert4",
+      "id": "toystory_insert5",
       "name": "Вкладыш 5",
       "name_en": "Insert 5",
       "image": "images/series/nestle/toystory/05b.webp",

@@ -224,7 +224,6 @@ let allSeriesData = null;
 let isLoadingData = false;
 
 async function loadData() {
-    // Если уже загружается - ждем
     if (isLoadingData) {
         return new Promise((resolve) => {
             const check = setInterval(() => {
@@ -236,7 +235,6 @@ async function loadData() {
         });
     }
     
-    // Если уже загружено - возвращаем
     if (window.seriesIndex) {
         return window.seriesIndex;
     }
@@ -261,22 +259,18 @@ async function loadData() {
 }
 
 async function loadSeriesById(id) {
-    // Если уже в кеше - возвращаем
     if (seriesCache[id]) return seriesCache[id];
     
-    // Если нет индекса - загружаем
     if (!window.seriesIndex) {
         await loadData();
     }
     
-    // Проверяем наличие серии в индексе
     const manufacturer = seriesManufacturerMap[id];
     if (!manufacturer) {
         console.error(`❌ Серия "${id}" не найдена в индексе`);
         return null;
     }
     
-    // Загружаем данные серии
     try {
         const res = await fetch(`${BASE_URL}/data/series/${manufacturer}/${id}.json`);
         if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
@@ -1608,7 +1602,8 @@ async function initForSale() {
           manufacturer: series.manufacturer,
           type: 'full',
           price: series.fullSeriesPrice || '',
-          date_added: series.fullSeriesDateAdded || series.date_added || ''
+          date_added: series.fullSeriesDateAdded || series.date_added || '',
+          condition: (currentLang === 'en' ? series.fullSeriesCondition_en : series.fullSeriesCondition) || ''
         });
       }
       
@@ -1803,6 +1798,9 @@ async function initForSale() {
     function createItemCard(item) {
       const div = document.createElement('div');
       div.className = 'forsale-item-card';
+      if (item.type === 'full') {
+        div.classList.add('full-series-card');
+      }
       
       const saleLink = item.avito && item.avito !== '' ? item.avito : '#';
       const manufacturerName = manufacturers[item.manufacturer]?.[currentLang] || item.manufacturer;
@@ -1817,8 +1815,11 @@ async function initForSale() {
       
       const imageUrl = item.image ? `${BASE_URL}/${item.image}` : 'images/placeholder.svg';
       
+      // Для полных серий ссылка на lot.html, для остальных - на figure.html
+      const linkUrl = item.type === 'full' ? `lot.html?id=${item.seriesId}` : `figure.html?series=${item.seriesId}&fig=${item.id}`;
+      
       div.innerHTML = `
-        <a href="${item.type === 'full' ? `series.html?id=${item.seriesId}` : `figure.html?series=${item.seriesId}&fig=${item.id}`}">
+        <a href="${linkUrl}">
           <img src="${imageUrl}" alt="${escapeHtml(item.name)}" loading="lazy" onerror="this.src='images/placeholder.svg'">
         </a>
         <div class="forsale-item-body">
@@ -1840,7 +1841,7 @@ async function initForSale() {
             </div>
           </div>
         </div>
-        ${saleLink !== '#' ? `<a href="${escapeHtml(saleLink)}" class="forsale-buy-link" target="_blank" rel="noopener noreferrer">🛒</a>` : ''}
+        ${(saleLink !== '#' && item.type !== 'full') ? `<a href="${escapeHtml(saleLink)}" class="forsale-buy-link" target="_blank" rel="noopener noreferrer">🛒</a>` : ''}
       `;
       
       return div;
@@ -1998,6 +1999,127 @@ async function initForSale() {
     console.error('Ошибка инициализации for sale:', error);
     showError('Не удалось загрузить товары');
     grid.innerHTML = `<p class="error-message">❌ Ошибка загрузки товаров. Попробуйте обновить страницу.</p>`;
+  }
+}
+
+// ===== СТРАНИЦА ЛОТА (ПОЛНАЯ СЕРИЯ НА ПРОДАЖУ) =====
+async function initLot() {
+  const container = document.getElementById("lotContainer");
+  if (!container) return;
+
+  const urlParams = new URLSearchParams(location.search);
+  const seriesId = urlParams.get('id');
+
+  if (!seriesId) {
+    container.innerHTML = '<p class="error-message">❌ Лот не найден</p>';
+    return;
+  }
+
+  try {
+    const series = await loadSeriesById(seriesId);
+    if (!series || series.visible === false) {
+      container.innerHTML = '<p class="error-message">❌ Серия не найдена</p>';
+      return;
+    }
+
+    // Проверяем, что серия действительно выставлена на продажу целиком
+    if (!series.fullSeriesForSale) {
+      container.innerHTML = '<p class="error-message">❌ Эта серия не продаётся целиком</p>';
+      return;
+    }
+
+    const currentLang = localStorage.getItem("lang") || "ru";
+    const manufacturers = await loadManufacturers();
+
+    const name = currentLang === 'en' && series.name_en ? series.name_en : series.name;
+    const description = currentLang === 'en' && series.description_en ? series.description_en : (series.description || "Описание отсутствует");
+    const manufacturerName = manufacturers[series.manufacturer]?.[currentLang] || series.manufacturer;
+    const coverUrl = series.cover ? `${BASE_URL}/${series.cover}` : 'images/placeholder.svg';
+
+    // Данные лота
+    const price = series.fullSeriesPrice || 'Цена не указана';
+    const avitoLink = series.fullSeriesAvito || '#';
+    const condition = currentLang === 'en' 
+      ? (series.fullSeriesCondition_en || 'Condition not specified')
+      : (series.fullSeriesCondition || 'Состояние не указано');
+    const dateAdded = series.fullSeriesDateAdded ? new Date(series.fullSeriesDateAdded).toLocaleDateString() : '';
+
+    // Собираем галерею из всех изображений серии
+    const allImages = [];
+    if (series.figures) allImages.push(...series.figures.map(f => f.image ? `${BASE_URL}/${f.image}` : 'images/placeholder.svg'));
+    if (series.extras) allImages.push(...series.extras.map(e => e.image ? `${BASE_URL}/${e.image}` : 'images/placeholder.svg'));
+    if (series.variants) allImages.push(...series.variants.map(v => v.image ? `${BASE_URL}/${v.image}` : 'images/placeholder.svg'));
+    if (series.inserts) allImages.push(...series.inserts.map(i => i.image ? `${BASE_URL}/${i.image}` : 'images/placeholder.svg'));
+    if (series.other) allImages.push(...series.other.map(o => o.image ? `${BASE_URL}/${o.image}` : 'images/placeholder.svg'));
+    window.seriesGalleryImages = allImages;
+
+    // Определяем индекс основного изображения
+    let mainImageIndex = 0;
+    if (series.cover) {
+      const coverFull = `${BASE_URL}/${series.cover}`;
+      const found = allImages.findIndex(img => img === coverFull);
+      if (found !== -1) mainImageIndex = found;
+    }
+
+    // Формируем HTML для лота
+    container.innerHTML = `
+      <div class="figure-container">
+        <h1 class="figure-title">${escapeHtml(name)}</h1>
+        <div class="figure-content">
+          <div class="figure-image-wrapper">
+            <img src="${escapeHtml(allImages[mainImageIndex] || coverUrl)}" 
+                 alt="${escapeHtml(name)}" 
+                 class="figure-image" 
+                 onclick="openLightbox(${mainImageIndex}, window.seriesGalleryImages || [])" 
+                 onerror="this.src='images/placeholder.svg'">
+            <div class="figure-type-badge">📦 ${currentLang === 'ru' ? 'Полная серия' : 'Full series'}</div>
+          </div>
+          <div class="figure-info">
+            <div class="figure-meta">
+              <div class="figure-meta-item">
+                <span class="meta-icon">🏷️</span>
+                <span class="meta-link">${escapeHtml(manufacturerName)}</span>
+              </div>
+              <div class="figure-meta-item">
+                <span class="meta-icon">📅</span>
+                <span>${escapeHtml(series.year)}</span>
+              </div>
+              ${price ? `<div class="figure-meta-item">
+                <span class="meta-icon">💰</span>
+                <span style="font-weight:700;color:var(--primary)">${escapeHtml(price)}</span>
+              </div>` : ''}
+              ${dateAdded ? `<div class="figure-meta-item">
+                <span class="meta-icon">📆</span>
+                <span>${currentLang === 'ru' ? 'Добавлено' : 'Added'}: ${escapeHtml(dateAdded)}</span>
+              </div>` : ''}
+            </div>
+
+            ${condition ? `
+              <div class="figure-condition">
+                <span class="condition-icon">⚠️</span>
+                <span class="condition-text">${escapeHtml(condition)}</span>
+              </div>
+            ` : ''}
+
+            ${description ? `
+              <div class="figure-description">
+                <p>${escapeHtml(description)}</p>
+              </div>
+            ` : ''}
+
+            <div class="figure-actions">
+              ${avitoLink !== '#' ? `<a href="${escapeHtml(avitoLink)}" class="figure-btn figure-btn-buy" target="_blank" rel="noopener noreferrer">🛒 ${currentLang === 'ru' ? 'Купить' : 'Buy'}</a>` : ''}
+              <button class="figure-btn figure-btn-qr" onclick="generateQRCode('series', '${escapeHtml(series.id)}', '${escapeHtml(name).replace(/'/g, "\\'")}', true)">📱 QR-код</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+
+    applyTranslations();
+  } catch (error) {
+    console.error('Ошибка загрузки лота:', error);
+    container.innerHTML = '<p class="error-message">❌ Ошибка загрузки лота</p>';
   }
 }
 
@@ -2729,6 +2851,8 @@ document.addEventListener("DOMContentLoaded", () => {
       initSeries();
     } else if (path.includes('figure.html')) {
       initFigure();
+    } else if (path.includes('lot.html')) {
+      initLot();
     } else if (path.includes('mycollection.html')) {
       initMyCollection();
     } else if (path.includes('forsale.html')) {
@@ -2746,16 +2870,3 @@ document.addEventListener("DOMContentLoaded", () => {
     showError('Произошла ошибка при загрузке страницы');
   }
 });
-
-// ===== SERVICE WORKER =====
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', function() {
-    navigator.serviceWorker.register('/sw.js')
-      .then(function(registration) {
-        console.log('✅ Service Worker зарегистрирован:', registration.scope);
-      })
-      .catch(function(error) {
-        console.log('❌ Ошибка регистрации Service Worker:', error);
-      });
-  });
-}
