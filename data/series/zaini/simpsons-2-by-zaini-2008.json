@@ -12,6 +12,12 @@
   "fullSeriesForSale": false,
   "fullSeriesAvito": "",
   "fullSeriesPrice": "",
+  "fullSeriesPrice_en": "",
+  "fullSeriesCondition": "",
+  "fullSeriesCondition_en": "",
+  "fullSeriesDateAdded": "",
+  "fullSeriesDescription": "",
+  "fullSeriesDescription_en": "",
   "figures": [
     {
       "id": "simpsons-2-by-zaini-2008_fig1",

@@ -1,5 +1,17 @@
 [
   {
+    "id": "star-wars-maxi-by-kinder-2026",
+    "name": "Звездные Войны Макси от Киндер",
+    "name_en": "Star Wars Maxi by Kinder",
+    "year": 2026,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/star-wars-maxi-by-kinder-2026/cover.webp",
+    "kind": "maxi",
+    "description": "Большая серия со звездными войнами. Фигурки представляют из себя печати.",
+    "description_en": "Big series with Star Wars. The figures represent seals.",
+    "visible": true
+  },
+  {
     "id": "simpsons-by-kinder-2010",
     "name": "Симпсоны от Киндер",
     "name_en": "Simpsons by Kinder",

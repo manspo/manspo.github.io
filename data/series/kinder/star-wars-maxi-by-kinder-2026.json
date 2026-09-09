@@ -1,0 +1,103 @@
+{
+  "id": "star-wars-maxi-by-kinder-2026",
+  "name": "Звездные Войны Макси от Киндер",
+  "name_en": "Star Wars Maxi by Kinder",
+  "year": 2026,
+  "manufacturer": "kinder",
+  "cover": "images/series/kinder/star-wars-maxi-by-kinder-2026/cover.webp",
+  "description": "Большая серия со звездными войнами. Фигурки представляют из себя печати.",
+  "description_en": "Big series with Star Wars. The figures represent seals.",
+  "kind": "maxi",
+  "visible": true,
+  "fullSeriesForSale": true,
+  "fullSeriesAvito": "https://www.avito.ru/groznyy/kollektsionirovanie/kinder_syurpriz_maksi_zvezdnye_voyny_2026_polnaya_7934060124",
+  "fullSeriesPrice": "3777 ₽ (включая комиссию Авито)",
+  "fullSeriesPrice_en": "3777 ₽ (including Avito commission)",
+  "fullSeriesCondition": "Идеальное, все фигурки в запайке.",
+  "fullSeriesCondition_en": "Perfect, all figures are sealed.",
+  "fullSeriesDateAdded": "",
+  "fullSeriesDescription": "Полная серия со всеми вкладышами.\nМожно заказать следующими способами:\n1. Авито+СДЕК\n2. ОЗОН Доставка (при условии, что вы оформляете заказ.\n\nДругих служб пока нету, к сожалению...",
+  "fullSeriesDescription_en": "Complete series with all inserts.\nYou can order in the following ways:\n1. Avito+SDEK\n2. OZONE Delivery (provided that you place an order.\n\nUnfortunately, there are no other services yet...",
+  "figures": [
+    {
+      "id": "star-wars-maxi-by-kinder-2026_fig1",
+      "name": "Люк Скайуокер",
+      "name_en": "Luke Skywalker",
+      "code": "VCB24",
+      "image": "images/series/kinder/star-wars-maxi-by-kinder-2026/01.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": "",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": ""
+    },
+    {
+      "id": "star-wars-maxi-by-kinder-2026_fig2",
+      "name": "Йода",
+      "name_en": "Yoda",
+      "code": "VCB26",
+      "image": "images/series/kinder/star-wars-maxi-by-kinder-2026/04.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": "",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": ""
+    },
+    {
+      "id": "star-wars-maxi-by-kinder-2026_fig3",
+      "name": "Р2-Д2",
+      "name_en": "R2-D2",
+      "code": "VCB25",
+      "image": "images/series/kinder/star-wars-maxi-by-kinder-2026/02.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": "",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": ""
+    },
+    {
+      "id": "star-wars-maxi-by-kinder-2026_fig4",
+      "name": "Дарт Вейдер",
+      "name_en": "Darth Vader",
+      "code": "VCB23",
+      "image": "images/series/kinder/star-wars-maxi-by-kinder-2026/03.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": "",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": ""
+    }
+  ],
+  "extras": [],
+  "variants": [],
+  "inserts": [
+    {
+      "id": "star-wars-maxi-by-kinder-2026_insert1",
+      "name": "Вкладыш 1",
+      "name_en": "Insert 1",
+      "code": "",
+      "image": "images/series/kinder/star-wars-maxi-by-kinder-2026/cover.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": "",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": ""
+    }
+  ],
+  "other": [],
+  "videos": {
+    "youtube": [],
+    "vk": [],
+    "tiktok": []
+  }
+}

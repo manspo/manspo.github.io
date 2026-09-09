@@ -9,15 +9,21 @@
   "description_en": "Large version of baby animals",
   "kind": "maxi",
   "visible": true,
-  "fullSeriesForSale": false,
-  "fullSeriesAvito": "",
-  "fullSeriesPrice": "",
+  "fullSeriesForSale": true,
+  "fullSeriesAvito": "https://www.avito.ru/groznyy/kollektsionirovanie/kinder_natuns_maksi_2025_polnaya_seriya_8190548032",
+  "fullSeriesPrice": "2 499 ₽ (включая комиссию Авито)",
+  "fullSeriesPrice_en": "2 499 ₽ (including Avito commission)",
+  "fullSeriesCondition": "Идеальное состояние.",
+  "fullSeriesCondition_en": "Perfect condition.",
+  "fullSeriesDateAdded": "2026-09-10",
+  "fullSeriesDescription": "Полная серия со всеми вкладышами.<br>Можно заказать следующими способами:<br>1. Авито+СДЕК<br>ОЗОН Доставка (при условии, что вы оформляете заказ.<br><br>Других служб пока нету, к сожалению...",
+  "fullSeriesDescription_en": "Perfect condition. Complete series.",
   "figures": [
     {
       "id": "kindermaxinatoonsbaby_fig1",
       "image": "images/series/kinder/kindermaxinatoonsbaby/01.avif",
-      "name": "Фигурка 1",
-      "name_en": "Figure 1",
+      "name": "Тигренок",
+      "name_en": "Tiger cub",
       "owned": true,
       "forsale": false,
       "avito": ""
@@ -25,8 +31,8 @@
     {
       "id": "kindermaxinatoonsbaby_fig2",
       "image": "images/series/kinder/kindermaxinatoonsbaby/02.avif",
-      "name": "Фигурка 2",
-      "name_en": "Figure 2",
+      "name": "Дельфин",
+      "name_en": "Dolphin",
       "owned": true,
       "forsale": false,
       "avito": ""
@@ -34,8 +40,8 @@
     {
       "id": "kindermaxinatoonsbaby_fig3",
       "image": "images/series/kinder/kindermaxinatoonsbaby/03.avif",
-      "name": "Фигурка 3",
-      "name_en": "Figure 3",
+      "name": "Панда",
+      "name_en": "Panda",
       "owned": true,
       "forsale": false,
       "avito": ""
@@ -43,8 +49,8 @@
     {
       "id": "kindermaxinatoonsbaby_fig4",
       "image": "images/series/kinder/kindermaxinatoonsbaby/04.avif",
-      "name": "Фигурка 4",
-      "name_en": "Figure 4",
+      "name": "Ленивец",
+      "name_en": "Sloth",
       "owned": true,
       "forsale": false,
       "avito": ""
@@ -52,8 +58,8 @@
     {
       "id": "kindermaxinatoonsbaby_fig5",
       "image": "images/series/kinder/kindermaxinatoonsbaby/05.avif",
-      "name": "Фигурка 5",
-      "name_en": "Figure 5",
+      "name": "Черепашка",
+      "name_en": "Turtle",
       "owned": false,
       "forsale": false,
       "avito": ""

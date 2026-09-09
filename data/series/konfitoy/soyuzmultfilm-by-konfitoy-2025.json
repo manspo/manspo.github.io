@@ -12,6 +12,12 @@
   "fullSeriesForSale": false,
   "fullSeriesAvito": "",
   "fullSeriesPrice": "",
+  "fullSeriesPrice_en": "",
+  "fullSeriesCondition": "",
+  "fullSeriesCondition_en": "",
+  "fullSeriesDateAdded": "",
+  "fullSeriesDescription": "",
+  "fullSeriesDescription_en": "",
   "figures": [
     {
       "id": "soyuzmultfilm_fig1",

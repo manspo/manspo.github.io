@@ -12,6 +12,12 @@
   "fullSeriesForSale": false,
   "fullSeriesAvito": "",
   "fullSeriesPrice": "",
+  "fullSeriesPrice_en": "",
+  "fullSeriesCondition": "",
+  "fullSeriesCondition_en": "",
+  "fullSeriesDateAdded": "",
+  "fullSeriesDescription": "",
+  "fullSeriesDescription_en": "",
   "figures": [
     {
       "id": "simpsons-movie-by-kinder-2007_fig1",

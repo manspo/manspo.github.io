@@ -12,6 +12,12 @@
   "fullSeriesForSale": true,
   "fullSeriesAvito": "https://www.avito.ru/...",
   "fullSeriesPrice": "",
+  "fullSeriesPrice_en": "",
+  "fullSeriesCondition": "",
+  "fullSeriesCondition_en": "",
+  "fullSeriesDateAdded": "",
+  "fullSeriesDescription": "",
+  "fullSeriesDescription_en": "",
   "figures": [
     {
       "id": "minecraft_fig1",

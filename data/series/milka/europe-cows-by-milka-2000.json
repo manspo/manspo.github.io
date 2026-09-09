@@ -12,6 +12,12 @@
   "fullSeriesForSale": false,
   "fullSeriesAvito": "",
   "fullSeriesPrice": "",
+  "fullSeriesPrice_en": "",
+  "fullSeriesCondition": "",
+  "fullSeriesCondition_en": "",
+  "fullSeriesDateAdded": "",
+  "fullSeriesDescription": "",
+  "fullSeriesDescription_en": "",
   "figures": [
     {
       "id": "europe-cows-by-milka-2000_fig1",
