@@ -242,10 +242,15 @@ async function loadData() {
     isLoadingData = true;
     
     try {
-        console.log('🔍 Загрузка данных с:', `${BASE_URL}/data/index.json`);
-        const res = await fetch(`${BASE_URL}/data/index.json`);
-        if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
-        const index = await res.json();
+        let index;
+        if (window.dataPromise) {
+            index = await window.dataPromise;
+        } else {
+            console.log('🔍 Загрузка данных с:', `${BASE_URL}/data/index.json`);
+            const res = await fetch(`${BASE_URL}/data/index.json`);
+            if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+            index = await res.json();
+        }
         index.forEach(s => { seriesManufacturerMap[s.id] = s.manufacturer; });
         window.seriesIndex = index;
         isLoadingData = false;
@@ -282,7 +287,6 @@ async function loadSeriesById(id) {
         return series;
     } catch (error) {
         console.error('Ошибка загрузки серии:', error);
-        showError(`Не удалось загрузить серию ${id}`);
         return null;
     }
 }
@@ -290,25 +294,22 @@ async function loadSeriesById(id) {
 async function loadAllSeries() {
   try {
     const index = await loadData();
-    const allSeries = [];
-    
-    for (const item of index) {
+    const promises = index.map(async item => {
       try {
         const manufacturer = item.manufacturer;
         const res = await fetch(`${BASE_URL}/data/series/${manufacturer}/${item.id}.json`);
-        if (!res.ok) continue;
+        if (!res.ok) return null;
         const data = await res.json();
-        allSeries.push(data);
         seriesCache[data.id] = data;
+        return data;
       } catch (e) {
-        console.error('Ошибка загрузки серии:', item.id, e);
+        return null;
       }
-    }
-    
-    return allSeries;
+    });
+    const results = await Promise.all(promises);
+    return results.filter(Boolean);
   } catch (error) {
     console.error('Ошибка загрузки всех серий:', error);
-    showError('Не удалось загрузить все серии');
     return [];
   }
 }
@@ -333,6 +334,45 @@ async function loadSocialLinks() {
     console.error('Ошибка загрузки социальных ссылок:', error);
     return [];
   }
+}
+
+async function loadAllDataWithCache(forceReload = false) {
+  if (allSeriesData && !forceReload) return allSeriesData;
+  
+  if (forceReload) {
+    try {
+      localStorage.removeItem('allSeriesData');
+      localStorage.removeItem('allSeriesDataTime');
+    } catch(e) {}
+  }
+  
+  try {
+    const cached = localStorage.getItem('allSeriesData');
+    const cacheTime = localStorage.getItem('allSeriesDataTime');
+    
+    if (cached && cacheTime && !forceReload) {
+      const age = Date.now() - parseInt(cacheTime);
+      if (age < CONFIG.CACHE_TTL) {
+        allSeriesData = JSON.parse(cached);
+        allSeriesData.forEach(s => { seriesCache[s.id] = s; });
+        return allSeriesData;
+      }
+    }
+  } catch(e) {
+    console.warn('Ошибка чтения кеша:', e);
+  }
+  
+  const data = await loadAllSeries();
+  allSeriesData = data;
+  
+  try {
+    localStorage.setItem('allSeriesData', JSON.stringify(data));
+    localStorage.setItem('allSeriesDataTime', Date.now().toString());
+  } catch(e) {
+    console.warn('Не удалось сохранить кеш:', e);
+  }
+  
+  return data;
 }
 
 // ===== ФИЛЬТРЫ =====
@@ -522,6 +562,41 @@ function generateQRCode(figureId, seriesId, figureName, isSeries = false) {
                 console.warn('❌ Нативный метод не сработал:', nativeError);
               }
             }
+            
+            try {
+              const Filesystem = window.Capacitor.Plugins.Filesystem;
+              const Share = window.Capacitor.Plugins.Share;
+              if (Filesystem) {
+                const dirs = [
+                  { dir: 3, name: 'Documents' },
+                  { dir: 2, name: 'Cache' },
+                  { dir: 1, name: 'Data' }
+                ];
+                for (const d of dirs) {
+                  try {
+                    const result = await Filesystem.writeFile({
+                      path: fileName,
+                      data: base64Data,
+                      directory: d.dir,
+                      recursive: true
+                    });
+                    if (Share) {
+                      try {
+                        await Share.share({
+                          title: 'QR-код',
+                          text: `QR-код для ${figureName}`,
+                          url: result.uri,
+                          dialogTitle: 'Открыть файл'
+                        });
+                      } catch (e) {}
+                    }
+                    showSuccess(`✅ QR-код сохранен`);
+                    modal.remove();
+                    return;
+                  } catch (e) {}
+                }
+              }
+            } catch (fsErr) {}
           }
           
           const link = document.createElement("a");
@@ -567,6 +642,33 @@ async function saveQRCodeNative(base64Data, fileName) {
         }
     });
 }
+
+async function saveChecklistNative(base64Data, fileName) {
+    return new Promise((resolve, reject) => {
+        try {
+            if (!window.FileHelper) {
+                reject(new Error('FileHelper не найден.'));
+                return;
+            }
+            window._checklistSaveCallback = function(result) {
+                if (result && result !== 'null') resolve(result);
+                else reject(new Error('Не удалось сохранить чек-лист'));
+                window._checklistSaveCallback = null;
+            };
+            window.FileHelper.saveChecklist(base64Data, fileName);
+            setTimeout(() => {
+                if (window._checklistSaveCallback) {
+                    window._checklistSaveCallback = null;
+                    reject(new Error('Таймаут сохранения чек-листа'));
+                }
+            }, 15000);
+        } catch (error) {
+            reject(error);
+        }
+    });
+}
+
+window.saveChecklistNative = saveChecklistNative;
 
 // ===== ГАЛЕРЕЯ =====
 let lightboxImages = [];
@@ -681,6 +783,90 @@ function initZoomFeatures() {
       if (img) img.style.cursor = 'grab';
     }
   };
+
+  let touchStartDistance = 0, touchStartZoom = 1;
+  let isTouching = false, isPanningTouch = false;
+  let panStartX = 0, panStartY = 0;
+  let swipeStartX = 0, swipeStartTime = 0, isSwiping = false;
+  
+  function handleTouchStart(e) {
+    e.preventDefault();
+    swipeStartX = e.touches[0].clientX;
+    swipeStartTime = Date.now();
+    isSwiping = true;
+    
+    if (e.touches.length === 2) {
+      const dx = e.touches[0].clientX - e.touches[1].clientX;
+      const dy = e.touches[0].clientY - e.touches[1].clientY;
+      touchStartDistance = Math.hypot(dx, dy);
+      touchStartZoom = currentZoom;
+      isTouching = true;
+      isSwiping = false;
+    }
+    
+    if (currentZoom > 1 && e.touches.length === 1) {
+      isPanningTouch = true;
+      panStartX = e.touches[0].clientX - translateX;
+      panStartY = e.touches[0].clientY - translateY;
+      isSwiping = false;
+    }
+  }
+  
+  function handleTouchMove(e) {
+    e.preventDefault();
+    if (e.touches.length === 1 && isPanningTouch && currentZoom > 1) {
+      translateX = e.touches[0].clientX - panStartX;
+      translateY = e.touches[0].clientY - panStartY;
+      img.style.transform = `scale(${currentZoom}) translate(${translateX}px, ${translateY}px)`;
+      isSwiping = false;
+    }
+    if (e.touches.length === 2 && isTouching) {
+      const dx = e.touches[0].clientX - e.touches[1].clientX;
+      const dy = e.touches[0].clientY - e.touches[1].clientY;
+      const distance = Math.hypot(dx, dy);
+      let scale = touchStartZoom * (distance / touchStartDistance);
+      scale = Math.min(CONFIG.MAX_ZOOM, Math.max(1, scale));
+      if (scale !== currentZoom) {
+        currentZoom = scale;
+        img.style.transform = `scale(${currentZoom}) translate(${translateX}px, ${translateY}px)`;
+        if (currentZoom > 1) {
+          img.classList.add('zoomed');
+          img.style.cursor = 'grab';
+        } else {
+          img.classList.remove('zoomed');
+          img.style.cursor = 'zoom-in';
+          translateX = 0; translateY = 0;
+          img.style.transform = 'scale(1) translate(0px, 0px)';
+        }
+      }
+      isSwiping = false;
+    }
+  }
+  
+  function handleTouchEnd(e) {
+    e.preventDefault();
+    if (isSwiping && currentZoom <= 1) {
+      const deltaX = e.changedTouches[0].clientX - swipeStartX;
+      const deltaTime = Date.now() - swipeStartTime;
+      if (Math.abs(deltaX) > 50 && deltaTime < 300) {
+        if (deltaX > 0) prevLightboxImage();
+        else nextLightboxImage();
+      }
+    }
+    isPanningTouch = false;
+    isTouching = false;
+    isSwiping = false;
+    if (currentZoom <= 1) { translateX = 0; translateY = 0; }
+  }
+  
+  img._touchStartHandler = handleTouchStart;
+  img._touchMoveHandler = handleTouchMove;
+  img._touchEndHandler = handleTouchEnd;
+  
+  img.addEventListener('touchstart', handleTouchStart, { passive: false });
+  img.addEventListener('touchmove', handleTouchMove, { passive: false });
+  img.addEventListener('touchend', handleTouchEnd);
+  img.addEventListener('touchcancel', handleTouchEnd);
 }
 
 window.closeLightbox = function() {
@@ -803,7 +989,7 @@ async function initHome() {
     applyTranslations();
     
     updateProgress(100, 'Готово!');
-    setTimeout(showContent, 400);
+    setTimeout(showContent, 300);
   } catch(error) {
     console.error('Ошибка инициализации главной страницы:', error);
     showErrorScreen('Не удалось загрузить данные. Проверьте соединение.');
@@ -831,7 +1017,7 @@ async function updateStats(data) {
     }
     
     if (totalFiguresSpan || totalInsertsSpan || totalForSaleSpan) {
-      const allSeries = await loadAllSeries();
+      const allSeries = await loadAllDataWithCache();
       let figuresCount = 0, insertsCount = 0, forSaleCount = 0;
       allSeries.forEach(series => {
         figuresCount += series.figures?.length || 0;
@@ -847,6 +1033,17 @@ async function updateStats(data) {
     }
   } catch(error) {
     console.error('Ошибка обновления статистики:', error);
+  }
+}
+
+async function initAbout() {
+  try {
+    const data = await loadData();
+    await updateStats(data);
+    applyTranslations();
+  } catch(error) {
+    console.error('Ошибка инициализации about:', error);
+    showError('Не удалось загрузить страницу "О нас"');
   }
 }
 
@@ -1126,11 +1323,7 @@ async function initMyCollection() {
     seriesData = seriesData.filter(s => s.visible !== false);
     const manufacturers = await loadManufacturers();
     
-    const fullSeriesData = [];
-    for (const item of seriesData) {
-      const full = await loadSeriesById(item.id);
-      if (full) fullSeriesData.push(full);
-    }
+    const fullSeriesData = (await Promise.all(seriesData.map(item => loadSeriesById(item.id)))).filter(Boolean);
     
     let seriesWithCollection = fullSeriesData.filter(series => 
       series.figures?.some(f => f.owned) || 
@@ -1304,11 +1497,7 @@ async function initForSale() {
     const manufacturers = await loadManufacturers();
     let currentLang = localStorage.getItem("lang") || "ru";
     
-    const fullSeriesData = [];
-    for (const item of seriesData) {
-      const full = await loadSeriesById(item.id);
-      if (full) fullSeriesData.push(full);
-    }
+    const fullSeriesData = (await Promise.all(seriesData.map(item => loadSeriesById(item.id)))).filter(Boolean);
     
     let figureItems = [], extraItems = [], insertItems = [], variantItems = [], fullSeriesItems = [];
     
@@ -2024,7 +2213,7 @@ async function initFigure() {
   }
 }
 
-// ===== COLLAGE =====
+// ===== COLLAGE FUNCTIONS =====
 let isDownloadingChecklist = false;
 
 function showLoadingToast(message) {
@@ -2048,6 +2237,210 @@ function hideLoadingToast() {
   if (toast) toast.style.display = 'none';
 }
 
+async function generateCollage(seriesId, seriesName, figures, extras, variants, lang) {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const allItems = [...figures, ...extras, ...variants];
+            const imageMap = new Map();
+            for (const item of allItems) {
+                const imageUrl = item.image ? `${BASE_URL}/${item.image}` : 'images/placeholder.svg';
+                const img = await loadImage(imageUrl);
+                imageMap.set(item.id || item.name, img || createEmptyImage());
+            }
+            
+            const itemsPerRow = 6;
+            const itemSize = 220;
+            const padding = 15;
+            const headerHeight = 80;
+            const footerHeight = 70;
+            const qrSize = 150;
+            
+            const figureRows = Math.ceil(figures.length / itemsPerRow);
+            const extraRows = Math.ceil(extras.length / itemsPerRow);
+            const variantRows = Math.ceil(variants.length / itemsPerRow);
+            
+            const totalWidth = itemsPerRow * (itemSize + padding) + padding;
+            let totalHeight = padding + footerHeight;
+            if (figures.length > 0) totalHeight += headerHeight + figureRows * (itemSize + padding);
+            if (extras.length > 0) totalHeight += headerHeight + extraRows * (itemSize + padding);
+            if (variants.length > 0) totalHeight += headerHeight + variantRows * (itemSize + padding);
+            
+            const canvas = document.createElement('canvas');
+            canvas.width = totalWidth;
+            canvas.height = totalHeight;
+            const ctx = canvas.getContext('2d');
+            
+            const langData = {
+                ru: { figures: 'ФИГУРКИ', extras: 'ДОПЫ', variants: 'ВАРИАНТЫ', footer: 'Скачано с ', capsule: 'КАПСУЛА' },
+                en: { figures: 'FIGURES', extras: 'EXTRAS', variants: 'VARIANTS', footer: 'Downloaded from ', capsule: 'CAPSULE' }
+            };
+            const currentLang = langData[lang] || langData.ru;
+            
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, totalWidth, totalHeight);
+            
+            const qrImage = await loadImage(`${BASE_URL}/images/qrcodesite.png`);
+            const qrX = totalWidth - qrSize - padding;
+            const qrY = padding;
+            if (qrImage && qrImage.complete && qrImage.naturalWidth > 0) {
+                ctx.drawImage(qrImage, qrX, qrY, qrSize, qrSize);
+            } else {
+                ctx.fillStyle = '#f0f0f0';
+                ctx.fillRect(qrX, qrY, qrSize, qrSize);
+                ctx.fillStyle = '#999';
+                ctx.font = '16px monospace';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText('QR', qrX + qrSize/2, qrY + qrSize/2);
+            }
+            
+            ctx.font = `bold 22px Inter, system-ui`;
+            ctx.fillStyle = '#1f2937';
+            ctx.textAlign = 'left';
+            ctx.textBaseline = 'top';
+            ctx.fillText(seriesName || 'Checklist', padding, padding + 10);
+            
+            ctx.font = 'bold 14px Inter, system-ui';
+            ctx.fillStyle = '#78E05C';
+            ctx.textAlign = 'right';
+            ctx.textBaseline = 'bottom';
+            ctx.fillText(currentLang.capsule, totalWidth - padding - qrSize - 15, padding + 40);
+            
+            let currentY = padding + headerHeight;
+            
+            async function drawGroup(items, title, startY) {
+                let y = startY;
+                ctx.font = `bold ${Math.floor(headerHeight * 0.35)}px Inter, system-ui`;
+                ctx.fillStyle = '#4f46e5';
+                ctx.textAlign = 'left';
+                ctx.textBaseline = 'top';
+                ctx.fillText(title, padding, y + 8);
+                
+                y += headerHeight;
+                let currentX = padding;
+                let col = 0;
+                
+                for (let i = 0; i < items.length; i++) {
+                    try {
+                        const item = items[i];
+                        const num = i + 1;
+                        const itemCode = item.code || '';
+                        const img = imageMap.get(item.id || item.name) || createEmptyImage();
+                        
+                        ctx.fillStyle = '#f5f7fb';
+                        ctx.fillRect(currentX, y, itemSize, itemSize);
+                        ctx.strokeStyle = '#e5e7eb';
+                        ctx.lineWidth = 1.5;
+                        ctx.strokeRect(currentX, y, itemSize, itemSize);
+                        
+                        if (img && img.complete && img.naturalWidth > 0) {
+                            const maxImgSize = itemSize - 80;
+                            const imgWidth = img.naturalWidth;
+                            const imgHeight = img.naturalHeight;
+                            let drawWidth, drawHeight;
+                            if (imgWidth > imgHeight) {
+                                drawWidth = maxImgSize;
+                                drawHeight = (imgHeight / imgWidth) * maxImgSize;
+                            } else {
+                                drawHeight = maxImgSize;
+                                drawWidth = (imgWidth / imgHeight) * maxImgSize;
+                            }
+                            const imgX = currentX + (itemSize - drawWidth) / 2;
+                            const imgY = y + 40 + (maxImgSize - drawHeight) / 2;
+                            ctx.drawImage(img, imgX, imgY, drawWidth, drawHeight);
+                        } else {
+                            ctx.fillStyle = '#e0e0e0';
+                            ctx.fillRect(currentX + 10, y + 40, itemSize - 20, itemSize - 70);
+                            ctx.fillStyle = '#999';
+                            ctx.font = `${Math.floor(itemSize * 0.1)}px Inter`;
+                            ctx.textAlign = 'center';
+                            ctx.textBaseline = 'middle';
+                            ctx.fillText('🖼️', currentX + itemSize/2, y + itemSize/2 + 15);
+                        }
+                        
+                        ctx.save();
+                        ctx.globalAlpha = 0.2;
+                        ctx.translate(currentX + itemSize/2, y + itemSize/2);
+                        ctx.rotate(-Math.PI / 4);
+                        ctx.font = `bold ${Math.floor(itemSize * 0.18)}px Inter, system-ui`;
+                        ctx.fillStyle = '#4f46e5';
+                        ctx.shadowColor = 'rgba(0,0,0,0.05)';
+                        ctx.shadowBlur = 2;
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'middle';
+                        ctx.fillText('CAPSULE', 0, 0);
+                        ctx.restore();
+                        
+                        ctx.font = `bold ${Math.floor(itemSize * 0.15)}px Inter, system-ui`;
+                        ctx.fillStyle = '#4f46e5';
+                        ctx.shadowColor = 'transparent';
+                        ctx.textAlign = 'left';
+                        ctx.textBaseline = 'top';
+                        ctx.fillText(num.toString(), currentX + 10, y + 10);
+                        
+                        if (itemCode) {
+                            ctx.font = `bold ${Math.floor(itemSize * 0.09)}px monospace`;
+                            ctx.fillStyle = '#6b7280';
+                            ctx.textAlign = 'left';
+                            ctx.textBaseline = 'top';
+                            ctx.fillText(itemCode, currentX + 10, y + 45);
+                        }
+                        
+                        currentX += itemSize + padding;
+                        col++;
+                        if (col >= itemsPerRow) {
+                            col = 0;
+                            currentX = padding;
+                            y += itemSize + padding;
+                        }
+                    } catch (error) {
+                        currentX += itemSize + padding;
+                        col++;
+                        if (col >= itemsPerRow) {
+                            col = 0;
+                            currentX = padding;
+                            y += itemSize + padding;
+                        }
+                        continue;
+                    }
+                }
+                if (col !== 0) y += itemSize + padding;
+                return y;
+            }
+            
+            if (figures.length > 0) {
+                currentY = await drawGroup(figures, currentLang.figures, currentY);
+                currentY += padding;
+            }
+            if (extras.length > 0) {
+                currentY = await drawGroup(extras, currentLang.extras, currentY);
+                currentY += padding;
+            }
+            if (variants.length > 0) {
+                currentY = await drawGroup(variants, currentLang.variants, currentY);
+                currentY += padding;
+            }
+            
+            ctx.font = '18px Inter, system-ui';
+            ctx.fillStyle = '#6b7280';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'bottom';
+            const dateStr = new Date().toLocaleDateString(
+                lang === 'en' ? 'en-US' : 'ru-RU',
+                { day: '2-digit', month: '2-digit', year: 'numeric' }
+            );
+            const footerText = `${currentLang.footer} https://manspo.github.io  •  ${dateStr}`;
+            ctx.fillText(footerText, totalWidth / 2, totalHeight - 10);
+            
+            const jpegData = canvas.toDataURL('image/jpeg', 0.92);
+            resolve(jpegData);
+        } catch (error) {
+            console.error('Ошибка создания коллажа:', error);
+            reject(error);
+        }
+    });
+}
+
 async function downloadCollage(seriesId, seriesName) {
     if (isDownloadingChecklist) return;
     isDownloadingChecklist = true;
@@ -2064,15 +2457,119 @@ async function downloadCollage(seriesId, seriesName) {
             return;
         }
         
+        const figures = series.figures || [];
+        const extras = series.extras || [];
+        const variants = series.variants || [];
+        
+        if (figures.length === 0 && extras.length === 0 && variants.length === 0) {
+            showError(lang === 'ru' ? 'Нет элементов для чек-листа' : 'No items for checklist');
+            hideLoadingToast();
+            isDownloadingChecklist = false;
+            return;
+        }
+        
+        const seriesTitle = lang === 'en' && series.name_en ? series.name_en : series.name;
+        const jpegData = await generateCollage(seriesId, seriesTitle, figures, extras, variants, lang);
+        const base64Data = jpegData.split(',')[1];
+        const safeName = seriesTitle.replace(/[^a-zа-яё0-9]/gi, '_');
+        const fileName = `checklist_${safeName}_${Date.now()}.jpg`;
+        
+        if (window.Capacitor && window.Capacitor.isNativePlatform()) {
+            if (window.FileHelper) {
+                try {
+                    const savedPath = await saveChecklistNative(base64Data, fileName);
+                    if (savedPath) {
+                        alert(lang === 'ru' ? `✅ Чек-лист сохранен в галерею!` : `✅ Checklist saved to gallery!`);
+                        hideLoadingToast();
+                        showSuccess('✅ Чек-лист сохранен в галерею');
+                        isDownloadingChecklist = false;
+                        return;
+                    }
+                } catch (nativeError) {}
+            }
+            
+            try {
+                const Filesystem = window.Capacitor.Plugins.Filesystem;
+                const Share = window.Capacitor.Plugins.Share;
+                if (Filesystem) {
+                    const dirs = [
+                        { dir: 3, name: 'Documents' },
+                        { dir: 2, name: 'Cache' },
+                        { dir: 1, name: 'Data' }
+                    ];
+                    for (const d of dirs) {
+                        try {
+                            const result = await Filesystem.writeFile({
+                                path: fileName,
+                                data: base64Data,
+                                directory: d.dir,
+                                recursive: true
+                            });
+                            if (Share) {
+                                try {
+                                    await Share.share({
+                                        title: 'Чек-лист',
+                                        text: `Чек-лист серии ${seriesTitle}`,
+                                        url: result.uri,
+                                        dialogTitle: 'Открыть файл'
+                                    });
+                                } catch (e) {}
+                            }
+                            hideLoadingToast();
+                            showSuccess(`✅ Чек-лист сохранен`);
+                            isDownloadingChecklist = false;
+                            return;
+                        } catch (e) {}
+                    }
+                }
+            } catch (fsError) {}
+        }
+        
+        const link = document.createElement("a");
+        link.href = jpegData;
+        link.download = `checklist_${safeName}.jpg`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
         hideLoadingToast();
-        showSuccess('✅ Чек-лист сформирован');
+        showSuccess('✅ Чек-лист скачан');
     } catch (error) {
+        console.error('❌ Ошибка сохранения чек-листа:', error);
         hideLoadingToast();
-        showError('Ошибка чек-листа');
+        const lang = localStorage.getItem("lang") || "ru";
+        showError(lang === 'ru' ? 'Не удалось сохранить чек-лист: ' + error.message : 'Failed to save checklist: ' + error.message);
     } finally {
         isDownloadingChecklist = false;
     }
 }
+
+// ===== ОБРАБОТКА ГЛУБОКИХ ССЫЛОК =====
+function handleDeepLink() {
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('id');
+    const hash = window.location.hash;
+    const figureMatch = hash.match(/figure-([^&]+)/);
+    
+    if (id) {
+        setTimeout(() => {
+            window.location.href = `series.html?id=${id}`;
+        }, 100);
+        return true;
+    }
+    
+    if (figureMatch) {
+        const figureId = figureMatch[1];
+        showSuccess(`🔍 Открыта фигурка: ${figureId}`);
+        return true;
+    }
+    return false;
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
+        handleDeepLink();
+    }
+});
 
 // ===== INIT =====
 document.addEventListener("DOMContentLoaded", () => {
