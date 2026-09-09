@@ -12,10 +12,11 @@
   "fullSeriesForSale": true,
   "fullSeriesAvito": "https://www.avito.ru/groznyy/kollektsionirovanie/nestle_istoriya_igrushek_kinder_8126280753",
   "fullSeriesPrice": "599 ₽ (включая комиссию Авито)",
-  "fullSeriesCondition": "Хорошее состояние. Полная серия без вкладыша.",
-  "fullSeriesCondition_en": "Good condition. Complete series without insert.",
+  "fullSeriesPrice_en": "599 ₽ (including Avito commission)",
+  "fullSeriesCondition": "Без вкладыша.",
+  "fullSeriesCondition_en": "Without insert.",
   "fullSeriesDateAdded": "2026-09-10",
-  "fullSeriesDescription": "Можно заказать следующими способами:<br>1. Авито+СДЕК<br>ОЗОН Доставка (при условии, что вы оформляете заказ<br>Других служб пока нету, к сожалению...",
+  "fullSeriesDescription": "Полная серия без вкладыша.<br>Можно заказать следующими способами:<br>1. Авито+СДЕК<br>ОЗОН Доставка (при условии, что вы оформляете заказ.<br><br>Других служб пока нету, к сожалению...",
   "fullSeriesDescription_en": "Good condition. Complete series without insert.",
   "figures": [
     {

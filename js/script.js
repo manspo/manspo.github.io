@@ -2040,7 +2040,9 @@ async function initLot() {
     const manufacturerName = manufacturers[series.manufacturer]?.[currentLang] || series.manufacturer;
     const coverUrl = series.cover ? `${BASE_URL}/${series.cover}` : 'images/placeholder.svg';
 
-    const price = series.fullSeriesPrice || 'Цена не указана';
+    const price = currentLang === 'en' 
+    ? (series.fullSeriesPrice_en || series.fullSeriesPrice || 'Price not specified')
+    : (series.fullSeriesPrice || 'Цена не указана');
     const avitoLink = series.fullSeriesAvito || '#';
     const condition = currentLang === 'en' 
       ? (series.fullSeriesCondition_en || 'Condition not specified')
