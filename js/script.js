@@ -2512,11 +2512,11 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
             const itemSize = 220;
             const itemGap = 20;
             const padding = 40;
-            const headerHeight = 200;    // увеличено (для лого + названия + QR)
-            const footerHeight = 100;    // увеличено для жирного текста
-            const qrSize = 220;          // QR теперь размером с фигурку
+            const headerHeight = 200;
+            const footerHeight = 100;
+            const qrSize = 220;
             const groupHeaderHeight = 60;
-            const labelHeight = 30;      // увеличено для шрифта
+            const labelHeight = 30;
             const labelGap = 6;
             
             const figureRows = Math.ceil(figures.length / itemsPerRow);
@@ -2597,12 +2597,11 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
             
             // ===== ЛОГО ПО ЦЕНТРУ СВЕРХУ (как фигурка 220px) =====
             const logoImage = await loadImage(`${BASE_URL}/images/logo.webp`);
-            const logoSize = itemSize; // 220px как фигурка
+            const logoSize = itemSize;
             const logoX = (totalWidth - logoSize) / 2;
             const logoY = padding;
             
             if (logoImage && logoImage.complete && logoImage.naturalWidth > 0) {
-                // Сохраняем пропорции
                 const imgW = logoImage.naturalWidth;
                 const imgH = logoImage.naturalHeight;
                 let drawW, drawH;
@@ -2617,7 +2616,6 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                 const drawY = logoY + (logoSize - drawH) / 2;
                 ctx.drawImage(logoImage, drawX, drawY, drawW, drawH);
             } else {
-                // Fallback — текст КАПСУЛА
                 ctx.font = 'bold 64px Inter, system-ui';
                 ctx.fillStyle = '#4f46e5';
                 ctx.textAlign = 'center';
@@ -2625,44 +2623,40 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                 ctx.fillText('КАПСУЛА', totalWidth / 2, logoY + logoSize / 2);
             }
             
-            // ===== НАЗВАНИЕ СЕРИИ (КРАСИВО, ПОД ЛОГО) =====
-            const titleY = logoY + logoSize + 20;
+            // ===== НАЗВАНИЕ СЕРИИ (СЛЕВА, ПОД ЛОГО) =====
+            const titleY = logoY + logoSize + 25;
             
-            // Градиентный текст
-            const titleGradient = ctx.createLinearGradient(
-                totalWidth/2 - 400, 0, totalWidth/2 + 400, 0
-            );
+            // Название серии
+            const titleGradient = ctx.createLinearGradient(padding, 0, padding + 600, 0);
             titleGradient.addColorStop(0, '#4f46e5');
-            titleGradient.addColorStop(0.5, '#6366f1');
             titleGradient.addColorStop(1, '#818cf8');
             
             ctx.font = 'bold 42px Inter, system-ui';
             ctx.fillStyle = titleGradient;
-            ctx.textAlign = 'center';
+            ctx.textAlign = 'left';
             ctx.textBaseline = 'top';
-            ctx.fillText(seriesName || 'Checklist', totalWidth / 2, titleY);
+            ctx.fillText(seriesName || 'Checklist', padding, titleY);
             
-            // Подзаголовок ЧЕК-ЛИСТ
+            // ЧЕК-ЛИСТ (слева)
             ctx.font = 'bold 18px Inter, system-ui';
             ctx.fillStyle = '#9ca3af';
-            ctx.textAlign = 'center';
+            ctx.textAlign = 'left';
             ctx.textBaseline = 'top';
-            ctx.fillText(t.checklist, totalWidth / 2, titleY + 55);
+            ctx.fillText(t.checklist, padding, titleY + 55);
             
-            // ===== ВСЕГО ПОД ЧЕК-ЛИСТ =====
+            // ВСЕГО (слева)
             const totalItems = figures.length + extras.length + variants.length;
             ctx.font = 'bold 18px Inter, system-ui';
             ctx.fillStyle = '#4f46e5';
-            ctx.textAlign = 'center';
+            ctx.textAlign = 'left';
             ctx.textBaseline = 'top';
-            ctx.fillText(`${t.total}: ${totalItems}`, totalWidth / 2, titleY + 85);
+            ctx.fillText(`${t.total}: ${totalItems}`, padding, titleY + 85);
             
-            // ===== QR-КОД (СПРАВА, РАЗМЕРОМ С ФИГУРКУ) =====
+            // ===== QR-КОД (СПРАВА) =====
             const qrImage = await loadImage(`${BASE_URL}/images/qrcodesite.png`);
             const qrX = totalWidth - padding - qrSize;
             const qrY = padding;
             
-            // Белая рамка вокруг QR
             ctx.save();
             ctx.shadowColor = 'rgba(0, 0, 0, 0.12)';
             ctx.shadowBlur = 24;
@@ -2677,8 +2671,7 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
             ctx.fill();
             ctx.restore();
             
-            // Рамка цветная
-            ctx.strokeStyle = '#6366F1';
+            ctx.strokeStyle = '#0B0A16';
             ctx.lineWidth = 3;
             ctx.beginPath();
             if (ctx.roundRect) {
@@ -2700,31 +2693,23 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                 ctx.fillText('QR', qrX + qrSize/2, qrY + qrSize/2);
             }
             
-            // Подпись СКАНИРУЙ под QR
+            // Подпись СКАНИРУЙ
             ctx.font = 'bold 16px Inter, system-ui';
-            ctx.fillStyle = '#4f46e5';
+            ctx.fillStyle = '#0B0A16';
             ctx.textAlign = 'center';
             ctx.textBaseline = 'top';
             ctx.fillText(t.scanMe, qrX + qrSize/2, qrY + qrSize + 25);
             
-            // ===== НАЧАЛЬНАЯ Y ДЛЯ КОНТЕНТА =====
+            // ===== НАЧАЛЬНАЯ Y =====
             let currentY = padding + headerHeight + padding;
             
             // ===== ФУНКЦИЯ ОТРИСОВКИ ЯЧЕЙКИ =====
             function drawCell(ctx, x, y, size, item, num, img, lang) {
-                const borderColor = '#6366F1';
+                const borderColor = '#0B0A16';  // чёрный для всех рамок
+                const labelBg = '#FFFFFF';       // белый фон
+                const labelText = '#0B0A16';     // чёрный текст
                 
-                // Плашка с кодом — контрастная
-                const codeBg = '#DBEAFE';       // светло-голубой
-                const codeText = '#1E40AF';     // тёмно-синий
-                const codeBorder = '#3B82F6';   // синяя рамка
-                
-                // Плашка с названием — контрастная
-                const nameBg = '#FCE7F3';       // светло-розовый
-                const nameText = '#9D174D';     // тёмно-розовый
-                const nameBorder = '#EC4899';   // розовая рамка
-                
-                // Фон ячейки с тенью
+                // Фон ячейки
                 ctx.save();
                 ctx.shadowColor = 'rgba(0, 0, 0, 0.08)';
                 ctx.shadowBlur = 14;
@@ -2739,9 +2724,9 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                 ctx.fill();
                 ctx.restore();
                 
-                // Рамка вокруг фигурки
+                // Рамка вокруг фигурки (чёрная)
                 ctx.strokeStyle = borderColor;
-                ctx.lineWidth = 3;
+                ctx.lineWidth = 2.5;
                 ctx.beginPath();
                 if (ctx.roundRect) {
                     ctx.roundRect(x, y, size, size, 16);
@@ -2750,22 +2735,34 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                 }
                 ctx.stroke();
                 
-                // Номер в углу
+                // ===== НОМЕР БЕЗ ФОНА, С РАМКОЙ, ЦИФРА ЧЁРНАЯ =====
                 const badgeSize = 38;
-                ctx.fillStyle = borderColor;
+                const badgeCX = x + badgeSize/2 + 12;
+                const badgeCY = y + badgeSize/2 + 12;
+                
+                // Белый фон под номером (для читаемости поверх картинки)
+                ctx.fillStyle = '#FFFFFF';
                 ctx.beginPath();
-                ctx.arc(x + badgeSize/2 + 10, y + badgeSize/2 + 10, badgeSize/2, 0, Math.PI * 2);
+                ctx.arc(badgeCX, badgeCY, badgeSize/2, 0, Math.PI * 2);
                 ctx.fill();
                 
+                // Рамка вокруг номера (чёрная)
+                ctx.strokeStyle = borderColor;
+                ctx.lineWidth = 2.5;
+                ctx.beginPath();
+                ctx.arc(badgeCX, badgeCY, badgeSize/2, 0, Math.PI * 2);
+                ctx.stroke();
+                
+                // Цифра (чёрная)
                 ctx.font = 'bold 18px Inter, system-ui';
-                ctx.fillStyle = '#ffffff';
+                ctx.fillStyle = '#0B0A16';
                 ctx.textAlign = 'center';
                 ctx.textBaseline = 'middle';
-                ctx.fillText(num.toString(), x + badgeSize/2 + 10, y + badgeSize/2 + 11);
+                ctx.fillText(num.toString(), badgeCX, badgeCY + 1);
                 
                 // ===== ФИГУРКА (ЕЩЁ БОЛЬШЕ) =====
                 if (img && img.complete && img.naturalWidth > 0) {
-                    const maxImgSize = size - 20; // было -50, теперь -20 (почти вплотную)
+                    const maxImgSize = size - 10; // было -20, теперь -10 (максимально)
                     const imgWidth = img.naturalWidth;
                     const imgHeight = img.naturalHeight;
                     let drawWidth, drawHeight;
@@ -2799,7 +2796,7 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                     ctx.fillText('🖼️', x + size/2, y + size/2);
                 }
                 
-                // ===== ВОДЯНОЙ ЗНАК MANSUR (35%) =====
+                // ===== ВОДЯНОЙ ЗНАК MANSUR =====
                 ctx.save();
                 ctx.globalAlpha = 0.35;
                 ctx.translate(x + size/2, y + size/2);
@@ -2817,7 +2814,8 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                 const labelX = x;
                 
                 if (item.code) {
-                    ctx.fillStyle = codeBg;
+                    // Белый фон
+                    ctx.fillStyle = labelBg;
                     ctx.beginPath();
                     if (ctx.roundRect) {
                         ctx.roundRect(labelX, labelY, labelWidth, labelHeight, 8);
@@ -2826,7 +2824,8 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                     }
                     ctx.fill();
                     
-                    ctx.strokeStyle = codeBorder;
+                    // Чёрная рамка
+                    ctx.strokeStyle = borderColor;
                     ctx.lineWidth = 2;
                     ctx.beginPath();
                     if (ctx.roundRect) {
@@ -2836,8 +2835,9 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                     }
                     ctx.stroke();
                     
+                    // Чёрный текст
                     ctx.font = 'bold 16px monospace';
-                    ctx.fillStyle = codeText;
+                    ctx.fillStyle = labelText;
                     ctx.textAlign = 'center';
                     ctx.textBaseline = 'middle';
                     ctx.fillText(item.code, labelX + labelWidth/2, labelY + labelHeight/2 + 1);
@@ -2847,7 +2847,8 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                 const nameY = labelY + labelHeight + labelGap;
                 const itemName = (lang === 'en' && item.name_en) ? item.name_en : item.name;
                 
-                ctx.fillStyle = nameBg;
+                // Белый фон
+                ctx.fillStyle = labelBg;
                 ctx.beginPath();
                 if (ctx.roundRect) {
                     ctx.roundRect(labelX, nameY, labelWidth, labelHeight, 8);
@@ -2856,7 +2857,8 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                 }
                 ctx.fill();
                 
-                ctx.strokeStyle = nameBorder;
+                // Чёрная рамка
+                ctx.strokeStyle = borderColor;
                 ctx.lineWidth = 2;
                 ctx.beginPath();
                 if (ctx.roundRect) {
@@ -2871,8 +2873,9 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                     displayName = displayName.substring(0, 18) + '…';
                 }
                 
+                // Чёрный текст
                 ctx.font = 'bold 15px Inter, system-ui';
-                ctx.fillStyle = nameText;
+                ctx.fillStyle = labelText;
                 ctx.textAlign = 'center';
                 ctx.textBaseline = 'middle';
                 ctx.fillText(displayName, labelX + labelWidth/2, nameY + labelHeight/2 + 1);
@@ -2947,7 +2950,7 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
             ctx.lineTo(totalWidth - padding, footerY);
             ctx.stroke();
             
-            // ЖИРНЫЙ И БОЛЬШОЙ "Скачано с..."
+            // ЖИРНЫЙ "Скачано с..."
             ctx.font = 'bold 22px Inter, system-ui';
             ctx.fillStyle = '#4f46e5';
             ctx.textAlign = 'left';
