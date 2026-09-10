@@ -15,6 +15,10 @@ const CONFIG = {
 // ===== БАЗОВЫЙ URL ДЛЯ GITHUB PAGES =====
 const BASE_URL = 'https://manspo.github.io';
 
+// ===== ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ =====
+let manufacturerOrder = [];
+let manufacturersData = {};
+
 // ===== УПРАВЛЕНИЕ ЗАГРУЗКОЙ (НОВАЯ ВЕРСИЯ) =====
 
 function showLoadingScreen() {
@@ -313,15 +317,37 @@ async function loadAllSeries() {
   }
 }
 
+// ===== ЗАГРУЗКА ПРОИЗВОДИТЕЛЕЙ (ДИНАМИЧЕСКАЯ) =====
 async function loadManufacturers() {
   try {
     const res = await fetch(`${BASE_URL}/data/manufacturers.json`);
     if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
-    return await res.json();
+    const data = await res.json();
+    manufacturersData = data;
+    manufacturerOrder = Object.keys(data);
+    window.manufacturers = data;
+    return data;
   } catch (error) {
     console.error('Ошибка загрузки производителей:', error);
-    return {};
+    // Фолбэк - базовый список
+    const fallback = {
+      'kinder': { ru: 'Киндер', en: 'Kinder' },
+      'nestle': { ru: 'Нестле', en: 'Nestle' },
+      'landrin': { ru: 'Ландрин', en: 'Landrin' }
+    };
+    manufacturersData = fallback;
+    manufacturerOrder = Object.keys(fallback);
+    window.manufacturers = fallback;
+    return fallback;
   }
+}
+
+// ===== ОПРЕДЕЛЕНИЕ ПАПКИ ПРОИЗВОДИТЕЛЯ =====
+function getManufacturerFolder(m) {
+  if (manufacturersData[m] && manufacturersData[m].en) {
+    return manufacturersData[m].en.toLowerCase();
+  }
+  return m || 'other';
 }
 
 async function loadSocialLinks() {
@@ -377,13 +403,6 @@ async function loadAllDataWithCache(forceReload = false) {
 }
 
 // ===== ФИЛЬТРЫ =====
-const manufacturerOrder = [
-  'kinder', 'nestle', 'landrin', 'maraja', 'tomy', 'tombola',
-  'rubezahl', 'zweifal', 'kartel', 'rtrade', 'zaini', 'konfitoy',
-  'panini', 'danone', 'milka', 'haribo', 'union', 'ozmo',
-  'zabavnyjsyurpriz', 'dolcipreziosi'
-];
-
 function getFilterState() {
   const saved = localStorage.getItem('filterState');
   const defaultState = {
@@ -1116,6 +1135,7 @@ async function updateStats(data) {
 
 async function initAbout() {
   try {
+    await loadManufacturers();
     const data = await loadData();
     await updateStats(data);
     applyTranslations();
@@ -1205,6 +1225,7 @@ async function initCatalog() {
   if (!grid) return;
   
   try {
+    await loadManufacturers();
     let data = await loadData();
     data = data.filter(s => s.visible !== false);
     const manufacturers = await loadManufacturers();
@@ -1396,6 +1417,7 @@ async function initMyCollection() {
   if (!grid) return;
   
   try {
+    await loadManufacturers();
     await loadData();
     
     let seriesData = window.seriesIndex || [];
@@ -1574,6 +1596,7 @@ async function initForSale() {
   if (!grid) return;
   
   try {
+    await loadManufacturers();
     await loadData();
     
     let seriesData = window.seriesIndex || [];
@@ -2036,7 +2059,6 @@ async function initLot() {
       return;
     }
 
-    // Проверяем, что серия действительно выставлена на продажу целиком
     if (!series.fullSeriesForSale) {
       container.innerHTML = '<p class="error-message">❌ Эта серия не продаётся целиком</p>';
       return;
@@ -2047,7 +2069,6 @@ async function initLot() {
 
     const name = currentLang === 'en' && series.name_en ? series.name_en : series.name;
     
-    // Для лота используем специальное описание fullSeriesDescription, если оно есть
     const description = currentLang === 'en' 
         ? (series.fullSeriesDescription_en || series.description_en || series.description || "Описание отсутствует")
         : (series.fullSeriesDescription || series.description || "Описание отсутствует");
@@ -2055,7 +2076,6 @@ async function initLot() {
     const manufacturerName = manufacturers[series.manufacturer]?.[currentLang] || series.manufacturer;
     const coverUrl = series.cover ? `${BASE_URL}/${series.cover}` : 'images/placeholder.svg';
 
-    // Данные лота с учётом языка
     const price = currentLang === 'en' 
         ? (series.fullSeriesPrice_en || series.fullSeriesPrice || 'Price not specified')
         : (series.fullSeriesPrice || 'Цена не указана');
@@ -2068,7 +2088,6 @@ async function initLot() {
     
     const dateAdded = series.fullSeriesDateAdded ? new Date(series.fullSeriesDateAdded).toLocaleDateString() : '';
 
-    // Собираем галерею из всех изображений серии
     const allImages = [];
     if (series.figures) allImages.push(...series.figures.map(f => f.image ? `${BASE_URL}/${f.image}` : 'images/placeholder.svg'));
     if (series.extras) allImages.push(...series.extras.map(e => e.image ? `${BASE_URL}/${e.image}` : 'images/placeholder.svg'));
@@ -2077,27 +2096,22 @@ async function initLot() {
     if (series.other) allImages.push(...series.other.map(o => o.image ? `${BASE_URL}/${o.image}` : 'images/placeholder.svg'));
     window.seriesGalleryImages = allImages;
 
-    // ОПРЕДЕЛЯЕМ ИЗОБРАЖЕНИЕ ДЛЯ ОТОБРАЖЕНИЯ - ВСЕГДА ОБЛОЖКА, ЕСЛИ ЕСТЬ
     let mainImageSrc = coverUrl;
     let mainImageIndex = 0;
 
-    // Если есть обложка - используем её как основное изображение
     if (series.cover) {
         mainImageSrc = coverUrl;
-        // Проверяем, есть ли обложка в галерее
         const coverFull = `${BASE_URL}/${series.cover}`;
         const found = allImages.findIndex(img => img === coverFull);
         if (found !== -1) {
             mainImageIndex = found;
         }
     }
-    // Если обложки нет, но есть другие изображения - берём первое
     else if (allImages.length > 0) {
         mainImageSrc = allImages[0];
         mainImageIndex = 0;
     }
 
-    // Формируем HTML для лота
     container.innerHTML = `
       <div class="figure-container lot-page">
         <h1 class="figure-title">${escapeHtml(name)}</h1>
@@ -2156,7 +2170,6 @@ async function initLot() {
       </div>
     `;
 
-    // Добавляем класс на main для мобильных стилей
     const mainElement = document.querySelector('main');
     if (mainElement) {
         mainElement.classList.add('lot-page');
@@ -2377,41 +2390,39 @@ async function initFigure() {
     window.seriesGalleryImages = allSeriesImages;
     
     let infoHtml = '';
-const condition = currentLang === 'en' ? figure.condition_en : figure.condition;
-const price = figure.price || '';
-const avitoLink = figure.avito || '#';
-const isForsale = figure.forsale === true;
-
-// Состояние (дефекты)
-if (condition) {
-  infoHtml += `
-    <div class="figure-condition">
-      <span class="condition-icon">⚠️</span>
-      <span class="condition-text">${escapeHtml(condition)}</span>
-    </div>
-  `;
-}
-
-// Кнопка покупки (под состоянием)
-if (isForsale) {
-  if (avitoLink && avitoLink !== '#') {
-    infoHtml += `
-      <div style="margin-top: 10px;">
-        <a href="${escapeHtml(avitoLink)}" class="figure-btn figure-btn-buy" target="_blank" rel="noopener noreferrer">
-          🛒 ${currentLang === 'ru' ? 'Купить' : 'Buy'}${price ? ' · ' + escapeHtml(price) : ''}
-        </a>
-      </div>
-    `;
-  } else {
-    infoHtml += `
-      <div style="margin-top: 10px;">
-        <span class="figure-btn figure-btn-disabled">
-          🛒 ${currentLang === 'ru' ? 'В продаже, ссылки нет' : 'For sale, no link'}
-        </span>
-      </div>
-    `;
-  }
-}
+    const condition = currentLang === 'en' ? figure.condition_en : figure.condition;
+    const price = figure.price || '';
+    const avitoLink = figure.avito || '#';
+    const isForsale = figure.forsale === true;
+    
+    if (condition) {
+      infoHtml += `
+        <div class="figure-condition">
+          <span class="condition-icon">⚠️</span>
+          <span class="condition-text">${escapeHtml(condition)}</span>
+        </div>
+      `;
+    }
+    
+    if (isForsale) {
+      if (avitoLink && avitoLink !== '#') {
+        infoHtml += `
+          <div style="margin-top: 10px;">
+            <a href="${escapeHtml(avitoLink)}" class="figure-btn figure-btn-buy" target="_blank" rel="noopener noreferrer">
+              🛒 ${currentLang === 'ru' ? 'Купить' : 'Buy'}${price ? ' · ' + escapeHtml(price) : ''}
+            </a>
+          </div>
+        `;
+      } else {
+        infoHtml += `
+          <div style="margin-top: 10px;">
+            <span class="figure-btn figure-btn-disabled">
+              🛒 ${currentLang === 'ru' ? 'В продаже, ссылки нет' : 'For sale, no link'}
+            </span>
+          </div>
+        `;
+      }
+    }
     
     const figureCode = figure.code || '';
     const imageUrl = figure.image ? `${BASE_URL}/${figure.image}` : 'images/placeholder.svg';
@@ -2488,16 +2499,13 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
         try {
             const allItems = [...figures, ...extras, ...variants];
             
-            // Загружаем все изображения с защитой
             const imageMap = new Map();
             for (const item of allItems) {
                 const imageUrl = item.image ? `${BASE_URL}/${item.image}` : 'images/placeholder.svg';
                 const img = await loadImage(imageUrl);
-                // Гарантируем валидный объект
                 imageMap.set(item.id || item.name, img || createEmptyImage());
             }
             
-            // Размеры
             const itemsPerRow = 6;
             const itemSize = 220;
             const padding = 15;
@@ -2520,30 +2528,15 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
             canvas.height = totalHeight;
             const ctx = canvas.getContext('2d');
             
-            // Языковые названия
             const langData = {
-                ru: {
-                    figures: 'ФИГУРКИ',
-                    extras: 'ДОПЫ',
-                    variants: 'ВАРИАНТЫ',
-                    footer: 'Скачано с ',
-                    capsule: 'КАПСУЛА'
-                },
-                en: {
-                    figures: 'FIGURES',
-                    extras: 'EXTRAS',
-                    variants: 'VARIANTS',
-                    footer: 'Downloaded from ',
-                    capsule: 'CAPSULE'
-                }
+                ru: { figures: 'ФИГУРКИ', extras: 'ДОПЫ', variants: 'ВАРИАНТЫ', footer: 'Скачано с ', capsule: 'КАПСУЛА' },
+                en: { figures: 'FIGURES', extras: 'EXTRAS', variants: 'VARIANTS', footer: 'Downloaded from ', capsule: 'CAPSULE' }
             };
             const currentLang = langData[lang] || langData.ru;
             
-            // Фон
             ctx.fillStyle = '#ffffff';
             ctx.fillRect(0, 0, totalWidth, totalHeight);
             
-            // QR-код
             const qrImage = await loadImage(`${BASE_URL}/images/qrcodesite.png`);
             const qrX = totalWidth - qrSize - padding;
             const qrY = padding;
@@ -2559,14 +2552,12 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                 ctx.fillText('QR', qrX + qrSize/2, qrY + qrSize/2);
             }
             
-            // Название серии
             ctx.font = `bold 22px Inter, system-ui`;
             ctx.fillStyle = '#1f2937';
             ctx.textAlign = 'left';
             ctx.textBaseline = 'top';
             ctx.fillText(seriesName || 'Checklist', padding, padding + 10);
             
-            // Метка CAPSULE
             ctx.font = 'bold 14px Inter, system-ui';
             ctx.fillStyle = '#78E05C';
             ctx.textAlign = 'right';
@@ -2575,7 +2566,6 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
             
             let currentY = padding + headerHeight;
             
-            // Функция отрисовки группы
             async function drawGroup(items, title, startY) {
                 let y = startY;
                 ctx.font = `bold ${Math.floor(headerHeight * 0.35)}px Inter, system-ui`;
@@ -2594,17 +2584,14 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                         const item = items[i];
                         const num = i + 1;
                         const itemCode = item.code || '';
-                        // Гарантируем валидное изображение
                         const img = imageMap.get(item.id || item.name) || createEmptyImage();
                         
-                        // Фон ячейки
                         ctx.fillStyle = '#f5f7fb';
                         ctx.fillRect(currentX, y, itemSize, itemSize);
                         ctx.strokeStyle = '#e5e7eb';
                         ctx.lineWidth = 1.5;
                         ctx.strokeRect(currentX, y, itemSize, itemSize);
                         
-                        // Изображение
                         if (img && img.complete && img.naturalWidth > 0) {
                             const maxImgSize = itemSize - 80;
                             const imgWidth = img.naturalWidth;
@@ -2630,7 +2617,6 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                             ctx.fillText('🖼️', currentX + itemSize/2, y + itemSize/2 + 15);
                         }
                         
-                        // Водяной знак CAPSULE
                         ctx.save();
                         ctx.globalAlpha = 0.2;
                         ctx.translate(currentX + itemSize/2, y + itemSize/2);
@@ -2644,7 +2630,6 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                         ctx.fillText('CAPSULE', 0, 0);
                         ctx.restore();
                         
-                        // Номер
                         ctx.font = `bold ${Math.floor(itemSize * 0.15)}px Inter, system-ui`;
                         ctx.fillStyle = '#4f46e5';
                         ctx.shadowColor = 'transparent';
@@ -2652,7 +2637,6 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                         ctx.textBaseline = 'top';
                         ctx.fillText(num.toString(), currentX + 10, y + 10);
                         
-                        // Код (если есть)
                         if (itemCode) {
                             ctx.font = `bold ${Math.floor(itemSize * 0.09)}px monospace`;
                             ctx.fillStyle = '#6b7280';
@@ -2670,7 +2654,6 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                         }
                     } catch (error) {
                         console.warn('Ошибка отрисовки элемента:', item?.id, error);
-                        // Пропускаем элемент
                         currentX += itemSize + padding;
                         col++;
                         if (col >= itemsPerRow) {
@@ -2685,7 +2668,6 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                 return y;
             }
             
-            // Отрисовка групп
             if (figures.length > 0) {
                 currentY = await drawGroup(figures, currentLang.figures, currentY);
                 currentY += padding;
@@ -2699,7 +2681,6 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                 currentY += padding;
             }
             
-            // Нижний колонтитул
             ctx.font = '18px Inter, system-ui';
             ctx.fillStyle = '#6b7280';
             ctx.textAlign = 'center';
@@ -2722,7 +2703,6 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
 
 // ===== СКАЧИВАНИЕ ЧЕК-ЛИСТА =====
 async function downloadCollage(seriesId, seriesName) {
-    // Защита от повторных кликов
     if (isDownloadingChecklist) {
         console.warn('⏳ Уже генерируется чек-лист');
         return;
@@ -2888,11 +2868,14 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // ===== INIT =====
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
   initLangFromUrl();
   const path = window.location.pathname;
   
   try {
+    // ЗАГРУЖАЕМ ПРОИЗВОДИТЕЛЕЙ СНАЧАЛА
+    await loadManufacturers();
+    
     if (path.includes('catalog.html')) {
       initCatalog();
     } else if (path.includes('series.html')) {
