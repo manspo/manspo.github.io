@@ -2512,11 +2512,12 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
             const itemSize = 220;
             const itemGap = 20;
             const padding = 40;
-            const headerHeight = 320;
-            const footerHeight = 100;
+            const headerHeight = 300;
+            const footerHeight = 70;
             const qrSize = 220;
-            const groupHeaderHeight = 60;
-            const labelHeight = 32;
+            const groupHeaderHeight = 55;
+            const codeHeight = 34;      // высота плашки с кодом
+            const nameHeight = 68;      // высота плашки с названием (в 2 раза выше)
             const labelGap = 6;
             
             const figureRows = Math.ceil(figures.length / itemsPerRow);
@@ -2524,15 +2525,17 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
             const variantRows = Math.ceil(variants.length / itemsPerRow);
             
             const totalWidth = padding * 2 + itemsPerRow * itemSize + (itemsPerRow - 1) * itemGap;
-            let totalHeight = padding + headerHeight + padding;
             
-            const cellHeight = itemSize + labelGap + labelHeight + labelGap + labelHeight;
+            // Высота ячейки: фигурка + код + название
+            const cellHeight = itemSize + labelGap + codeHeight + labelGap + nameHeight;
             
-            if (figures.length > 0) totalHeight += groupHeaderHeight + figureRows * (cellHeight + itemGap);
-            if (extras.length > 0) totalHeight += groupHeaderHeight + extraRows * (cellHeight + itemGap) + itemGap;
-            if (variants.length > 0) totalHeight += groupHeaderHeight + variantRows * (cellHeight + itemGap) + itemGap;
+            let totalHeight = padding + headerHeight;
             
-            totalHeight += footerHeight + padding;
+            if (figures.length > 0) totalHeight += groupHeaderHeight + figureRows * cellHeight + (figureRows - 1) * itemGap;
+            if (extras.length > 0) totalHeight += groupHeaderHeight + extraRows * cellHeight + (extraRows - 1) * itemGap + itemGap;
+            if (variants.length > 0) totalHeight += groupHeaderHeight + variantRows * cellHeight + (variantRows - 1) * itemGap + itemGap;
+            
+            totalHeight += padding + footerHeight + padding;
             
             // ===== CANVAS =====
             const SCALE = 1.5;
@@ -2626,38 +2629,38 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                 ctx.fillText('КАПСУЛА', totalWidth / 2, logoY + logoSize / 2);
             }
             
-            // ===== НАЗВАНИЕ СЕРИИ — КРАСИВО (СЛЕВА, ПОД ЛОГО) =====
-            const titleY = logoY + logoSize + 60;
+            // ===== НАЗВАНИЕ СЕРИИ — СЛЕВА, НА УРОВНЕ ЛОГО =====
+            const titleY = padding + 20;
             
-            // Акцентная вертикальная полоса слева от названия
+            // Акцентная вертикальная полоса
             ctx.fillStyle = '#4f46e5';
             ctx.beginPath();
             if (ctx.roundRect) {
-                ctx.roundRect(padding, titleY, 6, 50, 3);
+                ctx.roundRect(padding, titleY, 6, 45, 3);
             } else {
-                ctx.rect(padding, titleY, 6, 50);
+                ctx.rect(padding, titleY, 6, 45);
             }
             ctx.fill();
             
-            // Название серии — жирное, чёрное
-            ctx.font = 'bold 44px Inter, system-ui';
+            // Название серии
+            ctx.font = 'bold 38px Inter, system-ui';
             ctx.fillStyle = TEXT_COLOR;
             ctx.textAlign = 'left';
             ctx.textBaseline = 'top';
-            ctx.fillText(seriesName || 'Checklist', padding + 22, titleY);
+            ctx.fillText(seriesName || 'Checklist', padding + 22, titleY - 3);
             
             // ЧЕК-ЛИСТ
-            ctx.font = 'bold 18px Inter, system-ui';
+            ctx.font = 'bold 17px Inter, system-ui';
             ctx.fillStyle = TEXT_COLOR;
             ctx.globalAlpha = 0.7;
-            ctx.fillText(t.checklist, padding + 22, titleY + 60);
+            ctx.fillText(t.checklist, padding, titleY + 65);
             ctx.globalAlpha = 1;
             
-            // ВСЕГО
+            // Всего
             const totalItems = figures.length + extras.length + variants.length;
-            ctx.font = 'bold 18px Inter, system-ui';
+            ctx.font = 'bold 17px Inter, system-ui';
             ctx.fillStyle = TEXT_COLOR;
-            ctx.fillText(`${t.total}: ${totalItems}`, padding + 22, titleY + 90);
+            ctx.fillText(`${t.total}: ${totalItems}`, padding, titleY + 95);
             
             // ===== QR-КОД =====
             const qrImage = await loadImage(`${BASE_URL}/images/qrcodesite.png`);
@@ -2707,8 +2710,8 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
             ctx.textBaseline = 'top';
             ctx.fillText(t.scanMe, qrX + qrSize/2, qrY + qrSize + 25);
             
-            // ===== НАЧАЛЬНАЯ Y =====
-            let currentY = padding + headerHeight + padding;
+            // ===== НАЧАЛЬНАЯ Y (уменьшили отступ) =====
+            let currentY = padding + headerHeight;
             
             // ===== ФУНКЦИЯ ОТРИСОВКИ ЯЧЕЙКИ =====
             function drawCell(ctx, x, y, size, item, num, img, lang) {
@@ -2812,17 +2815,17 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                 ctx.restore();
                 
                 // ===== ПЛАШКА С КОДОМ =====
-                const labelY = y + size + labelGap;
-                const labelWidth = size;    // ФИКСИРОВАННАЯ ШИРИНА
+                const codeY = y + size + labelGap;
+                const labelWidth = size;
                 const labelX = x;
                 
                 if (item.code) {
                     ctx.fillStyle = labelBg;
                     ctx.beginPath();
                     if (ctx.roundRect) {
-                        ctx.roundRect(labelX, labelY, labelWidth, labelHeight, 8);
+                        ctx.roundRect(labelX, codeY, labelWidth, codeHeight, 8);
                     } else {
-                        ctx.rect(labelX, labelY, labelWidth, labelHeight);
+                        ctx.rect(labelX, codeY, labelWidth, codeHeight);
                     }
                     ctx.fill();
                     
@@ -2830,13 +2833,12 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                     ctx.lineWidth = 2;
                     ctx.beginPath();
                     if (ctx.roundRect) {
-                        ctx.roundRect(labelX, labelY, labelWidth, labelHeight, 8);
+                        ctx.roundRect(labelX, codeY, labelWidth, codeHeight, 8);
                     } else {
-                        ctx.rect(labelX, labelY, labelWidth, labelHeight);
+                        ctx.rect(labelX, codeY, labelWidth, codeHeight);
                     }
                     ctx.stroke();
                     
-                    // Текст кода — обрезаем если длинный
                     let displayCode = item.code || '';
                     if (displayCode.length > 14) {
                         displayCode = displayCode.substring(0, 12) + '…';
@@ -2846,19 +2848,19 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                     ctx.fillStyle = TEXT_COLOR;
                     ctx.textAlign = 'center';
                     ctx.textBaseline = 'middle';
-                    ctx.fillText(displayCode, labelX + labelWidth/2, labelY + labelHeight/2 + 1);
+                    ctx.fillText(displayCode, labelX + labelWidth/2, codeY + codeHeight/2 + 1);
                 }
                 
-                // ===== ПЛАШКА С НАЗВАНИЕМ =====
-                const nameY = labelY + labelHeight + labelGap;
+                // ===== ПЛАШКА С НАЗВАНИЕМ (В 2 РАЗА ВЫШЕ) =====
+                const nameY = codeY + codeHeight + labelGap;
                 const itemName = (lang === 'en' && item.name_en) ? item.name_en : item.name;
                 
                 ctx.fillStyle = labelBg;
                 ctx.beginPath();
                 if (ctx.roundRect) {
-                    ctx.roundRect(labelX, nameY, labelWidth, labelHeight, 8);
+                    ctx.roundRect(labelX, nameY, labelWidth, nameHeight, 8);
                 } else {
-                    ctx.rect(labelX, nameY, labelWidth, labelHeight);
+                    ctx.rect(labelX, nameY, labelWidth, nameHeight);
                 }
                 ctx.fill();
                 
@@ -2866,24 +2868,48 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                 ctx.lineWidth = 2;
                 ctx.beginPath();
                 if (ctx.roundRect) {
-                    ctx.roundRect(labelX, nameY, labelWidth, labelHeight, 8);
+                    ctx.roundRect(labelX, nameY, labelWidth, nameHeight, 8);
                 } else {
-                    ctx.rect(labelX, nameY, labelWidth, labelHeight);
+                    ctx.rect(labelX, nameY, labelWidth, nameHeight);
                 }
                 ctx.stroke();
                 
-                // ФИКСИРОВАННАЯ ШИРИНА ДЛЯ ЛЮБОГО ТЕКСТА
-                // Обрезаем название если длинное
+                // Многострочный текст для длинных названий
                 let displayName = itemName || '';
-                if (displayName.length > 18) {
-                    displayName = displayName.substring(0, 16) + '…';
-                }
-                
-                ctx.font = 'bold 16px Inter, system-ui';
+                ctx.font = 'bold 15px Inter, system-ui';
                 ctx.fillStyle = TEXT_COLOR;
                 ctx.textAlign = 'center';
                 ctx.textBaseline = 'middle';
-                ctx.fillText(displayName, labelX + labelWidth/2, nameY + labelHeight/2 + 1);
+                
+                // Разбиваем на строки по ширине
+                const maxWidth = labelWidth - 16;
+                const words = displayName.split(' ');
+                const lines = [];
+                let currentLine = '';
+                
+                for (const word of words) {
+                    const testLine = currentLine ? currentLine + ' ' + word : word;
+                    const metrics = ctx.measureText(testLine);
+                    if (metrics.width > maxWidth && currentLine) {
+                        lines.push(currentLine);
+                        currentLine = word;
+                    } else {
+                        currentLine = testLine;
+                    }
+                }
+                if (currentLine) lines.push(currentLine);
+                
+                // Максимум 3 строки
+                const displayLines = lines.slice(0, 3);
+                
+                // Центрируем текст вертикально
+                const lineHeight = 20;
+                const totalTextHeight = displayLines.length * lineHeight;
+                const startY = nameY + (nameHeight - totalTextHeight) / 2 + lineHeight / 2;
+                
+                displayLines.forEach((line, idx) => {
+                    ctx.fillText(line, labelX + labelWidth/2, startY + idx * lineHeight);
+                });
             }
             
             // ===== ФУНКЦИЯ ОТРИСОВКИ ГРУППЫ =====
@@ -2896,17 +2922,17 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                 ctx.fillStyle = color;
                 ctx.beginPath();
                 if (ctx.roundRect) {
-                    ctx.roundRect(padding, groupHeaderY, 5, 45, 3);
+                    ctx.roundRect(padding, groupHeaderY, 5, 42, 3);
                 } else {
-                    ctx.rect(padding, groupHeaderY, 5, 45);
+                    ctx.rect(padding, groupHeaderY, 5, 42);
                 }
                 ctx.fill();
                 
-                ctx.font = 'bold 26px Inter, system-ui';
+                ctx.font = 'bold 24px Inter, system-ui';
                 ctx.fillStyle = TEXT_COLOR;
                 ctx.textAlign = 'left';
                 ctx.textBaseline = 'top';
-                ctx.fillText(title, padding + 25, groupHeaderY + 8);
+                ctx.fillText(title, padding + 25, groupHeaderY + 6);
                 
                 y += groupHeaderHeight;
                 
@@ -2926,7 +2952,7 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                     }
                 }
                 
-                if (col !== 0) y += cellHeight + itemGap;
+                if (col !== 0) y += cellHeight;
                 
                 return y;
             }
@@ -2934,19 +2960,19 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
             // ===== ОТРИСОВКА ГРУПП =====
             if (figures.length > 0) {
                 currentY = await drawGroup(figures, t.figures, currentY, '#4f46e5');
-                currentY += itemGap;
+                currentY += 10;
             }
             if (extras.length > 0) {
                 currentY = await drawGroup(extras, t.extras, currentY, '#10b981');
-                currentY += itemGap;
+                currentY += 10;
             }
             if (variants.length > 0) {
                 currentY = await drawGroup(variants, t.variants, currentY, '#f59e0b');
-                currentY += itemGap;
+                currentY += 10;
             }
             
             // ===== ФУТЕР =====
-            const footerY = totalHeight - footerHeight;
+            const footerY = totalHeight - footerHeight - padding;
             
             ctx.strokeStyle = '#e5e7eb';
             ctx.lineWidth = 1;
@@ -2959,7 +2985,7 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
             ctx.fillStyle = TEXT_COLOR;
             ctx.textAlign = 'left';
             ctx.textBaseline = 'middle';
-            ctx.fillText(`${t.footer} ${t.site}`, padding, footerY + 50);
+            ctx.fillText(`${t.footer} ${t.site}`, padding, footerY + 45);
             
             const jpegData = canvas.toDataURL('image/jpeg', 0.95);
             resolve(jpegData);
