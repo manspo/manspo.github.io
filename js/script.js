@@ -2538,12 +2538,12 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
             const itemSize = 220;
             const itemGap = 20;
             const padding = 40;
-            const headerHeight = 300;
+            const headerHeight = 260;
             const footerHeight = 70;
             const qrSize = 220;
             const groupHeaderHeight = 55;
             const labelGap = 6;
-            const innerGap = 8;         // отступ между номером и кодом
+            const innerGap = 8;
             
             const codeRowHeight = 44;
             const nameRowHeight = 56;
@@ -2562,10 +2562,9 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
             const showCodeVariants = hasAnyCode(variants);
             const showNameVariants = hasAnyCustomName(variants, 'variant');
             
-            // ВАЖНО: строка с номером рисуется ВСЕГДА (даже если нет кодов)
             function getCellHeight(showCode, showName) {
                 let h = itemSize;
-                h += labelGap + codeRowHeight;  // строка номера — всегда
+                h += labelGap + codeRowHeight;
                 if (showName) h += labelGap + nameRowHeight;
                 return h;
             }
@@ -2574,13 +2573,23 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
             const extraCellHeight = getCellHeight(showCodeExtras, showNameExtras);
             const variantCellHeight = getCellHeight(showCodeVariants, showNameVariants);
             
+            // ===== ТОЧНЫЙ РАСЧЁТ ВЫСОТЫ =====
+            const visibleGroups = [];
+            if (figures.length > 0) visibleGroups.push({ rows: figureRows, cellHeight: figureCellHeight });
+            if (extras.length > 0) visibleGroups.push({ rows: extraRows, cellHeight: extraCellHeight });
+            if (variants.length > 0) visibleGroups.push({ rows: variantRows, cellHeight: variantCellHeight });
+            
             let totalHeight = padding + headerHeight;
             
-            if (figures.length > 0) totalHeight += groupHeaderHeight + figureRows * figureCellHeight + (figureRows - 1) * itemGap;
-            if (extras.length > 0) totalHeight += groupHeaderHeight + extraRows * extraCellHeight + (extraRows - 1) * itemGap + itemGap;
-            if (variants.length > 0) totalHeight += groupHeaderHeight + variantRows * variantCellHeight + (variantRows - 1) * itemGap + itemGap;
+            visibleGroups.forEach((group, idx) => {
+                totalHeight += groupHeaderHeight;
+                totalHeight += group.rows * group.cellHeight + (group.rows - 1) * itemGap;
+                if (idx < visibleGroups.length - 1) {
+                    totalHeight += 10;
+                }
+            });
             
-            totalHeight += padding + footerHeight + padding;
+            totalHeight += footerHeight + padding;
             
             // ===== CANVAS =====
             const SCALE = 1.5;
@@ -2844,7 +2853,6 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                     const numBoxSize = codeRowHeight;
                     const numBoxX = x;
                     
-                    // Номер
                     ctx.fillStyle = labelBg;
                     ctx.beginPath();
                     if (ctx.roundRect) {
@@ -2870,7 +2878,7 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                     ctx.textBaseline = 'middle';
                     ctx.fillText(num.toString(), numBoxX + numBoxSize/2, numBoxY + numBoxSize/2 + 1);
                     
-                    // Код (отступ = innerGap)
+                    // Код с отступом innerGap
                     const codeX = numBoxX + numBoxSize + innerGap;
                     const codeWidth = size - numBoxSize - innerGap;
                     
@@ -3041,6 +3049,7 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                     }
                 }
                 
+                // Если последний ряд был неполным — добавляем высоту одной ячейки
                 if (col !== 0) y += cellHeight;
                 
                 return y;
@@ -3049,19 +3058,18 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
             // ===== ОТРИСОВКА ГРУПП =====
             if (figures.length > 0) {
                 currentY = await drawGroup(figures, t.figures, currentY, '#4f46e5', 'figure', showCodeFigures, showNameFigures, figureCellHeight);
-                currentY += 10;
+                if (extras.length > 0 || variants.length > 0) currentY += 10;
             }
             if (extras.length > 0) {
                 currentY = await drawGroup(extras, t.extras, currentY, '#10b981', 'extra', showCodeExtras, showNameExtras, extraCellHeight);
-                currentY += 10;
+                if (variants.length > 0) currentY += 10;
             }
             if (variants.length > 0) {
                 currentY = await drawGroup(variants, t.variants, currentY, '#f59e0b', 'variant', showCodeVariants, showNameVariants, variantCellHeight);
-                currentY += 10;
             }
             
             // ===== ФУТЕР =====
-            const footerY = totalHeight - footerHeight - padding;
+            const footerY = totalHeight - footerHeight;
             
             ctx.strokeStyle = '#e5e7eb';
             ctx.lineWidth = 1;
@@ -3074,7 +3082,7 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
             ctx.fillStyle = TEXT_COLOR;
             ctx.textAlign = 'left';
             ctx.textBaseline = 'middle';
-            ctx.fillText(`${t.footer} ${t.site}`, padding, footerY + 45);
+            ctx.fillText(`${t.footer} ${t.site}`, padding, footerY + footerHeight/2);
             
             const jpegData = canvas.toDataURL('image/jpeg', 0.95);
             resolve(jpegData);

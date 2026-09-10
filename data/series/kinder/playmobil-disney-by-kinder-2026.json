@@ -21,8 +21,8 @@
   "figures": [
     {
       "id": "playmobil-disney-by-kinder-2026_fig1",
-      "name": "Фигурка 1",
-      "name_en": "Figure 1",
+      "name": "Динь-Динь",
+      "name_en": "Tinker Bell",
       "code": "VS401",
       "image": "images/series/kinder/playmobil-disney-by-kinder-2026/kindersurprise_playmobildisney_VS401.webp",
       "owned": false,
@@ -35,8 +35,8 @@
     },
     {
       "id": "playmobil-disney-by-kinder-2026_fig2",
-      "name": "Фигурка 2",
-      "name_en": "Figure 2",
+      "name": "Аладдин",
+      "name_en": "Aladdin",
       "code": "VS406",
       "image": "images/series/kinder/playmobil-disney-by-kinder-2026/kindersurprise_playmobildisney_VS406.webp",
       "owned": false,
@@ -49,8 +49,8 @@
     },
     {
       "id": "playmobil-disney-by-kinder-2026_fig3",
-      "name": "Фигурка 3",
-      "name_en": "Figure 3",
+      "name": "Шериф Вуди",
+      "name_en": "Sheriff Woody",
       "code": "VS407",
       "image": "images/series/kinder/playmobil-disney-by-kinder-2026/kindersurprise_playmobildisney_VS407.webp",
       "owned": false,
@@ -63,8 +63,8 @@
     },
     {
       "id": "playmobil-disney-by-kinder-2026_fig4",
-      "name": "Фигурка 4",
-      "name_en": "Figure 4",
+      "name": "Питер Пэн",
+      "name_en": "Peter Pan",
       "code": "VS417",
       "image": "images/series/kinder/playmobil-disney-by-kinder-2026/kindersurprise_playmobildisney_VS417.webp",
       "owned": false,
@@ -77,8 +77,8 @@
     },
     {
       "id": "playmobil-disney-by-kinder-2026_fig5",
-      "name": "Фигурка 5",
-      "name_en": "Figure 5",
+      "name": "Джинни",
+      "name_en": "Genie",
       "code": "VS418",
       "image": "images/series/kinder/playmobil-disney-by-kinder-2026/kindersurprise_playmobildisney_VS418.webp",
       "owned": false,
