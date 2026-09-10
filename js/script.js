@@ -1802,7 +1802,6 @@ async function initForSale() {
         div.classList.add('full-series-card');
       }
       
-      const saleLink = item.avito && item.avito !== '' ? item.avito : '#';
       const manufacturerName = manufacturers[item.manufacturer]?.[currentLang] || item.manufacturer;
       
       const typeLabels = {
@@ -1841,14 +1840,13 @@ async function initForSale() {
             </div>
           </div>
         </div>
-        ${(saleLink !== '#' && item.type !== 'full') ? `<a href="${escapeHtml(saleLink)}" class="forsale-buy-link" target="_blank" rel="noopener noreferrer">🛒</a>` : ''}
       `;
       
       return div;
     }
     
     // ===== ФИЛЬТРЫ ПРОИЗВОДИТЕЛЕЙ =====
-    const filterGroup = document.querySelector('.filter-group');
+    const filterGroup = document.getElementById('forsaleFilterGroup') || document.querySelector('.filter-group');
     if (filterGroup) {
       const allItems = [...figureItems, ...variantItems, ...extraItems, ...insertItems, ...fullSeriesItems];
       const uniqueMans = [...new Set(allItems.map(i => i.manufacturer))];
