@@ -2512,11 +2512,11 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
             const itemSize = 220;
             const itemGap = 20;
             const padding = 40;
-            const headerHeight = 140;
-            const footerHeight = 80;
-            const qrSize = 140;
+            const headerHeight = 200;    // увеличено (для лого + названия + QR)
+            const footerHeight = 100;    // увеличено для жирного текста
+            const qrSize = 220;          // QR теперь размером с фигурку
             const groupHeaderHeight = 60;
-            const labelHeight = 26;
+            const labelHeight = 30;      // увеличено для шрифта
             const labelGap = 6;
             
             const figureRows = Math.ceil(figures.length / itemsPerRow);
@@ -2593,48 +2593,100 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
             headerGradient.addColorStop(0, '#4f46e5');
             headerGradient.addColorStop(1, '#6366f1');
             ctx.fillStyle = headerGradient;
-            ctx.fillRect(0, 0, totalWidth, 6);
+            ctx.fillRect(0, 0, totalWidth, 8);
             
-            // Название серии
-            ctx.font = 'bold 32px Inter, system-ui';
-            ctx.fillStyle = '#1f2937';
-            ctx.textAlign = 'left';
+            // ===== ЛОГО ПО ЦЕНТРУ СВЕРХУ (как фигурка 220px) =====
+            const logoImage = await loadImage(`${BASE_URL}/images/logo.webp`);
+            const logoSize = itemSize; // 220px как фигурка
+            const logoX = (totalWidth - logoSize) / 2;
+            const logoY = padding;
+            
+            if (logoImage && logoImage.complete && logoImage.naturalWidth > 0) {
+                // Сохраняем пропорции
+                const imgW = logoImage.naturalWidth;
+                const imgH = logoImage.naturalHeight;
+                let drawW, drawH;
+                if (imgW > imgH) {
+                    drawW = logoSize;
+                    drawH = (imgH / imgW) * logoSize;
+                } else {
+                    drawH = logoSize;
+                    drawW = (imgW / imgH) * logoSize;
+                }
+                const drawX = logoX + (logoSize - drawW) / 2;
+                const drawY = logoY + (logoSize - drawH) / 2;
+                ctx.drawImage(logoImage, drawX, drawY, drawW, drawH);
+            } else {
+                // Fallback — текст КАПСУЛА
+                ctx.font = 'bold 64px Inter, system-ui';
+                ctx.fillStyle = '#4f46e5';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText('КАПСУЛА', totalWidth / 2, logoY + logoSize / 2);
+            }
+            
+            // ===== НАЗВАНИЕ СЕРИИ (КРАСИВО, ПОД ЛОГО) =====
+            const titleY = logoY + logoSize + 20;
+            
+            // Градиентный текст
+            const titleGradient = ctx.createLinearGradient(
+                totalWidth/2 - 400, 0, totalWidth/2 + 400, 0
+            );
+            titleGradient.addColorStop(0, '#4f46e5');
+            titleGradient.addColorStop(0.5, '#6366f1');
+            titleGradient.addColorStop(1, '#818cf8');
+            
+            ctx.font = 'bold 42px Inter, system-ui';
+            ctx.fillStyle = titleGradient;
+            ctx.textAlign = 'center';
             ctx.textBaseline = 'top';
-            ctx.fillText(seriesName || 'Checklist', padding, padding + 10);
+            ctx.fillText(seriesName || 'Checklist', totalWidth / 2, titleY);
             
-            // Подзаголовок
-            ctx.font = 'bold 14px Inter, system-ui';
-            ctx.fillStyle = '#6b7280';
-            ctx.textAlign = 'left';
+            // Подзаголовок ЧЕК-ЛИСТ
+            ctx.font = 'bold 18px Inter, system-ui';
+            ctx.fillStyle = '#9ca3af';
+            ctx.textAlign = 'center';
             ctx.textBaseline = 'top';
-            ctx.fillText(t.checklist, padding, padding + 55);
+            ctx.fillText(t.checklist, totalWidth / 2, titleY + 55);
             
-            // ===== ВСЕГО: N ПОД ЧЕК-ЛИСТ =====
+            // ===== ВСЕГО ПОД ЧЕК-ЛИСТ =====
             const totalItems = figures.length + extras.length + variants.length;
-            ctx.font = 'bold 14px Inter, system-ui';
+            ctx.font = 'bold 18px Inter, system-ui';
             ctx.fillStyle = '#4f46e5';
-            ctx.textAlign = 'left';
+            ctx.textAlign = 'center';
             ctx.textBaseline = 'top';
-            ctx.fillText(`${t.total}: ${totalItems}`, padding, padding + 80);
+            ctx.fillText(`${t.total}: ${totalItems}`, totalWidth / 2, titleY + 85);
             
-            // ===== QR-КОД =====
+            // ===== QR-КОД (СПРАВА, РАЗМЕРОМ С ФИГУРКУ) =====
             const qrImage = await loadImage(`${BASE_URL}/images/qrcodesite.png`);
             const qrX = totalWidth - padding - qrSize;
             const qrY = padding;
             
+            // Белая рамка вокруг QR
             ctx.save();
-            ctx.shadowColor = 'rgba(0, 0, 0, 0.1)';
-            ctx.shadowBlur = 20;
+            ctx.shadowColor = 'rgba(0, 0, 0, 0.12)';
+            ctx.shadowBlur = 24;
             ctx.shadowOffsetY = 4;
             ctx.fillStyle = '#ffffff';
             ctx.beginPath();
             if (ctx.roundRect) {
-                ctx.roundRect(qrX - 10, qrY - 10, qrSize + 20, qrSize + 20, 16);
+                ctx.roundRect(qrX - 14, qrY - 14, qrSize + 28, qrSize + 28, 20);
             } else {
-                ctx.rect(qrX - 10, qrY - 10, qrSize + 20, qrSize + 20);
+                ctx.rect(qrX - 14, qrY - 14, qrSize + 28, qrSize + 28);
             }
             ctx.fill();
             ctx.restore();
+            
+            // Рамка цветная
+            ctx.strokeStyle = '#6366F1';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            if (ctx.roundRect) {
+                ctx.roundRect(qrX - 14, qrY - 14, qrSize + 28, qrSize + 28, 20);
+            } else {
+                ctx.rect(qrX - 14, qrY - 14, qrSize + 28, qrSize + 28);
+            }
+            ctx.stroke();
             
             if (qrImage && qrImage.complete && qrImage.naturalWidth > 0) {
                 ctx.drawImage(qrImage, qrX, qrY, qrSize, qrSize);
@@ -2642,29 +2694,35 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                 ctx.fillStyle = '#f0f0f0';
                 ctx.fillRect(qrX, qrY, qrSize, qrSize);
                 ctx.fillStyle = '#999';
-                ctx.font = '14px monospace';
+                ctx.font = '20px monospace';
                 ctx.textAlign = 'center';
                 ctx.textBaseline = 'middle';
                 ctx.fillText('QR', qrX + qrSize/2, qrY + qrSize/2);
             }
             
-            // Подпись "СКАНИРУЙ"
-            ctx.font = 'bold 11px Inter, system-ui';
-            ctx.fillStyle = '#6b7280';
+            // Подпись СКАНИРУЙ под QR
+            ctx.font = 'bold 16px Inter, system-ui';
+            ctx.fillStyle = '#4f46e5';
             ctx.textAlign = 'center';
             ctx.textBaseline = 'top';
-            ctx.fillText(t.scanMe, qrX + qrSize/2, qrY + qrSize + 15);
+            ctx.fillText(t.scanMe, qrX + qrSize/2, qrY + qrSize + 25);
             
-            // ===== НАЧАЛЬНАЯ Y =====
+            // ===== НАЧАЛЬНАЯ Y ДЛЯ КОНТЕНТА =====
             let currentY = padding + headerHeight + padding;
             
             // ===== ФУНКЦИЯ ОТРИСОВКИ ЯЧЕЙКИ =====
             function drawCell(ctx, x, y, size, item, num, img, lang) {
                 const borderColor = '#6366F1';
-                const codeBg = '#EEF2FF';       // светлый фон для кода
-                const codeText = '#4F46E5';     // тёмно-синий текст кода
-                const nameBg = '#FEF3C7';       // светло-жёлтый фон для названия
-                const nameText = '#92400E';     // тёмно-коричневый текст названия
+                
+                // Плашка с кодом — контрастная
+                const codeBg = '#DBEAFE';       // светло-голубой
+                const codeText = '#1E40AF';     // тёмно-синий
+                const codeBorder = '#3B82F6';   // синяя рамка
+                
+                // Плашка с названием — контрастная
+                const nameBg = '#FCE7F3';       // светло-розовый
+                const nameText = '#9D174D';     // тёмно-розовый
+                const nameBorder = '#EC4899';   // розовая рамка
                 
                 // Фон ячейки с тенью
                 ctx.save();
@@ -2693,21 +2751,21 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                 ctx.stroke();
                 
                 // Номер в углу
-                const badgeSize = 34;
+                const badgeSize = 38;
                 ctx.fillStyle = borderColor;
                 ctx.beginPath();
                 ctx.arc(x + badgeSize/2 + 10, y + badgeSize/2 + 10, badgeSize/2, 0, Math.PI * 2);
                 ctx.fill();
                 
-                ctx.font = 'bold 15px Inter, system-ui';
+                ctx.font = 'bold 18px Inter, system-ui';
                 ctx.fillStyle = '#ffffff';
                 ctx.textAlign = 'center';
                 ctx.textBaseline = 'middle';
                 ctx.fillText(num.toString(), x + badgeSize/2 + 10, y + badgeSize/2 + 11);
                 
-                // ===== ФИГУРКА УВЕЛИЧЕНА =====
+                // ===== ФИГУРКА (ЕЩЁ БОЛЬШЕ) =====
                 if (img && img.complete && img.naturalWidth > 0) {
-                    const maxImgSize = size - 50; // было -100, теперь -50 (больше фигурка)
+                    const maxImgSize = size - 20; // было -50, теперь -20 (почти вплотную)
                     const imgWidth = img.naturalWidth;
                     const imgHeight = img.naturalHeight;
                     let drawWidth, drawHeight;
@@ -2719,7 +2777,7 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                         drawWidth = (imgWidth / imgHeight) * maxImgSize;
                     }
                     const imgX = x + (size - drawWidth) / 2;
-                    const imgY = y + (size - drawHeight) / 2 + 5; // центр + чуть вниз
+                    const imgY = y + (size - drawHeight) / 2 + 5;
                     
                     ctx.imageSmoothingEnabled = true;
                     ctx.imageSmoothingQuality = 'high';
@@ -2729,24 +2787,24 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                     ctx.fillStyle = '#f3f4f6';
                     ctx.beginPath();
                     if (ctx.roundRect) {
-                        ctx.roundRect(x + 20, y + 20, size - 40, size - 40, 12);
+                        ctx.roundRect(x + 10, y + 10, size - 20, size - 20, 12);
                     } else {
-                        ctx.rect(x + 20, y + 20, size - 40, size - 40);
+                        ctx.rect(x + 10, y + 10, size - 20, size - 20);
                     }
                     ctx.fill();
                     ctx.fillStyle = '#9ca3af';
-                    ctx.font = '36px Inter';
+                    ctx.font = '48px Inter';
                     ctx.textAlign = 'center';
                     ctx.textBaseline = 'middle';
                     ctx.fillText('🖼️', x + size/2, y + size/2);
                 }
                 
-                // ===== ВОДЯНОЙ ЗНАК MANSUR ПО ДИАГОНАЛИ =====
+                // ===== ВОДЯНОЙ ЗНАК MANSUR (35%) =====
                 ctx.save();
                 ctx.globalAlpha = 0.35;
                 ctx.translate(x + size/2, y + size/2);
                 ctx.rotate(-Math.PI / 4);
-                ctx.font = `bold ${Math.floor(size * 0.16)}px Inter, system-ui`;
+                ctx.font = `bold ${Math.floor(size * 0.18)}px Inter, system-ui`;
                 ctx.fillStyle = '#4f46e5';
                 ctx.textAlign = 'center';
                 ctx.textBaseline = 'middle';
@@ -2759,29 +2817,26 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                 const labelX = x;
                 
                 if (item.code) {
-                    // Фон
                     ctx.fillStyle = codeBg;
                     ctx.beginPath();
                     if (ctx.roundRect) {
-                        ctx.roundRect(labelX, labelY, labelWidth, labelHeight, 6);
+                        ctx.roundRect(labelX, labelY, labelWidth, labelHeight, 8);
                     } else {
                         ctx.rect(labelX, labelY, labelWidth, labelHeight);
                     }
                     ctx.fill();
                     
-                    // Рамка
-                    ctx.strokeStyle = codeText;
-                    ctx.lineWidth = 1.5;
+                    ctx.strokeStyle = codeBorder;
+                    ctx.lineWidth = 2;
                     ctx.beginPath();
                     if (ctx.roundRect) {
-                        ctx.roundRect(labelX, labelY, labelWidth, labelHeight, 6);
+                        ctx.roundRect(labelX, labelY, labelWidth, labelHeight, 8);
                     } else {
                         ctx.rect(labelX, labelY, labelWidth, labelHeight);
                     }
                     ctx.stroke();
                     
-                    // Текст
-                    ctx.font = 'bold 14px monospace';
+                    ctx.font = 'bold 16px monospace';
                     ctx.fillStyle = codeText;
                     ctx.textAlign = 'center';
                     ctx.textBaseline = 'middle';
@@ -2792,34 +2847,31 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                 const nameY = labelY + labelHeight + labelGap;
                 const itemName = (lang === 'en' && item.name_en) ? item.name_en : item.name;
                 
-                // Фон
                 ctx.fillStyle = nameBg;
                 ctx.beginPath();
                 if (ctx.roundRect) {
-                    ctx.roundRect(labelX, nameY, labelWidth, labelHeight, 6);
+                    ctx.roundRect(labelX, nameY, labelWidth, labelHeight, 8);
                 } else {
                     ctx.rect(labelX, nameY, labelWidth, labelHeight);
                 }
                 ctx.fill();
                 
-                // Рамка
-                ctx.strokeStyle = nameText;
-                ctx.lineWidth = 1.5;
+                ctx.strokeStyle = nameBorder;
+                ctx.lineWidth = 2;
                 ctx.beginPath();
                 if (ctx.roundRect) {
-                    ctx.roundRect(labelX, nameY, labelWidth, labelHeight, 6);
+                    ctx.roundRect(labelX, nameY, labelWidth, labelHeight, 8);
                 } else {
                     ctx.rect(labelX, nameY, labelWidth, labelHeight);
                 }
                 ctx.stroke();
                 
-                // Текст
                 let displayName = itemName || '';
-                if (displayName.length > 22) {
-                    displayName = displayName.substring(0, 20) + '…';
+                if (displayName.length > 20) {
+                    displayName = displayName.substring(0, 18) + '…';
                 }
                 
-                ctx.font = 'bold 13px Inter, system-ui';
+                ctx.font = 'bold 15px Inter, system-ui';
                 ctx.fillStyle = nameText;
                 ctx.textAlign = 'center';
                 ctx.textBaseline = 'middle';
@@ -2836,17 +2888,17 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                 ctx.fillStyle = color;
                 ctx.beginPath();
                 if (ctx.roundRect) {
-                    ctx.roundRect(padding, groupHeaderY, 4, 40, 2);
+                    ctx.roundRect(padding, groupHeaderY, 5, 45, 3);
                 } else {
-                    ctx.rect(padding, groupHeaderY, 4, 40);
+                    ctx.rect(padding, groupHeaderY, 5, 45);
                 }
                 ctx.fill();
                 
-                ctx.font = 'bold 22px Inter, system-ui';
+                ctx.font = 'bold 26px Inter, system-ui';
                 ctx.fillStyle = '#1f2937';
                 ctx.textAlign = 'left';
                 ctx.textBaseline = 'top';
-                ctx.fillText(title, padding + 20, groupHeaderY + 8);
+                ctx.fillText(title, padding + 25, groupHeaderY + 8);
                 
                 y += groupHeaderHeight;
                 
@@ -2895,11 +2947,12 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
             ctx.lineTo(totalWidth - padding, footerY);
             ctx.stroke();
             
-            ctx.font = '14px Inter, system-ui';
-            ctx.fillStyle = '#6b7280';
+            // ЖИРНЫЙ И БОЛЬШОЙ "Скачано с..."
+            ctx.font = 'bold 22px Inter, system-ui';
+            ctx.fillStyle = '#4f46e5';
             ctx.textAlign = 'left';
             ctx.textBaseline = 'middle';
-            ctx.fillText(`${t.footer} ${t.site}`, padding, footerY + 40);
+            ctx.fillText(`${t.footer} ${t.site}`, padding, footerY + 50);
             
             const jpegData = canvas.toDataURL('image/jpeg', 0.95);
             resolve(jpegData);
