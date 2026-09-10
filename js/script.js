@@ -2516,8 +2516,8 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
             const footerHeight = 70;
             const qrSize = 220;
             const groupHeaderHeight = 55;
-            const codeHeight = 34;      // высота плашки с кодом
-            const nameHeight = 68;      // высота плашки с названием (в 2 раза выше)
+            const codeHeight = 42;      // увеличено
+            const nameHeight = 76;      // увеличено
             const labelGap = 6;
             
             const figureRows = Math.ceil(figures.length / itemsPerRow);
@@ -2526,7 +2526,6 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
             
             const totalWidth = padding * 2 + itemsPerRow * itemSize + (itemsPerRow - 1) * itemGap;
             
-            // Высота ячейки: фигурка + код + название
             const cellHeight = itemSize + labelGap + codeHeight + labelGap + nameHeight;
             
             let totalHeight = padding + headerHeight;
@@ -2548,7 +2547,8 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
             ctx.imageSmoothingQuality = 'high';
             ctx.scale(SCALE, SCALE);
             
-            // ===== ЕДИНЫЙ ЦВЕТ ТЕКСТА =====
+            // ===== ЕДИНЫЙ ЦВЕТ РАМОК И ТЕКСТА =====
+            const BORDER_COLOR = '#141D35';
             const TEXT_COLOR = '#141D35';
             
             // ===== ЯЗЫКОВЫЕ ДАННЫЕ =====
@@ -2576,7 +2576,7 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
             };
             const t = langData[lang] || langData.ru;
             
-            // ===== ФОН =====
+            // ===== ФОН (БЕЗ ВЕРХНЕЙ ПОЛОСКИ) =====
             const bgGradient = ctx.createLinearGradient(0, 0, 0, totalHeight);
             bgGradient.addColorStop(0, '#ffffff');
             bgGradient.addColorStop(1, '#f5f7fb');
@@ -2593,13 +2593,6 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
             ctx.arc(150, totalHeight - 150, 250, 0, Math.PI * 2);
             ctx.fill();
             ctx.restore();
-            
-            // ===== ШАПКА =====
-            const headerGradient = ctx.createLinearGradient(0, 0, totalWidth, 0);
-            headerGradient.addColorStop(0, '#4f46e5');
-            headerGradient.addColorStop(1, '#6366f1');
-            ctx.fillStyle = headerGradient;
-            ctx.fillRect(0, 0, totalWidth, 8);
             
             // ===== ЛОГО ПО ЦЕНТРУ =====
             const logoImage = await loadImage(`${BASE_URL}/images/logo.webp`);
@@ -2681,8 +2674,8 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
             ctx.fill();
             ctx.restore();
             
-            ctx.strokeStyle = '#0B0A16';
-            ctx.lineWidth = 3;
+            ctx.strokeStyle = BORDER_COLOR;
+            ctx.lineWidth = 4;
             ctx.beginPath();
             if (ctx.roundRect) {
                 ctx.roundRect(qrX - 14, qrY - 14, qrSize + 28, qrSize + 28, 20);
@@ -2710,12 +2703,11 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
             ctx.textBaseline = 'top';
             ctx.fillText(t.scanMe, qrX + qrSize/2, qrY + qrSize + 25);
             
-            // ===== НАЧАЛЬНАЯ Y (уменьшили отступ) =====
+            // ===== НАЧАЛЬНАЯ Y =====
             let currentY = padding + headerHeight;
             
             // ===== ФУНКЦИЯ ОТРИСОВКИ ЯЧЕЙКИ =====
             function drawCell(ctx, x, y, size, item, num, img, lang) {
-                const borderColor = '#0B0A16';
                 const labelBg = '#FFFFFF';
                 
                 // Фон ячейки
@@ -2734,7 +2726,7 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                 ctx.restore();
                 
                 // Рамка вокруг фигурки
-                ctx.strokeStyle = borderColor;
+                ctx.strokeStyle = BORDER_COLOR;
                 ctx.lineWidth = 4;
                 ctx.beginPath();
                 if (ctx.roundRect) {
@@ -2745,7 +2737,7 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                 ctx.stroke();
                 
                 // ===== НОМЕР =====
-                const badgeSize = 38;
+                const badgeSize = 40;
                 const badgeCX = x + badgeSize/2 + 12;
                 const badgeCY = y + badgeSize/2 + 12;
                 
@@ -2754,21 +2746,22 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                 ctx.arc(badgeCX, badgeCY, badgeSize/2, 0, Math.PI * 2);
                 ctx.fill();
                 
-                ctx.strokeStyle = borderColor;
-                ctx.lineWidth = 2.5;
+                // Рамка номера — такая же толстая как у фигурки
+                ctx.strokeStyle = BORDER_COLOR;
+                ctx.lineWidth = 4;
                 ctx.beginPath();
                 ctx.arc(badgeCX, badgeCY, badgeSize/2, 0, Math.PI * 2);
                 ctx.stroke();
                 
-                ctx.font = 'bold 18px Inter, system-ui';
+                ctx.font = 'bold 20px Inter, system-ui';
                 ctx.fillStyle = TEXT_COLOR;
                 ctx.textAlign = 'center';
                 ctx.textBaseline = 'middle';
                 ctx.fillText(num.toString(), badgeCX, badgeCY + 1);
                 
-                // ===== ФИГУРКА =====
+                // ===== ФИГУРКА (ЕЩЁ БОЛЬШЕ) =====
                 if (img && img.complete && img.naturalWidth > 0) {
-                    const maxImgSize = size - 5;
+                    const maxImgSize = size + 10; // выходит за края ячейки
                     const imgWidth = img.naturalWidth;
                     const imgHeight = img.naturalHeight;
                     let drawWidth, drawHeight;
@@ -2785,7 +2778,18 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                     ctx.imageSmoothingEnabled = true;
                     ctx.imageSmoothingQuality = 'high';
                     
+                    // Сохраняем и обрезаем по рамке
+                    ctx.save();
+                    ctx.beginPath();
+                    if (ctx.roundRect) {
+                        ctx.roundRect(x, y, size, size, 16);
+                    } else {
+                        ctx.rect(x, y, size, size);
+                    }
+                    ctx.clip();
+                    
                     ctx.drawImage(img, imgX, imgY, drawWidth, drawHeight);
+                    ctx.restore();
                 } else {
                     ctx.fillStyle = '#f3f4f6';
                     ctx.beginPath();
@@ -2829,8 +2833,9 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                     }
                     ctx.fill();
                     
-                    ctx.strokeStyle = borderColor;
-                    ctx.lineWidth = 2;
+                    // Рамка кода — толстая как у фигурки
+                    ctx.strokeStyle = BORDER_COLOR;
+                    ctx.lineWidth = 4;
                     ctx.beginPath();
                     if (ctx.roundRect) {
                         ctx.roundRect(labelX, codeY, labelWidth, codeHeight, 8);
@@ -2840,18 +2845,19 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                     ctx.stroke();
                     
                     let displayCode = item.code || '';
-                    if (displayCode.length > 14) {
-                        displayCode = displayCode.substring(0, 12) + '…';
+                    if (displayCode.length > 12) {
+                        displayCode = displayCode.substring(0, 11) + '…';
                     }
                     
-                    ctx.font = 'bold 17px monospace';
+                    // УВЕЛИЧЕННЫЙ ШРИФТ КОДА
+                    ctx.font = 'bold 22px monospace';
                     ctx.fillStyle = TEXT_COLOR;
                     ctx.textAlign = 'center';
                     ctx.textBaseline = 'middle';
                     ctx.fillText(displayCode, labelX + labelWidth/2, codeY + codeHeight/2 + 1);
                 }
                 
-                // ===== ПЛАШКА С НАЗВАНИЕМ (В 2 РАЗА ВЫШЕ) =====
+                // ===== ПЛАШКА С НАЗВАНИЕМ =====
                 const nameY = codeY + codeHeight + labelGap;
                 const itemName = (lang === 'en' && item.name_en) ? item.name_en : item.name;
                 
@@ -2864,8 +2870,9 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                 }
                 ctx.fill();
                 
-                ctx.strokeStyle = borderColor;
-                ctx.lineWidth = 2;
+                // Рамка названия — толстая как у фигурки
+                ctx.strokeStyle = BORDER_COLOR;
+                ctx.lineWidth = 4;
                 ctx.beginPath();
                 if (ctx.roundRect) {
                     ctx.roundRect(labelX, nameY, labelWidth, nameHeight, 8);
@@ -2874,9 +2881,9 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                 }
                 ctx.stroke();
                 
-                // Многострочный текст для длинных названий
+                // УВЕЛИЧЕННЫЙ ШРИФТ НАЗВАНИЯ
                 let displayName = itemName || '';
-                ctx.font = 'bold 15px Inter, system-ui';
+                ctx.font = 'bold 19px Inter, system-ui';
                 ctx.fillStyle = TEXT_COLOR;
                 ctx.textAlign = 'center';
                 ctx.textBaseline = 'middle';
@@ -2899,11 +2906,9 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                 }
                 if (currentLine) lines.push(currentLine);
                 
-                // Максимум 3 строки
                 const displayLines = lines.slice(0, 3);
                 
-                // Центрируем текст вертикально
-                const lineHeight = 20;
+                const lineHeight = 24;
                 const totalTextHeight = displayLines.length * lineHeight;
                 const startY = nameY + (nameHeight - totalTextHeight) / 2 + lineHeight / 2;
                 
