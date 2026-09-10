@@ -2507,14 +2507,12 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                 imageMap.set(item.id || item.name, img || createEmptyImage());
             }
             
-            // ===== ПРОВЕРКА: ЕСТЬ ЛИ КОД / НАЗВАНИЕ У КАЖДОЙ ГРУППЫ =====
-            // Функция проверки, является ли название дефолтным
+            // ===== ПРОВЕРКА ДЕФОЛТНЫХ НАЗВАНИЙ =====
             function isDefaultName(item, type) {
                 if (!item.name) return true;
                 const nameRu = item.name.trim();
                 const nameEn = (item.name_en || '').trim();
                 
-                // Паттерны дефолтных названий
                 const defaultPatterns = {
                     figure: [/^Фигурка\s+\d+$/i, /^Figure\s+\d+$/i],
                     extra: [/^Доп\s+\d+$/i, /^Extra\s+\d+$/i],
@@ -2527,8 +2525,7 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                 return patterns.some(p => p.test(nameRu) || p.test(nameEn));
             }
             
-            // Определяем, есть ли хоть у одного элемента в группе код/название
-            function hasAnyCode(items, type) {
+            function hasAnyCode(items) {
                 return items.some(item => item.code && item.code.trim());
             }
             
@@ -2547,9 +2544,8 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
             const groupHeaderHeight = 55;
             const labelGap = 6;
             
-            // Высота строк для номера+кода и названия
-            const codeRowHeight = 44;    // номер + код в одной строке
-            const nameRowHeight = 56;    // название во всю ширину
+            const codeRowHeight = 44;
+            const nameRowHeight = 56;
             
             const figureRows = Math.ceil(figures.length / itemsPerRow);
             const extraRows = Math.ceil(extras.length / itemsPerRow);
@@ -2558,14 +2554,13 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
             const totalWidth = padding * 2 + itemsPerRow * itemSize + (itemsPerRow - 1) * itemGap;
             
             // Проверяем, нужны ли поля для каждой группы
-            const showCodeFigures = hasAnyCode(figures, 'figure');
+            const showCodeFigures = hasAnyCode(figures);
             const showNameFigures = hasAnyCustomName(figures, 'figure');
-            const showCodeExtras = hasAnyCode(extras, 'extra');
+            const showCodeExtras = hasAnyCode(extras);
             const showNameExtras = hasAnyCustomName(extras, 'extra');
-            const showCodeVariants = hasAnyCode(variants, 'variant');
+            const showCodeVariants = hasAnyCode(variants);
             const showNameVariants = hasAnyCustomName(variants, 'variant');
             
-            // Функция для вычисления высоты ячейки в зависимости от полей
             function getCellHeight(showCode, showName) {
                 let h = itemSize;
                 if (showCode) h += labelGap + codeRowHeight;
@@ -2596,7 +2591,6 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
             ctx.imageSmoothingQuality = 'high';
             ctx.scale(SCALE, SCALE);
             
-            // ===== ЕДИНЫЙ ЦВЕТ РАМОК И ТЕКСТА =====
             const BORDER_COLOR = '#141D35';
             const TEXT_COLOR = '#141D35';
             
@@ -2751,7 +2745,7 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
             let currentY = padding + headerHeight;
             
             // ===== ФУНКЦИЯ ОТРИСОВКИ ЯЧЕЙКИ =====
-            function drawCell(ctx, x, y, size, item, num, img, lang, showCode, showName, cellHeight, type) {
+            function drawCell(ctx, x, y, size, item, num, img, lang, showCode, showName, type) {
                 const labelBg = '#FFFFFF';
                 
                 // Фон ячейки
@@ -2780,7 +2774,7 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                 }
                 ctx.stroke();
                 
-                // ===== ФИГУРКА (заполняет всё) =====
+                // ===== ФИГУРКА =====
                 if (img && img.complete && img.naturalWidth > 0) {
                     const maxImgSize = size - 10;
                     const imgWidth = img.naturalWidth;
@@ -2842,45 +2836,42 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                 let rowY = y + size + labelGap;
                 
                 if (showCode) {
-                    // Номер — квадрат слева (60px шириной)
-                    const numBoxSize = codeRowHeight;
-                    const numBoxX = x;
                     const numBoxY = rowY;
+                    const hasCode = item.code && item.code.trim();
                     
-                    // Белый фон номера
-                    ctx.fillStyle = labelBg;
-                    ctx.beginPath();
-                    if (ctx.roundRect) {
-                        ctx.roundRect(numBoxX, numBoxY, numBoxSize, numBoxSize, 8);
-                    } else {
-                        ctx.rect(numBoxX, numBoxY, numBoxSize, numBoxSize);
-                    }
-                    ctx.fill();
-                    
-                    // Рамка номера
-                    ctx.strokeStyle = BORDER_COLOR;
-                    ctx.lineWidth = 4;
-                    ctx.beginPath();
-                    if (ctx.roundRect) {
-                        ctx.roundRect(numBoxX, numBoxY, numBoxSize, numBoxSize, 8);
-                    } else {
-                        ctx.rect(numBoxX, numBoxY, numBoxSize, numBoxSize);
-                    }
-                    ctx.stroke();
-                    
-                    // Цифра
-                    ctx.font = 'bold 26px Inter, system-ui';
-                    ctx.fillStyle = TEXT_COLOR;
-                    ctx.textAlign = 'center';
-                    ctx.textBaseline = 'middle';
-                    ctx.fillText(num.toString(), numBoxX + numBoxSize/2, numBoxY + numBoxSize/2 + 1);
-                    
-                    // Код — справа (всё оставшееся место)
-                    const codeX = numBoxX + numBoxSize + 4;
-                    const codeWidth = size - numBoxSize - 4;
-                    
-                    if (item.code) {
-                        // Белый фон кода
+                    if (hasCode) {
+                        // ===== ЕСТЬ КОД: номер слева + код справа =====
+                        const numBoxSize = codeRowHeight;
+                        const numBoxX = x;
+                        
+                        ctx.fillStyle = labelBg;
+                        ctx.beginPath();
+                        if (ctx.roundRect) {
+                            ctx.roundRect(numBoxX, numBoxY, numBoxSize, numBoxSize, 8);
+                        } else {
+                            ctx.rect(numBoxX, numBoxY, numBoxSize, numBoxSize);
+                        }
+                        ctx.fill();
+                        
+                        ctx.strokeStyle = BORDER_COLOR;
+                        ctx.lineWidth = 4;
+                        ctx.beginPath();
+                        if (ctx.roundRect) {
+                            ctx.roundRect(numBoxX, numBoxY, numBoxSize, numBoxSize, 8);
+                        } else {
+                            ctx.rect(numBoxX, numBoxY, numBoxSize, numBoxSize);
+                        }
+                        ctx.stroke();
+                        
+                        ctx.font = 'bold 26px Inter, system-ui';
+                        ctx.fillStyle = TEXT_COLOR;
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'middle';
+                        ctx.fillText(num.toString(), numBoxX + numBoxSize/2, numBoxY + numBoxSize/2 + 1);
+                        
+                        const codeX = numBoxX + numBoxSize + 4;
+                        const codeWidth = size - numBoxSize - 4;
+                        
                         ctx.fillStyle = labelBg;
                         ctx.beginPath();
                         if (ctx.roundRect) {
@@ -2890,7 +2881,6 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                         }
                         ctx.fill();
                         
-                        // Рамка кода
                         ctx.strokeStyle = BORDER_COLOR;
                         ctx.lineWidth = 4;
                         ctx.beginPath();
@@ -2901,21 +2891,23 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                         }
                         ctx.stroke();
                         
-                        // Текст кода
-                        let displayCode = item.code || '';
                         ctx.font = 'bold 22px monospace';
                         ctx.fillStyle = TEXT_COLOR;
                         ctx.textAlign = 'center';
                         ctx.textBaseline = 'middle';
-                        ctx.fillText(displayCode, codeX + codeWidth/2, numBoxY + numBoxSize/2 + 1);
+                        ctx.fillText(item.code, codeX + codeWidth/2, numBoxY + numBoxSize/2 + 1);
+                        
                     } else {
-                        // Пустая плашка, если кода нет, но в группе есть коды
+                        // ===== НЕТ КОДА: номер растягивается на всю ширину =====
+                        const numBoxX = x;
+                        const numBoxWidth = size;
+                        
                         ctx.fillStyle = labelBg;
                         ctx.beginPath();
                         if (ctx.roundRect) {
-                            ctx.roundRect(codeX, numBoxY, codeWidth, numBoxSize, 8);
+                            ctx.roundRect(numBoxX, numBoxY, numBoxWidth, codeRowHeight, 8);
                         } else {
-                            ctx.rect(codeX, numBoxY, codeWidth, numBoxSize);
+                            ctx.rect(numBoxX, numBoxY, numBoxWidth, codeRowHeight);
                         }
                         ctx.fill();
                         
@@ -2923,11 +2915,17 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                         ctx.lineWidth = 4;
                         ctx.beginPath();
                         if (ctx.roundRect) {
-                            ctx.roundRect(codeX, numBoxY, codeWidth, numBoxSize, 8);
+                            ctx.roundRect(numBoxX, numBoxY, numBoxWidth, codeRowHeight, 8);
                         } else {
-                            ctx.rect(codeX, numBoxY, codeWidth, numBoxSize);
+                            ctx.rect(numBoxX, numBoxY, numBoxWidth, codeRowHeight);
                         }
                         ctx.stroke();
+                        
+                        ctx.font = 'bold 26px Inter, system-ui';
+                        ctx.fillStyle = TEXT_COLOR;
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'middle';
+                        ctx.fillText(num.toString(), numBoxX + numBoxWidth/2, numBoxY + codeRowHeight/2 + 1);
                     }
                     
                     rowY += codeRowHeight + labelGap;
@@ -2957,7 +2955,6 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                     }
                     ctx.stroke();
                     
-                    // Если название дефолтное — оставляем пустой
                     if (!isDefault && itemName) {
                         let displayName = itemName;
                         ctx.font = 'bold 18px Inter, system-ui';
@@ -2965,7 +2962,6 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                         ctx.textAlign = 'center';
                         ctx.textBaseline = 'middle';
                         
-                        // Разбиваем на строки
                         const maxWidth = size - 16;
                         const words = displayName.split(' ');
                         const lines = [];
@@ -3028,7 +3024,7 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                     const x = padding + col * (itemSize + itemGap);
                     const img = imageMap.get(item.id || item.name) || createEmptyImage();
                     
-                    drawCell(ctx, x, y, itemSize, item, num, img, lang, showCode, showName, cellHeight, type);
+                    drawCell(ctx, x, y, itemSize, item, num, img, lang, showCode, showName, type);
                     
                     col++;
                     if (col >= itemsPerRow) {

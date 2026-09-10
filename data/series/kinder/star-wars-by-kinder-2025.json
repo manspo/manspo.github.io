@@ -22,8 +22,8 @@
     {
       "id": "starwars2025_fig1",
       "image": "images/series/kinder/starwars2025/01.webp",
-      "name": "Фигурка 1",
-      "name_en": "Figure 1",
+      "name": "Оби-Ван Кеноби",
+      "name_en": "Obi-Wan Kenobi",
       "owned": true,
       "forsale": false,
       "avito": ""
@@ -31,8 +31,8 @@
     {
       "id": "starwars2025_fig2",
       "image": "images/series/kinder/starwars2025/02.webp",
-      "name": "Фигурка 2",
-      "name_en": "Figure 2",
+      "name": "Люк Скайуокер",
+      "name_en": "Luke Skywalker",
       "owned": true,
       "forsale": false,
       "avito": ""
@@ -40,8 +40,8 @@
     {
       "id": "starwars2025_fig3",
       "image": "images/series/kinder/starwars2025/03.webp",
-      "name": "Фигурка 3",
-      "name_en": "Figure 3",
+      "name": "Чубакка",
+      "name_en": "Chewbacca",
       "owned": true,
       "forsale": false,
       "avito": ""
@@ -49,8 +49,8 @@
     {
       "id": "starwars2025_fig4",
       "image": "images/series/kinder/starwars2025/04.webp",
-      "name": "Фигурка 4",
-      "name_en": "Figure 4",
+      "name": "Штурмовик",
+      "name_en": "Stormtroopers",
       "owned": true,
       "forsale": false,
       "avito": ""
@@ -58,17 +58,17 @@
     {
       "id": "starwars2025_fig5",
       "image": "images/series/kinder/starwars2025/05.webp",
-      "name": "Фигурка 5",
-      "name_en": "Figure 5",
+      "name": "Дарт Вейдер",
+      "name_en": "Darth Vader",
       "owned": true,
-      "forsale": false,
+      "forsale": true,
       "avito": ""
     },
     {
       "id": "starwars2025_fig6",
       "image": "images/series/kinder/starwars2025/06.webp",
-      "name": "Фигурка 6",
-      "name_en": "Figure 6",
+      "name": "Йода",
+      "name_en": "Yoda",
       "owned": true,
       "forsale": false,
       "avito": ""
@@ -76,8 +76,8 @@
     {
       "id": "starwars2025_fig7",
       "image": "images/series/kinder/starwars2025/07.webp",
-      "name": "Фигурка 7",
-      "name_en": "Figure 7",
+      "name": "Рей",
+      "name_en": "Rey",
       "owned": true,
       "forsale": false,
       "avito": ""
@@ -85,8 +85,8 @@
     {
       "id": "starwars2025_fig8",
       "image": "images/series/kinder/starwars2025/08.webp",
-      "name": "Фигурка 8",
-      "name_en": "Figure 8",
+      "name": "Кайло Рен",
+      "name_en": "Kylo Ren",
       "owned": true,
       "forsale": false,
       "avito": ""
@@ -94,8 +94,8 @@
     {
       "id": "starwars2025_fig9",
       "image": "images/series/kinder/starwars2025/09.webp",
-      "name": "Фигурка 9",
-      "name_en": "Figure 9",
+      "name": "Боба Фетт",
+      "name_en": "Boba Fett",
       "owned": true,
       "forsale": false,
       "avito": ""
@@ -103,8 +103,8 @@
     {
       "id": "starwars2025_fig10",
       "image": "images/series/kinder/starwars2025/10.webp",
-      "name": "Фигурка 10",
-      "name_en": "Figure 10",
+      "name": "Лея Органа",
+      "name_en": "Leia Organa",
       "owned": true,
       "forsale": false,
       "avito": ""
