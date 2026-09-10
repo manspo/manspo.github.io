@@ -2499,6 +2499,7 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
         try {
             const allItems = [...figures, ...extras, ...variants];
             
+            // Загружаем все изображения
             const imageMap = new Map();
             for (const item of allItems) {
                 const imageUrl = item.image ? `${BASE_URL}/${item.image}` : 'images/placeholder.svg';
@@ -2506,193 +2507,373 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                 imageMap.set(item.id || item.name, img || createEmptyImage());
             }
             
+            // ===== РАЗМЕРЫ (УВЕЛИЧЕНЫ ДЛЯ КАЧЕСТВА) =====
+            const SCALE = 2; // Увеличение в 2 раза для высокого качества
             const itemsPerRow = 6;
             const itemSize = 220;
-            const padding = 15;
-            const headerHeight = 80;
-            const footerHeight = 70;
-            const qrSize = 150;
+            const itemGap = 20;
+            const padding = 40;
+            const headerHeight = 140;
+            const footerHeight = 100;
+            const qrSize = 140;
+            const groupHeaderHeight = 60;
             
             const figureRows = Math.ceil(figures.length / itemsPerRow);
             const extraRows = Math.ceil(extras.length / itemsPerRow);
             const variantRows = Math.ceil(variants.length / itemsPerRow);
             
-            const totalWidth = itemsPerRow * (itemSize + padding) + padding;
-            let totalHeight = padding + footerHeight;
-            if (figures.length > 0) totalHeight += headerHeight + figureRows * (itemSize + padding);
-            if (extras.length > 0) totalHeight += headerHeight + extraRows * (itemSize + padding);
-            if (variants.length > 0) totalHeight += headerHeight + variantRows * (itemSize + padding);
+            const logicalWidth = padding * 2 + itemsPerRow * itemSize + (itemsPerRow - 1) * itemGap;
+            let logicalHeight = padding + headerHeight + padding;
+            
+            if (figures.length > 0) logicalHeight += groupHeaderHeight + figureRows * (itemSize + itemGap);
+            if (extras.length > 0) logicalHeight += groupHeaderHeight + extraRows * (itemSize + itemGap) + itemGap;
+            if (variants.length > 0) logicalHeight += groupHeaderHeight + variantRows * (itemSize + itemGap) + itemGap;
+            
+            logicalHeight += footerHeight + padding;
             
             const canvas = document.createElement('canvas');
-            canvas.width = totalWidth;
-            canvas.height = totalHeight;
+            // Увеличиваем canvas в SCALE раз для качества
+            canvas.width = logicalWidth * SCALE;
+            canvas.height = logicalHeight * SCALE;
             const ctx = canvas.getContext('2d');
             
-            const langData = {
-                ru: { figures: 'ФИГУРКИ', extras: 'ДОПЫ', variants: 'ВАРИАНТЫ', footer: 'Скачано с ', capsule: 'КАПСУЛА' },
-                en: { figures: 'FIGURES', extras: 'EXTRAS', variants: 'VARIANTS', footer: 'Downloaded from ', capsule: 'CAPSULE' }
-            };
-            const currentLang = langData[lang] || langData.ru;
+            // Улучшаем качество сглаживания
+            ctx.imageSmoothingEnabled = true;
+            ctx.imageSmoothingQuality = 'high';
             
-            ctx.fillStyle = '#ffffff';
+            // Масштабируем контекст
+            ctx.scale(SCALE, SCALE);
+            
+            const totalWidth = logicalWidth;
+            const totalHeight = logicalHeight;
+            
+            // ===== ЯЗЫКОВЫЕ ДАННЫЕ =====
+            const langData = {
+                ru: {
+                    figures: '📦 ФИГУРКИ',
+                    extras: '🎁 ДОПЫ',
+                    variants: '🎲 ВАРИАНТЫ',
+                    footer: 'Скачано с',
+                    site: 'manspo.github.io',
+                    brand: 'MANSUR',
+                    checklist: 'ЧЕК-ЛИСТ',
+                    total: 'Всего'
+                },
+                en: {
+                    figures: '📦 FIGURES',
+                    extras: '🎁 EXTRAS',
+                    variants: '🎲 VARIANTS',
+                    footer: 'Downloaded from',
+                    site: 'manspo.github.io',
+                    brand: 'MANSUR',
+                    checklist: 'CHECKLIST',
+                    total: 'Total'
+                }
+            };
+            const t = langData[lang] || langData.ru;
+            
+            // ===== ФОН =====
+            const bgGradient = ctx.createLinearGradient(0, 0, 0, totalHeight);
+            bgGradient.addColorStop(0, '#ffffff');
+            bgGradient.addColorStop(1, '#f5f7fb');
+            ctx.fillStyle = bgGradient;
             ctx.fillRect(0, 0, totalWidth, totalHeight);
             
+            // Декоративные круги
+            ctx.save();
+            ctx.globalAlpha = 0.03;
+            ctx.fillStyle = '#4f46e5';
+            ctx.beginPath();
+            ctx.arc(totalWidth - 200, 100, 300, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(150, totalHeight - 150, 250, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.restore();
+            
+            // ===== ШАПКА =====
+            const headerGradient = ctx.createLinearGradient(0, 0, totalWidth, 0);
+            headerGradient.addColorStop(0, '#4f46e5');
+            headerGradient.addColorStop(1, '#6366f1');
+            ctx.fillStyle = headerGradient;
+            ctx.fillRect(0, 0, totalWidth, 6);
+            
+            // Название серии
+            ctx.font = 'bold 32px Inter, system-ui';
+            ctx.fillStyle = '#1f2937';
+            ctx.textAlign = 'left';
+            ctx.textBaseline = 'top';
+            ctx.fillText(seriesName || 'Checklist', padding, padding + 10);
+            
+            // Подзаголовок
+            ctx.font = 'bold 14px Inter, system-ui';
+            ctx.fillStyle = '#6b7280';
+            ctx.textAlign = 'left';
+            ctx.textBaseline = 'top';
+            ctx.fillText(t.checklist, padding, padding + 55);
+            
+            // Количество
+            const totalItems = figures.length + extras.length + variants.length;
+            ctx.font = 'bold 13px Inter, system-ui';
+            ctx.fillStyle = '#4f46e5';
+            ctx.textAlign = 'left';
+            ctx.textBaseline = 'top';
+            ctx.fillText(`${t.total}: ${totalItems}`, padding, padding + 80);
+            
+            // ===== QR-КОД =====
             const qrImage = await loadImage(`${BASE_URL}/images/qrcodesite.png`);
-            const qrX = totalWidth - qrSize - padding;
+            const qrX = totalWidth - padding - qrSize;
             const qrY = padding;
+            
+            ctx.save();
+            ctx.shadowColor = 'rgba(0, 0, 0, 0.1)';
+            ctx.shadowBlur = 20;
+            ctx.shadowOffsetY = 4;
+            ctx.fillStyle = '#ffffff';
+            ctx.beginPath();
+            if (ctx.roundRect) {
+                ctx.roundRect(qrX - 10, qrY - 10, qrSize + 20, qrSize + 20, 16);
+            } else {
+                ctx.rect(qrX - 10, qrY - 10, qrSize + 20, qrSize + 20);
+            }
+            ctx.fill();
+            ctx.restore();
+            
             if (qrImage && qrImage.complete && qrImage.naturalWidth > 0) {
                 ctx.drawImage(qrImage, qrX, qrY, qrSize, qrSize);
             } else {
                 ctx.fillStyle = '#f0f0f0';
                 ctx.fillRect(qrX, qrY, qrSize, qrSize);
                 ctx.fillStyle = '#999';
-                ctx.font = '16px monospace';
+                ctx.font = '14px monospace';
                 ctx.textAlign = 'center';
                 ctx.textBaseline = 'middle';
                 ctx.fillText('QR', qrX + qrSize/2, qrY + qrSize/2);
             }
             
-            ctx.font = `bold 22px Inter, system-ui`;
-            ctx.fillStyle = '#1f2937';
-            ctx.textAlign = 'left';
+            ctx.font = 'bold 11px Inter, system-ui';
+            ctx.fillStyle = '#6b7280';
+            ctx.textAlign = 'center';
             ctx.textBaseline = 'top';
-            ctx.fillText(seriesName || 'Checklist', padding, padding + 10);
+            ctx.fillText('SCAN ME', qrX + qrSize/2, qrY + qrSize + 15);
             
-            ctx.font = 'bold 14px Inter, system-ui';
+            // ===== ЛОГОТИП MANSUR =====
+            ctx.font = 'bold 20px Inter, system-ui';
             ctx.fillStyle = '#78E05C';
             ctx.textAlign = 'right';
             ctx.textBaseline = 'bottom';
-            ctx.fillText(currentLang.capsule, totalWidth - padding - qrSize - 15, padding + 40);
+            ctx.fillText(t.brand, totalWidth - padding - qrSize - 30, padding + 40);
             
-            let currentY = padding + headerHeight;
+            // ===== НАЧАЛЬНАЯ Y =====
+            let currentY = padding + headerHeight + padding;
             
-            async function drawGroup(items, title, startY) {
-                let y = startY;
-                ctx.font = `bold ${Math.floor(headerHeight * 0.35)}px Inter, system-ui`;
+            // ===== ФУНКЦИЯ ОТРИСОВКИ ЯЧЕЙКИ =====
+            function drawCell(ctx, x, y, size, item, num, img) {
+                // Фон ячейки
+                ctx.save();
+                ctx.shadowColor = 'rgba(0, 0, 0, 0.06)';
+                ctx.shadowBlur = 12;
+                ctx.shadowOffsetY = 2;
+                ctx.fillStyle = '#ffffff';
+                ctx.beginPath();
+                if (ctx.roundRect) {
+                    ctx.roundRect(x, y, size, size, 16);
+                } else {
+                    ctx.rect(x, y, size, size);
+                }
+                ctx.fill();
+                ctx.restore();
+                
+                // Номер в углу
+                const badgeSize = 36;
                 ctx.fillStyle = '#4f46e5';
+                ctx.beginPath();
+                ctx.arc(x + badgeSize/2 + 8, y + badgeSize/2 + 8, badgeSize/2, 0, Math.PI * 2);
+                ctx.fill();
+                
+                ctx.font = 'bold 16px Inter, system-ui';
+                ctx.fillStyle = '#ffffff';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(num.toString(), x + badgeSize/2 + 8, y + badgeSize/2 + 9);
+                
+                // Изображение (КАЧЕСТВЕННОЕ)
+                if (img && img.complete && img.naturalWidth > 0) {
+                    const maxImgSize = size - 90;
+                    const imgWidth = img.naturalWidth;
+                    const imgHeight = img.naturalHeight;
+                    let drawWidth, drawHeight;
+                    if (imgWidth > imgHeight) {
+                        drawWidth = maxImgSize;
+                        drawHeight = (imgHeight / imgWidth) * maxImgSize;
+                    } else {
+                        drawHeight = maxImgSize;
+                        drawWidth = (imgWidth / imgHeight) * maxImgSize;
+                    }
+                    const imgX = x + (size - drawWidth) / 2;
+                    const imgY = y + 50 + (maxImgSize - drawHeight) / 2;
+                    
+                    // Включаем высокое качество
+                    ctx.imageSmoothingEnabled = true;
+                    ctx.imageSmoothingQuality = 'high';
+                    
+                    ctx.drawImage(img, imgX, imgY, drawWidth, drawHeight);
+                } else {
+                    ctx.fillStyle = '#f3f4f6';
+                    ctx.beginPath();
+                    if (ctx.roundRect) {
+                        ctx.roundRect(x + 20, y + 50, size - 40, size - 90, 12);
+                    } else {
+                        ctx.rect(x + 20, y + 50, size - 40, size - 90);
+                    }
+                    ctx.fill();
+                    ctx.fillStyle = '#9ca3af';
+                    ctx.font = '36px Inter';
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText('🖼️', x + size/2, y + size/2 + 10);
+                }
+                
+                // ===== ВОДЯНОЙ ЗНАК MANSUR ПО ДИАГОНАЛИ =====
+                ctx.save();
+                ctx.globalAlpha = 0.12;
+                ctx.translate(x + size/2, y + size/2);
+                ctx.rotate(-Math.PI / 4);
+                ctx.font = `bold ${Math.floor(size * 0.16)}px Inter, system-ui`;
+                ctx.fillStyle = '#4f46e5';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText('MANSUR', 0, 0);
+                ctx.restore();
+                
+                // Код внизу
+                if (item.code) {
+                    ctx.font = 'bold 12px monospace';
+                    const codeWidth = ctx.measureText(item.code).width + 16;
+                    const codeX = x + (size - codeWidth) / 2;
+                    const codeY = y + size - 30;
+                    
+                    ctx.fillStyle = 'rgba(79, 70, 229, 0.1)';
+                    ctx.beginPath();
+                    if (ctx.roundRect) {
+                        ctx.roundRect(codeX, codeY, codeWidth, 22, 11);
+                    } else {
+                        ctx.rect(codeX, codeY, codeWidth, 22);
+                    }
+                    ctx.fill();
+                    
+                    ctx.fillStyle = '#4f46e5';
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText(item.code, x + size/2, codeY + 11);
+                }
+            }
+            
+            // ===== ФУНКЦИЯ ОТРИСОВКИ ГРУППЫ =====
+            async function drawGroup(items, title, startY, color) {
+                if (items.length === 0) return startY;
+                
+                let y = startY;
+                const groupHeaderY = y;
+                
+                // Цветная полоса
+                ctx.fillStyle = color;
+                ctx.beginPath();
+                if (ctx.roundRect) {
+                    ctx.roundRect(padding, groupHeaderY, 4, 40, 2);
+                } else {
+                    ctx.rect(padding, groupHeaderY, 4, 40);
+                }
+                ctx.fill();
+                
+                // Заголовок
+                ctx.font = 'bold 22px Inter, system-ui';
+                ctx.fillStyle = '#1f2937';
                 ctx.textAlign = 'left';
                 ctx.textBaseline = 'top';
-                ctx.fillText(title, padding, y + 8);
+                ctx.fillText(title, padding + 20, groupHeaderY + 8);
                 
-                y += headerHeight;
+                // Счётчик
+                ctx.font = 'bold 14px Inter, system-ui';
+                ctx.fillStyle = color;
+                ctx.textAlign = 'right';
+                ctx.textBaseline = 'top';
+                ctx.fillText(items.length.toString(), totalWidth - padding, groupHeaderY + 15);
                 
-                let currentX = padding;
+                y += groupHeaderHeight;
+                
+                // ЯЧЕЙКИ - 6 В РЯД
                 let col = 0;
-                
                 for (let i = 0; i < items.length; i++) {
-                    try {
-                        const item = items[i];
-                        const num = i + 1;
-                        const itemCode = item.code || '';
-                        const img = imageMap.get(item.id || item.name) || createEmptyImage();
-                        
-                        ctx.fillStyle = '#f5f7fb';
-                        ctx.fillRect(currentX, y, itemSize, itemSize);
-                        ctx.strokeStyle = '#e5e7eb';
-                        ctx.lineWidth = 1.5;
-                        ctx.strokeRect(currentX, y, itemSize, itemSize);
-                        
-                        if (img && img.complete && img.naturalWidth > 0) {
-                            const maxImgSize = itemSize - 80;
-                            const imgWidth = img.naturalWidth;
-                            const imgHeight = img.naturalHeight;
-                            let drawWidth, drawHeight;
-                            if (imgWidth > imgHeight) {
-                                drawWidth = maxImgSize;
-                                drawHeight = (imgHeight / imgWidth) * maxImgSize;
-                            } else {
-                                drawHeight = maxImgSize;
-                                drawWidth = (imgWidth / imgHeight) * maxImgSize;
-                            }
-                            const imgX = currentX + (itemSize - drawWidth) / 2;
-                            const imgY = y + 40 + (maxImgSize - drawHeight) / 2;
-                            ctx.drawImage(img, imgX, imgY, drawWidth, drawHeight);
-                        } else {
-                            ctx.fillStyle = '#e0e0e0';
-                            ctx.fillRect(currentX + 10, y + 40, itemSize - 20, itemSize - 70);
-                            ctx.fillStyle = '#999';
-                            ctx.font = `${Math.floor(itemSize * 0.1)}px Inter`;
-                            ctx.textAlign = 'center';
-                            ctx.textBaseline = 'middle';
-                            ctx.fillText('🖼️', currentX + itemSize/2, y + itemSize/2 + 15);
-                        }
-                        
-                        ctx.save();
-                        ctx.globalAlpha = 0.2;
-                        ctx.translate(currentX + itemSize/2, y + itemSize/2);
-                        ctx.rotate(-Math.PI / 4);
-                        ctx.font = `bold ${Math.floor(itemSize * 0.18)}px Inter, system-ui`;
-                        ctx.fillStyle = '#4f46e5';
-                        ctx.shadowColor = 'rgba(0,0,0,0.05)';
-                        ctx.shadowBlur = 2;
-                        ctx.textAlign = 'center';
-                        ctx.textBaseline = 'middle';
-                        ctx.fillText('CAPSULE', 0, 0);
-                        ctx.restore();
-                        
-                        ctx.font = `bold ${Math.floor(itemSize * 0.15)}px Inter, system-ui`;
-                        ctx.fillStyle = '#4f46e5';
-                        ctx.shadowColor = 'transparent';
-                        ctx.textAlign = 'left';
-                        ctx.textBaseline = 'top';
-                        ctx.fillText(num.toString(), currentX + 10, y + 10);
-                        
-                        if (itemCode) {
-                            ctx.font = `bold ${Math.floor(itemSize * 0.09)}px monospace`;
-                            ctx.fillStyle = '#6b7280';
-                            ctx.textAlign = 'left';
-                            ctx.textBaseline = 'top';
-                            ctx.fillText(itemCode, currentX + 10, y + 45);
-                        }
-                        
-                        currentX += itemSize + padding;
-                        col++;
-                        if (col >= itemsPerRow) {
-                            col = 0;
-                            currentX = padding;
-                            y += itemSize + padding;
-                        }
-                    } catch (error) {
-                        console.warn('Ошибка отрисовки элемента:', item?.id, error);
-                        currentX += itemSize + padding;
-                        col++;
-                        if (col >= itemsPerRow) {
-                            col = 0;
-                            currentX = padding;
-                            y += itemSize + padding;
-                        }
-                        continue;
+                    const item = items[i];
+                    const num = i + 1;
+                    const x = padding + col * (itemSize + itemGap);
+                    const img = imageMap.get(item.id || item.name) || createEmptyImage();
+                    
+                    drawCell(ctx, x, y, itemSize, item, num, img);
+                    
+                    col++;
+                    if (col >= itemsPerRow) { // itemsPerRow = 6
+                        col = 0;
+                        y += itemSize + itemGap;
                     }
                 }
-                if (col !== 0) y += itemSize + padding;
+                
+                if (col !== 0) y += itemSize + itemGap;
+                
                 return y;
             }
             
+            // ===== ОТРИСОВКА ГРУПП =====
             if (figures.length > 0) {
-                currentY = await drawGroup(figures, currentLang.figures, currentY);
-                currentY += padding;
+                currentY = await drawGroup(figures, t.figures, currentY, '#4f46e5');
+                currentY += itemGap;
             }
             if (extras.length > 0) {
-                currentY = await drawGroup(extras, currentLang.extras, currentY);
-                currentY += padding;
+                currentY = await drawGroup(extras, t.extras, currentY, '#10b981');
+                currentY += itemGap;
             }
             if (variants.length > 0) {
-                currentY = await drawGroup(variants, currentLang.variants, currentY);
-                currentY += padding;
+                currentY = await drawGroup(variants, t.variants, currentY, '#f59e0b');
+                currentY += itemGap;
             }
             
-            ctx.font = '18px Inter, system-ui';
-            ctx.fillStyle = '#6b7280';
-            ctx.textAlign = 'center';
-            ctx.textBaseline = 'bottom';
+            // ===== ФУТЕР =====
+            const footerY = totalHeight - footerHeight;
+            
+            ctx.strokeStyle = '#e5e7eb';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(padding, footerY);
+            ctx.lineTo(totalWidth - padding, footerY);
+            ctx.stroke();
+            
             const dateStr = new Date().toLocaleDateString(
                 lang === 'en' ? 'en-US' : 'ru-RU',
                 { day: '2-digit', month: '2-digit', year: 'numeric' }
             );
-            const footerText = `${currentLang.footer} https://manspo.github.io  •  ${dateStr}`;
-            ctx.fillText(footerText, totalWidth / 2, totalHeight - 10);
             
-            const jpegData = canvas.toDataURL('image/jpeg', 0.92);
+            ctx.font = '14px Inter, system-ui';
+            ctx.fillStyle = '#6b7280';
+            ctx.textAlign = 'left';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(`${t.footer} ${t.site}`, padding, footerY + 30);
+            
+            ctx.font = '14px Inter, system-ui';
+            ctx.fillStyle = '#6b7280';
+            ctx.textAlign = 'left';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(dateStr, padding, footerY + 55);
+            
+            // Логотип в футере
+            ctx.font = 'bold 24px Inter, system-ui';
+            ctx.fillStyle = '#4f46e5';
+            ctx.textAlign = 'right';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(t.brand, totalWidth - padding, footerY + 45);
+            
+            // ВЫСОКОЕ КАЧЕСТВО JPEG (0.95)
+            const jpegData = canvas.toDataURL('image/jpeg', 0.95);
             resolve(jpegData);
         } catch (error) {
             console.error('Ошибка создания коллажа:', error);
