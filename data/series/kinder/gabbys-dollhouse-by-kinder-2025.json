@@ -9,7 +9,7 @@
   "description_en": "A series about the animated series of the same name \"Gabby's Dollhouse\".",
   "kind": "",
   "visible": true,
-  "fullSeriesForSale": true,
+  "fullSeriesForSale": false,
   "fullSeriesAvito": "",
   "fullSeriesPrice": "",
   "fullSeriesPrice_en": "",
@@ -35,8 +35,8 @@
       "name_en": "Figure 2",
       "code": "VC339",
       "owned": true,
-      "forsale": false,
-      "avito": ""
+      "forsale": true,
+      "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/kinder_syurpriz_volshebnyy_domik_gabbi_7774513027"
     },
     {
       "id": "gabbydollhouse_fig3",
@@ -53,8 +53,8 @@
       "name": "Фигурка 4",
       "name_en": "Figure 4",
       "owned": true,
-      "forsale": false,
-      "avito": ""
+      "forsale": true,
+      "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/kinder_syurpriz_volshebnyy_domik_gabbi_7774513027"
     },
     {
       "id": "gabbydollhouse_fig5",
@@ -62,8 +62,8 @@
       "name": "Фигурка 5",
       "name_en": "Figure 5",
       "owned": true,
-      "forsale": false,
-      "avito": "https://avito.ru/1232"
+      "forsale": true,
+      "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/kinder_syurpriz_volshebnyy_domik_gabbi_7774513027"
     },
     {
       "id": "gabbydollhouse_fig6",
@@ -71,8 +71,8 @@
       "name": "Фигурка 6",
       "name_en": "Figure 6",
       "owned": true,
-      "forsale": false,
-      "avito": "https://avito.ru/1232"
+      "forsale": true,
+      "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/kinder_syurpriz_volshebnyy_domik_gabbi_7774513027"
     }
   ],
   "extras": [],
@@ -85,7 +85,7 @@
       "image": "images/series/kinder/gabbydollhouse/07.webp",
       "owned": true,
       "forsale": false,
-      "avito": "https://avito.ru/1232",
+      "avito": "",
       "condition": "Отличное",
       "condition_en": "Excellent",
       "parentFigureId": "winniethepooh_fig1"
