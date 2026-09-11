@@ -1,0 +1,222 @@
+{
+  "id": "star-wars-by-kinder-2025",
+  "name": "Звездные Войны от Киндер",
+  "name_en": "Star Wars by Kinder",
+  "year": 2025,
+  "manufacturer": "kinder",
+  "cover": "images/series/kinder/starwars2025/cover.webp",
+  "description": "Серия по знаменитой франшизе Звездные Войны",
+  "description_en": "Series based on the famous Star Wars franchise",
+  "kind": "",
+  "visible": true,
+  "fullSeriesForSale": false,
+  "fullSeriesAvito": "",
+  "fullSeriesPrice": "",
+  "fullSeriesPrice_en": "",
+  "fullSeriesCondition": "",
+  "fullSeriesCondition_en": "",
+  "fullSeriesDateAdded": "",
+  "fullSeriesDescription": "",
+  "fullSeriesDescription_en": "",
+  "figures": [
+    {
+      "id": "starwars2025_fig1",
+      "image": "images/series/kinder/starwars2025/01.webp",
+      "name": "Оби-Ван Кеноби",
+      "name_en": "Obi-Wan Kenobi",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "starwars2025_fig2",
+      "image": "images/series/kinder/starwars2025/02.webp",
+      "name": "Люк Скайуокер",
+      "name_en": "Luke Skywalker",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "starwars2025_fig3",
+      "image": "images/series/kinder/starwars2025/03.webp",
+      "name": "Чубакка",
+      "name_en": "Chewbacca",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "starwars2025_fig4",
+      "image": "images/series/kinder/starwars2025/04.webp",
+      "name": "Штурмовик",
+      "name_en": "Stormtroopers",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "starwars2025_fig5",
+      "image": "images/series/kinder/starwars2025/05.webp",
+      "name": "Дарт Вейдер",
+      "name_en": "Darth Vader",
+      "owned": true,
+      "forsale": true,
+      "avito": ""
+    },
+    {
+      "id": "starwars2025_fig6",
+      "image": "images/series/kinder/starwars2025/06.webp",
+      "name": "Йода",
+      "name_en": "Yoda",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "starwars2025_fig7",
+      "image": "images/series/kinder/starwars2025/07.webp",
+      "name": "Рей",
+      "name_en": "Rey",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "starwars2025_fig8",
+      "image": "images/series/kinder/starwars2025/08.webp",
+      "name": "Кайло Рен",
+      "name_en": "Kylo Ren",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "starwars2025_fig9",
+      "image": "images/series/kinder/starwars2025/09.webp",
+      "name": "Боба Фетт",
+      "name_en": "Boba Fett",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "starwars2025_fig10",
+      "image": "images/series/kinder/starwars2025/10.webp",
+      "name": "Лея Органа",
+      "name_en": "Leia Organa",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    }
+  ],
+  "extras": [],
+  "variants": [],
+  "inserts": [
+    {
+      "id": "starwars2025_insert1",
+      "image": "images/series/kinder/starwars2025/01b.webp",
+      "name": "Вкладыш 1",
+      "name_en": "Insert 1",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "starwars2025_insert2",
+      "image": "images/series/kinder/starwars2025/02b.webp",
+      "name": "Вкладыш 2",
+      "name_en": "Insert 2",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "starwars2025_insert3",
+      "image": "images/series/kinder/starwars2025/03b.webp",
+      "name": "Вкладыш 3",
+      "name_en": "Insert 3",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "starwars2025_insert4",
+      "image": "images/series/kinder/starwars2025/04b.webp",
+      "name": "Вкладыш 4",
+      "name_en": "Insert 4",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "starwars2025_insert5",
+      "image": "images/series/kinder/starwars2025/05b.webp",
+      "name": "Вкладыш 5",
+      "name_en": "Insert 5",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "starwars2025_insert6",
+      "image": "images/series/kinder/starwars2025/06b.webp",
+      "name": "Вкладыш 6",
+      "name_en": "Insert 6",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "starwars2025_insert7",
+      "image": "images/series/kinder/starwars2025/07b.webp",
+      "name": "Вкладыш 7",
+      "name_en": "Insert 7",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "starwars2025_insert8",
+      "image": "images/series/kinder/starwars2025/08b.webp",
+      "name": "Вкладыш 8",
+      "name_en": "Insert 8",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "starwars2025_insert9",
+      "image": "images/series/kinder/starwars2025/09b.webp",
+      "name": "Вкладыш 9",
+      "name_en": "Insert 9",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    },
+    {
+      "id": "starwars2025_insert10",
+      "image": "images/series/kinder/starwars2025/10b.webp",
+      "name": "Вкладыш 10",
+      "name_en": "Insert 10",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    }
+  ],
+  "other": [],
+  "videos": {
+    "youtube": [
+      "https://www.youtube.com/watch?v=Rht7DraS9oI"
+    ],
+    "instagram": [
+      "https://www.instagram.com/p/DT6pl6IkUYr/"
+    ],
+    "vk": [
+      "https://vk.com/clip-230111118_456239019"
+    ],
+    "tiktok": [
+      "https://www.tiktok.com/@kindersurprisejoymaxi/video/7603426770389388562"
+    ]
+  }
+}

@@ -1,5 +1,29 @@
 [
   {
+    "id": "jungle-book-disney-by-rubazahl-koch-2003",
+    "name": "Книга Джунглей Дисней от Рюбецаль Кох",
+    "name_en": "Jungle Book Disney by Rubazahl Koch",
+    "year": 2003,
+    "manufacturer": "rubezahlkoch",
+    "cover": "images/series/danone/series-2024/cover.webp",
+    "kind": "",
+    "description": "Серия по знаменитому мультфильму от Дисней - Книга Джунглей.",
+    "description_en": "A series based on the famous Disney animated film \"The Jungle Book\".",
+    "visible": true
+  },
+  {
+    "id": "famous-buildings-by-rubezahl-koch-1997",
+    "name": "Знаменитые Здания от Рюбецаль Кох",
+    "name_en": "Famous Buildings by Rubezahl Koch",
+    "year": 1997,
+    "manufacturer": "rubezahlkoch",
+    "cover": "images/series/rubezahl koch/famous-buildings-by-rubezahl-koch-1997/cover.webp",
+    "kind": "",
+    "description": "Маленькая серия со знаменитыми зданиями из 4 стран.",
+    "description_en": "A small series featuring famous buildings from 4 countries.",
+    "visible": true
+  },
+  {
     "id": "penguins-by-kinder-2026",
     "name": "Пингвины от Киндер",
     "name_en": "Penguins by Kinder",

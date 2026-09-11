@@ -1202,6 +1202,19 @@ async function initHome() {
   }
 }
 
+// ===== ЗАГРУЗКА СТАТИСТИКИ =====
+async function loadStats() {
+  try {
+    const res = await fetch(`${BASE_URL}/data/stats.json`);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    return await res.json();
+  } catch (error) {
+    console.error('Ошибка загрузки статистики:', error);
+    return null;
+  }
+}
+
+// ===== ОБНОВЛЕНИЕ СТАТИСТИКИ (НОВАЯ ВЕРСИЯ) =====
 async function updateStats(data) {
   try {
     const totalSeriesSpan = document.getElementById('totalSeries');
@@ -1209,6 +1222,24 @@ async function updateStats(data) {
     const totalInsertsSpan = document.getElementById('totalInserts');
     const totalForSaleSpan = document.getElementById('totalForSaleItems');
     const totalManufacturersSpan = document.getElementById('totalManufacturers');
+    
+    // Пробуем загрузить готовый stats.json
+    const stats = await loadStats();
+    
+    if (stats) {
+      // ✅ Мгновенно — используем готовые цифры
+      if (totalSeriesSpan) totalSeriesSpan.textContent = stats.totalSeries;
+      if (totalFiguresSpan) totalFiguresSpan.textContent = stats.totalFigures;
+      if (totalInsertsSpan) totalInsertsSpan.textContent = stats.totalInserts;
+      if (totalForSaleSpan) totalForSaleSpan.textContent = stats.totalForSale;
+      if (totalManufacturersSpan) totalManufacturersSpan.textContent = stats.totalManufacturers;
+      
+      console.log('✅ Статистика загружена из stats.json');
+      return;
+    }
+    
+    // ⚠️ Фолбэк — если stats.json нет
+    console.warn('⚠️ stats.json не найден, считаем вручную');
     
     if (totalSeriesSpan) totalSeriesSpan.textContent = data.length;
     
@@ -1222,7 +1253,7 @@ async function updateStats(data) {
     }
     
     if (totalFiguresSpan || totalInsertsSpan || totalForSaleSpan) {
-      const allSeries = await loadAllSeries();
+      const allSeries = await loadAllDataWithCache();
       let figuresCount = 0, insertsCount = 0, forSaleCount = 0;
       allSeries.forEach(series => {
         figuresCount += series.figures?.length || 0;

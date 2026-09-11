@@ -1,0 +1,1334 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Админ-панель - Капсула</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: Inter, system-ui, sans-serif; background: #f5f7fb; color: #1f2937; padding: 20px; }
+        .container { max-width: 1400px; margin: 0 auto; }
+        h1 { margin-bottom: 30px; color: #4f46e5; }
+        h2 { margin: 20px 0 10px; color: #4f46e5; font-size: 18px; }
+        h3 { margin: 15px 0 8px; color: #4f46e5; font-size: 16px; }
+        .flex { display: flex; gap: 20px; flex-wrap: wrap; }
+        .col { flex: 1; min-width: 300px; }
+        .card { background: white; padding: 20px; border-radius: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 20px; }
+        .form-group { margin-bottom: 12px; }
+        label { display: block; margin-bottom: 4px; font-weight: 600; color: #4f46e5; font-size: 14px; }
+        input, select, textarea { width: 100%; padding: 8px 12px; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 14px; background: white; }
+        input:focus, select:focus, textarea:focus { outline: none; border-color: #4f46e5; }
+        button { padding: 10px 20px; background: #4f46e5; color: white; border: none; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+        button:hover { background: #6366f1; }
+        button.secondary { background: #10b981; }
+        button.secondary:hover { background: #34d399; }
+        button.danger { background: #ef4444; }
+        button.danger:hover { background: #dc2626; }
+        button.small { padding: 4px 10px; font-size: 12px; }
+        .file-upload-box { border: 2px dashed #e5e7eb; padding: 10px; text-align: center; border-radius: 8px; cursor: pointer; background: #f9fafb; }
+        .file-upload-box:hover { border-color: #4f46e5; background: #f0f0ff; }
+        .file-upload-box input { display: none; }
+        .figure-item { border: 1px solid #e5e7eb; border-radius: 8px; padding: 10px; margin-bottom: 10px; background: #f9fafb; cursor: grab; transition: border-color 0.2s, background 0.2s; }
+        .figure-item:hover { border-color: #4f46e5; }
+        .figure-item.dragging { opacity: 0.5; border-color: #4f46e5; background: #e0e7ff; }
+        .figure-item.drag-over { border-color: #4f46e5; background: #dbeafe; border-width: 2px; }
+        .figure-item .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+        .figure-item .row input { flex: 1; min-width: 80px; }
+        .figure-item .row img { width: 50px; height: 50px; object-fit: contain; border-radius: 6px; border: 1px solid #e5e7eb; background: white; }
+        .figure-number { display: inline-block; width: 28px; height: 28px; background: #4f46e5; color: white; border-radius: 50%; text-align: center; line-height: 28px; font-size: 13px; font-weight: bold; flex-shrink: 0; }
+        .stats { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; margin-bottom: 20px; }
+        .stat-card { background: white; padding: 12px; border-radius: 10px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .stat-number { font-size: 24px; font-weight: 700; color: #4f46e5; }
+        .stat-label { font-size: 12px; color: #6b7280; }
+        .tabs { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+        .tab { padding: 8px 18px; background: #f9fafb; border-radius: 8px; cursor: pointer; border: 1px solid #e5e7eb; font-weight: 500; }
+        .tab.active { background: #4f46e5; color: white; border-color: #4f46e5; }
+        .series-item { display: flex; justify-content: space-between; align-items: center; padding: 12px; border: 1px solid #e5e7eb; border-radius: 8px; margin-bottom: 8px; background: #f9fafb; cursor: pointer; }
+        .series-item:hover { border-color: #4f46e5; }
+        .series-item.selected { border-color: #4f46e5; background: #e0e7ff; }
+        .series-list { max-height: 500px; overflow-y: auto; }
+        .save-status { position: fixed; bottom: 20px; right: 20px; background: #10b981; color: white; padding: 10px 20px; border-radius: 30px; z-index: 999; opacity: 0; transition: opacity 0.3s; }
+        .save-status.show { opacity: 1; }
+        .batch-upload-row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin: 8px 0; }
+        .batch-upload-row .file-upload-box { flex: 1; margin: 0; padding: 8px; }
+        .cover-preview { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
+        .cover-preview .img-item { width: 70px; height: 70px; border: 1px solid #e5e7eb; border-radius: 6px; overflow: hidden; position: relative; }
+        .cover-preview .img-item img { width: 100%; height: 100%; object-fit: cover; }
+        .cover-preview .img-item .del { position: absolute; top: 2px; right: 2px; background: #ef4444; color: white; border-radius: 50%; width: 18px; height: 18px; font-size: 10px; cursor: pointer; border: none; display: flex; align-items: center; justify-content: center; }
+        .edit-section { border: 2px solid #f59e0b; }
+        .label-hint { font-weight: normal; font-size: 12px; color: #6b7280; }
+        @media (max-width: 768px) { .stats { grid-template-columns: repeat(3, 1fr); } .figure-item .row { flex-direction: column; } }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>📦 Управление сериями - Капсула</h1>
+    
+    <!-- СТАТИСТИКА -->
+    <div class="stats">
+        <div class="stat-card"><div class="stat-number" id="totalSeries">0</div><div class="stat-label">серий</div></div>
+        <div class="stat-card"><div class="stat-number" id="totalFigures">0</div><div class="stat-label">фигурок</div></div>
+        <div class="stat-card"><div class="stat-number" id="totalExtras">0</div><div class="stat-label">допов</div></div>
+        <div class="stat-card"><div class="stat-number" id="totalVariants">0</div><div class="stat-label">вариантов</div></div>
+        <div class="stat-card"><div class="stat-number" id="totalInserts">0</div><div class="stat-label">вкладышей</div></div>
+        <div class="stat-card"><div class="stat-number" id="totalOther">0</div><div class="stat-label">прочего</div></div>
+    </div>
+    
+    <!-- ЗАГРУЗКА ПАПКИ -->
+    <div class="file-upload-main" id="fileUploadMain" style="border:2px dashed #e5e7eb;padding:20px;text-align:center;border-radius:8px;margin-bottom:20px;cursor:pointer;background:white;">
+        <input type="file" id="fileInput" webkitdirectory directory style="display:none;">
+        <p>📁 Нажмите для выбора ПАПКИ с файлами (data)</p>
+    </div>
+    
+    <!-- ВКЛАДКИ -->
+    <div class="tabs">
+        <div class="tab active" data-tab="add">➕ Добавление</div>
+        <div class="tab" data-tab="edit">✏️ Редактирование</div>
+        <div class="tab" data-tab="temp">📋 Временные</div>
+    </div>
+    
+    <!-- ===== ВКЛАДКА ДОБАВЛЕНИЕ ===== -->
+    <div id="tabAdd">
+        <div class="flex">
+            <div class="col">
+                <div class="card">
+                    <h2>➕ Новая серия</h2>
+                    <div class="form-group"><label>Название (рус) *</label><input type="text" id="nameRu" placeholder="Моя новая серия"></div>
+                    <div class="form-group"><label>Название (англ) *</label><input type="text" id="nameEn" placeholder="My New Series"></div>
+                    <div class="form-group"><label>Год</label><input type="number" id="year" value="2024"></div>
+                    <div class="form-group"><label>Производитель</label>
+                        <select id="manufacturer"></select>
+                    </div>
+                    <div class="form-group"><label>Тип (Kinder)</label><select id="kind"><option value="">Обычная</option><option value="joy">Джой</option><option value="maxi">Макси</option><option value="giant">Гигант</option></select></div>
+                    
+                    <hr style="margin:15px 0;border-color:#e5e7eb;">
+                    <h3>📦 Полная серия на продажу</h3>
+                    <div class="form-group"><label><input type="checkbox" id="fullSeriesForSale"> Полная серия в продаже</label></div>
+                    <div class="form-group"><input type="text" id="fullSeriesAvito" placeholder="Ссылка на продажу всей серии"></div>
+                    <div class="form-group"><input type="text" id="fullSeriesPrice" placeholder="Цена всей серии (рус)"></div>
+                    <div class="form-group"><input type="text" id="fullSeriesPriceEn" placeholder="Price (en)"></div>
+                    <div class="form-group"><input type="text" id="fullSeriesCondition" placeholder="Состояние (рус)"></div>
+                    <div class="form-group"><input type="text" id="fullSeriesConditionEn" placeholder="Condition (en)"></div>
+                    <div class="form-group"><input type="text" id="fullSeriesDateAdded" placeholder="Дата добавления (2026-09-10)"></div>
+                    <div class="form-group"><label>Описание лота (рус)</label><textarea id="fullSeriesDescription" rows="3" placeholder="Подробное описание лота..."></textarea></div>
+                    <div class="form-group"><label>Описание лота (англ)</label><textarea id="fullSeriesDescriptionEn" rows="3" placeholder="Lot description..."></textarea></div>
+                    
+                    <hr style="margin:15px 0;border-color:#e5e7eb;">
+                    
+                    <div class="form-group"><label>Обложка</label>
+                        <div class="flex" style="gap:8px;">
+                            <div class="file-upload-box" style="flex:1;padding:6px;" onclick="document.getElementById('coverFile').click()">
+                                <input type="file" id="coverFile" accept="image/*">
+                                <span>📁 Выбрать</span>
+                            </div>
+                            <input type="text" id="cover" placeholder="images/series/.../cover.webp" style="flex:2;">
+                        </div>
+                        <div class="cover-preview" id="coverPreview"></div>
+                    </div>
+                    <div class="form-group"><label>Описание серии (рус)</label><textarea id="descRu" rows="2"></textarea></div>
+                    <div class="form-group"><label>Описание серии (англ)</label><textarea id="descEn" rows="2"></textarea></div>
+                    <button onclick="addSeries()">✅ Добавить серию</button>
+                    <button class="secondary" onclick="clearAddForm()">🔄 Очистить</button>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <h2>📦 Элементы серии</h2>
+                    <p style="color:#6b7280;font-size:13px;">ID генерируется автоматически</p>
+                    
+                    <!-- ФИГУРКИ -->
+                    <h3>Фигурки</h3>
+                    <div class="batch-upload-row">
+                        <div class="file-upload-box" onclick="document.getElementById('figuresBatchInput').click()">
+                            <input type="file" id="figuresBatchInput" multiple accept="image/*">
+                            <span>📁 Массовая загрузка</span>
+                        </div>
+                        <button class="secondary small" onclick="addItem('figure')">➕ Вручную</button>
+                    </div>
+                    <div id="addFiguresList"></div>
+                    
+                    <!-- ДОПЫ -->
+                    <h3>Допы</h3>
+                    <div class="batch-upload-row">
+                        <div class="file-upload-box" onclick="document.getElementById('extrasBatchInput').click()">
+                            <input type="file" id="extrasBatchInput" multiple accept="image/*">
+                            <span>📁 Массовая загрузка</span>
+                        </div>
+                        <button class="secondary small" onclick="addItem('extra')">➕ Вручную</button>
+                    </div>
+                    <div id="addExtrasList"></div>
+                    
+                    <!-- ВАРИАНТЫ -->
+                    <h3>Варианты</h3>
+                    <div class="batch-upload-row">
+                        <div class="file-upload-box" onclick="document.getElementById('variantsBatchInput').click()">
+                            <input type="file" id="variantsBatchInput" multiple accept="image/*">
+                            <span>📁 Массовая загрузка</span>
+                        </div>
+                        <button class="secondary small" onclick="addItem('variant')">➕ Вручную</button>
+                    </div>
+                    <div id="addVariantsList"></div>
+                    
+                    <!-- ВКЛАДЫШИ -->
+                    <h3>Вкладыши</h3>
+                    <div class="batch-upload-row">
+                        <div class="file-upload-box" onclick="document.getElementById('insertsBatchInput').click()">
+                            <input type="file" id="insertsBatchInput" multiple accept="image/*">
+                            <span>📁 Массовая загрузка</span>
+                        </div>
+                        <button class="secondary small" onclick="addItem('insert')">➕ Вручную</button>
+                    </div>
+                    <div id="addInsertsList"></div>
+                    
+                    <!-- ПРОЧЕЕ -->
+                    <h3>Прочее</h3>
+                    <div class="batch-upload-row">
+                        <div class="file-upload-box" onclick="document.getElementById('otherBatchInput').click()">
+                            <input type="file" id="otherBatchInput" multiple accept="image/*">
+                            <span>📁 Массовая загрузка</span>
+                        </div>
+                        <button class="secondary small" onclick="addItem('other')">➕ Вручную</button>
+                    </div>
+                    <div id="addOtherList"></div>
+                    
+                    <!-- ВИДЕО -->
+                    <h3>Видео</h3>
+                    <div class="form-group"><input type="text" id="addVideoYoutube" placeholder="YouTube ссылка"></div>
+                    <div class="form-group"><input type="text" id="addVideoVK" placeholder="VK ссылка"></div>
+                    <div class="form-group"><input type="text" id="addVideoTikTok" placeholder="TikTok ссылка"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- ===== ВКЛАДКА РЕДАКТИРОВАНИЕ ===== -->
+    <div id="tabEdit" style="display:none;">
+        <div class="flex">
+            <div class="col">
+                <div class="card">
+                    <h2>📋 Существующие серии</h2>
+                    <div class="series-list" id="existingSeriesList"><p>Сначала загрузите данные</p></div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card edit-section" id="editForm" style="display:none;">
+                    <h2>✏️ Редактирование</h2>
+                    <input type="hidden" id="editIndex">
+                    <div class="form-group"><label>Название (рус)</label><input type="text" id="editNameRu"></div>
+                    <div class="form-group"><label>Название (англ)</label><input type="text" id="editNameEn"></div>
+                    <div class="form-group"><label>Год</label><input type="number" id="editYear"></div>
+                    <div class="form-group"><label>Производитель</label>
+                        <select id="editManufacturer"></select>
+                    </div>
+                    <div class="form-group"><label>Тип</label><select id="editKind"><option value="">Обычная</option><option value="joy">Джой</option><option value="maxi">Макси</option><option value="giant">Гигант</option></select></div>
+                    
+                    <hr style="margin:15px 0;border-color:#e5e7eb;">
+                    <h3>📦 Полная серия на продажу</h3>
+                    <div class="form-group"><label><input type="checkbox" id="editFullSeriesForSale"> Полная серия в продаже</label></div>
+                    <div class="form-group"><input type="text" id="editFullSeriesAvito" placeholder="Ссылка на продажу"></div>
+                    <div class="form-group"><input type="text" id="editFullSeriesPrice" placeholder="Цена (рус)"></div>
+                    <div class="form-group"><input type="text" id="editFullSeriesPriceEn" placeholder="Price (en)"></div>
+                    <div class="form-group"><input type="text" id="editFullSeriesCondition" placeholder="Состояние (рус)"></div>
+                    <div class="form-group"><input type="text" id="editFullSeriesConditionEn" placeholder="Condition (en)"></div>
+                    <div class="form-group"><input type="text" id="editFullSeriesDateAdded" placeholder="Дата добавления"></div>
+                    <div class="form-group"><label>Описание лота (рус)</label><textarea id="editFullSeriesDescription" rows="3"></textarea></div>
+                    <div class="form-group"><label>Описание лота (англ)</label><textarea id="editFullSeriesDescriptionEn" rows="3"></textarea></div>
+                    
+                    <hr style="margin:15px 0;border-color:#e5e7eb;">
+                    
+                    <div class="form-group"><label>Обложка</label><input type="text" id="editCover"></div>
+                    <div class="form-group"><label>Описание серии (рус)</label><textarea id="editDescRu" rows="2"></textarea></div>
+                    <div class="form-group"><label>Описание серии (англ)</label><textarea id="editDescEn" rows="2"></textarea></div>
+                    
+                    <h3>Фигурки</h3>
+                    <div id="editFiguresList"></div>
+                    <button class="secondary small" onclick="addEditItem('figure')">➕ Добавить</button>
+                    
+                    <h3>Допы</h3>
+                    <div id="editExtrasList"></div>
+                    <button class="secondary small" onclick="addEditItem('extra')">➕ Добавить</button>
+                    
+                    <h3>Варианты</h3>
+                    <div id="editVariantsList"></div>
+                    <button class="secondary small" onclick="addEditItem('variant')">➕ Добавить</button>
+                    
+                    <h3>Вкладыши</h3>
+                    <div id="editInsertsList"></div>
+                    <button class="secondary small" onclick="addEditItem('insert')">➕ Добавить</button>
+                    
+                    <h3>Прочее</h3>
+                    <div id="editOtherList"></div>
+                    <button class="secondary small" onclick="addEditItem('other')">➕ Добавить</button>
+                    
+                    <h3>Видео</h3>
+                    <div class="form-group"><input type="text" id="editVideoYoutube" placeholder="YouTube"></div>
+                    <div class="form-group"><input type="text" id="editVideoVK" placeholder="VK"></div>
+                    <div class="form-group"><input type="text" id="editVideoTikTok" placeholder="TikTok"></div>
+                    
+                    <div style="margin-top:15px;">
+                        <button onclick="saveEdit()">💾 Сохранить</button>
+                        <button class="danger" onclick="cancelEdit()">Отмена</button>
+                        <button class="danger" onclick="deleteCurrentSeries()">🗑️ Удалить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- ===== ВКЛАДКА ВРЕМЕННЫЕ ===== -->
+    <div id="tabTemp" style="display:none;">
+        <div class="flex">
+            <div class="col">
+                <div class="card">
+                    <h2>📋 Временные серии</h2>
+                    <div class="series-list" id="tempSeriesList"></div>
+                    <div style="margin-top:15px;">
+                        <button class="secondary" onclick="saveTempToFile()">💾 Сохранить в ZIP</button>
+                        <button onclick="mergeWithMain()">🔗 Объединить</button>
+                        <button class="danger" onclick="clearAllTemp()">🗑️ Очистить</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <h2>📝 Информация</h2>
+                    <ul style="padding-left:20px;color:#6b7280;font-size:14px;">
+                        <li>ID генерируется из английского названия + год</li>
+                        <li>При массовой загрузке название из имени файла</li>
+                        <li>Порядок элементов — перетаскиванием</li>
+                        <li><strong>Код</strong> извлекается из имени файла (например, VS369 из kinderjoy_onepiece_VS369.webp)</li>
+                        <li>Поля для полной серии на продажу сохраняются в JSON</li>
+                        <li>Производители автоматически загружаются из manufacturers.json</li>
+                        <li><strong>При экспорте</strong> автоматически генерируется <code>stats.json</code> — готовая статистика для главной страницы</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="saveStatus" class="save-status">✅ Сохранено!</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script>
+// ============================================================
+// ОСНОВНЫЕ ПЕРЕМЕННЫЕ
+// ============================================================
+
+let existingSeries = [];
+let tempSeries = JSON.parse(localStorage.getItem('tempSeries') || '[]');
+let currentEditIndex = -1;
+let manufacturersData = {};
+
+function showStatus() {
+    let s = document.getElementById('saveStatus');
+    s.classList.add('show');
+    setTimeout(() => s.classList.remove('show'), 2000);
+}
+
+// ============================================================
+// ЗАГРУЗКА ПРОИЗВОДИТЕЛЕЙ ИЗ JSON (АВТОМАТИЧЕСКИ)
+// ============================================================
+
+async function loadManufacturersToSelects() {
+    try {
+        const response = await fetch('data/manufacturers.json');
+        if (!response.ok) throw new Error('Не удалось загрузить manufacturers.json');
+        manufacturersData = await response.json();
+        
+        const selects = ['manufacturer', 'editManufacturer'];
+        
+        selects.forEach(id => {
+            const select = document.getElementById(id);
+            if (!select) return;
+            
+            select.innerHTML = '';
+            
+            const sorted = Object.entries(manufacturersData)
+                .sort((a, b) => a[1].ru.localeCompare(b[1].ru));
+            
+            sorted.forEach(([key, value]) => {
+                const option = document.createElement('option');
+                option.value = key;
+                option.textContent = value.ru;
+                select.appendChild(option);
+            });
+        });
+        
+        console.log('✅ Производители загружены:', Object.keys(manufacturersData).length);
+    } catch (error) {
+        console.error('❌ Ошибка загрузки производителей:', error);
+        const fallback = {
+            'kinder': { ru: 'Киндер', en: 'Kinder' },
+            'nestle': { ru: 'Нестле', en: 'Nestle' }
+        };
+        manufacturersData = fallback;
+        const selects = ['manufacturer', 'editManufacturer'];
+        selects.forEach(id => {
+            const select = document.getElementById(id);
+            if (!select) return;
+            select.innerHTML = '';
+            Object.entries(fallback).forEach(([key, value]) => {
+                const option = document.createElement('option');
+                option.value = key;
+                option.textContent = value.ru;
+                select.appendChild(option);
+            });
+        });
+    }
+}
+
+// ============================================================
+// ПОЛУЧЕНИЕ ПАПКИ ПРОИЗВОДИТЕЛЯ
+// ============================================================
+
+function getManufacturerFolder(m) {
+    if (manufacturersData[m] && manufacturersData[m].en) {
+        return manufacturersData[m].en.toLowerCase();
+    }
+    return m || 'other';
+}
+
+function escapeHtml(str) {
+    if (!str) return '';
+    return str.replace(/[&<>]/g, m => m === '&' ? '&amp;' : m === '<' ? '&lt;' : '&gt;');
+}
+
+function generateSeriesId(nameEn, year) {
+    let clean = nameEn.toLowerCase()
+        .replace(/[^a-zа-яё0-9\s]/g, '')
+        .trim()
+        .replace(/\s+/g, '-');
+    
+    const map = {
+        'а':'a','б':'b','в':'v','г':'g','д':'d','е':'e','ё':'e',
+        'ж':'zh','з':'z','и':'i','й':'y','к':'k','л':'l','м':'m',
+        'н':'n','о':'o','п':'p','р':'r','с':'s','т':'t','у':'u',
+        'ф':'f','х':'h','ц':'ts','ч':'ch','ш':'sh','щ':'sch',
+        'ъ':'','ы':'y','ь':'','э':'e','ю':'yu','я':'ya'
+    };
+    clean = clean.split('').map(ch => map[ch] || ch).join('');
+    clean = clean.replace(/[^a-z0-9-]/g, '').replace(/-+/g, '-').replace(/^-|-$/g, '');
+    
+    if (year) clean = `${clean}-${year}`;
+    return clean || 'unknown';
+}
+
+// ============================================================
+// ИЗВЛЕЧЕНИЕ КОДА ИЗ ИМЕНИ ФАЙЛА
+// ============================================================
+
+function extractCodeFromFilename(filename) {
+    let name = filename.replace(/\.[^.]+$/, '');
+    
+    const patterns = [
+        /[A-Z]{2,6}[0-9]{2,4}/,
+        /[0-9]{2,4}[A-Z]{2,6}/,
+        /[A-Z]{1,2}[0-9]{3,4}/,
+        /[0-9]{3,4}[A-Z]{1,2}/
+    ];
+    
+    for (const pattern of patterns) {
+        const match = name.match(pattern);
+        if (match) {
+            return match[0];
+        }
+    }
+    
+    const parts = name.split(/[_.-]/);
+    const lastPart = parts[parts.length - 1];
+    if (/^[A-Z0-9]{3,8}$/.test(lastPart)) {
+        return lastPart;
+    }
+    
+    return '';
+}
+
+// ============================================================
+// СОЗДАНИЕ ЭЛЕМЕНТА
+// ============================================================
+
+function createItemElement(data, idx, type, seriesId) {
+    let num = idx + 1;
+    let prefix = type === 'figure' ? 'fig' : (type === 'extra' ? 'extra' : (type === 'variant' ? 'variant' : (type === 'insert' ? 'insert' : 'other')));
+    
+    let typeNames = {
+        figure: { ru: 'Фигурка', en: 'Figure' },
+        extra: { ru: 'Доп', en: 'Extra' },
+        variant: { ru: 'Вариант', en: 'Variant' },
+        insert: { ru: 'Вкладыш', en: 'Insert' },
+        other: { ru: 'Прочее', en: 'Other' }
+    };
+    
+    let nameRu = data?.name || `${typeNames[type].ru} ${num}`;
+    let nameEn = data?.name_en || `${typeNames[type].en} ${num}`;
+    
+    let imagePath = data?.image || '';
+    let code = data?.code || '';
+    if (!code && imagePath) {
+        const filename = imagePath.split('/').pop();
+        code = extractCodeFromFilename(filename);
+    }
+    
+    let owned = data?.owned || false;
+    let forsale = data?.forsale || false;
+    let avito = data?.avito || '';
+    let price = data?.price || '';
+    let condition = data?.condition || '';
+    let conditionEn = data?.condition_en || '';
+    let parentFigureId = data?.parentFigureId || '';
+    
+    let div = document.createElement('div');
+    div.className = 'figure-item';
+    div.setAttribute('draggable', 'true');
+    div.dataset.type = type;
+    
+    let imgHtml = imagePath ? `<img src="${imagePath}" onerror="this.style.display='none'">` : '';
+    let previewAttr = data?._preview ? `src="${data._preview}"` : '';
+    
+    div.innerHTML = `
+        <div class="row">
+            <span class="figure-number">${num}</span>
+            <input type="hidden" class="item-id" value="${seriesId}_${prefix}${num}">
+            <input type="text" class="item-name" placeholder="Название" value="${escapeHtml(nameRu)}" style="flex:1;min-width:80px;">
+            <input type="text" class="item-name-en" placeholder="Name (en)" value="${escapeHtml(nameEn)}" style="flex:1;min-width:80px;">
+            <input type="text" class="item-code" placeholder="Код" value="${escapeHtml(code)}" style="width:100px;">
+            <input type="text" class="item-image" placeholder="Путь к картинке" value="${escapeHtml(imagePath)}" style="flex:1;min-width:100px;">
+            ${imgHtml ? `<img src="${imagePath}" onerror="this.style.display='none'">` : (previewAttr ? `<img ${previewAttr} style="width:50px;height:50px;object-fit:contain;">` : '')}
+        </div>
+        <div class="row" style="margin-top:5px;">
+            <label style="font-weight:normal;font-size:13px;"><input type="checkbox" class="item-owned" ${owned ? 'checked' : ''}> В коллекции</label>
+            <label style="font-weight:normal;font-size:13px;"><input type="checkbox" class="item-forsale" ${forsale ? 'checked' : ''}> В продаже</label>
+            <input type="text" class="item-avito" placeholder="Ссылка Avito" value="${escapeHtml(avito)}" style="flex:1;min-width:100px;">
+            <input type="text" class="item-price" placeholder="Цена" value="${escapeHtml(price)}" style="width:80px;">
+            <input type="text" class="item-condition" placeholder="Состояние (рус)" value="${escapeHtml(condition)}" style="flex:1;min-width:80px;">
+            <input type="text" class="item-condition-en" placeholder="Condition (en)" value="${escapeHtml(conditionEn)}" style="flex:1;min-width:80px;">
+            <input type="text" class="item-parent-id" placeholder="ID основной фиг." value="${escapeHtml(parentFigureId)}" style="flex:1;min-width:80px;">
+            <button class="danger small" onclick="removeItem(this)">✖</button>
+        </div>
+    `;
+    return div;
+}
+
+function removeItem(btn) {
+    let item = btn.closest('.figure-item');
+    let container = item.parentElement;
+    item.remove();
+    renumberAll(container);
+}
+
+function renumberAll(container) {
+    let items = container.querySelectorAll('.figure-item');
+    items.forEach((item, idx) => {
+        let num = idx + 1;
+        let badge = item.querySelector('.figure-number');
+        if (badge) badge.textContent = num;
+        
+        let idField = item.querySelector('.item-id');
+        if (idField) {
+            let type = item.dataset.type || 'item';
+            let prefix = type === 'figure' ? 'fig' : 
+                         type === 'extra' ? 'extra' : 
+                         type === 'variant' ? 'variant' : 
+                         type === 'insert' ? 'insert' : 'other';
+            let seriesId = idField.value.split('_')[0] || 'series';
+            idField.value = `${seriesId}_${prefix}${num}`;
+        }
+        
+        let nameRuField = item.querySelector('.item-name');
+        let nameEnField = item.querySelector('.item-name-en');
+        let type = item.dataset.type || 'item';
+        
+        // Определяем дефолтные паттерны для каждого типа
+        const defaultPatterns = {
+            figure: { ru: /^Фигурка\s+\d+$/i, en: /^Figure\s+\d+$/i },
+            extra: { ru: /^Доп\s+\d+$/i, en: /^Extra\s+\d+$/i },
+            variant: { ru: /^Вариант\s+\d+$/i, en: /^Variant\s+\d+$/i },
+            insert: { ru: /^Вкладыш\s+\d+$/i, en: /^Insert\s+\d+$/i },
+            other: { ru: /^Прочее\s+\d+$/i, en: /^Other\s+\d+$/i }
+        };
+        
+        const patterns = defaultPatterns[type] || defaultPatterns.figure;
+        
+        // Обновляем РУ имя если оно дефолтное ИЛИ пустое
+        if (nameRuField) {
+            const val = nameRuField.value.trim();
+            if (!val || patterns.ru.test(val)) {
+                nameRuField.value = type === 'figure' ? `Фигурка ${num}` :
+                                    type === 'extra' ? `Доп ${num}` :
+                                    type === 'variant' ? `Вариант ${num}` :
+                                    type === 'insert' ? `Вкладыш ${num}` :
+                                    `Прочее ${num}`;
+            }
+        }
+        
+        // Обновляем EN имя если оно дефолтное ИЛИ пустое
+        if (nameEnField) {
+            const val = nameEnField.value.trim();
+            if (!val || patterns.en.test(val)) {
+                nameEnField.value = type === 'figure' ? `Figure ${num}` :
+                                    type === 'extra' ? `Extra ${num}` :
+                                    type === 'variant' ? `Variant ${num}` :
+                                    type === 'insert' ? `Insert ${num}` :
+                                    `Other ${num}`;
+            }
+        }
+    });
+}
+
+// ============================================================
+// ДОБАВЛЕНИЕ ЭЛЕМЕНТОВ
+// ============================================================
+
+function addItem(type) {
+    let container = document.getElementById(`add${capitalize(type)}sList`);
+    let sid = document.getElementById('nameEn').value.trim() || 'series';
+    let year = document.getElementById('year').value || '2024';
+    let seriesId = generateSeriesId(sid, year);
+    let idx = container.children.length;
+    let div = createItemElement(null, idx, type, seriesId);
+    container.appendChild(div);
+    renumberAll(container);
+    showStatus();
+}
+
+function capitalize(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+// ============================================================
+// МАССОВАЯ ЗАГРУЗКА
+// ============================================================
+
+function batchUpload(type, inputId) {
+    let input = document.getElementById(inputId);
+    let files = input.files;
+    if (!files || files.length === 0) return;
+    
+    const containerMap = { figure: 'addFiguresList', extra: 'addExtrasList', variant: 'addVariantsList', insert: 'addInsertsList', other: 'addOtherList' };
+    let container = document.getElementById(containerMap[type]);
+    
+    let sid = document.getElementById('nameEn').value.trim() || 'series';
+    let year = document.getElementById('year').value || '2024';
+    let seriesId = generateSeriesId(sid, year);
+    let manufacturer = document.getElementById('manufacturer').value;
+    let manufFolder = getManufacturerFolder(manufacturer);
+    let startIdx = container.children.length;
+    
+    Array.from(files).forEach((file, idx) => {
+        let newIdx = startIdx + idx;
+        let num = newIdx + 1;
+        let imagePath = `images/series/${manufFolder}/${seriesId}/${file.name}`;
+        let previewUrl = URL.createObjectURL(file);
+        let code = extractCodeFromFilename(file.name);
+        
+        let typeNames = {
+            figure: { ru: 'Фигурка', en: 'Figure' },
+            extra: { ru: 'Доп', en: 'Extra' },
+            variant: { ru: 'Вариант', en: 'Variant' },
+            insert: { ru: 'Вкладыш', en: 'Insert' },
+            other: { ru: 'Прочее', en: 'Other' }
+        };
+        let nameRu = `${typeNames[type].ru} ${num}`;
+        let nameEn = `${typeNames[type].en} ${num}`;
+        
+        let div = createItemElement({
+            name: nameRu,
+            name_en: nameEn,
+            image: imagePath,
+            code: code,
+            _preview: previewUrl
+        }, newIdx, type, seriesId);
+        
+        container.appendChild(div);
+        
+        let img = div.querySelector('.row img');
+        if (img) img.src = previewUrl;
+    });
+    
+    renumberAll(container);
+    input.value = '';
+    showStatus();
+}
+
+// ============================================================
+// ПЕРЕТАСКИВАНИЕ ЭЛЕМЕНТОВ (DRAG & DROP)
+// ============================================================
+
+function initDragAndDrop(container) {
+    let draggedItem = null;
+    
+    container.addEventListener('dragstart', function(e) {
+        const item = e.target.closest('.figure-item');
+        if (!item) return;
+        draggedItem = item;
+        e.dataTransfer.effectAllowed = 'move';
+        e.dataTransfer.setData('text/plain', '');
+        item.classList.add('dragging');
+    });
+    
+    container.addEventListener('dragend', function(e) {
+        const item = e.target.closest('.figure-item');
+        if (item) item.classList.remove('dragging');
+        draggedItem = null;
+    });
+    
+    container.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        const target = e.target.closest('.figure-item');
+        if (!target || target === draggedItem) return;
+        
+        const rect = target.getBoundingClientRect();
+        const offset = e.clientY - rect.top;
+        const mid = rect.height / 2;
+        
+        if (offset < mid) {
+            container.insertBefore(draggedItem, target);
+        } else {
+            container.insertBefore(draggedItem, target.nextSibling);
+        }
+        
+        container.querySelectorAll('.figure-item').forEach(el => el.classList.remove('drag-over'));
+        target.classList.add('drag-over');
+    });
+    
+    container.addEventListener('dragleave', function(e) {
+        const target = e.target.closest('.figure-item');
+        if (target) target.classList.remove('drag-over');
+    });
+    
+    container.addEventListener('drop', function(e) {
+        e.preventDefault();
+        container.querySelectorAll('.figure-item').forEach(el => el.classList.remove('drag-over'));
+        if (draggedItem) {
+            draggedItem.classList.remove('dragging');
+            renumberAll(container);
+            draggedItem = null;
+        }
+    });
+}
+
+function initAllDragAndDrop() {
+    const containers = [
+        'addFiguresList',
+        'addExtrasList', 
+        'addVariantsList',
+        'addInsertsList',
+        'addOtherList',
+        'editFiguresList',
+        'editExtrasList',
+        'editVariantsList',
+        'editInsertsList',
+        'editOtherList'
+    ];
+    
+    containers.forEach(id => {
+        const container = document.getElementById(id);
+        if (container) {
+            initDragAndDrop(container);
+        }
+    });
+}
+
+// ============================================================
+// ЗАГРУЗКА ДАННЫХ
+// ============================================================
+
+document.getElementById('fileUploadMain').onclick = function() {
+    document.getElementById('fileInput').click();
+};
+
+document.getElementById('fileInput').onchange = function(e) {
+    if (!e.target.files.length) return;
+    loadDataFromFiles(e.target.files);
+};
+
+async function loadDataFromFiles(files) {
+    let jsonFiles = Array.from(files).filter(f => f.name.endsWith('.json'));
+    let indexFile = jsonFiles.find(f => f.name === 'index.json');
+    if (!indexFile) { alert('Не найден index.json'); return; }
+    
+    let reader = new FileReader();
+    reader.onload = async function(e) {
+        try {
+            let indexData = JSON.parse(e.target.result);
+            existingSeries = [];
+            
+            for (let series of indexData) {
+                let seriesFile = jsonFiles.find(f => f.name === `${series.id}.json`);
+                if (seriesFile) {
+                    let sr = new FileReader();
+                    let content = await new Promise(resolve => {
+                        sr.onload = e => resolve(JSON.parse(e.target.result));
+                        sr.readAsText(seriesFile);
+                    });
+                    existingSeries.push(content);
+                } else {
+                    existingSeries.push({ ...series, figures: [], extras: [], variants: [], inserts: [], other: [], videos: { youtube: [], vk: [], tiktok: [] } });
+                }
+            }
+            
+            updateStats();
+            refreshExistingSeriesList();
+            alert(`✅ Загружено ${existingSeries.length} серий`);
+        } catch(err) {
+            alert('❌ Ошибка: ' + err.message);
+        }
+    };
+    reader.readAsText(indexFile);
+}
+
+// ============================================================
+// СТАТИСТИКА И СПИСКИ
+// ============================================================
+
+function updateStats() {
+    document.getElementById('totalSeries').textContent = existingSeries.length;
+    let figs = 0, extras = 0, variants = 0, inserts = 0, other = 0;
+    existingSeries.forEach(s => {
+        figs += s.figures?.length || 0;
+        extras += s.extras?.length || 0;
+        variants += s.variants?.length || 0;
+        inserts += s.inserts?.length || 0;
+        other += s.other?.length || 0;
+    });
+    document.getElementById('totalFigures').textContent = figs;
+    document.getElementById('totalExtras').textContent = extras;
+    document.getElementById('totalVariants').textContent = variants;
+    document.getElementById('totalInserts').textContent = inserts;
+    document.getElementById('totalOther').textContent = other;
+}
+
+function refreshExistingSeriesList() {
+    let list = document.getElementById('existingSeriesList');
+    if (!existingSeries.length) {
+        list.innerHTML = '<p>Сначала загрузите данные</p>';
+        return;
+    }
+    list.innerHTML = existingSeries.map((s, idx) => `
+        <div class="series-item ${currentEditIndex === idx ? 'selected' : ''}" onclick="selectSeries(${idx})">
+            <div>
+                <strong>${escapeHtml(s.name)}</strong> (${s.year})
+                <span style="color:#6b7280;font-size:13px;">ID: ${s.id}</span>
+            </div>
+            <button class="small" onclick="event.stopPropagation(); editSeries(${idx})">✏️</button>
+        </div>
+    `).join('');
+}
+
+function refreshTempSeriesList() {
+    let list = document.getElementById('tempSeriesList');
+    if (!tempSeries.length) {
+        list.innerHTML = '<p>Нет временных серий</p>';
+        return;
+    }
+    list.innerHTML = tempSeries.map((s, idx) => `
+        <div class="series-item">
+            <div>
+                <strong>${escapeHtml(s.name)}</strong> (${s.year})
+                <span style="color:#6b7280;font-size:13px;">ID: ${s.id}</span>
+            </div>
+            <div>
+                <button class="small secondary" onclick="editTempSeries(${idx})">✏️</button>
+                <button class="small danger" onclick="deleteTempSeries(${idx})">🗑️</button>
+            </div>
+        </div>
+    `).join('');
+}
+
+function selectSeries(idx) {
+    currentEditIndex = idx;
+    refreshExistingSeriesList();
+}
+
+// ============================================================
+// ДОБАВЛЕНИЕ СЕРИИ
+// ============================================================
+
+function addSeries() {
+    let nameEn = document.getElementById('nameEn').value.trim();
+    let year = document.getElementById('year').value;
+    let sid = generateSeriesId(nameEn, year);
+    
+    if (!sid) { alert('Введите название на английском'); return; }
+    if (existingSeries.some(s => s.id === sid) || tempSeries.some(s => s.id === sid)) {
+        alert(`ID уже существует: ${sid}`);
+        return;
+    }
+    
+    let series = {
+        id: sid,
+        name: document.getElementById('nameRu').value,
+        name_en: nameEn,
+        year: parseInt(year),
+        manufacturer: document.getElementById('manufacturer').value,
+        kind: document.getElementById('kind').value || undefined,
+        cover: document.getElementById('cover').value,
+        description: document.getElementById('descRu').value,
+        description_en: document.getElementById('descEn').value,
+        fullSeriesForSale: document.getElementById('fullSeriesForSale').checked,
+        fullSeriesAvito: document.getElementById('fullSeriesAvito').value,
+        fullSeriesPrice: document.getElementById('fullSeriesPrice').value,
+        fullSeriesPrice_en: document.getElementById('fullSeriesPriceEn').value,
+        fullSeriesCondition: document.getElementById('fullSeriesCondition').value,
+        fullSeriesCondition_en: document.getElementById('fullSeriesConditionEn').value,
+        fullSeriesDateAdded: document.getElementById('fullSeriesDateAdded').value,
+        fullSeriesDescription: document.getElementById('fullSeriesDescription').value,
+        fullSeriesDescription_en: document.getElementById('fullSeriesDescriptionEn').value,
+        figures: collectItems(document.getElementById('addFiguresList')),
+        extras: collectItems(document.getElementById('addExtrasList')),
+        variants: collectItems(document.getElementById('addVariantsList')),
+        inserts: collectItems(document.getElementById('addInsertsList')),
+        other: collectItems(document.getElementById('addOtherList')),
+        videos: {
+            youtube: document.getElementById('addVideoYoutube').value ? [document.getElementById('addVideoYoutube').value] : [],
+            vk: document.getElementById('addVideoVK').value ? [document.getElementById('addVideoVK').value] : [],
+            tiktok: document.getElementById('addVideoTikTok').value ? [document.getElementById('addVideoTikTok').value] : []
+        },
+        visible: true
+    };
+    
+    tempSeries.unshift(series);
+    localStorage.setItem('tempSeries', JSON.stringify(tempSeries));
+    refreshTempSeriesList();
+    clearAddForm();
+    alert(`✅ Серия добавлена во временные (ID: ${sid})`);
+}
+
+function clearAddForm() {
+    document.getElementById('nameRu').value = '';
+    document.getElementById('nameEn').value = '';
+    document.getElementById('year').value = '2024';
+    document.getElementById('cover').value = '';
+    document.getElementById('coverPreview').innerHTML = '';
+    document.getElementById('coverFile').value = '';
+    document.getElementById('descRu').value = '';
+    document.getElementById('descEn').value = '';
+    document.getElementById('fullSeriesForSale').checked = false;
+    document.getElementById('fullSeriesAvito').value = '';
+    document.getElementById('fullSeriesPrice').value = '';
+    document.getElementById('fullSeriesPriceEn').value = '';
+    document.getElementById('fullSeriesCondition').value = '';
+    document.getElementById('fullSeriesConditionEn').value = '';
+    document.getElementById('fullSeriesDateAdded').value = '';
+    document.getElementById('fullSeriesDescription').value = '';
+    document.getElementById('fullSeriesDescriptionEn').value = '';
+    document.getElementById('addVideoYoutube').value = '';
+    document.getElementById('addVideoVK').value = '';
+    document.getElementById('addVideoTikTok').value = '';
+    document.getElementById('addFiguresList').innerHTML = '';
+    document.getElementById('addExtrasList').innerHTML = '';
+    document.getElementById('addVariantsList').innerHTML = '';
+    document.getElementById('addInsertsList').innerHTML = '';
+    document.getElementById('addOtherList').innerHTML = '';
+}
+
+// ============================================================
+// РЕДАКТИРОВАНИЕ
+// ============================================================
+
+function editSeries(idx) {
+    let s = existingSeries[idx];
+    currentEditIndex = idx;
+    document.getElementById('editIndex').value = idx;
+    document.getElementById('editNameRu').value = s.name || '';
+    document.getElementById('editNameEn').value = s.name_en || '';
+    document.getElementById('editYear').value = s.year || 2024;
+    
+    const editSelect = document.getElementById('editManufacturer');
+    if (s.manufacturer) {
+        editSelect.value = s.manufacturer;
+    }
+    
+    document.getElementById('editKind').value = s.kind || '';
+    document.getElementById('editCover').value = s.cover || '';
+    document.getElementById('editDescRu').value = s.description || '';
+    document.getElementById('editDescEn').value = s.description_en || '';
+    
+    document.getElementById('editFullSeriesForSale').checked = s.fullSeriesForSale || false;
+    document.getElementById('editFullSeriesAvito').value = s.fullSeriesAvito || '';
+    document.getElementById('editFullSeriesPrice').value = s.fullSeriesPrice || '';
+    document.getElementById('editFullSeriesPriceEn').value = s.fullSeriesPrice_en || '';
+    document.getElementById('editFullSeriesCondition').value = s.fullSeriesCondition || '';
+    document.getElementById('editFullSeriesConditionEn').value = s.fullSeriesCondition_en || '';
+    document.getElementById('editFullSeriesDateAdded').value = s.fullSeriesDateAdded || '';
+    document.getElementById('editFullSeriesDescription').value = s.fullSeriesDescription || '';
+    document.getElementById('editFullSeriesDescriptionEn').value = s.fullSeriesDescription_en || '';
+    
+    let figures = document.getElementById('editFiguresList');
+    figures.innerHTML = '';
+    if (s.figures) s.figures.forEach((f, i) => figures.appendChild(createItemElement(f, i, 'figure', s.id)));
+    
+    let extras = document.getElementById('editExtrasList');
+    extras.innerHTML = '';
+    if (s.extras) s.extras.forEach((e, i) => extras.appendChild(createItemElement(e, i, 'extra', s.id)));
+    
+    let variants = document.getElementById('editVariantsList');
+    variants.innerHTML = '';
+    if (s.variants) s.variants.forEach((v, i) => variants.appendChild(createItemElement(v, i, 'variant', s.id)));
+    
+    let inserts = document.getElementById('editInsertsList');
+    inserts.innerHTML = '';
+    if (s.inserts) s.inserts.forEach((ins, i) => inserts.appendChild(createItemElement(ins, i, 'insert', s.id)));
+    
+    let other = document.getElementById('editOtherList');
+    other.innerHTML = '';
+    if (s.other) s.other.forEach((o, i) => other.appendChild(createItemElement(o, i, 'other', s.id)));
+    
+    document.getElementById('editVideoYoutube').value = s.videos?.youtube?.[0] || '';
+    document.getElementById('editVideoVK').value = s.videos?.vk?.[0] || '';
+    document.getElementById('editVideoTikTok').value = s.videos?.tiktok?.[0] || '';
+    
+    document.getElementById('editForm').style.display = 'block';
+    document.querySelector('.tab[data-tab="edit"]').click();
+}
+
+function addEditItem(type) {
+    let container = document.getElementById(`edit${capitalize(type)}sList`);
+    let seriesId = document.getElementById('editNameEn').value.trim() || 'series';
+    let year = document.getElementById('editYear').value || '2024';
+    let sid = generateSeriesId(seriesId, year);
+    let idx = container.children.length;
+    let div = createItemElement(null, idx, type, sid);
+    container.appendChild(div);
+    renumberAll(container);
+}
+
+function saveEdit() {
+    let idx = parseInt(document.getElementById('editIndex').value);
+    let seriesId = document.getElementById('editNameEn').value.trim() || 'series';
+    let year = document.getElementById('editYear').value || '2024';
+    let sid = generateSeriesId(seriesId, year);
+    
+    existingSeries[idx] = {
+        ...existingSeries[idx],
+        id: sid,
+        name: document.getElementById('editNameRu').value,
+        name_en: document.getElementById('editNameEn').value,
+        year: parseInt(year),
+        manufacturer: document.getElementById('editManufacturer').value,
+        kind: document.getElementById('editKind').value || undefined,
+        cover: document.getElementById('editCover').value,
+        description: document.getElementById('editDescRu').value,
+        description_en: document.getElementById('editDescEn').value,
+        fullSeriesForSale: document.getElementById('editFullSeriesForSale').checked,
+        fullSeriesAvito: document.getElementById('editFullSeriesAvito').value,
+        fullSeriesPrice: document.getElementById('editFullSeriesPrice').value,
+        fullSeriesPrice_en: document.getElementById('editFullSeriesPriceEn').value,
+        fullSeriesCondition: document.getElementById('editFullSeriesCondition').value,
+        fullSeriesCondition_en: document.getElementById('editFullSeriesConditionEn').value,
+        fullSeriesDateAdded: document.getElementById('editFullSeriesDateAdded').value,
+        fullSeriesDescription: document.getElementById('editFullSeriesDescription').value,
+        fullSeriesDescription_en: document.getElementById('editFullSeriesDescriptionEn').value,
+        figures: collectItems(document.getElementById('editFiguresList')),
+        extras: collectItems(document.getElementById('editExtrasList')),
+        variants: collectItems(document.getElementById('editVariantsList')),
+        inserts: collectItems(document.getElementById('editInsertsList')),
+        other: collectItems(document.getElementById('editOtherList')),
+        videos: {
+            youtube: document.getElementById('editVideoYoutube').value ? [document.getElementById('editVideoYoutube').value] : [],
+            vk: document.getElementById('editVideoVK').value ? [document.getElementById('editVideoVK').value] : [],
+            tiktok: document.getElementById('editVideoTikTok').value ? [document.getElementById('editVideoTikTok').value] : []
+        }
+    };
+    downloadAsZip(existingSeries);
+}
+
+function cancelEdit() {
+    document.getElementById('editForm').style.display = 'none';
+    currentEditIndex = -1;
+    refreshExistingSeriesList();
+}
+
+function deleteCurrentSeries() {
+    if (!confirm('Удалить серию?')) return;
+    let idx = parseInt(document.getElementById('editIndex').value);
+    existingSeries.splice(idx, 1);
+    downloadAsZip(existingSeries);
+    cancelEdit();
+}
+
+// ============================================================
+// ВРЕМЕННЫЕ
+// ============================================================
+
+function editTempSeries(idx) {
+    let s = tempSeries[idx];
+    document.getElementById('nameRu').value = s.name || '';
+    document.getElementById('nameEn').value = s.name_en || '';
+    document.getElementById('year').value = s.year || 2024;
+    document.getElementById('manufacturer').value = s.manufacturer || 'kinder';
+    document.getElementById('kind').value = s.kind || '';
+    document.getElementById('cover').value = s.cover || '';
+    document.getElementById('descRu').value = s.description || '';
+    document.getElementById('descEn').value = s.description_en || '';
+    
+    document.getElementById('fullSeriesForSale').checked = s.fullSeriesForSale || false;
+    document.getElementById('fullSeriesAvito').value = s.fullSeriesAvito || '';
+    document.getElementById('fullSeriesPrice').value = s.fullSeriesPrice || '';
+    document.getElementById('fullSeriesPriceEn').value = s.fullSeriesPrice_en || '';
+    document.getElementById('fullSeriesCondition').value = s.fullSeriesCondition || '';
+    document.getElementById('fullSeriesConditionEn').value = s.fullSeriesCondition_en || '';
+    document.getElementById('fullSeriesDateAdded').value = s.fullSeriesDateAdded || '';
+    document.getElementById('fullSeriesDescription').value = s.fullSeriesDescription || '';
+    document.getElementById('fullSeriesDescriptionEn').value = s.fullSeriesDescription_en || '';
+    
+    let figures = document.getElementById('addFiguresList');
+    figures.innerHTML = '';
+    if (s.figures) s.figures.forEach((f, i) => figures.appendChild(createItemElement(f, i, 'figure', s.id)));
+    
+    let extras = document.getElementById('addExtrasList');
+    extras.innerHTML = '';
+    if (s.extras) s.extras.forEach((e, i) => extras.appendChild(createItemElement(e, i, 'extra', s.id)));
+    
+    let variants = document.getElementById('addVariantsList');
+    variants.innerHTML = '';
+    if (s.variants) s.variants.forEach((v, i) => variants.appendChild(createItemElement(v, i, 'variant', s.id)));
+    
+    let inserts = document.getElementById('addInsertsList');
+    inserts.innerHTML = '';
+    if (s.inserts) s.inserts.forEach((ins, i) => inserts.appendChild(createItemElement(ins, i, 'insert', s.id)));
+    
+    let other = document.getElementById('addOtherList');
+    other.innerHTML = '';
+    if (s.other) s.other.forEach((o, i) => other.appendChild(createItemElement(o, i, 'other', s.id)));
+    
+    document.getElementById('addVideoYoutube').value = s.videos?.youtube?.[0] || '';
+    document.getElementById('addVideoVK').value = s.videos?.vk?.[0] || '';
+    document.getElementById('addVideoTikTok').value = s.videos?.tiktok?.[0] || '';
+    
+    tempSeries.splice(idx, 1);
+    localStorage.setItem('tempSeries', JSON.stringify(tempSeries));
+    refreshTempSeriesList();
+    document.querySelector('.tab[data-tab="add"]').click();
+    alert('✅ Серия скопирована в форму');
+}
+
+function deleteTempSeries(idx) {
+    if (!confirm('Удалить?')) return;
+    tempSeries.splice(idx, 1);
+    localStorage.setItem('tempSeries', JSON.stringify(tempSeries));
+    refreshTempSeriesList();
+}
+
+function clearAllTemp() {
+    if (!confirm('Очистить все временные серии?')) return;
+    tempSeries = [];
+    localStorage.removeItem('tempSeries');
+    refreshTempSeriesList();
+}
+
+function saveTempToFile() {
+    if (!tempSeries.length) { alert('Нет временных серий'); return; }
+    downloadAsZip(tempSeries);
+}
+
+function mergeWithMain() {
+    if (!existingSeries.length) { alert('Сначала загрузите основные данные'); return; }
+    if (!tempSeries.length) { alert('Нет временных серий'); return; }
+    let newIds = tempSeries.map(s => s.id);
+    let dup = existingSeries.filter(s => newIds.includes(s.id));
+    if (dup.length && !confirm(`Дубликаты: ${dup.map(d => d.id).join(', ')}. Заменить?`)) return;
+    let merged = [...tempSeries, ...existingSeries.filter(s => !newIds.includes(s.id))];
+    downloadAsZip(merged);
+    if (confirm('Очистить временные?')) clearAllTemp();
+}
+
+// ============================================================
+// ГЕНЕРАЦИЯ STATS.JSON
+// ============================================================
+
+function generateStatsData(seriesList) {
+    let totalFigures = 0;
+    let totalInserts = 0;
+    let totalForSale = 0;
+    
+    seriesList.forEach(s => {
+        // Фигурки = figures + extras + variants
+        totalFigures += s.figures?.length || 0;
+        totalFigures += s.extras?.length || 0;
+        totalFigures += s.variants?.length || 0;
+        
+        // Вкладыши
+        totalInserts += s.inserts?.length || 0;
+        
+        // В продаже (все типы элементов)
+        totalForSale += s.figures?.filter(f => f.forsale).length || 0;
+        totalForSale += s.extras?.filter(e => e.forsale).length || 0;
+        totalForSale += s.inserts?.filter(i => i.forsale).length || 0;
+        totalForSale += s.variants?.filter(v => v.forsale).length || 0;
+        
+        // Полная серия на продажу
+        if (s.fullSeriesForSale) totalForSale += 1;
+    });
+    
+    const uniqueManufacturers = [...new Set(seriesList.map(s => s.manufacturer))];
+    
+    return {
+        totalSeries: seriesList.length,
+        totalFigures: totalFigures,
+        totalInserts: totalInserts,
+        totalForSale: totalForSale,
+        totalManufacturers: uniqueManufacturers.length,
+        updatedAt: new Date().toISOString()
+    };
+}
+
+// ============================================================
+// СКАЧИВАНИЕ ZIP
+// ============================================================
+
+function downloadAsZip(seriesList) {
+    let zip = new JSZip();
+    
+    // ===== index.json =====
+    let indexData = seriesList.map(s => ({
+        id: s.id,
+        name: s.name,
+        name_en: s.name_en || s.name,
+        year: s.year,
+        manufacturer: s.manufacturer,
+        cover: s.cover,
+        kind: s.kind || '',
+        description: s.description || '',
+        description_en: s.description_en || '',
+        visible: s.visible !== false
+    }));
+    zip.file("index.json", JSON.stringify(indexData, null, 2));
+    
+    // ===== ✨ stats.json (НОВОЕ) =====
+    const statsData = generateStatsData(seriesList);
+    zip.file("stats.json", JSON.stringify(statsData, null, 2));
+    console.log('✅ stats.json сгенерирован:', statsData);
+    
+    // ===== Серии =====
+    seriesList.forEach(s => {
+        let manufFolder = getManufacturerFolder(s.manufacturer);
+        let seriesFolder = zip.folder(`series/${manufFolder}`);
+        let data = {
+            id: s.id,
+            name: s.name,
+            name_en: s.name_en || s.name,
+            year: s.year,
+            manufacturer: s.manufacturer,
+            cover: s.cover,
+            description: s.description || '',
+            description_en: s.description_en || '',
+            kind: s.kind || '',
+            visible: s.visible !== false,
+            fullSeriesForSale: s.fullSeriesForSale || false,
+            fullSeriesAvito: s.fullSeriesAvito || '',
+            fullSeriesPrice: s.fullSeriesPrice || '',
+            fullSeriesPrice_en: s.fullSeriesPrice_en || '',
+            fullSeriesCondition: s.fullSeriesCondition || '',
+            fullSeriesCondition_en: s.fullSeriesCondition_en || '',
+            fullSeriesDateAdded: s.fullSeriesDateAdded || '',
+            fullSeriesDescription: s.fullSeriesDescription || '',
+            fullSeriesDescription_en: s.fullSeriesDescription_en || '',
+            figures: s.figures || [],
+            extras: s.extras || [],
+            variants: s.variants || [],
+            inserts: s.inserts || [],
+            other: s.other || [],
+            videos: s.videos || { youtube: [], vk: [], tiktok: [] }
+        };
+        seriesFolder.file(`${s.id}.json`, JSON.stringify(data, null, 2));
+    });
+    
+    zip.generateAsync({ type: "blob" }).then(blob => {
+        let a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = `capsule_data_${new Date().toISOString().slice(0,19).replace(/:/g,'-')}.zip`;
+        a.click();
+        URL.revokeObjectURL(blob);
+        showStatus();
+    });
+}
+
+// ============================================================
+// ТАБЫ
+// ============================================================
+
+document.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', function() {
+        let tabName = this.dataset.tab;
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+        document.getElementById('tabAdd').style.display = tabName === 'add' ? 'block' : 'none';
+        document.getElementById('tabEdit').style.display = tabName === 'edit' ? 'block' : 'none';
+        document.getElementById('tabTemp').style.display = tabName === 'temp' ? 'block' : 'none';
+    });
+});
+
+// ============================================================
+// ИНИЦИАЛИЗАЦИЯ
+// ============================================================
+
+document.addEventListener('DOMContentLoaded', async function() {
+    await loadManufacturersToSelects();
+    
+    document.getElementById('figuresBatchInput').addEventListener('change', function(e) {
+        batchUpload('figure', 'figuresBatchInput');
+    });
+    document.getElementById('extrasBatchInput').addEventListener('change', function(e) {
+        batchUpload('extra', 'extrasBatchInput');
+    });
+    document.getElementById('variantsBatchInput').addEventListener('change', function(e) {
+        batchUpload('variant', 'variantsBatchInput');
+    });
+    document.getElementById('insertsBatchInput').addEventListener('change', function(e) {
+        batchUpload('insert', 'insertsBatchInput');
+    });
+    document.getElementById('otherBatchInput').addEventListener('change', function(e) {
+        batchUpload('other', 'otherBatchInput');
+    });
+    
+    document.getElementById('coverFile').addEventListener('change', function(e) {
+        let file = e.target.files[0];
+        if (!file) return;
+        let preview = document.getElementById('coverPreview');
+        let previewUrl = URL.createObjectURL(file);
+        preview.innerHTML = `
+            <div class="img-item">
+                <img src="${previewUrl}">
+                <button class="del" onclick="removeCover()">✖</button>
+            </div>
+        `;
+        let sid = document.getElementById('nameEn').value.trim() || 'series';
+        let year = document.getElementById('year').value || '2024';
+        let seriesId = generateSeriesId(sid, year);
+        let manufacturer = document.getElementById('manufacturer').value;
+        let manufFolder = getManufacturerFolder(manufacturer);
+        document.getElementById('cover').value = `images/series/${manufFolder}/${seriesId}/${file.name}`;
+    });
+    
+    initAllDragAndDrop();
+    
+    refreshTempSeriesList();
+    updateStats();
+});
+
+// Экспорт в глобальный объект для onclick
+window.addSeries = addSeries;
+window.clearAddForm = clearAddForm;
+window.addItem = addItem;
+window.removeItem = removeItem;
+window.editSeries = editSeries;
+window.addEditItem = addEditItem;
+window.saveEdit = saveEdit;
+window.cancelEdit = cancelEdit;
+window.deleteCurrentSeries = deleteCurrentSeries;
+window.editTempSeries = editTempSeries;
+window.deleteTempSeries = deleteTempSeries;
+window.clearAllTemp = clearAllTemp;
+window.saveTempToFile = saveTempToFile;
+window.mergeWithMain = mergeWithMain;
+window.selectSeries = selectSeries;
+window.removeCover = function() {
+    document.getElementById('coverPreview').innerHTML = '';
+    document.getElementById('coverFile').value = '';
+    document.getElementById('cover').value = '';
+};
+</script>
+</body>
+</html>
