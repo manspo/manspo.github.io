@@ -1,10 +1,10 @@
 {
-  "id": "magic-rings-zabavnyj-syurpriz-2026",
+  "id": "magic-rings-by-zabavnyj-syurpriz-2026",
   "name": "Магические кольца - Забавный Сюрприз",
   "name_en": "Magic Rings - Zabavnyj Syurpriz",
   "year": 2026,
-  "manufacturer": "zabavnyjsyurpriz",
-  "cover": "images/series/zabavnyjsyurpriz/magicrings/cover.webp",
+  "manufacturer": "zabavnyj-syurpriz",
+  "cover": "images/series/zabavnyj-syurpriz/magic-rings-by-zabavnyj-syurpriz-2026/cover.webp",
   "description": "Серия с различными кольцами - Забавный Сюрприз",
   "description_en": "Series with various rings - Fun Surprise",
   "kind": "",
@@ -20,11 +20,11 @@
   "fullSeriesDescription_en": "",
   "figures": [
     {
-      "id": "magicrings_fig1",
+      "id": "magic-rings-by-zabavnyj-syurpriz-2026_fig1",
       "name": "Фигурка 1",
       "name_en": "Figure 1",
       "code": "",
-      "image": "images/series/zabavnyjsyurpriz/magicrings/01.webp",
+      "image": "images/series/zabavnyj-syurpriz/magic-rings-by-zabavnyj-syurpriz-2026/01.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -33,11 +33,11 @@
       "condition_en": ""
     },
     {
-      "id": "magicrings_fig2",
+      "id": "magic-rings-by-zabavnyj-syurpriz-2026_fig2",
       "name": "Фигурка 2",
       "name_en": "Figure 2",
       "code": "",
-      "image": "images/series/zabavnyjsyurpriz/magicrings/02.webp",
+      "image": "images/series/zabavnyj-syurpriz/magic-rings-by-zabavnyj-syurpriz-2026/02.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -46,11 +46,11 @@
       "condition_en": ""
     },
     {
-      "id": "magicrings_fig3",
+      "id": "magic-rings-by-zabavnyj-syurpriz-2026_fig3",
       "name": "Фигурка 3",
       "name_en": "Figure 3",
       "code": "",
-      "image": "images/series/zabavnyjsyurpriz/magicrings/03.webp",
+      "image": "images/series/zabavnyj-syurpriz/magic-rings-by-zabavnyj-syurpriz-2026/03.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -59,11 +59,11 @@
       "condition_en": ""
     },
     {
-      "id": "magicrings_fig4",
+      "id": "magic-rings-by-zabavnyj-syurpriz-2026_fig4",
       "name": "Фигурка 4",
       "name_en": "Figure 4",
       "code": "",
-      "image": "images/series/zabavnyjsyurpriz/magicrings/04.webp",
+      "image": "images/series/zabavnyj-syurpriz/magic-rings-by-zabavnyj-syurpriz-2026/04.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -72,11 +72,11 @@
       "condition_en": ""
     },
     {
-      "id": "magicrings_fig5",
+      "id": "magic-rings-by-zabavnyj-syurpriz-2026_fig5",
       "name": "Фигурка 5",
       "name_en": "Figure 5",
       "code": "",
-      "image": "images/series/zabavnyjsyurpriz/magicrings/05.webp",
+      "image": "images/series/zabavnyj-syurpriz/magic-rings-by-zabavnyj-syurpriz-2026/05.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -85,11 +85,11 @@
       "condition_en": ""
     },
     {
-      "id": "magicrings_fig6",
+      "id": "magic-rings-by-zabavnyj-syurpriz-2026_fig6",
       "name": "Фигурка 6",
       "name_en": "Figure 6",
       "code": "",
-      "image": "images/series/zabavnyjsyurpriz/magicrings/06.webp",
+      "image": "images/series/zabavnyj-syurpriz/magic-rings-by-zabavnyj-syurpriz-2026/06.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -98,11 +98,11 @@
       "condition_en": ""
     },
     {
-      "id": "magicrings_fig7",
+      "id": "magic-rings-by-zabavnyj-syurpriz-2026_fig7",
       "name": "Фигурка 7",
       "name_en": "Figure 7",
       "code": "",
-      "image": "images/series/zabavnyjsyurpriz/magicrings/07.webp",
+      "image": "images/series/zabavnyj-syurpriz/magic-rings-by-zabavnyj-syurpriz-2026/07.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -115,11 +115,11 @@
   "variants": [],
   "inserts": [
     {
-      "id": "magicrings_insert1",
+      "id": "magic-rings-by-zabavnyj-syurpriz-2026_insert1",
       "name": "Вкладыш 1",
       "name_en": "Insert 1",
       "code": "",
-      "image": "images/series/zabavnyjsyurpriz/magicrings/BPZ.webp",
+      "image": "images/series/zabavnyj-syurpriz/magic-rings-by-zabavnyj-syurpriz-2026/BPZ.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -128,11 +128,11 @@
       "condition_en": ""
     },
     {
-      "id": "magicrings_insert2",
+      "id": "magic-rings-by-zabavnyj-syurpriz-2026_insert2",
       "name": "Вкладыш 2",
       "name_en": "Insert 2",
       "code": "",
-      "image": "images/series/zabavnyjsyurpriz/magicrings/BPZ2.webp",
+      "image": "images/series/zabavnyj-syurpriz/magic-rings-by-zabavnyj-syurpriz-2026/BPZ2.webp",
       "owned": false,
       "forsale": false,
       "avito": "",

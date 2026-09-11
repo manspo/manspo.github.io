@@ -343,9 +343,7 @@ async function loadManufacturers() {
 
 // ===== ОПРЕДЕЛЕНИЕ ПАПКИ ПРОИЗВОДИТЕЛЯ =====
 function getManufacturerFolder(m) {
-  if (manufacturersData[m] && manufacturersData[m].en) {
-    return manufacturersData[m].en.toLowerCase();
-  }
+  // Используем ключ производителя как имя папки
   return m || 'other';
 }
 

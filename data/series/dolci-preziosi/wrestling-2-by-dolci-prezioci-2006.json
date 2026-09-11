@@ -3,8 +3,8 @@
   "name": "Реслинг 2 от Дольчи Прециози",
   "name_en": "Wrestling 2 by Dolci Prezioci",
   "year": 2006,
-  "manufacturer": "dolcipreziosi",
-  "cover": "images/series/dolcipreziosi/wrestling2dolcipreziosi/cover.webp",
+  "manufacturer": "dolci-preziosi",
+  "cover": "images/series/dolci-preziosi/wrestling-2-by-dolci-preziosi-2006/cover.webp",
   "description": "Серия посвященная борцам из реслинга - WWE",
   "description_en": "Series dedicated to wrestling wrestlers - WWE",
   "kind": "",
@@ -20,11 +20,11 @@
   "fullSeriesDescription_en": "",
   "figures": [
     {
-      "id": "wrestling2dolcipreziosi_fig1",
+      "id": "wrestling-2-by-dolci-preziosi-2006_fig1",
       "name": "Фигурка 1",
       "name_en": "Figure 1",
       "code": "",
-      "image": "images/series/dolcipreziosi/wrestling2dolcipreziosi/01.webp",
+      "image": "images/series/dolci-preziosi/wrestling-2-by-dolci-preziosi-2006/01.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -33,11 +33,11 @@
       "condition_en": ""
     },
     {
-      "id": "wrestling2dolcipreziosi_fig2",
+      "id": "wrestling-2-by-dolci-preziosi-2006_fig2",
       "name": "Фигурка 2",
       "name_en": "Figure 2",
       "code": "",
-      "image": "images/series/dolcipreziosi/wrestling2dolcipreziosi/02.webp",
+      "image": "images/series/dolci-preziosi/wrestling-2-by-dolci-preziosi-2006/02.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -46,11 +46,11 @@
       "condition_en": ""
     },
     {
-      "id": "wrestling2dolcipreziosi_fig3",
+      "id": "wrestling-2-by-dolci-preziosi-2006_fig3",
       "name": "Фигурка 3",
       "name_en": "Figure 3",
       "code": "",
-      "image": "images/series/dolcipreziosi/wrestling2dolcipreziosi/03.webp",
+      "image": "images/series/dolci-preziosi/wrestling-2-by-dolci-preziosi-2006/03.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -59,11 +59,11 @@
       "condition_en": ""
     },
     {
-      "id": "wrestling2dolcipreziosi_fig4",
+      "id": "wrestling-2-by-dolci-preziosi-2006_fig4",
       "name": "Фигурка 4",
       "name_en": "Figure 4",
       "code": "",
-      "image": "images/series/dolcipreziosi/wrestling2dolcipreziosi/04.webp",
+      "image": "images/series/dolci-preziosi/wrestling-2-by-dolci-preziosi-2006/04.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -72,11 +72,11 @@
       "condition_en": ""
     },
     {
-      "id": "wrestling2dolcipreziosi_fig5",
+      "id": "wrestling-2-by-dolci-preziosi-2006_fig5",
       "name": "Фигурка 5",
       "name_en": "Figure 5",
       "code": "",
-      "image": "images/series/dolcipreziosi/wrestling2dolcipreziosi/05.webp",
+      "image": "images/series/dolci-preziosi/wrestling-2-by-dolci-preziosi-2006/05.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -85,11 +85,11 @@
       "condition_en": ""
     },
     {
-      "id": "wrestling2dolcipreziosi_fig6",
+      "id": "wrestling-2-by-dolci-preziosi-2006_fig6",
       "name": "Фигурка 6",
       "name_en": "Figure 6",
       "code": "",
-      "image": "images/series/dolcipreziosi/wrestling2dolcipreziosi/06.webp",
+      "image": "images/series/dolci-preziosi/wrestling-2-by-dolci-preziosi-2006/06.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -98,11 +98,11 @@
       "condition_en": ""
     },
     {
-      "id": "wrestling2dolcipreziosi_fig7",
+      "id": "wrestling-2-by-dolci-preziosi-2006_fig7",
       "name": "Фигурка 7",
       "name_en": "Figure 7",
       "code": "",
-      "image": "images/series/dolcipreziosi/wrestling2dolcipreziosi/07.webp",
+      "image": "images/series/dolci-preziosi/wrestling-2-by-dolci-preziosi-2006/07.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -111,11 +111,11 @@
       "condition_en": ""
     },
     {
-      "id": "wrestling2dolcipreziosi_fig8",
+      "id": "wrestling-2-by-dolci-preziosi-2006_fig8",
       "name": "Фигурка 8",
       "name_en": "Figure 8",
       "code": "",
-      "image": "images/series/dolcipreziosi/wrestling2dolcipreziosi/08.webp",
+      "image": "images/series/dolci-preziosi/wrestling-2-by-dolci-preziosi-2006/08.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -124,11 +124,11 @@
       "condition_en": ""
     },
     {
-      "id": "wrestling2dolcipreziosi_fig9",
+      "id": "wrestling-2-by-dolci-preziosi-2006_fig9",
       "name": "Фигурка 9",
       "name_en": "Figure 9",
       "code": "",
-      "image": "images/series/dolcipreziosi/wrestling2dolcipreziosi/09.webp",
+      "image": "images/series/dolci-preziosi/wrestling-2-by-dolci-preziosi-2006/09.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -137,11 +137,11 @@
       "condition_en": ""
     },
     {
-      "id": "wrestling2dolcipreziosi_fig10",
+      "id": "wrestling-2-by-dolci-preziosi-2006_fig10",
       "name": "Фигурка 10",
       "name_en": "Figure 10",
       "code": "",
-      "image": "images/series/dolcipreziosi/wrestling2dolcipreziosi/10.webp",
+      "image": "images/series/dolci-preziosi/wrestling-2-by-dolci-preziosi-2006/10.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -150,11 +150,11 @@
       "condition_en": ""
     },
     {
-      "id": "wrestling2dolcipreziosi_fig11",
+      "id": "wrestling-2-by-dolci-preziosi-2006_fig11",
       "name": "Фигурка 11",
       "name_en": "Figure 11",
       "code": "",
-      "image": "images/series/dolcipreziosi/wrestling2dolcipreziosi/11.webp",
+      "image": "images/series/dolci-preziosi/wrestling-2-by-dolci-preziosi-2006/11.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -163,11 +163,11 @@
       "condition_en": ""
     },
     {
-      "id": "wrestling2dolcipreziosi_fig12",
+      "id": "wrestling-2-by-dolci-preziosi-2006_fig12",
       "name": "Фигурка 12",
       "name_en": "Figure 12",
       "code": "",
-      "image": "images/series/dolcipreziosi/wrestling2dolcipreziosi/12.webp",
+      "image": "images/series/dolci-preziosi/wrestling-2-by-dolci-preziosi-2006/12.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -176,11 +176,11 @@
       "condition_en": ""
     },
     {
-      "id": "wrestling2dolcipreziosi_fig13",
+      "id": "wrestling-2-by-dolci-preziosi-2006_fig13",
       "name": "Фигурка 13",
       "name_en": "Figure 13",
       "code": "",
-      "image": "images/series/dolcipreziosi/wrestling2dolcipreziosi/13.webp",
+      "image": "images/series/dolci-preziosi/wrestling-2-by-dolci-preziosi-2006/13.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -189,11 +189,11 @@
       "condition_en": ""
     },
     {
-      "id": "wrestling2dolcipreziosi_fig14",
+      "id": "wrestling-2-by-dolci-preziosi-2006_fig14",
       "name": "Фигурка 14",
       "name_en": "Figure 14",
       "code": "",
-      "image": "images/series/dolcipreziosi/wrestling2dolcipreziosi/14.webp",
+      "image": "images/series/dolci-preziosi/wrestling-2-by-dolci-preziosi-2006/14.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -202,11 +202,11 @@
       "condition_en": ""
     },
     {
-      "id": "wrestling2dolcipreziosi_fig15",
+      "id": "wrestling-2-by-dolci-preziosi-2006_fig15",
       "name": "Фигурка 15",
       "name_en": "Figure 15",
       "code": "",
-      "image": "images/series/dolcipreziosi/wrestling2dolcipreziosi/15.webp",
+      "image": "images/series/dolci-preziosi/wrestling-2-by-dolci-preziosi-2006/15.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -217,11 +217,11 @@
   ],
   "extras": [
     {
-      "id": "wrestling2dolcipreziosi_extra1",
+      "id": "wrestling-2-by-dolci-preziosi-2006_extra1",
       "name": "Доп 1",
       "name_en": "Extra 1",
       "code": "",
-      "image": "images/series/dolcipreziosi/wrestling2dolcipreziosi/18.webp",
+      "image": "images/series/dolci-preziosi/wrestling-2-by-dolci-preziosi-2006/18.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -230,11 +230,11 @@
       "condition_en": ""
     },
     {
-      "id": "wrestling2dolcipreziosi_extra2",
+      "id": "wrestling-2-by-dolci-preziosi-2006_extra2",
       "name": "Доп 2",
       "name_en": "Extra 2",
       "code": "",
-      "image": "images/series/dolcipreziosi/wrestling2dolcipreziosi/19.webp",
+      "image": "images/series/dolci-preziosi/wrestling-2-by-dolci-preziosi-2006/19.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -243,11 +243,11 @@
       "condition_en": ""
     },
     {
-      "id": "wrestling2dolcipreziosi_extra3",
+      "id": "wrestling-2-by-dolci-preziosi-2006_extra3",
       "name": "Доп 3",
       "name_en": "Extra 3",
       "code": "",
-      "image": "images/series/dolcipreziosi/wrestling2dolcipreziosi/20.webp",
+      "image": "images/series/dolci-preziosi/wrestling-2-by-dolci-preziosi-2006/20.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -256,11 +256,11 @@
       "condition_en": ""
     },
     {
-      "id": "wrestling2dolcipreziosi_extra4",
+      "id": "wrestling-2-by-dolci-preziosi-2006_extra4",
       "name": "Доп 4",
       "name_en": "Extra 4",
       "code": "",
-      "image": "images/series/dolcipreziosi/wrestling2dolcipreziosi/21.webp",
+      "image": "images/series/dolci-preziosi/wrestling-2-by-dolci-preziosi-2006/21.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -269,11 +269,11 @@
       "condition_en": ""
     },
     {
-      "id": "wrestling2dolcipreziosi_extra5",
+      "id": "wrestling-2-by-dolci-preziosi-2006_extra5",
       "name": "Доп 5",
       "name_en": "Extra 5",
       "code": "",
-      "image": "images/series/dolcipreziosi/wrestling2dolcipreziosi/22.webp",
+      "image": "images/series/dolci-preziosi/wrestling-2-by-dolci-preziosi-2006/22.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -282,11 +282,11 @@
       "condition_en": ""
     },
     {
-      "id": "wrestling2dolcipreziosi_extra6",
+      "id": "wrestling-2-by-dolci-preziosi-2006_extra6",
       "name": "Доп 6",
       "name_en": "Extra 6",
       "code": "",
-      "image": "images/series/dolcipreziosi/wrestling2dolcipreziosi/23.webp",
+      "image": "images/series/dolci-preziosi/wrestling-2-by-dolci-preziosi-2006/23.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -298,11 +298,11 @@
   "variants": [],
   "inserts": [
     {
-      "id": "wrestling2dolcipreziosi_insert1",
+      "id": "wrestling-2-by-dolci-preziosi-2006_insert1",
       "name": "Вкладыш 1",
       "name_en": "Insert 1",
       "code": "",
-      "image": "images/series/dolcipreziosi/wrestling2dolcipreziosi/BPZ.webp",
+      "image": "images/series/dolci-preziosi/wrestling-2-by-dolci-preziosi-2006/BPZ.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -311,11 +311,11 @@
       "condition_en": ""
     },
     {
-      "id": "wrestling2dolcipreziosi_insert2",
+      "id": "wrestling-2-by-dolci-preziosi-2006_insert2",
       "name": "Вкладыш 2",
       "name_en": "Insert 2",
       "code": "",
-      "image": "images/series/dolcipreziosi/wrestling2dolcipreziosi/BPZ2.webp",
+      "image": "images/series/dolci-preziosi/wrestling-2-by-dolci-preziosi-2006/BPZ2.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
