@@ -2241,15 +2241,16 @@ img {
 /* ===== БЛОК ВИДЕО В СЕРИИ ===== */
 .videos-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 20px;
   margin: 20px 0 30px;
+  align-items: start;
 }
 
 .video-embed {
   position: relative;
   width: 100%;
-  padding-bottom: 56.25%; /* 16:9 */
+  padding-bottom: 56.25%;
   height: 0;
   overflow: hidden;
   border-radius: 12px;
@@ -2259,11 +2260,26 @@ img {
 
 .video-embed iframe {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
   border: none;
+  border-radius: 12px;
+}
+
+.video-tiktok,
+.video-instagram {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.video-tiktok .tiktok-embed,
+.video-instagram .instagram-media {
+  margin: 0 !important;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  max-width: 100% !important;
+  min-width: 100% !important;
 }
 
 .video-link {
@@ -2285,13 +2301,11 @@ img {
   background: var(--primary);
   color: white;
   transform: translateY(-2px);
-  border-color: var(--primary);
 }
 
-/* Мобильная версия */
 @media (max-width: 768px) {
   .videos-grid {
     grid-template-columns: 1fr;
-    gap: 12px;
+    gap: 16px;
   }
 }

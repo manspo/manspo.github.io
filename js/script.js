@@ -19,7 +19,7 @@ const BASE_URL = 'https://manspo.github.io';
 let manufacturerOrder = [];
 let manufacturersData = {};
 
-// ===== УПРАВЛЕНИЕ ЗАГРУЗКОЙ (НОВАЯ ВЕРСИЯ) =====
+// ===== УПРАВЛЕНИЕ ЗАГРУЗКОЙ =====
 
 function showLoadingScreen() {
     const overlay = document.getElementById('loadingOverlay');
@@ -317,7 +317,7 @@ async function loadAllSeries() {
   }
 }
 
-// ===== ЗАГРУЗКА ПРОИЗВОДИТЕЛЕЙ (ДИНАМИЧЕСКАЯ) =====
+// ===== ЗАГРУЗКА ПРОИЗВОДИТЕЛЕЙ =====
 async function loadManufacturers() {
   try {
     const res = await fetch(`${BASE_URL}/data/manufacturers.json`);
@@ -329,7 +329,6 @@ async function loadManufacturers() {
     return data;
   } catch (error) {
     console.error('Ошибка загрузки производителей:', error);
-    // Фолбэк - базовый список
     const fallback = {
       'kinder': { ru: 'Киндер', en: 'Kinder' },
       'nestle': { ru: 'Нестле', en: 'Nestle' },
@@ -502,7 +501,178 @@ function loadImage(src) {
     });
 }
 
-// ===== QR-КОДЫ (ПОЛНАЯ ВЕРСИЯ С НАТИВНЫМ СОХРАНЕНИЕМ И ГЛУБОКИМИ ССЫЛКАМИ) =====
+// ===== ИЗВЛЕЧЕНИЕ ID ИЗ URL (ДЛЯ ВИДЕО) =====
+
+function extractYouTubeId(url) {
+  if (!url) return null;
+  const patterns = [
+    /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([a-zA-Z0-9_-]{11})/,
+    /^([a-zA-Z0-9_-]{11})$/
+  ];
+  for (const p of patterns) {
+    const m = url.match(p);
+    if (m) return m[1];
+  }
+  return null;
+}
+
+function extractVKId(url) {
+  if (!url) return null;
+  // https://vk.com/clip-230111118_456239019
+  // https://vk.com/video-230111118_456239019
+  // https://vk.com/video_ext.php?oid=-230111118&id=456239019
+  const match1 = url.match(/vk\.com\/(?:clip|video)(-?\d+)_(\d+)/);
+  if (match1) {
+    return { oid: match1[1], id: match1[2] };
+  }
+  const match2 = url.match(/[?&]oid=(-?\d+).*[?&]id=(\d+)/);
+  if (match2) {
+    return { oid: match2[1], id: match2[2] };
+  }
+  return null;
+}
+
+function extractTikTokId(url) {
+  if (!url) return null;
+  const match = url.match(/\/video\/(\d+)/);
+  return match ? match[1] : null;
+}
+
+// ===== СОЗДАНИЕ БЛОКА ВИДЕО =====
+
+function createVideosBlock(videos, currentLang) {
+  if (!videos) return '';
+  
+  const blocks = [];
+  const videoScripts = [];
+  
+  // ===== YouTube =====
+  if (videos.youtube && videos.youtube.length > 0) {
+    videos.youtube.forEach(url => {
+      const videoId = extractYouTubeId(url);
+      if (videoId) {
+        blocks.push(`
+          <div class="video-embed">
+            <iframe 
+              src="https://www.youtube.com/embed/${videoId}" 
+              frameborder="0" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+              loading="lazy">
+            </iframe>
+          </div>
+        `);
+      } else {
+        blocks.push(`
+          <div class="video-link">
+            <a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">
+              ▶️ YouTube
+            </a>
+          </div>
+        `);
+      }
+    });
+  }
+  
+  // ===== VK Клипы =====
+  if (videos.vk && videos.vk.length > 0) {
+    videos.vk.forEach(url => {
+      const vkData = extractVKId(url);
+      if (vkData) {
+        blocks.push(`
+          <div class="video-embed">
+            <iframe 
+              src="https://vk.com/video_ext.php?oid=${vkData.oid}&id=${vkData.id}&hd=2"
+              frameborder="0" 
+              allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+              allowfullscreen
+              loading="lazy">
+            </iframe>
+          </div>
+        `);
+      } else {
+        blocks.push(`
+          <div class="video-link">
+            <a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">
+              🔵 VK Видео
+            </a>
+          </div>
+        `);
+      }
+    });
+  }
+  
+  // ===== TikTok =====
+  if (videos.tiktok && videos.tiktok.length > 0) {
+    videos.tiktok.forEach(url => {
+      const videoId = extractTikTokId(url);
+      if (videoId) {
+        blocks.push(`
+          <div class="video-tiktok">
+            <blockquote class="tiktok-embed" 
+                        cite="${escapeHtml(url)}" 
+                        data-video-id="${videoId}"
+                        style="max-width: 605px; min-width: 325px;">
+              <section>
+                <a target="_blank" href="${escapeHtml(url)}">TikTok</a>
+              </section>
+            </blockquote>
+          </div>
+        `);
+        if (!videoScripts.includes('tiktok')) {
+          videoScripts.push('tiktok');
+        }
+      } else {
+        blocks.push(`
+          <div class="video-link">
+            <a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">
+              🎵 TikTok
+            </a>
+          </div>
+        `);
+      }
+    });
+  }
+  
+  // ===== Instagram =====
+  if (videos.instagram && videos.instagram.length > 0) {
+    videos.instagram.forEach(url => {
+      blocks.push(`
+        <div class="video-instagram">
+          <blockquote class="instagram-media" 
+                      data-instgrm-permalink="${escapeHtml(url)}"
+                      data-instgrm-version="14"
+                      style="max-width: 540px; min-width: 326px;">
+          </blockquote>
+        </div>
+      `);
+      if (!videoScripts.includes('instagram')) {
+        videoScripts.push('instagram');
+      }
+    });
+  }
+  
+  if (blocks.length === 0) return '';
+  
+  // Формируем теги скриптов
+  let scriptsHtml = '';
+  if (videoScripts.includes('tiktok')) {
+    scriptsHtml += `<script async src="https://www.tiktok.com/embed.js"></script>`;
+  }
+  if (videoScripts.includes('instagram')) {
+    scriptsHtml += `<script async src="//www.instagram.com/embed.js"></script>`;
+  }
+  
+  return `
+    <h2 data-i18n="videos">${currentLang === 'ru' ? 'Видео' : 'Videos'}</h2>
+    <div class="videos-grid">
+      ${blocks.join('')}
+    </div>
+    ${scriptsHtml}
+  `;
+}
+
+// ===== QR-КОДЫ =====
 function generateQRCode(figureId, seriesId, figureName, isSeries = false) {
   try {
     const currentLang = localStorage.getItem("lang") || "ru";
@@ -567,24 +737,14 @@ function generateQRCode(figureId, seriesId, figureName, isSeries = false) {
           const base64Data = dataUrl.split(',')[1];
           const fileName = `QR_${safeName}_${Date.now()}.png`;
 
-          console.log('📝 Начинаем сохранение...');
-          console.log('📝 Имя файла:', fileName);
-          console.log('📝 Capacitor:', window.Capacitor);
-
           if (window.Capacitor && window.Capacitor.isNativePlatform()) {
-            console.log('✅ Capacitor нативная платформа');
-            
             if (window.FileHelper) {
               try {
-                console.log('✅ Используем нативный FileHelper');
-                
                 const savedPath = await saveQRCodeNative(base64Data, fileName);
-                
                 if (savedPath) {
                   const msg = currentLang === 'ru'
-                    ? `✅ QR-код сохранен в галерею!\n\n📁 Путь: ${savedPath}\n\nПроверьте галерею или папку "Капсула"`
-                    : `✅ QR code saved to gallery!\n\n📁 Path: ${savedPath}\n\nCheck gallery or "Капсула" folder`;
-                  
+                    ? `✅ QR-код сохранен в галерею!\n\n📁 Путь: ${savedPath}`
+                    : `✅ QR code saved to gallery!\n\n📁 Path: ${savedPath}`;
                   alert(msg);
                   showSuccess('✅ QR-код сохранен в галерею');
                   modal.remove();
@@ -598,16 +758,12 @@ function generateQRCode(figureId, seriesId, figureName, isSeries = false) {
             try {
               const Filesystem = window.Capacitor.Plugins.Filesystem;
               const Share = window.Capacitor.Plugins.Share;
-              
               if (Filesystem) {
-                console.log('📁 Пробуем Filesystem...');
-                
                 const dirs = [
                   { dir: 3, name: 'Documents' },
                   { dir: 2, name: 'Cache' },
                   { dir: 1, name: 'Data' }
                 ];
-                
                 for (const d of dirs) {
                   try {
                     const result = await Filesystem.writeFile({
@@ -616,15 +772,7 @@ function generateQRCode(figureId, seriesId, figureName, isSeries = false) {
                       directory: d.dir,
                       recursive: true
                     });
-                    
-                    console.log(`✅ Сохранено в ${d.name}:`, result.uri);
-                    
-                    const msg = currentLang === 'ru'
-                      ? `✅ QR-код сохранен!\n\n📁 Папка: ${d.name}\n📄 Файл: ${fileName}\n📂 Путь: ${result.uri}`
-                      : `✅ QR code saved!\n\n📁 Folder: ${d.name}\n📄 File: ${fileName}\n📂 Path: ${result.uri}`;
-                    
-                    alert(msg);
-                    
+                    alert(`✅ Сохранено в ${d.name}`);
                     if (Share) {
                       try {
                         await Share.share({
@@ -633,28 +781,18 @@ function generateQRCode(figureId, seriesId, figureName, isSeries = false) {
                           url: result.uri,
                           dialogTitle: 'Открыть файл'
                         });
-                      } catch (shareError) {
-                        console.warn('Share не доступен:', shareError);
-                      }
+                      } catch (shareError) {}
                     }
-                    
                     showSuccess(`✅ QR-код сохранен в ${d.name}`);
                     modal.remove();
                     return;
-                    
-                  } catch (dirError) {
-                    console.warn(`❌ Не удалось сохранить в ${d.name}:`, dirError.message);
-                  }
+                  } catch (dirError) {}
                 }
               }
-            } catch (fsError) {
-              console.error('❌ Ошибка Filesystem:', fsError);
-            }
-            
-            throw new Error('Не удалось сохранить QR-код. Попробуйте другой метод.');
+            } catch (fsError) {}
+            throw new Error('Не удалось сохранить QR-код.');
           }
           
-          console.log('🌐 Используем браузерный fallback');
           const link = document.createElement("a");
           link.href = dataUrl;
           link.download = fileName;
@@ -665,11 +803,7 @@ function generateQRCode(figureId, seriesId, figureName, isSeries = false) {
           modal.remove();
 
         } catch (error) {
-          console.error('❌ ОШИБКА:', error);
-          const msg = currentLang === 'ru'
-            ? `❌ Не удалось сохранить QR-код:\n\n${error.message}\n\nПроверьте консоль для деталей`
-            : `❌ Failed to save QR code:\n\n${error.message}\n\nCheck console for details`;
-          alert(msg);
+          alert(`❌ Ошибка: ${error.message}`);
         }
       };
     }
@@ -679,29 +813,16 @@ function generateQRCode(figureId, seriesId, figureName, isSeries = false) {
   }
 }
 
-// ===== ОБРАБОТКА ГЛУБОКИХ ССЫЛОК =====
-(function handleDeepLinkInApp() {
-    const params = new URLSearchParams(window.location.search);
-    const id = params.get('id');
-    
-    if (id && window.location.pathname.includes('series.html')) {
-        console.log('📱 Открыто через глубокую ссылку, серия:', id);
-    }
-})();
-
 // ===== СОХРАНЕНИЕ ЧЕК-ЛИСТА ЧЕРЕЗ НАТИВНЫЙ МЕТОД =====
 async function saveChecklistNative(base64Data, fileName) {
     return new Promise((resolve, reject) => {
         try {
             if (!window.FileHelper) {
-                reject(new Error('FileHelper не найден. Проверьте настройки приложения.'));
+                reject(new Error('FileHelper не найден.'));
                 return;
             }
             
-            console.log('✅ Используем нативный FileHelper для чек-листа');
-            
             window._checklistSaveCallback = function(result) {
-                console.log('📝 Результат сохранения чек-листа:', result);
                 if (result && result !== 'null') {
                     resolve(result);
                 } else {
@@ -727,17 +848,16 @@ async function saveChecklistNative(base64Data, fileName) {
 
 window.saveChecklistNative = saveChecklistNative;
 
-// ===== СОХРАНЕНИЕ ЧЕРЕЗ НАТИВНЫЙ МЕТОД =====
+// ===== СОХРАНЕНИЕ QR ЧЕРЕЗ НАТИВНЫЙ МЕТОД =====
 async function saveQRCodeNative(base64Data, fileName) {
     return new Promise((resolve, reject) => {
         try {
             if (!window.FileHelper) {
-                reject(new Error('FileHelper не найден. Проверьте настройки приложения.'));
+                reject(new Error('FileHelper не найден.'));
                 return;
             }
             
             window._qrSaveCallback = function(result) {
-                console.log('📝 Результат сохранения:', result);
                 if (result && result !== 'null') {
                     resolve(result);
                 } else {
@@ -1837,7 +1957,6 @@ async function initForSale() {
       
       const imageUrl = item.image ? `${BASE_URL}/${item.image}` : 'images/placeholder.svg';
       
-      // Для полных серий ссылка на lot.html, для остальных - на figure.html
       const linkUrl = item.type === 'full' ? `lot.html?id=${item.seriesId}` : `figure.html?series=${item.seriesId}&fig=${item.id}`;
       
       div.innerHTML = `
@@ -1868,24 +1987,20 @@ async function initForSale() {
       return div;
     }
     
-    // ===== ФИЛЬТРЫ ПРОИЗВОДИТЕЛЕЙ =====
     const filterGroup = document.getElementById('forsaleFilterGroup') || document.querySelector('.filter-group');
     if (filterGroup) {
       const allItems = [...figureItems, ...variantItems, ...extraItems, ...insertItems, ...fullSeriesItems];
       const uniqueMans = [...new Set(allItems.map(i => i.manufacturer))];
       const sortedMans = manufacturerOrder.filter(m => uniqueMans.includes(m));
       
-      // Очищаем и добавляем кнопки
       filterGroup.innerHTML = '';
       
-      // Кнопка "Все"
       const allBtn = document.createElement('button');
       allBtn.className = 'filter-btn' + (currentManufacturer === 'all' ? ' active' : '');
       allBtn.dataset.filter = 'all';
       allBtn.textContent = currentLang === 'ru' ? 'Все' : 'All';
       filterGroup.appendChild(allBtn);
       
-      // Кнопки производителей
       sortedMans.forEach(m => {
         const displayName = manufacturers[m]?.[currentLang] || m;
         const btn = document.createElement('button');
@@ -1895,7 +2010,6 @@ async function initForSale() {
         filterGroup.appendChild(btn);
       });
       
-      // Обработчики кликов
       filterGroup.querySelectorAll('.filter-btn').forEach(btn => {
         btn.onclick = () => {
           filterGroup.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
@@ -1923,8 +2037,6 @@ async function initForSale() {
       if (totalSeries) totalSeries.textContent = series.length;
       
       grid.innerHTML = '';
-      
-      // ===== СНАЧАЛА ВСЕ ОСНОВНЫЕ РАЗДЕЛЫ =====
       
       if (figures.length > 0) {
         const totalPages = Math.ceil(figures.length / CONFIG.ITEMS_PER_PAGE);
@@ -2016,7 +2128,6 @@ async function initForSale() {
         }
       }
       
-      // ===== БЛОК "НЕДАВНО ДОБАВЛЕННОЕ" В САМОМ КОНЦЕ =====
       if (recent.length > 0) {
         const divider = document.createElement('div');
         divider.className = 'section-divider';
@@ -2025,7 +2136,6 @@ async function initForSale() {
         recent.forEach(item => grid.appendChild(createItemCard(item)));
       }
       
-      // Если ничего нет
       if (figures.length === 0 && variants.length === 0 && extras.length === 0 && inserts.length === 0 && series.length === 0 && recent.length === 0) {
         grid.innerHTML = '<p class="empty-message">' + (currentLang === 'ru' ? 'Нет товаров в продаже' : 'No items for sale') + '</p>';
       }
@@ -2039,7 +2149,7 @@ async function initForSale() {
   }
 }
 
-// ===== СТРАНИЦА ЛОТА (ПОЛНАЯ СЕРИЯ НА ПРОДАЖУ) =====
+// ===== СТРАНИЦА ЛОТА =====
 async function initLot() {
   const container = document.getElementById("lotContainer");
   if (!container) return;
@@ -2183,7 +2293,6 @@ async function initLot() {
 }
 
 // ===== SERIES PAGE =====
-
 async function initSeries() {
   const box = document.getElementById("seriesContainer");
   if (!box) return;
@@ -2274,94 +2383,6 @@ async function initSeries() {
           }).join('')}
         </div>
       `;
-    }
-    
-    // ===== ФУНКЦИЯ ДЛЯ ВИДЕО =====
-    function createVideosBlock(videos, currentLang) {
-      if (!videos) return '';
-      
-      const blocks = [];
-      
-      // YouTube
-      if (videos.youtube && videos.youtube.length > 0) {
-        videos.youtube.forEach(url => {
-          const videoId = extractYouTubeId(url);
-          if (videoId) {
-            blocks.push(`
-              <div class="video-embed">
-                <iframe 
-                  src="https://www.youtube.com/embed/${videoId}" 
-                  frameborder="0" 
-                  allowfullscreen
-                  loading="lazy">
-                </iframe>
-              </div>
-            `);
-          }
-        });
-      }
-      
-      // VK
-      if (videos.vk && videos.vk.length > 0) {
-        videos.vk.forEach(url => {
-          blocks.push(`
-            <div class="video-link">
-              <a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">
-                🔵 VK Видео
-              </a>
-            </div>
-          `);
-        });
-      }
-      
-      // TikTok
-      if (videos.tiktok && videos.tiktok.length > 0) {
-        videos.tiktok.forEach(url => {
-          blocks.push(`
-            <div class="video-link">
-              <a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">
-                🎵 TikTok
-              </a>
-            </div>
-          `);
-        });
-      }
-      
-      // Instagram
-      if (videos.instagram && videos.instagram.length > 0) {
-        videos.instagram.forEach(url => {
-          blocks.push(`
-            <div class="video-link">
-              <a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">
-                📸 Instagram
-              </a>
-            </div>
-          `);
-        });
-      }
-      
-      if (blocks.length === 0) return '';
-      
-      return `
-        <h2 data-i18n="videos">${currentLang === 'ru' ? 'Видео' : 'Videos'}</h2>
-        <div class="videos-grid">
-          ${blocks.join('')}
-        </div>
-      `;
-    }
-    
-    // ===== ВСПОМОГАТЕЛЬНАЯ ФУНКЦИЯ: извлечение ID YouTube =====
-    function extractYouTubeId(url) {
-      if (!url) return null;
-      const patterns = [
-        /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([a-zA-Z0-9_-]{11})/,
-        /^([a-zA-Z0-9_-]{11})$/
-      ];
-      for (const p of patterns) {
-        const m = url.match(p);
-        if (m) return m[1];
-      }
-      return null;
     }
     
     let figuresStartIndex = 0;
@@ -2589,7 +2610,6 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
         try {
             const allItems = [...figures, ...extras, ...variants];
             
-            // Загружаем все изображения
             const imageMap = new Map();
             for (const item of allItems) {
                 const imageUrl = item.image ? `${BASE_URL}/${item.image}` : 'images/placeholder.svg';
@@ -2644,7 +2664,6 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
             
             const totalWidth = padding * 2 + itemsPerRow * itemSize + (itemsPerRow - 1) * itemGap;
             
-            // Проверяем, нужны ли поля для каждой группы
             const showCodeFigures = hasAnyCode(figures);
             const showNameFigures = hasAnyCustomName(figures, 'figure');
             const showCodeExtras = hasAnyCode(extras);
@@ -2663,7 +2682,6 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
             const extraCellHeight = getCellHeight(showCodeExtras, showNameExtras);
             const variantCellHeight = getCellHeight(showCodeVariants, showNameVariants);
             
-            // ===== ТОЧНЫЙ РАСЧЁТ ВЫСОТЫ =====
             const visibleGroups = [];
             if (figures.length > 0) visibleGroups.push({ rows: figureRows, cellHeight: figureCellHeight });
             if (extras.length > 0) visibleGroups.push({ rows: extraRows, cellHeight: extraCellHeight });
@@ -2681,7 +2699,6 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
             
             totalHeight += footerHeight + padding;
             
-            // ===== CANVAS =====
             const SCALE = 1.5;
             const canvas = document.createElement('canvas');
             canvas.width = totalWidth * SCALE;
@@ -2695,7 +2712,6 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
             const BORDER_COLOR = '#141D35';
             const TEXT_COLOR = '#141D35';
             
-            // ===== ЯЗЫКОВЫЕ ДАННЫЕ =====
             const langData = {
                 ru: {
                     figures: '📦 ФИГУРКИ',
@@ -2720,7 +2736,6 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
             };
             const t = langData[lang] || langData.ru;
             
-            // ===== ФОН =====
             const bgGradient = ctx.createLinearGradient(0, 0, 0, totalHeight);
             bgGradient.addColorStop(0, '#ffffff');
             bgGradient.addColorStop(1, '#f5f7fb');
@@ -2738,7 +2753,6 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
             ctx.fill();
             ctx.restore();
             
-            // ===== ЛОГО ПО ЦЕНТРУ =====
             const logoImage = await loadImage(`${BASE_URL}/images/logo.webp`);
             const logoSize = 180;
             const logoX = (totalWidth - logoSize) / 2;
@@ -2766,7 +2780,6 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                 ctx.fillText('КАПСУЛА', totalWidth / 2, logoY + logoSize / 2);
             }
             
-            // ===== НАЗВАНИЕ СЕРИИ =====
             const titleY = padding + 20;
             
             ctx.fillStyle = '#4f46e5';
@@ -2795,7 +2808,6 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
             ctx.fillStyle = TEXT_COLOR;
             ctx.fillText(`${t.total}: ${totalItems}`, padding, titleY + 95);
             
-            // ===== QR-КОД =====
             const qrImage = await loadImage(`${BASE_URL}/images/qrcodesite.png`);
             const qrX = totalWidth - padding - qrSize;
             const qrY = padding;
@@ -2842,14 +2854,11 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
             ctx.textBaseline = 'top';
             ctx.fillText(t.scanMe, qrX + qrSize/2, qrY + qrSize + 25);
             
-            // ===== НАЧАЛЬНАЯ Y =====
             let currentY = padding + headerHeight;
             
-            // ===== ФУНКЦИЯ ОТРИСОВКИ ЯЧЕЙКИ =====
             function drawCell(ctx, x, y, size, item, num, img, lang, showCode, showName, type) {
                 const labelBg = '#FFFFFF';
                 
-                // Фон ячейки
                 ctx.save();
                 ctx.shadowColor = 'rgba(0, 0, 0, 0.08)';
                 ctx.shadowBlur = 14;
@@ -2864,7 +2873,6 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                 ctx.fill();
                 ctx.restore();
                 
-                // Рамка вокруг фигурки
                 ctx.strokeStyle = BORDER_COLOR;
                 ctx.lineWidth = 4;
                 ctx.beginPath();
@@ -2875,7 +2883,6 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                 }
                 ctx.stroke();
                 
-                // ===== ФИГУРКА =====
                 if (img && img.complete && img.naturalWidth > 0) {
                     const maxImgSize = size - 10;
                     const imgWidth = img.naturalWidth;
@@ -2921,7 +2928,6 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                     ctx.fillText('🖼️', x + size/2, y + size/2);
                 }
                 
-                // ===== ВОДЯНОЙ ЗНАК =====
                 ctx.save();
                 ctx.globalAlpha = 0.35;
                 ctx.translate(x + size/2, y + size/2);
@@ -2933,13 +2939,11 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                 ctx.fillText('MANSUR', 0, 0);
                 ctx.restore();
                 
-                // ===== СТРОКА С НОМЕРОМ И КОДОМ =====
                 let rowY = y + size + labelGap;
                 const numBoxY = rowY;
                 const hasCode = item.code && item.code.trim() && showCode;
                 
                 if (hasCode) {
-                    // ===== ЕСТЬ КОД: номер слева + код справа =====
                     const numBoxSize = codeRowHeight;
                     const numBoxX = x;
                     
@@ -2968,7 +2972,6 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                     ctx.textBaseline = 'middle';
                     ctx.fillText(num.toString(), numBoxX + numBoxSize/2, numBoxY + numBoxSize/2 + 1);
                     
-                    // Код с отступом innerGap
                     const codeX = numBoxX + numBoxSize + innerGap;
                     const codeWidth = size - numBoxSize - innerGap;
                     
@@ -2991,7 +2994,6 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                     }
                     ctx.stroke();
                     
-                    // Обрезаем длинный код
                     let displayCode = item.code;
                     ctx.font = 'bold 22px monospace';
                     while (ctx.measureText(displayCode).width > codeWidth - 16 && displayCode.length > 3) {
@@ -3007,7 +3009,6 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                     ctx.fillText(displayCode, codeX + codeWidth/2, numBoxY + numBoxSize/2 + 1);
                     
                 } else {
-                    // ===== НЕТ КОДА: номер растягивается на всю ширину =====
                     const numBoxX = x;
                     const numBoxWidth = size;
                     
@@ -3039,7 +3040,6 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                 
                 rowY += codeRowHeight + labelGap;
                 
-                // ===== ПЛАШКА С НАЗВАНИЕМ =====
                 if (showName) {
                     const itemName = (lang === 'en' && item.name_en) ? item.name_en : item.name;
                     const isDefault = isDefaultName(item, type);
@@ -3099,7 +3099,6 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                 }
             }
             
-            // ===== ФУНКЦИЯ ОТРИСОВКИ ГРУППЫ =====
             async function drawGroup(items, title, startY, color, type, showCode, showName, cellHeight) {
                 if (items.length === 0) return startY;
                 
@@ -3139,13 +3138,11 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                     }
                 }
                 
-                // Если последний ряд был неполным — добавляем высоту одной ячейки
                 if (col !== 0) y += cellHeight;
                 
                 return y;
             }
             
-            // ===== ОТРИСОВКА ГРУПП =====
             if (figures.length > 0) {
                 currentY = await drawGroup(figures, t.figures, currentY, '#4f46e5', 'figure', showCodeFigures, showNameFigures, figureCellHeight);
                 if (extras.length > 0 || variants.length > 0) currentY += 10;
@@ -3158,7 +3155,6 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                 currentY = await drawGroup(variants, t.variants, currentY, '#f59e0b', 'variant', showCodeVariants, showNameVariants, variantCellHeight);
             }
             
-            // ===== ФУТЕР =====
             const footerY = totalHeight - footerHeight;
             
             ctx.strokeStyle = '#e5e7eb';
@@ -3183,7 +3179,6 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
     });
 }
 
-// ===== СКАЧИВАНИЕ ЧЕК-ЛИСТА =====
 async function downloadCollage(seriesId, seriesName) {
     if (isDownloadingChecklist) {
         console.warn('⏳ Уже генерируется чек-лист');
@@ -3223,32 +3218,22 @@ async function downloadCollage(seriesId, seriesName) {
         const fileName = `checklist_${safeName}_${Date.now()}.jpg`;
         
         if (window.Capacitor && window.Capacitor.isNativePlatform()) {
-            console.log('✅ Capacitor нативная платформа для чек-листа');
-            
             if (window.FileHelper) {
                 try {
-                    console.log('✅ Используем нативный FileHelper для чек-листа');
                     const savedPath = await saveChecklistNative(base64Data, fileName);
                     if (savedPath) {
-                        const msg = lang === 'ru'
-                            ? `✅ Чек-лист сохранен в галерею!\n\n📁 Путь: ${savedPath}\n\nПроверьте галерею или папку "Капсула"`
-                            : `✅ Checklist saved to gallery!\n\n📁 Path: ${savedPath}\n\nCheck gallery or "Капсула" folder`;
-                        alert(msg);
+                        alert(`✅ Чек-лист сохранен!\n\n📁 ${savedPath}`);
                         hideLoadingToast();
-                        showSuccess('✅ Чек-лист сохранен в галерею');
+                        showSuccess('✅ Чек-лист сохранен');
                         isDownloadingChecklist = false;
                         return;
                     }
-                } catch (nativeError) {
-                    console.warn('❌ Нативный метод не сработал:', nativeError);
-                }
+                } catch (nativeError) {}
             }
             
             try {
                 const Filesystem = window.Capacitor.Plugins.Filesystem;
-                const Share = window.Capacitor.Plugins.Share;
                 if (Filesystem) {
-                    console.log('📁 Пробуем Filesystem для чек-листа...');
                     const dirs = [
                         { dir: 3, name: 'Documents' },
                         { dir: 2, name: 'Cache' },
@@ -3262,40 +3247,19 @@ async function downloadCollage(seriesId, seriesName) {
                                 directory: d.dir,
                                 recursive: true
                             });
-                            console.log(`✅ Чек-лист сохранен в ${d.name}:`, result.uri);
-                            const msg = lang === 'ru'
-                                ? `✅ Чек-лист сохранен!\n\n📁 Папка: ${d.name}\n📄 Файл: ${fileName}`
-                                : `✅ Checklist saved!\n\n📁 Folder: ${d.name}\n📄 File: ${fileName}`;
-                            alert(msg);
-                            if (Share) {
-                                try {
-                                    await Share.share({
-                                        title: 'Чек-лист',
-                                        text: `Чек-лист серии ${seriesTitle}`,
-                                        url: result.uri,
-                                        dialogTitle: 'Открыть файл'
-                                    });
-                                } catch (shareError) {
-                                    console.warn('Share не доступен:', shareError);
-                                }
-                            }
+                            alert(`✅ Сохранено в ${d.name}`);
                             hideLoadingToast();
-                            showSuccess(`✅ Чек-лист сохранен в ${d.name}`);
+                            showSuccess(`✅ Чек-лист сохранен`);
                             isDownloadingChecklist = false;
                             return;
-                        } catch (dirError) {
-                            console.warn(`❌ Не удалось сохранить в ${d.name}:`, dirError.message);
-                        }
+                        } catch (dirError) {}
                     }
                 }
-            } catch (fsError) {
-                console.error('❌ Ошибка Filesystem:', fsError);
-            }
+            } catch (fsError) {}
             
-            throw new Error('Не удалось сохранить чек-лист. Попробуйте другой метод.');
+            throw new Error('Не удалось сохранить чек-лист.');
         }
         
-        console.log('🌐 Используем браузерный fallback для чек-листа');
         const link = document.createElement("a");
         link.href = jpegData;
         link.download = `checklist_${safeName}.jpg`;
@@ -3315,7 +3279,7 @@ async function downloadCollage(seriesId, seriesName) {
     }
 }
 
-// ===== ОБРАБОТКА ГЛУБОКИХ ССЫЛОК ДЛЯ QR-КОДОВ =====
+// ===== ОБРАБОТКА ГЛУБОКИХ ССЫЛОК =====
 function handleDeepLink() {
     const params = new URLSearchParams(window.location.search);
     const id = params.get('id');
@@ -3323,10 +3287,7 @@ function handleDeepLink() {
     const hash = window.location.hash;
     const figureMatch = hash.match(/figure-([^&]+)/);
     
-    console.log('📱 Обработка глубокой ссылки:', { id, hash, figureMatch });
-    
     if (id) {
-        console.log('📱 Открыто через глубокую ссылку, серия:', id);
         setTimeout(() => {
             window.location.href = `series.html?id=${id}`;
         }, 100);
@@ -3335,7 +3296,6 @@ function handleDeepLink() {
     
     if (figureMatch) {
         const figureId = figureMatch[1];
-        console.log('📱 Открыто через глубокую ссылку, фигурка:', figureId);
         showSuccess(`🔍 Открыта фигурка: ${figureId}`);
         return true;
     }
@@ -3355,7 +3315,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   const path = window.location.pathname;
   
   try {
-    // ЗАГРУЖАЕМ ПРОИЗВОДИТЕЛЕЙ СНАЧАЛА
     await loadManufacturers();
     
     if (path.includes('catalog.html')) {
