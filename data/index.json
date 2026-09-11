@@ -1,5 +1,41 @@
 [
   {
+    "id": "penguins-by-kinder-2026",
+    "name": "Пингвины от Киндер",
+    "name_en": "Penguins by Kinder",
+    "year": 2026,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/penguins-by-kinder-2026/cover.webp",
+    "kind": "",
+    "description": "Легендарное возвращение тех самых пингвинов!",
+    "description_en": "The legendary return of those same penguins!",
+    "visible": true
+  },
+  {
+    "id": "booba-by-kinder-2026",
+    "name": "Буба от Киндер",
+    "name_en": "Booba by Kinder",
+    "year": 2026,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/booba-by-kinder-2026/cover.webp",
+    "kind": "",
+    "description": "Серия по одноименному мультсериалу.",
+    "description_en": "A series based on the animated series of the same name.",
+    "visible": true
+  },
+  {
+    "id": "the-fixies-by-kinder-2026",
+    "name": "Фиксики от Киндер",
+    "name_en": "The Fixies by Kinder",
+    "year": 2026,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/the-fixies-by-kinder-2026/cover.webp",
+    "kind": "",
+    "description": "Серия по одноименному мультсериалу.",
+    "description_en": "A series based on the animated series of the same name.",
+    "visible": true
+  },
+  {
     "id": "star-wars-maxi-by-kinder-2026",
     "name": "Звездные Войны Макси от Киндер",
     "name_en": "Star Wars Maxi by Kinder",
