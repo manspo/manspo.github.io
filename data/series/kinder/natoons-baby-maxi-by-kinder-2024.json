@@ -1,10 +1,10 @@
 {
-  "id": "natoons-baby-maxi-by-kinder-2025",
+  "id": "natoons-baby-maxi-by-kinder-2024",
   "name": "Натунс Детеныши Макси от Киндер",
   "name_en": "Natoons Baby Maxi by Kinder",
-  "year": 2025,
+  "year": 2024,
   "manufacturer": "kinder",
-  "cover": "images/series/kinder/kindermaxinatoonsbaby/cover.webp",
+  "cover": "images/series/kinder/natoons-baby-maxi-by-kinder-2024/cover.webp",
   "description": "Большая версия детенышей животных",
   "description_en": "Large version of baby animals",
   "kind": "maxi",
@@ -20,46 +20,46 @@
   "fullSeriesDescription_en": "Perfect condition. Complete series.",
   "figures": [
     {
-      "id": "kindermaxinatoonsbaby_fig1",
-      "image": "images/series/kinder/kindermaxinatoonsbaby/01.avif",
-      "name": "Тигренок",
-      "name_en": "Tiger cub",
+      "id": "natoons-baby-maxi-by-kinder-2024_fig1",
+      "image": "images/series/kinder/natoons-baby-maxi-by-kinder-2024/01.avif",
+      "name": "Гепард Рико",
+      "name_en": "Cheetah Ricko",
       "owned": true,
       "forsale": false,
       "avito": ""
     },
     {
-      "id": "kindermaxinatoonsbaby_fig2",
-      "image": "images/series/kinder/kindermaxinatoonsbaby/02.avif",
-      "name": "Дельфин",
-      "name_en": "Dolphin",
+      "id": "natoons-baby-maxi-by-kinder-2024_fig2",
+      "image": "images/series/kinder/natoons-baby-maxi-by-kinder-2024/02.avif",
+      "name": "Дельфин Оливер",
+      "name_en": "Dolphin Oliver",
       "owned": true,
       "forsale": false,
       "avito": ""
     },
     {
-      "id": "kindermaxinatoonsbaby_fig3",
-      "image": "images/series/kinder/kindermaxinatoonsbaby/03.avif",
-      "name": "Панда",
-      "name_en": "Panda",
+      "id": "natoons-baby-maxi-by-kinder-2024_fig3",
+      "image": "images/series/kinder/natoons-baby-maxi-by-kinder-2024/03.avif",
+      "name": "Панда Лола",
+      "name_en": "Panda Lola",
       "owned": true,
       "forsale": false,
       "avito": ""
     },
     {
-      "id": "kindermaxinatoonsbaby_fig4",
-      "image": "images/series/kinder/kindermaxinatoonsbaby/04.avif",
-      "name": "Ленивец",
-      "name_en": "Sloth",
+      "id": "natoons-baby-maxi-by-kinder-2024_fig4",
+      "image": "images/series/kinder/natoons-baby-maxi-by-kinder-2024/04.avif",
+      "name": "Ленивец Марти",
+      "name_en": "Sloth Marty",
       "owned": true,
       "forsale": false,
       "avito": ""
     },
     {
-      "id": "kindermaxinatoonsbaby_fig5",
-      "image": "images/series/kinder/kindermaxinatoonsbaby/05.avif",
-      "name": "Черепашка",
-      "name_en": "Turtle",
+      "id": "natoons-baby-maxi-by-kinder-2024_fig5",
+      "image": "images/series/kinder/natoons-baby-maxi-by-kinder-2024/05.avif",
+      "name": "Черепаха Эмма",
+      "name_en": "Turtle Emma",
       "owned": false,
       "forsale": false,
       "avito": ""
@@ -69,8 +69,8 @@
   "variants": [],
   "inserts": [
     {
-      "id": "kindermaxinatoonsbaby_insert1",
-      "image": "images/series/kinder/kindermaxinatoonsbaby/BPZ.avif",
+      "id": "natoons-baby-maxi-by-kinder-2024_insert1",
+      "image": "images/series/kinder/natoons-baby-maxi-by-kinder-2024/BPZ.avif",
       "name": "Вкладыш 1",
       "name_en": "Insert 1",
       "owned": false,
@@ -78,7 +78,18 @@
       "avito": ""
     }
   ],
-  "other": [],
+  "other": [
+  {
+      "id": "natoons-baby-maxi-by-kinder-2024_other1",
+      "name": "Фольга",
+      "name_en": "Foil",
+      "code": "",
+      "image": "images/series/kinder/natoons-baby-maxi-by-kinder-2024/foil.webp",
+      "owned": true,
+      "forsale": false,
+      "avito": ""
+    }
+  ],
   "videos": {
     "youtube": [],
     "vk": [],
