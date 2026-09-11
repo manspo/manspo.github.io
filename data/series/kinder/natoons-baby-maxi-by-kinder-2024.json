@@ -21,7 +21,7 @@
   "figures": [
     {
       "id": "natoons-baby-maxi-by-kinder-2024_fig1",
-      "image": "images/series/kinder/natoons-baby-maxi-by-kinder-2024/01.avif",
+      "image": "images/series/kinder/natoons-baby-maxi-by-kinder-2024/01.webp",
       "name": "Гепард Рико",
       "name_en": "Cheetah Ricko",
       "owned": true,
@@ -30,7 +30,7 @@
     },
     {
       "id": "natoons-baby-maxi-by-kinder-2024_fig2",
-      "image": "images/series/kinder/natoons-baby-maxi-by-kinder-2024/02.avif",
+      "image": "images/series/kinder/natoons-baby-maxi-by-kinder-2024/02.webp",
       "name": "Дельфин Оливер",
       "name_en": "Dolphin Oliver",
       "owned": true,
@@ -39,7 +39,7 @@
     },
     {
       "id": "natoons-baby-maxi-by-kinder-2024_fig3",
-      "image": "images/series/kinder/natoons-baby-maxi-by-kinder-2024/03.avif",
+      "image": "images/series/kinder/natoons-baby-maxi-by-kinder-2024/03.webp",
       "name": "Панда Лола",
       "name_en": "Panda Lola",
       "owned": true,
@@ -48,7 +48,7 @@
     },
     {
       "id": "natoons-baby-maxi-by-kinder-2024_fig4",
-      "image": "images/series/kinder/natoons-baby-maxi-by-kinder-2024/04.avif",
+      "image": "images/series/kinder/natoons-baby-maxi-by-kinder-2024/04.webp",
       "name": "Ленивец Марти",
       "name_en": "Sloth Marty",
       "owned": true,
@@ -57,7 +57,7 @@
     },
     {
       "id": "natoons-baby-maxi-by-kinder-2024_fig5",
-      "image": "images/series/kinder/natoons-baby-maxi-by-kinder-2024/05.avif",
+      "image": "images/series/kinder/natoons-baby-maxi-by-kinder-2024/05.webp",
       "name": "Черепаха Эмма",
       "name_en": "Turtle Emma",
       "owned": false,
