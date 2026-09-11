@@ -1,10 +1,10 @@
 {
-  "id": "jungle-book-disney-by-rubazahl-koch-2003",
+  "id": "jungle-book-disney-by-rubezahl-koch-2003",
   "name": "Книга Джунглей Дисней от Рюбецаль Кох",
-  "name_en": "Jungle Book Disney by Rubazahl Koch",
+  "name_en": "Jungle Book Disney by rubezahl Koch",
   "year": 2003,
   "manufacturer": "rubezahl-koch",
-  "cover": "images/series/rubezahl-koch/jungle-book-disney-by-rubazahl-koch-2003/cover.webp",
+  "cover": "images/series/rubezahl-koch/jungle-book-disney-by-rubezahl-koch-2003/cover.webp",
   "description": "Серия по знаменитому мультфильму от Дисней - Книга Джунглей.",
   "description_en": "A series based on the famous Disney animated film \"The Jungle Book\".",
   "kind": "",
@@ -20,11 +20,11 @@
   "fullSeriesDescription_en": "",
   "figures": [
     {
-      "id": "jungle-book-disney-by-rubazahl-koch-2003_fig1",
+      "id": "jungle-book-disney-by-rubezahl-koch-2003_fig1",
       "name": "Багира",
       "name_en": "Bagheera",
       "code": "",
-      "image": "images/series/rubezahl-koch/jungle-book-disney-by-rubazahl-koch-2003/01.webp",
+      "image": "images/series/rubezahl-koch/jungle-book-disney-by-rubezahl-koch-2003/01.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -34,11 +34,11 @@
       "parentFigureId": ""
     },
     {
-      "id": "jungle-book-disney-by-rubazahl-koch-2003_fig2",
+      "id": "jungle-book-disney-by-rubezahl-koch-2003_fig2",
       "name": "Шер-Хан",
       "name_en": "Shere Khan",
       "code": "",
-      "image": "images/series/rubezahl-koch/jungle-book-disney-by-rubazahl-koch-2003/02.webp",
+      "image": "images/series/rubezahl-koch/jungle-book-disney-by-rubezahl-koch-2003/02.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -48,11 +48,11 @@
       "parentFigureId": ""
     },
     {
-      "id": "jungle-book-disney-by-rubazahl-koch-2003_fig3",
+      "id": "jungle-book-disney-by-rubezahl-koch-2003_fig3",
       "name": "Шанти и Ранджан",
       "name_en": "Shanti and Ranjan",
       "code": "",
-      "image": "images/series/rubezahl-koch/jungle-book-disney-by-rubazahl-koch-2003/03.webp",
+      "image": "images/series/rubezahl-koch/jungle-book-disney-by-rubezahl-koch-2003/03.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -62,11 +62,11 @@
       "parentFigureId": ""
     },
     {
-      "id": "jungle-book-disney-by-rubazahl-koch-2003_fig4",
+      "id": "jungle-book-disney-by-rubezahl-koch-2003_fig4",
       "name": "Фланки",
       "name_en": "Flunky",
       "code": "",
-      "image": "images/series/rubezahl-koch/jungle-book-disney-by-rubazahl-koch-2003/04.webp",
+      "image": "images/series/rubezahl-koch/jungle-book-disney-by-rubezahl-koch-2003/04.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -76,11 +76,11 @@
       "parentFigureId": ""
     },
     {
-      "id": "jungle-book-disney-by-rubazahl-koch-2003_fig5",
+      "id": "jungle-book-disney-by-rubezahl-koch-2003_fig5",
       "name": "Баззи",
       "name_en": "Buzzie",
       "code": "",
-      "image": "images/series/rubezahl-koch/jungle-book-disney-by-rubazahl-koch-2003/05.webp",
+      "image": "images/series/rubezahl-koch/jungle-book-disney-by-rubezahl-koch-2003/05.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -90,11 +90,11 @@
       "parentFigureId": ""
     },
     {
-      "id": "jungle-book-disney-by-rubazahl-koch-2003_fig6",
+      "id": "jungle-book-disney-by-rubezahl-koch-2003_fig6",
       "name": "Хатхи-младший",
       "name_en": "Hathi Jr.",
       "code": "",
-      "image": "images/series/rubezahl-koch/jungle-book-disney-by-rubazahl-koch-2003/06.webp",
+      "image": "images/series/rubezahl-koch/jungle-book-disney-by-rubezahl-koch-2003/06.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -104,11 +104,11 @@
       "parentFigureId": ""
     },
     {
-      "id": "jungle-book-disney-by-rubazahl-koch-2003_fig7",
+      "id": "jungle-book-disney-by-rubezahl-koch-2003_fig7",
       "name": "Балу",
       "name_en": "Baloo",
       "code": "",
-      "image": "images/series/rubezahl-koch/jungle-book-disney-by-rubazahl-koch-2003/07.webp",
+      "image": "images/series/rubezahl-koch/jungle-book-disney-by-rubezahl-koch-2003/07.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -118,11 +118,11 @@
       "parentFigureId": ""
     },
     {
-      "id": "jungle-book-disney-by-rubazahl-koch-2003_fig8",
+      "id": "jungle-book-disney-by-rubezahl-koch-2003_fig8",
       "name": "Маугли",
       "name_en": "Mowgli",
       "code": "",
-      "image": "images/series/rubezahl-koch/jungle-book-disney-by-rubazahl-koch-2003/08.webp",
+      "image": "images/series/rubezahl-koch/jungle-book-disney-by-rubezahl-koch-2003/08.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -132,11 +132,11 @@
       "parentFigureId": ""
     },
     {
-      "id": "jungle-book-disney-by-rubazahl-koch-2003_fig9",
+      "id": "jungle-book-disney-by-rubezahl-koch-2003_fig9",
       "name": "Полковник Хатхи",
       "name_en": "Colonel Hathi",
       "code": "",
-      "image": "images/series/rubezahl-koch/jungle-book-disney-by-rubazahl-koch-2003/09.webp",
+      "image": "images/series/rubezahl-koch/jungle-book-disney-by-rubezahl-koch-2003/09.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -146,11 +146,11 @@
       "parentFigureId": ""
     },
     {
-      "id": "jungle-book-disney-by-rubazahl-koch-2003_fig10",
+      "id": "jungle-book-disney-by-rubezahl-koch-2003_fig10",
       "name": "Каа",
       "name_en": "Kaa",
       "code": "",
-      "image": "images/series/rubezahl-koch/jungle-book-disney-by-rubazahl-koch-2003/10.webp",
+      "image": "images/series/rubezahl-koch/jungle-book-disney-by-rubezahl-koch-2003/10.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -164,11 +164,11 @@
   "variants": [],
   "inserts": [
     {
-      "id": "jungle-book-disney-by-rubazahl-koch-2003_insert1",
+      "id": "jungle-book-disney-by-rubezahl-koch-2003_insert1",
       "name": "Вкладыш 1",
       "name_en": "Insert 1",
       "code": "",
-      "image": "images/series/rubezahl-koch/jungle-book-disney-by-rubazahl-koch-2003/bpz.webp",
+      "image": "images/series/rubezahl-koch/jungle-book-disney-by-rubezahl-koch-2003/bpz.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -178,11 +178,11 @@
       "parentFigureId": ""
     },
     {
-      "id": "jungle-book-disney-by-rubazahl-koch-2003_insert2",
+      "id": "jungle-book-disney-by-rubezahl-koch-2003_insert2",
       "name": "Вкладыш 2",
       "name_en": "Insert 2",
       "code": "",
-      "image": "images/series/rubezahl-koch/jungle-book-disney-by-rubazahl-koch-2003/bpz2.webp",
+      "image": "images/series/rubezahl-koch/jungle-book-disney-by-rubezahl-koch-2003/bpz2.webp",
       "owned": false,
       "forsale": false,
       "avito": "",

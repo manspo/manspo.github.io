@@ -383,9 +383,8 @@ async function loadManufacturersToSelects() {
 // ============================================================
 
 function getManufacturerFolder(m) {
-    if (manufacturersData[m] && manufacturersData[m].en) {
-        return manufacturersData[m].en.toLowerCase();
-    }
+    // Используем ключ производителя как имя папки
+    // (rubezahl-koch, dolci-preziosi, zabavnyj-syurpriz, kinder и т.д.)
     return m || 'other';
 }
 
