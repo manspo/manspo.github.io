@@ -2183,6 +2183,7 @@ async function initLot() {
 }
 
 // ===== SERIES PAGE =====
+
 async function initSeries() {
   const box = document.getElementById("seriesContainer");
   if (!box) return;
@@ -2275,6 +2276,94 @@ async function initSeries() {
       `;
     }
     
+    // ===== ФУНКЦИЯ ДЛЯ ВИДЕО =====
+    function createVideosBlock(videos, currentLang) {
+      if (!videos) return '';
+      
+      const blocks = [];
+      
+      // YouTube
+      if (videos.youtube && videos.youtube.length > 0) {
+        videos.youtube.forEach(url => {
+          const videoId = extractYouTubeId(url);
+          if (videoId) {
+            blocks.push(`
+              <div class="video-embed">
+                <iframe 
+                  src="https://www.youtube.com/embed/${videoId}" 
+                  frameborder="0" 
+                  allowfullscreen
+                  loading="lazy">
+                </iframe>
+              </div>
+            `);
+          }
+        });
+      }
+      
+      // VK
+      if (videos.vk && videos.vk.length > 0) {
+        videos.vk.forEach(url => {
+          blocks.push(`
+            <div class="video-link">
+              <a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">
+                🔵 VK Видео
+              </a>
+            </div>
+          `);
+        });
+      }
+      
+      // TikTok
+      if (videos.tiktok && videos.tiktok.length > 0) {
+        videos.tiktok.forEach(url => {
+          blocks.push(`
+            <div class="video-link">
+              <a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">
+                🎵 TikTok
+              </a>
+            </div>
+          `);
+        });
+      }
+      
+      // Instagram
+      if (videos.instagram && videos.instagram.length > 0) {
+        videos.instagram.forEach(url => {
+          blocks.push(`
+            <div class="video-link">
+              <a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">
+                📸 Instagram
+              </a>
+            </div>
+          `);
+        });
+      }
+      
+      if (blocks.length === 0) return '';
+      
+      return `
+        <h2 data-i18n="videos">${currentLang === 'ru' ? 'Видео' : 'Videos'}</h2>
+        <div class="videos-grid">
+          ${blocks.join('')}
+        </div>
+      `;
+    }
+    
+    // ===== ВСПОМОГАТЕЛЬНАЯ ФУНКЦИЯ: извлечение ID YouTube =====
+    function extractYouTubeId(url) {
+      if (!url) return null;
+      const patterns = [
+        /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([a-zA-Z0-9_-]{11})/,
+        /^([a-zA-Z0-9_-]{11})$/
+      ];
+      for (const p of patterns) {
+        const m = url.match(p);
+        if (m) return m[1];
+      }
+      return null;
+    }
+    
     let figuresStartIndex = 0;
     let extrasStartIndex = s.figures?.length || 0;
     let variantsStartIndex = (s.figures?.length || 0) + (s.extras?.length || 0);
@@ -2300,6 +2389,7 @@ async function initSeries() {
       ${createItemsList(s.inserts, 'inserts', insertsStartIndex)}
       ${createItemsList(s.other, 'other', otherStartIndex)}
       ${hasCollage ? `<div class="collage-section"><button class="collage-download-btn" onclick="downloadCollage('${escapeHtml(s.id)}', '${escapeHtml(name).replace(/'/g, "\\'")}')">💾 ${currentLang === 'ru' ? 'Скачать чек-лист (JPG)' : 'Download checklist (JPG)'}</button></div>` : ''}
+      ${createVideosBlock(s.videos, currentLang)}
     `;
     
     setTimeout(() => {

@@ -49,6 +49,7 @@
     },
     {
       "id": "one-piece-by-kinder-2026_fig3",
+      "name": "Фигурка 3",
       "name_en": "Figure 3",
       "code": "VS331",
       "image": "images/series/kinder/one-piece-by-kinder-2026/kinderjoy_onepiece_VS331.webp",
@@ -62,6 +63,7 @@
     },
     {
       "id": "one-piece-by-kinder-2026_fig4",
+      "name": "Фигурка 4",
       "name_en": "Figure 4",
       "code": "VS332",
       "image": "images/series/kinder/one-piece-by-kinder-2026/kinderjoy_onepiece_VS332.webp",
@@ -75,6 +77,7 @@
     },
     {
       "id": "one-piece-by-kinder-2026_fig5",
+      "name": "Фигурка 5",
       "name_en": "Figure 5",
       "code": "VS334",
       "image": "images/series/kinder/one-piece-by-kinder-2026/kinderjoy_onepiece_VS334.webp",
@@ -88,6 +91,7 @@
     },
     {
       "id": "one-piece-by-kinder-2026_fig6",
+      "name": "Фигурка 6",
       "name_en": "Figure 6",
       "code": "VS340",
       "image": "images/series/kinder/one-piece-by-kinder-2026/kinderjoy_onepiece_VS340.webp",
@@ -101,6 +105,7 @@
     },
     {
       "id": "one-piece-by-kinder-2026_fig7",
+      "name": "Фигурка 7",
       "name_en": "Figure 7",
       "code": "VS341",
       "image": "images/series/kinder/one-piece-by-kinder-2026/kinderjoy_onepiece_VS341.webp",
@@ -114,6 +119,7 @@
     },
     {
       "id": "one-piece-by-kinder-2026_fig8",
+      "name": "Фигурка 8",
       "name_en": "Figure 8",
       "code": "VS342",
       "image": "images/series/kinder/one-piece-by-kinder-2026/kinderjoy_onepiece_VS342.webp",
@@ -127,6 +133,7 @@
     },
     {
       "id": "one-piece-by-kinder-2026_fig9",
+      "name": "Фигурка 9",
       "name_en": "Figure 9",
       "code": "VS343",
       "image": "images/series/kinder/one-piece-by-kinder-2026/kinderjoy_onepiece_VS343.webp",
@@ -140,6 +147,7 @@
     },
     {
       "id": "one-piece-by-kinder-2026_fig10",
+      "name": "Фигурка 10",
       "name_en": "Figure 10",
       "code": "VS344",
       "image": "images/series/kinder/one-piece-by-kinder-2026/kinderjoy_onepiece_VS344.webp",
@@ -153,6 +161,7 @@
     },
     {
       "id": "one-piece-by-kinder-2026_fig11",
+      "name": "Фигурка 11",
       "name_en": "Figure 11",
       "code": "VS364",
       "image": "images/series/kinder/one-piece-by-kinder-2026/kinderjoy_onepiece_VS364.webp",
@@ -166,6 +175,7 @@
     },
     {
       "id": "one-piece-by-kinder-2026_fig12",
+      "name": "Фигурка 12",
       "name_en": "Figure 12",
       "code": "VS367",
       "image": "images/series/kinder/one-piece-by-kinder-2026/kinderjoy_onepiece_VS367.webp",
@@ -179,6 +189,7 @@
     },
     {
       "id": "one-piece-by-kinder-2026_fig13",
+      "name": "Фигурка 13",
       "name_en": "Figure 13",
       "code": "VS368",
       "image": "images/series/kinder/one-piece-by-kinder-2026/kinderjoy_onepiece_VS368.webp",
@@ -192,6 +203,7 @@
     },
     {
       "id": "one-piece-by-kinder-2026_fig14",
+      "name": "Фигурка 14",
       "name_en": "Figure 14",
       "code": "VS369",
       "image": "images/series/kinder/one-piece-by-kinder-2026/kinderjoy_onepiece_VS369.webp",
@@ -205,6 +217,7 @@
     },
     {
       "id": "one-piece-by-kinder-2026_fig15",
+      "name": "Фигурка 15",
       "name_en": "Figure 15",
       "code": "VS377",
       "image": "images/series/kinder/one-piece-by-kinder-2026/kinderjoy_onepiece_VS377.webp",
@@ -218,6 +231,7 @@
     },
     {
       "id": "one-piece-by-kinder-2026_fig16",
+      "name": "Фигурка 16",
       "name_en": "Figure 16",
       "code": "VS378",
       "image": "images/series/kinder/one-piece-by-kinder-2026/kinderjoy_onepiece_VS378.webp",
@@ -231,6 +245,7 @@
     },
     {
       "id": "one-piece-by-kinder-2026_fig17",
+      "name": "Фигурка 17",
       "name_en": "Figure 17",
       "code": "VS379",
       "image": "images/series/kinder/one-piece-by-kinder-2026/kinderjoy_onepiece_VS379.webp",
@@ -244,6 +259,7 @@
     },
     {
       "id": "one-piece-by-kinder-2026_fig18",
+      "name": "Фигурка 18",
       "name_en": "Figure 18",
       "code": "VS504",
       "image": "images/series/kinder/one-piece-by-kinder-2026/kinderjoy_onepiece_VS504.webp",
@@ -259,7 +275,8 @@
   "extras": [
     {
       "id": "one-piece-by-kinder-2026_extra1",
-      "name_en": "Figure 19",
+      "name": "Доп 1",
+      "name_en": "Extra 1",
       "code": "VS333",
       "image": "images/series/kinder/one-piece-by-kinder-2026/kinderjoy_onepiece_VS333.webp",
       "owned": false,
@@ -272,7 +289,8 @@
     },
     {
       "id": "one-piece-by-kinder-2026_extra2",
-      "name_en": "Figure 20",
+      "name": "Доп 2",
+      "name_en": "Extra 2",
       "code": "VS335",
       "image": "images/series/kinder/one-piece-by-kinder-2026/kinderjoy_onepiece_VS335.webp",
       "owned": false,
@@ -285,7 +303,8 @@
     },
     {
       "id": "one-piece-by-kinder-2026_extra3",
-      "name_en": "Figure 21",
+      "name": "Доп 3",
+      "name_en": "Extra 3",
       "code": "VS336",
       "image": "images/series/kinder/one-piece-by-kinder-2026/kinderjoy_onepiece_VS336.webp",
       "owned": false,
@@ -298,7 +317,8 @@
     },
     {
       "id": "one-piece-by-kinder-2026_extra4",
-      "name_en": "Figure 22",
+      "name": "Доп 4",
+      "name_en": "Extra 4",
       "code": "VS363",
       "image": "images/series/kinder/one-piece-by-kinder-2026/kinderjoy_onepiece_VS363.webp",
       "owned": false,
@@ -311,7 +331,8 @@
     },
     {
       "id": "one-piece-by-kinder-2026_extra5",
-      "name_en": "Figure 23",
+      "name": "Доп 5",
+      "name_en": "Extra 5",
       "code": "VS376",
       "image": "images/series/kinder/one-piece-by-kinder-2026/kinderjoy_onepiece_VS376.webp",
       "owned": false,
