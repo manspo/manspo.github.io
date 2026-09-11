@@ -543,15 +543,15 @@ function extractTikTokId(url) {
 function createVideosBlock(videos, currentLang) {
   if (!videos) return '';
   
-  const blocks = [];
-  const videoScripts = [];
+  const embeds = [];
+  const links = [];
   
-  // ===== YouTube =====
+  // ===== YouTube — встроенное =====
   if (videos.youtube && videos.youtube.length > 0) {
     videos.youtube.forEach(url => {
       const videoId = extractYouTubeId(url);
       if (videoId) {
-        blocks.push(`
+        embeds.push(`
           <div class="video-embed">
             <iframe 
               src="https://www.youtube.com/embed/${videoId}" 
@@ -563,23 +563,26 @@ function createVideosBlock(videos, currentLang) {
           </div>
         `);
       } else {
-        blocks.push(`
-          <div class="video-link">
-            <a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">
-              ▶️ YouTube
-            </a>
-          </div>
+        links.push(`
+          <a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer" 
+             class="video-link youtube-link">
+            <span class="video-link-icon">▶️</span>
+            <span class="video-link-text">
+              <span class="video-link-name">YouTube</span>
+              <span class="video-link-hint">${currentLang === 'ru' ? 'Открыть видео' : 'Open video'}</span>
+            </span>
+          </a>
         `);
       }
     });
   }
   
-  // ===== VK Клипы =====
+  // ===== VK — встроенное =====
   if (videos.vk && videos.vk.length > 0) {
     videos.vk.forEach(url => {
       const vkData = extractVKId(url);
       if (vkData) {
-        blocks.push(`
+        embeds.push(`
           <div class="video-embed">
             <iframe 
               src="https://vk.com/video_ext.php?oid=${vkData.oid}&id=${vkData.id}&hd=2"
@@ -591,85 +594,70 @@ function createVideosBlock(videos, currentLang) {
           </div>
         `);
       } else {
-        blocks.push(`
-          <div class="video-link">
-            <a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">
-              🔵 VK Видео
-            </a>
-          </div>
+        links.push(`
+          <a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer" 
+             class="video-link vk-link">
+            <span class="video-link-icon">🔵</span>
+            <span class="video-link-text">
+              <span class="video-link-name">VK Видео</span>
+              <span class="video-link-hint">${currentLang === 'ru' ? 'Открыть видео' : 'Open video'}</span>
+            </span>
+          </a>
         `);
       }
     });
   }
   
-  // ===== TikTok =====
+  // ===== TikTok — фолбэк-ссылка =====
   if (videos.tiktok && videos.tiktok.length > 0) {
     videos.tiktok.forEach(url => {
-      const videoId = extractTikTokId(url);
-      if (videoId) {
-        blocks.push(`
-          <div class="video-tiktok">
-            <blockquote class="tiktok-embed" 
-                        cite="${escapeHtml(url)}" 
-                        data-video-id="${videoId}"
-                        style="max-width: 605px; min-width: 325px;">
-              <section>
-                <a target="_blank" href="${escapeHtml(url)}">TikTok</a>
-              </section>
-            </blockquote>
-          </div>
-        `);
-        if (!videoScripts.includes('tiktok')) {
-          videoScripts.push('tiktok');
-        }
-      } else {
-        blocks.push(`
-          <div class="video-link">
-            <a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">
-              🎵 TikTok
-            </a>
-          </div>
-        `);
-      }
+      links.push(`
+        <a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer" 
+           class="video-link tiktok">
+          <span class="video-link-icon">🎵</span>
+          <span class="video-link-text">
+            <span class="video-link-name">TikTok</span>
+            <span class="video-link-hint">${currentLang === 'ru' ? 'Открыть видео' : 'Open video'}</span>
+          </span>
+        </a>
+      `);
     });
   }
   
-  // ===== Instagram =====
+  // ===== Instagram — фолбэк-ссылка =====
   if (videos.instagram && videos.instagram.length > 0) {
     videos.instagram.forEach(url => {
-      blocks.push(`
-        <div class="video-instagram">
-          <blockquote class="instagram-media" 
-                      data-instgrm-permalink="${escapeHtml(url)}"
-                      data-instgrm-version="14"
-                      style="max-width: 540px; min-width: 326px;">
-          </blockquote>
-        </div>
+      links.push(`
+        <a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer" 
+           class="video-link instagram">
+          <span class="video-link-icon">📸</span>
+          <span class="video-link-text">
+            <span class="video-link-name">Instagram</span>
+            <span class="video-link-hint">${currentLang === 'ru' ? 'Открыть видео' : 'Open video'}</span>
+          </span>
+        </a>
       `);
-      if (!videoScripts.includes('instagram')) {
-        videoScripts.push('instagram');
-      }
     });
   }
   
-  if (blocks.length === 0) return '';
+  if (embeds.length === 0 && links.length === 0) return '';
   
-  // Формируем теги скриптов
-  let scriptsHtml = '';
-  if (videoScripts.includes('tiktok')) {
-    scriptsHtml += `<script async src="https://www.tiktok.com/embed.js"></script>`;
-  }
-  if (videoScripts.includes('instagram')) {
-    scriptsHtml += `<script async src="//www.instagram.com/embed.js"></script>`;
+  let html = `<div class="videos-section">
+    <h2 data-i18n="videos">${currentLang === 'ru' ? 'Видео' : 'Videos'}</h2>`;
+  
+  // Встроенные видео — 2 в ряд
+  if (embeds.length > 0) {
+    html += `<div class="videos-embeds">${embeds.join('')}</div>`;
   }
   
-  return `
-    <h2 data-i18n="videos">${currentLang === 'ru' ? 'Видео' : 'Videos'}</h2>
-    <div class="videos-grid">
-      ${blocks.join('')}
-    </div>
-    ${scriptsHtml}
-  `;
+  // Ссылки-фолбэки — 2 в ряд
+  if (links.length > 0) {
+    html += `<div class="videos-links">${links.join('')}</div>`;
+  }
+  
+  html += `</div>`;
+  
+  return html;
 }
 
 // ===== QR-КОДЫ =====

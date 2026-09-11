@@ -2238,74 +2238,144 @@ img {
     }
 }
 
+
 /* ===== БЛОК ВИДЕО В СЕРИИ ===== */
-.videos-grid {
+.videos-section {
+  margin: 30px 0;
+}
+
+.videos-section h2 {
+  margin-bottom: 20px;
+}
+
+/* ===== ВСТРОЕННЫЕ ВИДЕО (YouTube + VK) — 2 в ряд ===== */
+.videos-embeds {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   gap: 20px;
-  margin: 20px 0 30px;
-  align-items: start;
+  margin-bottom: 20px;
 }
 
 .video-embed {
   position: relative;
   width: 100%;
-  padding-bottom: 56.25%;
+  padding-bottom: 56.25%; /* 16:9 */
   height: 0;
   overflow: hidden;
-  border-radius: 12px;
-  box-shadow: var(--shadow);
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
   background: #000;
 }
 
 .video-embed iframe {
   position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  border: none;
-  border-radius: 12px;
-}
-
-.video-tiktok,
-.video-instagram {
-  display: flex;
-  justify-content: center;
+  top: 0;
+  left: 0;
   width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 16px;
 }
 
-.video-tiktok .tiktok-embed,
-.video-instagram .instagram-media {
-  margin: 0 !important;
-  border-radius: 12px;
-  box-shadow: var(--shadow);
-  max-width: 100% !important;
-  min-width: 100% !important;
+/* ===== ВНЕШНИЕ ССЫЛКИ (TikTok + Instagram) — 2 в ряд ===== */
+.videos-links {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
 }
 
 .video-link {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
-  padding: 14px 24px;
+  gap: 12px;
+  padding: 24px 20px;
   background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 12px;
+  border: 2px solid var(--border);
+  border-radius: 16px;
   text-decoration: none;
   color: var(--text);
-  font-weight: 600;
-  transition: all 0.2s;
+  font-weight: 700;
+  font-size: 17px;
+  transition: all 0.25s ease;
   box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+.video-link::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.05;
+  transition: opacity 0.25s;
+}
+
+.video-link.tiktok::before {
+  background: linear-gradient(135deg, #000 0%, #FE2C55 50%, #25F4EE 100%);
+}
+
+.video-link.instagram::before {
+  background: linear-gradient(135deg, #833AB4 0%, #FD1D1D 50%, #FCB045 100%);
 }
 
 .video-link:hover {
-  background: var(--primary);
-  color: white;
-  transform: translateY(-2px);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
 }
 
+.video-link.tiktok:hover {
+  border-color: #FE2C55;
+  background: #000;
+  color: #fff;
+}
+
+.video-link.instagram:hover {
+  border-color: #FD1D1D;
+  background: linear-gradient(135deg, #833AB4 0%, #FD1D1D 50%, #FCB045 100%);
+  color: #fff;
+}
+
+.video-link-icon {
+  font-size: 28px;
+  flex-shrink: 0;
+}
+
+.video-link-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+
+.video-link-name {
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.video-link-hint {
+  font-size: 12px;
+  opacity: 0.7;
+  font-weight: 500;
+}
+
+/* ===== МОБИЛЬНАЯ ВЕРСИЯ ===== */
 @media (max-width: 768px) {
-  .videos-grid {
+  .videos-embeds,
+  .videos-links {
     grid-template-columns: 1fr;
     gap: 16px;
+  }
+
+  .video-link {
+    padding: 20px 16px;
+    font-size: 16px;
+  }
+
+  .video-link-icon {
+    font-size: 24px;
   }
 }
