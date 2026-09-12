@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Массовая продажа - Капсула</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { 
+            font-family: Inter, system-ui, sans-serif; 
+            background: #f5f7fb; 
+            color: #1f2937; 
+            padding: 20px;
+            padding-bottom: 100px; /* для фиксированной кнопки */
+        }
+        .container { max-width: 1200px; margin: 0 auto; }
+        
+        h1 { margin-bottom: 20px; color: #4f46e5; font-size: 24px; }
+        
+        /* ===== ЗАГРУЗКА ПАПКИ ===== */
+        .file-upload-main {
+            border: 2px dashed #e5e7eb;
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            background: white;
+            transition: all 0.2s;
+        }
+        .file-upload-main:hover { border-color: #4f46e5; background: #f0f0ff; }
+        .file-upload-main input { display: none; }
+        
+        /* ===== ПАНЕЛЬ УПРАВЛЕНИЯ ===== */
+        .controls-panel {
+            background: white;
+            padding: 15px 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .controls-panel input,
+        .controls-panel select {
+            padding: 8px 12px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 14px;
+            background: white;
+        }
+        .controls-panel input { flex: 1; min-width: 200px; }
+        .controls-panel input:focus,
+        .controls-panel select:focus {
+            outline: none;
+            border-color: #4f46e5;
+        }
+        
+        /* ===== СЧЁТЧИК ===== */
+        .stats-bar {
+            background: white;
+            padding: 12px 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+            font-size: 14px;
+        }
+        .stats-bar-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .stats-bar-value {
+            font-weight: 700;
+            color: #4f46e5;
+            font-size: 16px;
+        }
+        
+        /* ===== СЕРИЯ ===== */
+        .series-block {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            margin-bottom: 16px;
+            overflow: hidden;
+        }
+        .series-header {
+            padding: 14px 20px;
+            background: #f9fafb;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .series-header-top {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .series-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1f2937;
+            flex: 1;
+            min-width: 200px;
+        }
+        .series-meta {
+            font-size: 13px;
+            color: #6b7280;
+            margin-top: 4px;
+        }
+        .series-full-toggle {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            border: 1px solid #e5e7eb;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.2s;
+        }
+        .series-full-toggle:hover { border-color: #4f46e5; }
+        .series-full-toggle input { cursor: pointer; }
+        .series-full-toggle.active {
+            background: #e0e7ff;
+            border-color: #4f46e5;
+            color: #4f46e5;
+        }
+        
+        .series-mass-buttons {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        .mass-btn {
+            padding: 4px 12px;
+            font-size: 12px;
+            border: 1px solid #e5e7eb;
+            background: white;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+        .mass-btn:hover { border-color: #4f46e5; color: #4f46e5; }
+        .mass-btn.set-all:hover { background: #dcfce7; border-color: #10b981; color: #10b981; }
+        .mass-btn.unset-all:hover { background: #fee2e2; border-color: #ef4444; color: #ef4444; }
+        
+        /* ===== ЭЛЕМЕНТ ===== */
+        .series-items {
+            padding: 8px 0;
+        }
+        .item-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 6px 20px;
+            border-bottom: 1px solid #f3f4f6;
+            transition: background 0.15s;
+            cursor: pointer;
+        }
+        .item-row:last-child { border-bottom: none; }
+        .item-row:hover { background: #f9fafb; }
+        .item-row input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            flex-shrink: 0;
+            accent-color: #4f46e5;
+        }
+        .item-thumb {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+            background: #f5f5f5;
+            border-radius: 6px;
+            padding: 3px;
+            flex-shrink: 0;
+        }
+        .item-type {
+            font-size: 11px;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+        .item-type.figure { background: #e0e7ff; color: #4f46e5; }
+        .item-type.extra { background: #dcfce7; color: #10b981; }
+        .item-type.variant { background: #fef3c7; color: #92400e; }
+        .item-code {
+            font-family: monospace;
+            font-size: 13px;
+            font-weight: 700;
+            color: #4f46e5;
+            background: #f5f7fb;
+            padding: 2px 8px;
+            border-radius: 6px;
+            flex-shrink: 0;
+        }
+        .item-name {
+            font-size: 14px;
+            color: #1f2937;
+            flex: 1;
+            min-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .item-avito {
+            font-size: 11px;
+            color: #f59e0b;
+            flex-shrink: 0;
+        }
+        
+        /* ===== ФИКСИРОВАННАЯ КНОПКА СОХРАНЕНИЯ ===== */
+        .save-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-top: 1px solid #e5e7eb;
+            padding: 15px 20px;
+            box-shadow: 0 -4px 12px rgba(0,0,0,0.08);
+            z-index: 100;
+        }
+        .save-bar-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .save-bar-info {
+            font-size: 14px;
+            color: #6b7280;
+        }
+        .save-bar-info b {
+            color: #4f46e5;
+        }
+        .save-btn {
+            padding: 12px 32px;
+            background: #4f46e5;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .save-btn:hover { background: #6366f1; transform: translateY(-2px); }
+        .save-btn:disabled {
+            background: #d1d5db;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        /* ===== УВЕДОМЛЕНИЯ ===== */
+        .toast {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: #10b981;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            opacity: 0;
+            transition: all 0.3s;
+            z-index: 999;
+            pointer-events: none;
+        }
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+        .toast.error { background: #ef4444; }
+        .toast.info { background: #4f46e5; }
+        
+        /* ===== ПУСТОЕ СОСТОЯНИЕ ===== */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #6b7280;
+            font-size: 16px;
+        }
+        
+        /* ===== МОБИЛЬНАЯ ВЕРСИЯ ===== */
+        @media (max-width: 768px) {
+            body { padding: 12px; padding-bottom: 100px; }
+            h1 { font-size: 20px; }
+            .series-title { font-size: 15px; }
+            .item-row { padding: 6px 12px; gap: 8px; }
+            .item-thumb { width: 32px; height: 32px; }
+            .item-name { font-size: 13px; }
+            .item-code { font-size: 11px; padding: 1px 6px; }
+            .item-type { font-size: 10px; padding: 1px 6px; }
+            .save-btn { padding: 10px 20px; font-size: 14px; }
+            .save-bar-info { display: none; }
+            .series-mass-buttons { flex-wrap: wrap; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>💰 Массовое редактирование продажи</h1>
+    
+    <!-- ЗАГРУЗКА ПАПКИ -->
+    <div class="file-upload-main" id="fileUploadMain">
+        <input type="file" id="fileInput" webkitdirectory directory style="display:none;">
+        <p>📁 Нажмите для выбора ПАПКИ с файлами (data)</p>
+    </div>
+    
+    <!-- ПАНЕЛЬ УПРАВЛЕНИЯ -->
+    <div class="controls-panel" id="controlsPanel" style="display:none;">
+        <input type="text" id="searchInput" placeholder="🔍 Поиск по названию серии, коду или фигурке...">
+        <select id="manufacturerFilter">
+            <option value="all">Все производители</option>
+        </select>
+        <button class="mass-btn" id="expandAllBtn">📖 Развернуть все</button>
+        <button class="mass-btn" id="collapseAllBtn">📕 Свернуть все</button>
+    </div>
+    
+    <!-- СЧЁТЧИК -->
+    <div class="stats-bar" id="statsBar" style="display:none;">
+        <div class="stats-bar-item">
+            <span>Всего элементов:</span>
+            <span class="stats-bar-value" id="totalItems">0</span>
+        </div>
+        <div class="stats-bar-item">
+            <span>В продаже:</span>
+            <span class="stats-bar-value" id="forSaleItems">0</span>
+        </div>
+        <div class="stats-bar-item">
+            <span>Полных серий:</span>
+            <span class="stats-bar-value" id="fullSeriesCount">0</span>
+        </div>
+    </div>
+    
+    <!-- КОНТЕЙНЕР СЕРИЙ -->
+    <div id="seriesContainer"></div>
+</div>
+
+<!-- ФИКСИРОВАННАЯ КНОПКА СОХРАНЕНИЯ -->
+<div class="save-bar" id="saveBar" style="display:none;">
+    <div class="save-bar-inner">
+        <div class="save-bar-info">
+            Отмечено: <b id="markedCount">0</b> элементов
+        </div>
+        <button class="save-btn" id="saveBtn">💾 Сохранить в ZIP</button>
+    </div>
+</div>
+
+<!-- УВЕДОМЛЕНИЕ -->
+<div class="toast" id="toast"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script>
+// ============================================================
+// ОСНОВНЫЕ ПЕРЕМЕННЫЕ
+// ============================================================
+
+let existingSeries = [];
+let manufacturersData = {};
+let hasUnsavedChanges = false;
+
+// ============================================================
+// УТИЛИТЫ
+// ============================================================
+
+function escapeHtml(str) {
+    if (!str) return '';
+    return String(str).replace(/[&<>"']/g, m => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#x27;'
+    }[m]));
+}
+
+function showToast(message, type = 'success') {
+    const toast = document.getElementById('toast');
+    toast.textContent = message;
+    toast.className = 'toast show ' + (type !== 'success' ? type : '');
+    setTimeout(() => {
+        toast.classList.remove('show');
+    }, 2500);
+}
+
+// ============================================================
+// ПОДТВЕРЖДЕНИЕ ПРИ ЗАКРЫТИИ
+// ============================================================
+
+window.addEventListener('beforeunload', function(e) {
+    if (hasUnsavedChanges) {
+        e.preventDefault();
+        e.returnValue = 'У вас есть несохранённые изменения. Вы уверены, что хотите выйти?';
+        return e.returnValue;
+    }
+});
+
+// ============================================================
+// ЗАГРУЗКА ДАННЫХ
+// ============================================================
+
+document.getElementById('fileUploadMain').onclick = function() {
+    document.getElementById('fileInput').click();
+};
+
+document.getElementById('fileInput').onchange = function(e) {
+    if (!e.target.files.length) return;
+    loadDataFromFiles(e.target.files);
+};
+
+async function loadDataFromFiles(files) {
+    let jsonFiles = Array.from(files).filter(f => f.name.endsWith('.json'));
+    let indexFile = jsonFiles.find(f => f.name === 'index.json');
+    if (!indexFile) { 
+        showToast('Не найден index.json', 'error');
+        return; 
+    }
+    
+    let reader = new FileReader();
+    reader.onload = async function(e) {
+        try {
+            let indexData = JSON.parse(e.target.result);
+            existingSeries = [];
+            
+            for (let series of indexData) {
+                let seriesFile = jsonFiles.find(f => f.name === `${series.id}.json`);
+                if (seriesFile) {
+                    let sr = new FileReader();
+                    let content = await new Promise(resolve => {
+                        sr.onload = e => resolve(JSON.parse(e.target.result));
+                        sr.readAsText(seriesFile);
+                    });
+                    existingSeries.push(content);
+                } else {
+                    existingSeries.push({ 
+                        ...series, 
+                        figures: [], 
+                        extras: [], 
+                        variants: [], 
+                        inserts: [], 
+                        other: [], 
+                        videos: { youtube: [], vk: [], tiktok: [], instagram: [] } 
+                    });
+                }
+            }
+            
+            // Загружаем производителей
+            try {
+                const mfRes = await fetch('data/manufacturers.json');
+                if (mfRes.ok) {
+                    manufacturersData = await mfRes.json();
+                }
+            } catch(e) {
+                console.warn('Производители не загружены:', e);
+            }
+            
+            hasUnsavedChanges = false;
+            showToast(`✅ Загружено ${existingSeries.length} серий`, 'success');
+            renderAll();
+            
+        } catch(err) {
+            showToast('❌ Ошибка: ' + err.message, 'error');
+        }
+    };
+    reader.readAsText(indexFile);
+}
+
+// ============================================================
+// РЕНДЕР
+// ============================================================
+
+function renderAll() {
+    document.getElementById('controlsPanel').style.display = 'flex';
+    document.getElementById('statsBar').style.display = 'flex';
+    document.getElementById('saveBar').style.display = 'block';
+    
+    renderManufacturerFilter();
+    renderSeries();
+    updateStats();
+}
+
+function renderManufacturerFilter() {
+    const select = document.getElementById('manufacturerFilter');
+    const uniqueMans = [...new Set(existingSeries.map(s => s.manufacturer))];
+    
+    select.innerHTML = '<option value="all">Все производители</option>';
+    uniqueMans.sort().forEach(m => {
+        const displayName = manufacturersData[m]?.ru || m;
+        select.innerHTML += `<option value="${escapeHtml(m)}">${escapeHtml(displayName)}</option>`;
+    });
+}
+
+function getFilteredSeries() {
+    const search = document.getElementById('searchInput').value.toLowerCase().trim();
+    const manufacturer = document.getElementById('manufacturerFilter').value;
+    
+    let list = [...existingSeries];
+    
+    // Фильтр по производителю
+    if (manufacturer !== 'all') {
+        list = list.filter(s => s.manufacturer === manufacturer);
+    }
+    
+    // Поиск
+    if (search) {
+        list = list.filter(s => {
+            const nameRu = (s.name || '').toLowerCase();
+            const nameEn = (s.name_en || '').toLowerCase();
+            const year = String(s.year || '');
+            
+            if (nameRu.includes(search) || nameEn.includes(search) || year.includes(search)) {
+                return true;
+            }
+            
+            // Поиск по элементам
+            const items = [...(s.figures || []), ...(s.extras || []), ...(s.variants || [])];
+            return items.some(item => 
+                (item.code || '').toLowerCase().includes(search) ||
+                (item.name || '').toLowerCase().includes(search) ||
+                (item.name_en || '').toLowerCase().includes(search)
+            );
+        });
+    }
+    
+    return list;
+}
+
+function renderSeries() {
+    const container = document.getElementById('seriesContainer');
+    const list = getFilteredSeries();
+    
+    if (list.length === 0) {
+        container.innerHTML = '<div class="empty-state">🔍 Ничего не найдено</div>';
+        return;
+    }
+    
+    container.innerHTML = '';
+    
+    list.forEach(s => {
+        const block = createSeriesBlock(s);
+        container.appendChild(block);
+    });
+}
+
+function createSeriesBlock(s) {
+    const block = document.createElement('div');
+    block.className = 'series-block';
+    block.dataset.seriesId = s.id;
+    
+    const manufacturerName = manufacturersData[s.manufacturer]?.ru || s.manufacturer;
+    
+    // Собираем все элементы (без вкладышей)
+    const items = [];
+    if (s.figures) s.figures.forEach(f => items.push({ ...f, _type: 'figure' }));
+    if (s.extras) s.extras.forEach(e => items.push({ ...e, _type: 'extra' }));
+    if (s.variants) s.variants.forEach(v => items.push({ ...v, _type: 'variant' }));
+    
+    const markedCount = items.filter(i => i.forsale === true).length;
+    
+    const typeNames = {
+        figure: 'Фигурка',
+        extra: 'Доп',
+        variant: 'Вариант'
+    };
+    const typeIcons = {
+        figure: '🖼️',
+        extra: '🎁',
+        variant: '🎲'
+    };
+    
+    block.innerHTML = `
+        <div class="series-header">
+            <div class="series-header-top">
+                <div class="series-title">
+                    🎯 ${escapeHtml(s.name)} (${escapeHtml(s.year)})
+                    <div class="series-meta">
+                        ${escapeHtml(manufacturerName)} · 
+                        ${items.length} элем. · 
+                        ${markedCount} в продаже
+                    </div>
+                </div>
+                <label class="series-full-toggle ${s.fullSeriesForSale ? 'active' : ''}">
+                    <input type="checkbox" class="full-series-checkbox" ${s.fullSeriesForSale ? 'checked' : ''}>
+                    📦 Полная серия
+                </label>
+            </div>
+            <div class="series-mass-buttons">
+                <button class="mass-btn set-all" data-action="set-all">✅ Всем в серии</button>
+                <button class="mass-btn unset-all" data-action="unset-all">❌ Снять у всех в серии</button>
+            </div>
+        </div>
+        <div class="series-items">
+            ${items.map((item, idx) => `
+                <label class="item-row" data-item-type="${item._type}" data-item-id="${escapeHtml(item.id)}">
+                    <input type="checkbox" class="item-checkbox" ${item.forsale ? 'checked' : ''}>
+                    <img class="item-thumb" 
+                         src="${item.image ? 'https://manspo.github.io/' + escapeHtml(item.image) : 'images/placeholder.svg'}" 
+                         onerror="this.src='images/placeholder.svg'"
+                         loading="lazy">
+                    <span class="item-type ${item._type}">
+                        ${typeIcons[item._type]} ${typeNames[item._type]}
+                    </span>
+                    ${item.code ? `<span class="item-code">${escapeHtml(item.code)}</span>` : ''}
+                    <span class="item-name">${escapeHtml(item.name || item.name_en || '—')}</span>
+                    ${item.avito ? '<span class="item-avito">🛒</span>' : ''}
+                </label>
+            `).join('')}
+        </div>
+    `;
+    
+    // Обработчик галочки fullSeriesForSale
+    const fullCheckbox = block.querySelector('.full-series-checkbox');
+    const fullLabel = block.querySelector('.series-full-toggle');
+    fullCheckbox.addEventListener('change', (e) => {
+        e.stopPropagation();
+        s.fullSeriesForSale = e.target.checked;
+        fullLabel.classList.toggle('active', e.target.checked);
+        hasUnsavedChanges = true;
+        updateStats();
+    });
+    
+    // Обработчики чекбоксов элементов
+    block.querySelectorAll('.item-row').forEach(row => {
+        const checkbox = row.querySelector('.item-checkbox');
+        const type = row.dataset.itemType;
+        const id = row.dataset.itemId;
+        
+        checkbox.addEventListener('change', () => {
+            const categoryMap = { figure: 'figures', extra: 'extras', variant: 'variants' };
+            const cat = categoryMap[type];
+            const item = s[cat]?.find(i => i.id === id);
+            
+            if (item) {
+                item.forsale = checkbox.checked;
+                hasUnsavedChanges = true;
+                updateStats();
+                updateSeriesMeta(block, s);
+            }
+        });
+    });
+    
+    // Массовые кнопки
+    block.querySelector('.mass-btn.set-all').addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        s.figures?.forEach(f => f.forsale = true);
+        s.extras?.forEach(ex => ex.forsale = true);
+        s.variants?.forEach(v => v.forsale = true);
+        block.querySelectorAll('.item-checkbox').forEach(cb => cb.checked = true);
+        hasUnsavedChanges = true;
+        updateStats();
+        updateSeriesMeta(block, s);
+    });
+    
+    block.querySelector('.mass-btn.unset-all').addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        s.figures?.forEach(f => f.forsale = false);
+        s.extras?.forEach(ex => ex.forsale = false);
+        s.variants?.forEach(v => v.forsale = false);
+        block.querySelectorAll('.item-checkbox').forEach(cb => cb.checked = false);
+        hasUnsavedChanges = true;
+        updateStats();
+        updateSeriesMeta(block, s);
+    });
+    
+    return block;
+}
+
+function updateSeriesMeta(block, s) {
+    const items = [];
+    if (s.figures) s.figures.forEach(f => items.push(f));
+    if (s.extras) s.extras.forEach(e => items.push(e));
+    if (s.variants) s.variants.forEach(v => items.push(v));
+    
+    const markedCount = items.filter(i => i.forsale === true).length;
+    const meta = block.querySelector('.series-meta');
+    const manufacturerName = manufacturersData[s.manufacturer]?.ru || s.manufacturer;
+    
+    meta.innerHTML = `
+        ${escapeHtml(manufacturerName)} · 
+        ${items.length} элем. · 
+        ${markedCount} в продаже
+    `;
+}
+
+// ============================================================
+// СТАТИСТИКА
+// ============================================================
+
+function updateStats() {
+    let totalItems = 0;
+    let forSaleItems = 0;
+    let fullSeriesCount = 0;
+    
+    existingSeries.forEach(s => {
+        const items = [
+            ...(s.figures || []),
+            ...(s.extras || []),
+            ...(s.variants || [])
+        ];
+        totalItems += items.length;
+        forSaleItems += items.filter(i => i.forsale === true).length;
+        if (s.fullSeriesForSale === true) fullSeriesCount++;
+    });
+    
+    document.getElementById('totalItems').textContent = totalItems;
+    document.getElementById('forSaleItems').textContent = forSaleItems;
+    document.getElementById('fullSeriesCount').textContent = fullSeriesCount;
+    document.getElementById('markedCount').textContent = forSaleItems;
+}
+
+// ============================================================
+// ФИЛЬТРЫ И ПОИСК
+// ============================================================
+
+document.getElementById('searchInput').addEventListener('input', () => {
+    renderSeries();
+});
+
+document.getElementById('manufacturerFilter').addEventListener('change', () => {
+    renderSeries();
+});
+
+document.getElementById('expandAllBtn').addEventListener('click', () => {
+    // Развернуть все (по умолчанию всё развёрнуто, но оставим на будущее)
+    document.querySelectorAll('.series-items').forEach(el => {
+        el.style.display = 'block';
+    });
+});
+
+document.getElementById('collapseAllBtn').addEventListener('click', () => {
+    document.querySelectorAll('.series-items').forEach(el => {
+        el.style.display = 'none';
+    });
+});
+
+// ============================================================
+// ГЕНЕРАЦИЯ INDEX-ФАЙЛОВ (КОПИЯ ИЗ ADMIN.HTML)
+// ============================================================
+
+function generateStatsData(seriesList) {
+    let totalFigures = 0;
+    let totalInserts = 0;
+    let totalForSale = 0;
+    
+    seriesList.forEach(s => {
+        totalFigures += s.figures?.length || 0;
+        totalFigures += s.extras?.length || 0;
+        totalFigures += s.variants?.length || 0;
+        totalInserts += s.inserts?.length || 0;
+        totalForSale += s.figures?.filter(f => f.forsale).length || 0;
+        totalForSale += s.extras?.filter(e => e.forsale).length || 0;
+        totalForSale += s.inserts?.filter(i => i.forsale).length || 0;
+        totalForSale += s.variants?.filter(v => v.forsale).length || 0;
+        if (s.fullSeriesForSale) totalForSale += 1;
+    });
+    
+    const uniqueManufacturers = [...new Set(seriesList.map(s => s.manufacturer))];
+    
+    return {
+        totalSeries: seriesList.length,
+        totalFigures: totalFigures,
+        totalInserts: totalInserts,
+        totalForSale: totalForSale,
+        totalManufacturers: uniqueManufacturers.length,
+        updatedAt: new Date().toISOString()
+    };
+}
+
+function generateForsaleData(seriesList) {
+    const items = [];
+    
+    seriesList.forEach(s => {
+        if (s.fullSeriesForSale === true) {
+            items.push({
+                type: 'full',
+                id: s.id,
+                seriesId: s.id,
+                seriesName: s.name,
+                seriesName_en: s.name_en || s.name,
+                seriesYear: s.year,
+                manufacturer: s.manufacturer,
+                name: s.name,
+                name_en: s.name_en || s.name,
+                image: s.cover,
+                avito: s.fullSeriesAvito || '',
+                price: s.fullSeriesPrice || '',
+                price_en: s.fullSeriesPrice_en || '',
+                condition: s.fullSeriesCondition || '',
+                condition_en: s.fullSeriesCondition_en || '',
+                code: '',
+                date_added: s.fullSeriesDateAdded || s.date_added || ''
+            });
+        }
+        
+        const typeMap = {
+            'figures': 'figure',
+            'variants': 'variant',
+            'extras': 'extra',
+            'inserts': 'insert'
+        };
+        
+        Object.keys(typeMap).forEach(cat => {
+            if (!s[cat]) return;
+            
+            s[cat].forEach(item => {
+                if (item.forsale !== true) return;
+                
+                items.push({
+                    type: typeMap[cat],
+                    id: item.id,
+                    seriesId: s.id,
+                    seriesName: s.name,
+                    seriesName_en: s.name_en || s.name,
+                    seriesYear: s.year,
+                    manufacturer: s.manufacturer,
+                    name: item.name || '',
+                    name_en: item.name_en || item.name || '',
+                    image: item.image || '',
+                    avito: item.avito || '',
+                    price: item.price || '',
+                    condition: item.condition || '',
+                    condition_en: item.condition_en || '',
+                    code: item.code || '',
+                    date_added: item.date_added || s.date_added || ''
+                });
+            });
+        });
+    });
+    
+    items.sort((a, b) => {
+        const dateA = a.date_added ? new Date(a.date_added) : new Date(0);
+        const dateB = b.date_added ? new Date(b.date_added) : new Date(0);
+        return dateB - dateA;
+    });
+    
+    return items;
+}
+
+// ============================================================
+// СКАЧИВАНИЕ ZIP
+// ============================================================
+
+document.getElementById('saveBtn').addEventListener('click', async () => {
+    if (existingSeries.length === 0) {
+        showToast('Нет данных для сохранения', 'error');
+        return;
+    }
+    
+    const btn = document.getElementById('saveBtn');
+    btn.disabled = true;
+    btn.textContent = '⏳ Генерация...';
+    
+    try {
+        const zip = new JSZip();
+        
+        // index.json
+        const indexData = existingSeries.map(s => ({
+            id: s.id,
+            name: s.name,
+            name_en: s.name_en || s.name,
+            year: s.year,
+            manufacturer: s.manufacturer,
+            cover: s.cover,
+            kind: s.kind || '',
+            description: s.description || '',
+            description_en: s.description_en || '',
+            visible: s.visible !== false
+        }));
+        zip.file("index.json", JSON.stringify(indexData, null, 2));
+        
+        // stats.json
+        const statsData = generateStatsData(existingSeries);
+        zip.file("stats.json", JSON.stringify(statsData, null, 2));
+        
+        // forsale.json
+        const forsaleData = generateForsaleData(existingSeries);
+        zip.file("forsale.json", JSON.stringify(forsaleData, null, 2));
+        
+        // Серии (обновлённые)
+        existingSeries.forEach(s => {
+            let manufFolder = s.manufacturer || 'other';
+            let seriesFolder = zip.folder(`series/${manufFolder}`);
+            let data = {
+                id: s.id,
+                name: s.name,
+                name_en: s.name_en || s.name,
+                year: s.year,
+                manufacturer: s.manufacturer,
+                cover: s.cover,
+                description: s.description || '',
+                description_en: s.description_en || '',
+                kind: s.kind || '',
+                visible: s.visible !== false,
+                fullSeriesForSale: s.fullSeriesForSale || false,
+                fullSeriesAvito: s.fullSeriesAvito || '',
+                fullSeriesPrice: s.fullSeriesPrice || '',
+                fullSeriesPrice_en: s.fullSeriesPrice_en || '',
+                fullSeriesCondition: s.fullSeriesCondition || '',
+                fullSeriesCondition_en: s.fullSeriesCondition_en || '',
+                fullSeriesDateAdded: s.fullSeriesDateAdded || '',
+                fullSeriesDescription: s.fullSeriesDescription || '',
+                fullSeriesDescription_en: s.fullSeriesDescription_en || '',
+                figures: s.figures || [],
+                extras: s.extras || [],
+                variants: s.variants || [],
+                inserts: s.inserts || [],   // ⚠️ СОХРАНЯЮТСЯ
+                other: s.other || [],
+                videos: s.videos || { youtube: [], vk: [], tiktok: [], instagram: [] }
+            };
+            seriesFolder.file(`${s.id}.json`, JSON.stringify(data, null, 2));
+        });
+        
+        // Генерируем ZIP
+        const blob = await zip.generateAsync({ type: "blob" });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = `capsule_forsale_${new Date().toISOString().slice(0,19).replace(/:/g,'-')}.zip`;
+        a.click();
+        URL.revokeObjectURL(blob);
+        
+        hasUnsavedChanges = false;
+        showToast('✅ ZIP сохранён!', 'success');
+        
+    } catch (err) {
+        console.error('Ошибка:', err);
+        showToast('❌ Ошибка: ' + err.message, 'error');
+    } finally {
+        btn.disabled = false;
+        btn.textContent = '💾 Сохранить в ZIP';
+    }
+});
+</script>
+</body>
+</html>
