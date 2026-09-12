@@ -301,7 +301,7 @@
                         <li><strong>Код</strong> извлекается из имени файла (например, VS369 из kinderjoy_onepiece_VS369.webp)</li>
                         <li>Поля для полной серии на продажу сохраняются в JSON</li>
                         <li>Производители автоматически загружаются из manufacturers.json</li>
-                        <li><strong>При экспорте</strong> автоматически генерируются <code>stats.json</code>, <code>videos.json</code>, <code>forsale.json</code>, <code>collection.json</code></li>
+                        <li><strong>При экспорте</strong> генерируются: <code>stats.json</code>, <code>videos.json</code>, <code>forsale.json</code>, <code>collection.json</code>, <code>search.json</code></li>
                     </ul>
                 </div>
             </div>
@@ -385,7 +385,6 @@ async function loadManufacturersToSelects() {
 // ============================================================
 
 function getManufacturerFolder(m) {
-    // Используем ключ производителя как имя папки
     return m || 'other';
 }
 
@@ -1349,6 +1348,56 @@ function generateCollectionData(seriesList) {
     return items;
 }
 
+function generateSearchData(seriesList) {
+    const items = [];
+    
+    seriesList.forEach(s => {
+        const categories = ['figures', 'variants', 'extras', 'inserts'];
+        
+        categories.forEach(cat => {
+            if (!s[cat]) return;
+            
+            s[cat].forEach(item => {
+                const hasCode = item.code && item.code.trim();
+                const hasName = item.name && item.name.trim() && 
+                               !/^(Фигурка|Доп|Вариант|Вкладыш|Прочее)\s+\d+$/i.test(item.name.trim()) &&
+                               !/^(Figure|Extra|Variant|Insert|Other)\s+\d+$/i.test(item.name.trim());
+                
+                if (!hasCode && !hasName) return;
+                
+                items.push({
+                    id: item.id,
+                    code: item.code || '',
+                    name: item.name || '',
+                    name_en: item.name_en || item.name || '',
+                    image: item.image || '',
+                    seriesId: s.id,
+                    seriesName: s.name,
+                    seriesName_en: s.name_en || s.name,
+                    seriesYear: s.year,
+                    manufacturer: s.manufacturer,
+                    owned: item.owned === true,
+                    forsale: item.forsale === true,
+                    avito: item.avito || '',
+                    price: item.price || '',
+                    type: cat
+                });
+            });
+        });
+    });
+    
+    items.sort((a, b) => {
+        const codeA = (a.code || '').toUpperCase();
+        const codeB = (b.code || '').toUpperCase();
+        if (codeA && codeB) return codeA.localeCompare(codeB);
+        if (codeA) return -1;
+        if (codeB) return 1;
+        return (a.name || '').localeCompare(b.name || '');
+    });
+    
+    return items;
+}
+
 // ============================================================
 // СКАЧИВАНИЕ ZIP
 // ============================================================
@@ -1390,6 +1439,11 @@ function downloadAsZip(seriesList) {
     const collectionData = generateCollectionData(seriesList);
     zip.file("collection.json", JSON.stringify(collectionData, null, 2));
     console.log('✅ collection.json:', collectionData.length, 'серий');
+    
+    // ===== search.json =====
+    const searchData = generateSearchData(seriesList);
+    zip.file("search.json", JSON.stringify(searchData, null, 2));
+    console.log('✅ search.json:', searchData.length, 'элементов');
     
     // ===== Серии =====
     seriesList.forEach(s => {

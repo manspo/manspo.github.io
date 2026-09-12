@@ -1392,6 +1392,18 @@ function initKindFilters(containerId, currentKind, onKindChange) {
   });
 }
 
+// ===== ЗАГРУЗКА ПОИСКОВОГО ИНДЕКСА =====
+async function loadSearch() {
+  try {
+    const res = await fetch(`${BASE_URL}/data/search.json`);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    return await res.json();
+  } catch (error) {
+    console.error('Ошибка загрузки поискового индекса:', error);
+    return [];
+  }
+}
+
 // ===== CATALOG =====
 async function initCatalog() {
   const grid = document.getElementById("catalogGrid");
@@ -1517,16 +1529,42 @@ async function initCatalog() {
         }
       }
       
+      // ===== ПОИСК (С КОДАМИ И НАЗВАНИЯМИ) =====
       if (searchQuery) {
-        const query = searchQuery.toLowerCase();
-        list = list.filter(s => {
+        const query = searchQuery.toLowerCase().trim();
+        
+        // Загружаем поисковый индекс (один раз)
+        if (!window.searchIndex) {
+          window.searchIndex = await loadSearch();
+        }
+        
+        const matchedSeriesIds = new Set();
+        
+        // 1. Поиск по сериям
+        list.forEach(s => {
           const nameRu = (s.name || '').toLowerCase();
           const nameEn = (s.name_en || s.name || '').toLowerCase();
           const yearStr = (s.year || '').toString();
-          return nameRu.includes(query) || nameEn.includes(query) || yearStr.includes(query);
+          if (nameRu.includes(query) || nameEn.includes(query) || yearStr.includes(query)) {
+            matchedSeriesIds.add(s.id);
+          }
         });
+        
+        // 2. Поиск по фигуркам
+        window.searchIndex.forEach(item => {
+          const code = (item.code || '').toLowerCase();
+          const nameRu = (item.name || '').toLowerCase();
+          const nameEn = (item.name_en || '').toLowerCase();
+          
+          if (code.includes(query) || nameRu.includes(query) || nameEn.includes(query)) {
+            matchedSeriesIds.add(item.seriesId);
+          }
+        });
+        
+        list = list.filter(s => matchedSeriesIds.has(s.id));
       }
       
+      // ===== СОРТИРОВКА =====
       if (currentSort === "year") {
         list.sort((a, b) => a.year - b.year);
       } else if (currentSort === "year-desc") {
@@ -1570,7 +1608,37 @@ async function initCatalog() {
             <div class="year">${escapeHtml(s.year)} · ${escapeHtml(manufacturerName)}</div>
           </div>
         `;
+        
         grid.appendChild(card);
+        
+        // ===== БЕЙДЖИ СОВПАДЕНИЙ ПО ФИГУРКАМ =====
+        if (searchQuery && window.searchIndex) {
+          const query = searchQuery.toLowerCase().trim();
+          const matchedFigures = window.searchIndex.filter(item => 
+            item.seriesId === s.id && (
+              (item.code || '').toLowerCase().includes(query) ||
+              (item.name || '').toLowerCase().includes(query) ||
+              (item.name_en || '').toLowerCase().includes(query)
+            )
+          );
+          
+          if (matchedFigures.length > 0) {
+            const badgesHtml = matchedFigures.slice(0, 3).map(f => `
+              <span class="search-match-badge">
+                ${f.code ? `<b>${escapeHtml(f.code)}</b>` : ''}
+                ${escapeHtml(f.name || f.name_en || '')}
+              </span>
+            `).join('');
+            
+            const moreHtml = matchedFigures.length > 3 
+              ? `<span class="search-match-more">+${matchedFigures.length - 3}</span>` 
+              : '';
+            
+            card.querySelector('.card-body').insertAdjacentHTML('beforeend', `
+              <div class="search-matches">${badgesHtml}${moreHtml}</div>
+            `);
+          }
+        }
       }
       applyTranslations();
     }
