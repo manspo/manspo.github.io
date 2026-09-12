@@ -111,5 +111,9 @@
     "catalog_title": "Series Catalog",
   "my_collections": "My Collections",
   "forsale_title": "For Sale",
-  "about_title": "About"
+  "about_title": "About",
+  "title_videos": "Video Archive — Capsule",
+"videos_title": "📺 Video Archive",
+"nav_videos": "Video Archive",
+"search_videos_placeholder": "🔍 Search by series name..."
   }

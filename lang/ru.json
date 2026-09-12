@@ -109,5 +109,9 @@
   "catalog_title": "Каталог серий",
   "my_collections": "Мои коллекции",
   "forsale_title": "На продажу",
-  "about_title": "О сайте"
+  "about_title": "О сайте",
+  "title_videos": "Видеоархив — Капсула",
+"videos_title": "📺 Видеоархив",
+"nav_videos": "Видеоархив",
+"search_videos_placeholder": "🔍 Поиск по названию серии..."
   }

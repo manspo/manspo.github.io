@@ -1584,7 +1584,7 @@ async function initCatalog() {
   }
 }
 
-// ===== MY COLLECTION =====
+
 // ===== MY COLLECTION (ОПТИМИЗИРОВАННАЯ ВЕРСИЯ) =====
 async function initMyCollection() {
   const grid = document.getElementById("collectionGrid");
@@ -1741,7 +1741,301 @@ async function initMyCollection() {
   }
 }
 
-// ===== FOR SALE =====
+// ===== VIDEOS PAGE (ВИДЕОАРХИВ) =====
+async function initVideos() {
+  const grid = document.getElementById("videosGrid");
+  if (!grid) return;
+  
+  try {
+    await loadManufacturers();
+    const manufacturers = await loadManufacturers();
+    const currentLang = localStorage.getItem("lang") || "ru";
+    
+    // ===== ЗАГРУЗКА ЧЕРЕЗ VIDEOS.JSON =====
+    const allVideos = await loadVideos();
+    
+    // ===== СОСТОЯНИЕ =====
+    let currentHost = localStorage.getItem('videosHost') || 'youtube';
+    let currentSearch = filterState.videos?.search || '';
+    let currentPage = 1;
+    const ITEMS_PER_PAGE = 12;
+    
+    // ===== ФИЛЬТРЫ ХОСТИНГОВ =====
+    const hosts = [
+      { value: 'youtube', label: 'YouTube', icon: '▶️' },
+      { value: 'vk', label: 'VK', icon: '🔵' },
+      { value: 'tiktok', label: 'TikTok', icon: '🎵' },
+      { value: 'instagram', label: 'Instagram', icon: '📸' }
+    ];
+    
+    const filterGroup = document.getElementById('videosFilterGroup');
+    if (filterGroup) {
+      filterGroup.innerHTML = hosts.map(h => `
+        <button class="filter-btn ${currentHost === h.value ? 'active' : ''}" data-host="${h.value}">
+          ${h.icon} ${h.label}
+        </button>
+      `).join('');
+      
+      filterGroup.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.onclick = () => {
+          filterGroup.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentHost = btn.dataset.host;
+          localStorage.setItem('videosHost', currentHost);
+          currentPage = 1;
+          render();
+        };
+      });
+    }
+    
+    // ===== ПОИСК =====
+    const searchInput = document.getElementById('searchInput');
+    if (searchInput) {
+      searchInput.value = currentSearch;
+      searchInput.oninput = debounce((e) => {
+        currentSearch = e.target.value.toLowerCase().trim();
+        if (!filterState.videos) filterState.videos = {};
+        filterState.videos.search = currentSearch;
+        saveFilterState(filterState);
+        currentPage = 1;
+        render();
+      }, CONFIG.DEBOUNCE_DELAY);
+    }
+    
+    // ===== ИЗВЛЕЧЕНИЕ ID ИЗ URL =====
+    function extractYouTubeId(url) {
+      if (!url) return null;
+      const patterns = [
+        /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([a-zA-Z0-9_-]{11})/,
+        /^([a-zA-Z0-9_-]{11})$/
+      ];
+      for (const p of patterns) {
+        const m = url.match(p);
+        if (m) return m[1];
+      }
+      return null;
+    }
+    
+    function extractVKId(url) {
+      if (!url) return null;
+      const match1 = url.match(/vk\.com\/(?:clip|video)(-?\d+)_(\d+)/);
+      if (match1) return { oid: match1[1], id: match1[2] };
+      const match2 = url.match(/[?&]oid=(-?\d+).*[?&]id=(\d+)/);
+      if (match2) return { oid: match2[1], id: match2[2] };
+      return null;
+    }
+    
+    function extractTikTokId(url) {
+      if (!url) return null;
+      const match = url.match(/\/video\/(\d+)/);
+      return match ? match[1] : null;
+    }
+    
+    // ===== СОЗДАНИЕ ПЛЕЕРА =====
+    function createPlayer(video) {
+      const host = video.host;
+      const url = video.url;
+      
+      if (host === 'youtube') {
+        const videoId = extractYouTubeId(url);
+        if (videoId) {
+          return `
+            <div class="video-embed">
+              <iframe 
+                src="https://www.youtube.com/embed/${videoId}" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+                loading="lazy">
+              </iframe>
+            </div>
+          `;
+        }
+      }
+      
+      if (host === 'vk') {
+        const vkData = extractVKId(url);
+        if (vkData) {
+          return `
+            <div class="video-embed">
+              <iframe 
+                src="https://vk.com/video_ext.php?oid=${vkData.oid}&id=${vkData.id}&hd=2"
+                frameborder="0" 
+                allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+                allowfullscreen
+                loading="lazy">
+              </iframe>
+            </div>
+          `;
+        }
+      }
+      
+      if (host === 'tiktok') {
+        const videoId = extractTikTokId(url);
+        if (videoId) {
+          return `
+            <a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer" class="video-link tiktok">
+              <span class="video-link-icon">🎵</span>
+              <span class="video-link-text">
+                <span class="video-link-name">TikTok</span>
+                <span class="video-link-hint">${currentLang === 'ru' ? 'Открыть видео' : 'Open video'}</span>
+              </span>
+            </a>
+          `;
+        }
+      }
+      
+      if (host === 'instagram') {
+        return `
+          <a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer" class="video-link instagram">
+            <span class="video-link-icon">📸</span>
+            <span class="video-link-text">
+              <span class="video-link-name">Instagram</span>
+              <span class="video-link-hint">${currentLang === 'ru' ? 'Открыть видео' : 'Open video'}</span>
+            </span>
+          </a>
+        `;
+      }
+      
+      // Фолбэк — ссылка
+      return `
+        <a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer" class="video-link">
+          <span class="video-link-icon">🔗</span>
+          <span class="video-link-text">
+            <span class="video-link-name">${escapeHtml(host)}</span>
+            <span class="video-link-hint">${currentLang === 'ru' ? 'Открыть' : 'Open'}</span>
+          </span>
+        </a>
+      `;
+    }
+    
+    // ===== ПАГИНАЦИЯ =====
+    function renderPagination(totalItems, currentPage, itemsPerPage) {
+      const totalPages = Math.ceil(totalItems / itemsPerPage);
+      if (totalPages <= 1) return null;
+      
+      const container = document.createElement('div');
+      container.className = 'pagination';
+      
+      const prevBtn = document.createElement('button');
+      prevBtn.className = 'page-btn';
+      prevBtn.textContent = '‹';
+      prevBtn.disabled = currentPage <= 1;
+      prevBtn.onclick = () => {
+        currentPage = Math.max(1, currentPage - 1);
+        render();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      };
+      container.appendChild(prevBtn);
+      
+      let startPage = Math.max(1, currentPage - 2);
+      let endPage = Math.min(totalPages, startPage + 4);
+      if (endPage - startPage < 4) {
+        startPage = Math.max(1, endPage - 4);
+      }
+      for (let i = startPage; i <= endPage; i++) {
+        const btn = document.createElement('button');
+        btn.className = 'page-btn' + (i === currentPage ? ' active' : '');
+        btn.textContent = i;
+        btn.onclick = () => {
+          currentPage = i;
+          render();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+        container.appendChild(btn);
+      }
+      
+      const nextBtn = document.createElement('button');
+      nextBtn.className = 'page-btn';
+      nextBtn.textContent = '›';
+      nextBtn.disabled = currentPage >= totalPages;
+      nextBtn.onclick = () => {
+        currentPage = Math.min(totalPages, currentPage + 1);
+        render();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      };
+      container.appendChild(nextBtn);
+      
+      return container;
+    }
+    
+    // ===== СОЗДАНИЕ КАРТОЧКИ ВИДЕО =====
+    function createVideoCard(video) {
+      const card = document.createElement('div');
+      card.className = 'video-card';
+      
+      const seriesName = currentLang === 'en' && video.seriesName_en 
+        ? video.seriesName_en 
+        : video.seriesName;
+      
+      const manufacturerName = manufacturers[video.manufacturer]?.[currentLang] || video.manufacturer;
+      
+      card.innerHTML = `
+        <div class="video-card-player">
+          ${createPlayer(video)}
+        </div>
+        <a href="series.html?id=${escapeHtml(video.seriesId)}" class="video-card-series">
+          <div class="video-card-series-icon">📚</div>
+          <div class="video-card-series-info">
+            <div class="video-card-series-name">${escapeHtml(seriesName)}</div>
+            <div class="video-card-series-meta">${escapeHtml(video.year)} · ${escapeHtml(manufacturerName)}</div>
+          </div>
+        </a>
+      `;
+      
+      return card;
+    }
+    
+    // ===== РЕНДЕР =====
+    function render() {
+      // Фильтрация
+      let filtered = allVideos.filter(v => v.host === currentHost);
+      
+      if (currentSearch) {
+        const query = currentSearch.toLowerCase();
+        filtered = filtered.filter(v => 
+          (v.seriesName || '').toLowerCase().includes(query) ||
+          (v.seriesName_en || '').toLowerCase().includes(query)
+        );
+      }
+      
+      // Счётчик
+      const counter = document.getElementById('videosCounter');
+      if (counter) {
+        const label = currentLang === 'ru' ? 'Найдено видео' : 'Videos found';
+        counter.textContent = `${label}: ${filtered.length}`;
+      }
+      
+      // Пустой результат
+      grid.innerHTML = '';
+      if (filtered.length === 0) {
+        const emptyMsg = currentLang === 'ru' 
+          ? 'Видео не найдены' 
+          : 'No videos found';
+        grid.innerHTML = `<p class="empty-message">${emptyMsg}</p>`;
+        return;
+      }
+      
+      // Пагинация
+      const start = (currentPage - 1) * ITEMS_PER_PAGE;
+      const end = start + ITEMS_PER_PAGE;
+      const paginated = filtered.slice(start, end);
+      
+      paginated.forEach(video => grid.appendChild(createVideoCard(video)));
+      
+      // Пагинация
+      const pag = renderPagination(filtered.length, currentPage, ITEMS_PER_PAGE);
+      if (pag) grid.appendChild(pag);
+    }
+    
+    render();
+  } catch(error) {
+    console.error('Ошибка инициализации видеоархива:', error);
+    showError('Не удалось загрузить видеоархив');
+    grid.innerHTML = `<p class="error-message">❌ Ошибка загрузки. Попробуйте обновить страницу.</p>`;
+  }
+}
+
 // ===== FOR SALE (ОПТИМИЗИРОВАННАЯ ВЕРСИЯ) =====
 async function initForSale() {
   const grid = document.getElementById("forsaleGrid");
@@ -3325,6 +3619,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       initMyCollection();
     } else if (path.includes('forsale.html')) {
       initForSale();
+    } else if (path.includes('videos.html')) {
+      initVideos();         // ← НОВОЕ
     } else if (path.includes('about.html')) {
       initAbout();
     } else {
