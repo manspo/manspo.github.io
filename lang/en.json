@@ -115,5 +115,7 @@
   "title_videos": "Video Archive — Capsule",
 "videos_title": "📺 Video Archive",
 "nav_videos": "Video Archive",
-"search_videos_placeholder": "🔍 Search by series name..."
+"search_videos_placeholder": "🔍 Search by series name...",
+"sort_date_desc": "🆕 By date added (new first)",
+"sort_date_asc": "📅 By date added (old first)"
   }

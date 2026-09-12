@@ -5,7 +5,7 @@
 // ===== КОНФИГУРАЦИЯ =====
 const CONFIG = {
   CACHE_TTL: 24 * 60 * 60 * 1000,
-  ITEMS_PER_PAGE: 10,
+  ITEMS_PER_PAGE: 12,        // ← стало 12
   RECENT_COUNT: 4,
   MAX_ZOOM: 3,
   ZOOM_STEP: 0.3,
@@ -405,7 +405,7 @@ function getFilterState() {
   const defaultState = {
     catalog: { manufacturer: 'all', kind: 'all', sort: 'date-desc', search: '' },
     mycollection: { manufacturer: 'all', kind: 'all', search: '' },
-    forsale: { manufacturer: 'all', kind: 'all', sort: 'name', search: '', tab: 'figures' }
+    forsale: { manufacturer: 'all', kind: 'all', sort: 'date-desc', search: '', tab: 'figures' }
   };
   if (saved) {
     try {
@@ -1122,12 +1122,13 @@ function applyTranslations() {
       if (sortSelect) {
         Array.from(sortSelect.options).forEach(option => {
           const keyMap = {
-            'date-desc': 'sort_date_desc',
-            'name': 'sort_name_asc',
-            'name-desc': 'sort_name_desc',
-            'year': 'sort_year_asc',
-            'year-desc': 'sort_year_desc'
-          };
+  'date-desc': 'sort_date_desc',
+  'date-asc': 'sort_date_asc',
+  'name': 'sort_name_asc',
+  'name-desc': 'sort_name_desc',
+  'year': 'sort_year_asc',
+  'year-desc': 'sort_year_desc'
+};
           const key = keyMap[option.value];
           if (key && dict[key]) option.textContent = dict[key];
         });
@@ -2149,7 +2150,7 @@ async function initForSale() {
     
     let currentManufacturer = filterState.forsale.manufacturer || 'all';
     let currentSearch = filterState.forsale.search || '';
-    let currentSort = filterState.forsale.sort || 'name';
+    let currentSort = filterState.forsale.sort || 'date-desc';
     
     let figuresPage = 1, variantsPage = 1, extrasPage = 1, insertsPage = 1, seriesPage = 1;
     
@@ -2196,15 +2197,30 @@ async function initForSale() {
         const dateB = b.date_added ? new Date(b.date_added) : new Date(0);
         return dateB - dateA;
       });
-      if (currentSort === 'year') {
-        filtered.sort((a, b) => a.seriesYear - b.seriesYear);
-      } else if (currentSort === 'year-desc') {
-        filtered.sort((a, b) => b.seriesYear - a.seriesYear);
-      } else if (currentSort === 'name') {
-        filtered.sort((a, b) => a.name.localeCompare(b.name));
-      } else if (currentSort === 'name-desc') {
-        filtered.sort((a, b) => b.name.localeCompare(a.name));
-      }
+// Сортировка
+if (currentSort === 'date-desc') {
+  filtered.sort((a, b) => {
+    const dateA = a.date_added ? new Date(a.date_added).getTime() : 0;
+    const dateB = b.date_added ? new Date(b.date_added).getTime() : 0;
+    if (dateB !== dateA) return dateB - dateA;
+    return (a.name || '').localeCompare(b.name || '');
+  });
+} else if (currentSort === 'date-asc') {
+  filtered.sort((a, b) => {
+    const dateA = a.date_added ? new Date(a.date_added).getTime() : 0;
+    const dateB = b.date_added ? new Date(b.date_added).getTime() : 0;
+    if (dateA !== dateB) return dateA - dateB;
+    return (a.name || '').localeCompare(b.name || '');
+  });
+} else if (currentSort === 'year') {
+  filtered.sort((a, b) => a.seriesYear - b.seriesYear);
+} else if (currentSort === 'year-desc') {
+  filtered.sort((a, b) => b.seriesYear - a.seriesYear);
+} else if (currentSort === 'name') {
+  filtered.sort((a, b) => a.name.localeCompare(b.name));
+} else if (currentSort === 'name-desc') {
+  filtered.sort((a, b) => b.name.localeCompare(a.name));
+}
       return filtered;
     }
     

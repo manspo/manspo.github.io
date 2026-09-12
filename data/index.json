@@ -840,18 +840,6 @@
     "visible": true
   },
   {
-    "id": "racing-by-kinder-2025",
-    "name": "Гонки от Киндер",
-    "name_en": "Racing by Kinder",
-    "year": 2025,
-    "manufacturer": "kinder",
-    "cover": "images/series/kinder/racing/cover.webp",
-    "kind": "",
-    "description": "Серия посвященная гонкам",
-    "description_en": "Series dedicated to racing",
-    "visible": true
-  },
-  {
     "id": "ali-baba-and-the-40-thieves-by-landrin-2011",
     "name": "Али Баба и 40 Разбойников от Ландрин",
     "name_en": "Ali Baba and the 40 Thieves by Landrin",

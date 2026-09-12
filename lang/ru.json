@@ -113,5 +113,7 @@
   "title_videos": "Видеоархив — Капсула",
 "videos_title": "📺 Видеоархив",
 "nav_videos": "Видеоархив",
-"search_videos_placeholder": "🔍 Поиск по названию серии..."
+"search_videos_placeholder": "🔍 Поиск по названию серии...",
+"sort_date_desc": "🆕 По дате добавления (новые)",
+"sort_date_asc": "📅 По дате добавления (старые)"
   }
