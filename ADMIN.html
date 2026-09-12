@@ -196,6 +196,7 @@
                     <div class="form-group"><input type="text" id="addVideoYoutube" placeholder="YouTube ссылка"></div>
                     <div class="form-group"><input type="text" id="addVideoVK" placeholder="VK ссылка"></div>
                     <div class="form-group"><input type="text" id="addVideoTikTok" placeholder="TikTok ссылка"></div>
+                    <div class="form-group"><input type="text" id="addVideoInstagram" placeholder="Instagram ссылка"></div>
                 </div>
             </div>
         </div>
@@ -264,6 +265,7 @@
                     <div class="form-group"><input type="text" id="editVideoYoutube" placeholder="YouTube"></div>
                     <div class="form-group"><input type="text" id="editVideoVK" placeholder="VK"></div>
                     <div class="form-group"><input type="text" id="editVideoTikTok" placeholder="TikTok"></div>
+                    <div class="form-group"><input type="text" id="editVideoInstagram" placeholder="Instagram"></div>
                     
                     <div style="margin-top:15px;">
                         <button onclick="saveEdit()">💾 Сохранить</button>
@@ -299,7 +301,7 @@
                         <li><strong>Код</strong> извлекается из имени файла (например, VS369 из kinderjoy_onepiece_VS369.webp)</li>
                         <li>Поля для полной серии на продажу сохраняются в JSON</li>
                         <li>Производители автоматически загружаются из manufacturers.json</li>
-                        <li><strong>При экспорте</strong> автоматически генерируется <code>stats.json</code> — готовая статистика для главной страницы</li>
+                        <li><strong>При экспорте</strong> автоматически генерируются <code>stats.json</code>, <code>videos.json</code>, <code>forsale.json</code>, <code>collection.json</code></li>
                     </ul>
                 </div>
             </div>
@@ -384,7 +386,6 @@ async function loadManufacturersToSelects() {
 
 function getManufacturerFolder(m) {
     // Используем ключ производителя как имя папки
-    // (rubezahl-koch, dolci-preziosi, zabavnyj-syurpriz, kinder и т.д.)
     return m || 'other';
 }
 
@@ -538,7 +539,6 @@ function renumberAll(container) {
         let nameEnField = item.querySelector('.item-name-en');
         let type = item.dataset.type || 'item';
         
-        // Определяем дефолтные паттерны для каждого типа
         const defaultPatterns = {
             figure: { ru: /^Фигурка\s+\d+$/i, en: /^Figure\s+\d+$/i },
             extra: { ru: /^Доп\s+\d+$/i, en: /^Extra\s+\d+$/i },
@@ -549,7 +549,6 @@ function renumberAll(container) {
         
         const patterns = defaultPatterns[type] || defaultPatterns.figure;
         
-        // Обновляем РУ имя если оно дефолтное ИЛИ пустое
         if (nameRuField) {
             const val = nameRuField.value.trim();
             if (!val || patterns.ru.test(val)) {
@@ -561,7 +560,6 @@ function renumberAll(container) {
             }
         }
         
-        // Обновляем EN имя если оно дефолтное ИЛИ пустое
         if (nameEnField) {
             const val = nameEnField.value.trim();
             if (!val || patterns.en.test(val)) {
@@ -573,6 +571,29 @@ function renumberAll(container) {
             }
         }
     });
+}
+
+function collectItems(container) {
+    let items = [];
+    container.querySelectorAll('.figure-item').forEach((item) => {
+        let idField = item.querySelector('.item-id');
+        let obj = {
+            id: idField ? idField.value : 'item_' + (items.length + 1),
+            name: item.querySelector('.item-name')?.value || '',
+            name_en: item.querySelector('.item-name-en')?.value || '',
+            code: item.querySelector('.item-code')?.value || '',
+            image: item.querySelector('.item-image')?.value || '',
+            owned: item.querySelector('.item-owned')?.checked || false,
+            forsale: item.querySelector('.item-forsale')?.checked || false,
+            avito: item.querySelector('.item-avito')?.value || '',
+            price: item.querySelector('.item-price')?.value || '',
+            condition: item.querySelector('.item-condition')?.value || '',
+            condition_en: item.querySelector('.item-condition-en')?.value || '',
+            parentFigureId: item.querySelector('.item-parent-id')?.value || ''
+        };
+        items.push(obj);
+    });
+    return items;
 }
 
 // ============================================================
@@ -763,7 +784,7 @@ async function loadDataFromFiles(files) {
                     });
                     existingSeries.push(content);
                 } else {
-                    existingSeries.push({ ...series, figures: [], extras: [], variants: [], inserts: [], other: [], videos: { youtube: [], vk: [], tiktok: [] } });
+                    existingSeries.push({ ...series, figures: [], extras: [], variants: [], inserts: [], other: [], videos: { youtube: [], vk: [], tiktok: [], instagram: [] } });
                 }
             }
             
@@ -882,7 +903,8 @@ function addSeries() {
         videos: {
             youtube: document.getElementById('addVideoYoutube').value ? [document.getElementById('addVideoYoutube').value] : [],
             vk: document.getElementById('addVideoVK').value ? [document.getElementById('addVideoVK').value] : [],
-            tiktok: document.getElementById('addVideoTikTok').value ? [document.getElementById('addVideoTikTok').value] : []
+            tiktok: document.getElementById('addVideoTikTok').value ? [document.getElementById('addVideoTikTok').value] : [],
+            instagram: document.getElementById('addVideoInstagram').value ? [document.getElementById('addVideoInstagram').value] : []
         },
         visible: true
     };
@@ -915,6 +937,7 @@ function clearAddForm() {
     document.getElementById('addVideoYoutube').value = '';
     document.getElementById('addVideoVK').value = '';
     document.getElementById('addVideoTikTok').value = '';
+    document.getElementById('addVideoInstagram').value = '';
     document.getElementById('addFiguresList').innerHTML = '';
     document.getElementById('addExtrasList').innerHTML = '';
     document.getElementById('addVariantsList').innerHTML = '';
@@ -977,6 +1000,7 @@ function editSeries(idx) {
     document.getElementById('editVideoYoutube').value = s.videos?.youtube?.[0] || '';
     document.getElementById('editVideoVK').value = s.videos?.vk?.[0] || '';
     document.getElementById('editVideoTikTok').value = s.videos?.tiktok?.[0] || '';
+    document.getElementById('editVideoInstagram').value = s.videos?.instagram?.[0] || '';
     
     document.getElementById('editForm').style.display = 'block';
     document.querySelector('.tab[data-tab="edit"]').click();
@@ -1027,7 +1051,8 @@ function saveEdit() {
         videos: {
             youtube: document.getElementById('editVideoYoutube').value ? [document.getElementById('editVideoYoutube').value] : [],
             vk: document.getElementById('editVideoVK').value ? [document.getElementById('editVideoVK').value] : [],
-            tiktok: document.getElementById('editVideoTikTok').value ? [document.getElementById('editVideoTikTok').value] : []
+            tiktok: document.getElementById('editVideoTikTok').value ? [document.getElementById('editVideoTikTok').value] : [],
+            instagram: document.getElementById('editVideoInstagram').value ? [document.getElementById('editVideoInstagram').value] : []
         }
     };
     downloadAsZip(existingSeries);
@@ -1095,6 +1120,7 @@ function editTempSeries(idx) {
     document.getElementById('addVideoYoutube').value = s.videos?.youtube?.[0] || '';
     document.getElementById('addVideoVK').value = s.videos?.vk?.[0] || '';
     document.getElementById('addVideoTikTok').value = s.videos?.tiktok?.[0] || '';
+    document.getElementById('addVideoInstagram').value = s.videos?.instagram?.[0] || '';
     
     tempSeries.splice(idx, 1);
     localStorage.setItem('tempSeries', JSON.stringify(tempSeries));
@@ -1134,7 +1160,7 @@ function mergeWithMain() {
 }
 
 // ============================================================
-// ГЕНЕРАЦИЯ STATS.JSON
+// ГЕНЕРАЦИЯ INDEX-ФАЙЛОВ
 // ============================================================
 
 function generateStatsData(seriesList) {
@@ -1143,21 +1169,14 @@ function generateStatsData(seriesList) {
     let totalForSale = 0;
     
     seriesList.forEach(s => {
-        // Фигурки = figures + extras + variants
         totalFigures += s.figures?.length || 0;
         totalFigures += s.extras?.length || 0;
         totalFigures += s.variants?.length || 0;
-        
-        // Вкладыши
         totalInserts += s.inserts?.length || 0;
-        
-        // В продаже (все типы элементов)
         totalForSale += s.figures?.filter(f => f.forsale).length || 0;
         totalForSale += s.extras?.filter(e => e.forsale).length || 0;
         totalForSale += s.inserts?.filter(i => i.forsale).length || 0;
         totalForSale += s.variants?.filter(v => v.forsale).length || 0;
-        
-        // Полная серия на продажу
         if (s.fullSeriesForSale) totalForSale += 1;
     });
     
@@ -1171,6 +1190,163 @@ function generateStatsData(seriesList) {
         totalManufacturers: uniqueManufacturers.length,
         updatedAt: new Date().toISOString()
     };
+}
+
+function generateVideosData(seriesList) {
+    const videos = [];
+    
+    seriesList.forEach(s => {
+        if (!s.videos) return;
+        
+        const hosts = ['youtube', 'vk', 'tiktok', 'instagram'];
+        
+        hosts.forEach(host => {
+            if (!s.videos[host] || s.videos[host].length === 0) return;
+            
+            s.videos[host].forEach(url => {
+                if (!url || !url.trim()) return;
+                
+                videos.push({
+                    host: host,
+                    url: url,
+                    seriesId: s.id,
+                    seriesName: s.name,
+                    seriesName_en: s.name_en || s.name,
+                    year: s.year,
+                    manufacturer: s.manufacturer,
+                    date_added: s.date_added || s.fullSeriesDateAdded || ''
+                });
+            });
+        });
+    });
+    
+    videos.sort((a, b) => {
+        const dateA = a.date_added ? new Date(a.date_added) : new Date(0);
+        const dateB = b.date_added ? new Date(b.date_added) : new Date(0);
+        if (dateB - dateA !== 0) return dateB - dateA;
+        return (a.seriesName || '').localeCompare(b.seriesName || '');
+    });
+    
+    return videos;
+}
+
+function generateForsaleData(seriesList) {
+    const items = [];
+    
+    seriesList.forEach(s => {
+        if (s.fullSeriesForSale === true) {
+            items.push({
+                type: 'full',
+                id: s.id,
+                seriesId: s.id,
+                seriesName: s.name,
+                seriesName_en: s.name_en || s.name,
+                seriesYear: s.year,
+                manufacturer: s.manufacturer,
+                name: s.name,
+                name_en: s.name_en || s.name,
+                image: s.cover,
+                avito: s.fullSeriesAvito || '',
+                price: s.fullSeriesPrice || '',
+                price_en: s.fullSeriesPrice_en || '',
+                condition: s.fullSeriesCondition || '',
+                condition_en: s.fullSeriesCondition_en || '',
+                code: '',
+                date_added: s.fullSeriesDateAdded || s.date_added || ''
+            });
+        }
+        
+        const typeMap = {
+            'figures': 'figure',
+            'variants': 'variant',
+            'extras': 'extra',
+            'inserts': 'insert'
+        };
+        
+        Object.keys(typeMap).forEach(cat => {
+            if (!s[cat]) return;
+            
+            s[cat].forEach(item => {
+                if (item.forsale !== true) return;
+                
+                items.push({
+                    type: typeMap[cat],
+                    id: item.id,
+                    seriesId: s.id,
+                    seriesName: s.name,
+                    seriesName_en: s.name_en || s.name,
+                    seriesYear: s.year,
+                    manufacturer: s.manufacturer,
+                    name: item.name || '',
+                    name_en: item.name_en || item.name || '',
+                    image: item.image || '',
+                    avito: item.avito || '',
+                    price: item.price || '',
+                    condition: item.condition || '',
+                    condition_en: item.condition_en || '',
+                    code: item.code || '',
+                    date_added: item.date_added || s.date_added || ''
+                });
+            });
+        });
+    });
+    
+    items.sort((a, b) => {
+        const dateA = a.date_added ? new Date(a.date_added) : new Date(0);
+        const dateB = b.date_added ? new Date(b.date_added) : new Date(0);
+        return dateB - dateA;
+    });
+    
+    return items;
+}
+
+function generateCollectionData(seriesList) {
+    const items = [];
+    
+    seriesList.forEach(s => {
+        const ownedFigures = s.figures?.filter(f => f.owned).length || 0;
+        const ownedExtras = s.extras?.filter(e => e.owned).length || 0;
+        const ownedVariants = s.variants?.filter(v => v.owned).length || 0;
+        const ownedInserts = s.inserts?.filter(i => i.owned).length || 0;
+        const totalOwned = ownedFigures + ownedExtras + ownedVariants + ownedInserts;
+        
+        if (totalOwned === 0) return;
+        
+        const totalFigures = s.figures?.length || 0;
+        const totalExtras = s.extras?.length || 0;
+        const totalVariants = s.variants?.length || 0;
+        const totalInserts = s.inserts?.length || 0;
+        const totalItems = totalFigures + totalExtras + totalVariants + totalInserts;
+        
+        const forSaleCount = 
+            (s.figures?.filter(f => f.forsale).length || 0) +
+            (s.extras?.filter(e => e.forsale).length || 0) +
+            (s.variants?.filter(v => v.forsale).length || 0) +
+            (s.inserts?.filter(i => i.forsale).length || 0);
+        
+        items.push({
+            id: s.id,
+            name: s.name,
+            name_en: s.name_en || s.name,
+            year: s.year,
+            manufacturer: s.manufacturer,
+            cover: s.cover || '',
+            kind: s.kind || '',
+            ownedFigures: ownedFigures,
+            ownedExtras: ownedExtras,
+            ownedVariants: ownedVariants,
+            ownedInserts: ownedInserts,
+            totalOwned: totalOwned,
+            totalFigures: totalFigures,
+            totalExtras: totalExtras,
+            totalVariants: totalVariants,
+            totalInserts: totalInserts,
+            totalItems: totalItems,
+            forSaleCount: forSaleCount
+        });
+    });
+    
+    return items;
 }
 
 // ============================================================
@@ -1195,10 +1371,25 @@ function downloadAsZip(seriesList) {
     }));
     zip.file("index.json", JSON.stringify(indexData, null, 2));
     
-    // ===== ✨ stats.json (НОВОЕ) =====
+    // ===== stats.json =====
     const statsData = generateStatsData(seriesList);
     zip.file("stats.json", JSON.stringify(statsData, null, 2));
-    console.log('✅ stats.json сгенерирован:', statsData);
+    console.log('✅ stats.json:', statsData);
+    
+    // ===== videos.json =====
+    const videosData = generateVideosData(seriesList);
+    zip.file("videos.json", JSON.stringify(videosData, null, 2));
+    console.log('✅ videos.json:', videosData.length, 'видео');
+    
+    // ===== forsale.json =====
+    const forsaleData = generateForsaleData(seriesList);
+    zip.file("forsale.json", JSON.stringify(forsaleData, null, 2));
+    console.log('✅ forsale.json:', forsaleData.length, 'товаров');
+    
+    // ===== collection.json =====
+    const collectionData = generateCollectionData(seriesList);
+    zip.file("collection.json", JSON.stringify(collectionData, null, 2));
+    console.log('✅ collection.json:', collectionData.length, 'серий');
     
     // ===== Серии =====
     seriesList.forEach(s => {
@@ -1229,7 +1420,7 @@ function downloadAsZip(seriesList) {
             variants: s.variants || [],
             inserts: s.inserts || [],
             other: s.other || [],
-            videos: s.videos || { youtube: [], vk: [], tiktok: [] }
+            videos: s.videos || { youtube: [], vk: [], tiktok: [], instagram: [] }
         };
         seriesFolder.file(`${s.id}.json`, JSON.stringify(data, null, 2));
     });

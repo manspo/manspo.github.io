@@ -1326,6 +1326,42 @@ function loadLatestSeries(data) {
   }).join('');
 }
 
+// ===== ЗАГРУЗКА ВИДЕО =====
+async function loadVideos() {
+  try {
+    const res = await fetch(`${BASE_URL}/data/videos.json`);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    return await res.json();
+  } catch (error) {
+    console.error('Ошибка загрузки видео:', error);
+    return [];
+  }
+}
+
+// ===== ЗАГРУЗКА ТОВАРОВ НА ПРОДАЖУ =====
+async function loadForsale() {
+  try {
+    const res = await fetch(`${BASE_URL}/data/forsale.json`);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    return await res.json();
+  } catch (error) {
+    console.error('Ошибка загрузки товаров:', error);
+    return [];
+  }
+}
+
+// ===== ЗАГРУЗКА КОЛЛЕКЦИИ =====
+async function loadCollection() {
+  try {
+    const res = await fetch(`${BASE_URL}/data/collection.json`);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    return await res.json();
+  } catch (error) {
+    console.error('Ошибка загрузки коллекции:', error);
+    return [];
+  }
+}
+
 // ===== ФИЛЬТРЫ ПО ТИПУ =====
 function initKindFilters(containerId, currentKind, onKindChange) {
   const container = document.getElementById(containerId);
@@ -1549,28 +1585,17 @@ async function initCatalog() {
 }
 
 // ===== MY COLLECTION =====
+// ===== MY COLLECTION (ОПТИМИЗИРОВАННАЯ ВЕРСИЯ) =====
 async function initMyCollection() {
   const grid = document.getElementById("collectionGrid");
   if (!grid) return;
   
   try {
     await loadManufacturers();
-    await loadData();
-    
-    let seriesData = window.seriesIndex || [];
-    seriesData = seriesData.filter(s => s.visible !== false);
     const manufacturers = await loadManufacturers();
     
-    const fullSeriesData = [];
-    for (const item of seriesData) {
-      const full = await loadSeriesById(item.id);
-      if (full) fullSeriesData.push(full);
-    }
-    
-    let seriesWithCollection = fullSeriesData.filter(series => 
-      series.figures?.some(f => f.owned) || 
-      series.extras?.some(e => e.owned)
-    );
+    // ===== ЗАГРУЗКА ЧЕРЕЗ COLLECTION.JSON =====
+    const allSeries = await loadCollection();
     
     const searchInput = document.getElementById("searchInput");
     let searchQuery = filterState.mycollection.search || '';
@@ -1579,7 +1604,7 @@ async function initMyCollection() {
     
     const filterGroup = document.querySelector('.filter-group');
     if (filterGroup) {
-      const uniqueManufacturers = [...new Set(seriesWithCollection.map(s => s.manufacturer))];
+      const uniqueManufacturers = [...new Set(allSeries.map(s => s.manufacturer))];
       const sortedManufacturers = manufacturerOrder.filter(m => uniqueManufacturers.includes(m));
       const currentLang = localStorage.getItem("lang") || "ru";
       
@@ -1642,7 +1667,7 @@ async function initMyCollection() {
     }
     
     function render() {
-      let list = [...seriesWithCollection];
+      let list = [...allSeries];
       const currentLang = localStorage.getItem("lang") || "ru";
       
       if (currentFilter !== "all") {
@@ -1666,10 +1691,7 @@ async function initMyCollection() {
       const totalOwnedFiguresSpan = document.getElementById('totalOwnedFigures');
       const totalOwnedSeriesSpan = document.getElementById('totalOwnedSeries');
       if (totalOwnedFiguresSpan) {
-        const totalFigures = list.reduce((sum, s) => 
-          sum + (s.figures?.filter(f => f.owned).length || 0) + 
-          (s.extras?.filter(e => e.owned).length || 0), 0
-        );
+        const totalFigures = list.reduce((sum, s) => sum + (s.totalOwned || 0), 0);
         totalOwnedFiguresSpan.textContent = totalFigures;
       }
       if (totalOwnedSeriesSpan) {
@@ -1689,18 +1711,10 @@ async function initMyCollection() {
         a.className = "catalog-card collection-card";
         const name = currentLang === 'en' && s.name_en ? s.name_en : s.name;
         const manufacturerName = manufacturers[s.manufacturer]?.[currentLang] || s.manufacturer;
-        const ownedFigures = s.figures?.filter(f => f.owned).length || 0;
-        const ownedExtras = s.extras?.filter(e => e.owned).length || 0;
-        const totalOwnedItems = ownedFigures + ownedExtras;
-        const totalFigures = s.figures?.length || 0;
-        const totalExtras = s.extras?.length || 0;
-        const totalItems = totalFigures + totalExtras;
-        const collectionText = currentLang === 'ru' 
-          ? `В коллекции: ${totalOwnedItems} шт. из ${totalItems}` 
-          : `In collection: ${totalOwnedItems} pcs of ${totalItems}`;
         
-        const forSaleFigures = (s.figures || []).filter(f => f.forsale);
-        const forSaleCount = forSaleFigures.length;
+        const collectionText = currentLang === 'ru' 
+          ? `В коллекции: ${s.totalOwned} шт. из ${s.totalItems}` 
+          : `In collection: ${s.totalOwned} pcs of ${s.totalItems}`;
         
         const imageUrl = s.cover ? `${BASE_URL}/${s.cover}` : 'images/placeholder.svg';
         
@@ -1710,7 +1724,7 @@ async function initMyCollection() {
             <h3>${escapeHtml(name)}</h3>
             <div class="year">${escapeHtml(s.year)} · ${escapeHtml(manufacturerName)}</div>
             <div class="collection-stats">${escapeHtml(collectionText)}</div>
-            ${forSaleCount > 0 ? `<div class="forsale-count">💰 ${currentLang === 'ru' ? 'Есть в продаже' : 'For sale'}</div>` : ''}
+            ${s.forSaleCount > 0 ? `<div class="forsale-count">💰 ${currentLang === 'ru' ? 'Есть в продаже' : 'For sale'}</div>` : ''}
           </div>
         `;
         grid.appendChild(a);
@@ -1728,79 +1742,44 @@ async function initMyCollection() {
 }
 
 // ===== FOR SALE =====
+// ===== FOR SALE (ОПТИМИЗИРОВАННАЯ ВЕРСИЯ) =====
 async function initForSale() {
   const grid = document.getElementById("forsaleGrid");
   if (!grid) return;
   
   try {
     await loadManufacturers();
-    await loadData();
-    
-    let seriesData = window.seriesIndex || [];
-    seriesData = seriesData.filter(s => s.visible !== false);
     const manufacturers = await loadManufacturers();
     let currentLang = localStorage.getItem("lang") || "ru";
     
-    const fullSeriesData = [];
-    for (const item of seriesData) {
-      const full = await loadSeriesById(item.id);
-      if (full) fullSeriesData.push(full);
-    }
+    // ===== ЗАГРУЗКА ЧЕРЕЗ FORSALE.JSON =====
+    const allItems = await loadForsale();
     
+    // Разбиваем по типам
     let figureItems = [], extraItems = [], insertItems = [], variantItems = [], fullSeriesItems = [];
     
-    fullSeriesData.forEach(series => {
-      if (series.fullSeriesForSale === true) {
-        fullSeriesItems.push({
-          id: series.id,
-          name: (currentLang === 'en' && series.name_en) ? series.name_en : series.name,
-          image: series.cover,
-          avito: series.fullSeriesAvito || '',
-          seriesId: series.id,
-          seriesName: (currentLang === 'en' && series.name_en) ? series.name_en : series.name,
-          seriesYear: series.year,
-          manufacturer: series.manufacturer,
-          type: 'full',
-          price: series.fullSeriesPrice || '',
-          date_added: series.fullSeriesDateAdded || series.date_added || '',
-          condition: (currentLang === 'en' ? series.fullSeriesCondition_en : series.fullSeriesCondition) || ''
-        });
-      }
+    allItems.forEach(item => {
+      const mapped = {
+        id: item.id,
+        seriesId: item.seriesId,
+        name: (currentLang === 'en' && item.name_en) ? item.name_en : item.name,
+        image: item.image,
+        avito: item.avito,
+        seriesName: (currentLang === 'en' && item.seriesName_en) ? item.seriesName_en : item.seriesName,
+        seriesYear: item.seriesYear,
+        manufacturer: item.manufacturer,
+        price: (currentLang === 'en' && item.price_en) ? item.price_en : (item.price || ''),
+        condition: (currentLang === 'en' ? item.condition_en : item.condition) || '',
+        type: item.type,
+        code: item.code || '',
+        date_added: item.date_added || ''
+      };
       
-      ['figures', 'variants', 'extras', 'inserts'].forEach(cat => {
-        if (series[cat]) {
-          const typeMap = {
-            'figures': 'figure',
-            'variants': 'variant',
-            'extras': 'extra',
-            'inserts': 'insert'
-          };
-          const type = typeMap[cat];
-          const target = cat === 'figures' ? figureItems :
-                        cat === 'variants' ? variantItems :
-                        cat === 'extras' ? extraItems : insertItems;
-          
-          series[cat].forEach(item => {
-            if (item.forsale === true) {
-              target.push({
-                id: item.id,
-                seriesId: series.id,
-                name: (currentLang === 'en' && item.name_en) ? item.name_en : item.name,
-                image: item.image,
-                avito: item.avito,
-                seriesName: (currentLang === 'en' && series.name_en) ? series.name_en : series.name,
-                seriesYear: series.year,
-                manufacturer: series.manufacturer,
-                price: item.price || '',
-                condition: (currentLang === 'en' ? item.condition_en : item.condition) || '',
-                type: type,
-                code: item.code || '',
-                date_added: item.date_added || series.date_added || ''
-              });
-            }
-          });
-        }
-      });
+      if (item.type === 'full') fullSeriesItems.push(mapped);
+      else if (item.type === 'figure') figureItems.push(mapped);
+      else if (item.type === 'variant') variantItems.push(mapped);
+      else if (item.type === 'extra') extraItems.push(mapped);
+      else if (item.type === 'insert') insertItems.push(mapped);
     });
     
     let currentManufacturer = filterState.forsale.manufacturer || 'all';
@@ -2004,9 +1983,9 @@ async function initForSale() {
       return div;
     }
     
+    // ===== ФИЛЬТРЫ ПРОИЗВОДИТЕЛЕЙ =====
     const filterGroup = document.getElementById('forsaleFilterGroup') || document.querySelector('.filter-group');
     if (filterGroup) {
-      const allItems = [...figureItems, ...variantItems, ...extraItems, ...insertItems, ...fullSeriesItems];
       const uniqueMans = [...new Set(allItems.map(i => i.manufacturer))];
       const sortedMans = manufacturerOrder.filter(m => uniqueMans.includes(m));
       
