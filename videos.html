@@ -1,24 +1,94 @@
-<section class="main-grid">
-  <div class="row">
-    <a href="catalog.html" class="home-card" data-page="catalog">
-      <div class="icon">📦</div>
-      <div class="home-title" data-i18n="nav_catalog">Каталог серий</div>
-    </a>
-    <a href="mycollection.html" class="home-card" data-page="mycollection">
-      <div class="icon">🏷️</div>
-      <div class="home-title" data-i18n="my_collections">Мои коллекции</div>
-    </a>
-    <a href="forsale.html" class="home-card" data-page="forsale">
-      <div class="icon">💰</div>
-      <div class="home-title" data-i18n="forsale">На продажу</div>
-    </a>
-    <a href="videos.html" class="home-card" data-page="videos">
-      <div class="icon">📺</div>
-      <div class="home-title" data-i18n="nav_videos">Видеоархив</div>
-    </a>
-    <a href="about.html" class="home-card" data-page="about">
-      <div class="icon">📖</div>
-      <div class="home-title" data-i18n="nav_about">О сайте</div>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <script>
+  (function() {
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+  })();
+  </script>
+  <title data-i18n="title_videos">Видеоархив — Капсула</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#4f46e5">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Капсула">
+  <link rel="apple-touch-icon" href="images/icon-192x192.webp">
+</head>
+
+<body>
+<header class="header">
+  <div class="header-left">
+    <a href="index.html" class="brand">
+      <img src="images/logo.webp" class="logo-img" alt="Logo">
+      <span class="logo" data-i18n="site_name">Капсула</span>
     </a>
   </div>
-</section>
+  <div class="header-tagline">
+    <span class="tagline-main" data-i18n="home_title">Каталог коллекций игрушек</span>
+    <span class="tagline-sub" data-i18n="home_sub">Kinder, Nestle, Landrin и другие производители</span>
+  </div>
+</header>
+
+<main>
+  <button class="back-button" onclick="history.back()">
+    <span class="back-arrow">←</span> <span data-i18n="back">Назад</span>
+  </button>
+  
+  <div class="page-header">
+    <h1 data-i18n="videos_title">📺 Видеоархив</h1>
+  </div>
+  
+  <div class="catalog-header">
+    <div class="search-box">
+      <input type="text" id="searchInput" class="search-input" data-i18n="search_videos_placeholder" placeholder="🔍 Поиск по названию серии...">
+    </div>
+    
+    <div class="controls-wrapper">
+      <div class="filter-group" id="videosFilterGroup"></div>
+    </div>
+  </div>
+
+  <div class="videos-counter" id="videosCounter"></div>
+
+  <div id="videosGrid" class="videos-page-grid"></div>
+</main>
+
+<footer class="footer">
+  <div class="footer-controls">
+    <div class="lang-switch-footer">
+      <img src="images/flags/ru.png" data-lang="ru" class="flag" onclick="setLang('ru')" style="cursor: pointer;">
+      <img src="images/flags/en.png" data-lang="en" class="flag" onclick="setLang('en')" style="cursor: pointer;">
+    </div>
+    <div class="theme-switch">🌙</div>
+  </div>
+  <div class="support-buttons">
+    <a href="https://dalink.to/mansurdm" class="support-btn" data-i18n="support_project">Поддержать проект</a>
+  </div>
+  <div class="copyright" data-i18n="footer_copyright">© 2026 Капсула</div>
+</footer>
+
+<script src="js/script.js"></script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js')
+      .then(reg => console.log('✅ SW registered:', reg))
+      .catch(err => console.log('❌ SW error:', err));
+  });
+}
+</script>
+<script>
+let refreshing = false;
+navigator.serviceWorker.addEventListener('controllerchange', () => {
+  if (!refreshing) {
+    refreshing = true;
+    window.location.reload();
+  }
+});
+</script>
+</body>
+</html>
