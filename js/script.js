@@ -1163,6 +1163,9 @@ async function initHome() {
       filterState.forsale.manufacturer = 'all';
       filterState.forsale.tab = 'figures';
     }
+    if (filterState.videos) {
+      filterState.videos.search = '';
+    }
     saveFilterState(filterState);
     
     updateProgress(20, 'Загрузка списка серий...');
@@ -1641,7 +1644,7 @@ async function initCatalog() {
         }
       }
       applyTranslations();
-    }
+    }saveFilterState(filterState);
     
     updateKindFiltersVisibility();
     render();
