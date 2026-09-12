@@ -25,7 +25,7 @@
       "name": "Оби-Ван Кеноби",
       "name_en": "Obi-Wan Kenobi",
       "owned": true,
-      "forsale": false,
+      "forsale": true,
       "avito": ""
     },
     {
@@ -34,7 +34,7 @@
       "name": "Люк Скайуокер",
       "name_en": "Luke Skywalker",
       "owned": true,
-      "forsale": false,
+      "forsale": true,
       "avito": ""
     },
     {
@@ -43,7 +43,7 @@
       "name": "Чубакка",
       "name_en": "Chewbacca",
       "owned": true,
-      "forsale": false,
+      "forsale": true,
       "avito": ""
     },
     {
@@ -79,7 +79,7 @@
       "name": "Рей",
       "name_en": "Rey",
       "owned": true,
-      "forsale": false,
+      "forsale": true,
       "avito": ""
     },
     {
@@ -97,7 +97,7 @@
       "name": "Боба Фетт",
       "name_en": "Boba Fett",
       "owned": true,
-      "forsale": false,
+      "forsale": true,
       "avito": ""
     },
     {
@@ -106,7 +106,7 @@
       "name": "Лея Органа",
       "name_en": "Leia Organa",
       "owned": true,
-      "forsale": false,
+      "forsale": true,
       "avito": ""
     }
   ],

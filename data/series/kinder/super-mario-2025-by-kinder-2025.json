@@ -43,7 +43,7 @@
       "name": "Фигурка 3",
       "name_en": "Figure 3",
       "owned": true,
-      "forsale": false,
+      "forsale": true,
       "avito": ""
     },
     {
@@ -52,7 +52,7 @@
       "name": "Фигурка 4",
       "name_en": "Figure 4",
       "owned": true,
-      "forsale": false,
+      "forsale": true,
       "avito": ""
     },
     {
@@ -79,7 +79,7 @@
       "name": "Фигурка 7",
       "name_en": "Figure 7",
       "owned": true,
-      "forsale": false,
+      "forsale": true,
       "avito": ""
     },
     {
@@ -88,7 +88,7 @@
       "name": "Фигурка 8",
       "name_en": "Figure 8",
       "owned": true,
-      "forsale": false,
+      "forsale": true,
       "avito": ""
     },
     {
@@ -124,7 +124,7 @@
       "name": "Фигурка 12",
       "name_en": "Figure 12",
       "owned": true,
-      "forsale": false,
+      "forsale": true,
       "avito": ""
     }
   ],
@@ -135,7 +135,7 @@
       "name": "Доп 1",
       "name_en": "Extra 1",
       "owned": true,
-      "forsale": false,
+      "forsale": true,
       "avito": ""
     },
     {
@@ -144,7 +144,7 @@
       "name": "Доп 2",
       "name_en": "Extra 2",
       "owned": true,
-      "forsale": false,
+      "forsale": true,
       "avito": ""
     },
     {
@@ -153,7 +153,7 @@
       "name": "Доп 3",
       "name_en": "Extra 3",
       "owned": true,
-      "forsale": false,
+      "forsale": true,
       "avito": ""
     },
     {
@@ -180,7 +180,7 @@
       "name": "Доп 6",
       "name_en": "Extra 6",
       "owned": true,
-      "forsale": false,
+      "forsale": true,
       "avito": ""
     },
     {
@@ -189,7 +189,7 @@
       "name": "Доп 7",
       "name_en": "Extra 7",
       "owned": true,
-      "forsale": false,
+      "forsale": true,
       "avito": ""
     },
     {
@@ -198,7 +198,7 @@
       "name": "Доп 8",
       "name_en": "Extra 8",
       "owned": true,
-      "forsale": false,
+      "forsale": true,
       "avito": ""
     },
     {
@@ -207,7 +207,7 @@
       "name": "Доп 9",
       "name_en": "Extra 9",
       "owned": true,
-      "forsale": false,
+      "forsale": true,
       "avito": ""
     },
     {
@@ -216,7 +216,7 @@
       "name": "Доп 10",
       "name_en": "Extra 10",
       "owned": true,
-      "forsale": false,
+      "forsale": true,
       "avito": ""
     },
     {
@@ -225,7 +225,7 @@
       "name": "Доп 11",
       "name_en": "Extra 11",
       "owned": true,
-      "forsale": false,
+      "forsale": true,
       "avito": ""
     },
     {
@@ -234,7 +234,7 @@
       "name": "Доп 12",
       "name_en": "Extra 12",
       "owned": true,
-      "forsale": false,
+      "forsale": true,
       "avito": ""
     },
     {
@@ -243,7 +243,7 @@
       "name": "Доп 13",
       "name_en": "Extra 13",
       "owned": true,
-      "forsale": false,
+      "forsale": true,
       "avito": ""
     },
     {
@@ -252,7 +252,7 @@
       "name": "Доп 14",
       "name_en": "Extra 14",
       "owned": true,
-      "forsale": false,
+      "forsale": true,
       "avito": ""
     }
   ],

@@ -70,7 +70,7 @@
       "name": "Фигурка 6",
       "name_en": "Figure 6",
       "owned": false,
-      "forsale": false,
+      "forsale": true,
       "avito": ""
     },
     {

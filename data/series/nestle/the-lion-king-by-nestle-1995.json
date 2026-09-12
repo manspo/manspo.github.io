@@ -88,7 +88,7 @@
       "name": "Фигурка 8",
       "name_en": "Figure 8",
       "owned": true,
-      "forsale": false,
+      "forsale": true,
       "avito": ""
     },
     {

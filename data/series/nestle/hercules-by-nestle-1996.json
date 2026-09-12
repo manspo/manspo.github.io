@@ -25,7 +25,7 @@
       "name": "Гермес",
       "name_en": "Hermes",
       "owned": true,
-      "forsale": false,
+      "forsale": true,
       "avito": ""
     },
     {
@@ -34,7 +34,7 @@
       "name": "Гидра",
       "name_en": "Hydra",
       "owned": true,
-      "forsale": false,
+      "forsale": true,
       "avito": ""
     },
     {
@@ -43,7 +43,7 @@
       "name": "Боль",
       "name_en": "Pain",
       "owned": true,
-      "forsale": false,
+      "forsale": true,
       "avito": ""
     },
     {
@@ -52,7 +52,7 @@
       "name": "Зевс",
       "name_en": "Zeus",
       "owned": true,
-      "forsale": false,
+      "forsale": true,
       "avito": ""
     },
     {
@@ -61,7 +61,7 @@
       "name": "Малыш Геркулес",
       "name_en": "Baby Hercules",
       "owned": true,
-      "forsale": false,
+      "forsale": true,
       "avito": ""
     },
     {
@@ -82,7 +82,7 @@
       "name": "Аид",
       "name_en": "Hades",
       "owned": true,
-      "forsale": false,
+      "forsale": true,
       "avito": ""
     },
     {
@@ -91,7 +91,7 @@
       "name": "Гера",
       "name_en": "Hera",
       "owned": true,
-      "forsale": false,
+      "forsale": true,
       "avito": ""
     },
     {
@@ -100,7 +100,7 @@
       "name": "Пегас",
       "name_en": "Pegasus",
       "owned": true,
-      "forsale": false,
+      "forsale": true,
       "avito": ""
     },
     {
@@ -109,7 +109,7 @@
       "name": "Филоктет",
       "name_en": "Philoctetes",
       "owned": true,
-      "forsale": false,
+      "forsale": true,
       "avito": ""
     },
     {
@@ -118,7 +118,7 @@
       "name": "Паник",
       "name_en": "Panic",
       "owned": true,
-      "forsale": false,
+      "forsale": true,
       "avito": ""
     },
     {
@@ -127,7 +127,7 @@
       "name": "Мегара",
       "name_en": "Megara",
       "owned": true,
-      "forsale": false,
+      "forsale": true,
       "avito": ""
     }
   ],
@@ -147,7 +147,7 @@
       "name": "Такси из Фив",
       "name_en": "Taxi from Thebes",
       "owned": true,
-      "forsale": false,
+      "forsale": true,
       "avito": ""
     },
     {
@@ -165,7 +165,7 @@
       "name": "Движущиеся монстры",
       "name_en": "Moving monsters",
       "owned": true,
-      "forsale": false,
+      "forsale": true,
       "avito": ""
     },
     {
@@ -183,7 +183,7 @@
       "name": "Кентавр Несс",
       "name_en": "Centaur Nessus",
       "owned": true,
-      "forsale": false,
+      "forsale": true,
       "avito": ""
     },
     {
@@ -192,7 +192,7 @@
       "name": "Коза-Газонокосилка",
       "name_en": "Lawnmower Goat",
       "owned": true,
-      "forsale": false,
+      "forsale": true,
       "avito": ""
     },
     {
@@ -201,7 +201,7 @@
       "name": "Литос",
       "name_en": "Lithos",
       "owned": true,
-      "forsale": false,
+      "forsale": true,
       "avito": ""
     },
     {
@@ -219,7 +219,7 @@
       "name": "Мойра",
       "name_en": "Moira",
       "owned": true,
-      "forsale": false,
+      "forsale": true,
       "avito": ""
     },
     {
@@ -228,7 +228,7 @@
       "name": "Арка",
       "name_en": "Arch",
       "owned": true,
-      "forsale": false,
+      "forsale": true,
       "avito": ""
     },
     {
@@ -237,7 +237,7 @@
       "name": "Пирос",
       "name_en": "Pyros",
       "owned": true,
-      "forsale": false,
+      "forsale": true,
       "avito": ""
     }
   ],

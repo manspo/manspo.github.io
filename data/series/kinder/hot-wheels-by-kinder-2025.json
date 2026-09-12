@@ -1,10 +1,10 @@
 {
   "id": "hot-wheels-by-kinder-2025",
-  "name": "Хотвилс от Киндер",
+  "name": "Хот Вилс от Киндер",
   "name_en": "Hot Wheels by Kinder",
   "year": 2025,
   "manufacturer": "kinder",
-  "cover": "images/series/kinder/hotwheels/cover.webp",
+  "cover": "images/series/kinder/hot-wheels-by-kinder-2025/cover.webp",
   "description": "Серия с тачками из Hot Wheels",
   "description_en": "Series with cars from Hot Wheels",
   "kind": "joy",
@@ -20,8 +20,8 @@
   "fullSeriesDescription_en": "",
   "figures": [
     {
-      "id": "hotwheels_fig1",
-      "image": "images/series/kinder/hotwheels/01.webp",
+      "id": "hot-wheels-by-kinder-2025_fig1",
+      "image": "images/series/kinder/hot-wheels-by-kinder-2025/01.webp",
       "name": "Фигурка 1",
       "name_en": "Figure 1",
       "owned": false,
@@ -29,8 +29,8 @@
       "avito": ""
     },
     {
-      "id": "hotwheels_fig2",
-      "image": "images/series/kinder/hotwheels/02.webp",
+      "id": "hot-wheels-by-kinder-2025_fig2",
+      "image": "images/series/kinder/hot-wheels-by-kinder-2025/02.webp",
       "name": "Фигурка 2",
       "name_en": "Figure 2",
       "owned": false,
@@ -38,8 +38,8 @@
       "avito": ""
     },
     {
-      "id": "hotwheels_fig3",
-      "image": "images/series/kinder/hotwheels/03.webp",
+      "id": "hot-wheels-by-kinder-2025_fig3",
+      "image": "images/series/kinder/hot-wheels-by-kinder-2025/03.webp",
       "name": "Фигурка 3",
       "name_en": "Figure 3",
       "owned": false,
@@ -47,8 +47,8 @@
       "avito": ""
     },
     {
-      "id": "hotwheels_fig4",
-      "image": "images/series/kinder/hotwheels/04.webp",
+      "id": "hot-wheels-by-kinder-2025_fig4",
+      "image": "images/series/kinder/hot-wheels-by-kinder-2025/04.webp",
       "name": "Фигурка 4",
       "name_en": "Figure 4",
       "owned": false,
@@ -56,8 +56,8 @@
       "avito": ""
     },
     {
-      "id": "hotwheels_fig5",
-      "image": "images/series/kinder/hotwheels/05.webp",
+      "id": "hot-wheels-by-kinder-2025_fig5",
+      "image": "images/series/kinder/hot-wheels-by-kinder-2025/05.webp",
       "name": "Фигурка 5",
       "name_en": "Figure 5",
       "owned": false,
@@ -65,8 +65,8 @@
       "avito": ""
     },
     {
-      "id": "hotwheels_fig6",
-      "image": "images/series/kinder/hotwheels/06.webp",
+      "id": "hot-wheels-by-kinder-2025_fig6",
+      "image": "images/series/kinder/hot-wheels-by-kinder-2025/06.webp",
       "name": "Фигурка 6",
       "name_en": "Figure 6",
       "owned": false,
@@ -74,8 +74,8 @@
       "avito": ""
     },
     {
-      "id": "hotwheels_fig7",
-      "image": "images/series/kinder/hotwheels/07.webp",
+      "id": "hot-wheels-by-kinder-2025_fig7",
+      "image": "images/series/kinder/hot-wheels-by-kinder-2025/07.webp",
       "name": "Фигурка 7",
       "name_en": "Figure 7",
       "owned": false,
@@ -83,8 +83,8 @@
       "avito": ""
     },
     {
-      "id": "hotwheels_fig8",
-      "image": "images/series/kinder/hotwheels/08.webp",
+      "id": "hot-wheels-by-kinder-2025_fig8",
+      "image": "images/series/kinder/hot-wheels-by-kinder-2025/08.webp",
       "name": "Фигурка 8",
       "name_en": "Figure 8",
       "owned": false,
@@ -92,82 +92,82 @@
       "avito": ""
     }
   ],
-  "extras": [
+   "extras": [],
+  "variants": [],
+  "inserts": [
     {
-      "id": "hotwheels_extra1",
-      "image": "images/series/kinder/hotwheels/01b.webp",
-      "name": "Доп 1",
-      "name_en": "Extra 1",
+      "id": "hot-wheels-by-kinder-2025_insert1",
+      "image": "images/series/kinder/hot-wheels-by-kinder-2025/01b.webp",
+      "name": "Вкладыш 1",
+      "name_en": "Insert 1",
       "owned": false,
       "forsale": false,
       "avito": ""
     },
     {
-      "id": "hotwheels_extra2",
-      "image": "images/series/kinder/hotwheels/02b.webp",
-      "name": "Доп 2",
-      "name_en": "Extra 2",
+      "id": "hot-wheels-by-kinder-2025_insert2",
+      "image": "images/series/kinder/hot-wheels-by-kinder-2025/02b.webp",
+      "name": "Вкладыш 2",
+      "name_en": "Insert 2",
       "owned": false,
       "forsale": false,
       "avito": ""
     },
     {
-      "id": "hotwheels_extra3",
-      "image": "images/series/kinder/hotwheels/03b.webp",
-      "name": "Доп 3",
-      "name_en": "Extra 3",
+      "id": "hot-wheels-by-kinder-2025_insert3",
+      "image": "images/series/kinder/hot-wheels-by-kinder-2025/03b.webp",
+      "name": "Вкладыш 3",
+      "name_en": "Insert 3",
       "owned": false,
       "forsale": false,
       "avito": ""
     },
     {
-      "id": "hotwheels_extra4",
-      "image": "images/series/kinder/hotwheels/04b.webp",
-      "name": "Доп 4",
-      "name_en": "Extra 4",
+      "id": "hot-wheels-by-kinder-2025_insert4",
+      "image": "images/series/kinder/hot-wheels-by-kinder-2025/04b.webp",
+      "name": "Вкладыш 4",
+      "name_en": "Insert 4",
       "owned": false,
       "forsale": false,
       "avito": ""
     },
     {
-      "id": "hotwheels_extra5",
-      "image": "images/series/kinder/hotwheels/05b.webp",
-      "name": "Доп 5",
-      "name_en": "Extra 5",
+      "id": "hot-wheels-by-kinder-2025_insert5",
+      "image": "images/series/kinder/hot-wheels-by-kinder-2025/05b.webp",
+      "name": "Вкладыш 5",
+      "name_en": "Insert 5",
       "owned": false,
       "forsale": false,
       "avito": ""
     },
     {
-      "id": "hotwheels_extra6",
-      "image": "images/series/kinder/hotwheels/06b.webp",
-      "name": "Доп 6",
-      "name_en": "Extra 6",
+      "id": "hot-wheels-by-kinder-2025_insert6",
+      "image": "images/series/kinder/hot-wheels-by-kinder-2025/06b.webp",
+      "name": "Вкладыш 6",
+      "name_en": "Insert 6",
       "owned": false,
       "forsale": false,
       "avito": ""
     },
     {
-      "id": "hotwheels_extra7",
-      "image": "images/series/kinder/hotwheels/07b.webp",
-      "name": "Доп 7",
-      "name_en": "Extra 7",
+      "id": "hot-wheels-by-kinder-2025_insert7",
+      "image": "images/series/kinder/hot-wheels-by-kinder-2025/07b.webp",
+      "name": "Вкладыш 7",
+      "name_en": "Insert 7",
       "owned": false,
       "forsale": false,
       "avito": ""
     },
     {
-      "id": "hotwheels_extra8",
-      "image": "images/series/kinder/hotwheels/08b.webp",
-      "name": "Доп 8",
-      "name_en": "Extra 8",
+      "id": "hot-wheels-by-kinder-2025_insert8",
+      "image": "images/series/kinder/hot-wheels-by-kinder-2025/08b.webp",
+      "name": "Вкладыш 8",
+      "name_en": "Insert 8",
       "owned": false,
       "forsale": false,
       "avito": ""
     }
   ],
-  "variants": [],
-  "inserts": [],
   "other": [],
   "videos": {
     "youtube": [],

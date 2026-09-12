@@ -322,7 +322,7 @@
       "name": "Фигурка 34",
       "name_en": "Figure 34",
       "owned": false,
-      "forsale": false,
+      "forsale": true,
       "avito": ""
     }
   ],

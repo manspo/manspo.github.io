@@ -2,7 +2,7 @@
   {
     "id": "jungle-book-disney-by-rubezahl-koch-2003",
     "name": "Книга Джунглей Дисней от Рюбецаль Кох",
-    "name_en": "Jungle Book Disney by Rubezahl Koch",
+    "name_en": "Jungle Book Disney by rubezahl Koch",
     "year": 2003,
     "manufacturer": "rubezahl-koch",
     "cover": "images/series/rubezahl-koch/jungle-book-disney-by-rubezahl-koch-2003/cover.webp",
@@ -612,7 +612,7 @@
     "visible": true
   },
   {
-    "id": "natoons-baby-maxi-by-kinder-2025",
+    "id": "natoons-baby-maxi-by-kinder-2024",
     "name": "Натунс Детеныши Макси от Киндер",
     "name_en": "Natoons Baby Maxi by Kinder",
     "year": 2024,
@@ -757,11 +757,11 @@
   },
   {
     "id": "hot-wheels-by-kinder-2025",
-    "name": "Хотвилс от Киндер",
+    "name": "Хот Вилс от Киндер",
     "name_en": "Hot Wheels by Kinder",
     "year": 2025,
     "manufacturer": "kinder",
-    "cover": "images/series/kinder/hotwheels/cover.webp",
+    "cover": "images/series/kinder/hot-wheels-by-kinder-2025/cover.webp",
     "kind": "joy",
     "description": "Серия с тачками из Hot Wheels",
     "description_en": "Series with cars from Hot Wheels",

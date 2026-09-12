@@ -34,7 +34,7 @@
       "name": "Фигурка 2",
       "name_en": "Figure 2",
       "owned": false,
-      "forsale": false,
+      "forsale": true,
       "avito": ""
     },
     {
@@ -117,7 +117,7 @@
       "name": "Доп 3",
       "name_en": "Extra 3",
       "owned": false,
-      "forsale": false,
+      "forsale": true,
       "avito": ""
     },
     {

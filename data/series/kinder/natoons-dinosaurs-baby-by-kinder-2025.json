@@ -25,7 +25,7 @@
       "name": "Фигурка 1",
       "name_en": "Figure 1",
       "owned": true,
-      "forsale": false,
+      "forsale": true,
       "avito": ""
     },
     {
@@ -52,7 +52,7 @@
       "name": "Фигурка 4",
       "name_en": "Figure 4",
       "owned": true,
-      "forsale": false,
+      "forsale": true,
       "avito": ""
     },
     {
@@ -70,7 +70,7 @@
       "name": "Фигурка 6",
       "name_en": "Figure 6",
       "owned": true,
-      "forsale": false,
+      "forsale": true,
       "avito": ""
     },
     {
@@ -79,7 +79,7 @@
       "name": "Фигурка 7",
       "name_en": "Figure 7",
       "owned": true,
-      "forsale": false,
+      "forsale": true,
       "avito": ""
     },
     {
@@ -115,7 +115,7 @@
       "name": "Фигурка 11",
       "name_en": "Figure 11",
       "owned": true,
-      "forsale": false,
+      "forsale": true,
       "avito": ""
     },
     {
@@ -151,7 +151,7 @@
       "name": "Фигурка 15",
       "name_en": "Figure 15",
       "owned": true,
-      "forsale": false,
+      "forsale": true,
       "avito": ""
     },
     {
@@ -160,7 +160,7 @@
       "name": "Фигурка 16",
       "name_en": "Figure 16",
       "owned": true,
-      "forsale": false,
+      "forsale": true,
       "avito": ""
     }
   ],

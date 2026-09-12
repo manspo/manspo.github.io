@@ -52,7 +52,7 @@
       "name": "Фигурка 4",
       "name_en": "Figure 4",
       "owned": true,
-      "forsale": false,
+      "forsale": true,
       "avito": ""
     },
     {
@@ -79,7 +79,7 @@
       "name": "Фигурка 7",
       "name_en": "Figure 7",
       "owned": true,
-      "forsale": false,
+      "forsale": true,
       "avito": ""
     },
     {
