@@ -2769,20 +2769,21 @@ async function initSeries() {
     let otherStartIndex = (s.figures?.length || 0) + (s.extras?.length || 0) + (s.variants?.length || 0) + (s.inserts?.length || 0);
     
     box.innerHTML = `
-  <div class="series-header">
-    <div class="series-cover-wrap">
-      <img class="series-cover" src="${coverUrl}" alt="${escapeHtml(name)}" onerror="this.src='images/placeholder.svg'">
-      <button class="qr-btn-series" onclick="generateQRCode('series', '${escapeHtml(s.id)}', '${escapeHtml(name).replace(/'/g, "\\'")}', true)" data-i18n="qr_code_series">📱 QR-код серии</button>
-    </div>
-    <div>
-      <h1>${escapeHtml(name)}</h1>
-      <div class="series-meta">
-        <a href="catalog.html?year=${escapeHtml(s.year)}" class="series-year-link">${escapeHtml(s.year)}</a> · 
-        <a href="catalog.html?manufacturer=${escapeHtml(s.manufacturer)}" class="series-manufacturer-link" data-manufacturer="${escapeHtml(s.manufacturer)}">${escapeHtml(manufacturerName)}</a>
+      <div class="series-header">
+        <div class="series-cover-wrap">
+          <img class="series-cover" src="${coverUrl}" alt="${escapeHtml(name)}" onerror="this.src='images/placeholder.svg'">
+          <button class="qr-btn-series" onclick="generateQRCode('series', '${escapeHtml(s.id)}', '${escapeHtml(name).replace(/'/g, "\\'")}', true)" data-i18n="qr_code_series">📱 QR-код серии</button>
+        </div>
+        <div class="series-info">
+          <h1>${escapeHtml(name)}</h1>
+          <div class="series-meta">
+            <a href="catalog.html?year=${escapeHtml(s.year)}" class="series-year-link">${escapeHtml(s.year)}</a>
+            <span class="dot">·</span>
+            <a href="catalog.html?manufacturer=${escapeHtml(s.manufacturer)}" class="series-manufacturer-link" data-manufacturer="${escapeHtml(s.manufacturer)}">${escapeHtml(manufacturerName)}</a>
+          </div>
+          <p>${escapeHtml(description)}</p>
+        </div>
       </div>
-      <p>${escapeHtml(description)}</p>
-    </div>
-  </div>
       ${createItemsList(s.figures, 'figures', figuresStartIndex)}
       ${createItemsList(s.extras, 'extras', extrasStartIndex)}
       ${createItemsList(s.variants, 'variants', variantsStartIndex)}
