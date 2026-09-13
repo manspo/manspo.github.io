@@ -2769,18 +2769,20 @@ async function initSeries() {
     let otherStartIndex = (s.figures?.length || 0) + (s.extras?.length || 0) + (s.variants?.length || 0) + (s.inserts?.length || 0);
     
     box.innerHTML = `
-      <div class="series-header">
-        <img class="series-cover" src="${coverUrl}" alt="${escapeHtml(name)}" onerror="this.src='images/placeholder.svg'">
-        <div>
-          <h1>${escapeHtml(name)}</h1>
-          <div class="series-meta">
-            <a href="catalog.html?year=${escapeHtml(s.year)}" class="series-year-link">${escapeHtml(s.year)}</a> · 
-            <a href="catalog.html?manufacturer=${escapeHtml(s.manufacturer)}" class="series-manufacturer-link" data-manufacturer="${escapeHtml(s.manufacturer)}">${escapeHtml(manufacturerName)}</a>
-          </div>
-          <p>${escapeHtml(description)}</p>
-          <button class="qr-btn-series" onclick="generateQRCode('series', '${escapeHtml(s.id)}', '${escapeHtml(name).replace(/'/g, "\\'")}', true)" data-i18n="qr_code_series">📱 QR-код серии</button>
-        </div>
+  <div class="series-header">
+    <div class="series-cover-wrap">
+      <img class="series-cover" src="${coverUrl}" alt="${escapeHtml(name)}" onerror="this.src='images/placeholder.svg'">
+      <button class="qr-btn-series" onclick="generateQRCode('series', '${escapeHtml(s.id)}', '${escapeHtml(name).replace(/'/g, "\\'")}', true)" data-i18n="qr_code_series">📱 QR-код серии</button>
+    </div>
+    <div>
+      <h1>${escapeHtml(name)}</h1>
+      <div class="series-meta">
+        <a href="catalog.html?year=${escapeHtml(s.year)}" class="series-year-link">${escapeHtml(s.year)}</a> · 
+        <a href="catalog.html?manufacturer=${escapeHtml(s.manufacturer)}" class="series-manufacturer-link" data-manufacturer="${escapeHtml(s.manufacturer)}">${escapeHtml(manufacturerName)}</a>
       </div>
+      <p>${escapeHtml(description)}</p>
+    </div>
+  </div>
       ${createItemsList(s.figures, 'figures', figuresStartIndex)}
       ${createItemsList(s.extras, 'extras', extrasStartIndex)}
       ${createItemsList(s.variants, 'variants', variantsStartIndex)}
@@ -3025,7 +3027,7 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
             const itemSize = 220;
             const itemGap = 20;
             const padding = 40;
-            const headerHeight = 260;
+            const headerHeight = 320; // было 260 — увеличили запас под 2 строки заголовка
             const footerHeight = 70;
             const qrSize = 220;
             const groupHeaderHeight = 55;
@@ -3130,6 +3132,7 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
             ctx.fill();
             ctx.restore();
             
+            // ===== ЛОГОТИП ПО ЦЕНТРУ =====
             const logoImage = await loadImage(`${BASE_URL}/images/logo.webp`);
             const logoSize = 180;
             const logoX = (totalWidth - logoSize) / 2;
@@ -3157,6 +3160,7 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                 ctx.fillText('КАПСУЛА', totalWidth / 2, logoY + logoSize / 2);
             }
             
+            // ===== ЗАГОЛОВОК С ПЕРЕНОСОМ =====
             const titleY = padding + 20;
             
             ctx.fillStyle = '#4f46e5';
@@ -3168,23 +3172,68 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
             }
             ctx.fill();
             
-            ctx.font = 'bold 38px Inter, system-ui';
+            const titleFontSize = 38;
+            const titleLineHeight = 46;
+            const titleMaxLines = 2;
+            
+            ctx.font = `bold ${titleFontSize}px Inter, system-ui`;
             ctx.fillStyle = TEXT_COLOR;
             ctx.textAlign = 'left';
             ctx.textBaseline = 'top';
-            ctx.fillText(seriesName || 'Checklist', padding + 22, titleY - 3);
             
+            // Область под заголовок: от левого края до центрального лого (не залезаем на лого)
+            const titleBoxX = padding + 22;
+            const logoLeftEdge = logoX - 20;
+            const titleBoxWidth = logoLeftEdge - titleBoxX;
+            
+            // Переносим слова по ширине
+            const titleWords = String(seriesName || 'Checklist').split(' ');
+            const titleLines = [];
+            let currentTitleLine = '';
+            
+            for (const word of titleWords) {
+                const testLine = currentTitleLine ? currentTitleLine + ' ' + word : word;
+                const metrics = ctx.measureText(testLine);
+                if (metrics.width > titleBoxWidth && currentTitleLine) {
+                    titleLines.push(currentTitleLine);
+                    currentTitleLine = word;
+                } else {
+                    currentTitleLine = testLine;
+                }
+            }
+            if (currentTitleLine) titleLines.push(currentTitleLine);
+            
+            // Рисуем максимум titleMaxLines строк, при переполнении — многоточие
+            const displayTitleLines = titleLines.slice(0, titleMaxLines);
+            if (titleLines.length > titleMaxLines) {
+                let lastLine = displayTitleLines[titleMaxLines - 1];
+                while (ctx.measureText(lastLine + '…').width > titleBoxWidth && lastLine.length > 1) {
+                    lastLine = lastLine.slice(0, -1);
+                }
+                displayTitleLines[titleMaxLines - 1] = lastLine + '…';
+            }
+            
+            displayTitleLines.forEach((line, idx) => {
+                ctx.fillText(line, titleBoxX, titleY - 3 + idx * titleLineHeight);
+            });
+            
+            // Сдвиг вниз, если заголовок занял 2 строки
+            const headerShift = (displayTitleLines.length - 1) * titleLineHeight;
+            
+            // ===== "ЧЕК-ЛИСТ" =====
             ctx.font = 'bold 17px Inter, system-ui';
             ctx.fillStyle = TEXT_COLOR;
             ctx.globalAlpha = 0.7;
-            ctx.fillText(t.checklist, padding, titleY + 65);
+            ctx.fillText(t.checklist, padding, titleY + 65 + headerShift);
             ctx.globalAlpha = 1;
             
+            // ===== "Всего: N" =====
             const totalItems = figures.length + extras.length + variants.length;
             ctx.font = 'bold 17px Inter, system-ui';
             ctx.fillStyle = TEXT_COLOR;
-            ctx.fillText(`${t.total}: ${totalItems}`, padding, titleY + 95);
+            ctx.fillText(`${t.total}: ${totalItems}`, padding, titleY + 95 + headerShift);
             
+            // ===== QR-КОД СПРАВА =====
             const qrImage = await loadImage(`${BASE_URL}/images/qrcodesite.png`);
             const qrX = totalWidth - padding - qrSize;
             const qrY = padding;
