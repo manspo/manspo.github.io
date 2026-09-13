@@ -1,5 +1,25 @@
 [
   {
+    "id": "crystal-duck-by-kinder-1997",
+    "name": "Хрустальная Утка от Киндер",
+    "name_en": "Crystal Duck by Kinder",
+    "year": 1997,
+    "manufacturer": "kinder",
+    "cover": "",
+    "kind": "",
+    "ownedFigures": 1,
+    "ownedExtras": 0,
+    "ownedVariants": 0,
+    "ownedInserts": 0,
+    "totalOwned": 1,
+    "totalFigures": 1,
+    "totalExtras": 0,
+    "totalVariants": 0,
+    "totalInserts": 1,
+    "totalItems": 2,
+    "forSaleCount": 1
+  },
+  {
     "id": "simpsons-by-kinder-2010",
     "name": "Симпсоны от Киндер",
     "name_en": "Simpsons by Kinder",
