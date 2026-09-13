@@ -217,7 +217,7 @@
     "totalVariants": 0,
     "totalInserts": 1,
     "totalItems": 13,
-    "forSaleCount": 0
+    "forSaleCount": 1
   },
   {
     "id": "gabbys-dollhouse-by-kinder-2025",
@@ -225,7 +225,7 @@
     "name_en": "Gabby's Dollhouse by Kinder",
     "year": 2025,
     "manufacturer": "kinder",
-    "cover": "images/series/kinder/gabbydollhouse/cover.webp",
+    "cover": "images/series/kinder/gabbys-dollhouse-by-kinder-2025/cover.webp",
     "kind": "",
     "ownedFigures": 5,
     "ownedExtras": 0,
@@ -245,18 +245,38 @@
     "name_en": "Jurassic World by Funko Pop by Kinder",
     "year": 2025,
     "manufacturer": "kinder",
-    "cover": "images/series/kinder/jurassicworldpop/cover.webp",
+    "cover": "images/series/kinder/jurassic-world-by-funko-pop-by-kinder-2025/cover.webp",
     "kind": "joy",
-    "ownedFigures": 26,
+    "ownedFigures": 24,
     "ownedExtras": 0,
     "ownedVariants": 0,
     "ownedInserts": 25,
-    "totalOwned": 51,
-    "totalFigures": 26,
+    "totalOwned": 49,
+    "totalFigures": 24,
     "totalExtras": 0,
-    "totalVariants": 0,
+    "totalVariants": 2,
     "totalInserts": 25,
     "totalItems": 51,
+    "forSaleCount": 7
+  },
+  {
+    "id": "natoons-baby-maxi-by-kinder-2024",
+    "name": "Натунс Детеныши Макси от Киндер",
+    "name_en": "Natoons Baby Maxi by Kinder",
+    "year": 2024,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/natoons-baby-maxi-by-kinder-2024/cover.webp",
+    "kind": "maxi",
+    "ownedFigures": 4,
+    "ownedExtras": 0,
+    "ownedVariants": 0,
+    "ownedInserts": 0,
+    "totalOwned": 4,
+    "totalFigures": 5,
+    "totalExtras": 0,
+    "totalVariants": 0,
+    "totalInserts": 1,
+    "totalItems": 6,
     "forSaleCount": 0
   },
   {
@@ -277,7 +297,7 @@
     "totalVariants": 0,
     "totalInserts": 16,
     "totalItems": 32,
-    "forSaleCount": 0
+    "forSaleCount": 7
   },
   {
     "id": "paw-patrol-by-kinder-2025",
@@ -285,7 +305,7 @@
     "name_en": "Paw Patrol by Kinder",
     "year": 2025,
     "manufacturer": "kinder",
-    "cover": "images/series/kinder/pawpatrol/cover.webp",
+    "cover": "images/series/kinder/paw-patrol-by-kinder-2025/cover.webp",
     "kind": "",
     "ownedFigures": 8,
     "ownedExtras": 0,
@@ -297,7 +317,7 @@
     "totalVariants": 0,
     "totalInserts": 8,
     "totalItems": 16,
-    "forSaleCount": 0
+    "forSaleCount": 2
   },
   {
     "id": "playmobil-dc-by-kinder-2025",
@@ -317,7 +337,7 @@
     "totalVariants": 0,
     "totalInserts": 16,
     "totalItems": 32,
-    "forSaleCount": 0
+    "forSaleCount": 14
   },
   {
     "id": "star-wars-by-kinder-2025",
@@ -337,7 +357,7 @@
     "totalVariants": 0,
     "totalInserts": 10,
     "totalItems": 20,
-    "forSaleCount": 1
+    "forSaleCount": 7
   },
   {
     "id": "super-mario-2025-by-kinder-2025",
@@ -345,7 +365,7 @@
     "name_en": "Super Mario (2025) by Kinder",
     "year": 2025,
     "manufacturer": "kinder",
-    "cover": "images/series/kinder/supermario2025/cover.webp",
+    "cover": "images/series/kinder/super-mario-2025-by-kinder-2025/cover.webp",
     "kind": "joy",
     "ownedFigures": 12,
     "ownedExtras": 14,
@@ -357,7 +377,7 @@
     "totalVariants": 0,
     "totalInserts": 26,
     "totalItems": 52,
-    "forSaleCount": 0
+    "forSaleCount": 17
   },
   {
     "id": "disney-princesses-by-kinder-2025",
@@ -417,7 +437,7 @@
     "totalVariants": 0,
     "totalInserts": 16,
     "totalItems": 32,
-    "forSaleCount": 0
+    "forSaleCount": 15
   },
   {
     "id": "the-dark-knight-batman-by-nestle-2008",
@@ -457,7 +477,7 @@
     "totalVariants": 0,
     "totalInserts": 3,
     "totalItems": 27,
-    "forSaleCount": 1
+    "forSaleCount": 20
   },
   {
     "id": "the-lion-king-by-nestle-1995",
@@ -477,6 +497,6 @@
     "totalVariants": 0,
     "totalInserts": 1,
     "totalItems": 11,
-    "forSaleCount": 0
+    "forSaleCount": 1
   }
 ]

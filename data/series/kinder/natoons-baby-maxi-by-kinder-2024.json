@@ -18,7 +18,7 @@
   "fullSeriesDateAdded": "2026-09-10",
   "fullSeriesDescription": "Полная серия со всеми вкладышами.<br>Можно заказать следующими способами:<br>1. Авито+СДЕК<br>ОЗОН Доставка (при условии, что вы оформляете заказ.<br><br>Других служб пока нету, к сожалению...",
   "fullSeriesDescription_en": "Perfect condition. Complete series.",
-  "figures": [ 
+  "figures": [
     {
       "id": "natoons-baby-maxi-by-kinder-2024_fig1",
       "image": "images/series/kinder/natoons-baby-maxi-by-kinder-2024/01.webp",
@@ -79,7 +79,7 @@
     }
   ],
   "other": [
-  {
+    {
       "id": "natoons-baby-maxi-by-kinder-2024_other1",
       "name": "Фольга",
       "name_en": "Foil",

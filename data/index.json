@@ -1,5 +1,17 @@
 [
   {
+    "id": "fairytale-world-by-kinder-2026",
+    "name": "Сказочный Мир от Киндер",
+    "name_en": "Fairytale World by Kinder",
+    "year": 2026,
+    "manufacturer": "kinder",
+    "cover": "images/series/danone/fairytale-world-by-kinder-2026/cover.webp",
+    "kind": "",
+    "description": "Фигурки-феи — это не просто чудесные героини для увлекательных игр, но и милые аксессуары. Закрепите фею на браслете, заколке или колечке и добавьте немного волшебства в свой образ!",
+    "description_en": "Fairy figurines are not just wonderful characters for exciting games, but also cute accessories. Attach the fairy to a bracelet, hairpin or ring and add a little magic to your look!",
+    "visible": true
+  },
+  {
     "id": "jungle-book-disney-by-rubezahl-koch-2003",
     "name": "Книга Джунглей Дисней от Рюбецаль Кох",
     "name_en": "Jungle Book Disney by rubezahl Koch",
@@ -545,7 +557,7 @@
     "name_en": "Spider-Man by Kinder",
     "year": 2026,
     "manufacturer": "kinder",
-    "cover": "images/series/kinder/spider-man-by-kinder-2026/cover.webp",
+    "cover": "images/series/kinder/spiderman/cover.webp",
     "kind": "joy",
     "description": "Серия с героями комикса Человек-Паук",
     "description_en": "Series with comic book characters Spider-Man",
