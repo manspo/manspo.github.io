@@ -4,7 +4,7 @@
   "name_en": "Gabby's Dollhouse by Kinder",
   "year": 2025,
   "manufacturer": "kinder",
-  "cover": "images/series/kinder/gabbydollhouse/cover.webp",
+  "cover": "images/series/kinder/gabbys-dollhouse-by-kinder-2025/cover.webp",
   "description": "Серия про одноименный мультсериал \"Кукольный домик Гэбби или Габби\". Существовала редкая вариативная фигурка с фиолетовыми волосами.",
   "description_en": "A series about the animated series of the same name \"Gabby's Dollhouse\".",
   "kind": "",
@@ -20,8 +20,8 @@
   "fullSeriesDescription_en": "",
   "figures": [
     {
-      "id": "gabbydollhouse_fig1",
-      "image": "images/series/kinder/gabbydollhouse/01.webp",
+      "id": "gabbys-dollhouse-by-kinder-2025_fig1",
+      "image": "images/series/kinder/gabbys-dollhouse-by-kinder-2025/01.webp",
       "name": "Фигурка 1",
       "name_en": "Figure 1",
       "owned": false,
@@ -29,8 +29,8 @@
       "avito": ""
     },
     {
-      "id": "gabbydollhouse_fig2",
-      "image": "images/series/kinder/gabbydollhouse/02.webp",
+      "id": "gabbys-dollhouse-by-kinder-2025_fig2",
+      "image": "images/series/kinder/gabbys-dollhouse-by-kinder-2025/02.webp",
       "name": "Фигурка 2",
       "name_en": "Figure 2",
       "code": "VC339",
@@ -39,8 +39,8 @@
       "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/kinder_syurpriz_volshebnyy_domik_gabbi_7774513027"
     },
     {
-      "id": "gabbydollhouse_fig3",
-      "image": "images/series/kinder/gabbydollhouse/03.webp",
+      "id": "gabbys-dollhouse-by-kinder-2025_fig3",
+      "image": "images/series/kinder/gabbys-dollhouse-by-kinder-2025/03.webp",
       "name": "Фигурка 3",
       "name_en": "Figure 3",
       "owned": true,
@@ -48,8 +48,8 @@
       "avito": ""
     },
     {
-      "id": "gabbydollhouse_fig4",
-      "image": "images/series/kinder/gabbydollhouse/04.webp",
+      "id": "gabbys-dollhouse-by-kinder-2025_fig4",
+      "image": "images/series/kinder/gabbys-dollhouse-by-kinder-2025/04.webp",
       "name": "Фигурка 4",
       "name_en": "Figure 4",
       "owned": true,
@@ -57,8 +57,8 @@
       "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/kinder_syurpriz_volshebnyy_domik_gabbi_7774513027"
     },
     {
-      "id": "gabbydollhouse_fig5",
-      "image": "images/series/kinder/gabbydollhouse/05.webp",
+      "id": "gabbys-dollhouse-by-kinder-2025_fig5",
+      "image": "images/series/kinder/gabbys-dollhouse-by-kinder-2025/05.webp",
       "name": "Фигурка 5",
       "name_en": "Figure 5",
       "owned": true,
@@ -66,8 +66,8 @@
       "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/kinder_syurpriz_volshebnyy_domik_gabbi_7774513027"
     },
     {
-      "id": "gabbydollhouse_fig6",
-      "image": "images/series/kinder/gabbydollhouse/06.webp",
+      "id": "gabbys-dollhouse-by-kinder-2025_fig6",
+      "image": "images/series/kinder/gabbys-dollhouse-by-kinder-2025/06.webp",
       "name": "Фигурка 6",
       "name_en": "Figure 6",
       "owned": true,
@@ -78,11 +78,11 @@
   "extras": [],
   "variants": [
     {
-      "id": "gabbydollhouse_variant1",
+      "id": "gabbys-dollhouse-by-kinder-2025_variant1",
       "name": "Габби с фиолетовыми волосами",
       "name_en": "Gabby with a purple hair",
       "code": "VC339A",
-      "image": "images/series/kinder/gabbydollhouse/07.webp",
+      "image": "images/series/kinder/gabbys-dollhouse-by-kinder-2025/07.webp",
       "owned": true,
       "forsale": false,
       "avito": "",
@@ -93,8 +93,8 @@
   ],
   "inserts": [
     {
-      "id": "gabbydollhouse_insert1",
-      "image": "images/series/kinder/gabbydollhouse/01b.webp",
+      "id": "gabbys-dollhouse-by-kinder-2025_insert1",
+      "image": "images/series/kinder/gabbys-dollhouse-by-kinder-2025/01b.webp",
       "name": "Вкладыш 1",
       "name_en": "Insert 1",
       "owned": false,
@@ -102,8 +102,8 @@
       "avito": ""
     },
     {
-      "id": "gabbydollhouse_insert2",
-      "image": "images/series/kinder/gabbydollhouse/02b.webp",
+      "id": "gabbys-dollhouse-by-kinder-2025_insert2",
+      "image": "images/series/kinder/gabbys-dollhouse-by-kinder-2025/02b.webp",
       "name": "Вкладыш 2",
       "name_en": "Insert 2",
       "owned": false,
@@ -111,8 +111,8 @@
       "avito": ""
     },
     {
-      "id": "gabbydollhouse_insert3",
-      "image": "images/series/kinder/gabbydollhouse/03b.webp",
+      "id": "gabbys-dollhouse-by-kinder-2025_insert3",
+      "image": "images/series/kinder/gabbys-dollhouse-by-kinder-2025/03b.webp",
       "name": "Вкладыш 3",
       "name_en": "Insert 3",
       "owned": false,
@@ -120,8 +120,8 @@
       "avito": ""
     },
     {
-      "id": "gabbydollhouse_insert4",
-      "image": "images/series/kinder/gabbydollhouse/04b.webp",
+      "id": "gabbys-dollhouse-by-kinder-2025_insert4",
+      "image": "images/series/kinder/gabbys-dollhouse-by-kinder-2025/04b.webp",
       "name": "Вкладыш 4",
       "name_en": "Insert 4",
       "owned": false,
@@ -129,8 +129,8 @@
       "avito": ""
     },
     {
-      "id": "gabbydollhouse_insert5",
-      "image": "images/series/kinder/gabbydollhouse/05b.webp",
+      "id": "gabbys-dollhouse-by-kinder-2025_insert5",
+      "image": "images/series/kinder/gabbys-dollhouse-by-kinder-2025/05b.webp",
       "name": "Вкладыш 5",
       "name_en": "Insert 5",
       "owned": false,
@@ -138,8 +138,8 @@
       "avito": ""
     },
     {
-      "id": "gabbydollhouse_insert6",
-      "image": "images/series/kinder/gabbydollhouse/06b.webp",
+      "id": "gabbys-dollhouse-by-kinder-2025_insert6",
+      "image": "images/series/kinder/gabbys-dollhouse-by-kinder-2025/06b.webp",
       "name": "Вкладыш 6",
       "name_en": "Insert 6",
       "owned": false,
@@ -147,8 +147,8 @@
       "avito": ""
     },
     {
-      "id": "gabbydollhouse_insert7",
-      "image": "images/series/kinder/gabbydollhouse/07b.webp",
+      "id": "gabbys-dollhouse-by-kinder-2025_insert7",
+      "image": "images/series/kinder/gabbys-dollhouse-by-kinder-2025/07b.webp",
       "name": "Вкладыш 7",
       "name_en": "Insert 7",
       "owned": false,

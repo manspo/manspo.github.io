@@ -4,7 +4,7 @@
   "name_en": "The Little Mermaid by Nestle",
   "year": 1998,
   "manufacturer": "nestle",
-  "cover": "images/series/nestle/littlemermaid/01b.webp",
+  "cover": "images/series/nestle/the-little-mermaid-by-nestle-1998/01b.webp",
   "description": "Фигурки по мотивам мультфильма «Русалочка»",
   "description_en": "Figures based on the cartoon \"The Little Mermaid\"",
   "kind": "",
@@ -20,55 +20,55 @@
   "fullSeriesDescription_en": "",
   "figures": [
     {
-      "id": "littlemermaid_fig1",
+      "id": "the-little-mermaid-by-nestle-1998_fig1",
       "name": "Тритон",
       "name_en": "Figure 1",
-      "image": "images/series/nestle/littlemermaid/01.webp",
+      "image": "images/series/nestle/the-little-mermaid-by-nestle-1998/01.webp",
       "owned": false,
       "forsale": false,
       "avito": ""
     },
     {
-      "id": "littlemermaid_fig2",
+      "id": "the-little-mermaid-by-nestle-1998_fig2",
       "name": "Акула и Флаундер",
       "name_en": "Figure 2",
-      "image": "images/series/nestle/littlemermaid/02.webp",
+      "image": "images/series/nestle/the-little-mermaid-by-nestle-1998/02.webp",
       "owned": false,
       "forsale": false,
       "avito": ""
     },
     {
-      "id": "littlemermaid_fig3",
+      "id": "the-little-mermaid-by-nestle-1998_fig3",
       "name": "Урсула",
       "name_en": "Figure 3",
-      "image": "images/series/nestle/littlemermaid/03.webp",
+      "image": "images/series/nestle/the-little-mermaid-by-nestle-1998/03.webp",
       "owned": false,
       "forsale": false,
       "avito": ""
     },
     {
-      "id": "littlemermaid_fig4",
+      "id": "the-little-mermaid-by-nestle-1998_fig4",
       "name": "Флаундер",
       "name_en": "Figure 4",
-      "image": "images/series/nestle/littlemermaid/04.webp",
+      "image": "images/series/nestle/the-little-mermaid-by-nestle-1998/04.webp",
       "owned": false,
       "forsale": false,
       "avito": ""
     },
     {
-      "id": "littlemermaid_fig5",
+      "id": "the-little-mermaid-by-nestle-1998_fig5",
       "name": "Себастьян",
       "name_en": "Figure 5",
-      "image": "images/series/nestle/littlemermaid/05.webp",
+      "image": "images/series/nestle/the-little-mermaid-by-nestle-1998/05.webp",
       "owned": false,
       "forsale": false,
       "avito": ""
     },
     {
-      "id": "littlemermaid_fig6",
+      "id": "the-little-mermaid-by-nestle-1998_fig6",
       "name": "Ариэль",
       "name_en": "Figure 6",
-      "image": "images/series/nestle/littlemermaid/06.webp",
+      "image": "images/series/nestle/the-little-mermaid-by-nestle-1998/06.webp",
       "owned": false,
       "forsale": false,
       "avito": ""
@@ -76,10 +76,10 @@
   ],
   "extras": [
     {
-      "id": "littlemermaid_extra1",
+      "id": "the-little-mermaid-by-nestle-1998_extra1",
       "name": "Одетая Ариэль",
       "name_en": "Dressed",
-      "image": "images/series/nestle/littlemermaid/07.webp",
+      "image": "images/series/nestle/the-little-mermaid-by-nestle-1998/07.webp",
       "owned": false,
       "forsale": false,
       "avito": ""
@@ -88,73 +88,73 @@
   "variants": [],
   "inserts": [
     {
-      "id": "littlemermaid_insert1",
+      "id": "the-little-mermaid-by-nestle-1998_insert1",
       "name": "Вкладыш 1",
       "name_en": "Insert 1",
-      "image": "images/series/nestle/littlemermaid/01b.webp",
+      "image": "images/series/nestle/the-little-mermaid-by-nestle-1998/01b.webp",
       "owned": false,
       "forsale": false,
       "avito": ""
     },
     {
-      "id": "littlemermaid_insert2",
+      "id": "the-little-mermaid-by-nestle-1998_insert2",
       "name": "Вкладыш 2",
       "name_en": "Insert 2",
-      "image": "images/series/nestle/littlemermaid/02b.webp",
+      "image": "images/series/nestle/the-little-mermaid-by-nestle-1998/02b.webp",
       "owned": false,
       "forsale": false,
       "avito": ""
     },
     {
-      "id": "littlemermaid_insert3",
+      "id": "the-little-mermaid-by-nestle-1998_insert3",
       "name": "Вкладыш 3",
       "name_en": "Insert 3",
-      "image": "images/series/nestle/littlemermaid/03b.webp",
+      "image": "images/series/nestle/the-little-mermaid-by-nestle-1998/03b.webp",
       "owned": false,
       "forsale": false,
       "avito": ""
     },
     {
-      "id": "littlemermaid_insert4",
+      "id": "the-little-mermaid-by-nestle-1998_insert4",
       "name": "Вкладыш 4",
       "name_en": "Insert 4",
-      "image": "images/series/nestle/littlemermaid/04b.webp",
+      "image": "images/series/nestle/the-little-mermaid-by-nestle-1998/04b.webp",
       "owned": false,
       "forsale": false,
       "avito": ""
     },
     {
-      "id": "littlemermaid_insert5",
+      "id": "the-little-mermaid-by-nestle-1998_insert5",
       "name": "Вкладыш 5",
       "name_en": "Insert 5",
-      "image": "images/series/nestle/littlemermaid/05b.webp",
+      "image": "images/series/nestle/the-little-mermaid-by-nestle-1998/05b.webp",
       "owned": false,
       "forsale": false,
       "avito": ""
     },
     {
-      "id": "littlemermaid_insert6",
+      "id": "the-little-mermaid-by-nestle-1998_insert6",
       "name": "Вкладыш 6",
       "name_en": "Insert 6",
-      "image": "images/series/nestle/littlemermaid/06b.webp",
+      "image": "images/series/nestle/the-little-mermaid-by-nestle-1998/06b.webp",
       "owned": false,
       "forsale": false,
       "avito": ""
     },
     {
-      "id": "littlemermaid_insert7",
+      "id": "the-little-mermaid-by-nestle-1998_insert7",
       "name": "Вкладыш 7",
       "name_en": "Insert 7",
-      "image": "images/series/nestle/littlemermaid/07b.webp",
+      "image": "images/series/nestle/the-little-mermaid-by-nestle-1998/07b.webp",
       "owned": false,
       "forsale": false,
       "avito": ""
     },
     {
-      "id": "littlemermaid_insert7",
+      "id": "the-little-mermaid-by-nestle-1998_insert7",
       "name": "Вкладыш 7",
       "name_en": "Insert 7",
-      "image": "images/series/nestle/littlemermaid/08b.webp",
+      "image": "images/series/nestle/the-little-mermaid-by-nestle-1998/08b.webp",
       "owned": false,
       "forsale": false,
       "avito": ""
