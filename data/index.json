@@ -1,11 +1,23 @@
 [
   {
+    "id": "crystal-duck-by-kinder-1997",
+    "name": "Хрустальная Утка от Киндер",
+    "name_en": "Crystal Duck by Kinder",
+    "year": 1997,
+    "manufacturer": "kinder",
+    "cover": "",
+    "kind": "",
+    "description": "Kristallente K98 n.20 (в переводе — «Хрустальная уточка» или «Стеклянная уточка») — это легендарная и редкая сборная игрушка из Киндер Сюрприза, выпущенная в 1997 году для европейского рынка в составе коллекции K98.",
+    "description_en": "Kristallente K98 n.20 (translated as “Crystal Ducky” or “Glass Ducky”) is a legendary and rare assembled Kinder Surprise toy, released in 1997 for the European market as part of the K98 collection.",
+    "visible": true
+  },
+  {
     "id": "fairytale-world-by-kinder-2026",
     "name": "Сказочный Мир от Киндер",
     "name_en": "Fairytale World by Kinder",
     "year": 2026,
     "manufacturer": "kinder",
-    "cover": "images/series/danone/fairytale-world-by-kinder-2026/cover.webp",
+    "cover": "images/series/kinder/fairytale-world-by-kinder-2026/cover.webp",
     "kind": "",
     "description": "Фигурки-феи — это не просто чудесные героини для увлекательных игр, но и милые аксессуары. Закрепите фею на браслете, заколке или колечке и добавьте немного волшебства в свой образ!",
     "description_en": "Fairy figurines are not just wonderful characters for exciting games, but also cute accessories. Attach the fairy to a bracelet, hairpin or ring and add a little magic to your look!",
@@ -557,7 +569,7 @@
     "name_en": "Spider-Man by Kinder",
     "year": 2026,
     "manufacturer": "kinder",
-    "cover": "images/series/kinder/spiderman/cover.webp",
+    "cover": "images/series/kinder/spider-man-by-kinder-2026/cover.webp",
     "kind": "joy",
     "description": "Серия с героями комикса Человек-Паук",
     "description_en": "Series with comic book characters Spider-Man",

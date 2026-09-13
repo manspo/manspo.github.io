@@ -1,0 +1,64 @@
+{
+  "id": "crystal-duck-by-kinder-1997",
+  "name": "Хрустальная Утка от Киндер",
+  "name_en": "Crystal Duck by Kinder",
+  "year": 1997,
+  "manufacturer": "kinder",
+  "cover": "",
+  "description": "Kristallente K98 n.20 (в переводе — «Хрустальная уточка» или «Стеклянная уточка») — это легендарная и редкая сборная игрушка из Киндер Сюрприза, выпущенная в 1997 году для европейского рынка в составе коллекции K98.",
+  "description_en": "Kristallente K98 n.20 (translated as “Crystal Ducky” or “Glass Ducky”) is a legendary and rare assembled Kinder Surprise toy, released in 1997 for the European market as part of the K98 collection.",
+  "kind": "",
+  "visible": true,
+  "fullSeriesForSale": false,
+  "fullSeriesAvito": "",
+  "fullSeriesPrice": "",
+  "fullSeriesPrice_en": "",
+  "fullSeriesCondition": "",
+  "fullSeriesCondition_en": "",
+  "fullSeriesDateAdded": "",
+  "fullSeriesDescription": "",
+  "fullSeriesDescription_en": "",
+  "figures": [
+    {
+      "id": "crystal-duck-by-kinder-1997_fig1",
+      "name": "Фигурка 1",
+      "name_en": "Figure 1",
+      "code": "",
+      "image": "images/series/kinder/crystal-duck-by-kinder-1997/duck.png",
+      "owned": true,
+      "forsale": true,
+      "avito": "",
+      "price": "999 руб.",
+      "condition": "Без вкладыша. Есть небольшие потертости",
+      "condition_en": "",
+      "parentFigureId": ""
+    }
+  ],
+  "extras": [],
+  "variants": [],
+  "inserts": [
+    {
+      "id": "crystal-duck-by-kinder-1997_insert1",
+      "name": "Вкладыш 1",
+      "name_en": "Insert 1",
+      "code": "BPZ",
+      "image": "images/series/kinder/crystal-duck-by-kinder-1997/BPZ.png",
+      "owned": false,
+      "forsale": false,
+      "avito": "",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": ""
+    }
+  ],
+  "other": [],
+  "videos": {
+    "youtube": [
+      "https://www.youtube.com/shorts/hHtIWHD3Z4I"
+    ],
+    "vk": [],
+    "tiktok": [],
+    "instagram": []
+  }
+}
