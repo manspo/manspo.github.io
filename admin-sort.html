@@ -17,7 +17,6 @@
         
         h1 { margin-bottom: 20px; color: #4f46e5; font-size: 24px; }
         
-        /* ===== ЗАГРУЗКА ПАПКИ ===== */
         .file-upload-main {
             border: 2px dashed #e5e7eb;
             padding: 20px;
@@ -31,7 +30,6 @@
         .file-upload-main:hover { border-color: #4f46e5; background: #f0f0ff; }
         .file-upload-main input { display: none; }
         
-        /* ===== ПАНЕЛЬ УПРАВЛЕНИЯ ===== */
         .controls-panel {
             background: white;
             padding: 15px 20px;
@@ -69,7 +67,6 @@
         }
         .ctrl-btn:hover { border-color: #4f46e5; color: #4f46e5; }
         
-        /* ===== СЧЁТЧИК ===== */
         .stats-bar {
             background: white;
             padding: 12px 20px;
@@ -92,7 +89,6 @@
             font-size: 16px;
         }
         
-        /* ===== СЕРИЯ ===== */
         .series-block {
             background: white;
             border-radius: 12px;
@@ -124,7 +120,6 @@
             margin-top: 4px;
         }
         
-        /* ===== БЛОК ЭЛЕМЕНТОВ ===== */
         .items-section {
             padding: 12px 20px;
             border-bottom: 1px solid #f3f4f6;
@@ -168,14 +163,12 @@
         }
         .add-item-btn:hover { background: #6366f1; }
         
-        /* ===== КОНТЕЙНЕР СОРТИРОВКИ ===== */
         .sortable-items {
             display: flex;
             flex-direction: column;
             gap: 12px;
         }
         
-        /* ===== ЭЛЕМЕНТ ===== */
         .sortable-item {
             display: flex;
             gap: 16px;
@@ -305,7 +298,6 @@
         .action-btn:hover { border-color: #4f46e5; color: #4f46e5; }
         .action-btn.danger:hover { border-color: #ef4444; color: #ef4444; background: #fee2e2; }
         
-        /* ===== ФИКСИРОВАННАЯ КНОПКА ===== */
         .save-bar {
             position: fixed;
             bottom: 0;
@@ -350,7 +342,6 @@
             transform: none;
         }
         
-        /* ===== УВЕДОМЛЕНИЯ ===== */
         .toast {
             position: fixed;
             bottom: 100px;
@@ -366,6 +357,7 @@
             transition: all 0.3s;
             z-index: 999;
             pointer-events: none;
+            max-width: 90vw;
         }
         .toast.show {
             opacity: 1;
@@ -381,12 +373,11 @@
             font-size: 16px;
         }
         
-        /* ===== МОБИЛЬНАЯ ВЕРСИЯ ===== */
         @media (max-width: 768px) {
             body { padding: 12px; padding-bottom: 100px; }
             h1 { font-size: 20px; }
             .series-title { font-size: 15px; }
-            .sortable-item { flex-direction: column; padding: 10px; }
+            .sortable-item { flex-direction: column; padding: 10px; position: relative; }
             .item-preview { width: 100%; max-width: 200px; height: auto; aspect-ratio: 1/1; margin: 0 auto; }
             .item-number { position: absolute; top: 10px; left: 10px; margin: 0; }
             .field-label { width: 70px; font-size: 11px; }
@@ -401,13 +392,11 @@
 <div class="container">
     <h1>🎯 Сортировка фигурок в сериях</h1>
     
-    <!-- ЗАГРУЗКА ПАПКИ -->
     <div class="file-upload-main" id="fileUploadMain">
         <input type="file" id="fileInput" webkitdirectory directory style="display:none;">
         <p>📁 Нажмите для выбора ПАПКИ с файлами (data)</p>
     </div>
     
-    <!-- ПАНЕЛЬ УПРАВЛЕНИЯ -->
     <div class="controls-panel" id="controlsPanel" style="display:none;">
         <input type="text" id="searchInput" placeholder="🔍 Поиск по названию серии, коду или фигурке...">
         <select id="manufacturerFilter">
@@ -417,7 +406,6 @@
         <button class="ctrl-btn" id="collapseAllBtn">📕 Свернуть все</button>
     </div>
     
-    <!-- СЧЁТЧИК -->
     <div class="stats-bar" id="statsBar" style="display:none;">
         <div class="stats-bar-item">
             <span>Серий:</span>
@@ -433,11 +421,9 @@
         </div>
     </div>
     
-    <!-- КОНТЕЙНЕР СЕРИЙ -->
     <div id="seriesContainer"></div>
 </div>
 
-<!-- ФИКСИРОВАННАЯ КНОПКА -->
 <div class="save-bar" id="saveBar" style="display:none;">
     <div class="save-bar-inner">
         <div class="save-bar-info">
@@ -447,25 +433,43 @@
     </div>
 </div>
 
-<!-- УВЕДОМЛЕНИЕ -->
 <div class="toast" id="toast"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <script>
 // ============================================================
-// ОСНОВНЫЕ ПЕРЕМЕННЫЕ
+// СОСТОЯНИЕ
 // ============================================================
 
 let existingSeries = [];
 let manufacturersData = {};
 let hasUnsavedChanges = false;
 
+// снимок количества элементов при загрузке — для защиты от обнуления
+const initialCounts = new Map();
+
+const TYPE_NAMES = {
+    figures: { ru: 'Фигурка',  en: 'Figure'  },
+    extras:  { ru: 'Доп',      en: 'Extra'   },
+    variants:{ ru: 'Вариант',  en: 'Variant' },
+    inserts: { ru: 'Вкладыш',  en: 'Insert'  },
+    other:   { ru: 'Прочее',   en: 'Other'   }
+};
+
+const TYPE_PREFIX = {
+    figures: 'fig',
+    extras:  'extra',
+    variants:'variant',
+    inserts: 'insert',
+    other:   'other'
+};
+
 // ============================================================
 // УТИЛИТЫ
 // ============================================================
 
 function escapeHtml(str) {
-    if (!str) return '';
+    if (str === null || str === undefined) return '';
     return String(str).replace(/[&<>"']/g, m => ({
         '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#x27;'
     }[m]));
@@ -475,35 +479,32 @@ function showToast(message, type = 'success') {
     const toast = document.getElementById('toast');
     toast.textContent = message;
     toast.className = 'toast show ' + (type !== 'success' ? type : '');
-    setTimeout(() => toast.classList.remove('show'), 2500);
+    clearTimeout(showToast._t);
+    showToast._t = setTimeout(() => toast.classList.remove('show'), 3000);
 }
 
-function generateItemId(seriesId, type, num) {
-    const prefixMap = {
-        figures: 'fig',
-        extras: 'extra',
-        variants: 'variant',
-        inserts: 'insert',
-        other: 'other'
+function debounce(fn, delay) {
+    let timer = null;
+    return function(...args) {
+        clearTimeout(timer);
+        timer = setTimeout(() => fn.apply(this, args), delay);
     };
-    const prefix = prefixMap[type] || 'item';
-    return `${seriesId}_${prefix}${num}`;
 }
 
 // ============================================================
-// ПОДТВЕРЖДЕНИЕ ПРИ ЗАКРЫТИИ
+// ПРЕДУПРЕЖДЕНИЕ ПРИ ЗАКРЫТИИ
 // ============================================================
 
 window.addEventListener('beforeunload', function(e) {
     if (hasUnsavedChanges) {
         e.preventDefault();
-        e.returnValue = 'У вас есть несохранённые изменения. Вы уверены, что хотите выйти?';
+        e.returnValue = 'У вас есть несохранённые изменения.';
         return e.returnValue;
     }
 });
 
 // ============================================================
-// ЗАГРУЗКА ДАННЫХ
+// ЗАГРУЗКА
 // ============================================================
 
 document.getElementById('fileUploadMain').onclick = function() {
@@ -515,61 +516,107 @@ document.getElementById('fileInput').onchange = function(e) {
     loadDataFromFiles(e.target.files);
 };
 
+function readFileText(file) {
+    return new Promise((resolve, reject) => {
+        const r = new FileReader();
+        r.onload = e => resolve(e.target.result);
+        r.onerror = () => reject(new Error('Не удалось прочитать ' + file.name));
+        r.readAsText(file);
+    });
+}
+
 async function loadDataFromFiles(files) {
-    let jsonFiles = Array.from(files).filter(f => f.name.endsWith('.json'));
-    let indexFile = jsonFiles.find(f => f.name === 'index.json');
-    if (!indexFile) { 
+    const allFiles = Array.from(files);
+    const jsonFiles = allFiles.filter(f => f.name.endsWith('.json'));
+    const indexFile = jsonFiles.find(f => f.name === 'index.json');
+
+    if (!indexFile) {
         showToast('Не найден index.json', 'error');
-        return; 
+        return;
     }
-    
-    let reader = new FileReader();
-    reader.onload = async function(e) {
-        try {
-            let indexData = JSON.parse(e.target.result);
-            existingSeries = [];
-            
-            for (let series of indexData) {
-                let seriesFile = jsonFiles.find(f => f.name === `${series.id}.json`);
-                if (seriesFile) {
-                    let sr = new FileReader();
-                    let content = await new Promise(resolve => {
-                        sr.onload = e => resolve(JSON.parse(e.target.result));
-                        sr.readAsText(seriesFile);
-                    });
-                    existingSeries.push(content);
-                } else {
-                    existingSeries.push({ 
-                        ...series, 
-                        figures: [], 
-                        extras: [], 
-                        variants: [], 
-                        inserts: [], 
-                        other: [], 
-                        videos: { youtube: [], vk: [], tiktok: [], instagram: [] } 
-                    });
-                }
+
+    try {
+        const indexData = JSON.parse(await readFileText(indexFile));
+
+        const byName = new Map();
+        jsonFiles.forEach(f => {
+            if (!byName.has(f.name)) byName.set(f.name, []);
+            byName.get(f.name).push(f);
+        });
+
+        existingSeries = [];
+        initialCounts.clear();
+        const problems = [];
+
+        for (const s of indexData) {
+            if (!s || !s.id) {
+                problems.push(`Серия без id: "${s?.name || '?'}"`);
+                continue;
             }
-            
-            // Загружаем производителей
+
+            const candidates = byName.get(`${s.id}.json`) || [];
+
+            if (candidates.length === 0) {
+                problems.push(`Нет файла ${s.id}.json (${s.name || '?'})`);
+                existingSeries.push({
+                    ...s,
+                    figures: [], extras: [], variants: [], inserts: [], other: [],
+                    videos: { youtube: [], vk: [], tiktok: [], instagram: [] }
+                });
+                continue;
+            }
+
+            if (candidates.length > 1) {
+                problems.push(`Дубль файла ${s.id}.json — взят первый`);
+            }
+
+            let content;
             try {
-                const mfRes = await fetch('data/manufacturers.json');
-                if (mfRes.ok) {
-                    manufacturersData = await mfRes.json();
-                }
-            } catch(e) {
-                console.warn('Производители не загружены:', e);
+                content = JSON.parse(await readFileText(candidates[0]));
+            } catch (err) {
+                problems.push(`Битый JSON ${s.id}.json: ${err.message}`);
+                content = { ...s };
             }
-            
-            hasUnsavedChanges = false;
-            showToast(`✅ Загружено ${existingSeries.length} серий`, 'success');
-            renderAll();
-            
-        } catch(err) {
-            showToast('❌ Ошибка: ' + err.message, 'error');
+
+            content.figures  = Array.isArray(content.figures)  ? content.figures  : [];
+            content.extras   = Array.isArray(content.extras)   ? content.extras   : [];
+            content.variants = Array.isArray(content.variants) ? content.variants : [];
+            content.inserts  = Array.isArray(content.inserts)  ? content.inserts  : [];
+            content.other    = Array.isArray(content.other)    ? content.other    : [];
+            if (!content.videos || typeof content.videos !== 'object') {
+                content.videos = { youtube: [], vk: [], tiktok: [], instagram: [] };
+            }
+
+            existingSeries.push(content);
+
+            ['figures','extras','variants','inserts','other'].forEach(t => {
+                initialCounts.set(`${s.id}::${t}`, content[t].length);
+            });
         }
-    };
-    reader.readAsText(indexFile);
+
+        try {
+            const mfRes = await fetch('data/manufacturers.json');
+            if (mfRes.ok) manufacturersData = await mfRes.json();
+        } catch (e) {
+            console.warn('Производители не загружены:', e);
+        }
+
+        hasUnsavedChanges = false;
+
+        const totalFigs = existingSeries.reduce((a, s) => a + s.figures.length, 0);
+        showToast(`✅ Загружено ${existingSeries.length} серий, фигурок: ${totalFigs}`, 'success');
+
+        if (problems.length) {
+            console.warn('⚠️ ПРОБЛЕМЫ ПРИ ЗАГРУЗКЕ:\n' + problems.join('\n'));
+            showToast(`⚠️ ${problems.length} проблем — смотри консоль (F12)`, 'info');
+        }
+
+        renderAll();
+
+    } catch (err) {
+        console.error(err);
+        showToast('❌ Ошибка: ' + err.message, 'error');
+    }
 }
 
 // ============================================================
@@ -580,7 +627,7 @@ function renderAll() {
     document.getElementById('controlsPanel').style.display = 'flex';
     document.getElementById('statsBar').style.display = 'flex';
     document.getElementById('saveBar').style.display = 'block';
-    
+
     renderManufacturerFilter();
     renderSeries();
     updateStats();
@@ -588,68 +635,60 @@ function renderAll() {
 
 function renderManufacturerFilter() {
     const select = document.getElementById('manufacturerFilter');
-    const uniqueMans = [...new Set(existingSeries.map(s => s.manufacturer))];
-    
-    select.innerHTML = '<option value="all">Все производители</option>';
+    const uniqueMans = [...new Set(existingSeries.map(s => s.manufacturer).filter(Boolean))];
+
+    let html = '<option value="all">Все производители</option>';
     uniqueMans.sort().forEach(m => {
         const displayName = manufacturersData[m]?.ru || m;
-        select.innerHTML += `<option value="${escapeHtml(m)}">${escapeHtml(displayName)}</option>`;
+        html += `<option value="${escapeHtml(m)}">${escapeHtml(displayName)}</option>`;
     });
+    select.innerHTML = html;
 }
 
 function getFilteredSeries() {
     const search = document.getElementById('searchInput').value.toLowerCase().trim();
     const manufacturer = document.getElementById('manufacturerFilter').value;
-    
-    let list = [...existingSeries];
-    
+
+    let list = existingSeries.slice();
+
     if (manufacturer !== 'all') {
         list = list.filter(s => s.manufacturer === manufacturer);
     }
-    
+
     if (search) {
         list = list.filter(s => {
-            const nameRu = (s.name || '').toLowerCase();
-            const nameEn = (s.name_en || '').toLowerCase();
-            const year = String(s.year || '');
-            
-            if (nameRu.includes(search) || nameEn.includes(search) || year.includes(search)) {
-                return true;
-            }
-            
+            if ((s.name || '').toLowerCase().includes(search)) return true;
+            if ((s.name_en || '').toLowerCase().includes(search)) return true;
+            if (String(s.year || '').includes(search)) return true;
+
             const items = [
-                ...(s.figures || []),
-                ...(s.extras || []),
+                ...(s.figures  || []),
+                ...(s.extras   || []),
                 ...(s.variants || []),
-                ...(s.inserts || [])
+                ...(s.inserts  || [])
             ];
-            return items.some(item => 
+            return items.some(item =>
                 (item.code || '').toLowerCase().includes(search) ||
                 (item.name || '').toLowerCase().includes(search) ||
                 (item.name_en || '').toLowerCase().includes(search)
             );
         });
     }
-    
+
     return list;
 }
 
 function renderSeries() {
     const container = document.getElementById('seriesContainer');
     const list = getFilteredSeries();
-    
+
     if (list.length === 0) {
         container.innerHTML = '<div class="empty-state">🔍 Ничего не найдено</div>';
         return;
     }
-    
+
     container.innerHTML = '';
-    
-    list.forEach(s => {
-        const block = createSeriesBlock(s);
-        container.appendChild(block);
-    });
-    
+    list.forEach(s => container.appendChild(createSeriesBlock(s)));
     initAllDragAndDrop();
 }
 
@@ -657,17 +696,16 @@ function createSeriesBlock(s) {
     const block = document.createElement('div');
     block.className = 'series-block';
     block.dataset.seriesId = s.id;
-    
-    const manufacturerName = manufacturersData[s.manufacturer]?.ru || s.manufacturer;
-    
+
+    const manufacturerName = manufacturersData[s.manufacturer]?.ru || s.manufacturer || '';
+
     const counts = {
-        figures: s.figures?.length || 0,
-        extras: s.extras?.length || 0,
-        variants: s.variants?.length || 0,
-        inserts: s.inserts?.length || 0,
-        other: s.other?.length || 0
+        figures:  (s.figures  || []).length,
+        extras:   (s.extras   || []).length,
+        variants: (s.variants || []).length,
+        inserts:  (s.inserts  || []).length
     };
-    
+
     block.innerHTML = `
         <div class="series-header">
             <div class="series-header-top">
@@ -683,65 +721,69 @@ function createSeriesBlock(s) {
                 </div>
             </div>
         </div>
-        ${createSection('figures', '📦 Фигурки', s.figures, s)}
-        ${createSection('extras', '🎁 Допы', s.extras, s)}
+        ${createSection('figures',  '📦 Фигурки',  s.figures,  s)}
+        ${createSection('extras',   '🎁 Допы',     s.extras,   s)}
         ${createSection('variants', '🎲 Варианты', s.variants, s)}
-        ${createSection('inserts', '📄 Вкладыши', s.inserts, s)}
-        ${createSection('other', '📦 Прочее', s.other, s)}
+        ${createSection('inserts',  '📄 Вкладыши', s.inserts,  s)}
+        ${createSection('other',    '📦 Прочее',   s.other,    s)}
     `;
-    
+
     return block;
 }
 
 function createSection(type, title, items, series) {
-    items = items || [];
-    
-    const section = document.createElement('div');
-    section.className = 'items-section';
-    section.dataset.type = type;
-    section.dataset.seriesId = series.id;
-    
-    section.innerHTML = `
-        <div class="items-section-header">
-            <div class="items-section-title">
-                ${title}
-                <span class="items-count-badge">${items.length}</span>
+    items = Array.isArray(items) ? items : [];
+
+    return `
+        <div class="items-section" data-type="${type}" data-series-id="${escapeHtml(series.id)}">
+            <div class="items-section-header">
+                <div class="items-section-title">
+                    ${title}
+                    <span class="items-count-badge">${items.length}</span>
+                </div>
+                <button class="add-item-btn" data-action="add-item" data-type="${type}">➕ Добавить</button>
             </div>
-            <button class="add-item-btn" data-action="add-item" data-type="${type}">➕ Добавить</button>
-        </div>
-        <div class="sortable-items" data-type="${type}" data-series-id="${series.id}">
-            ${items.map((item, idx) => createItemHTML(item, idx, type, series)).join('')}
+            <div class="sortable-items" data-type="${type}" data-series-id="${escapeHtml(series.id)}">
+                ${items.map((item, idx) => createItemHTML(item, idx, type)).join('')}
+            </div>
         </div>
     `;
-    
-    return section.outerHTML;
 }
 
-function createItemHTML(item, idx, type, series) {
+function createItemHTML(item, idx, type) {
     const num = idx + 1;
-    const imageUrl = item.image ? `https://manspo.github.io/${item.image}` : 'images/placeholder.svg';
-    
+    const imageUrl = item.image
+        ? `https://manspo.github.io/${item.image}`
+        : 'images/placeholder.svg';
+
     return `
-        <div class="sortable-item" draggable="true" data-item-id="${escapeHtml(item.id)}" data-type="${type}">
+        <div class="sortable-item" draggable="true"
+             data-item-id="${escapeHtml(item.id || '')}"
+             data-type="${type}">
             <div class="drag-handle">⠿</div>
             <div class="item-number">${num}</div>
-            <img class="item-preview" src="${imageUrl}" onerror="this.src='images/placeholder.svg'" loading="lazy">
+            <img class="item-preview" src="${imageUrl}"
+                 onerror="this.src='images/placeholder.svg'" loading="lazy">
             <div class="item-fields">
                 <div class="field-row">
                     <span class="field-label">Название RU:</span>
-                    <input type="text" class="field-input item-name" value="${escapeHtml(item.name || '')}" placeholder="Фигурка ${num}">
+                    <input type="text" class="field-input item-name"
+                           value="${escapeHtml(item.name || '')}" placeholder="Фигурка ${num}">
                 </div>
                 <div class="field-row">
                     <span class="field-label">Name (EN):</span>
-                    <input type="text" class="field-input item-name-en" value="${escapeHtml(item.name_en || '')}" placeholder="Figure ${num}">
+                    <input type="text" class="field-input item-name-en"
+                           value="${escapeHtml(item.name_en || '')}" placeholder="Figure ${num}">
                 </div>
                 <div class="field-row">
                     <span class="field-label">Код:</span>
-                    <input type="text" class="field-input code item-code" value="${escapeHtml(item.code || '')}" placeholder="VS369">
+                    <input type="text" class="field-input code item-code"
+                           value="${escapeHtml(item.code || '')}" placeholder="VS369">
                 </div>
                 <div class="field-row">
                     <span class="field-label">Путь:</span>
-                    <input type="text" class="field-input path item-image" value="${escapeHtml(item.image || '')}" placeholder="images/series/.../01.webp">
+                    <input type="text" class="field-input path item-image"
+                           value="${escapeHtml(item.image || '')}" placeholder="images/series/.../01.webp">
                 </div>
                 <div class="item-actions">
                     <button class="action-btn" data-action="replace-image">📁 Заменить картинку</button>
@@ -753,19 +795,17 @@ function createItemHTML(item, idx, type, series) {
 }
 
 // ============================================================
-// DRAG & DROP (только внутри своего блока)
+// DRAG & DROP
 // ============================================================
 
 function initAllDragAndDrop() {
-    document.querySelectorAll('.sortable-items').forEach(container => {
-        initDragAndDrop(container);
-    });
+    document.querySelectorAll('.sortable-items').forEach(initDragAndDrop);
 }
 
 function initDragAndDrop(container) {
     let draggedItem = null;
-    
-    container.addEventListener('dragstart', function(e) {
+
+    container.addEventListener('dragstart', e => {
         const item = e.target.closest('.sortable-item');
         if (!item) return;
         draggedItem = item;
@@ -773,155 +813,171 @@ function initDragAndDrop(container) {
         e.dataTransfer.setData('text/plain', '');
         item.classList.add('dragging');
     });
-    
-    container.addEventListener('dragend', function(e) {
+
+    container.addEventListener('dragend', e => {
         const item = e.target.closest('.sortable-item');
         if (item) item.classList.remove('dragging');
         container.querySelectorAll('.sortable-item').forEach(el => el.classList.remove('drag-over'));
         draggedItem = null;
     });
-    
-    container.addEventListener('dragover', function(e) {
+
+    container.addEventListener('dragover', e => {
         e.preventDefault();
         const target = e.target.closest('.sortable-item');
         if (!target || target === draggedItem) return;
-        
+
         const rect = target.getBoundingClientRect();
         const offset = e.clientY - rect.top;
         const mid = rect.height / 2;
-        
+
         if (offset < mid) {
             container.insertBefore(draggedItem, target);
         } else {
             container.insertBefore(draggedItem, target.nextSibling);
         }
-        
+
         container.querySelectorAll('.sortable-item').forEach(el => el.classList.remove('drag-over'));
         target.classList.add('drag-over');
     });
-    
-    container.addEventListener('dragleave', function(e) {
+
+    container.addEventListener('dragleave', e => {
         const target = e.target.closest('.sortable-item');
         if (target) target.classList.remove('drag-over');
     });
-    
-    container.addEventListener('drop', function(e) {
+
+    container.addEventListener('drop', e => {
         e.preventDefault();
         container.querySelectorAll('.sortable-item').forEach(el => el.classList.remove('drag-over'));
         if (draggedItem) {
             draggedItem.classList.remove('dragging');
             renumberAll(container);
-            syncOrderToData(container);
+            syncSectionToData(container);
             draggedItem = null;
         }
     });
 }
 
 function renumberAll(container) {
-    const items = container.querySelectorAll('.sortable-item');
     const type = container.dataset.type;
-    
+    const items = container.querySelectorAll('.sortable-item');
+
     const defaultPatterns = {
-        figures: { ru: /^Фигурка\s+\d+$/i, en: /^Figure\s+\d+$/i },
-        extras: { ru: /^Доп\s+\d+$/i, en: /^Extra\s+\d+$/i },
+        figures:  { ru: /^Фигурка\s+\d+$/i, en: /^Figure\s+\d+$/i },
+        extras:   { ru: /^Доп\s+\d+$/i,     en: /^Extra\s+\d+$/i },
         variants: { ru: /^Вариант\s+\d+$/i, en: /^Variant\s+\d+$/i },
-        inserts: { ru: /^Вкладыш\s+\d+$/i, en: /^Insert\s+\d+$/i },
-        other: { ru: /^Прочее\s+\d+$/i, en: /^Other\s+\d+$/i }
+        inserts:  { ru: /^Вкладыш\s+\d+$/i, en: /^Insert\s+\d+$/i },
+        other:    { ru: /^Прочее\s+\d+$/i,  en: /^Other\s+\d+$/i }
     };
-    
     const patterns = defaultPatterns[type] || defaultPatterns.figures;
-    
-    const typeNames = {
-        figures: { ru: 'Фигурка', en: 'Figure' },
-        extras: { ru: 'Доп', en: 'Extra' },
-        variants: { ru: 'Вариант', en: 'Variant' },
-        inserts: { ru: 'Вкладыш', en: 'Insert' },
-        other: { ru: 'Прочее', en: 'Other' }
-    };
-    
+    const names = TYPE_NAMES[type] || TYPE_NAMES.figures;
+
     items.forEach((item, idx) => {
         const num = idx + 1;
-        
-        // Обновляем номер
+
         item.querySelector('.item-number').textContent = num;
-        
-        // Обновляем имя RU (если дефолтное)
+
         const nameInput = item.querySelector('.item-name');
         const val = nameInput.value.trim();
         if (!val || patterns.ru.test(val)) {
-            nameInput.value = `${typeNames[type].ru} ${num}`;
+            nameInput.value = `${names.ru} ${num}`;
         }
-        
-        // Обновляем имя EN (если дефолтное)
+
         const nameEnInput = item.querySelector('.item-name-en');
         const valEn = nameEnInput.value.trim();
         if (!valEn || patterns.en.test(valEn)) {
-            nameEnInput.value = `${typeNames[type].en} ${num}`;
+            nameEnInput.value = `${names.en} ${num}`;
         }
     });
 }
 
-function syncOrderToData(container) {
+// ============================================================
+// СИНХРОНИЗАЦИЯ DOM → ДАННЫЕ
+// ============================================================
+
+function syncSectionToData(container) {
     const type = container.dataset.type;
     const seriesId = container.dataset.seriesId;
     const series = existingSeries.find(s => s.id === seriesId);
     if (!series) return;
-    
-    const items = [];
-    container.querySelectorAll('.sortable-item').forEach(itemEl => {
+
+    const source = Array.isArray(series[type]) ? series[type] : [];
+    const domItems = Array.from(container.querySelectorAll('.sortable-item'));
+
+    if (domItems.length === 0 && source.length > 0) {
+        console.warn(`syncSectionToData: DOM пуст для ${seriesId}::${type}, в данных ${source.length} — пропускаем обнуление`);
+        return;
+    }
+
+    const newArr = [];
+
+    domItems.forEach((itemEl, idx) => {
         const itemId = itemEl.dataset.itemId;
-        const originalItem = series[type]?.find(i => i.id === itemId);
-        if (originalItem) {
-            // Обновляем поля
-            originalItem.name = itemEl.querySelector('.item-name').value;
-            originalItem.name_en = itemEl.querySelector('.item-name-en').value;
-            originalItem.code = itemEl.querySelector('.item-code').value;
-            originalItem.image = itemEl.querySelector('.item-image').value;
-            items.push(originalItem);
+        let originalItem = itemId ? source.find(i => i.id === itemId) : null;
+
+        if (!originalItem) originalItem = source[idx];
+
+        if (!originalItem) {
+            originalItem = {
+                id: `${seriesId}_${TYPE_PREFIX[type] || 'item'}${Date.now()}_${idx}`,
+                name: '', name_en: '', code: '', image: '',
+                owned: false, forsale: false, avito: '', price: '',
+                condition: '', condition_en: '', parentFigureId: ''
+            };
         }
+
+        originalItem.name     = itemEl.querySelector('.item-name').value;
+        originalItem.name_en  = itemEl.querySelector('.item-name-en').value;
+        originalItem.code     = itemEl.querySelector('.item-code').value;
+        originalItem.image    = itemEl.querySelector('.item-image').value;
+
+        itemEl.dataset.itemId = originalItem.id;
+
+        newArr.push(originalItem);
     });
-    
-    // Обновляем порядок
-    series[type] = items;
-    
-    // Обновляем ID (переиндексация)
-    const prefixMap = {
-        figures: 'fig',
-        extras: 'extra',
-        variants: 'variant',
-        inserts: 'insert',
-        other: 'other'
-    };
-    const prefix = prefixMap[type] || 'item';
-    
-    series[type].forEach((item, idx) => {
+
+    series[type] = newArr;
+
+    const prefix = TYPE_PREFIX[type] || 'item';
+    newArr.forEach((item, idx) => {
         item.id = `${seriesId}_${prefix}${idx + 1}`;
     });
-    
+    domItems.forEach((itemEl, idx) => {
+        if (newArr[idx]) itemEl.dataset.itemId = newArr[idx].id;
+    });
+
     hasUnsavedChanges = true;
     updateStats();
+}
+
+function syncAllSections() {
+    document.querySelectorAll('.sortable-items').forEach(container => {
+        syncSectionToData(container);
+    });
 }
 
 // ============================================================
 // РЕДАКТИРОВАНИЕ ПОЛЕЙ
 // ============================================================
 
-document.addEventListener('input', function(e) {
-    if (e.target.matches('.field-input')) {
-        const itemEl = e.target.closest('.sortable-item');
-        if (!itemEl) return;
-        const container = itemEl.closest('.sortable-items');
-        syncOrderToData(container);
+document.addEventListener('input', e => {
+    if (!e.target.matches('.field-input')) return;
+    const itemEl = e.target.closest('.sortable-item');
+    if (!itemEl) return;
+    const container = itemEl.closest('.sortable-items');
+    if (!container) {
+        console.warn('Нет .sortable-items у', itemEl);
+        return;
     }
+    syncSectionToData(container);
 });
 
 // ============================================================
-// КЛИКИ ПО КНОПКАМ
+// КЛИКИ
 // ============================================================
 
-document.addEventListener('click', function(e) {
+document.addEventListener('click', e => {
     const action = e.target.dataset.action;
-    
+
     if (action === 'add-item') {
         e.preventDefault();
         const type = e.target.dataset.type;
@@ -929,25 +985,38 @@ document.addEventListener('click', function(e) {
         const seriesId = section.dataset.seriesId;
         addNewItem(type, seriesId);
     }
-    
+
     if (action === 'delete') {
         e.preventDefault();
         const itemEl = e.target.closest('.sortable-item');
         if (!itemEl) return;
         const name = itemEl.querySelector('.item-name').value;
-        if (confirm(`Удалить "${name}"?`)) {
-            const container = itemEl.closest('.sortable-items');
-            itemEl.remove();
-            renumberAll(container);
-            syncOrderToData(container);
+        if (!confirm(`Удалить "${name}"?`)) return;
+
+        const container = itemEl.closest('.sortable-items');
+        const seriesId = container.dataset.seriesId;
+        const type = container.dataset.type;
+        const itemId = itemEl.dataset.itemId;
+
+        const series = existingSeries.find(s => s.id === seriesId);
+        if (series && Array.isArray(series[type])) {
+            const idx = series[type].findIndex(i => i.id === itemId);
+            if (idx !== -1) series[type].splice(idx, 1);
         }
+
+        itemEl.remove();
+        renumberAll(container);
+        hasUnsavedChanges = true;
+        updateStats();
+
+        const badge = container.closest('.items-section').querySelector('.items-count-badge');
+        if (badge) badge.textContent = container.children.length;
     }
-    
+
     if (action === 'replace-image') {
         e.preventDefault();
         const itemEl = e.target.closest('.sortable-item');
         if (!itemEl) return;
-        const itemId = itemEl.dataset.itemId;
         const seriesId = itemEl.closest('.items-section').dataset.seriesId;
         openImagePicker(itemEl, seriesId);
     }
@@ -956,89 +1025,65 @@ document.addEventListener('click', function(e) {
 function addNewItem(type, seriesId) {
     const series = existingSeries.find(s => s.id === seriesId);
     if (!series) return;
-    
-    const container = document.querySelector(`.sortable-items[data-type="${type}"][data-series-id="${seriesId}"]`);
+
+    const container = document.querySelector(
+        `.sortable-items[data-type="${type}"][data-series-id="${CSS.escape(seriesId)}"]`
+    );
     if (!container) return;
-    
+
     const num = container.children.length + 1;
-    
-    const typeNames = {
-        figures: { ru: 'Фигурка', en: 'Figure' },
-        extras: { ru: 'Доп', en: 'Extra' },
-        variants: { ru: 'Вариант', en: 'Variant' },
-        inserts: { ru: 'Вкладыш', en: 'Insert' },
-        other: { ru: 'Прочее', en: 'Other' }
-    };
-    
-    const prefixMap = {
-        figures: 'fig',
-        extras: 'extra',
-        variants: 'variant',
-        inserts: 'insert',
-        other: 'other'
-    };
-    
+    const names = TYPE_NAMES[type] || TYPE_NAMES.figures;
+    const prefix = TYPE_PREFIX[type] || 'item';
+
     const newItem = {
-        id: `${seriesId}_${prefixMap[type]}${num}`,
-        name: `${typeNames[type].ru} ${num}`,
-        name_en: `${typeNames[type].en} ${num}`,
-        code: '',
-        image: '',
-        owned: false,
-        forsale: false,
-        avito: '',
-        price: '',
-        condition: '',
-        condition_en: '',
-        parentFigureId: ''
+        id: `${seriesId}_${prefix}${Date.now()}`,
+        name: `${names.ru} ${num}`,
+        name_en: `${names.en} ${num}`,
+        code: '', image: '',
+        owned: false, forsale: false, avito: '', price: '',
+        condition: '', condition_en: '', parentFigureId: ''
     };
-    
-    // Добавляем в данные
-    if (!series[type]) series[type] = [];
+
+    if (!Array.isArray(series[type])) series[type] = [];
     series[type].push(newItem);
-    
-    // Добавляем в DOM
-    const itemHTML = createItemHTML(newItem, num - 1, type, series);
+
     const temp = document.createElement('div');
-    temp.innerHTML = itemHTML;
+    temp.innerHTML = createItemHTML(newItem, num - 1, type);
     container.appendChild(temp.firstElementChild);
-    
-    // Обновляем счётчик
+
     const badge = container.closest('.items-section').querySelector('.items-count-badge');
     if (badge) badge.textContent = container.children.length;
-    
+
     hasUnsavedChanges = true;
     updateStats();
-    showToast(`✅ Добавлен ${typeNames[type].ru}`, 'success');
+    showToast(`✅ Добавлен ${names.ru}`, 'success');
 }
 
 function openImagePicker(itemEl, seriesId) {
     const input = document.createElement('input');
     input.type = 'file';
     input.accept = 'image/*';
-    
+
     input.onchange = function(e) {
         const file = e.target.files[0];
         if (!file) return;
-        
+
         const series = existingSeries.find(s => s.id === seriesId);
         if (!series) return;
-        
+
         const imagePath = `images/series/${series.manufacturer}/${seriesId}/${file.name}`;
         const previewUrl = URL.createObjectURL(file);
-        
-        // Обновляем поле
+
         itemEl.querySelector('.item-image').value = imagePath;
         itemEl.querySelector('.item-preview').src = previewUrl;
-        
-        // Синхронизируем с данными
+
         const container = itemEl.closest('.sortable-items');
-        syncOrderToData(container);
-        
+        syncSectionToData(container);
+
         hasUnsavedChanges = true;
         showToast('✅ Картинка обновлена', 'success');
     };
-    
+
     input.click();
 }
 
@@ -1052,18 +1097,9 @@ document.getElementById('manufacturerFilter').addEventListener('change', renderS
 document.getElementById('expandAllBtn').addEventListener('click', () => {
     document.querySelectorAll('.items-section').forEach(el => el.style.display = 'block');
 });
-
 document.getElementById('collapseAllBtn').addEventListener('click', () => {
     document.querySelectorAll('.items-section').forEach(el => el.style.display = 'none');
 });
-
-function debounce(fn, delay) {
-    let timer = null;
-    return function(...args) {
-        clearTimeout(timer);
-        timer = setTimeout(() => fn.apply(this, args), delay);
-    };
-}
 
 // ============================================================
 // СТАТИСТИКА
@@ -1072,16 +1108,16 @@ function debounce(fn, delay) {
 function updateStats() {
     let totalItems = 0;
     let totalFigures = 0;
-    
+
     existingSeries.forEach(s => {
-        totalFigures += s.figures?.length || 0;
-        totalItems += (s.figures?.length || 0) +
-                     (s.extras?.length || 0) +
-                     (s.variants?.length || 0) +
-                     (s.inserts?.length || 0) +
-                     (s.other?.length || 0);
+        totalFigures += (s.figures  || []).length;
+        totalItems += (s.figures  || []).length
+                    + (s.extras   || []).length
+                    + (s.variants || []).length
+                    + (s.inserts  || []).length
+                    + (s.other    || []).length;
     });
-    
+
     document.getElementById('totalSeries').textContent = existingSeries.length;
     document.getElementById('totalItems').textContent = totalItems;
     document.getElementById('totalFigures').textContent = totalFigures;
@@ -1089,75 +1125,68 @@ function updateStats() {
 }
 
 // ============================================================
-// ГЕНЕРАЦИЯ INDEX-ФАЙЛОВ
+// ГЕНЕРАЦИЯ ИНДЕКСНЫХ ФАЙЛОВ
 // ============================================================
 
-function generateStatsData(seriesList) {
-    let totalFigures = 0;
-    let totalInserts = 0;
-    let totalForSale = 0;
-    
-    seriesList.forEach(s => {
-        totalFigures += s.figures?.length || 0;
-        totalFigures += s.extras?.length || 0;
-        totalFigures += s.variants?.length || 0;
-        totalInserts += s.inserts?.length || 0;
-        totalForSale += s.figures?.filter(f => f.forsale).length || 0;
-        totalForSale += s.extras?.filter(e => e.forsale).length || 0;
-        totalForSale += s.inserts?.filter(i => i.forsale).length || 0;
-        totalForSale += s.variants?.filter(v => v.forsale).length || 0;
+function generateStatsData(list) {
+    let totalFigures = 0, totalInserts = 0, totalForSale = 0;
+
+    list.forEach(s => {
+        totalFigures += (s.figures  || []).length;
+        totalFigures += (s.extras   || []).length;
+        totalFigures += (s.variants || []).length;
+        totalInserts += (s.inserts  || []).length;
+
+        totalForSale += (s.figures  || []).filter(f => f.forsale).length;
+        totalForSale += (s.extras   || []).filter(e => e.forsale).length;
+        totalForSale += (s.inserts  || []).filter(i => i.forsale).length;
+        totalForSale += (s.variants || []).filter(v => v.forsale).length;
         if (s.fullSeriesForSale) totalForSale += 1;
     });
-    
-    const uniqueManufacturers = [...new Set(seriesList.map(s => s.manufacturer))];
-    
+
+    const uniqueManufacturers = [...new Set(list.map(s => s.manufacturer))];
+
     return {
-        totalSeries: seriesList.length,
-        totalFigures: totalFigures,
-        totalInserts: totalInserts,
-        totalForSale: totalForSale,
+        totalSeries: list.length,
+        totalFigures,
+        totalInserts,
+        totalForSale,
         totalManufacturers: uniqueManufacturers.length,
         updatedAt: new Date().toISOString()
     };
 }
 
-function generateVideosData(seriesList) {
-    const videos = [];
-    seriesList.forEach(s => {
+function generateVideosData(list) {
+    const out = [];
+    list.forEach(s => {
         if (!s.videos) return;
-        ['youtube', 'vk', 'tiktok', 'instagram'].forEach(host => {
-            if (!s.videos[host] || s.videos[host].length === 0) return;
-            s.videos[host].forEach(url => {
+        ['youtube','vk','tiktok','instagram'].forEach(host => {
+            const arr = s.videos[host];
+            if (!Array.isArray(arr) || arr.length === 0) return;
+            arr.forEach(url => {
                 if (!url || !url.trim()) return;
-                videos.push({
+                out.push({
                     host, url,
-                    seriesId: s.id,
-                    seriesName: s.name,
+                    seriesId: s.id, seriesName: s.name,
                     seriesName_en: s.name_en || s.name,
-                    year: s.year,
-                    manufacturer: s.manufacturer,
+                    year: s.year, manufacturer: s.manufacturer,
                     date_added: s.date_added || s.fullSeriesDateAdded || ''
                 });
             });
         });
     });
-    return videos;
+    return out;
 }
 
-function generateForsaleData(seriesList) {
-    const items = [];
-    seriesList.forEach(s => {
+function generateForsaleData(list) {
+    const out = [];
+    list.forEach(s => {
         if (s.fullSeriesForSale === true) {
-            items.push({
-                type: 'full',
-                id: s.id,
-                seriesId: s.id,
-                seriesName: s.name,
-                seriesName_en: s.name_en || s.name,
-                seriesYear: s.year,
-                manufacturer: s.manufacturer,
-                name: s.name,
-                name_en: s.name_en || s.name,
+            out.push({
+                type: 'full', id: s.id, seriesId: s.id,
+                seriesName: s.name, seriesName_en: s.name_en || s.name,
+                seriesYear: s.year, manufacturer: s.manufacturer,
+                name: s.name, name_en: s.name_en || s.name,
                 image: s.cover,
                 avito: s.fullSeriesAvito || '',
                 price: s.fullSeriesPrice || '',
@@ -1168,58 +1197,49 @@ function generateForsaleData(seriesList) {
                 date_added: s.fullSeriesDateAdded || s.date_added || ''
             });
         }
-        ['figures', 'variants', 'extras', 'inserts'].forEach(cat => {
-            if (!s[cat]) return;
-            const typeMap = { figures: 'figure', variants: 'variant', extras: 'extra', inserts: 'insert' };
-            s[cat].forEach(item => {
+        const typeMap = { figures: 'figure', variants: 'variant', extras: 'extra', inserts: 'insert' };
+        ['figures','variants','extras','inserts'].forEach(cat => {
+            (s[cat] || []).forEach(item => {
                 if (item.forsale !== true) return;
-                items.push({
-                    type: typeMap[cat],
-                    id: item.id,
-                    seriesId: s.id,
-                    seriesName: s.name,
-                    seriesName_en: s.name_en || s.name,
-                    seriesYear: s.year,
-                    manufacturer: s.manufacturer,
-                    name: item.name || '',
-                    name_en: item.name_en || item.name || '',
-                    image: item.image || '',
-                    avito: item.avito || '',
-                    price: item.price || '',
-                    condition: item.condition || '',
-                    condition_en: item.condition_en || '',
-                    code: item.code || '',
+                out.push({
+                    type: typeMap[cat], id: item.id, seriesId: s.id,
+                    seriesName: s.name, seriesName_en: s.name_en || s.name,
+                    seriesYear: s.year, manufacturer: s.manufacturer,
+                    name: item.name || '', name_en: item.name_en || item.name || '',
+                    image: item.image || '', avito: item.avito || '',
+                    price: item.price || '', condition: item.condition || '',
+                    condition_en: item.condition_en || '', code: item.code || '',
                     date_added: item.date_added || s.date_added || ''
                 });
             });
         });
     });
-    return items;
+    return out;
 }
 
-function generateCollectionData(seriesList) {
-    const items = [];
-    seriesList.forEach(s => {
-        const ownedFigures = s.figures?.filter(f => f.owned).length || 0;
-        const ownedExtras = s.extras?.filter(e => e.owned).length || 0;
-        const ownedVariants = s.variants?.filter(v => v.owned).length || 0;
-        const ownedInserts = s.inserts?.filter(i => i.owned).length || 0;
+function generateCollectionData(list) {
+    const out = [];
+    list.forEach(s => {
+        const ownedFigures  = (s.figures  || []).filter(f => f.owned).length;
+        const ownedExtras   = (s.extras   || []).filter(e => e.owned).length;
+        const ownedVariants = (s.variants || []).filter(v => v.owned).length;
+        const ownedInserts  = (s.inserts  || []).filter(i => i.owned).length;
         const totalOwned = ownedFigures + ownedExtras + ownedVariants + ownedInserts;
         if (totalOwned === 0) return;
-        
-        const totalFigures = s.figures?.length || 0;
-        const totalExtras = s.extras?.length || 0;
-        const totalVariants = s.variants?.length || 0;
-        const totalInserts = s.inserts?.length || 0;
+
+        const totalFigures  = (s.figures  || []).length;
+        const totalExtras   = (s.extras   || []).length;
+        const totalVariants = (s.variants || []).length;
+        const totalInserts  = (s.inserts  || []).length;
         const totalItems = totalFigures + totalExtras + totalVariants + totalInserts;
-        
-        const forSaleCount = 
-            (s.figures?.filter(f => f.forsale).length || 0) +
-            (s.extras?.filter(e => e.forsale).length || 0) +
-            (s.variants?.filter(v => v.forsale).length || 0) +
-            (s.inserts?.filter(i => i.forsale).length || 0);
-        
-        items.push({
+
+        const forSaleCount =
+            (s.figures  || []).filter(f => f.forsale).length +
+            (s.extras   || []).filter(e => e.forsale).length +
+            (s.variants || []).filter(v => v.forsale).length +
+            (s.inserts  || []).filter(i => i.forsale).length;
+
+        out.push({
             id: s.id, name: s.name, name_en: s.name_en || s.name,
             year: s.year, manufacturer: s.manufacturer,
             cover: s.cover || '', kind: s.kind || '',
@@ -1228,21 +1248,20 @@ function generateCollectionData(seriesList) {
             totalItems, forSaleCount
         });
     });
-    return items;
+    return out;
 }
 
-function generateSearchData(seriesList) {
-    const items = [];
-    seriesList.forEach(s => {
-        ['figures', 'variants', 'extras', 'inserts'].forEach(cat => {
-            if (!s[cat]) return;
-            s[cat].forEach(item => {
+function generateSearchData(list) {
+    const out = [];
+    list.forEach(s => {
+        ['figures','variants','extras','inserts'].forEach(cat => {
+            (s[cat] || []).forEach(item => {
                 const hasCode = item.code && item.code.trim();
-                const hasName = item.name && item.name.trim() && 
-                               !/^(Фигурка|Доп|Вариант|Вкладыш|Прочее)\s+\d+$/i.test(item.name.trim()) &&
-                               !/^(Figure|Extra|Variant|Insert|Other)\s+\d+$/i.test(item.name.trim());
+                const hasName = item.name && item.name.trim() &&
+                    !/^(Фигурка|Доп|Вариант|Вкладыш|Прочее)\s+\d+$/i.test(item.name.trim()) &&
+                    !/^(Figure|Extra|Variant|Insert|Other)\s+\d+$/i.test(item.name.trim());
                 if (!hasCode && !hasName) return;
-                items.push({
+                out.push({
                     id: item.id, code: item.code || '',
                     name: item.name || '', name_en: item.name_en || item.name || '',
                     image: item.image || '',
@@ -1255,11 +1274,11 @@ function generateSearchData(seriesList) {
             });
         });
     });
-    return items;
+    return out;
 }
 
 // ============================================================
-// СКАЧИВАНИЕ ZIP
+// СОХРАНЕНИЕ В ZIP  (+ диагностика)
 // ============================================================
 
 document.getElementById('saveBtn').addEventListener('click', async () => {
@@ -1267,43 +1286,74 @@ document.getElementById('saveBtn').addEventListener('click', async () => {
         showToast('Нет данных для сохранения', 'error');
         return;
     }
-    
+
+    // ============ ВРЕМЕННАЯ ДИАГНОСТИКА ============
+    console.log('=== ПЕРЕД syncAllSections ===');
+    existingSeries.forEach(s => {
+        console.log(s.id, 'figures:', (s.figures||[]).length,
+                    'extras:', (s.extras||[]).length,
+                    'variants:', (s.variants||[]).length,
+                    'inserts:', (s.inserts||[]).length);
+    });
+
+    syncAllSections();
+
+    console.log('=== ПОСЛЕ syncAllSections ===');
+    existingSeries.forEach(s => {
+        console.log(s.id, 'figures:', (s.figures||[]).length,
+                    'extras:', (s.extras||[]).length,
+                    'variants:', (s.variants||[]).length,
+                    'inserts:', (s.inserts||[]).length);
+    });
+    // ============ КОНЕЦ ДИАГНОСТИКИ ============
+
+    const dropped = [];
+    existingSeries.forEach(s => {
+        ['figures','extras','variants','inserts','other'].forEach(t => {
+            const before = initialCounts.get(`${s.id}::${t}`) ?? 0;
+            const after  = (s[t] || []).length;
+            if (before > 0 && after === 0) {
+                dropped.push(`${s.name} → ${t} (было ${before}, стало 0)`);
+            }
+        });
+    });
+
+    if (dropped.length) {
+        const msg =
+            '⚠️ Внимание! Некоторые разделы обнулились:\n\n' +
+            dropped.slice(0, 15).map(x => '• ' + x).join('\n') +
+            (dropped.length > 15 ? `\n...и ещё ${dropped.length - 15}` : '') +
+            '\n\nПродолжить сохранение? Это перезапишет оригинальные JSON.';
+        if (!confirm(msg)) {
+            return;
+        }
+    }
+
     const btn = document.getElementById('saveBtn');
     btn.disabled = true;
     btn.textContent = '⏳ Генерация...';
-    
+
     try {
         const zip = new JSZip();
-        
-        // index.json
+
         const indexData = existingSeries.map(s => ({
             id: s.id, name: s.name, name_en: s.name_en || s.name,
             year: s.year, manufacturer: s.manufacturer, cover: s.cover,
             kind: s.kind || '', description: s.description || '',
             description_en: s.description_en || '', visible: s.visible !== false
         }));
-        zip.file("index.json", JSON.stringify(indexData, null, 2));
-        
-        // stats.json
-        zip.file("stats.json", JSON.stringify(generateStatsData(existingSeries), null, 2));
-        
-        // videos.json
-        zip.file("videos.json", JSON.stringify(generateVideosData(existingSeries), null, 2));
-        
-        // forsale.json
-        zip.file("forsale.json", JSON.stringify(generateForsaleData(existingSeries), null, 2));
-        
-        // collection.json
-        zip.file("collection.json", JSON.stringify(generateCollectionData(existingSeries), null, 2));
-        
-        // search.json
-        zip.file("search.json", JSON.stringify(generateSearchData(existingSeries), null, 2));
-        
-        // Серии
+        zip.file('index.json', JSON.stringify(indexData, null, 2));
+
+        zip.file('stats.json',      JSON.stringify(generateStatsData(existingSeries), null, 2));
+        zip.file('videos.json',     JSON.stringify(generateVideosData(existingSeries), null, 2));
+        zip.file('forsale.json',    JSON.stringify(generateForsaleData(existingSeries), null, 2));
+        zip.file('collection.json', JSON.stringify(generateCollectionData(existingSeries), null, 2));
+        zip.file('search.json',     JSON.stringify(generateSearchData(existingSeries), null, 2));
+
         existingSeries.forEach(s => {
-            let manufFolder = s.manufacturer || 'other';
-            let seriesFolder = zip.folder(`series/${manufFolder}`);
-            let data = {
+            const manufFolder = s.manufacturer || 'other';
+            const seriesFolder = zip.folder(`series/${manufFolder}`);
+            const data = {
                 id: s.id, name: s.name, name_en: s.name_en || s.name,
                 year: s.year, manufacturer: s.manufacturer, cover: s.cover,
                 description: s.description || '', description_en: s.description_en || '',
@@ -1317,28 +1367,28 @@ document.getElementById('saveBtn').addEventListener('click', async () => {
                 fullSeriesDateAdded: s.fullSeriesDateAdded || '',
                 fullSeriesDescription: s.fullSeriesDescription || '',
                 fullSeriesDescription_en: s.fullSeriesDescription_en || '',
-                figures: s.figures || [],
-                extras: s.extras || [],
+                figures:  s.figures  || [],
+                extras:   s.extras   || [],
                 variants: s.variants || [],
-                inserts: s.inserts || [],
-                other: s.other || [],
-                videos: s.videos || { youtube: [], vk: [], tiktok: [], instagram: [] }
+                inserts:  s.inserts  || [],
+                other:    s.other    || [],
+                videos:   s.videos   || { youtube: [], vk: [], tiktok: [], instagram: [] }
             };
             seriesFolder.file(`${s.id}.json`, JSON.stringify(data, null, 2));
         });
-        
-        const blob = await zip.generateAsync({ type: "blob" });
+
+        const blob = await zip.generateAsync({ type: 'blob' });
         const a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
         a.download = `capsule_sort_${new Date().toISOString().slice(0,19).replace(/:/g,'-')}.zip`;
         a.click();
         URL.revokeObjectURL(blob);
-        
+
         hasUnsavedChanges = false;
         showToast('✅ ZIP сохранён!', 'success');
-        
+
     } catch (err) {
-        console.error('Ошибка:', err);
+        console.error(err);
         showToast('❌ Ошибка: ' + err.message, 'error');
     } finally {
         btn.disabled = false;
