@@ -45,15 +45,15 @@
     "seriesName_en": "Crystal Duck by Kinder",
     "seriesYear": 1997,
     "manufacturer": "kinder",
-    "name": "Фигурка 1",
+    "name": "Хрустальная Утка",
     "name_en": "Figure 1",
-    "image": "images/series/kinder/crystal-duck-by-kinder-1997/duck.png",
+    "image": "images/series/kinder/crystal-duck-by-kinder-1997/duck.webp",
     "avito": "",
     "price": "999 руб.",
     "condition": "Без вкладыша. Есть небольшие потертости",
     "condition_en": "",
     "code": "",
-    "date_added": "2026-09-13"
+    "date_added": ""
   },
   {
     "type": "figure",

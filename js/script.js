@@ -2192,23 +2192,18 @@ async function initForSale() {
           (i.code && i.code.toLowerCase().includes(query))
         );
       }
-      filtered.sort((a, b) => {
-        const dateA = a.date_added ? new Date(a.date_added) : new Date(0);
-        const dateB = b.date_added ? new Date(b.date_added) : new Date(0);
-        return dateB - dateA;
-      });
 // Сортировка
 if (currentSort === 'date-desc') {
   filtered.sort((a, b) => {
-    const dateA = a.date_added ? new Date(a.date_added).getTime() : 0;
-    const dateB = b.date_added ? new Date(b.date_added).getTime() : 0;
+    const dateA = a.date_added ? new Date(a.date_added).getTime() : Date.now();
+    const dateB = b.date_added ? new Date(b.date_added).getTime() : Date.now();
     if (dateB !== dateA) return dateB - dateA;
     return (a.name || '').localeCompare(b.name || '');
   });
 } else if (currentSort === 'date-asc') {
   filtered.sort((a, b) => {
-    const dateA = a.date_added ? new Date(a.date_added).getTime() : 0;
-    const dateB = b.date_added ? new Date(b.date_added).getTime() : 0;
+    const dateA = a.date_added ? new Date(a.date_added).getTime() : Date.now();
+    const dateB = b.date_added ? new Date(b.date_added).getTime() : Date.now();
     if (dateA !== dateB) return dateA - dateB;
     return (a.name || '').localeCompare(b.name || '');
   });
@@ -2240,11 +2235,11 @@ if (currentSort === 'date-desc') {
           (i.code && i.code.toLowerCase().includes(query))
         );
       }
-      all.sort((a, b) => {
-        const dateA = a.date_added ? new Date(a.date_added) : new Date(0);
-        const dateB = b.date_added ? new Date(b.date_added) : new Date(0);
-        return dateB - dateA;
-      });
+all.sort((a, b) => {
+  const dateA = a.date_added ? new Date(a.date_added) : new Date();
+  const dateB = b.date_added ? new Date(b.date_added) : new Date();
+  return dateB - dateA;
+});
       return all.slice(0, CONFIG.RECENT_COUNT);
     }
     

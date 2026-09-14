@@ -134,7 +134,7 @@
             <div class="col">
                 <div class="card">
                     <h2>📦 Элементы серии</h2>
-                    <p style="color:#6b7280;font-size:13px;">ID генерируется автоматически</p>
+                    <p style="color:#6b7280;font-size:13px;">ID генерируется автоматически. Дата добавления ставится автоматически (сегодня).</p>
                     
                     <!-- ФИГУРКИ -->
                     <h3>Фигурки</h3>
@@ -301,6 +301,7 @@
                         <li><strong>Код</strong> извлекается из имени файла (например, VS369 из kinderjoy_onepiece_VS369.webp)</li>
                         <li>Поля для полной серии на продажу сохраняются в JSON</li>
                         <li>Производители автоматически загружаются из manufacturers.json</li>
+                        <li><strong>Дата добавления</strong> для фигурок/допов/вкладышей ставится автоматически (сегодня) и попадает в forsale.json</li>
                         <li><strong>При экспорте</strong> генерируются: <code>stats.json</code>, <code>videos.json</code>, <code>forsale.json</code>, <code>collection.json</code>, <code>search.json</code></li>
                     </ul>
                 </div>
@@ -326,6 +327,11 @@ function showStatus() {
     let s = document.getElementById('saveStatus');
     s.classList.add('show');
     setTimeout(() => s.classList.remove('show'), 2000);
+}
+
+// сегодняшняя дата в формате YYYY-MM-DD
+function todayISO() {
+    return new Date().toISOString().slice(0, 10);
 }
 
 // ============================================================
@@ -482,6 +488,11 @@ function createItemElement(data, idx, type, seriesId) {
     div.setAttribute('draggable', 'true');
     div.dataset.type = type;
     
+    // сохраняем дату добавления в dataset, чтобы не потерять при пересоздании
+    if (data?.date_added) {
+        div.dataset.dateAdded = data.date_added;
+    }
+    
     let imgHtml = imagePath ? `<img src="${imagePath}" onerror="this.style.display='none'">` : '';
     let previewAttr = data?._preview ? `src="${data._preview}"` : '';
     
@@ -572,6 +583,10 @@ function renumberAll(container) {
     });
 }
 
+// ============================================================
+// СБОР ЭЛЕМЕНТОВ (с авто-датой добавления)
+// ============================================================
+
 function collectItems(container) {
     let items = [];
     container.querySelectorAll('.figure-item').forEach((item) => {
@@ -588,7 +603,9 @@ function collectItems(container) {
             price: item.querySelector('.item-price')?.value || '',
             condition: item.querySelector('.item-condition')?.value || '',
             condition_en: item.querySelector('.item-condition-en')?.value || '',
-            parentFigureId: item.querySelector('.item-parent-id')?.value || ''
+            parentFigureId: item.querySelector('.item-parent-id')?.value || '',
+            // дата добавления — из dataset (если был уже), иначе сегодня
+            date_added: item.dataset.dateAdded || todayISO()
         };
         items.push(obj);
     });
@@ -656,6 +673,7 @@ function batchUpload(type, inputId) {
             name_en: nameEn,
             image: imagePath,
             code: code,
+            date_added: todayISO(),
             _preview: previewUrl
         }, newIdx, type, seriesId);
         
@@ -1405,7 +1423,6 @@ function generateSearchData(seriesList) {
 function downloadAsZip(seriesList) {
     let zip = new JSZip();
     
-    // ===== index.json =====
     let indexData = seriesList.map(s => ({
         id: s.id,
         name: s.name,
@@ -1420,32 +1437,26 @@ function downloadAsZip(seriesList) {
     }));
     zip.file("index.json", JSON.stringify(indexData, null, 2));
     
-    // ===== stats.json =====
     const statsData = generateStatsData(seriesList);
     zip.file("stats.json", JSON.stringify(statsData, null, 2));
     console.log('✅ stats.json:', statsData);
     
-    // ===== videos.json =====
     const videosData = generateVideosData(seriesList);
     zip.file("videos.json", JSON.stringify(videosData, null, 2));
     console.log('✅ videos.json:', videosData.length, 'видео');
     
-    // ===== forsale.json =====
     const forsaleData = generateForsaleData(seriesList);
     zip.file("forsale.json", JSON.stringify(forsaleData, null, 2));
     console.log('✅ forsale.json:', forsaleData.length, 'товаров');
     
-    // ===== collection.json =====
     const collectionData = generateCollectionData(seriesList);
     zip.file("collection.json", JSON.stringify(collectionData, null, 2));
     console.log('✅ collection.json:', collectionData.length, 'серий');
     
-    // ===== search.json =====
     const searchData = generateSearchData(seriesList);
     zip.file("search.json", JSON.stringify(searchData, null, 2));
     console.log('✅ search.json:', searchData.length, 'элементов');
     
-    // ===== Серии =====
     seriesList.forEach(s => {
         let manufFolder = getManufacturerFolder(s.manufacturer);
         let seriesFolder = zip.folder(`series/${manufFolder}`);
