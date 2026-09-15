@@ -617,7 +617,12 @@ function collectItems(container) {
 // ============================================================
 
 function addItem(type) {
-    let container = document.getElementById(`add${capitalize(type)}sList`);
+    let containerId = type === 'other' ? 'addOtherList' : `add${capitalize(type)}sList`;
+    let container = document.getElementById(containerId);
+    if (!container) {
+        console.error('Не найден контейнер для', type, '— id:', containerId);
+        return;
+    }
     let sid = document.getElementById('nameEn').value.trim() || 'series';
     let year = document.getElementById('year').value || '2024';
     let seriesId = generateSeriesId(sid, year);
@@ -1024,7 +1029,12 @@ function editSeries(idx) {
 }
 
 function addEditItem(type) {
-    let container = document.getElementById(`edit${capitalize(type)}sList`);
+    let containerId = type === 'other' ? 'editOtherList' : `edit${capitalize(type)}sList`;
+    let container = document.getElementById(containerId);
+    if (!container) {
+        console.error('Не найден контейнер для', type, '— id:', containerId);
+        return;
+    }
     let seriesId = document.getElementById('editNameEn').value.trim() || 'series';
     let year = document.getElementById('editYear').value || '2024';
     let sid = generateSeriesId(seriesId, year);
