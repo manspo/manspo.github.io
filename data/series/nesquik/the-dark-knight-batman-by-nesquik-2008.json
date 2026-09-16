@@ -104,7 +104,8 @@
   ],
   "variants": [],
   "inserts": [],
-  "other": [{
+  "other": [
+    {
       "id": "the-dark-knight-batman-by-nesquik-2008_other1",
       "image": "images/series/nesquik/the-dark-knight-batman-by-nesquik-2008/BPZ.webp",
       "name": "Коробка 1",
@@ -123,7 +124,8 @@
       "forsale": false,
       "avito": "",
       "code": ""
-    }],
+    }
+  ],
   "videos": {
     "youtube": [],
     "vk": [],

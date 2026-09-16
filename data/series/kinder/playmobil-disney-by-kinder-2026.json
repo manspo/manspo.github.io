@@ -276,7 +276,7 @@
   "variants": [],
   "inserts": [],
   "other": [
-      {
+    {
       "id": "playmobil-disney-by-kinder-2026_other1",
       "name": "Фольга 1",
       "name_en": "Foil 1",
@@ -306,7 +306,7 @@
       "parentFigureId": "",
       "date_added": "2026-09-15"
     },
-	      {
+    {
       "id": "playmobil-disney-by-kinder-2026_other3",
       "name": "Фольга 3",
       "name_en": "Foil 3",
@@ -321,7 +321,7 @@
       "parentFigureId": "",
       "date_added": "2026-09-15"
     },
-	      {
+    {
       "id": "playmobil-disney-by-kinder-2026_other4",
       "name": "Фольга 4",
       "name_en": "Foil 4",

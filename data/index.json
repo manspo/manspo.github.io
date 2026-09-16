@@ -1,5 +1,17 @@
 [
   {
+    "id": "super-mario-mini-2026",
+    "name": "Супер Марио Мини",
+    "name_en": "Super Mario Mini",
+    "year": 2026,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/super-mario-mini-2026/cover.webp",
+    "kind": "joy",
+    "description": "Мини-серия про Супер Марио.",
+    "description_en": "Mini-series about Super Mario.",
+    "visible": true
+  },
+  {
     "id": "miraculous-tales-of-ladybug-and-cat-noir-maxi-by-kinder-2022",
     "name": "Леди Баг и Супер-Кот Макси от Киндер",
     "name_en": "Miraculous Tales of Ladybug and Cat Noir Maxi by Kinder",
@@ -469,8 +481,8 @@
   },
   {
     "id": "brother-bear-by-nesquik-2003",
-    "name": "Братец Медвежонок от Несквик",
-    "name_en": "Brother Bear by Nesquik",
+    "name": "Братец Медвежонок от Нестле",
+    "name_en": "Brother Bear by Nestle",
     "year": 2003,
     "manufacturer": "nesquik",
     "cover": "images/series/nesquik/brother-bear-by-nesquik-2003/cover.webp",

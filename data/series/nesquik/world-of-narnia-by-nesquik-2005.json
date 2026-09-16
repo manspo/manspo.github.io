@@ -83,7 +83,8 @@
   "extras": [],
   "variants": [],
   "inserts": [],
-  "other": [    {
+  "other": [
+    {
       "id": "world-of-narnia-by-nesquik-2005_other1",
       "image": "images/series/nesquik/world-of-narnia-by-nesquik-2005/BPZ.webp",
       "name": "Коробка 1",
@@ -93,7 +94,7 @@
       "avito": "",
       "code": ""
     },
-	    {
+    {
       "id": "world-of-narnia-by-nesquik-2005_other2",
       "image": "images/series/nesquik/world-of-narnia-by-nesquik-2005/Narnia.webp",
       "name": "Коробка 2",
@@ -102,8 +103,8 @@
       "forsale": false,
       "avito": "",
       "code": ""
-    }	
-	],
+    }
+  ],
   "videos": {
     "youtube": [],
     "vk": [],
