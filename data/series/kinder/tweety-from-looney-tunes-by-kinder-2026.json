@@ -20,225 +20,249 @@
   "fullSeriesDescription_en": "",
   "figures": [
     {
-      "id": "tweety_fig1",
+      "id": "tweety-from-looney-tunes-by-kinder-2026_fig1",
       "image": "images/series/kinder/tweety-from-looney-tunes-by-kinder-2026/01.webp",
-      "name": "Фигурка 1",
-      "name_en": "Figure 1",
+      "name": "Твити у зеркала",
+      "name_en": "Tweety at the mirror",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "VC375"
     },
     {
-      "id": "tweety_fig2",
+      "id": "tweety-from-looney-tunes-by-kinder-2026_fig2",
       "image": "images/series/kinder/tweety-from-looney-tunes-by-kinder-2026/02.webp",
-      "name": "Фигурка 2",
-      "name_en": "Figure 2",
+      "name": "Твити с теннисной ракеткой",
+      "name_en": "Tweety with a tennis racket",
       "owned": false,
       "forsale": true,
-      "avito": ""
+      "avito": "",
+      "code": "VC376"
     },
     {
-      "id": "tweety_fig3",
+      "id": "tweety-from-looney-tunes-by-kinder-2026_fig3",
       "image": "images/series/kinder/tweety-from-looney-tunes-by-kinder-2026/03.webp",
-      "name": "Фигурка 3",
-      "name_en": "Figure 3",
+      "name": "Твити с рюкзаком",
+      "name_en": "Tweety with a backpack",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "VC377"
     },
     {
-      "id": "tweety_fig4",
+      "id": "tweety-from-looney-tunes-by-kinder-2026_fig4",
       "image": "images/series/kinder/tweety-from-looney-tunes-by-kinder-2026/04.webp",
-      "name": "Фигурка 4",
-      "name_en": "Figure 4",
+      "name": "Твити с гитарой",
+      "name_en": "Tweety with guitar",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "VC378"
     },
     {
-      "id": "tweety_fig5",
+      "id": "tweety-from-looney-tunes-by-kinder-2026_fig5",
       "image": "images/series/kinder/tweety-from-looney-tunes-by-kinder-2026/05.webp",
-      "name": "Фигурка 5",
-      "name_en": "Figure 5",
+      "name": "Твити с книжкой",
+      "name_en": "Tweety with a book",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "VC379"
     },
     {
-      "id": "tweety_fig6",
+      "id": "tweety-from-looney-tunes-by-kinder-2026_fig6",
       "image": "images/series/kinder/tweety-from-looney-tunes-by-kinder-2026/06.webp",
-      "name": "Фигурка 6",
-      "name_en": "Figure 6",
+      "name": "Твити-художник с кисточкой для рисования",
+      "name_en": "Tweety artist with paint brush",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "VC380"
     },
     {
-      "id": "tweety_fig7",
+      "id": "tweety-from-looney-tunes-by-kinder-2026_fig7",
       "image": "images/series/kinder/tweety-from-looney-tunes-by-kinder-2026/07.webp",
-      "name": "Фигурка 7",
-      "name_en": "Figure 7",
+      "name": "Твити в душе",
+      "name_en": "Tweety in the shower",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "VC381"
     },
     {
-      "id": "tweety_fig8",
+      "id": "tweety-from-looney-tunes-by-kinder-2026_fig8",
       "image": "images/series/kinder/tweety-from-looney-tunes-by-kinder-2026/08.webp",
-      "name": "Фигурка 8",
-      "name_en": "Figure 8",
+      "name": "Твити с ложкой",
+      "name_en": "Tweety with a spoon",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "VC382"
     }
   ],
   "extras": [
     {
-      "id": "tweety_extra1",
+      "id": "tweety-from-looney-tunes-by-kinder-2026_extra1",
       "image": "images/series/kinder/tweety-from-looney-tunes-by-kinder-2026/09.webp",
-      "name": "Доп 1",
-      "name_en": "Extra 1",
+      "name": "Расческа Твити",
+      "name_en": "Tweety's comb",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "VC384"
     },
     {
-      "id": "tweety_extra2",
+      "id": "tweety-from-looney-tunes-by-kinder-2026_extra2",
       "image": "images/series/kinder/tweety-from-looney-tunes-by-kinder-2026/10.webp",
-      "name": "Доп 2",
-      "name_en": "Extra 2",
+      "name": "Шкатулка-сердечко Твити",
+      "name_en": "Tweety's Heart Box",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "VD477E"
     },
     {
-      "id": "tweety_extra3",
+      "id": "tweety-from-looney-tunes-by-kinder-2026_extra3",
       "image": "images/series/kinder/tweety-from-looney-tunes-by-kinder-2026/11.webp",
-      "name": "Доп 3",
-      "name_en": "Extra 3",
+      "name": "Сережки Твити",
+      "name_en": "Tweety's earrings",
       "owned": false,
       "forsale": true,
-      "avito": ""
+      "avito": "",
+      "code": "VQ362B"
     },
     {
-      "id": "tweety_extra4",
+      "id": "tweety-from-looney-tunes-by-kinder-2026_extra4",
       "image": "images/series/kinder/tweety-from-looney-tunes-by-kinder-2026/12.webp",
-      "name": "Доп 4",
-      "name_en": "Extra 4",
+      "name": "Браслет / Кулон Твити",
+      "name_en": "Tweety's Bracelet/Pendant",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "VQ409C"
     }
   ],
   "variants": [],
   "inserts": [
     {
-      "id": "tweety_insert1",
+      "id": "tweety-from-looney-tunes-by-kinder-2026_insert1",
       "image": "images/series/kinder/tweety-from-looney-tunes-by-kinder-2026/01b.webp",
       "name": "Вкладыш 1",
       "name_en": "Insert 1",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": ""
     },
     {
-      "id": "tweety_insert2",
+      "id": "tweety-from-looney-tunes-by-kinder-2026_insert2",
       "image": "images/series/kinder/tweety-from-looney-tunes-by-kinder-2026/02b.webp",
       "name": "Вкладыш 2",
       "name_en": "Insert 2",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": ""
     },
     {
-      "id": "tweety_insert3",
+      "id": "tweety-from-looney-tunes-by-kinder-2026_insert3",
       "image": "images/series/kinder/tweety-from-looney-tunes-by-kinder-2026/03b.webp",
       "name": "Вкладыш 3",
       "name_en": "Insert 3",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": ""
     },
     {
-      "id": "tweety_insert4",
+      "id": "tweety-from-looney-tunes-by-kinder-2026_insert4",
       "image": "images/series/kinder/tweety-from-looney-tunes-by-kinder-2026/04b.webp",
       "name": "Вкладыш 4",
       "name_en": "Insert 4",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": ""
     },
     {
-      "id": "tweety_insert5",
+      "id": "tweety-from-looney-tunes-by-kinder-2026_insert5",
       "image": "images/series/kinder/tweety-from-looney-tunes-by-kinder-2026/05b.webp",
       "name": "Вкладыш 5",
       "name_en": "Insert 5",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": ""
     },
     {
-      "id": "tweety_insert6",
+      "id": "tweety-from-looney-tunes-by-kinder-2026_insert6",
       "image": "images/series/kinder/tweety-from-looney-tunes-by-kinder-2026/06b.webp",
       "name": "Вкладыш 6",
       "name_en": "Insert 6",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": ""
     },
     {
-      "id": "tweety_insert7",
+      "id": "tweety-from-looney-tunes-by-kinder-2026_insert7",
       "image": "images/series/kinder/tweety-from-looney-tunes-by-kinder-2026/07b.webp",
       "name": "Вкладыш 7",
       "name_en": "Insert 7",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": ""
     },
     {
-      "id": "tweety_insert8",
+      "id": "tweety-from-looney-tunes-by-kinder-2026_insert8",
       "image": "images/series/kinder/tweety-from-looney-tunes-by-kinder-2026/08b.webp",
       "name": "Вкладыш 8",
       "name_en": "Insert 8",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": ""
     },
     {
-      "id": "tweety_insert9",
+      "id": "tweety-from-looney-tunes-by-kinder-2026_insert9",
       "image": "images/series/kinder/tweety-from-looney-tunes-by-kinder-2026/09b.webp",
       "name": "Вкладыш 9",
       "name_en": "Insert 9",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": ""
     },
     {
-      "id": "tweety_insert10",
+      "id": "tweety-from-looney-tunes-by-kinder-2026_insert10",
       "image": "images/series/kinder/tweety-from-looney-tunes-by-kinder-2026/10b.webp",
       "name": "Вкладыш 10",
       "name_en": "Insert 10",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": ""
     },
     {
-      "id": "tweety_insert11",
+      "id": "tweety-from-looney-tunes-by-kinder-2026_insert11",
       "image": "images/series/kinder/tweety-from-looney-tunes-by-kinder-2026/11b.webp",
       "name": "Вкладыш 11",
       "name_en": "Insert 11",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": ""
     },
     {
-      "id": "tweety_insert12",
+      "id": "tweety-from-looney-tunes-by-kinder-2026_insert12",
       "image": "images/series/kinder/tweety-from-looney-tunes-by-kinder-2026/12b.webp",
       "name": "Вкладыш 12",
       "name_en": "Insert 12",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": ""
     }
   ],
   "other": [],

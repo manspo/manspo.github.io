@@ -397,14 +397,15 @@
         <p>📁 Нажмите для выбора ПАПКИ с файлами (data)</p>
     </div>
     
-    <div class="controls-panel" id="controlsPanel" style="display:none;">
-        <input type="text" id="searchInput" placeholder="🔍 Поиск по названию серии, коду или фигурке...">
-        <select id="manufacturerFilter">
-            <option value="all">Все производители</option>
-        </select>
-        <button class="ctrl-btn" id="expandAllBtn">📖 Развернуть все</button>
-        <button class="ctrl-btn" id="collapseAllBtn">📕 Свернуть все</button>
-    </div>
+<div class="controls-panel" id="controlsPanel" style="display:none;">
+    <input type="text" id="searchInput" placeholder="🔍 Поиск по названию серии, коду или фигурке...">
+    <select id="manufacturerFilter">
+        <option value="all">Все производители</option>
+    </select>
+    <button class="ctrl-btn" id="expandAllBtn">📖 Развернуть все</button>
+    <button class="ctrl-btn" id="collapseAllBtn">📕 Свернуть все</button>
+    <button class="ctrl-btn" id="hideCompleteBtn" title="Скрыть серии, где у всех фигурок указан код">🙈 Только с пропусками</button>
+</div>
     
     <div class="stats-bar" id="statsBar" style="display:none;">
         <div class="stats-bar-item">
@@ -444,6 +445,9 @@
 let existingSeries = [];
 let manufacturersData = {};
 let hasUnsavedChanges = false;
+
+// фильтр «показывать только серии, где есть фигурки без кода»
+let hideCompleteSeries = false;
 
 // снимок количества элементов при загрузке — для защиты от обнуления
 const initialCounts = new Map();
@@ -654,6 +658,22 @@ function getFilteredSeries() {
     if (manufacturer !== 'all') {
         list = list.filter(s => s.manufacturer === manufacturer);
     }
+
+
+// ===== фильтр «только с пропусками» =====
+// учитываем фигурки, варианты и допы. Вкладыши и прочее не считаем.
+if (hideCompleteSeries) {
+    list = list.filter(s => {
+        const all = [
+            ...(s.figures  || []),
+            ...(s.variants || []),
+            ...(s.extras   || [])
+        ];
+        if (all.length === 0) return true; // нечего закрывать — показываем
+        // показываем серию, если хотя бы у одного элемента пустой код
+        return all.some(f => !f.code || !String(f.code).trim());
+    });
+}
 
     if (search) {
         list = list.filter(s => {
@@ -1099,6 +1119,24 @@ document.getElementById('expandAllBtn').addEventListener('click', () => {
 });
 document.getElementById('collapseAllBtn').addEventListener('click', () => {
     document.querySelectorAll('.items-section').forEach(el => el.style.display = 'none');
+});
+
+// кнопка «Только с пропусками»
+document.getElementById('hideCompleteBtn').addEventListener('click', function() {
+    hideCompleteSeries = !hideCompleteSeries;
+    this.classList.toggle('active', hideCompleteSeries);
+    this.textContent = hideCompleteSeries ? '🙈 Скрыто: серии с полными кодами' : '🙈 Только с пропусками';
+    // активный вид кнопки
+    if (hideCompleteSeries) {
+        this.style.background = '#4f46e5';
+        this.style.color = 'white';
+        this.style.borderColor = '#4f46e5';
+    } else {
+        this.style.background = '';
+        this.style.color = '';
+        this.style.borderColor = '';
+    }
+    renderSeries();
 });
 
 // ============================================================

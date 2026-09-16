@@ -117,7 +117,7 @@
       "name": "Сине-красный браслет",
       "name_en": "Blue and red bracelet",
       "owned": false,
-      "forsale": false,
+      "forsale": true,
       "avito": "",
       "code": "VC354B"
     },
