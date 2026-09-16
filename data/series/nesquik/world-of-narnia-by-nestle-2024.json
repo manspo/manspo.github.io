@@ -4,7 +4,7 @@
   "name_en": "World of Narnia by Nesquik",
   "year": 2005,
   "manufacturer": "nesquik",
-  "cover": "images/series/nesquik/narnia/cover.webp",
+  "cover": "images/series/nesquik/world-of-narnia-by-nesquik-2005/cover.webp",
   "description": "Эта серия из хлопьев Nesquik 2005 года. Состоит из 6 фигурок в Германии и в России и из 4 во Франции. Сатир и Орей отсутствуют.\nОсобенность этой серии – совершенно уникальное изобретение - поместив их в морозилку фигурка приобретает синеватый цвет, а персонаж кажется неподвижным, как на льду.",
   "description_en": "This series of cereal Nesquik dates 2005. She consists of 6 characters in Germany and in Russia and only 4 in France. The satyr and Oreius are absent.\nThe peculiarity of this series is a completely unique invention. By placing them in the freezer, the figurine takes a bluish color and the character seems motionless as of the ice.",
   "kind": "",
@@ -21,7 +21,7 @@
   "figures": [
     {
       "id": "world-of-narnia-by-nesquik-2005_fig1",
-      "image": "images/series/nesquik/narnia/6.webp",
+      "image": "images/series/nesquik/world-of-narnia-by-nesquik-2005/6.webp",
       "name": "Кентавр Орейус",
       "name_en": "Centaur Oreius",
       "owned": true,
@@ -31,7 +31,7 @@
     },
     {
       "id": "world-of-narnia-by-nesquik-2005_fig2",
-      "image": "images/series/nesquik/narnia/5.webp",
+      "image": "images/series/nesquik/world-of-narnia-by-nesquik-2005/5.webp",
       "name": "Грифон",
       "name_en": "Grifon",
       "owned": true,
@@ -41,7 +41,7 @@
     },
     {
       "id": "world-of-narnia-by-nesquik-2005_fig3",
-      "image": "images/series/nesquik/narnia/4.webp",
+      "image": "images/series/nesquik/world-of-narnia-by-nesquik-2005/4.webp",
       "name": "Лев Аслан",
       "name_en": "Lion Aslan",
       "owned": true,
@@ -51,7 +51,7 @@
     },
     {
       "id": "world-of-narnia-by-nesquik-2005_fig4",
-      "image": "images/series/nesquik/narnia/3.webp",
+      "image": "images/series/nesquik/world-of-narnia-by-nesquik-2005/3.webp",
       "name": "Сатир",
       "name_en": "Satyr",
       "owned": true,
@@ -61,7 +61,7 @@
     },
     {
       "id": "world-of-narnia-by-nesquik-2005_fig5",
-      "image": "images/series/nesquik/narnia/2.webp",
+      "image": "images/series/nesquik/world-of-narnia-by-nesquik-2005/2.webp",
       "name": "Белая Колдунья Джадис",
       "name_en": "White Witch Jadis",
       "owned": true,
@@ -71,7 +71,7 @@
     },
     {
       "id": "world-of-narnia-by-nesquik-2005_fig6",
-      "image": "images/series/nesquik/narnia/1.webp",
+      "image": "images/series/nesquik/world-of-narnia-by-nesquik-2005/1.webp",
       "name": "Сатир Мистер Тумнус",
       "name_en": "Satyr Mister Tumnus",
       "owned": true,
@@ -85,7 +85,7 @@
   "inserts": [],
   "other": [    {
       "id": "world-of-narnia-by-nesquik-2005_other1",
-      "image": "images/series/nesquik/narnia/BPZ.webp",
+      "image": "images/series/nesquik/world-of-narnia-by-nesquik-2005/BPZ.webp",
       "name": "Коробка 1",
       "name_en": "Box 1",
       "owned": true,
@@ -95,7 +95,7 @@
     },
 	    {
       "id": "world-of-narnia-by-nesquik-2005_other2",
-      "image": "images/series/nesquik/narnia/Narnia.webp",
+      "image": "images/series/nesquik/world-of-narnia-by-nesquik-2005/Narnia.webp",
       "name": "Коробка 2",
       "name_en": "Box 2",
       "owned": true,

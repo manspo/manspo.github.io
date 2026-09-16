@@ -1,10 +1,10 @@
 {
-  "id": "brother-bear-by-nestle-2003",
+  "id": "brother-bear-by-nesquik-2003",
   "name": "Братец Медвежонок от Нестле",
   "name_en": "Brother Bear by Nestle",
   "year": 2003,
-  "manufacturer": "nestle",
-  "cover": "images/series/nestle/brotherbear/cover.webp",
+  "manufacturer": "nesquik",
+  "cover": "images/series/nesquik/brother-bear-by-nesquik-2003/cover.webp",
   "description": "Серия по одноименному мультфильму - Братец Медвежонок",
   "description_en": "Series based on the cartoon of the same name - Brother Bear",
   "kind": "",
@@ -20,11 +20,11 @@
   "fullSeriesDescription_en": "",
   "figures": [
     {
-      "id": "brotherbear_fig1",
+      "id": "brother-bear-by-nesquik-2003_fig1",
       "name": "Кенай",
       "name_en": "Kenai",
       "code": "",
-      "image": "images/series/nestle/brotherbear/01.webp",
+      "image": "images/series/nesquik/brother-bear-by-nesquik-2003/01.webp",
       "owned": true,
       "forsale": false,
       "avito": "",
@@ -33,11 +33,11 @@
       "condition_en": ""
     },
     {
-      "id": "brotherbear_fig2",
+      "id": "brother-bear-by-nesquik-2003_fig2",
       "name": "Мамонт",
       "name_en": "Mammoth",
       "code": "",
-      "image": "images/series/nestle/brotherbear/02.webp",
+      "image": "images/series/nesquik/brother-bear-by-nesquik-2003/02.webp",
       "owned": true,
       "forsale": false,
       "avito": "",
@@ -46,11 +46,11 @@
       "condition_en": ""
     },
     {
-      "id": "brotherbear_fig3",
+      "id": "brother-bear-by-nesquik-2003_fig3",
       "name": "Тьюк",
       "name_en": "Tuke",
       "code": "",
-      "image": "images/series/nestle/brotherbear/03.webp",
+      "image": "images/series/nesquik/brother-bear-by-nesquik-2003/03.webp",
       "owned": true,
       "forsale": false,
       "avito": "",
@@ -59,11 +59,11 @@
       "condition_en": ""
     },
     {
-      "id": "brotherbear_fig4",
+      "id": "brother-bear-by-nesquik-2003_fig4",
       "name": "Ратт",
       "name_en": "Rutt",
       "code": "",
-      "image": "images/series/nestle/brotherbear/04.webp",
+      "image": "images/series/nesquik/brother-bear-by-nesquik-2003/04.webp",
       "owned": true,
       "forsale": false,
       "avito": "",
@@ -72,11 +72,11 @@
       "condition_en": ""
     },
     {
-      "id": "brotherbear_fig5",
+      "id": "brother-bear-by-nesquik-2003_fig5",
       "name": "Кода",
       "name_en": "Koda",
       "code": "",
-      "image": "images/series/nestle/brotherbear/05.webp",
+      "image": "images/series/nesquik/brother-bear-by-nesquik-2003/05.webp",
       "owned": true,
       "forsale": false,
       "avito": "",
@@ -89,11 +89,11 @@
   "variants": [],
   "inserts": [
     {
-      "id": "brotherbear_insert1",
+      "id": "brother-bear-by-nesquik-2003_insert1",
       "name": "Вкладыш 1",
       "name_en": "Insert 1",
       "code": "",
-      "image": "images/series/nestle/brotherbear/01b.webp",
+      "image": "images/series/nesquik/brother-bear-by-nesquik-2003/01b.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -102,11 +102,11 @@
       "condition_en": ""
     },
     {
-      "id": "brotherbear_insert2",
+      "id": "brother-bear-by-nesquik-2003_insert2",
       "name": "Вкладыш 2",
       "name_en": "Insert 2",
       "code": "",
-      "image": "images/series/nestle/brotherbear/02b.webp",
+      "image": "images/series/nesquik/brother-bear-by-nesquik-2003/02b.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
