@@ -1,10 +1,10 @@
 {
   "id": "miraculous-tales-of-ladybug-and-cat-noir-by-kinder-2022",
-  "name": "Леди Баг и Супер-Кот от Киндер",
-  "name_en": "Miraculous Tales of Ladybug and Cat Noir by Kinder",
+  "name": "Леди Баг и Супер-Кот Макси от Киндер",
+  "name_en": "Miraculous Tales of Ladybug and Cat Noir Maxi by Kinder",
   "year": 2022,
   "manufacturer": "kinder",
-  "cover": "images/series/kinder/miraculous-tales-of-ladybug-and-cat-noir-2022/cover.webp",
+  "cover": "images/series/kinder/miraculous-tales-of-ladybug-and-cat-noir-maxi-by-kinder-2022/cover.webp",
   "description": "Серия Макси по мультсериалу Леди-Баг и Супер-Кот.",
   "description_en": "Maxi series based on the animated series Lady Bug and Cat Noir.",
   "kind": "maxi",
@@ -20,11 +20,11 @@
   "fullSeriesDescription_en": "",
   "figures": [
     {
-      "id": "miraculous-tales-of-ladybug-and-cat-noir-2022_fig1",
+      "id": "miraculous-tales-of-ladybug-and-cat-noir-maxi-by-kinder-2022_fig1",
       "name": "Леди-Баг",
       "name_en": "Ladybug",
       "code": "VUB27",
-      "image": "images/series/kinder/miraculous-tales-of-ladybug-and-cat-noir-2022/dd_VUB27.webp",
+      "image": "images/series/kinder/miraculous-tales-of-ladybug-and-cat-noir-maxi-by-kinder-2022/dd_VUB27.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -35,11 +35,11 @@
       "date_added": "2026-09-15"
     },
     {
-      "id": "miraculous-tales-of-ladybug-and-cat-noir-2022_fig2",
+      "id": "miraculous-tales-of-ladybug-and-cat-noir-maxi-by-kinder-2022_fig2",
       "name": "Супер-Кот",
       "name_en": "Cat Noir",
       "code": "VUB26",
-      "image": "images/series/kinder/miraculous-tales-of-ladybug-and-cat-noir-2022/dd_VUB26.webp",
+      "image": "images/series/kinder/miraculous-tales-of-ladybug-and-cat-noir-maxi-by-kinder-2022/dd_VUB26.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -50,11 +50,11 @@
       "date_added": "2026-09-15"
     },
     {
-      "id": "miraculous-tales-of-ladybug-and-cat-noir-2022_fig3",
+      "id": "miraculous-tales-of-ladybug-and-cat-noir-maxi-by-kinder-2022_fig3",
       "name": "Маринетт Дюпен-Чен",
       "name_en": "Marinette Dupain-Cheng",
       "code": "VUB20",
-      "image": "images/series/kinder/miraculous-tales-of-ladybug-and-cat-noir-2022/dd_VUB20.webp",
+      "image": "images/series/kinder/miraculous-tales-of-ladybug-and-cat-noir-maxi-by-kinder-2022/dd_VUB20.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -65,11 +65,11 @@
       "date_added": "2026-09-15"
     },
     {
-      "id": "miraculous-tales-of-ladybug-and-cat-noir-2022_fig4",
+      "id": "miraculous-tales-of-ladybug-and-cat-noir-maxi-by-kinder-2022_fig4",
       "name": "Адриан Агрест",
       "name_en": "Adrien Agreste",
       "code": "VUB19",
-      "image": "images/series/kinder/miraculous-tales-of-ladybug-and-cat-noir-2022/dd_VUB19.webp",
+      "image": "images/series/kinder/miraculous-tales-of-ladybug-and-cat-noir-maxi-by-kinder-2022/dd_VUB19.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
