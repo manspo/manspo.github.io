@@ -26,7 +26,8 @@
       "name_en": "Cheetah Ricko",
       "owned": true,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "VQB02"
     },
     {
       "id": "natoons-baby-maxi-by-kinder-2024_fig2",
@@ -35,7 +36,8 @@
       "name_en": "Dolphin Oliver",
       "owned": true,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "VQB01"
     },
     {
       "id": "natoons-baby-maxi-by-kinder-2024_fig3",
@@ -44,7 +46,8 @@
       "name_en": "Panda Lola",
       "owned": true,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "VQB03"
     },
     {
       "id": "natoons-baby-maxi-by-kinder-2024_fig4",
@@ -53,7 +56,8 @@
       "name_en": "Sloth Marty",
       "owned": true,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "VQB05"
     },
     {
       "id": "natoons-baby-maxi-by-kinder-2024_fig5",
@@ -62,7 +66,8 @@
       "name_en": "Turtle Emma",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "VQB04"
     }
   ],
   "extras": [],
@@ -75,7 +80,8 @@
       "name_en": "Insert 1",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": ""
     }
   ],
   "other": [

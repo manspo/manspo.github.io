@@ -4,7 +4,7 @@
   "name_en": "Natoons Baby by Kinder",
   "year": 2024,
   "manufacturer": "kinder",
-  "cover": "images/series/kinder/natoonsbaby/cover.webp",
+  "cover": "images/series/kinder/natoons-baby-by-kinder-2024/cover.webp",
   "description": "Милая серия с детенышами животных. Крокодил считался редким.",
   "description_en": "Baby animals",
   "kind": "",
@@ -20,296 +20,328 @@
   "fullSeriesDescription_en": "",
   "figures": [
     {
-      "id": "natoonsbaby_fig1",
-      "image": "images/series/kinder/natoonsbaby/01.webp",
-      "name": "Фигурка 1",
-      "name_en": "Figure 1",
+      "id": "natoons-baby-by-kinder-2024_fig1",
+      "image": "images/series/kinder/natoons-baby-by-kinder-2024/01.webp",
+      "name": "Страус",
+      "name_en": "Ostrich",
       "owned": true,
       "forsale": true,
-      "avito": ""
+      "avito": "",
+      "code": "VQ117"
     },
     {
-      "id": "natoonsbaby_fig2",
-      "image": "images/series/kinder/natoonsbaby/02.webp",
-      "name": "Фигурка 2",
-      "name_en": "Figure 2",
+      "id": "natoons-baby-by-kinder-2024_fig2",
+      "image": "images/series/kinder/natoons-baby-by-kinder-2024/02.webp",
+      "name": "Скунс",
+      "name_en": "Скунс",
       "owned": true,
       "forsale": true,
-      "avito": ""
+      "avito": "",
+      "code": "VQ118"
     },
     {
-      "id": "natoonsbaby_fig3",
-      "image": "images/series/kinder/natoonsbaby/03.webp",
-      "name": "Фигурка 3",
-      "name_en": "Figure 3",
+      "id": "natoons-baby-by-kinder-2024_fig3",
+      "image": "images/series/kinder/natoons-baby-by-kinder-2024/03.webp",
+      "name": "Заяц / Кролик",
+      "name_en": "Hare / Rabbit",
       "owned": true,
       "forsale": true,
-      "avito": ""
+      "avito": "",
+      "code": "VQ119"
     },
     {
-      "id": "natoonsbaby_fig4",
-      "image": "images/series/kinder/natoonsbaby/04.webp",
-      "name": "Фигурка 4",
-      "name_en": "Figure 4",
+      "id": "natoons-baby-by-kinder-2024_fig4",
+      "image": "images/series/kinder/natoons-baby-by-kinder-2024/04.webp",
+      "name": "Гепард / Тигр",
+      "name_en": "Cheetah / Tiger",
       "owned": true,
       "forsale": true,
-      "avito": ""
+      "avito": "",
+      "code": "VQ120"
     },
     {
-      "id": "natoonsbaby_fig5",
-      "image": "images/series/kinder/natoonsbaby/05.webp",
-      "name": "Фигурка 5",
-      "name_en": "Figure 5",
+      "id": "natoons-baby-by-kinder-2024_fig5",
+      "image": "images/series/kinder/natoons-baby-by-kinder-2024/05.webp",
+      "name": "Пингвин",
+      "name_en": "Penguin",
       "owned": true,
       "forsale": true,
-      "avito": ""
+      "avito": "",
+      "code": "VQ121"
     },
     {
-      "id": "natoonsbaby_fig6",
-      "image": "images/series/kinder/natoonsbaby/06.webp",
-      "name": "Фигурка 6",
-      "name_en": "Figure 6",
+      "id": "natoons-baby-by-kinder-2024_fig6",
+      "image": "images/series/kinder/natoons-baby-by-kinder-2024/06.webp",
+      "name": "Крокодил",
+      "name_en": "Crocodile",
       "owned": true,
       "forsale": true,
-      "avito": ""
+      "avito": "",
+      "code": "VQ123"
     },
     {
-      "id": "natoonsbaby_fig7",
-      "image": "images/series/kinder/natoonsbaby/07.webp",
-      "name": "Фигурка 7",
-      "name_en": "Figure 7",
+      "id": "natoons-baby-by-kinder-2024_fig7",
+      "image": "images/series/kinder/natoons-baby-by-kinder-2024/07.webp",
+      "name": "Черепаха",
+      "name_en": "Turtle",
       "owned": true,
       "forsale": true,
-      "avito": ""
+      "avito": "",
+      "code": "VQ124"
     },
     {
-      "id": "natoonsbaby_fig8",
-      "image": "images/series/kinder/natoonsbaby/08.webp",
-      "name": "Фигурка 8",
-      "name_en": "Figure 8",
+      "id": "natoons-baby-by-kinder-2024_fig8",
+      "image": "images/series/kinder/natoons-baby-by-kinder-2024/08.webp",
+      "name": "Олень",
+      "name_en": "Deer",
       "owned": true,
       "forsale": true,
-      "avito": ""
+      "avito": "",
+      "code": "VQ125"
     },
     {
-      "id": "natoonsbaby_fig9",
-      "image": "images/series/kinder/natoonsbaby/09.webp",
-      "name": "Фигурка 9",
-      "name_en": "Figure 9",
+      "id": "natoons-baby-by-kinder-2024_fig9",
+      "image": "images/series/kinder/natoons-baby-by-kinder-2024/09.webp",
+      "name": "Сурикат",
+      "name_en": "Suricate / Meerkat ",
       "owned": true,
       "forsale": true,
-      "avito": ""
+      "avito": "",
+      "code": "VQ127"
     },
     {
-      "id": "natoonsbaby_fig10",
-      "image": "images/series/kinder/natoonsbaby/10.webp",
-      "name": "Фигурка 10",
-      "name_en": "Figure 10",
+      "id": "natoons-baby-by-kinder-2024_fig10",
+      "image": "images/series/kinder/natoons-baby-by-kinder-2024/10.webp",
+      "name": "Лебедь / Гусь",
+      "name_en": "Swan / Goose",
       "owned": true,
       "forsale": true,
-      "avito": ""
+      "avito": "",
+      "code": "VQ128"
     },
     {
-      "id": "natoonsbaby_fig11",
-      "image": "images/series/kinder/natoonsbaby/11.webp",
-      "name": "Фигурка 11",
-      "name_en": "Figure 11",
+      "id": "natoons-baby-by-kinder-2024_fig11",
+      "image": "images/series/kinder/natoons-baby-by-kinder-2024/11.webp",
+      "name": "Белка",
+      "name_en": "Squirrel",
       "owned": true,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "VQ129"
     },
     {
-      "id": "natoonsbaby_fig12",
-      "image": "images/series/kinder/natoonsbaby/12.webp",
-      "name": "Фигурка 12",
-      "name_en": "Figure 12",
+      "id": "natoons-baby-by-kinder-2024_fig12",
+      "image": "images/series/kinder/natoons-baby-by-kinder-2024/12.webp",
+      "name": "Тапир",
+      "name_en": "Tapir",
       "owned": true,
       "forsale": true,
-      "avito": ""
+      "avito": "",
+      "code": "VQ130"
     },
     {
-      "id": "natoonsbaby_fig13",
-      "image": "images/series/kinder/natoonsbaby/13.webp",
-      "name": "Фигурка 13",
-      "name_en": "Figure 13",
+      "id": "natoons-baby-by-kinder-2024_fig13",
+      "image": "images/series/kinder/natoons-baby-by-kinder-2024/13.webp",
+      "name": "Белый медведь",
+      "name_en": "Polar bear",
       "owned": true,
       "forsale": true,
-      "avito": ""
+      "avito": "",
+      "code": "VQ131"
     },
     {
-      "id": "natoonsbaby_fig14",
-      "image": "images/series/kinder/natoonsbaby/14.webp",
-      "name": "Фигурка 14",
-      "name_en": "Figure 14",
+      "id": "natoons-baby-by-kinder-2024_fig14",
+      "image": "images/series/kinder/natoons-baby-by-kinder-2024/14.webp",
+      "name": "Слон",
+      "name_en": "Elephant",
       "owned": true,
       "forsale": true,
-      "avito": ""
+      "avito": "",
+      "code": "VQ172"
     },
     {
-      "id": "natoonsbaby_fig15",
-      "image": "images/series/kinder/natoonsbaby/15.webp",
-      "name": "Фигурка 15",
-      "name_en": "Figure 15",
+      "id": "natoons-baby-by-kinder-2024_fig15",
+      "image": "images/series/kinder/natoons-baby-by-kinder-2024/15.webp",
+      "name": "Бегемот",
+      "name_en": "Hippopotamus",
       "owned": true,
       "forsale": true,
-      "avito": ""
+      "avito": "",
+      "code": "VQ174"
     },
     {
-      "id": "natoonsbaby_fig16",
-      "image": "images/series/kinder/natoonsbaby/16.webp",
-      "name": "Фигурка 16",
-      "name_en": "Figure 16",
+      "id": "natoons-baby-by-kinder-2024_fig16",
+      "image": "images/series/kinder/natoons-baby-by-kinder-2024/16.webp",
+      "name": "Коала",
+      "name_en": "Koala",
       "owned": true,
       "forsale": true,
-      "avito": ""
+      "avito": "",
+      "code": "VQ175"
     }
   ],
   "extras": [],
   "variants": [],
   "inserts": [
     {
-      "id": "natoonsbaby_insert1",
-      "image": "images/series/kinder/natoonsbaby/01b.webp",
+      "id": "natoons-baby-by-kinder-2024_insert1",
+      "image": "images/series/kinder/natoons-baby-by-kinder-2024/01b.webp",
       "name": "Вкладыш 1",
       "name_en": "Insert 1",
       "owned": true,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": ""
     },
     {
-      "id": "natoonsbaby_insert2",
-      "image": "images/series/kinder/natoonsbaby/02b.webp",
+      "id": "natoons-baby-by-kinder-2024_insert2",
+      "image": "images/series/kinder/natoons-baby-by-kinder-2024/02b.webp",
       "name": "Вкладыш 2",
       "name_en": "Insert 2",
       "owned": true,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": ""
     },
     {
-      "id": "natoonsbaby_insert3",
-      "image": "images/series/kinder/natoonsbaby/03b.webp",
+      "id": "natoons-baby-by-kinder-2024_insert3",
+      "image": "images/series/kinder/natoons-baby-by-kinder-2024/03b.webp",
       "name": "Вкладыш 3",
       "name_en": "Insert 3",
       "owned": true,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": ""
     },
     {
-      "id": "natoonsbaby_insert4",
-      "image": "images/series/kinder/natoonsbaby/04b.webp",
+      "id": "natoons-baby-by-kinder-2024_insert4",
+      "image": "images/series/kinder/natoons-baby-by-kinder-2024/04b.webp",
       "name": "Вкладыш 4",
       "name_en": "Insert 4",
       "owned": true,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": ""
     },
     {
-      "id": "natoonsbaby_insert5",
-      "image": "images/series/kinder/natoonsbaby/05b.webp",
+      "id": "natoons-baby-by-kinder-2024_insert5",
+      "image": "images/series/kinder/natoons-baby-by-kinder-2024/05b.webp",
       "name": "Вкладыш 5",
       "name_en": "Insert 5",
       "owned": true,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": ""
     },
     {
-      "id": "natoonsbaby_insert6",
-      "image": "images/series/kinder/natoonsbaby/06b.webp",
+      "id": "natoons-baby-by-kinder-2024_insert6",
+      "image": "images/series/kinder/natoons-baby-by-kinder-2024/06b.webp",
       "name": "Вкладыш 6",
       "name_en": "Insert 6",
       "owned": true,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": ""
     },
     {
-      "id": "natoonsbaby_insert7",
-      "image": "images/series/kinder/natoonsbaby/07b.webp",
+      "id": "natoons-baby-by-kinder-2024_insert7",
+      "image": "images/series/kinder/natoons-baby-by-kinder-2024/07b.webp",
       "name": "Вкладыш 7",
       "name_en": "Insert 7",
       "owned": true,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": ""
     },
     {
-      "id": "natoonsbaby_insert8",
-      "image": "images/series/kinder/natoonsbaby/08b.webp",
+      "id": "natoons-baby-by-kinder-2024_insert8",
+      "image": "images/series/kinder/natoons-baby-by-kinder-2024/08b.webp",
       "name": "Вкладыш 8",
       "name_en": "Insert 8",
       "owned": true,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": ""
     },
     {
-      "id": "natoonsbaby_insert9",
-      "image": "images/series/kinder/natoonsbaby/09b.webp",
+      "id": "natoons-baby-by-kinder-2024_insert9",
+      "image": "images/series/kinder/natoons-baby-by-kinder-2024/09b.webp",
       "name": "Вкладыш 9",
       "name_en": "Insert 9",
       "owned": true,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": ""
     },
     {
-      "id": "natoonsbaby_insert10",
-      "image": "images/series/kinder/natoonsbaby/10b.webp",
+      "id": "natoons-baby-by-kinder-2024_insert10",
+      "image": "images/series/kinder/natoons-baby-by-kinder-2024/10b.webp",
       "name": "Вкладыш 10",
       "name_en": "Insert 10",
       "owned": true,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": ""
     },
     {
-      "id": "natoonsbaby_insert11",
-      "image": "images/series/kinder/natoonsbaby/11b.webp",
+      "id": "natoons-baby-by-kinder-2024_insert11",
+      "image": "images/series/kinder/natoons-baby-by-kinder-2024/11b.webp",
       "name": "Вкладыш 11",
       "name_en": "Insert 11",
       "owned": true,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": ""
     },
     {
-      "id": "natoonsbaby_insert12",
-      "image": "images/series/kinder/natoonsbaby/12b.webp",
+      "id": "natoons-baby-by-kinder-2024_insert12",
+      "image": "images/series/kinder/natoons-baby-by-kinder-2024/12b.webp",
       "name": "Вкладыш 12",
       "name_en": "Insert 12",
       "owned": true,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": ""
     },
     {
-      "id": "natoonsbaby_insert13",
-      "image": "images/series/kinder/natoonsbaby/13b.webp",
+      "id": "natoons-baby-by-kinder-2024_insert13",
+      "image": "images/series/kinder/natoons-baby-by-kinder-2024/13b.webp",
       "name": "Вкладыш 13",
       "name_en": "Insert 13",
       "owned": true,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": ""
     },
     {
-      "id": "natoonsbaby_insert14",
-      "image": "images/series/kinder/natoonsbaby/14b.webp",
+      "id": "natoons-baby-by-kinder-2024_insert14",
+      "image": "images/series/kinder/natoons-baby-by-kinder-2024/14b.webp",
       "name": "Вкладыш 14",
       "name_en": "Insert 14",
       "owned": true,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": ""
     },
     {
-      "id": "natoonsbaby_insert15",
-      "image": "images/series/kinder/natoonsbaby/15b.webp",
+      "id": "natoons-baby-by-kinder-2024_insert15",
+      "image": "images/series/kinder/natoons-baby-by-kinder-2024/15b.webp",
       "name": "Вкладыш 15",
       "name_en": "Insert 15",
       "owned": true,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": ""
     },
     {
-      "id": "natoonsbaby_insert16",
-      "image": "images/series/kinder/natoonsbaby/16b.webp",
+      "id": "natoons-baby-by-kinder-2024_insert16",
+      "image": "images/series/kinder/natoons-baby-by-kinder-2024/16b.webp",
       "name": "Вкладыш 16",
       "name_en": "Insert 16",
       "owned": true,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": ""
     }
   ],
   "other": [],

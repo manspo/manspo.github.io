@@ -4,7 +4,7 @@
   "name_en": "Barbie Professions by Kinder",
   "year": 2025,
   "manufacturer": "kinder",
-  "cover": "images/series/kinder/barbieprofessions/cover.webp",
+  "cover": "images/series/kinder/barbie-professions-by-kinder-2025/cover.webp",
   "description": "Барби в различных профессиях",
   "description_en": "Barbie in various professions",
   "kind": "joy",
@@ -20,152 +20,168 @@
   "fullSeriesDescription_en": "",
   "figures": [
     {
-      "id": "barbieprofessions_fig1",
-      "image": "images/series/kinder/barbieprofessions/01.webp",
-      "name": "Фигурка 1",
-      "name_en": "Figure 1",
+      "id": "barbie-professions-by-kinder-2025_fig1",
+      "image": "images/series/kinder/barbie-professions-by-kinder-2025/01.webp",
+      "name": "Кинорежиссёр",
+      "name_en": "Film Director",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "EN399C"
     },
     {
-      "id": "barbieprofessions_fig2",
-      "image": "images/series/kinder/barbieprofessions/02.webp",
-      "name": "Фигурка 2",
-      "name_en": "Figure 2",
+      "id": "barbie-professions-by-kinder-2025_fig2",
+      "image": "images/series/kinder/barbie-professions-by-kinder-2025/02.webp",
+      "name": "Ветеринар",
+      "name_en": "Veterinarian",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "VD401A"
     },
     {
-      "id": "barbieprofessions_fig3",
-      "image": "images/series/kinder/barbieprofessions/03.webp",
-      "name": "Фигурка 3",
-      "name_en": "Figure 3",
+      "id": "barbie-professions-by-kinder-2025_fig3",
+      "image": "images/series/kinder/barbie-professions-by-kinder-2025/03.webp",
+      "name": "Балерина",
+      "name_en": "Ballerina",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "VD402A"
     },
     {
-      "id": "barbieprofessions_fig4",
-      "image": "images/series/kinder/barbieprofessions/04.webp",
-      "name": "Фигурка 4",
-      "name_en": "Figure 4",
+      "id": "barbie-professions-by-kinder-2025_fig4",
+      "image": "images/series/kinder/barbie-professions-by-kinder-2025/04.webp",
+      "name": "Учёная",
+      "name_en": "Scientist",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "VD403A"
     },
     {
-      "id": "barbieprofessions_fig5",
-      "image": "images/series/kinder/barbieprofessions/05.webp",
-      "name": "Фигурка 5",
-      "name_en": "Figure 5",
+      "id": "barbie-professions-by-kinder-2025_fig5",
+      "image": "images/series/kinder/barbie-professions-by-kinder-2025/05.webp",
+      "name": "Пилот",
+      "name_en": "Pilot",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "VD404A"
     },
     {
-      "id": "barbieprofessions_fig6",
-      "image": "images/series/kinder/barbieprofessions/06.webp",
-      "name": "Фигурка 6",
-      "name_en": "Figure 6",
+      "id": "barbie-professions-by-kinder-2025_fig6",
+      "image": "images/series/kinder/barbie-professions-by-kinder-2025/06.webp",
+      "name": "Инженер",
+      "name_en": "Builder",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "VD405A"
     },
     {
-      "id": "barbieprofessions_fig7",
-      "image": "images/series/kinder/barbieprofessions/07.webp",
-      "name": "Фигурка 7",
-      "name_en": "Figure 7",
+      "id": "barbie-professions-by-kinder-2025_fig7",
+      "image": "images/series/kinder/barbie-professions-by-kinder-2025/07.webp",
+      "name": "Пожарная",
+      "name_en": "Firefighter",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "VD406A"
     },
     {
-      "id": "barbieprofessions_fig8",
-      "image": "images/series/kinder/barbieprofessions/08.webp",
-      "name": "Фигурка 8",
-      "name_en": "Figure 8",
+      "id": "barbie-professions-by-kinder-2025_fig8",
+      "image": "images/series/kinder/barbie-professions-by-kinder-2025/08.webp",
+      "name": "Астронавт",
+      "name_en": "Astronaut",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "VD415B"
     }
   ],
   "extras": [],
   "variants": [],
   "inserts": [
     {
-      "id": "barbieprofessions_insert1",
-      "image": "images/series/kinder/barbieprofessions/01b.webp",
+      "id": "barbie-professions-by-kinder-2025_insert1",
+      "image": "images/series/kinder/barbie-professions-by-kinder-2025/01b.webp",
       "name": "Вкладыш 1",
       "name_en": "Insert 1",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": ""
     },
     {
-      "id": "barbieprofessions_insert2",
-      "image": "images/series/kinder/barbieprofessions/02b.webp",
+      "id": "barbie-professions-by-kinder-2025_insert2",
+      "image": "images/series/kinder/barbie-professions-by-kinder-2025/02b.webp",
       "name": "Вкладыш 2",
       "name_en": "Insert 2",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": ""
     },
     {
-      "id": "barbieprofessions_insert3",
-      "image": "images/series/kinder/barbieprofessions/03b.webp",
+      "id": "barbie-professions-by-kinder-2025_insert3",
+      "image": "images/series/kinder/barbie-professions-by-kinder-2025/03b.webp",
       "name": "Вкладыш 3",
       "name_en": "Insert 3",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": ""
     },
     {
-      "id": "barbieprofessions_insert4",
-      "image": "images/series/kinder/barbieprofessions/04b.webp",
+      "id": "barbie-professions-by-kinder-2025_insert4",
+      "image": "images/series/kinder/barbie-professions-by-kinder-2025/04b.webp",
       "name": "Вкладыш 4",
       "name_en": "Insert 4",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": ""
     },
     {
-      "id": "barbieprofessions_insert5",
-      "image": "images/series/kinder/barbieprofessions/05b.webp",
+      "id": "barbie-professions-by-kinder-2025_insert5",
+      "image": "images/series/kinder/barbie-professions-by-kinder-2025/05b.webp",
       "name": "Вкладыш 5",
       "name_en": "Insert 5",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": ""
     },
     {
-      "id": "barbieprofessions_insert6",
-      "image": "images/series/kinder/barbieprofessions/06b.webp",
+      "id": "barbie-professions-by-kinder-2025_insert6",
+      "image": "images/series/kinder/barbie-professions-by-kinder-2025/06b.webp",
       "name": "Вкладыш 6",
       "name_en": "Insert 6",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": ""
     },
     {
-      "id": "barbieprofessions_insert7",
-      "image": "images/series/kinder/barbieprofessions/07b.webp",
+      "id": "barbie-professions-by-kinder-2025_insert7",
+      "image": "images/series/kinder/barbie-professions-by-kinder-2025/07b.webp",
       "name": "Вкладыш 7",
       "name_en": "Insert 7",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": ""
     },
     {
-      "id": "barbieprofessions_insert8",
-      "image": "images/series/kinder/barbieprofessions/08b.webp",
+      "id": "barbie-professions-by-kinder-2025_insert8",
+      "image": "images/series/kinder/barbie-professions-by-kinder-2025/08b.webp",
       "name": "Вкладыш 8",
       "name_en": "Insert 8",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": ""
     }
   ],
   "other": [],

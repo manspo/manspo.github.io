@@ -4,7 +4,7 @@
   "name_en": "Bat Wheels by Kinder",
   "year": 2025,
   "manufacturer": "kinder",
-  "cover": "images/series/kinder/batwheels/cover.webp",
+  "cover": "images/series/kinder/bat-wheels-by-kinder-2025/cover.webp",
   "description": "Серия с Бэтменом и его различными транспортными средствами",
   "description_en": "Series with Batman and his various vehicles",
   "kind": "joy",
@@ -20,8 +20,8 @@
   "fullSeriesDescription_en": "",
   "figures": [
     {
-      "id": "batwheels_fig1",
-      "image": "images/series/kinder/batwheels/01.webp",
+      "id": "bat-wheels-by-kinder-2025_fig1",
+      "image": "images/series/kinder/bat-wheels-by-kinder-2025/01.webp",
       "name": "Фигурка 1",
       "name_en": "Figure 1",
       "owned": false,
@@ -29,8 +29,8 @@
       "avito": ""
     },
     {
-      "id": "batwheels_fig2",
-      "image": "images/series/kinder/batwheels/02.webp",
+      "id": "bat-wheels-by-kinder-2025_fig2",
+      "image": "images/series/kinder/bat-wheels-by-kinder-2025/02.webp",
       "name": "Фигурка 2",
       "name_en": "Figure 2",
       "owned": false,
@@ -38,8 +38,8 @@
       "avito": ""
     },
     {
-      "id": "batwheels_fig3",
-      "image": "images/series/kinder/batwheels/03.webp",
+      "id": "bat-wheels-by-kinder-2025_fig3",
+      "image": "images/series/kinder/bat-wheels-by-kinder-2025/03.webp",
       "name": "Фигурка 3",
       "name_en": "Figure 3",
       "owned": false,
@@ -47,8 +47,8 @@
       "avito": ""
     },
     {
-      "id": "batwheels_fig4",
-      "image": "images/series/kinder/batwheels/04.webp",
+      "id": "bat-wheels-by-kinder-2025_fig4",
+      "image": "images/series/kinder/bat-wheels-by-kinder-2025/04.webp",
       "name": "Фигурка 4",
       "name_en": "Figure 4",
       "owned": false,
@@ -56,8 +56,8 @@
       "avito": ""
     },
     {
-      "id": "batwheels_fig5",
-      "image": "images/series/kinder/batwheels/05.webp",
+      "id": "bat-wheels-by-kinder-2025_fig5",
+      "image": "images/series/kinder/bat-wheels-by-kinder-2025/05.webp",
       "name": "Фигурка 5",
       "name_en": "Figure 5",
       "owned": false,
@@ -65,8 +65,8 @@
       "avito": ""
     },
     {
-      "id": "batwheels_fig6",
-      "image": "images/series/kinder/batwheels/06.webp",
+      "id": "bat-wheels-by-kinder-2025_fig6",
+      "image": "images/series/kinder/bat-wheels-by-kinder-2025/06.webp",
       "name": "Фигурка 6",
       "name_en": "Figure 6",
       "owned": false,
@@ -74,8 +74,8 @@
       "avito": ""
     },
     {
-      "id": "batwheels_fig7",
-      "image": "images/series/kinder/batwheels/07.webp",
+      "id": "bat-wheels-by-kinder-2025_fig7",
+      "image": "images/series/kinder/bat-wheels-by-kinder-2025/07.webp",
       "name": "Фигурка 7",
       "name_en": "Figure 7",
       "owned": false,
@@ -83,8 +83,8 @@
       "avito": ""
     },
     {
-      "id": "batwheels_fig8",
-      "image": "images/series/kinder/batwheels/08.webp",
+      "id": "bat-wheels-by-kinder-2025_fig8",
+      "image": "images/series/kinder/bat-wheels-by-kinder-2025/08.webp",
       "name": "Фигурка 8",
       "name_en": "Figure 8",
       "owned": false,
@@ -96,8 +96,8 @@
   "variants": [],
   "inserts": [
     {
-      "id": "batwheels_insert1",
-      "image": "images/series/kinder/batwheels/01b.webp",
+      "id": "bat-wheels-by-kinder-2025_insert1",
+      "image": "images/series/kinder/bat-wheels-by-kinder-2025/01b.webp",
       "name": "Вкладыш 1",
       "name_en": "Insert 1",
       "owned": false,
@@ -105,8 +105,8 @@
       "avito": ""
     },
     {
-      "id": "batwheels_insert2",
-      "image": "images/series/kinder/batwheels/02b.webp",
+      "id": "bat-wheels-by-kinder-2025_insert2",
+      "image": "images/series/kinder/bat-wheels-by-kinder-2025/02b.webp",
       "name": "Вкладыш 2",
       "name_en": "Insert 2",
       "owned": false,
@@ -114,8 +114,8 @@
       "avito": ""
     },
     {
-      "id": "batwheels_insert3",
-      "image": "images/series/kinder/batwheels/03b.webp",
+      "id": "bat-wheels-by-kinder-2025_insert3",
+      "image": "images/series/kinder/bat-wheels-by-kinder-2025/03b.webp",
       "name": "Вкладыш 3",
       "name_en": "Insert 3",
       "owned": false,
@@ -123,8 +123,8 @@
       "avito": ""
     },
     {
-      "id": "batwheels_insert4",
-      "image": "images/series/kinder/batwheels/04b.webp",
+      "id": "bat-wheels-by-kinder-2025_insert4",
+      "image": "images/series/kinder/bat-wheels-by-kinder-2025/04b.webp",
       "name": "Вкладыш 4",
       "name_en": "Insert 4",
       "owned": false,
@@ -132,8 +132,8 @@
       "avito": ""
     },
     {
-      "id": "batwheels_insert5",
-      "image": "images/series/kinder/batwheels/05b.webp",
+      "id": "bat-wheels-by-kinder-2025_insert5",
+      "image": "images/series/kinder/bat-wheels-by-kinder-2025/05b.webp",
       "name": "Вкладыш 5",
       "name_en": "Insert 5",
       "owned": false,
@@ -141,8 +141,8 @@
       "avito": ""
     },
     {
-      "id": "batwheels_insert6",
-      "image": "images/series/kinder/batwheels/06b.webp",
+      "id": "bat-wheels-by-kinder-2025_insert6",
+      "image": "images/series/kinder/bat-wheels-by-kinder-2025/06b.webp",
       "name": "Вкладыш 6",
       "name_en": "Insert 6",
       "owned": false,
@@ -150,8 +150,8 @@
       "avito": ""
     },
     {
-      "id": "batwheels_insert7",
-      "image": "images/series/kinder/batwheels/07b.webp",
+      "id": "bat-wheels-by-kinder-2025_insert7",
+      "image": "images/series/kinder/bat-wheels-by-kinder-2025/07b.webp",
       "name": "Вкладыш 7",
       "name_en": "Insert 7",
       "owned": false,
@@ -159,8 +159,8 @@
       "avito": ""
     },
     {
-      "id": "batwheels_insert8",
-      "image": "images/series/kinder/batwheels/08b.webp",
+      "id": "bat-wheels-by-kinder-2025_insert8",
+      "image": "images/series/kinder/bat-wheels-by-kinder-2025/08b.webp",
       "name": "Вкладыш 8",
       "name_en": "Insert 8",
       "owned": false,

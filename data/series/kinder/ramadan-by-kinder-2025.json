@@ -4,7 +4,7 @@
   "name_en": "Ramadan by Kinder",
   "year": 2025,
   "manufacturer": "kinder",
-  "cover": "images/series/kinder/ramadan/cover.webp",
+  "cover": "images/series/kinder/ramadan-by-kinder-2025/cover.webp",
   "description": "Серия посвященная священную празднику Рамадан - Ураза Байрам",
   "description_en": "A series dedicated to the holy holiday of Ramadan - Eid al-Fitr",
   "kind": "joy",
@@ -20,225 +20,249 @@
   "fullSeriesDescription_en": "",
   "figures": [
     {
-      "id": "ramadan_fig1",
-      "image": "images/series/kinder/ramadan/01.webp",
+      "id": "ramadan-by-kinder-2025_fig1",
+      "image": "images/series/kinder/ramadan-by-kinder-2025/01.webp",
       "name": "Фигурка 1",
       "name_en": "Figure 1",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "VD384"
     },
     {
-      "id": "ramadan_fig2",
-      "image": "images/series/kinder/ramadan/02.webp",
+      "id": "ramadan-by-kinder-2025_fig2",
+      "image": "images/series/kinder/ramadan-by-kinder-2025/02.webp",
       "name": "Фигурка 2",
       "name_en": "Figure 2",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "VD400"
     }
   ],
   "extras": [
     {
-      "id": "ramadan_extra1",
-      "image": "images/series/kinder/ramadan/03.webp",
+      "id": "ramadan-by-kinder-2025_extra1",
+      "image": "images/series/kinder/ramadan-by-kinder-2025/03.webp",
       "name": "Доп 1",
       "name_en": "Extra 1",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "VD445A"
     },
     {
-      "id": "ramadan_extra2",
-      "image": "images/series/kinder/ramadan/04.webp",
+      "id": "ramadan-by-kinder-2025_extra2",
+      "image": "images/series/kinder/ramadan-by-kinder-2025/04.webp",
       "name": "Доп 2",
       "name_en": "Extra 2",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "VD480B"
     },
     {
-      "id": "ramadan_extra3",
-      "image": "images/series/kinder/ramadan/05.webp",
+      "id": "ramadan-by-kinder-2025_extra3",
+      "image": "images/series/kinder/ramadan-by-kinder-2025/05.webp",
       "name": "Доп 3",
       "name_en": "Extra 3",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "VQ206B"
     },
     {
-      "id": "ramadan_extra4",
-      "image": "images/series/kinder/ramadan/06.webp",
+      "id": "ramadan-by-kinder-2025_extra4",
+      "image": "images/series/kinder/ramadan-by-kinder-2025/06.webp",
       "name": "Доп 4",
       "name_en": "Extra 4",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "VQ208D"
     },
     {
-      "id": "ramadan_extra5",
-      "image": "images/series/kinder/ramadan/07.webp",
+      "id": "ramadan-by-kinder-2025_extra5",
+      "image": "images/series/kinder/ramadan-by-kinder-2025/07.webp",
       "name": "Доп 5",
       "name_en": "Extra 5",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "VQ362A"
     },
     {
-      "id": "ramadan_extra6",
-      "image": "images/series/kinder/ramadan/08.webp",
+      "id": "ramadan-by-kinder-2025_extra6",
+      "image": "images/series/kinder/ramadan-by-kinder-2025/08.webp",
       "name": "Доп 6",
       "name_en": "Extra 6",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "VQ409A"
     },
     {
-      "id": "ramadan_extra7",
-      "image": "images/series/kinder/ramadan/09.webp",
+      "id": "ramadan-by-kinder-2025_extra7",
+      "image": "images/series/kinder/ramadan-by-kinder-2025/09.webp",
       "name": "Доп 7",
       "name_en": "Extra 7",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "VQ409B"
     },
     {
-      "id": "ramadan_extra8",
-      "image": "images/series/kinder/ramadan/10.webp",
+      "id": "ramadan-by-kinder-2025_extra8",
+      "image": "images/series/kinder/ramadan-by-kinder-2025/10.webp",
       "name": "Доп 8",
       "name_en": "Extra 8",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "VU044A"
     },
     {
-      "id": "ramadan_extra9",
-      "image": "images/series/kinder/ramadan/11.webp",
+      "id": "ramadan-by-kinder-2025_extra9",
+      "image": "images/series/kinder/ramadan-by-kinder-2025/11.webp",
       "name": "Доп 9",
       "name_en": "Extra 9",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "VU492O"
     },
     {
-      "id": "ramadan_extra10",
-      "image": "images/series/kinder/ramadan/12.webp",
+      "id": "ramadan-by-kinder-2025_extra10",
+      "image": "images/series/kinder/ramadan-by-kinder-2025/12.webp",
       "name": "Доп 10",
       "name_en": "Extra 10",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "VD180A"
     }
   ],
   "variants": [],
   "inserts": [
     {
-      "id": "ramadan_insert1",
-      "image": "images/series/kinder/ramadan/01b.webp",
+      "id": "ramadan-by-kinder-2025_insert1",
+      "image": "images/series/kinder/ramadan-by-kinder-2025/01b.webp",
       "name": "Вкладыш 1",
       "name_en": "Insert 1",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": ""
     },
     {
-      "id": "ramadan_insert2",
-      "image": "images/series/kinder/ramadan/02b.webp",
+      "id": "ramadan-by-kinder-2025_insert2",
+      "image": "images/series/kinder/ramadan-by-kinder-2025/02b.webp",
       "name": "Вкладыш 2",
       "name_en": "Insert 2",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": ""
     },
     {
-      "id": "ramadan_insert3",
-      "image": "images/series/kinder/ramadan/03b.webp",
+      "id": "ramadan-by-kinder-2025_insert3",
+      "image": "images/series/kinder/ramadan-by-kinder-2025/03b.webp",
       "name": "Вкладыш 3",
       "name_en": "Insert 3",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": ""
     },
     {
-      "id": "ramadan_insert4",
-      "image": "images/series/kinder/ramadan/04b.webp",
+      "id": "ramadan-by-kinder-2025_insert4",
+      "image": "images/series/kinder/ramadan-by-kinder-2025/04b.webp",
       "name": "Вкладыш 4",
       "name_en": "Insert 4",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": ""
     },
     {
-      "id": "ramadan_insert5",
-      "image": "images/series/kinder/ramadan/05b.webp",
+      "id": "ramadan-by-kinder-2025_insert5",
+      "image": "images/series/kinder/ramadan-by-kinder-2025/05b.webp",
       "name": "Вкладыш 5",
       "name_en": "Insert 5",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": ""
     },
     {
-      "id": "ramadan_insert6",
-      "image": "images/series/kinder/ramadan/06b.webp",
+      "id": "ramadan-by-kinder-2025_insert6",
+      "image": "images/series/kinder/ramadan-by-kinder-2025/06b.webp",
       "name": "Вкладыш 6",
       "name_en": "Insert 6",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": ""
     },
     {
-      "id": "ramadan_insert7",
-      "image": "images/series/kinder/ramadan/07b.webp",
+      "id": "ramadan-by-kinder-2025_insert7",
+      "image": "images/series/kinder/ramadan-by-kinder-2025/07b.webp",
       "name": "Вкладыш 7",
       "name_en": "Insert 7",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": ""
     },
     {
-      "id": "ramadan_insert8",
-      "image": "images/series/kinder/ramadan/08b.webp",
+      "id": "ramadan-by-kinder-2025_insert8",
+      "image": "images/series/kinder/ramadan-by-kinder-2025/08b.webp",
       "name": "Вкладыш 8",
       "name_en": "Insert 8",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": ""
     },
     {
-      "id": "ramadan_insert9",
-      "image": "images/series/kinder/ramadan/09b.webp",
+      "id": "ramadan-by-kinder-2025_insert9",
+      "image": "images/series/kinder/ramadan-by-kinder-2025/09b.webp",
       "name": "Вкладыш 9",
       "name_en": "Insert 9",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": ""
     },
     {
-      "id": "ramadan_insert10",
-      "image": "images/series/kinder/ramadan/10b.webp",
+      "id": "ramadan-by-kinder-2025_insert10",
+      "image": "images/series/kinder/ramadan-by-kinder-2025/10b.webp",
       "name": "Вкладыш 10",
       "name_en": "Insert 10",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": ""
     },
     {
-      "id": "ramadan_insert11",
-      "image": "images/series/kinder/ramadan/11b.webp",
+      "id": "ramadan-by-kinder-2025_insert11",
+      "image": "images/series/kinder/ramadan-by-kinder-2025/11b.webp",
       "name": "Вкладыш 11",
       "name_en": "Insert 11",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": ""
     },
     {
-      "id": "ramadan_insert12",
-      "image": "images/series/kinder/ramadan/12b.webp",
+      "id": "ramadan-by-kinder-2025_insert12",
+      "image": "images/series/kinder/ramadan-by-kinder-2025/12b.webp",
       "name": "Вкладыш 12",
       "name_en": "Insert 12",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": ""
     }
   ],
   "other": [],

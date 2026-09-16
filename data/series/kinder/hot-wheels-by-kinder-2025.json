@@ -26,7 +26,8 @@
       "name_en": "Figure 1",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "VT260B"
     },
     {
       "id": "hot-wheels-by-kinder-2025_fig2",
@@ -35,7 +36,8 @@
       "name_en": "Figure 2",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "VT261B"
     },
     {
       "id": "hot-wheels-by-kinder-2025_fig3",
@@ -44,7 +46,8 @@
       "name_en": "Figure 3",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "VT262A"
     },
     {
       "id": "hot-wheels-by-kinder-2025_fig4",
@@ -53,7 +56,8 @@
       "name_en": "Figure 4",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "VT263A"
     },
     {
       "id": "hot-wheels-by-kinder-2025_fig5",
@@ -62,7 +66,8 @@
       "name_en": "Figure 5",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "VT264A"
     },
     {
       "id": "hot-wheels-by-kinder-2025_fig6",
@@ -71,7 +76,8 @@
       "name_en": "Figure 6",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "VT265A"
     },
     {
       "id": "hot-wheels-by-kinder-2025_fig7",
@@ -80,7 +86,8 @@
       "name_en": "Figure 7",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "VT266A"
     },
     {
       "id": "hot-wheels-by-kinder-2025_fig8",
@@ -89,7 +96,8 @@
       "name_en": "Figure 8",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "VT268A"
     }
   ],
   "extras": [],
@@ -102,7 +110,8 @@
       "name_en": "Insert 1",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": ""
     },
     {
       "id": "hot-wheels-by-kinder-2025_insert2",
@@ -111,7 +120,8 @@
       "name_en": "Insert 2",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": ""
     },
     {
       "id": "hot-wheels-by-kinder-2025_insert3",
@@ -120,7 +130,8 @@
       "name_en": "Insert 3",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": ""
     },
     {
       "id": "hot-wheels-by-kinder-2025_insert4",
@@ -129,7 +140,8 @@
       "name_en": "Insert 4",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": ""
     },
     {
       "id": "hot-wheels-by-kinder-2025_insert5",
@@ -138,7 +150,8 @@
       "name_en": "Insert 5",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": ""
     },
     {
       "id": "hot-wheels-by-kinder-2025_insert6",
@@ -147,7 +160,8 @@
       "name_en": "Insert 6",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": ""
     },
     {
       "id": "hot-wheels-by-kinder-2025_insert7",
@@ -156,7 +170,8 @@
       "name_en": "Insert 7",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": ""
     },
     {
       "id": "hot-wheels-by-kinder-2025_insert8",
@@ -165,7 +180,8 @@
       "name_en": "Insert 8",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": ""
     }
   ],
   "other": [],

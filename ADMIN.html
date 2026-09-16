@@ -789,35 +789,99 @@ async function loadDataFromFiles(files) {
     let jsonFiles = Array.from(files).filter(f => f.name.endsWith('.json'));
     let indexFile = jsonFiles.find(f => f.name === 'index.json');
     if (!indexFile) { alert('Не найден index.json'); return; }
-    
-    let reader = new FileReader();
-    reader.onload = async function(e) {
+
+    // читаем файл как текст
+    function readText(file) {
+        return new Promise((resolve, reject) => {
+            const r = new FileReader();
+            r.onload = e => resolve(e.target.result);
+            r.onerror = () => reject(new Error('Не удалось прочитать ' + file.name));
+            r.readAsText(file);
+        });
+    }
+
+    // безопасный парсинг: если битый — пишем ошибку и возвращаем null
+    async function safeParse(file) {
         try {
-            let indexData = JSON.parse(e.target.result);
-            existingSeries = [];
-            
-            for (let series of indexData) {
-                let seriesFile = jsonFiles.find(f => f.name === `${series.id}.json`);
-                if (seriesFile) {
-                    let sr = new FileReader();
-                    let content = await new Promise(resolve => {
-                        sr.onload = e => resolve(JSON.parse(e.target.result));
-                        sr.readAsText(seriesFile);
-                    });
-                    existingSeries.push(content);
-                } else {
-                    existingSeries.push({ ...series, figures: [], extras: [], variants: [], inserts: [], other: [], videos: { youtube: [], vk: [], tiktok: [], instagram: [] } });
-                }
-            }
-            
-            updateStats();
-            refreshExistingSeriesList();
-            alert(`✅ Загружено ${existingSeries.length} серий`);
-        } catch(err) {
-            alert('❌ Ошибка: ' + err.message);
+            const text = await readText(file);
+            return JSON.parse(text);
+        } catch (err) {
+            console.error(`❌ Битый JSON: ${file.name} — ${err.message}`);
+            return null;
         }
-    };
-    reader.readAsText(indexFile);
+    }
+
+    try {
+        // индекс
+        const indexData = await safeParse(indexFile);
+        if (!Array.isArray(indexData)) {
+            alert('❌ index.json не читается или не является массивом. Смотри консоль (F12).');
+            return;
+        }
+
+        existingSeries = [];
+        const problems = [];   // список проблемных файлов
+
+        for (let series of indexData) {
+            if (!series || !series.id) {
+                problems.push(`Серия без id: "${series?.name || '?'}"`);
+                continue;
+            }
+
+            // ищем файл серии в выбранных
+            const candidates = jsonFiles.filter(f => f.name === `${series.id}.json`);
+
+            if (candidates.length === 0) {
+                problems.push(`Нет файла ${series.id}.json — серия загружена пустой`);
+                existingSeries.push({
+                    ...series,
+                    figures: [], extras: [], variants: [], inserts: [], other: [],
+                    videos: { youtube: [], vk: [], tiktok: [], instagram: [] }
+                });
+                continue;
+            }
+
+            // берём первый подходящий
+            const content = await safeParse(candidates[0]);
+
+            if (!content) {
+                problems.push(`Битый JSON: ${candidates[0].name}`);
+                // на всякий случай создаём пустышку из индекса, чтобы серия не пропала совсем
+                existingSeries.push({
+                    ...series,
+                    figures: [], extras: [], variants: [], inserts: [], other: [],
+                    videos: { youtube: [], vk: [], tiktok: [], instagram: [] }
+                });
+                continue;
+            }
+
+            // страховка от отсутствующих массивов
+            content.figures  = Array.isArray(content.figures)  ? content.figures  : [];
+            content.extras   = Array.isArray(content.extras)   ? content.extras   : [];
+            content.variants = Array.isArray(content.variants) ? content.variants : [];
+            content.inserts  = Array.isArray(content.inserts)  ? content.inserts  : [];
+            content.other    = Array.isArray(content.other)    ? content.other    : [];
+            if (!content.videos || typeof content.videos !== 'object') {
+                content.videos = { youtube: [], vk: [], tiktok: [], instagram: [] };
+            }
+
+            existingSeries.push(content);
+        }
+
+        updateStats();
+        refreshExistingSeriesList();
+
+        if (problems.length === 0) {
+            alert(`✅ Загружено ${existingSeries.length} серий`);
+        } else {
+            alert(`⚠️ Загружено ${existingSeries.length} серий, но есть проблемы (${problems.length}). Смотри консоль (F12).`);
+            console.warn('⚠️ ПРОБЛЕМЫ ПРИ ЗАГРУЗКЕ:\n' + problems.join('\n'));
+        }
+
+    } catch (err) {
+        alert('❌ Ошибка: ' + err.message);
+        console.error(err);
+    }
 }
 
 // ============================================================
@@ -897,6 +961,28 @@ function addSeries() {
         alert(`ID уже существует: ${sid}`);
         return;
     }
+
+    // Собираем элементы
+    const newFigures  = collectItems(document.getElementById('addFiguresList'));
+    const newExtras   = collectItems(document.getElementById('addExtrasList'));
+    const newVariants = collectItems(document.getElementById('addVariantsList'));
+    const newInserts  = collectItems(document.getElementById('addInsertsList'));
+    const newOther    = collectItems(document.getElementById('addOtherList'));
+
+    // Перепроставляем id элементов по финальному sid
+    // (важно, если name_en меняли ПОСЛЕ добавления фигурок)
+    function reassignIds(arr, prefix) {
+        if (!Array.isArray(arr)) return arr;
+        arr.forEach((item, i) => {
+            item.id = `${sid}_${prefix}${i + 1}`;
+        });
+        return arr;
+    }
+    reassignIds(newFigures,  'fig');
+    reassignIds(newExtras,   'extra');
+    reassignIds(newVariants, 'variant');
+    reassignIds(newInserts,  'insert');
+    reassignIds(newOther,    'other');
     
     let series = {
         id: sid,
@@ -917,11 +1003,11 @@ function addSeries() {
         fullSeriesDateAdded: document.getElementById('fullSeriesDateAdded').value,
         fullSeriesDescription: document.getElementById('fullSeriesDescription').value,
         fullSeriesDescription_en: document.getElementById('fullSeriesDescriptionEn').value,
-        figures: collectItems(document.getElementById('addFiguresList')),
-        extras: collectItems(document.getElementById('addExtrasList')),
-        variants: collectItems(document.getElementById('addVariantsList')),
-        inserts: collectItems(document.getElementById('addInsertsList')),
-        other: collectItems(document.getElementById('addOtherList')),
+        figures: newFigures,
+        extras: newExtras,
+        variants: newVariants,
+        inserts: newInserts,
+        other: newOther,
         videos: {
             youtube: document.getElementById('addVideoYoutube').value ? [document.getElementById('addVideoYoutube').value] : [],
             vk: document.getElementById('addVideoVK').value ? [document.getElementById('addVideoVK').value] : [],
@@ -1049,7 +1135,28 @@ function saveEdit() {
     let seriesId = document.getElementById('editNameEn').value.trim() || 'series';
     let year = document.getElementById('editYear').value || '2024';
     let sid = generateSeriesId(seriesId, year);
-    
+
+    // Собираем элементы ДО замены объекта серии
+    const newFigures  = collectItems(document.getElementById('editFiguresList'));
+    const newExtras   = collectItems(document.getElementById('editExtrasList'));
+    const newVariants = collectItems(document.getElementById('editVariantsList'));
+    const newInserts  = collectItems(document.getElementById('editInsertsList'));
+    const newOther    = collectItems(document.getElementById('editOtherList'));
+
+    // Перепроставляем id элементов с новым префиксом sid
+    function reassignIds(arr, prefix) {
+        if (!Array.isArray(arr)) return arr;
+        arr.forEach((item, i) => {
+            item.id = `${sid}_${prefix}${i + 1}`;
+        });
+        return arr;
+    }
+    reassignIds(newFigures,  'fig');
+    reassignIds(newExtras,   'extra');
+    reassignIds(newVariants, 'variant');
+    reassignIds(newInserts,  'insert');
+    reassignIds(newOther,    'other');
+
     existingSeries[idx] = {
         ...existingSeries[idx],
         id: sid,
@@ -1070,11 +1177,11 @@ function saveEdit() {
         fullSeriesDateAdded: document.getElementById('editFullSeriesDateAdded').value,
         fullSeriesDescription: document.getElementById('editFullSeriesDescription').value,
         fullSeriesDescription_en: document.getElementById('editFullSeriesDescriptionEn').value,
-        figures: collectItems(document.getElementById('editFiguresList')),
-        extras: collectItems(document.getElementById('editExtrasList')),
-        variants: collectItems(document.getElementById('editVariantsList')),
-        inserts: collectItems(document.getElementById('editInsertsList')),
-        other: collectItems(document.getElementById('editOtherList')),
+        figures: newFigures,
+        extras: newExtras,
+        variants: newVariants,
+        inserts: newInserts,
+        other: newOther,
         videos: {
             youtube: document.getElementById('editVideoYoutube').value ? [document.getElementById('editVideoYoutube').value] : [],
             vk: document.getElementById('editVideoVK').value ? [document.getElementById('editVideoVK').value] : [],

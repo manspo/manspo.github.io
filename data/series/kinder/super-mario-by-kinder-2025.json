@@ -1,0 +1,554 @@
+{
+  "id": "super-mario-by-kinder-2025",
+  "name": "Супер Марио от Киндер",
+  "name_en": "Super Mario (2025) by Kinder",
+  "year": 2025,
+  "manufacturer": "kinder",
+  "cover": "images/series/kinder/super-mario-by-kinder-2025/cover.webp",
+  "description": "Серия по игровой франшизе - Братья из Супер Марио",
+  "description_en": "Game franchise series - Super Mario Brothers",
+  "kind": "joy",
+  "visible": true,
+  "fullSeriesForSale": false,
+  "fullSeriesAvito": "",
+  "fullSeriesPrice": "",
+  "fullSeriesPrice_en": "",
+  "fullSeriesCondition": "",
+  "fullSeriesCondition_en": "",
+  "fullSeriesDateAdded": "",
+  "fullSeriesDescription": "",
+  "fullSeriesDescription_en": "",
+  "figures": [
+    {
+      "id": "super-mario-by-kinder-2025_fig1",
+      "image": "images/series/kinder/super-mario-by-kinder-2025/partnerships_supermario_DV548_popup_1_dsk.webp",
+      "name": "Марио",
+      "name_en": "Mario",
+      "owned": true,
+      "forsale": false,
+      "avito": "",
+      "code": "DV548"
+    },
+    {
+      "id": "super-mario-by-kinder-2025_fig2",
+      "image": "images/series/kinder/super-mario-by-kinder-2025/partnerships_supermario_DV548A_popup_1_dsk.webp",
+      "name": "Огненный Марио",
+      "name_en": "Fire Mario",
+      "owned": true,
+      "forsale": false,
+      "avito": "",
+      "code": "DV548A"
+    },
+    {
+      "id": "super-mario-by-kinder-2025_fig3",
+      "image": "images/series/kinder/super-mario-by-kinder-2025/partnerships_supermario_DV549_popup_1_dsk.webp",
+      "name": "Луиджи",
+      "name_en": "Luigi",
+      "owned": true,
+      "forsale": true,
+      "avito": "",
+      "code": "DV549"
+    },
+    {
+      "id": "super-mario-by-kinder-2025_fig4",
+      "image": "images/series/kinder/super-mario-by-kinder-2025/partnerships_supermario_DV549A_popup_1_dsk.webp",
+      "name": "Огненный Луиджи",
+      "name_en": "Fire Luigi",
+      "owned": true,
+      "forsale": true,
+      "avito": "",
+      "code": "DV549A"
+    },
+    {
+      "id": "super-mario-by-kinder-2025_fig5",
+      "image": "images/series/kinder/super-mario-by-kinder-2025/partnerships_supermario_DV550_popup_1_dsk.webp",
+      "name": "Йоши",
+      "name_en": "Yoshi",
+      "owned": true,
+      "forsale": false,
+      "avito": "",
+      "code": "DV550"
+    },
+    {
+      "id": "super-mario-by-kinder-2025_fig6",
+      "image": "images/series/kinder/super-mario-by-kinder-2025/partnerships_supermario_DV550A_popup_1_dsk.webp",
+      "name": "Жёлтый Йоши",
+      "name_en": "Yellow Yoshi",
+      "owned": true,
+      "forsale": false,
+      "avito": "",
+      "code": "DV550A"
+    },
+    {
+      "id": "super-mario-by-kinder-2025_fig7",
+      "image": "images/series/kinder/super-mario-by-kinder-2025/partnerships_supermario_VQ397_popup_1_dsk.webp",
+      "name": "Гумба",
+      "name_en": "Goomba",
+      "owned": true,
+      "forsale": true,
+      "avito": "",
+      "code": "VQ397"
+    },
+    {
+      "id": "super-mario-by-kinder-2025_fig8",
+      "image": "images/series/kinder/super-mario-by-kinder-2025/partnerships_supermario_VQ401_popup_1_dsk.webp",
+      "name": "Супер-Звезда",
+      "name_en": "Super Star",
+      "owned": true,
+      "forsale": true,
+      "avito": "",
+      "code": "VQ401"
+    },
+    {
+      "id": "super-mario-by-kinder-2025_fig9",
+      "image": "images/series/kinder/super-mario-by-kinder-2025/partnerships_supermario_VQ402_popup_1_dsk.webp",
+      "name": "Красная рыба Чеп-Чеп",
+      "name_en": "Cheep Cheep Red",
+      "owned": true,
+      "forsale": false,
+      "avito": "",
+      "code": "VQ402"
+    },
+    {
+      "id": "super-mario-by-kinder-2025_fig10",
+      "image": "images/series/kinder/super-mario-by-kinder-2025/partnerships_supermario_VQ402A_popup_1_dsk.webp",
+      "name": "Жёлтая рыба Чеп-Чеп",
+      "name_en": "Cheep Cheep Yellow",
+      "owned": true,
+      "forsale": false,
+      "avito": "",
+      "code": "VQ402A"
+    },
+    {
+      "id": "super-mario-by-kinder-2025_fig11",
+      "image": "images/series/kinder/super-mario-by-kinder-2025/partnerships_supermario_VQ422_popup_1_dsk.webp",
+      "name": "Держатель для заметок с Красным Грибом",
+      "name_en": "Mushroom Photo Holder Red",
+      "owned": true,
+      "forsale": false,
+      "avito": "",
+      "code": "VQ422"
+    },
+    {
+      "id": "super-mario-by-kinder-2025_fig12",
+      "image": "images/series/kinder/super-mario-by-kinder-2025/partnerships_supermario_VQ422A_popup_1_dsk.webp",
+      "name": "Держатель для заметок с Зелёным Грибом",
+      "name_en": "Mushroom Photo Holder Green",
+      "owned": true,
+      "forsale": true,
+      "avito": "",
+      "code": "VQ422A"
+    }
+  ],
+  "extras": [
+    {
+      "id": "super-mario-by-kinder-2025_extra1",
+      "image": "images/series/kinder/super-mario-by-kinder-2025/partnerships_supermario_VQ390_popup_1_dsk.webp",
+      "name": "Красный Супер-Гриб (фломастер-маркер)",
+      "name_en": "Extra 1",
+      "owned": true,
+      "forsale": true,
+      "avito": "",
+      "code": "VQ390"
+    },
+    {
+      "id": "super-mario-by-kinder-2025_extra2",
+      "image": "images/series/kinder/super-mario-by-kinder-2025/partnerships_supermario_VQ390A_popup_1_dsk.webp",
+      "name": "Зелёный Гриб 1-Up",
+      "name_en": "1-Up Mushroom (felt pen-marker)",
+      "owned": true,
+      "forsale": true,
+      "avito": "",
+      "code": "VQ390A"
+    },
+    {
+      "id": "super-mario-by-kinder-2025_extra3",
+      "image": "images/series/kinder/super-mario-by-kinder-2025/partnerships_supermario_VQ392_popup_1_dsk.webp",
+      "name": "Марио - насадка на карандаш",
+      "name_en": "Mario Pen Deco",
+      "owned": true,
+      "forsale": true,
+      "avito": "",
+      "code": "VQ392"
+    },
+    {
+      "id": "super-mario-by-kinder-2025_extra4",
+      "image": "images/series/kinder/super-mario-by-kinder-2025/partnerships_supermario_VQ414_popup_1_dsk.webp",
+      "name": "Луиджи - насадка на карандаш",
+      "name_en": "Luigi Pen Deco",
+      "owned": true,
+      "forsale": true,
+      "avito": "",
+      "code": "VQ414"
+    },
+    {
+      "id": "super-mario-by-kinder-2025_extra5",
+      "image": "images/series/kinder/super-mario-by-kinder-2025/partnerships_supermario_VQ393_popup_1_dsk.webp",
+      "name": "Крючок-держатель с Красным Супер-Грибом",
+      "name_en": "Red Super Mushroom Hook",
+      "owned": true,
+      "forsale": false,
+      "avito": "",
+      "code": "VQ393"
+    },
+    {
+      "id": "super-mario-by-kinder-2025_extra6",
+      "image": "images/series/kinder/super-mario-by-kinder-2025/partnerships_supermario_VQ393A_popup_1_dsk.webp",
+      "name": "Крючок-держатель с Зелёным Грибом 1-Up",
+      "name_en": "1-Up Green Mushroom Hook",
+      "owned": true,
+      "forsale": false,
+      "avito": "",
+      "code": "VQ393A"
+    },
+    {
+      "id": "super-mario-by-kinder-2025_extra7",
+      "image": "images/series/kinder/super-mario-by-kinder-2025/partnerships_supermario_VQ394_popup_1_dsk.webp",
+      "name": "Привидение Бу",
+      "name_en": "Boo / Buu Huu",
+      "owned": true,
+      "forsale": true,
+      "avito": "",
+      "code": "VQ394"
+    },
+    {
+      "id": "super-mario-by-kinder-2025_extra8",
+      "image": "images/series/kinder/super-mario-by-kinder-2025/partnerships_supermario_VQ406_popup_1_dsk.webp",
+      "name": "Кальмар Блупер",
+      "name_en": "Blooper / Blouper",
+      "owned": true,
+      "forsale": true,
+      "avito": "",
+      "code": "VQ406"
+    },
+    {
+      "id": "super-mario-by-kinder-2025_extra9",
+      "image": "images/series/kinder/super-mario-by-kinder-2025/partnerships_supermario_VQ412_popup_1_dsk.webp",
+      "name": "Дикобраз Спини",
+      "name_en": "Spiny / Stachel-Roter Panzer",
+      "owned": true,
+      "forsale": true,
+      "avito": "",
+      "code": "VQ412"
+    },
+    {
+      "id": "super-mario-by-kinder-2025_extra10",
+      "image": "images/series/kinder/super-mario-by-kinder-2025/partnerships_supermario_VQ413_popup_1_dsk.webp",
+      "name": "Растение-Пиранья",
+      "name_en": "Piranha Plant",
+      "owned": true,
+      "forsale": true,
+      "avito": "",
+      "code": "VQ413"
+    },
+    {
+      "id": "super-mario-by-kinder-2025_extra11",
+      "image": "images/series/kinder/super-mario-by-kinder-2025/partnerships_supermario_VQ420_popup_1_dsk.webp",
+      "name": "Йоши - насадка на карандаш",
+      "name_en": "Yoshi Pen Deco",
+      "owned": true,
+      "forsale": true,
+      "avito": "",
+      "code": "VQ420"
+    },
+    {
+      "id": "super-mario-by-kinder-2025_extra12",
+      "image": "images/series/kinder/super-mario-by-kinder-2025/partnerships_supermario_VQ415_popup_1_dsk.webp",
+      "name": "Принцесса Пич - насадка на карандаш",
+      "name_en": "Princess Peach Pen Deco",
+      "owned": true,
+      "forsale": true,
+      "avito": "",
+      "code": "VQ415"
+    },
+    {
+      "id": "super-mario-by-kinder-2025_extra13",
+      "image": "images/series/kinder/super-mario-by-kinder-2025/partnerships_supermario_VQ417_popup_1_dsk.webp",
+      "name": "Гриб Тоад",
+      "name_en": "Toad Paper Clip",
+      "owned": true,
+      "forsale": true,
+      "avito": "",
+      "code": "VQ417"
+    },
+    {
+      "id": "super-mario-by-kinder-2025_extra14",
+      "image": "images/series/kinder/super-mario-by-kinder-2025/partnerships_supermario_VQ416_popup_1_dsk.webp",
+      "name": "Блок с вопросительным знаком",
+      "name_en": "Question Mark Block / ? Block",
+      "owned": true,
+      "forsale": true,
+      "avito": "",
+      "code": "VQ416"
+    }
+  ],
+  "variants": [],
+  "inserts": [
+    {
+      "id": "super-mario-by-kinder-2025_insert1",
+      "image": "images/series/kinder/super-mario-by-kinder-2025/partnerships_supermario_DV548_popup_2_dsk.webp",
+      "name": "Вкладыш 1",
+      "name_en": "Insert 1",
+      "owned": true,
+      "forsale": false,
+      "avito": "",
+      "code": ""
+    },
+    {
+      "id": "super-mario-by-kinder-2025_insert2",
+      "image": "images/series/kinder/super-mario-by-kinder-2025/partnerships_supermario_DV548A_popup_2_dsk.webp",
+      "name": "Вкладыш 2",
+      "name_en": "Insert 2",
+      "owned": true,
+      "forsale": false,
+      "avito": "",
+      "code": ""
+    },
+    {
+      "id": "super-mario-by-kinder-2025_insert3",
+      "image": "images/series/kinder/super-mario-by-kinder-2025/partnerships_supermario_DV549_popup_2_dsk.webp",
+      "name": "Вкладыш 3",
+      "name_en": "Insert 3",
+      "owned": true,
+      "forsale": false,
+      "avito": "",
+      "code": ""
+    },
+    {
+      "id": "super-mario-by-kinder-2025_insert4",
+      "image": "images/series/kinder/super-mario-by-kinder-2025/partnerships_supermario_DV549A_popup_2_dsk.webp",
+      "name": "Вкладыш 4",
+      "name_en": "Insert 4",
+      "owned": true,
+      "forsale": false,
+      "avito": "",
+      "code": ""
+    },
+    {
+      "id": "super-mario-by-kinder-2025_insert5",
+      "image": "images/series/kinder/super-mario-by-kinder-2025/partnerships_supermario_DV550_popup_2_dsk.webp",
+      "name": "Вкладыш 5",
+      "name_en": "Insert 5",
+      "owned": true,
+      "forsale": false,
+      "avito": "",
+      "code": ""
+    },
+    {
+      "id": "super-mario-by-kinder-2025_insert6",
+      "image": "images/series/kinder/super-mario-by-kinder-2025/partnerships_supermario_DV550A_popup_2_dsk.webp",
+      "name": "Вкладыш 6",
+      "name_en": "Insert 6",
+      "owned": true,
+      "forsale": false,
+      "avito": "",
+      "code": ""
+    },
+    {
+      "id": "super-mario-by-kinder-2025_insert7",
+      "image": "images/series/kinder/super-mario-by-kinder-2025/partnerships_supermario_VQ390_popup_2_dsk.webp",
+      "name": "Вкладыш 7",
+      "name_en": "Insert 7",
+      "owned": true,
+      "forsale": false,
+      "avito": "",
+      "code": ""
+    },
+    {
+      "id": "super-mario-by-kinder-2025_insert8",
+      "image": "images/series/kinder/super-mario-by-kinder-2025/partnerships_supermario_VQ390A_popup_2_dsk.webp",
+      "name": "Вкладыш 8",
+      "name_en": "Insert 8",
+      "owned": true,
+      "forsale": false,
+      "avito": "",
+      "code": ""
+    },
+    {
+      "id": "super-mario-by-kinder-2025_insert9",
+      "image": "images/series/kinder/super-mario-by-kinder-2025/partnerships_supermario_VQ392_popup_2_dsk.webp",
+      "name": "Вкладыш 9",
+      "name_en": "Insert 9",
+      "owned": true,
+      "forsale": false,
+      "avito": "",
+      "code": ""
+    },
+    {
+      "id": "super-mario-by-kinder-2025_insert10",
+      "image": "images/series/kinder/super-mario-by-kinder-2025/partnerships_supermario_VQ393_popup_2_dsk.webp",
+      "name": "Вкладыш 10",
+      "name_en": "Insert 10",
+      "owned": true,
+      "forsale": false,
+      "avito": "",
+      "code": ""
+    },
+    {
+      "id": "super-mario-by-kinder-2025_insert11",
+      "image": "images/series/kinder/super-mario-by-kinder-2025/partnerships_supermario_VQ393A_popup_2_dsk.webp",
+      "name": "Вкладыш 11",
+      "name_en": "Insert 11",
+      "owned": true,
+      "forsale": false,
+      "avito": "",
+      "code": ""
+    },
+    {
+      "id": "super-mario-by-kinder-2025_insert12",
+      "image": "images/series/kinder/super-mario-by-kinder-2025/partnerships_supermario_VQ394_popup_2_dsk.webp",
+      "name": "Вкладыш 12",
+      "name_en": "Insert 12",
+      "owned": true,
+      "forsale": false,
+      "avito": "",
+      "code": ""
+    },
+    {
+      "id": "super-mario-by-kinder-2025_insert13",
+      "image": "images/series/kinder/super-mario-by-kinder-2025/partnerships_supermario_VQ397_popup_2_dsk.webp",
+      "name": "Вкладыш 13",
+      "name_en": "Insert 13",
+      "owned": true,
+      "forsale": false,
+      "avito": "",
+      "code": ""
+    },
+    {
+      "id": "super-mario-by-kinder-2025_insert14",
+      "image": "images/series/kinder/super-mario-by-kinder-2025/partnerships_supermario_VQ401_popup_2_dsk.webp",
+      "name": "Вкладыш 14",
+      "name_en": "Insert 14",
+      "owned": true,
+      "forsale": false,
+      "avito": "",
+      "code": ""
+    },
+    {
+      "id": "super-mario-by-kinder-2025_insert15",
+      "image": "images/series/kinder/super-mario-by-kinder-2025/partnerships_supermario_VQ402_popup_2_dsk.webp",
+      "name": "Вкладыш 15",
+      "name_en": "Insert 15",
+      "owned": true,
+      "forsale": false,
+      "avito": "",
+      "code": ""
+    },
+    {
+      "id": "super-mario-by-kinder-2025_insert16",
+      "image": "images/series/kinder/super-mario-by-kinder-2025/partnerships_supermario_VQ402A_popup_2_dsk.webp",
+      "name": "Вкладыш 16",
+      "name_en": "Insert 16",
+      "owned": true,
+      "forsale": false,
+      "avito": "",
+      "code": ""
+    },
+    {
+      "id": "super-mario-by-kinder-2025_insert17",
+      "image": "images/series/kinder/super-mario-by-kinder-2025/partnerships_supermario_VQ406_popup_2_dsk.webp",
+      "name": "Вкладыш 17",
+      "name_en": "Insert 17",
+      "owned": true,
+      "forsale": false,
+      "avito": "",
+      "code": ""
+    },
+    {
+      "id": "super-mario-by-kinder-2025_insert18",
+      "image": "images/series/kinder/super-mario-by-kinder-2025/partnerships_supermario_VQ412_popup_2_dsk.webp",
+      "name": "Вкладыш 18",
+      "name_en": "Insert 18",
+      "owned": true,
+      "forsale": false,
+      "avito": "",
+      "code": ""
+    },
+    {
+      "id": "super-mario-by-kinder-2025_insert19",
+      "image": "images/series/kinder/super-mario-by-kinder-2025/partnerships_supermario_VQ413_popup_2_dsk.webp",
+      "name": "Вкладыш 19",
+      "name_en": "Insert 19",
+      "owned": true,
+      "forsale": false,
+      "avito": "",
+      "code": ""
+    },
+    {
+      "id": "super-mario-by-kinder-2025_insert20",
+      "image": "images/series/kinder/super-mario-by-kinder-2025/partnerships_supermario_VQ414_popup_2_dsk.webp",
+      "name": "Вкладыш 20",
+      "name_en": "Insert 20",
+      "owned": true,
+      "forsale": false,
+      "avito": "",
+      "code": ""
+    },
+    {
+      "id": "super-mario-by-kinder-2025_insert21",
+      "image": "images/series/kinder/super-mario-by-kinder-2025/partnerships_supermario_VQ415_popup_2_dsk.webp",
+      "name": "Вкладыш 21",
+      "name_en": "Insert 21",
+      "owned": true,
+      "forsale": false,
+      "avito": "",
+      "code": ""
+    },
+    {
+      "id": "super-mario-by-kinder-2025_insert22",
+      "image": "images/series/kinder/super-mario-by-kinder-2025/partnerships_supermario_VQ416_popup_2_dsk.webp",
+      "name": "Вкладыш 22",
+      "name_en": "Insert 22",
+      "owned": true,
+      "forsale": false,
+      "avito": "",
+      "code": ""
+    },
+    {
+      "id": "super-mario-by-kinder-2025_insert23",
+      "image": "images/series/kinder/super-mario-by-kinder-2025/partnerships_supermario_VQ417_popup_2_dsk.webp",
+      "name": "Вкладыш 23",
+      "name_en": "Insert 23",
+      "owned": true,
+      "forsale": false,
+      "avito": "",
+      "code": ""
+    },
+    {
+      "id": "super-mario-by-kinder-2025_insert24",
+      "image": "images/series/kinder/super-mario-by-kinder-2025/partnerships_supermario_VQ420_popup_2_dsk.webp",
+      "name": "Вкладыш 24",
+      "name_en": "Insert 24",
+      "owned": true,
+      "forsale": false,
+      "avito": "",
+      "code": ""
+    },
+    {
+      "id": "super-mario-by-kinder-2025_insert25",
+      "image": "images/series/kinder/super-mario-by-kinder-2025/partnerships_supermario_VQ422_popup_2_dsk.webp",
+      "name": "Вкладыш 25",
+      "name_en": "Insert 25",
+      "owned": true,
+      "forsale": false,
+      "avito": "",
+      "code": ""
+    },
+    {
+      "id": "super-mario-by-kinder-2025_insert26",
+      "image": "images/series/kinder/super-mario-by-kinder-2025/partnerships_supermario_VQ422A_popup_2_dsk.webp",
+      "name": "Вкладыш 26",
+      "name_en": "Insert 26",
+      "owned": true,
+      "forsale": false,
+      "avito": "",
+      "code": ""
+    }
+  ],
+  "other": [],
+  "videos": {
+    "youtube": [],
+    "vk": [],
+    "tiktok": []
+  }
+}
