@@ -85,7 +85,7 @@
       "name": "Человек-Паук Симбиот",
       "name_en": "Spider-Man Symbiote",
       "owned": false,
-      "forsale": false,
+      "forsale": true,
       "avito": "",
       "code": "VC350"
     },

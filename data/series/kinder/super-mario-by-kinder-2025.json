@@ -350,7 +350,7 @@
       "name": "Вкладыш 7",
       "name_en": "Insert 7",
       "owned": true,
-      "forsale": false,
+      "forsale": true,
       "avito": "",
       "code": ""
     },
