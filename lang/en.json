@@ -117,5 +117,7 @@
 "nav_videos": "Video Archive",
 "search_videos_placeholder": "🔍 Search by series name...",
 "sort_date_desc": "🆕 By date added (new first)",
-"sort_date_asc": "📅 By date added (old first)"
+"sort_date_asc": "📅 By date added (old first)",
+"title_same_figures": "Same figures — Capsule",
+"same_figures_title": "🔍 Same figures",
   }

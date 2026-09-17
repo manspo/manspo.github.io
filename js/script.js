@@ -2753,6 +2753,7 @@ async function initSeries() {
                     <div>${safeName}</div>
                     ${itemCode ? `<div class="figure-code">${escapeHtml(itemCode)}</div>` : ''}
                   </div>
+                  ${itemCode ? `<a href="same-figures.html?code=${encodeURIComponent(itemCode)}" class="same-code-link" title="${currentLang === 'ru' ? 'Найти все фигурки с этим кодом' : 'Find all figures with this code'}">🔗</a>` : ''}
                   <button class="qr-btn" onclick="generateQRCode('${safeId}', '${safeSeriesId}', '${safeName.replace(/'/g, "\\'")}')" title="QR-код">📱</button>
                 </div>
                 ${item.forsale && item.avito ? `<a href="${escapeHtml(item.avito)}" class="avito-link" target="_blank" rel="noopener noreferrer">🛒</a>` : ''}
@@ -3707,6 +3708,114 @@ async function downloadCollage(seriesId, seriesName) {
     }
 }
 
+// ===== СТРАНИЦА ОДИНАКОВЫХ ФИГУРОК =====
+async function initSameFigures() {
+  const container = document.getElementById('sameFiguresContainer');
+  const pageTitle = document.getElementById('pageTitle');
+  const pageSubtitle = document.getElementById('pageSubtitle');
+  if (!container) return;
+
+  const urlParams = new URLSearchParams(location.search);
+  const code = urlParams.get('code');
+
+  const currentLang = localStorage.getItem("lang") || "ru";
+
+  if (!code) {
+    container.innerHTML = `<p class="empty-message">${currentLang === 'ru' ? 'Код фигурки не указан' : 'Figure code not specified'}</p>`;
+    return;
+  }
+
+  try {
+    // Загружаем search.json
+    const res = await fetch(`${BASE_URL}/data/search.json`);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const searchIndex = await res.json();
+
+    // Ищем все фигурки с таким же кодом (без учёта регистра, обрезаем пробелы)
+    const codeNorm = code.trim().toLowerCase();
+    const matches = searchIndex.filter(item => 
+      item.code && item.code.trim().toLowerCase() === codeNorm
+    );
+
+    // Обновляем заголовок
+    if (pageTitle) {
+      pageTitle.textContent = currentLang === 'ru' 
+        ? `🔍 Фигурки с кодом «${code}»` 
+        : `🔍 Figures with code «${code}»`;
+    }
+    if (pageSubtitle) {
+      pageSubtitle.textContent = currentLang === 'ru'
+        ? `Найдено: ${matches.length}`
+        : `Found: ${matches.length}`;
+    }
+
+    if (matches.length === 0) {
+      container.innerHTML = `<p class="empty-message">${currentLang === 'ru' ? 'Фигурки с таким кодом не найдены' : 'No figures found with this code'}</p>`;
+      return;
+    }
+
+    // Группируем по сериям
+    const bySeries = new Map();
+    matches.forEach(item => {
+      if (!bySeries.has(item.seriesId)) {
+        bySeries.set(item.seriesId, {
+          seriesId: item.seriesId,
+          seriesName: item.seriesName,
+          seriesName_en: item.seriesName_en,
+          seriesYear: item.seriesYear,
+          manufacturer: item.manufacturer,
+          items: []
+        });
+      }
+      bySeries.get(item.seriesId).items.push(item);
+    });
+
+    const manufacturers = await loadManufacturers();
+
+    let html = '';
+    bySeries.forEach(group => {
+      const seriesName = currentLang === 'en' && group.seriesName_en 
+        ? group.seriesName_en 
+        : group.seriesName;
+      const manufacturerName = manufacturers[group.manufacturer]?.[currentLang] || group.manufacturer;
+
+      html += `
+        <div class="same-figures-group">
+          <div class="same-figures-series-header">
+            <a href="series.html?id=${escapeHtml(group.seriesId)}" class="same-figures-series-link">
+              <span class="same-figures-series-name">${escapeHtml(seriesName)}</span>
+              <span class="same-figures-series-meta">${escapeHtml(group.seriesYear)} · ${escapeHtml(manufacturerName)}</span>
+            </a>
+          </div>
+          <div class="same-figures-list">
+            ${group.items.map(item => {
+              const itemName = currentLang === 'en' && item.name_en 
+                ? item.name_en 
+                : item.name;
+              const imageUrl = item.image ? `${BASE_URL}/${item.image}` : 'images/placeholder.svg';
+              return `
+                <a href="figure.html?series=${escapeHtml(item.seriesId)}&fig=${escapeHtml(item.id)}" class="same-figure-card">
+                  <img src="${imageUrl}" alt="${escapeHtml(itemName)}" loading="lazy" onerror="this.src='images/placeholder.svg'">
+                  <div class="same-figure-info">
+                    <div class="same-figure-name">${escapeHtml(itemName)}</div>
+                    <div class="same-figure-code">${escapeHtml(item.code || '')}</div>
+                  </div>
+                </a>
+              `;
+            }).join('')}
+          </div>
+        </div>
+      `;
+    });
+
+    container.innerHTML = html;
+    applyTranslations();
+  } catch (error) {
+    console.error('Ошибка загрузки одинаковых фигурок:', error);
+    container.innerHTML = `<p class="error-message">❌ ${currentLang === 'ru' ? 'Ошибка загрузки' : 'Loading error'}</p>`;
+  }
+}
+
 // ===== ОБРАБОТКА ГЛУБОКИХ ССЫЛОК =====
 function handleDeepLink() {
     const params = new URLSearchParams(window.location.search);
@@ -3757,6 +3866,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       initMyCollection();
     } else if (path.includes('forsale.html')) {
       initForSale();
+	} else if (path.includes('same-figures.html')) {
+      initSameFigures();
     } else if (path.includes('videos.html')) {
       initVideos();         // ← НОВОЕ
     } else if (path.includes('about.html')) {
