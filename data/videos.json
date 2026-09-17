@@ -1,6 +1,16 @@
 [
   {
     "host": "youtube",
+    "url": "https://www.youtube.com/watch?v=hHtIWHD3Z4I",
+    "seriesId": "crystal-duck-by-kinder-1997",
+    "seriesName": "Хрустальная Утка от Киндер",
+    "seriesName_en": "Crystal Duck by Kinder",
+    "year": 1997,
+    "manufacturer": "kinder",
+    "date_added": ""
+  },
+  {
+    "host": "youtube",
     "url": "https://www.youtube.com/watch?v=Rht7DraS9oI",
     "seriesId": "star-wars-by-kinder-2025",
     "seriesName": "Звездные Войны от Киндер",
@@ -36,16 +46,6 @@
     "seriesName": "Звездные Войны от Киндер",
     "seriesName_en": "Star Wars by Kinder",
     "year": 2025,
-    "manufacturer": "kinder",
-    "date_added": ""
-  },
-  {
-    "host": "youtube",
-    "url": "https://www.youtube.com/watch?v=hHtIWHD3Z4I",
-    "seriesId": "crystal-duck-by-kinder-1997",
-    "seriesName": "Хрустальная Утка от Киндер",
-    "seriesName_en": "Crystal Duck by Kinder",
-    "year": 1997,
     "manufacturer": "kinder",
     "date_added": ""
   }

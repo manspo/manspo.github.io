@@ -21,8 +21,8 @@
   "figures": [
     {
       "id": "super-mario-mini-by-kinder-2026_fig1",
-      "name": "Фигурка 1",
-      "name_en": "Figure 1",
+      "name": "Гумба",
+      "name_en": "Goomba",
       "code": "VQ397",
       "image": "images/series/kinder/super-mario-mini-by-kinder-2026/partnerships_supermario_VQ397_popup_1_dsk.webp",
       "owned": false,
@@ -36,8 +36,8 @@
     },
     {
       "id": "super-mario-mini-by-kinder-2026_fig2",
-      "name": "Фигурка 2",
-      "name_en": "Figure 2",
+      "name": "Супер-Звезда",
+      "name_en": "Super Star",
       "code": "VQ401",
       "image": "images/series/kinder/super-mario-mini-by-kinder-2026/partnerships_supermario_VQ401_popup_1_dsk.webp",
       "owned": false,
@@ -53,8 +53,8 @@
   "extras": [
     {
       "id": "super-mario-mini-by-kinder-2026_extra1",
-      "name": "Доп 1",
-      "name_en": "Extra 1",
+      "name": "Красный Супер-Гриб 2",
+      "name_en": "Red Super Mushroom 2",
       "code": "VQ400",
       "image": "images/series/kinder/super-mario-mini-by-kinder-2026/kinderjoy_supermario_VQ400.webp",
       "owned": false,
@@ -68,8 +68,8 @@
     },
     {
       "id": "super-mario-mini-by-kinder-2026_extra2",
-      "name": "Доп 2",
-      "name_en": "Extra 2",
+      "name": "Зеленый гриб 1-Up",
+      "name_en": "Green Mushroom 1-Up",
       "code": "VQ400A",
       "image": "images/series/kinder/super-mario-mini-by-kinder-2026/kinderjoy_supermario_VQ408.webp",
       "owned": false,
@@ -83,8 +83,8 @@
     },
     {
       "id": "super-mario-mini-by-kinder-2026_extra3",
-      "name": "Доп 3",
-      "name_en": "Extra 3",
+      "name": "Марио - насадка на карандаш",
+      "name_en": "Mario Pen Deco",
       "code": "VC403",
       "image": "images/series/kinder/super-mario-mini-by-kinder-2026/partnerships_supermario_VQ392_popup_1_dsk.webp",
       "owned": false,
@@ -98,8 +98,8 @@
     },
     {
       "id": "super-mario-mini-by-kinder-2026_extra4",
-      "name": "Доп 4",
-      "name_en": "Extra 4",
+      "name": "Привидение Бу",
+      "name_en": "Boo / Buu Huu",
       "code": "VQ394",
       "image": "images/series/kinder/super-mario-mini-by-kinder-2026/partnerships_supermario_VQ394_popup_1_dsk.webp",
       "owned": false,
@@ -113,8 +113,8 @@
     },
     {
       "id": "super-mario-mini-by-kinder-2026_extra5",
-      "name": "Доп 5",
-      "name_en": "Extra 5",
+      "name": "Растение-Пиранья",
+      "name_en": "Piranha Plant",
       "code": "VQ413",
       "image": "images/series/kinder/super-mario-mini-by-kinder-2026/partnerships_supermario_VQ413_popup_1_dsk.webp",
       "owned": false,
@@ -128,8 +128,8 @@
     },
     {
       "id": "super-mario-mini-by-kinder-2026_extra6",
-      "name": "Доп 6",
-      "name_en": "Extra 6",
+      "name": "Луиджи - насадка на карандаш",
+      "name_en": "Luigi Pen Deco",
       "code": "VC401",
       "image": "images/series/kinder/super-mario-mini-by-kinder-2026/partnerships_supermario_VQ414_popup_1_dsk.webp",
       "owned": false,
@@ -143,8 +143,8 @@
     },
     {
       "id": "super-mario-mini-by-kinder-2026_extra7",
-      "name": "Доп 7",
-      "name_en": "Extra 7",
+      "name": "Принцесса Пич - насадка на карандаш",
+      "name_en": "Princess Peach Pen Deco",
       "code": "VC402",
       "image": "images/series/kinder/super-mario-mini-by-kinder-2026/partnerships_supermario_VQ415_popup_1_dsk.webp",
       "owned": false,
@@ -158,8 +158,8 @@
     },
     {
       "id": "super-mario-mini-by-kinder-2026_extra8",
-      "name": "Доп 8",
-      "name_en": "Extra 8",
+      "name": "Блок с вопросительным знаком",
+      "name_en": "Question Mark Block / ? Block",
       "code": "VQ416",
       "image": "images/series/kinder/super-mario-mini-by-kinder-2026/partnerships_supermario_VQ416_popup_1_dsk.webp",
       "owned": false,
@@ -173,8 +173,8 @@
     },
     {
       "id": "super-mario-mini-by-kinder-2026_extra9",
-      "name": "Доп 9",
-      "name_en": "Extra 9",
+      "name": "Гриб Тоад",
+      "name_en": "Toad Paper Clip",
       "code": "VQ417",
       "image": "images/series/kinder/super-mario-mini-by-kinder-2026/partnerships_supermario_VQ417_popup_1_dsk.webp",
       "owned": false,
@@ -188,8 +188,8 @@
     },
     {
       "id": "super-mario-mini-by-kinder-2026_extra10",
-      "name": "Доп 10",
-      "name_en": "Extra 10",
+      "name": "Йоши - насадка на карандаш",
+      "name_en": "Yoshi Pen Deco",
       "code": "VC404",
       "image": "images/series/kinder/super-mario-mini-by-kinder-2026/partnerships_supermario_VQ420_popup_1_dsk.webp",
       "owned": false,
