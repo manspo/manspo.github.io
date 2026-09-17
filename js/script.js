@@ -1777,7 +1777,7 @@ async function initMyCollection() {
       }, CONFIG.DEBOUNCE_DELAY);
     }
     
-    function render() {
+    async function render() {
       let list = [...allSeries];
       const currentLang = localStorage.getItem("lang") || "ru";
       
