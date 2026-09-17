@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+  <script src="js/qrcode.min.js"></script>
   <meta charset="UTF-8" />
   <script>
   (function() {
@@ -8,7 +9,7 @@
     document.documentElement.setAttribute('data-theme', savedTheme);
   })();
   </script>
-  <title data-i18n="title_catalog">Каталог серий — Капсула</title>
+  <title data-i18n="title_figures">Каталог фигурок — Капсула</title>
   <link rel="stylesheet" href="css/style.css" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="manifest" href="manifest.json">
@@ -18,6 +19,7 @@
   <meta name="apple-mobile-web-app-title" content="Капсула">
   <link rel="apple-touch-icon" href="images/icon-192x192.webp">
 </head>
+
 <body>
 <header class="header">
   <div class="header-left">
@@ -32,51 +34,37 @@
   </div>
 </header>
 
-<main class="catalog">
+<main>
   <button class="back-button" onclick="history.back()">
     <span class="back-arrow">←</span> <span data-i18n="back">Назад</span>
   </button>
 
-<div class="page-header">
-  <h1 data-i18n="catalog_title">Каталог серий</h1>
-</div>
-  
-  <div class="catalog-header">
-    <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;width:100%;">
-      <div class="search-box" style="flex:1;min-width:200px;max-width:none;">
-        <input type="text" id="searchInput" class="search-input" data-i18n="search_placeholder" placeholder="🔍 Поиск по названию, году или коду фигурки...">
-      </div>
-	  <a href="figures.html" class="duplicates-btn" title="Каталог всех фигурок">
-        🎎 <span data-i18n="figures_btn">Фигурки</span>
-      </a>
-      <a href="timeline.html" class="duplicates-btn" title="Показать серии по годам">
-        📅 <span data-i18n="timeline_btn">Хронология</span>
-      </a>
-      <a href="all-duplicates.html" class="duplicates-btn" title="Показать все коды, у которых больше одной фигурки">
-        🔗 <span data-i18n="all_duplicates">Все дубли</span>
-      </a>
-    </div>
-    
-    <div class="controls-wrapper">
-      <div class="filter-group" id="manufacturerFilters"></div>
-      <div class="sort-group">
-<select id="sortSelect" class="sort-select">
-  <option value="date-desc" data-i18n="sort_date_desc">Недавно добавленные</option>
-  <option value="date-asc" data-i18n="sort_date_asc">Давно добавленные</option>
-  <option value="name" data-i18n="sort_name_asc">По названию (А-Я)</option>
-  <option value="name-desc" data-i18n="sort_name_desc">По названию (Я-А)</option>
-  <option value="year" data-i18n="sort_year_asc">По году (старые → новые)</option>
-  <option value="year-desc" data-i18n="sort_year_desc">По году (новые → старые)</option>
-</select>
-      </div>
-    </div>
-  </div>
-  
-  <div class="kind-filters-wrapper" id="kindFiltersWrapper">
-    <div class="kind-filters" id="kindFilters"></div>
+  <div class="page-header">
+    <h1 data-i18n="figures_title">🎎 Каталог фигурок</h1>
+    <p id="figuresSubtitle" class="timeline-subtitle"></p>
   </div>
 
-  <div id="catalogGrid" class="catalog-grid"></div>
+  <div class="catalog-header">
+    <div class="search-box" style="max-width:100%;">
+      <input type="text" id="searchInput" class="search-input" data-i18n="search_figures_placeholder" placeholder="🔍 Поиск по названию или коду фигурки...">
+    </div>
+
+    <div class="controls-wrapper">
+      <div class="filter-group" id="figuresFilterGroup"></div>
+      <div class="sort-group">
+        <select id="sortSelect" class="sort-select">
+          <option value="date-desc" data-i18n="sort_date_desc">Недавно добавленные</option>
+          <option value="date-asc" data-i18n="sort_date_asc">Давно добавленные</option>
+          <option value="name" data-i18n="sort_name_asc">По названию (А-Я)</option>
+          <option value="name-desc" data-i18n="sort_name_desc">По названию (Я-А)</option>
+          <option value="year" data-i18n="sort_year_asc">По году (старые → новые)</option>
+          <option value="year-desc" data-i18n="sort_year_desc">По году (новые → старые)</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div id="figuresGrid" class="figures-catalog-grid"></div>
 </main>
 
 <footer class="footer">
@@ -112,6 +100,5 @@ navigator.serviceWorker.addEventListener('controllerchange', () => {
   }
 });
 </script>
-
 </body>
 </html>

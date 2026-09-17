@@ -1408,6 +1408,23 @@ async function loadSearch() {
   }
 }
 
+// ===== ПОИСК ПАРНОГО ВКЛАДЫША ДЛЯ ФИГУРКИ =====
+// Ищем в searchIndex вкладыш в той же серии с тем же кодом
+function findInsertForFigure(searchIndex, figure) {
+  if (!searchIndex || !figure) return null;
+  const code = (figure.code || '').trim().toUpperCase();
+  if (!code) return null;
+  const seriesId = figure.seriesId;
+  if (!seriesId) return null;
+  
+  const match = searchIndex.find(item => 
+    item.type === 'inserts' &&
+    item.seriesId === seriesId &&
+    (item.code || '').trim().toUpperCase() === code
+  );
+  return match || null;
+}
+
 // ===== CATALOG =====
 async function initCatalog() {
   const grid = document.getElementById("catalogGrid");
@@ -3061,6 +3078,60 @@ async function initFigure() {
     const figureCode = figure.code || '';
     const imageUrl = figure.image ? `${BASE_URL}/${figure.image}` : 'images/placeholder.svg';
     
+    // ===== ПАРНЫЙ ВКЛАДЫШ (только для фигурок, не для самих вкладышей) =====
+    let insertBlockHtml = '';
+    if (figureType !== 'inserts' && figureType !== 'other') {
+      // Ищем парный вкладыш внутри этой же серии по совпадению кода
+      const codeNorm = (figure.code || '').trim().toUpperCase();
+      let pairedInsert = null;
+      
+      if (codeNorm && Array.isArray(series.inserts)) {
+        pairedInsert = series.inserts.find(ins => 
+          (ins.code || '').trim().toUpperCase() === codeNorm
+        ) || null;
+      }
+      
+      if (pairedInsert) {
+        const insertName = currentLang === 'en' && pairedInsert.name_en 
+          ? pairedInsert.name_en 
+          : (pairedInsert.name || '');
+        const insertCode = pairedInsert.code || '';
+        const insertImgUrl = pairedInsert.image 
+          ? `${BASE_URL}/${pairedInsert.image}` 
+          : 'images/placeholder.svg';
+        
+        // Индекс картинки вкладыша в общей галерее
+        const insertIdxInGallery = allSeriesImages.findIndex(img => img === insertImgUrl);
+        const insertGalleryIdx = insertIdxInGallery !== -1 ? insertIdxInGallery : 0;
+        
+        insertBlockHtml = `
+          <div class="single-insert-block">
+            <h3 class="single-insert-title">📄 ${currentLang === 'ru' ? 'Вкладыш' : 'Insert'}</h3>
+            <div class="single-insert-content">
+              <div class="single-insert-image-wrap">
+                <img src="${insertImgUrl}" 
+                     alt="${escapeHtml(insertName)}" 
+                     class="single-insert-image" 
+                     onclick="openLightbox(${insertGalleryIdx}, window.seriesGalleryImages)"
+                     onerror="this.src='images/placeholder.svg'">
+              </div>
+              <div class="single-insert-info">
+                ${insertName ? `<div class="single-insert-name">${escapeHtml(insertName)}</div>` : ''}
+                ${insertCode ? `<div class="single-insert-code">${escapeHtml(insertCode)}</div>` : ''}
+              </div>
+            </div>
+          </div>
+        `;
+      } else {
+        insertBlockHtml = `
+          <div class="single-insert-block single-insert-empty">
+            <span class="single-insert-empty-icon">📄</span>
+            <span class="single-insert-empty-text">${currentLang === 'ru' ? 'Вкладыш не добавлен' : 'Insert not added'}</span>
+          </div>
+        `;
+      }
+    }
+    
     container.innerHTML = `
       <div class="figure-container">
         <h1 class="figure-title">${escapeHtml(name)}</h1>
@@ -3093,6 +3164,8 @@ async function initFigure() {
             </div>
           </div>
         </div>
+        
+        ${insertBlockHtml}
       </div>
     `;
     
@@ -4064,6 +4137,383 @@ async function initAllDuplicates() {
   }
 }
 
+// ===== СТРАНИЦА КАТАЛОГА ФИГУРОК =====
+async function initFigures() {
+  const grid = document.getElementById('figuresGrid');
+  const subtitle = document.getElementById('figuresSubtitle');
+  if (!grid) return;
+  
+  const currentLang = localStorage.getItem("lang") || "ru";
+  
+  try {
+    await loadManufacturers();
+    const manufacturers = await loadManufacturers();
+    
+    // 1. Грузим search.json и singles/index.json + сами singles
+    const [searchIndex, singlesIndex] = await Promise.all([
+      loadSearch(),
+      fetch(`${BASE_URL}/data/singles/index.json`).then(r => r.ok ? r.json() : {}).catch(() => ({}))
+    ]);
+    
+    // 2. Собираем фигурки из серий (figures, extras, variants — без inserts и other)
+    const figuresFromSeries = searchIndex
+      .filter(item => item.type === 'figures' || item.type === 'extras' || item.type === 'variants')
+      .map(item => ({
+        ...item,
+        fromSeries: true,
+        seriesName: item.seriesName,
+        seriesName_en: item.seriesName_en,
+        year: item.seriesYear,
+        hasInsert: !!findInsertForFigure(searchIndex, item)
+      }));
+    
+    // 3. Грузим одиночные фигурки
+    let singlesFigures = [];
+    const singleKeys = Object.keys(singlesIndex || {});
+    for (const m of singleKeys) {
+      try {
+        const res = await fetch(`${BASE_URL}/data/singles/${m}.json`);
+        if (!res.ok) continue;
+        const arr = await res.json();
+        if (!Array.isArray(arr)) continue;
+        arr.forEach(item => {
+          singlesFigures.push({
+            ...item,
+            fromSeries: false,
+            seriesName: null,
+            seriesName_en: null,
+            year: item.year,
+            hasInsert: !!item.insert,
+            insert: item.insert || null
+          });
+        });
+      } catch (e) {
+        console.warn('Ошибка загрузки singles/', m, e);
+      }
+    }
+    
+    // 4. Объединяем
+    const allFigures = [...figuresFromSeries, ...singlesFigures];
+    
+    // 5. Фильтр по производителю
+    const uniqueManufacturers = [...new Set(allFigures.map(f => f.manufacturer))];
+    const sortedManufacturers = manufacturerOrder.filter(m => uniqueManufacturers.includes(m));
+    
+    let currentFilter = 'all';
+    let currentSort = 'date-desc';
+    let searchQuery = '';
+    
+    const filterGroup = document.getElementById('figuresFilterGroup');
+    if (filterGroup) {
+      filterGroup.innerHTML = '';
+      
+      const allBtn = document.createElement('button');
+      allBtn.className = 'filter-btn active';
+      allBtn.dataset.filter = 'all';
+      allBtn.textContent = currentLang === 'ru' ? 'Все' : 'All';
+      filterGroup.appendChild(allBtn);
+      
+      sortedManufacturers.forEach(m => {
+        const displayName = manufacturers[m]?.[currentLang] || m;
+        const btn = document.createElement('button');
+        btn.className = 'filter-btn';
+        btn.dataset.filter = m;
+        btn.textContent = displayName;
+        filterGroup.appendChild(btn);
+      });
+      
+      filterGroup.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.onclick = () => {
+          filterGroup.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentFilter = btn.dataset.filter;
+          render();
+        };
+      });
+    }
+    
+    const sortSelect = document.getElementById('sortSelect');
+    if (sortSelect) {
+      sortSelect.value = currentSort;
+      sortSelect.onchange = () => {
+        currentSort = sortSelect.value;
+        render();
+      };
+    }
+    
+    const searchInput = document.getElementById('searchInput');
+    if (searchInput) {
+      searchInput.oninput = debounce((e) => {
+        searchQuery = e.target.value.toLowerCase().trim();
+        render();
+      }, CONFIG.DEBOUNCE_DELAY);
+    }
+    
+    function render() {
+      let list = [...allFigures];
+      
+      if (currentFilter !== 'all') {
+        list = list.filter(f => f.manufacturer === currentFilter);
+      }
+      
+      if (searchQuery) {
+        const q = searchQuery;
+        list = list.filter(f => 
+          (f.code || '').toLowerCase().includes(q) ||
+          (f.name || '').toLowerCase().includes(q) ||
+          (f.name_en || '').toLowerCase().includes(q)
+        );
+      }
+      
+      // Сортировка
+      if (currentSort === 'date-desc') {
+        list.sort((a, b) => {
+          const da = a.date_added ? new Date(a.date_added).getTime() : 0;
+          const db = b.date_added ? new Date(b.date_added).getTime() : 0;
+          if (db !== da) return db - da;
+          return (a.name || '').localeCompare(b.name || '');
+        });
+      } else if (currentSort === 'date-asc') {
+        list.sort((a, b) => {
+          const da = a.date_added ? new Date(a.date_added).getTime() : 0;
+          const db = b.date_added ? new Date(b.date_added).getTime() : 0;
+          if (da !== db) return da - db;
+          return (a.name || '').localeCompare(b.name || '');
+        });
+      } else if (currentSort === 'name') {
+        list.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
+      } else if (currentSort === 'name-desc') {
+        list.sort((a, b) => (b.name || '').localeCompare(a.name || ''));
+      } else if (currentSort === 'year') {
+        list.sort((a, b) => (a.year || 0) - (b.year || 0));
+      } else if (currentSort === 'year-desc') {
+        list.sort((a, b) => (b.year || 0) - (a.year || 0));
+      }
+      
+      if (subtitle) {
+        subtitle.textContent = currentLang === 'ru'
+          ? `Найдено фигурок: ${list.length}`
+          : `Figures found: ${list.length}`;
+      }
+      
+      grid.innerHTML = '';
+      
+      if (list.length === 0) {
+        grid.innerHTML = `<p class="empty-message">${currentLang === 'ru' ? 'Ничего не найдено' : 'Nothing found'}</p>`;
+        return;
+      }
+      
+      list.forEach(item => {
+        const card = document.createElement('a');
+        
+        if (item.fromSeries) {
+          card.href = `figure.html?series=${encodeURIComponent(item.seriesId)}&fig=${encodeURIComponent(item.id)}`;
+        } else {
+          card.href = `single-figure.html?id=${encodeURIComponent(item.id)}&manufacturer=${encodeURIComponent(item.manufacturer)}`;
+        }
+        
+        card.className = 'figure-catalog-card';
+        
+        const name = currentLang === 'en' && item.name_en ? item.name_en : item.name;
+        const imageUrl = item.image ? `${BASE_URL}/${item.image}` : 'images/placeholder.svg';
+        const manufacturerName = manufacturers[item.manufacturer]?.[currentLang] || item.manufacturer;
+        
+        card.innerHTML = `
+          <div class="figure-catalog-image">
+            <img src="${imageUrl}" alt="${escapeHtml(name)}" loading="lazy" onerror="this.src='images/placeholder.svg'">
+            ${item.hasInsert ? `<div class="figure-catalog-insert-badge" title="${currentLang === 'ru' ? 'Есть вкладыш' : 'Has insert'}">📄</div>` : ''}
+          </div>
+          <div class="figure-catalog-body">
+            <div class="figure-catalog-name">${escapeHtml(name)}</div>
+            ${item.code ? `<div class="figure-catalog-code">${escapeHtml(item.code)}</div>` : ''}
+            <div class="figure-catalog-meta">
+              ${item.fromSeries 
+                ? `<a href="series.html?id=${encodeURIComponent(item.seriesId)}" class="figure-catalog-series-link">${escapeHtml(currentLang === 'en' && item.seriesName_en ? item.seriesName_en : item.seriesName)}</a>`
+                : `<span class="figure-catalog-single">${currentLang === 'ru' ? 'Без серии' : 'No series'}</span>`
+              }
+            </div>
+            <div class="figure-catalog-meta-second">
+              ${escapeHtml(item.year || '')} · ${escapeHtml(manufacturerName)}
+            </div>
+          </div>
+        `;
+        
+        grid.appendChild(card);
+      });
+      
+      applyTranslations();
+    }
+    
+    render();
+  } catch (error) {
+    console.error('Ошибка загрузки каталога фигурок:', error);
+    grid.innerHTML = `<p class="error-message">❌ ${currentLang === 'ru' ? 'Ошибка загрузки' : 'Loading error'}</p>`;
+  }
+}
+
+// ===== СТРАНИЦА ОТДЕЛЬНОЙ ФИГУРКИ =====
+async function initSingleFigure() {
+  const container = document.getElementById('singleFigureContainer');
+  if (!container) return;
+  
+  const urlParams = new URLSearchParams(location.search);
+  const id = urlParams.get('id');
+  const manufacturer = urlParams.get('manufacturer');
+  
+  const currentLang = localStorage.getItem("lang") || "ru";
+  
+  if (!id || !manufacturer) {
+    container.innerHTML = `<p class="error-message">${currentLang === 'ru' ? 'Фигурка не найдена' : 'Figure not found'}</p>`;
+    return;
+  }
+  
+  try {
+    // Грузим singles/{manufacturer}.json
+    const res = await fetch(`${BASE_URL}/data/singles/${manufacturer}.json`);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const arr = await res.json();
+    
+    const figure = arr.find(f => f.id === id);
+    if (!figure) {
+      container.innerHTML = `<p class="error-message">${currentLang === 'ru' ? 'Фигурка не найдена' : 'Figure not found'}</p>`;
+      return;
+    }
+    
+    const manufacturers = await loadManufacturers();
+    const manufacturerName = manufacturers[manufacturer]?.[currentLang] || manufacturer;
+    
+    const name = currentLang === 'en' && figure.name_en ? figure.name_en : figure.name;
+    const description = currentLang === 'en' 
+      ? (figure.description_en || figure.description || '')
+      : (figure.description || '');
+    
+    const imageUrl = figure.image ? `${BASE_URL}/${figure.image}` : 'images/placeholder.svg';
+    const figureCode = figure.code || '';
+    const isForsale = figure.forsale === true;
+    const price = figure.price || '';
+    const avitoLink = figure.avito || '#';
+    const condition = currentLang === 'en' ? figure.condition_en : figure.condition;
+    
+    // Галерея: картинка фигурки + картинка вкладыша (если есть)
+    const galleryImages = [imageUrl];
+    let insertImageIndex = -1;
+    if (figure.insert && figure.insert.image) {
+      galleryImages.push(`${BASE_URL}/${figure.insert.image}`);
+      insertImageIndex = 1;
+    }
+    window.seriesGalleryImages = galleryImages;
+    
+    // ===== Блок вкладыша =====
+    let insertBlockHtml = '';
+    if (figure.insert) {
+      const insertName = currentLang === 'en' && figure.insert.name_en ? figure.insert.name_en : (figure.insert.name || '');
+      const insertCode = figure.insert.code || '';
+      const insertImgUrl = figure.insert.image ? `${BASE_URL}/${figure.insert.image}` : 'images/placeholder.svg';
+      
+      insertBlockHtml = `
+        <div class="single-insert-block">
+          <h3 class="single-insert-title">📄 ${currentLang === 'ru' ? 'Вкладыш' : 'Insert'}</h3>
+          <div class="single-insert-content">
+            <div class="single-insert-image-wrap">
+              <img src="${insertImgUrl}" 
+                   alt="${escapeHtml(insertName)}" 
+                   class="single-insert-image" 
+                   onclick="openLightbox(${insertImageIndex}, window.seriesGalleryImages)"
+                   onerror="this.src='images/placeholder.svg'">
+            </div>
+            <div class="single-insert-info">
+              ${insertName ? `<div class="single-insert-name">${escapeHtml(insertName)}</div>` : ''}
+              ${insertCode ? `<div class="single-insert-code">${escapeHtml(insertCode)}</div>` : ''}
+            </div>
+          </div>
+        </div>
+      `;
+    } else {
+      insertBlockHtml = `
+        <div class="single-insert-block single-insert-empty">
+          <span class="single-insert-empty-icon">📄</span>
+          <span class="single-insert-empty-text">${currentLang === 'ru' ? 'Вкладыш не добавлен' : 'Insert not added'}</span>
+        </div>
+      `;
+    }
+    
+    // ===== Информация о продаже =====
+    let saleBlockHtml = '';
+    if (isForsale) {
+      if (avitoLink && avitoLink !== '#') {
+        saleBlockHtml = `
+          <a href="${escapeHtml(avitoLink)}" class="figure-btn figure-btn-buy" target="_blank" rel="noopener noreferrer">
+            🛒 ${currentLang === 'ru' ? 'Купить' : 'Buy'}${price ? ' · ' + escapeHtml(price) : ''}
+          </a>
+        `;
+      } else {
+        saleBlockHtml = `
+          <span class="figure-btn figure-btn-disabled">
+            🛒 ${currentLang === 'ru' ? 'В продаже, ссылки нет' : 'For sale, no link'}
+          </span>
+        `;
+      }
+    }
+    
+    container.innerHTML = `
+      <div class="figure-container">
+        <h1 class="figure-title">${escapeHtml(name)}</h1>
+        <div class="figure-content">
+          <div class="figure-image-wrapper">
+            <img src="${imageUrl}" 
+                 alt="${escapeHtml(name)}" 
+                 class="figure-image" 
+                 onclick="openLightbox(0, window.seriesGalleryImages)"
+                 onerror="this.src='images/placeholder.svg'">
+            <div class="figure-type-badge">
+              🎎 ${currentLang === 'ru' ? 'Без серии' : 'No series'}
+            </div>
+          </div>
+          <div class="figure-info">
+            <div class="figure-meta">
+              <div class="figure-meta-item">
+                <span class="meta-icon">🏭</span>
+                <a href="figures.html?manufacturer=${escapeHtml(manufacturer)}" class="meta-link">${escapeHtml(manufacturerName)}</a>
+              </div>
+              <div class="figure-meta-item">
+                <span class="meta-icon">📅</span>
+                <span>${escapeHtml(figure.year || '')}</span>
+              </div>
+              ${figureCode ? `
+                <div class="figure-meta-item">
+                  <span class="meta-icon">📇</span>
+                  <span class="figure-code-value">${escapeHtml(figureCode)}</span>
+                </div>
+              ` : ''}
+              ${condition ? `
+                <div class="figure-meta-item">
+                  <span class="meta-icon">⚠️</span>
+                  <span>${escapeHtml(condition)}</span>
+                </div>
+              ` : ''}
+            </div>
+            
+            ${description ? `
+              <div class="figure-description">
+                <p>${escapeHtml(description).replace(/&lt;br&gt;/g, '<br>')}</p>
+              </div>
+            ` : ''}
+            
+            ${saleBlockHtml ? `<div class="figure-actions">${saleBlockHtml}</div>` : ''}
+          </div>
+        </div>
+        
+        ${insertBlockHtml}
+      </div>
+    `;
+    
+    applyTranslations();
+  } catch (error) {
+    console.error('Ошибка загрузки фигурки:', error);
+    container.innerHTML = `<p class="error-message">❌ ${currentLang === 'ru' ? 'Ошибка загрузки' : 'Loading error'}</p>`;
+  }
+}
+
 // ===== СТРАНИЦА ХРОНОЛОГИИ =====
 async function initTimeline() {
   const container = document.getElementById('timelineContainer');
@@ -4252,6 +4702,10 @@ document.addEventListener("DOMContentLoaded", async () => {
       initAllDuplicates();
 	} else if (path.includes('timeline.html')) {
       initTimeline();
+    } else if (path.includes('figures.html')) {
+      initFigures();
+    } else if (path.includes('single-figure.html')) {
+      initSingleFigure();
     } else if (path.includes('videos.html')) {
       initVideos();         // ← НОВОЕ
     } else if (path.includes('about.html')) {
