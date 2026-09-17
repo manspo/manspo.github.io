@@ -790,8 +790,64 @@ main {
 .collage-download-btn:hover { transform: translateY(-2px); background: var(--primary-2); }
 
 /* ===== ПРОДАЖА ===== */
-.page-header { text-align: center; margin-bottom: 30px; }
-.page-header h1 { font-size: 28px; margin: 0; }
+/* ===== ЗАГОЛОВКИ СТРАНИЦ ===== */
+.page-header {
+  text-align: center;
+  margin-bottom: 35px;
+  position: relative;
+  padding-bottom: 18px;
+}
+
+.page-header h1 {
+  font-size: 32px;
+  font-weight: 800;
+  margin: 0;
+  letter-spacing: -0.5px;
+  color: var(--text);
+  line-height: 1.2;
+  display: inline-block;
+  position: relative;
+  padding: 0 8px;
+}
+
+/* Градиентный акцент */
+.page-header h1::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -14px;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 4px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, var(--primary), var(--primary-2));
+  transition: width 0.3s ease;
+}
+.page-header:hover h1::after {
+  width: 100px;
+}
+
+/* Тонкая линия-разделитель под заголовком (на всю ширину блока) */
+.page-header::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 1px;
+  background: var(--border);
+  opacity: 0.6;
+}
+
+/* Анимация появления */
+@keyframes headerFadeIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.page-header h1 {
+  animation: headerFadeIn 0.4s ease forwards;
+}
 
 .forsale-stats {
   display: flex;
