@@ -1533,6 +1533,26 @@ function generateSearchData(seriesList) {
     return items;
 }
 
+function generateCodeCountsData(seriesList) {
+    const counts = {};
+    
+    seriesList.forEach(s => {
+        const categories = ['figures', 'variants', 'extras', 'inserts'];
+        
+        categories.forEach(cat => {
+            if (!s[cat]) return;
+            
+            s[cat].forEach(item => {
+                const code = (item.code || '').trim().toLowerCase();
+                if (!code) return;
+                counts[code] = (counts[code] || 0) + 1;
+            });
+        });
+    });
+    
+    return counts;
+}
+
 // ============================================================
 // СКАЧИВАНИЕ ZIP
 // ============================================================
@@ -1573,6 +1593,10 @@ function downloadAsZip(seriesList) {
     const searchData = generateSearchData(seriesList);
     zip.file("search.json", JSON.stringify(searchData, null, 2));
     console.log('✅ search.json:', searchData.length, 'элементов');
+	
+	const codeCountsData = generateCodeCountsData(seriesList);
+    zip.file("code-counts.json", JSON.stringify(codeCountsData, null, 2));
+    console.log('✅ code-counts.json:', Object.keys(codeCountsData).length, 'уникальных кодов');
     
     seriesList.forEach(s => {
         let manufFolder = getManufacturerFolder(s.manufacturer);

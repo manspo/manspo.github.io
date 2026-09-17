@@ -2272,3 +2272,42 @@ img {
   .same-figures-group { padding: 14px; }
   .same-figures-series-name { font-size: 17px; }
 }
+
+/* ===== СКЕЛЕТОН ДЛЯ СТРАНИЦЫ ОДИНАКОВЫХ ФИГУРОК ===== */
+.same-figures-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.skeleton-group {
+  background: var(--card);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: var(--shadow);
+}
+
+.skeleton-line {
+  margin-bottom: 12px;
+  border-radius: 8px;
+}
+
+.skeleton-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.skeleton-card {
+  height: 90px;
+  border-radius: 12px;
+}
+
+@media (max-width: 768px) {
+  .skeleton-cards {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .skeleton-card { height: 120px; }
+}

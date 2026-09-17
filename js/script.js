@@ -2706,6 +2706,17 @@ async function initSeries() {
     const description = currentLang === 'en' && s.description_en ? s.description_en : (s.description || "Описание отсутствует");
     const manufacturerName = manufacturers[s.manufacturer]?.[currentLang] || s.manufacturer;
     
+    // ===== Карта кодов: сколько раз встречается каждый код =====
+    window.__codeCounts = {};
+    try {
+      const countsRes = await fetch(`${BASE_URL}/data/code-counts.json`);
+      if (countsRes.ok) {
+        window.__codeCounts = await countsRes.json();
+      }
+    } catch (e) {
+      console.warn('Не удалось загрузить code-counts.json:', e);
+    }
+    
     const coverUrl = s.cover ? `${BASE_URL}/${s.cover}` : 'images/placeholder.svg';
     
     const allImages = [];
@@ -2753,7 +2764,7 @@ async function initSeries() {
                     <div>${safeName}</div>
                     ${itemCode ? `<div class="figure-code">${escapeHtml(itemCode)}</div>` : ''}
                   </div>
-                  ${itemCode ? `<a href="same-figures.html?code=${encodeURIComponent(itemCode)}" class="same-code-link" title="${currentLang === 'ru' ? 'Найти все фигурки с этим кодом' : 'Find all figures with this code'}">🔗</a>` : ''}
+                  ${(itemCode && window.__codeCounts && window.__codeCounts[itemCode.trim().toLowerCase()] >= 2) ? `<a href="same-figures.html?code=${encodeURIComponent(itemCode)}" class="same-code-link" title="${currentLang === 'ru' ? 'Найти все фигурки с этим кодом (' + window.__codeCounts[itemCode.trim().toLowerCase()] + ' шт.)' : 'Find all figures with this code (' + window.__codeCounts[itemCode.trim().toLowerCase()] + ' pcs)'}">🔗</a>` : ''}
                   <button class="qr-btn" onclick="generateQRCode('${safeId}', '${safeSeriesId}', '${safeName.replace(/'/g, "\\'")}')" title="QR-код">📱</button>
                 </div>
                 ${item.forsale && item.avito ? `<a href="${escapeHtml(item.avito)}" class="avito-link" target="_blank" rel="noopener noreferrer">🛒</a>` : ''}
@@ -3725,15 +3736,16 @@ async function initSameFigures() {
     return;
   }
 
+  // Скелетон уже в HTML — просто оставляем его до загрузки
   try {
     // Загружаем search.json
     const res = await fetch(`${BASE_URL}/data/search.json`);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const searchIndex = await res.json();
+    let searchIndex = await res.json();
 
     // Ищем все фигурки с таким же кодом (без учёта регистра, обрезаем пробелы)
     const codeNorm = code.trim().toLowerCase();
-    const matches = searchIndex.filter(item => 
+    let matches = searchIndex.filter(item => 
       item.code && item.code.trim().toLowerCase() === codeNorm
     );
 
@@ -3810,6 +3822,10 @@ async function initSameFigures() {
 
     container.innerHTML = html;
     applyTranslations();
+    
+    // ===== Освобождаем память =====
+    searchIndex = null;
+    if (typeof matches !== 'undefined') matches.length = 0;
   } catch (error) {
     console.error('Ошибка загрузки одинаковых фигурок:', error);
     container.innerHTML = `<p class="error-message">❌ ${currentLang === 'ru' ? 'Ошибка загрузки' : 'Loading error'}</p>`;
