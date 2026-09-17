@@ -3551,7 +3551,7 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
                     ctx.stroke();
                     
                     let displayCode = item.code;
-                    ctx.font = 'bold 22px monospace';
+                    ctx.font = 'bold 26px monospace';
                     while (ctx.measureText(displayCode).width > codeWidth - 16 && displayCode.length > 3) {
                         displayCode = displayCode.substring(0, displayCode.length - 1);
                     }

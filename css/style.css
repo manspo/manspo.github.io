@@ -670,7 +670,14 @@ main {
 .figure-item img { width: 130px; height: 130px; object-fit: contain; background: #f5f5f5; border-radius: 8px; padding: 5px; cursor: pointer; flex-shrink: 0; }
 .figure-info { flex: 1; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
 .figure-name { font-weight: 600; font-size: 16px; display: flex; flex-direction: column; }
-.figure-code { font-size: 11px; color: var(--muted); font-family: monospace; margin-top: 3px; }
+.figure-code {
+  font-size: 14px;
+  color: var(--muted);
+  font-family: monospace;
+  font-weight: 600;
+  margin-top: 4px;
+  letter-spacing: 0.5px;
+}
 
 .qr-btn, .qr-btn-series {
   background: var(--primary);
@@ -831,7 +838,15 @@ main {
 .forsale-item-tags { display: flex; flex-wrap: wrap; gap: 4px; }
 .tag { font-size: 10px; padding: 2px 8px; border-radius: 10px; font-weight: 500; }
 .tag-primary { background: var(--primary); color: white; }
-.tag-code { background: var(--bg-secondary); color: var(--muted); font-family: monospace; }
+.tag-code {
+  background: var(--bg-secondary);
+  color: var(--muted);
+  font-family: monospace;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 3px 10px;
+  letter-spacing: 0.5px;
+}
 .tag-condition { background: #fef3c7; color: #92400e; }
 [data-theme="dark"] .tag-condition { background: rgba(245, 158, 11, 0.15); color: #fde68a; }
 .forsale-item-series {
@@ -1283,7 +1298,16 @@ img {
 .meta-link { color: var(--primary); text-decoration: none; font-weight: 500; }
 .meta-link:hover { text-decoration: underline; }
 
-.figure-code-value { font-family: monospace; font-size: 13px; color: var(--muted); }
+.figure-code-value {
+  font-family: monospace;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+  background: var(--bg);
+  padding: 4px 12px;
+  border-radius: 20px;
+  letter-spacing: 0.5px;
+}
 
 .figure-condition {
   display: flex !important;
@@ -2245,13 +2269,14 @@ img {
 
 .same-figure-code {
   font-family: monospace;
-  font-size: 12px;
+  font-size: 14px;
   background: rgba(79, 70, 229, 0.1);
   color: var(--primary);
-  padding: 2px 8px;
+  padding: 4px 10px;
   border-radius: 10px;
   width: fit-content;
-  font-weight: 600;
+  font-weight: 700;
+  letter-spacing: 0.5px;
 }
 
 @media (max-width: 768px) {
