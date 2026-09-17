@@ -3141,48 +3141,35 @@ async function initFigure() {
     if (imageIndex === -1) imageIndex = 0;
     window.seriesGalleryImages = allSeriesImages;
     
-    let infoHtml = '';
     const condition = currentLang === 'en' ? figure.condition_en : figure.condition;
     const price = figure.price || '';
     const avitoLink = figure.avito || '#';
     const isForsale = figure.forsale === true;
     
-    if (condition) {
-      infoHtml += `
-        <div class="figure-condition">
-          <span class="condition-icon">⚠️</span>
-          <span class="condition-text">${escapeHtml(condition)}</span>
-        </div>
-      `;
-    }
+    const figureCode = figure.code || '';
+    const imageUrl = figure.image ? `${BASE_URL}/${figure.image}` : 'images/placeholder.svg';
     
+    // ===== БЛОК ПРОДАЖИ =====
+    let saleBlockHtml = '';
     if (isForsale) {
       if (avitoLink && avitoLink !== '#') {
-        infoHtml += `
-          <div style="margin-top: 10px;">
-            <a href="${escapeHtml(avitoLink)}" class="figure-btn figure-btn-buy" target="_blank" rel="noopener noreferrer">
-              🛒 ${currentLang === 'ru' ? 'Купить' : 'Buy'}${price ? ' · ' + escapeHtml(price) : ''}
-            </a>
-          </div>
+        saleBlockHtml = `
+          <a href="${escapeHtml(avitoLink)}" class="figure-btn figure-btn-buy" target="_blank" rel="noopener noreferrer">
+            🛒 ${currentLang === 'ru' ? 'Купить' : 'Buy'}${price ? ' · ' + escapeHtml(price) : ''}
+          </a>
         `;
       } else {
-        infoHtml += `
-          <div style="margin-top: 10px;">
-            <span class="figure-btn figure-btn-disabled">
-              🛒 ${currentLang === 'ru' ? 'В продаже, ссылки нет' : 'For sale, no link'}
-            </span>
-          </div>
+        saleBlockHtml = `
+          <span class="figure-btn figure-btn-disabled">
+            🛒 ${currentLang === 'ru' ? 'В продаже, ссылки нет' : 'For sale, no link'}
+          </span>
         `;
       }
     }
     
-    const figureCode = figure.code || '';
-    const imageUrl = figure.image ? `${BASE_URL}/${figure.image}` : 'images/placeholder.svg';
-    
-    // ===== ПАРНЫЙ ВКЛАДЫШ (только для фигурок, не для самих вкладышей) =====
+    // ===== БЛОК ВКЛАДЫША (только для фигурок/допов/вариантов) =====
     let insertBlockHtml = '';
     if (figureType !== 'inserts' && figureType !== 'other') {
-      // Ищем парный вкладыш внутри этой же серии по совпадению кода
       const codeNorm = (figure.code || '').trim().toUpperCase();
       let pairedInsert = null;
       
@@ -3201,7 +3188,6 @@ async function initFigure() {
           ? `${BASE_URL}/${pairedInsert.image}` 
           : 'images/placeholder.svg';
         
-        // Индекс картинки вкладыша в общей галерее
         const insertIdxInGallery = allSeriesImages.findIndex(img => img === insertImgUrl);
         const insertGalleryIdx = insertIdxInGallery !== -1 ? insertIdxInGallery : 0;
         
@@ -3233,16 +3219,37 @@ async function initFigure() {
       }
     }
     
+    // ===== БЛОК ОПИСАНИЯ / СОСТОЯНИЯ (для правой колонки) =====
+    let descriptionBlockHtml = '';
+    if (condition) {
+      descriptionBlockHtml += `
+        <div class="figure-condition">
+          <span class="condition-icon">⚠️</span>
+          <span class="condition-text">${escapeHtml(condition)}</span>
+        </div>
+      `;
+    }
+    
+    // ===== РЕНДЕР =====
     container.innerHTML = `
       <div class="figure-container">
         <h1 class="figure-title">${escapeHtml(name)}</h1>
         <div class="figure-content">
-          <div class="figure-image-wrapper">
-            <img src="${imageUrl}" alt="${escapeHtml(name)}" class="figure-image" onclick="openLightbox(${imageIndex}, window.seriesGalleryImages || [])" onerror="this.src='images/placeholder.svg'">
-            <div class="figure-type-badge">
-              ${escapeHtml(typeIcon)} ${escapeHtml(typeName)}${figureNumber ? ' #' + figureNumber : ''}
+          <div class="figure-left">
+            <div class="figure-image-wrapper">
+              <img src="${imageUrl}" alt="${escapeHtml(name)}" class="figure-image" onclick="openLightbox(${imageIndex}, window.seriesGalleryImages || [])" onerror="this.src='images/placeholder.svg'">
+              <div class="figure-type-badge">
+                ${escapeHtml(typeIcon)} ${escapeHtml(typeName)}${figureNumber ? ' #' + figureNumber : ''}
+              </div>
             </div>
+            
+            <div class="figure-sale-block">
+              ${saleBlockHtml}
+            </div>
+            
+            ${insertBlockHtml}
           </div>
+          
           <div class="figure-info">
             <div class="figure-meta">
               <div class="figure-meta-item">
@@ -3260,13 +3267,10 @@ async function initFigure() {
                 </div>
               ` : ''}
             </div>
-            <div class="figure-actions">
-              ${infoHtml}
-            </div>
+            
+            ${descriptionBlockHtml}
           </div>
         </div>
-        
-        ${insertBlockHtml}
       </div>
     `;
     
@@ -4570,41 +4574,27 @@ async function initSingleFigure() {
     const avitoLink = figure.avito || '#';
     const condition = currentLang === 'en' ? figure.condition_en : figure.condition;
     
-    // Галерея: картинка фигурки + картинка вкладыша (если есть)
+    // Галерея
     const galleryImages = [imageUrl];
     if (figure.insert && figure.insert.image) {
       galleryImages.push(`${BASE_URL}/${figure.insert.image}`);
     }
     window.seriesGalleryImages = galleryImages;
     
-    // ===== ИНФО + ПРОДАЖА =====
-    let infoHtml = '';
-    
-    if (condition) {
-      infoHtml += `
-        <div class="figure-condition">
-          <span class="condition-icon">⚠️</span>
-          <span class="condition-text">${escapeHtml(condition)}</span>
-        </div>
-      `;
-    }
-    
+    // ===== БЛОК ПРОДАЖИ =====
+    let saleBlockHtml = '';
     if (isForsale) {
       if (avitoLink && avitoLink !== '#') {
-        infoHtml += `
-          <div style="margin-top: 10px;">
-            <a href="${escapeHtml(avitoLink)}" class="figure-btn figure-btn-buy" target="_blank" rel="noopener noreferrer">
-              🛒 ${currentLang === 'ru' ? 'Купить' : 'Buy'}${price ? ' · ' + escapeHtml(price) : ''}
-            </a>
-          </div>
+        saleBlockHtml = `
+          <a href="${escapeHtml(avitoLink)}" class="figure-btn figure-btn-buy" target="_blank" rel="noopener noreferrer">
+            🛒 ${currentLang === 'ru' ? 'Купить' : 'Buy'}${price ? ' · ' + escapeHtml(price) : ''}
+          </a>
         `;
       } else {
-        infoHtml += `
-          <div style="margin-top: 10px;">
-            <span class="figure-btn figure-btn-disabled">
-              🛒 ${currentLang === 'ru' ? 'В продаже, ссылки нет' : 'For sale, no link'}
-            </span>
-          </div>
+        saleBlockHtml = `
+          <span class="figure-btn figure-btn-disabled">
+            🛒 ${currentLang === 'ru' ? 'В продаже, ссылки нет' : 'For sale, no link'}
+          </span>
         `;
       }
     }
@@ -4643,21 +4633,48 @@ async function initSingleFigure() {
       `;
     }
     
-    // ===== РЕНДЕР (в стиле figure.html) =====
+    // ===== БЛОК ОПИСАНИЯ / СОСТОЯНИЯ (правая колонка) =====
+    let descriptionBlockHtml = '';
+    if (condition) {
+      descriptionBlockHtml += `
+        <div class="figure-condition">
+          <span class="condition-icon">⚠️</span>
+          <span class="condition-text">${escapeHtml(condition)}</span>
+        </div>
+      `;
+    }
+    if (description) {
+      descriptionBlockHtml += `
+        <div class="figure-description">
+          <p>${escapeHtml(description).replace(/&lt;br&gt;/g, '<br>')}</p>
+        </div>
+      `;
+    }
+    
+    // ===== РЕНДЕР =====
     container.innerHTML = `
       <div class="figure-container">
         <h1 class="figure-title">${escapeHtml(name)}</h1>
         <div class="figure-content">
-          <div class="figure-image-wrapper">
-            <img src="${imageUrl}" 
-                 alt="${escapeHtml(name)}" 
-                 class="figure-image" 
-                 onclick="openLightbox(0, window.seriesGalleryImages)"
-                 onerror="this.src='images/placeholder.svg'">
-            <div class="figure-type-badge">
-              🎎 ${currentLang === 'ru' ? 'Фигурка' : 'Figure'}
+          <div class="figure-left">
+            <div class="figure-image-wrapper">
+              <img src="${imageUrl}" 
+                   alt="${escapeHtml(name)}" 
+                   class="figure-image" 
+                   onclick="openLightbox(0, window.seriesGalleryImages)"
+                   onerror="this.src='images/placeholder.svg'">
+              <div class="figure-type-badge">
+                🎎 ${currentLang === 'ru' ? 'Фигурка' : 'Figure'}
+              </div>
             </div>
+            
+            <div class="figure-sale-block">
+              ${saleBlockHtml}
+            </div>
+            
+            ${insertBlockHtml}
           </div>
+          
           <div class="figure-info">
             <div class="figure-meta">
               <div class="figure-meta-item">
@@ -4682,19 +4699,9 @@ async function initSingleFigure() {
               ` : ''}
             </div>
             
-            ${description ? `
-              <div class="figure-description">
-                <p>${escapeHtml(description).replace(/&lt;br&gt;/g, '<br>')}</p>
-              </div>
-            ` : ''}
-            
-            <div class="figure-actions">
-              ${infoHtml}
-            </div>
+            ${descriptionBlockHtml}
           </div>
         </div>
-        
-        ${insertBlockHtml}
       </div>
     `;
     

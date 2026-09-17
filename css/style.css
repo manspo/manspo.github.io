@@ -49,7 +49,6 @@
 [data-theme="dark"] .manufacturer-card,
 [data-theme="dark"] .history-card,
 [data-theme="dark"] .archive-card,
-[data-theme="dark"] .stat-card,
 [data-theme="dark"] .stat-card-simple,
 [data-theme="dark"] .about-stat-item {
   background: var(--card);
@@ -58,7 +57,7 @@
 }
 [data-theme="dark"] .filter-btn.active { background: var(--primary); color: white; }
 [data-theme="dark"] .social-icon-img { filter: brightness(0) invert(1); }
-[data-theme="dark"] .qr-btn, 
+[data-theme="dark"] .qr-btn,
 [data-theme="dark"] .qr-btn-series { background: var(--primary); color: white; }
 [data-theme="dark"] .video-source-btn {
   background: var(--card);
@@ -287,16 +286,16 @@ main {
 .icon { font-size: 40px; margin-bottom: 10px; }
 .home-title { font-weight: 600; }
 
-#socialGrid { 
+#socialGrid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 20px; 
-  margin-bottom: 30px; 
+  gap: 20px;
+  margin-bottom: 30px;
 }
-#socialGrid .home-card { 
-  min-height: 140px; 
-  padding: 30px 20px; 
-  flex-direction: column; 
+#socialGrid .home-card {
+  min-height: 140px;
+  padding: 30px 20px;
+  flex-direction: column;
   width: 100%;
   box-sizing: border-box;
   background: var(--card);
@@ -307,7 +306,6 @@ main {
   box-shadow: var(--shadow);
   transition: transform 0.25s, box-shadow 0.25s;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
 }
@@ -617,7 +615,7 @@ main {
   margin: 0;
 }
 
-.series-meta .dot { display: none; }  /* убираем точку-разделитель, бейджи и так разделены */
+.series-meta .dot { display: none; }
 
 .series-year-link,
 .series-manufacturer-link {
@@ -733,8 +731,8 @@ main {
   flex-shrink: 0;
 }
 .figure-item img { width: 130px; height: 130px; object-fit: contain; background: #f5f5f5; border-radius: 8px; padding: 5px; cursor: pointer; flex-shrink: 0; }
-.figure-info { flex: 1; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
-.figure-name { font-weight: 600; font-size: 16px; display: flex; flex-direction: column; }
+.figure-item .figure-info { flex: 1; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.figure-item .figure-name { font-weight: 600; font-size: 16px; display: flex; flex-direction: column; }
 .figure-code {
   font-size: 14px;
   color: var(--muted);
@@ -789,20 +787,18 @@ main {
 }
 .collage-download-btn:hover { transform: translateY(-2px); background: var(--primary-2); }
 
-/* ===== ПРОДАЖА ===== */
-/* ===== ЗАГОЛОВКИ СТРАНИЦ ===== */
 /* ===== ЗАГОЛОВКИ СТРАНИЦ ===== */
 .page-header {
   text-align: center;
   margin-bottom: 35px;
   position: relative;
-  padding-bottom: 28px;   /* ← увеличили, чтобы освободить место под подзаголовок */
+  padding-bottom: 28px;
 }
 
 .page-header h1 {
   font-size: 32px;
   font-weight: 800;
-  margin: 0 0 12px 0;      /* ← отступ снизу от заголовка до подзаголовка */
+  margin: 0 0 12px 0;
   letter-spacing: -0.5px;
   color: var(--text);
   line-height: 1.2;
@@ -811,7 +807,6 @@ main {
   padding: 0 8px;
 }
 
-/* Градиентный акцент */
 .page-header h1::after {
   content: '';
   position: absolute;
@@ -828,7 +823,6 @@ main {
   width: 100px;
 }
 
-/* Тонкая линия-разделитель под заголовком (на всю ширину блока) */
 .page-header::after {
   content: '';
   position: absolute;
@@ -841,7 +835,6 @@ main {
   opacity: 0.6;
 }
 
-/* Анимация появления */
 @keyframes headerFadeIn {
   from { opacity: 0; transform: translateY(-6px); }
   to { opacity: 1; transform: translateY(0); }
@@ -849,24 +842,6 @@ main {
 .page-header h1 {
   animation: headerFadeIn 0.4s ease forwards;
 }
-
-.forsale-stats {
-  display: flex;
-  gap: 20px;
-  margin-bottom: 25px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-.stat-card {
-  background: var(--card);
-  padding: 15px 30px;
-  border-radius: 12px;
-  text-align: center;
-  box-shadow: var(--shadow);
-  min-width: 150px;
-}
-.stat-value { font-size: 32px; font-weight: 700; color: var(--primary); }
-.stat-card .stat-label { font-size: 14px; color: var(--muted); }
 
 /* ===== FOR SALE - СЕТКА ===== */
 .forsale-grid {
@@ -1357,14 +1332,38 @@ img {
 .hall-details-summary:hover { background: var(--primary); color: white; }
 .hall-details-summary::-webkit-details-marker { display: none; }
 .hall-details-summary::before { content: '📋 '; }
-.hall-details[open] .hall-details-summary::before { content: '📋 '; }
 .hall-details-series-list { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; padding-left: 8px; }
 
-/* ===== СТРАНИЦА ФИГУРКИ ===== */
+/* ============================================================
+   СТРАНИЦА ФИГУРКИ (обновлённая структура)
+   ============================================================ */
 .figure-container { max-width: 900px; margin: 0 auto; }
 .figure-title { font-size: 28px; margin-bottom: 20px; color: var(--text); }
-.figure-content { display: flex; gap: 30px; align-items: flex-start; }
-.figure-image-wrapper { flex-shrink: 0; width: 300px; position: relative; }
+
+/* Двухколоночный layout: слева фигурка + кнопка + вкладыш, справа — мета-инфо */
+.figure-content {
+  display: flex;
+  gap: 30px;
+  align-items: flex-start;
+}
+
+.figure-left {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.figure-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.figure-image-wrapper { position: relative; width: 100%; }
 .figure-image {
   width: 100%;
   aspect-ratio: 1;
@@ -1373,8 +1372,13 @@ img {
   border-radius: 20px;
   padding: 15px;
   cursor: pointer;
+  transition: transform 0.2s;
 }
 .figure-image:hover { transform: scale(1.02); }
+
+[data-theme="dark"] .figure-image {
+  background: linear-gradient(135deg, #1e1e2e 0%, #2d2d44 100%);
+}
 
 .figure-type-badge {
   position: absolute;
@@ -1388,13 +1392,13 @@ img {
   font-weight: 600;
 }
 
-.figure-info {
-  flex: 1;
-  min-width: 0;
+/* Блок продажи между фигуркой и вкладышем */
+.figure-sale-block {
   display: flex;
-  flex-direction: column;
-  gap: 15px;
+  justify-content: center;
+  align-items: center;
 }
+.figure-sale-block:empty { display: none; }
 
 .figure-meta {
   display: flex;
@@ -1432,7 +1436,7 @@ img {
 }
 
 .figure-condition {
-  display: flex !important;
+  display: flex;
   align-items: center;
   gap: 10px;
   background: #fef3c7;
@@ -1445,7 +1449,7 @@ img {
 [data-theme="dark"] .condition-text { color: #fde68a; }
 
 .figure-description {
-  margin: 10px 0 16px;
+  margin: 0;
   font-size: 16px;
   line-height: 1.7;
   color: var(--text);
@@ -1456,19 +1460,8 @@ img {
 .figure-description p { margin: 0 0 8px 0; }
 .figure-description p:last-child { margin-bottom: 0; }
 
-.figure-actions {
-  display: flex !important;
-  flex-wrap: wrap !important;
-  align-items: center !important;
-  gap: 10px !important;
-  padding-top: 15px;
-  border-top: 1px solid var(--border);
-  margin-top: 0;
-  width: 100%;
-}
-
 .figure-btn {
-  display: inline-flex !important;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   padding: 12px 24px;
@@ -1481,7 +1474,6 @@ img {
   transition: all 0.2s;
   white-space: nowrap;
   gap: 8px;
-  height: auto;
   min-height: 44px;
 }
 
@@ -1869,17 +1861,23 @@ img {
     .figure-number { position: absolute; top: 5px; left: 5px; }
     .figure-item img { width: 160px; height: 160px; margin: 10px auto; }
 
-    /* ===== СТРАНИЦА ФИГУРКИ / ЛОТА ===== */
-    .figure-content { flex-direction: column; align-items: center; }
-    .figure-image-wrapper { width: 100%; max-width: 280px; }
+    /* ===== СТРАНИЦА ФИГУРКИ / ЛОТА (МОБИЛЬНАЯ) ===== */
+    .figure-content {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+    .figure-left,
+    .figure-info {
+        width: 100%;
+    }
+    .figure-image-wrapper { max-width: 280px; margin: 0 auto; }
     .figure-image { width: 100%; aspect-ratio: 1/1; object-fit: contain; padding: 10px; }
-    .figure-info { width: 100%; padding: 0 4px; }
     .figure-title { font-size: 22px; text-align: center; margin-bottom: 16px; }
     .figure-meta { padding: 12px 16px; margin-bottom: 0; }
     .figure-meta-item { justify-content: flex-start; padding: 6px 0; font-size: 13px; }
     .figure-condition { padding: 10px 14px; font-size: 13px; }
-    .figure-description { font-size: 14px; padding: 12px; margin: 10px 0 16px; }
-    .figure-actions { flex-direction: column; gap: 10px; justify-content: center; margin-top: 8px; }
+    .figure-description { font-size: 14px; padding: 12px; }
     .figure-btn { width: 100%; justify-content: center; padding: 14px 24px; font-size: 16px; }
 
     /* ===== ФУТЕР ===== */
@@ -1919,11 +1917,6 @@ img {
     .hall-stat { padding: 4px 12px; }
     .hall-stat-icon { font-size: 16px; }
     .hall-stat-value { font-size: 16px; }
-    .about-stats { gap: 16px; }
-    .about-stat-item { padding: 16px 20px; min-width: 100px; flex: 1; }
-    .about-stat-icon { width: 36px; height: 36px; }
-    .about-stat-number { font-size: 28px; }
-    .about-text { font-size: 14px; padding: 0 16px; }
     .about-stats { grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 20px 0; }
     .about-stat-item { padding: 16px 12px; }
     .about-stat-icon { width: 32px; height: 32px; }
@@ -1963,20 +1956,6 @@ img {
     .figure-meta-item { font-size: 12px; padding: 5px 0; }
     .figure-description { font-size: 13px; padding: 10px; }
 }
-
-/* ===== КНОПКИ ФИГУРКИ (всегда в строку) ===== */
-.figure-actions {
-    display: flex !important;
-    flex-wrap: wrap !important;
-    align-items: center !important;
-    gap: 10px !important;
-    padding-top: 15px;
-    border-top: 1px solid var(--border);
-    margin-top: 10px;
-    width: 100%;
-}
-.figure-actions .figure-condition,
-.figure-actions .figure-btn { flex-shrink: 0 !important; }
 
 /* ===== ФИКС ДЛЯ ЦЕНЫ В КАРТОЧКАХ ПРОДАЖ ===== */
 .forsale-item-price {
@@ -2512,7 +2491,7 @@ img {
   transition: all 0.2s;
   white-space: nowrap;
   flex-shrink: 0;
-  margin-left: auto;      /* ← прижимает к правому краю */
+  margin-left: auto;
   cursor: pointer;
 }
 .duplicates-btn:hover {
@@ -2792,7 +2771,7 @@ img {
   }
 }
 
-/* ===== КАРТОЧКИ СТАТИСТИКИ В МОИХ КОЛЛЕКЦИЯХ ===== */
+/* ===== КАРТОЧКИ СТАТИСТИКИ (Мои коллекции / На продажу) ===== */
 .stats-cards {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -2967,7 +2946,6 @@ img {
 
 /* ===== БЛОК ВКЛАДЫША НА СТРАНИЦАХ ФИГУРОК ===== */
 .single-insert-block {
-  margin-top: 30px;
   padding: 20px;
   background: var(--card);
   border: 1px solid var(--border);
@@ -3076,10 +3054,9 @@ img {
   font-style: italic;
 }
 
-/* ===== Мобильная версия ===== */
+/* ===== Мобильная версия вкладыша ===== */
 @media (max-width: 768px) {
   .single-insert-block {
-    margin-top: 20px;
     padding: 16px;
   }
   .single-insert-title {
