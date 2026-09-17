@@ -791,17 +791,18 @@ main {
 
 /* ===== ПРОДАЖА ===== */
 /* ===== ЗАГОЛОВКИ СТРАНИЦ ===== */
+/* ===== ЗАГОЛОВКИ СТРАНИЦ ===== */
 .page-header {
   text-align: center;
   margin-bottom: 35px;
   position: relative;
-  padding-bottom: 18px;
+  padding-bottom: 28px;   /* ← увеличили, чтобы освободить место под подзаголовок */
 }
 
 .page-header h1 {
   font-size: 32px;
   font-weight: 800;
-  margin: 0;
+  margin: 0 0 12px 0;      /* ← отступ снизу от заголовка до подзаголовка */
   letter-spacing: -0.5px;
   color: var(--text);
   line-height: 1.2;
