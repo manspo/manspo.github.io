@@ -3947,6 +3947,80 @@ async function initSameFigures() {
   }
 }
 
+// ===== СТРАНИЦА ВСЕХ ДУБЛЕЙ =====
+async function initAllDuplicates() {
+  const container = document.getElementById('allDuplicatesContainer');
+  const pageSubtitle = document.getElementById('pageSubtitle');
+  const searchInput = document.getElementById('dupSearchInput');
+  if (!container) return;
+
+  const currentLang = localStorage.getItem("lang") || "ru";
+  let allCodes = [];
+  let currentQuery = '';
+
+  try {
+    // 1. Грузим code-counts.json — там только коды с числом вхождений
+    const countsRes = await fetch(`${BASE_URL}/data/code-counts.json`);
+    if (!countsRes.ok) throw new Error(`HTTP ${countsRes.status}`);
+    const counts = await countsRes.json();
+
+    // 2. Отбираем только дубли (>= 2)
+    allCodes = Object.keys(counts)
+      .filter(code => counts[code] >= 2)
+      .sort((a, b) => counts[b] - counts[a] || a.localeCompare(b));
+
+    if (allCodes.length === 0) {
+      container.innerHTML = `<p class="empty-message">${currentLang === 'ru' ? 'Дублей не найдено' : 'No duplicates found'}</p>`;
+      return;
+    }
+
+    function render() {
+      const filtered = currentQuery
+        ? allCodes.filter(c => c.includes(currentQuery))
+        : allCodes;
+
+      if (pageSubtitle) {
+        pageSubtitle.textContent = currentLang === 'ru'
+          ? `Найдено кодов: ${filtered.length}`
+          : `Codes found: ${filtered.length}`;
+      }
+
+      if (filtered.length === 0) {
+        container.innerHTML = `<p class="empty-message">${currentLang === 'ru' ? 'Ничего не найдено' : 'Nothing found'}</p>`;
+        return;
+      }
+
+      container.innerHTML = `
+        <div class="duplicates-grid">
+          ${filtered.map(code => `
+            <a href="same-figures.html?code=${encodeURIComponent(code)}" class="duplicate-card">
+              <div class="duplicate-code">${escapeHtml(code.toUpperCase())}</div>
+              <div class="duplicate-count">
+                <span class="duplicate-count-num">${counts[code]}</span>
+                <span class="duplicate-count-label">${currentLang === 'ru' ? 'совпадений' : 'matches'}</span>
+              </div>
+              <div class="duplicate-icon">🔗</div>
+            </a>
+          `).join('')}
+        </div>
+      `;
+      applyTranslations();
+    }
+
+    if (searchInput) {
+      searchInput.oninput = debounce((e) => {
+        currentQuery = e.target.value.toLowerCase().trim();
+        render();
+      }, CONFIG.DEBOUNCE_DELAY);
+    }
+
+    render();
+  } catch (error) {
+    console.error('Ошибка загрузки дублей:', error);
+    container.innerHTML = `<p class="error-message">❌ ${currentLang === 'ru' ? 'Ошибка загрузки' : 'Loading error'}</p>`;
+  }
+}
+
 // ===== ОБРАБОТКА ГЛУБОКИХ ССЫЛОК =====
 function handleDeepLink() {
     const params = new URLSearchParams(window.location.search);
@@ -3999,6 +4073,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       initForSale();
 	} else if (path.includes('same-figures.html')) {
       initSameFigures();
+	} else if (path.includes('all-duplicates.html')) {
+      initAllDuplicates();
     } else if (path.includes('videos.html')) {
       initVideos();         // ← НОВОЕ
     } else if (path.includes('about.html')) {

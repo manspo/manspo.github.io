@@ -2343,3 +2343,115 @@ img {
 .search-match-link:hover .search-match-link-icon {
   opacity: 1;
 }
+
+/* ===== КНОПКА "ВСЕ ДУБЛИ" ===== */
+.duplicates-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: var(--card);
+  color: var(--primary);
+  border: 2px solid var(--primary);
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.duplicates-btn:hover {
+  background: var(--primary);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+}
+
+/* ===== СТРАНИЦА ВСЕХ ДУБЛЕЙ ===== */
+.duplicates-controls {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 25px;
+}
+
+.duplicates-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 15px;
+  padding: 5px 0;
+}
+
+.duplicate-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 20px 15px;
+  background: var(--card);
+  border: 2px solid var(--border);
+  border-radius: 14px;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.25s;
+  position: relative;
+  overflow: hidden;
+}
+.duplicate-card:hover {
+  border-color: var(--primary);
+  background: rgba(79, 70, 229, 0.05);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(79, 70, 229, 0.2);
+}
+[data-theme="dark"] .duplicate-card:hover {
+  background: rgba(129, 140, 248, 0.1);
+}
+
+.duplicate-code {
+  font-family: monospace;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--primary);
+  letter-spacing: 1px;
+  word-break: break-all;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.duplicate-count {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+.duplicate-count-num {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text);
+}
+.duplicate-count-label {
+  font-size: 11px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.duplicate-icon {
+  font-size: 16px;
+  opacity: 0.5;
+  margin-top: 4px;
+}
+.duplicate-card:hover .duplicate-icon {
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .duplicates-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .duplicate-card { padding: 14px 10px; }
+  .duplicate-code { font-size: 16px; }
+  .duplicate-count-num { font-size: 20px; }
+  .duplicates-btn { padding: 10px 14px; font-size: 13px; }
+}
