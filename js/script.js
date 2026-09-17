@@ -2125,21 +2125,23 @@ async function initForSale() {
     let figureItems = [], extraItems = [], insertItems = [], variantItems = [], fullSeriesItems = [];
     
     allItems.forEach(item => {
-      const mapped = {
-        id: item.id,
-        seriesId: item.seriesId,
-        name: (currentLang === 'en' && item.name_en) ? item.name_en : item.name,
-        image: item.image,
-        avito: item.avito,
-        seriesName: (currentLang === 'en' && item.seriesName_en) ? item.seriesName_en : item.seriesName,
-        seriesYear: item.seriesYear,
-        manufacturer: item.manufacturer,
-        price: (currentLang === 'en' && item.price_en) ? item.price_en : (item.price || ''),
-        condition: (currentLang === 'en' ? item.condition_en : item.condition) || '',
-        type: item.type,
-        code: item.code || '',
-        date_added: item.date_added || ''
-      };
+const mapped = {
+  id: item.id,
+  seriesId: item.seriesId,
+  name: (currentLang === 'en' && item.name_en) ? item.name_en : item.name,
+  name_en: item.name_en || '',
+  image: item.image,
+  avito: item.avito,
+  seriesName: (currentLang === 'en' && item.seriesName_en) ? item.seriesName_en : item.seriesName,
+  seriesName_en: item.seriesName_en || '',
+  seriesYear: item.seriesYear,
+  manufacturer: item.manufacturer,
+  price: (currentLang === 'en' && item.price_en) ? item.price_en : (item.price || ''),
+  condition: (currentLang === 'en' ? item.condition_en : item.condition) || '',
+  type: item.type,
+  code: item.code || '',
+  date_added: item.date_added || ''
+};
       
       if (item.type === 'full') fullSeriesItems.push(mapped);
       else if (item.type === 'figure') figureItems.push(mapped);
@@ -2184,14 +2186,16 @@ async function initForSale() {
       if (currentManufacturer !== 'all') {
         filtered = filtered.filter(i => i.manufacturer === currentManufacturer);
       }
-      if (currentSearch) {
-        const query = currentSearch.toLowerCase();
-        filtered = filtered.filter(i => 
-          i.name.toLowerCase().includes(query) || 
-          i.seriesName.toLowerCase().includes(query) ||
-          (i.code && i.code.toLowerCase().includes(query))
-        );
-      }
+if (currentSearch) {
+  const query = currentSearch.toLowerCase();
+  filtered = filtered.filter(i => 
+    (i.name || '').toLowerCase().includes(query) ||
+    (i.name_en || '').toLowerCase().includes(query) ||
+    (i.seriesName || '').toLowerCase().includes(query) ||
+    (i.seriesName_en || '').toLowerCase().includes(query) ||
+    (i.code && i.code.toLowerCase().includes(query))
+  );
+}
 // Сортировка
 if (currentSort === 'date-desc') {
   filtered.sort((a, b) => {
@@ -2227,14 +2231,16 @@ if (currentSort === 'date-desc') {
     
     function getRecentItems() {
       let all = [...figureItems, ...variantItems, ...extraItems, ...insertItems, ...fullSeriesItems];
-      if (currentSearch) {
-        const query = currentSearch.toLowerCase();
-        all = all.filter(i => 
-          i.name.toLowerCase().includes(query) || 
-          i.seriesName.toLowerCase().includes(query) ||
-          (i.code && i.code.toLowerCase().includes(query))
-        );
-      }
+if (currentSearch) {
+  const query = currentSearch.toLowerCase();
+  all = all.filter(i => 
+    (i.name || '').toLowerCase().includes(query) ||
+    (i.name_en || '').toLowerCase().includes(query) ||
+    (i.seriesName || '').toLowerCase().includes(query) ||
+    (i.seriesName_en || '').toLowerCase().includes(query) ||
+    (i.code && i.code.toLowerCase().includes(query))
+  );
+}
 all.sort((a, b) => {
   const dateA = a.date_added ? new Date(a.date_added) : new Date();
   const dateB = b.date_added ? new Date(b.date_added) : new Date();
