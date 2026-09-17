@@ -1632,24 +1632,20 @@ async function initCatalog() {
       }
       
       // ===== СОРТИРОВКА =====
+      // Порядок в index.json = порядок добавления (первый = самый новый)
+      const indexOrder = {};
+      data.forEach((s, i) => { indexOrder[s.id] = i; });
+
       if (currentSort === "date-desc") {
-        list.sort((a, b) => {
-          const dateA = a.date_added ? new Date(a.date_added).getTime() : 0;
-          const dateB = b.date_added ? new Date(b.date_added).getTime() : 0;
-          if (dateB !== dateA) return dateB - dateA;
-          return (a.name || '').localeCompare(b.name || '');
-        });
+        // Как в index.json — новые первыми
+        list.sort((a, b) => (indexOrder[a.id] ?? 99999) - (indexOrder[b.id] ?? 99999));
       } else if (currentSort === "date-asc") {
-        list.sort((a, b) => {
-          const dateA = a.date_added ? new Date(a.date_added).getTime() : 0;
-          const dateB = b.date_added ? new Date(b.date_added).getTime() : 0;
-          if (dateA !== dateB) return dateA - dateB;
-          return (a.name || '').localeCompare(b.name || '');
-        });
+        // Обратный порядок — старые первыми
+        list.sort((a, b) => (indexOrder[b.id] ?? -1) - (indexOrder[a.id] ?? -1));
       } else if (currentSort === "year") {
-        list.sort((a, b) => a.year - b.year);
+        list.sort((a, b) => (a.year || 0) - (b.year || 0));
       } else if (currentSort === "year-desc") {
-        list.sort((a, b) => b.year - a.year);
+        list.sort((a, b) => (b.year || 0) - (a.year || 0));
       } else if (currentSort === "name") {
         list.sort((a, b) => {
           const nameA = (currentLang === 'en' && a.name_en ? a.name_en : a.name).toLowerCase();
@@ -2368,6 +2364,9 @@ async function initForSale() {
     
     // ===== ЗАГРУЗКА ЧЕРЕЗ FORSALE.JSON =====
     const allItems = await loadForsale();
+	    // Порядок в forsale.json (для сортировки «как в файле»)
+    const forsaleIndexOrder = {};
+    allItems.forEach((item, i) => { forsaleIndexOrder[item.id] = i; });
     
     // Разбиваем по типам
     let figureItems = [], extraItems = [], insertItems = [], variantItems = [], fullSeriesItems = [];
@@ -2446,27 +2445,17 @@ if (currentSearch) {
 }
 // Сортировка
 if (currentSort === 'date-desc') {
-  filtered.sort((a, b) => {
-    const dateA = a.date_added ? new Date(a.date_added).getTime() : Date.now();
-    const dateB = b.date_added ? new Date(b.date_added).getTime() : Date.now();
-    if (dateB !== dateA) return dateB - dateA;
-    return (a.name || '').localeCompare(b.name || '');
-  });
+  filtered.sort((a, b) => (forsaleIndexOrder[a.id] ?? 99999) - (forsaleIndexOrder[b.id] ?? 99999));
 } else if (currentSort === 'date-asc') {
-  filtered.sort((a, b) => {
-    const dateA = a.date_added ? new Date(a.date_added).getTime() : Date.now();
-    const dateB = b.date_added ? new Date(b.date_added).getTime() : Date.now();
-    if (dateA !== dateB) return dateA - dateB;
-    return (a.name || '').localeCompare(b.name || '');
-  });
+  filtered.sort((a, b) => (forsaleIndexOrder[b.id] ?? -1) - (forsaleIndexOrder[a.id] ?? -1));
 } else if (currentSort === 'year') {
-  filtered.sort((a, b) => a.seriesYear - b.seriesYear);
+  filtered.sort((a, b) => (a.seriesYear || 0) - (b.seriesYear || 0));
 } else if (currentSort === 'year-desc') {
-  filtered.sort((a, b) => b.seriesYear - a.seriesYear);
+  filtered.sort((a, b) => (b.seriesYear || 0) - (a.seriesYear || 0));
 } else if (currentSort === 'name') {
-  filtered.sort((a, b) => a.name.localeCompare(b.name));
+  filtered.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
 } else if (currentSort === 'name-desc') {
-  filtered.sort((a, b) => b.name.localeCompare(a.name));
+  filtered.sort((a, b) => (b.name || '').localeCompare(a.name || ''));
 }
       return filtered;
     }
@@ -2479,21 +2468,18 @@ if (currentSort === 'date-desc') {
     
     function getRecentItems() {
       let all = [...figureItems, ...variantItems, ...extraItems, ...insertItems, ...fullSeriesItems];
-if (currentSearch) {
-  const query = currentSearch.toLowerCase();
-  all = all.filter(i => 
-    (i.name || '').toLowerCase().includes(query) ||
-    (i.name_en || '').toLowerCase().includes(query) ||
-    (i.seriesName || '').toLowerCase().includes(query) ||
-    (i.seriesName_en || '').toLowerCase().includes(query) ||
-    (i.code && i.code.toLowerCase().includes(query))
-  );
-}
-all.sort((a, b) => {
-  const dateA = a.date_added ? new Date(a.date_added) : new Date();
-  const dateB = b.date_added ? new Date(b.date_added) : new Date();
-  return dateB - dateA;
-});
+      if (currentSearch) {
+        const query = currentSearch.toLowerCase();
+        all = all.filter(i => 
+          (i.name || '').toLowerCase().includes(query) ||
+          (i.name_en || '').toLowerCase().includes(query) ||
+          (i.seriesName || '').toLowerCase().includes(query) ||
+          (i.seriesName_en || '').toLowerCase().includes(query) ||
+          (i.code && i.code.toLowerCase().includes(query))
+        );
+      }
+      // Порядок как в forsale.json
+      all.sort((a, b) => (forsaleIndexOrder[a.id] ?? 99999) - (forsaleIndexOrder[b.id] ?? 99999));
       return all.slice(0, CONFIG.RECENT_COUNT);
     }
     
