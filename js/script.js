@@ -1447,6 +1447,17 @@ async function initCatalog() {
       console.warn('Не удалось загрузить code-counts.json:', e);
     }
     
+    // ===== Индекс одиночных фигурок =====
+    window.__singlesIndex = {};
+    try {
+      const sRes = await fetch(`${BASE_URL}/data/singles/index.json`);
+      if (sRes.ok) {
+        window.__singlesIndex = await sRes.json();
+      }
+    } catch (e) {
+      console.warn('Не удалось загрузить singles/index.json:', e);
+    }
+    
     const sort = document.getElementById("sortSelect");
     const searchInput = document.getElementById("searchInput");
     
@@ -1561,6 +1572,9 @@ async function initCatalog() {
         }
       }
       
+      // ===== СБРОС ОДИНОЧНЫХ =====
+      window.__matchedSingles = [];
+      
       // ===== ПОИСК (С КОДАМИ И НАЗВАНИЯМИ) =====
       if (searchQuery) {
         const query = searchQuery.toLowerCase().trim();
@@ -1582,7 +1596,7 @@ async function initCatalog() {
           }
         });
         
-        // 2. Поиск по фигуркам
+        // 2. Поиск по фигуркам из серий
         window.searchIndex.forEach(item => {
           const code = (item.code || '').toLowerCase();
           const nameRu = (item.name || '').toLowerCase();
@@ -1592,6 +1606,27 @@ async function initCatalog() {
             matchedSeriesIds.add(item.seriesId);
           }
         });
+        
+        // 2b. Поиск по одиночным фигуркам
+        const singleKeys = Object.keys(window.__singlesIndex || {});
+        for (const m of singleKeys) {
+          try {
+            const r = await fetch(`${BASE_URL}/data/singles/${m}.json`);
+            if (!r.ok) continue;
+            const arr = await r.json();
+            if (!Array.isArray(arr)) continue;
+            arr.forEach(item => {
+              const code = (item.code || '').toLowerCase();
+              const nameRu = (item.name || '').toLowerCase();
+              const nameEn = (item.name_en || '').toLowerCase();
+              if (code.includes(query) || nameRu.includes(query) || nameEn.includes(query)) {
+                window.__matchedSingles.push({ ...item, manufacturer: m });
+              }
+            });
+          } catch (e) {
+            console.warn('Ошибка загрузки singles/', m, e);
+          }
+        }
         
         list = list.filter(s => matchedSeriesIds.has(s.id));
       }
@@ -1631,12 +1666,13 @@ async function initCatalog() {
       
       grid.innerHTML = '';
       
-      if (list.length === 0) {
+      if (list.length === 0 && (!window.__matchedSingles || window.__matchedSingles.length === 0)) {
         grid.innerHTML = '<p class="empty-message" data-i18n="nothing_found">Ничего не найдено</p>';
         applyTranslations();
         return;
       }
       
+      // ===== КАРТОЧКИ СЕРИЙ =====
       for (const s of list) {
         const card = document.createElement('a');
         card.href = `series.html?id=${s.id}`;
@@ -1704,9 +1740,41 @@ async function initCatalog() {
           }
         }
       }
+      
+      // ===== ОДИНОЧНЫЕ ФИГУРКИ В РЕЗУЛЬТАТАХ ПОИСКА =====
+      if (searchQuery && window.__matchedSingles && window.__matchedSingles.length > 0) {
+        const divider = document.createElement('div');
+        divider.className = 'section-divider';
+        divider.style.gridColumn = '1 / -1';
+        divider.innerHTML = `🧩 ${currentLang === 'ru' ? 'Отдельные фигурки' : 'Single figures'} <span class="badge">${window.__matchedSingles.length}</span>`;
+        grid.appendChild(divider);
+        
+        window.__matchedSingles.forEach(item => {
+          const card = document.createElement('a');
+          card.href = `single-figure.html?id=${encodeURIComponent(item.id)}&manufacturer=${encodeURIComponent(item.manufacturer)}`;
+          card.className = 'catalog-card';
+          
+          const name = currentLang === 'en' && item.name_en ? item.name_en : item.name;
+          const imageUrl = item.image ? `${BASE_URL}/${item.image}` : 'images/placeholder.svg';
+          const manufacturerName = manufacturers[item.manufacturer]?.[currentLang] || item.manufacturer;
+          
+          card.innerHTML = `
+            <img src="${imageUrl}" alt="${escapeHtml(name)}" loading="lazy" onerror="this.src='images/placeholder.svg'">
+            <div class="card-body">
+              <h3>${escapeHtml(name)}</h3>
+              ${item.code ? `<div class="figure-catalog-code" style="margin:4px 0;">${escapeHtml(item.code)}</div>` : ''}
+              <div class="year">${escapeHtml(item.year || '')} · ${escapeHtml(manufacturerName)} · ${currentLang === 'ru' ? 'Без серии' : 'No series'}</div>
+            </div>
+          `;
+          
+          grid.appendChild(card);
+        });
+      }
+      
       applyTranslations();
-    }saveFilterState(filterState);
+    }
     
+    saveFilterState(filterState);
     updateKindFiltersVisibility();
     render();
   } catch(error) {
@@ -1855,6 +1923,39 @@ async function initMyCollection() {
             matchedSeriesIds.add(item.seriesId);
           }
         });
+		
+		        // 2b. Поиск по одиночным фигуркам
+        if (!window.singlesIndex) {
+          try {
+            const sRes = await fetch(`${BASE_URL}/data/singles/index.json`);
+            window.singlesIndex = sRes.ok ? await sRes.json() : {};
+          } catch (e) {
+            window.singlesIndex = {};
+          }
+        }
+        
+        // Собираем совпадения среди одиночных фигурок
+        window.__matchedSingles = window.__matchedSingles || [];
+        const singleKeys = Object.keys(window.singlesIndex || {});
+        const singleMatches = [];
+        
+        for (const m of singleKeys) {
+          try {
+            const r = await fetch(`${BASE_URL}/data/singles/${m}.json`);
+            if (!r.ok) continue;
+            const arr = await r.json();
+            if (!Array.isArray(arr)) continue;
+            arr.forEach(item => {
+              const code = (item.code || '').toLowerCase();
+              const nameRu = (item.name || '').toLowerCase();
+              const nameEn = (item.name_en || '').toLowerCase();
+              if (code.includes(query) || nameRu.includes(query) || nameEn.includes(query)) {
+                singleMatches.push({ ...item, manufacturer: m });
+              }
+            });
+          } catch (e) {}
+        }
+        window.__matchedSingles = singleMatches;
         
         list = list.filter(s => matchedSeriesIds.has(s.id));
       }
@@ -4144,30 +4245,28 @@ async function initFigures() {
   if (!grid) return;
   
   const currentLang = localStorage.getItem("lang") || "ru";
+  const ITEMS_PER_PAGE = 24;   // ← сколько фигурок на странице
   
   try {
     await loadManufacturers();
     const manufacturers = await loadManufacturers();
     
-    // 1. Грузим search.json и singles/index.json + сами singles
     const [searchIndex, singlesIndex] = await Promise.all([
       loadSearch(),
       fetch(`${BASE_URL}/data/singles/index.json`).then(r => r.ok ? r.json() : {}).catch(() => ({}))
     ]);
     
-    // 2. Собираем фигурки из серий (figures, extras, variants — без inserts и other)
+    // Фигурки из серий (figures, extras, variants — без inserts и other)
     const figuresFromSeries = searchIndex
       .filter(item => item.type === 'figures' || item.type === 'extras' || item.type === 'variants')
       .map(item => ({
         ...item,
         fromSeries: true,
-        seriesName: item.seriesName,
-        seriesName_en: item.seriesName_en,
         year: item.seriesYear,
         hasInsert: !!findInsertForFigure(searchIndex, item)
       }));
     
-    // 3. Грузим одиночные фигурки
+    // Одиночные фигурки
     let singlesFigures = [];
     const singleKeys = Object.keys(singlesIndex || {});
     for (const m of singleKeys) {
@@ -4192,16 +4291,16 @@ async function initFigures() {
       }
     }
     
-    // 4. Объединяем
     const allFigures = [...figuresFromSeries, ...singlesFigures];
     
-    // 5. Фильтр по производителю
+    // Фильтры производителей
     const uniqueManufacturers = [...new Set(allFigures.map(f => f.manufacturer))];
     const sortedManufacturers = manufacturerOrder.filter(m => uniqueManufacturers.includes(m));
     
     let currentFilter = 'all';
     let currentSort = 'date-desc';
     let searchQuery = '';
+    let currentPage = 1;
     
     const filterGroup = document.getElementById('figuresFilterGroup');
     if (filterGroup) {
@@ -4227,6 +4326,7 @@ async function initFigures() {
           filterGroup.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
           btn.classList.add('active');
           currentFilter = btn.dataset.filter;
+          currentPage = 1;
           render();
         };
       });
@@ -4237,6 +4337,7 @@ async function initFigures() {
       sortSelect.value = currentSort;
       sortSelect.onchange = () => {
         currentSort = sortSelect.value;
+        currentPage = 1;
         render();
       };
     }
@@ -4245,8 +4346,58 @@ async function initFigures() {
     if (searchInput) {
       searchInput.oninput = debounce((e) => {
         searchQuery = e.target.value.toLowerCase().trim();
+        currentPage = 1;
         render();
       }, CONFIG.DEBOUNCE_DELAY);
+    }
+    
+    // ===== ПАГИНАЦИЯ =====
+    function renderPagination(totalItems, currentPage, itemsPerPage) {
+      const totalPages = Math.ceil(totalItems / itemsPerPage);
+      if (totalPages <= 1) return null;
+      
+      const container = document.createElement('div');
+      container.className = 'pagination';
+      
+      const prevBtn = document.createElement('button');
+      prevBtn.className = 'page-btn';
+      prevBtn.textContent = '‹';
+      prevBtn.disabled = currentPage <= 1;
+      prevBtn.onclick = () => {
+        currentPage = Math.max(1, currentPage - 1);
+        render();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      };
+      container.appendChild(prevBtn);
+      
+      let startPage = Math.max(1, currentPage - 2);
+      let endPage = Math.min(totalPages, startPage + 4);
+      if (endPage - startPage < 4) startPage = Math.max(1, endPage - 4);
+      
+      for (let i = startPage; i <= endPage; i++) {
+        const btn = document.createElement('button');
+        btn.className = 'page-btn' + (i === currentPage ? ' active' : '');
+        btn.textContent = i;
+        btn.onclick = () => {
+          currentPage = i;
+          render();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+        container.appendChild(btn);
+      }
+      
+      const nextBtn = document.createElement('button');
+      nextBtn.className = 'page-btn';
+      nextBtn.textContent = '›';
+      nextBtn.disabled = currentPage >= totalPages;
+      nextBtn.onclick = () => {
+        currentPage = Math.min(totalPages, currentPage + 1);
+        render();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      };
+      container.appendChild(nextBtn);
+      
+      return container;
     }
     
     function render() {
@@ -4303,7 +4454,12 @@ async function initFigures() {
         return;
       }
       
-      list.forEach(item => {
+      // Пагинация
+      const start = (currentPage - 1) * ITEMS_PER_PAGE;
+      const end = start + ITEMS_PER_PAGE;
+      const paginated = list.slice(start, end);
+      
+      paginated.forEach(item => {
         const card = document.createElement('a');
         
         if (item.fromSeries) {
@@ -4314,7 +4470,24 @@ async function initFigures() {
         
         card.className = 'figure-catalog-card';
         
-        const name = currentLang === 'en' && item.name_en ? item.name_en : item.name;
+        let name = currentLang === 'en' && item.name_en ? item.name_en : item.name;
+        
+        // Если имя фигурки — просто цифра или дефолтное — дополняем названием серии
+        const isNumericName = /^\d+$/.test((name || '').trim());
+        const isDefaultName = /^(Фигурка|Figure|Доп|Extra|Вариант|Variant)\s+\d+$/i.test((name || '').trim());
+        
+        if (item.fromSeries && (isNumericName || isDefaultName)) {
+          const seriesName = currentLang === 'en' && item.seriesName_en 
+            ? item.seriesName_en 
+            : item.seriesName;
+          if (isNumericName) {
+            name = `${name} · ${seriesName}`;
+          } else {
+            const numMatch = name.match(/\d+/);
+            name = numMatch ? `${seriesName} · ${numMatch[0]}` : seriesName;
+          }
+        }
+        
         const imageUrl = item.image ? `${BASE_URL}/${item.image}` : 'images/placeholder.svg';
         const manufacturerName = manufacturers[item.manufacturer]?.[currentLang] || item.manufacturer;
         
@@ -4340,6 +4513,10 @@ async function initFigures() {
         
         grid.appendChild(card);
       });
+      
+      // Пагинация внизу
+      const pag = renderPagination(list.length, currentPage, ITEMS_PER_PAGE);
+      if (pag) grid.appendChild(pag);
       
       applyTranslations();
     }
