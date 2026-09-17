@@ -1885,7 +1885,8 @@ async function initMyCollection() {
             const badgesHtml = matchedFigures.slice(0, 3).map(f => {
               const code = (f.code || '').trim();
               const count = code ? (window.__codeCounts[code.toLowerCase()] || 0) : 0;
-              const isLink = code && count >= 2;
+              const isServiceType = f.type === 'inserts' || f.type === 'other';
+              const isLink = code && count >= 2 && !isServiceType;
               
               if (isLink) {
                 return `
