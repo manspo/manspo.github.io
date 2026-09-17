@@ -3145,7 +3145,6 @@ async function initFigure() {
     const name = currentLang === 'en' && figure.name_en ? figure.name_en : figure.name;
     const seriesName = currentLang === 'en' && series.name_en ? series.name_en : series.name;
     
-    // ✅ ГОД ФИГУРКИ = год серии
     const figureYear = series.year || '';
     
     const typeNames = {
@@ -3248,7 +3247,7 @@ async function initFigure() {
       }
     }
     
-    // ===== ПРАВАЯ КОЛОНКА: состояние + описание =====
+    // ===== НИЖНИЙ БЛОК: состояние =====
     let descriptionBlockHtml = '';
     if (condition) {
       descriptionBlockHtml += `
@@ -3259,27 +3258,37 @@ async function initFigure() {
       `;
     }
     
-    // ===== РЕНДЕР =====
+    // ===== РЕНДЕР (правильная структура) =====
     container.innerHTML = `
       <div class="figure-container">
         <h1 class="figure-title">${escapeHtml(name)}</h1>
         <div class="figure-content">
-          <div class="figure-left">
+          
+          <!-- Верхний ряд: фигурка + вкладыш -->
+          <div class="figure-top-row">
             <div class="figure-image-wrapper">
-              <img src="${imageUrl}" alt="${escapeHtml(name)}" class="figure-image" onclick="openLightbox(${imageIndex}, window.seriesGalleryImages || [])" onerror="this.src='images/placeholder.svg'">
+              <img src="${imageUrl}" 
+                   alt="${escapeHtml(name)}" 
+                   class="figure-image" 
+                   onclick="openLightbox(${imageIndex}, window.seriesGalleryImages || [])" 
+                   onerror="this.src='images/placeholder.svg'">
               <div class="figure-type-badge">
                 ${escapeHtml(typeIcon)} ${escapeHtml(typeName)}${figureNumber ? ' #' + figureNumber : ''}
               </div>
             </div>
             
-            <div class="figure-sale-block">
-              ${saleBlockHtml}
+            <div class="figure-insert-right">
+              ${insertBlockHtml}
             </div>
-            
-            ${insertBlockHtml}
           </div>
           
-          <div class="figure-info">
+          <!-- Кнопка по центру -->
+          <div class="figure-sale-block">
+            ${saleBlockHtml}
+          </div>
+          
+          <!-- Нижний блок: мета + описание -->
+          <div class="figure-bottom">
             <div class="figure-meta">
               <div class="figure-meta-item">
                 <span class="meta-icon">📦</span>
@@ -3303,6 +3312,7 @@ async function initFigure() {
             
             ${descriptionBlockHtml}
           </div>
+          
         </div>
       </div>
     `;
@@ -4606,11 +4616,8 @@ async function initSingleFigure() {
     const price = figure.price || '';
     const avitoLink = figure.avito || '#';
     const condition = currentLang === 'en' ? figure.condition_en : figure.condition;
-    
-    // ✅ ГОД ФИГУРКИ (из самой фигурки)
     const figureYear = figure.year || '';
     
-    // Галерея
     const galleryImages = [imageUrl];
     if (figure.insert && figure.insert.image) {
       galleryImages.push(`${BASE_URL}/${figure.insert.image}`);
@@ -4669,7 +4676,7 @@ async function initSingleFigure() {
       `;
     }
     
-    // ===== ПРАВАЯ КОЛОНКА: состояние + описание =====
+    // ===== НИЖНИЙ БЛОК =====
     let descriptionBlockHtml = '';
     if (condition) {
       descriptionBlockHtml += `
@@ -4692,7 +4699,9 @@ async function initSingleFigure() {
       <div class="figure-container">
         <h1 class="figure-title">${escapeHtml(name)}</h1>
         <div class="figure-content">
-          <div class="figure-left">
+          
+          <!-- Верхний ряд -->
+          <div class="figure-top-row">
             <div class="figure-image-wrapper">
               <img src="${imageUrl}" 
                    alt="${escapeHtml(name)}" 
@@ -4704,14 +4713,18 @@ async function initSingleFigure() {
               </div>
             </div>
             
-            <div class="figure-sale-block">
-              ${saleBlockHtml}
+            <div class="figure-insert-right">
+              ${insertBlockHtml}
             </div>
-            
-            ${insertBlockHtml}
           </div>
           
-          <div class="figure-info">
+          <!-- Кнопка -->
+          <div class="figure-sale-block">
+            ${saleBlockHtml}
+          </div>
+          
+          <!-- Низ -->
+          <div class="figure-bottom">
             <div class="figure-meta">
               <div class="figure-meta-item">
                 <span class="meta-icon">📦</span>
@@ -4737,6 +4750,7 @@ async function initSingleFigure() {
             
             ${descriptionBlockHtml}
           </div>
+          
         </div>
       </div>
     `;
