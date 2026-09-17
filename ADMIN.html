@@ -208,6 +208,9 @@
             <div class="col">
                 <div class="card">
                     <h2>📋 Существующие серии</h2>
+                    <div style="margin-bottom:12px;">
+                        <button class="danger" onclick="cleanInsertCodes()">🧹 Очистить коды вкладышей</button>
+                    </div>
                     <div class="series-list" id="existingSeriesList"><p>Сначала загрузите данные</p></div>
                 </div>
             </div>
@@ -1207,6 +1210,56 @@ function deleteCurrentSeries() {
 }
 
 // ============================================================
+// ОЧИСТКА КОДОВ У ВКЛАДЫШЕЙ И "ПРОЧЕГО"
+// ============================================================
+
+function cleanInsertCodes() {
+    if (!existingSeries.length) {
+        alert('Сначала загрузите данные');
+        return;
+    }
+    
+    if (!confirm('Очистить поле "Код" у ВСЕХ вкладышей и элементов "Прочее" во всех сериях?')) return;
+    
+    let insertCount = 0;
+    let otherCount = 0;
+    
+    existingSeries.forEach(s => {
+        // Вкладыши
+        if (Array.isArray(s.inserts)) {
+            s.inserts.forEach(item => {
+                if (item.code && item.code.trim()) {
+                    item.code = '';
+                    insertCount++;
+                }
+            });
+        }
+        // Прочее
+        if (Array.isArray(s.other)) {
+            s.other.forEach(item => {
+                if (item.code && item.code.trim()) {
+                    item.code = '';
+                    otherCount++;
+                }
+            });
+        }
+    });
+    
+    alert(`✅ Очищено:\n• Вкладыши: ${insertCount}\n• Прочее: ${otherCount}\n\nТеперь нажмите "💾 Сохранить" в любой серии или откройте вкладку "📋 Временные" → "💾 Сохранить в ZIP" — но лучше: откройте любую серию и сохраните её, чтобы выгрузился полный ZIP.`);
+    
+    // Обновляем открытую форму редактирования, если она открыта
+    const editIdx = document.getElementById('editIndex').value;
+    if (editIdx !== '' && editIdx !== null && editIdx !== undefined) {
+        editSeries(parseInt(editIdx));
+    }
+    
+    // Обновляем статистику
+    updateStats();
+}
+
+window.cleanInsertCodes = cleanInsertCodes;
+
+// ============================================================
 // ВРЕМЕННЫЕ
 // ============================================================
 
@@ -1536,9 +1589,12 @@ function generateSearchData(seriesList) {
 function generateCodeCountsData(seriesList) {
     const counts = {};
     
+    // Учитываем только фигурки, варианты и допы.
+    // Вкладыши и прочее игнорируем — там служебные обозначения (BPZ и т.п.),
+    // которые не являются настоящими кодами фигурок.
+    const categories = ['figures', 'variants', 'extras'];
+    
     seriesList.forEach(s => {
-        const categories = ['figures', 'variants', 'extras', 'inserts'];
-        
         categories.forEach(cat => {
             if (!s[cat]) return;
             
