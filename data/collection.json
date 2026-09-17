@@ -357,7 +357,7 @@
     "totalVariants": 0,
     "totalInserts": 16,
     "totalItems": 32,
-    "forSaleCount": 14
+    "forSaleCount": 9
   },
   {
     "id": "star-wars-by-kinder-2025",
@@ -380,7 +380,7 @@
     "forSaleCount": 7
   },
   {
-    "id": "super-mario-by-kinder-2025",
+    "id": "super-mario-2025-by-kinder-2025",
     "name": "Супер Марио от Киндер",
     "name_en": "Super Mario (2025) by Kinder",
     "year": 2025,
@@ -393,11 +393,11 @@
     "ownedInserts": 26,
     "totalOwned": 52,
     "totalFigures": 12,
-    "totalExtras": 14,
+    "totalExtras": 18,
     "totalVariants": 0,
     "totalInserts": 26,
-    "totalItems": 52,
-    "forSaleCount": 18
+    "totalItems": 56,
+    "forSaleCount": 21
   },
   {
     "id": "disney-princesses-by-kinder-2025",
