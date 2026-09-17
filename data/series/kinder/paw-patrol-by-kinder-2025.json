@@ -21,83 +21,123 @@
   "figures": [
     {
       "id": "paw-patrol-by-kinder-2025_fig1",
-      "image": "images/series/kinder/paw-patrol-by-kinder-2025/01.webp",
       "name": "Рокки",
       "name_en": "Rocky",
+      "code": "VD348",
+      "image": "images/series/kinder/paw-patrol-by-kinder-2025/01.webp",
       "owned": true,
       "forsale": false,
       "avito": "",
-      "code": "VD348"
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "paw-patrol-by-kinder-2025_fig2",
-      "image": "images/series/kinder/paw-patrol-by-kinder-2025/02.webp",
       "name": "Крепыш",
       "name_en": "Rubble",
+      "code": "VD349",
+      "image": "images/series/kinder/paw-patrol-by-kinder-2025/02.webp",
       "owned": true,
       "forsale": false,
       "avito": "",
-      "code": "VD349"
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "paw-patrol-by-kinder-2025_fig3",
-      "image": "images/series/kinder/paw-patrol-by-kinder-2025/03.webp",
       "name": "Скай",
       "name_en": "Skye",
+      "code": "VD354",
+      "image": "images/series/kinder/paw-patrol-by-kinder-2025/03.webp",
       "owned": true,
       "forsale": false,
       "avito": "",
-      "code": "VD354"
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "paw-patrol-by-kinder-2025_fig4",
-      "image": "images/series/kinder/paw-patrol-by-kinder-2025/04.webp",
       "name": "Зума",
       "name_en": "Zuma",
+      "code": "VD355",
+      "image": "images/series/kinder/paw-patrol-by-kinder-2025/04.webp",
       "owned": true,
       "forsale": true,
       "avito": "",
-      "code": "VD355"
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "paw-patrol-by-kinder-2025_fig5",
-      "image": "images/series/kinder/paw-patrol-by-kinder-2025/05.webp",
       "name": "Эверест",
       "name_en": "Everest",
+      "code": "VD358",
+      "image": "images/series/kinder/paw-patrol-by-kinder-2025/05.webp",
       "owned": true,
       "forsale": false,
       "avito": "",
-      "code": "VD358"
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "paw-patrol-by-kinder-2025_fig6",
-      "image": "images/series/kinder/paw-patrol-by-kinder-2025/06.webp",
       "name": "Гончик",
       "name_en": "Chase",
+      "code": "VD361",
+      "image": "images/series/kinder/paw-patrol-by-kinder-2025/06.webp",
       "owned": true,
       "forsale": false,
       "avito": "",
-      "code": "VD361"
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "paw-patrol-by-kinder-2025_fig7",
-      "image": "images/series/kinder/paw-patrol-by-kinder-2025/07.webp",
       "name": "Маршал",
       "name_en": "Marshall",
-      "owned": true,
-      "forsale": true,
-      "avito": "",
-      "code": "VD362"
-    },
-    {
-      "id": "paw-patrol-by-kinder-2025_fig8",
-      "image": "images/series/kinder/paw-patrol-by-kinder-2025/08.webp",
-      "name": "Либерти",
-      "name_en": "Liberty",
+      "code": "VD362",
+      "image": "images/series/kinder/paw-patrol-by-kinder-2025/07.webp",
       "owned": true,
       "forsale": false,
       "avito": "",
-      "code": "VQ331"
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
+    },
+    {
+      "id": "paw-patrol-by-kinder-2025_fig8",
+      "name": "Либерти",
+      "name_en": "Liberty",
+      "code": "VQ331",
+      "image": "images/series/kinder/paw-patrol-by-kinder-2025/08.webp",
+      "owned": true,
+      "forsale": false,
+      "avito": "",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     }
   ],
   "extras": [],
@@ -105,89 +145,130 @@
   "inserts": [
     {
       "id": "paw-patrol-by-kinder-2025_insert1",
-      "image": "images/series/kinder/paw-patrol-by-kinder-2025/01b.webp",
       "name": "Вкладыш 1",
       "name_en": "Insert 1",
+      "code": "",
+      "image": "images/series/kinder/paw-patrol-by-kinder-2025/01b.webp",
       "owned": true,
       "forsale": false,
       "avito": "",
-      "code": ""
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "paw-patrol-by-kinder-2025_insert2",
-      "image": "images/series/kinder/paw-patrol-by-kinder-2025/02b.webp",
       "name": "Вкладыш 2",
       "name_en": "Insert 2",
+      "code": "",
+      "image": "images/series/kinder/paw-patrol-by-kinder-2025/02b.webp",
       "owned": true,
       "forsale": false,
       "avito": "",
-      "code": ""
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "paw-patrol-by-kinder-2025_insert3",
-      "image": "images/series/kinder/paw-patrol-by-kinder-2025/03b.webp",
       "name": "Вкладыш 3",
       "name_en": "Insert 3",
+      "code": "",
+      "image": "images/series/kinder/paw-patrol-by-kinder-2025/03b.webp",
       "owned": true,
       "forsale": false,
       "avito": "",
-      "code": ""
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "paw-patrol-by-kinder-2025_insert4",
-      "image": "images/series/kinder/paw-patrol-by-kinder-2025/04b.webp",
       "name": "Вкладыш 4",
       "name_en": "Insert 4",
+      "code": "",
+      "image": "images/series/kinder/paw-patrol-by-kinder-2025/04b.webp",
       "owned": true,
       "forsale": false,
       "avito": "",
-      "code": ""
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "paw-patrol-by-kinder-2025_insert5",
-      "image": "images/series/kinder/paw-patrol-by-kinder-2025/05b.webp",
       "name": "Вкладыш 5",
       "name_en": "Insert 5",
+      "code": "",
+      "image": "images/series/kinder/paw-patrol-by-kinder-2025/05b.webp",
       "owned": true,
       "forsale": false,
       "avito": "",
-      "code": ""
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "paw-patrol-by-kinder-2025_insert6",
-      "image": "images/series/kinder/paw-patrol-by-kinder-2025/06b.webp",
       "name": "Вкладыш 6",
       "name_en": "Insert 6",
+      "code": "",
+      "image": "images/series/kinder/paw-patrol-by-kinder-2025/06b.webp",
       "owned": true,
       "forsale": false,
       "avito": "",
-      "code": ""
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "paw-patrol-by-kinder-2025_insert7",
-      "image": "images/series/kinder/paw-patrol-by-kinder-2025/07b.webp",
       "name": "Вкладыш 7",
       "name_en": "Insert 7",
+      "code": "",
+      "image": "images/series/kinder/paw-patrol-by-kinder-2025/07b.webp",
       "owned": true,
       "forsale": false,
       "avito": "",
-      "code": ""
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "paw-patrol-by-kinder-2025_insert8",
-      "image": "images/series/kinder/paw-patrol-by-kinder-2025/08b.webp",
       "name": "Вкладыш 8",
       "name_en": "Insert 8",
+      "code": "",
+      "image": "images/series/kinder/paw-patrol-by-kinder-2025/08b.webp",
       "owned": true,
       "forsale": false,
       "avito": "",
-      "code": ""
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     }
   ],
   "other": [],
   "videos": {
     "youtube": [],
     "vk": [],
-    "tiktok": []
+    "tiktok": [],
+    "instagram": []
   }
 }

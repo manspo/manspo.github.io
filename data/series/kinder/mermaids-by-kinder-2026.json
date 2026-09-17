@@ -31,13 +31,14 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "mermaids-by-kinder-2026_fig2",
       "name": "Фигурка 2",
       "name_en": "Figure 2",
-      "code": "VS191",
+      "code": "VS191A",
       "image": "images/series/kinder/mermaids-by-kinder-2026/kindersurprise_mermaids_VS191A.webp",
       "owned": false,
       "forsale": false,
@@ -45,7 +46,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "mermaids-by-kinder-2026_fig3",
@@ -59,13 +61,14 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "mermaids-by-kinder-2026_fig4",
       "name": "Фигурка 4",
       "name_en": "Figure 4",
-      "code": "VS193",
+      "code": "VS193A",
       "image": "images/series/kinder/mermaids-by-kinder-2026/kindersurprise_mermaids_VS193A.webp",
       "owned": false,
       "forsale": false,
@@ -73,7 +76,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "mermaids-by-kinder-2026_fig5",
@@ -87,13 +91,14 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "mermaids-by-kinder-2026_fig6",
       "name": "Фигурка 6",
       "name_en": "Figure 6",
-      "code": "VS287",
+      "code": "VS287A",
       "image": "images/series/kinder/mermaids-by-kinder-2026/kindersurprise_mermaids_VS287A.webp",
       "owned": false,
       "forsale": false,
@@ -101,7 +106,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "mermaids-by-kinder-2026_fig7",
@@ -115,13 +121,14 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "mermaids-by-kinder-2026_fig8",
       "name": "Фигурка 8",
       "name_en": "Figure 8",
-      "code": "VS288",
+      "code": "VS288A",
       "image": "images/series/kinder/mermaids-by-kinder-2026/kindersurprise_mermaids_VS288A.webp",
       "owned": false,
       "forsale": false,
@@ -129,7 +136,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "mermaids-by-kinder-2026_fig9",
@@ -143,13 +151,14 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "mermaids-by-kinder-2026_fig10",
       "name": "Фигурка 10",
       "name_en": "Figure 10",
-      "code": "VS293",
+      "code": "VS293A",
       "image": "images/series/kinder/mermaids-by-kinder-2026/kindersurprise_mermaids_VS293A.webp",
       "owned": false,
       "forsale": false,
@@ -157,7 +166,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "mermaids-by-kinder-2026_fig11",
@@ -171,13 +181,14 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "mermaids-by-kinder-2026_fig12",
       "name": "Фигурка 12",
       "name_en": "Figure 12",
-      "code": "VS294",
+      "code": "VS294A",
       "image": "images/series/kinder/mermaids-by-kinder-2026/kindersurprise_mermaids_VS294A.webp",
       "owned": false,
       "forsale": false,
@@ -185,7 +196,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     }
   ],
   "extras": [
@@ -201,7 +213,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "mermaids-by-kinder-2026_extra2",
@@ -215,7 +228,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "mermaids-by-kinder-2026_extra3",
@@ -229,7 +243,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "mermaids-by-kinder-2026_extra4",
@@ -243,7 +258,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "mermaids-by-kinder-2026_extra5",
@@ -257,7 +273,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "mermaids-by-kinder-2026_extra6",
@@ -271,7 +288,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "mermaids-by-kinder-2026_extra7",
@@ -285,7 +303,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "mermaids-by-kinder-2026_extra8",
@@ -299,7 +318,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "mermaids-by-kinder-2026_extra9",
@@ -313,7 +333,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "mermaids-by-kinder-2026_extra10",
@@ -327,7 +348,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "mermaids-by-kinder-2026_extra11",
@@ -341,7 +363,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "mermaids-by-kinder-2026_extra12",
@@ -355,7 +378,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     }
   ],
   "variants": [],

@@ -20,89 +20,107 @@
   "fullSeriesDescription_en": "",
   "figures": [
     {
-      "id": "footballeuro_fig1",
+      "id": "footballeuro-france-by-nesquik-1998_fig1",
       "image": "images/series/nesquik/footballeuro-france-by-nesquik-1998/1.webp",
       "name": "Фигурка 1",
       "name_en": "Figure 1",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "",
+      "date_added": "2026-09-17"
     },
     {
-      "id": "footballeuro_fig2",
+      "id": "footballeuro-france-by-nesquik-1998_fig2",
       "image": "images/series/nesquik/footballeuro-france-by-nesquik-1998/2.webp",
       "name": "Фигурка 2",
       "name_en": "Figure 2",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "",
+      "date_added": "2026-09-17"
     },
     {
-      "id": "footballeuro_fig3",
+      "id": "footballeuro-france-by-nesquik-1998_fig3",
       "image": "images/series/nesquik/footballeuro-france-by-nesquik-1998/3.webp",
       "name": "Фигурка 3",
       "name_en": "Figure 3",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "",
+      "date_added": "2026-09-17"
     },
     {
-      "id": "footballeuro_fig4",
+      "id": "footballeuro-france-by-nesquik-1998_fig4",
       "image": "images/series/nesquik/footballeuro-france-by-nesquik-1998/4.webp",
       "name": "Фигурка 4",
       "name_en": "Figure 4",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "",
+      "date_added": "2026-09-17"
     },
     {
-      "id": "footballeuro_fig5",
+      "id": "footballeuro-france-by-nesquik-1998_fig5",
       "image": "images/series/nesquik/footballeuro-france-by-nesquik-1998/5.webp",
       "name": "Фигурка 5",
       "name_en": "Figure 5",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "",
+      "date_added": "2026-09-17"
     },
     {
-      "id": "footballeuro_fig6",
+      "id": "footballeuro-france-by-nesquik-1998_fig6",
       "image": "images/series/nesquik/footballeuro-france-by-nesquik-1998/6.webp",
       "name": "Фигурка 6",
       "name_en": "Figure 6",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "",
+      "date_added": "2026-09-17"
     },
     {
-      "id": "footballeuro_fig7",
+      "id": "footballeuro-france-by-nesquik-1998_fig7",
       "image": "images/series/nesquik/footballeuro-france-by-nesquik-1998/7.webp",
       "name": "Фигурка 7",
       "name_en": "Figure 7",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "",
+      "date_added": "2026-09-17"
     },
     {
-      "id": "footballeuro_fig8",
+      "id": "footballeuro-france-by-nesquik-1998_fig8",
       "image": "images/series/nesquik/footballeuro-france-by-nesquik-1998/8.webp",
       "name": "Фигурка 8",
       "name_en": "Figure 8",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "",
+      "date_added": "2026-09-17"
     }
   ],
   "extras": [],
   "variants": [],
   "inserts": [
     {
-      "id": "footballeuro_insert1",
+      "id": "footballeuro-france-by-nesquik-1998_insert1",
       "image": "images/series/nesquik/footballeuro-france-by-nesquik-1998/BPZ.webp",
       "name": "Вкладыш 1",
       "name_en": "Insert 1",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "",
+      "date_added": "2026-09-17"
     }
   ],
   "other": [],

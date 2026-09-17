@@ -20,7 +20,7 @@
   "fullSeriesDescription_en": "",
   "figures": [
     {
-      "id": "atlantispanini_fig1",
+      "id": "atlantis-by-panini-2001_fig1",
       "name": "Майло Джеймс Татч",
       "name_en": "Milo James Thatch",
       "code": "",
@@ -30,10 +30,11 @@
       "avito": "",
       "price": "",
       "condition": "",
-      "condition_en": ""
+      "condition_en": "",
+      "date_added": "2026-09-17"
     },
     {
-      "id": "atlantispanini_fig2",
+      "id": "atlantis-by-panini-2001_fig2",
       "name": "Джебедая Аллардис Фарнсворт (Кекс)",
       "name_en": "Jebidiah Allardyce \"Cookie\" Farnsworth",
       "code": "",
@@ -43,10 +44,11 @@
       "avito": "",
       "price": "",
       "condition": "",
-      "condition_en": ""
+      "condition_en": "",
+      "date_added": "2026-09-17"
     },
     {
-      "id": "atlantispanini_fig3",
+      "id": "atlantis-by-panini-2001_fig3",
       "name": "Хельга Катрина Синклер",
       "name_en": "Helga Katrina Sinclair",
       "code": "",
@@ -56,10 +58,11 @@
       "avito": "",
       "price": "",
       "condition": "",
-      "condition_en": ""
+      "condition_en": "",
+      "date_added": "2026-09-17"
     },
     {
-      "id": "atlantispanini_fig4",
+      "id": "atlantis-by-panini-2001_fig4",
       "name": "Командир Лайл Тиберий Рурк",
       "name_en": "Commander Lyle Tiberius Rourke",
       "code": "",
@@ -69,10 +72,11 @@
       "avito": "",
       "price": "",
       "condition": "",
-      "condition_en": ""
+      "condition_en": "",
+      "date_added": "2026-09-17"
     },
     {
-      "id": "atlantispanini_fig5",
+      "id": "atlantis-by-panini-2001_fig5",
       "name": "Винчензо Санторини",
       "name_en": "Vincenzo Santorini",
       "code": "",
@@ -82,10 +86,11 @@
       "avito": "",
       "price": "",
       "condition": "",
-      "condition_en": ""
+      "condition_en": "",
+      "date_added": "2026-09-17"
     },
     {
-      "id": "atlantispanini_fig6",
+      "id": "atlantis-by-panini-2001_fig6",
       "name": "Гаэтан Мольер (Крот)",
       "name_en": "Gaetan Molière (Mole)",
       "code": "",
@@ -95,14 +100,15 @@
       "avito": "",
       "price": "",
       "condition": "",
-      "condition_en": ""
+      "condition_en": "",
+      "date_added": "2026-09-17"
     }
   ],
   "extras": [],
   "variants": [],
   "inserts": [
     {
-      "id": "atlantispanini_insert1",
+      "id": "atlantis-by-panini-2001_insert1",
       "name": "Вкладыш 1",
       "name_en": "Insert 1",
       "code": "",
@@ -112,7 +118,8 @@
       "avito": "",
       "price": "",
       "condition": "",
-      "condition_en": ""
+      "condition_en": "",
+      "date_added": "2026-09-17"
     }
   ],
   "other": [],

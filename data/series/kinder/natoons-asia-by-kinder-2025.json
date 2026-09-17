@@ -27,7 +27,8 @@
       "owned": true,
       "forsale": false,
       "avito": "",
-      "code": "VD478B"
+      "code": "VD478B",
+      "date_added": "2026-09-17"
     },
     {
       "id": "natoons-asia-by-kinder-2025_fig2",
@@ -37,7 +38,8 @@
       "owned": true,
       "forsale": false,
       "avito": "",
-      "code": "VQ125B"
+      "code": "VQ125B",
+      "date_added": "2026-09-17"
     },
     {
       "id": "natoons-asia-by-kinder-2025_fig3",
@@ -47,7 +49,8 @@
       "owned": true,
       "forsale": false,
       "avito": "",
-      "code": "VV276C"
+      "code": "VV276C",
+      "date_added": "2026-09-17"
     },
     {
       "id": "natoons-asia-by-kinder-2025_fig4",
@@ -57,7 +60,8 @@
       "owned": true,
       "forsale": false,
       "avito": "",
-      "code": "VD407B"
+      "code": "VD407B",
+      "date_added": "2026-09-17"
     },
     {
       "id": "natoons-asia-by-kinder-2025_fig5",
@@ -67,7 +71,8 @@
       "owned": true,
       "forsale": false,
       "avito": "",
-      "code": "VT384A"
+      "code": "VT384A",
+      "date_added": "2026-09-17"
     },
     {
       "id": "natoons-asia-by-kinder-2025_fig6",
@@ -77,7 +82,8 @@
       "owned": true,
       "forsale": false,
       "avito": "",
-      "code": "VD398B"
+      "code": "VD398B",
+      "date_added": "2026-09-17"
     },
     {
       "id": "natoons-asia-by-kinder-2025_fig7",
@@ -87,7 +93,8 @@
       "owned": true,
       "forsale": false,
       "avito": "",
-      "code": "VU229B"
+      "code": "VU229B",
+      "date_added": "2026-09-17"
     },
     {
       "id": "natoons-asia-by-kinder-2025_fig8",
@@ -97,7 +104,8 @@
       "owned": true,
       "forsale": false,
       "avito": "",
-      "code": "VD416A"
+      "code": "VD416A",
+      "date_added": "2026-09-17"
     },
     {
       "id": "natoons-asia-by-kinder-2025_fig9",
@@ -107,7 +115,8 @@
       "owned": false,
       "forsale": false,
       "avito": "",
-      "code": "VT386A"
+      "code": "VT386A",
+      "date_added": "2026-09-17"
     },
     {
       "id": "natoons-asia-by-kinder-2025_fig10",
@@ -117,7 +126,8 @@
       "owned": true,
       "forsale": false,
       "avito": "",
-      "code": "EN266A"
+      "code": "EN266A",
+      "date_added": "2026-09-17"
     },
     {
       "id": "natoons-asia-by-kinder-2025_fig11",
@@ -127,7 +137,8 @@
       "owned": true,
       "forsale": true,
       "avito": "",
-      "code": "VT381"
+      "code": "VT381",
+      "date_added": "2026-09-17"
     },
     {
       "id": "natoons-asia-by-kinder-2025_fig12",
@@ -137,7 +148,8 @@
       "owned": true,
       "forsale": false,
       "avito": "",
-      "code": "VT385"
+      "code": "VT385",
+      "date_added": "2026-09-17"
     }
   ],
   "extras": [],
@@ -151,7 +163,8 @@
       "owned": true,
       "forsale": false,
       "avito": "",
-      "code": ""
+      "code": "",
+      "date_added": "2026-09-17"
     }
   ],
   "other": [],

@@ -26,7 +26,9 @@
       "image": "images/series/nestle/toy-story-by-nestle-1998/01.webp",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "toy-story-by-nestle-1998_fig2",
@@ -35,7 +37,9 @@
       "image": "images/series/nestle/toy-story-by-nestle-1998/02.webp",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "toy-story-by-nestle-1998_fig3",
@@ -44,7 +48,9 @@
       "image": "images/series/nestle/toy-story-by-nestle-1998/03.webp",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "",
+      "date_added": "2026-09-17"
     }
   ],
   "extras": [],
@@ -57,7 +63,9 @@
       "image": "images/series/nestle/toy-story-by-nestle-1998/01b.webp",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "toy-story-by-nestle-1998_insert2",
@@ -66,7 +74,9 @@
       "image": "images/series/nestle/toy-story-by-nestle-1998/02b.webp",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "toy-story-by-nestle-1998_insert3",
@@ -75,7 +85,9 @@
       "image": "images/series/nestle/toy-story-by-nestle-1998/03b.webp",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "toy-story-by-nestle-1998_insert4",
@@ -84,7 +96,9 @@
       "image": "images/series/nestle/toy-story-by-nestle-1998/04b.webp",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "toy-story-by-nestle-1998_insert5",
@@ -93,7 +107,9 @@
       "image": "images/series/nestle/toy-story-by-nestle-1998/05b.webp",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "",
+      "date_added": "2026-09-17"
     }
   ],
   "other": [],

@@ -20,7 +20,7 @@
   "fullSeriesDescription_en": "",
   "figures": [
     {
-      "id": "star-wars-by-tombola-1997tombola_fig1",
+      "id": "star-wars-by-tombola-1997_fig1",
       "name": "Люк Скайуокер",
       "name_en": "Luke Skywalker",
       "code": "",
@@ -30,10 +30,11 @@
       "avito": "",
       "price": "",
       "condition": "",
-      "condition_en": ""
+      "condition_en": "",
+      "date_added": "2026-09-17"
     },
     {
-      "id": "star-wars-by-tombola-1997tombola_fig2",
+      "id": "star-wars-by-tombola-1997_fig2",
       "name": "Хан Соло",
       "name_en": "Han Solo",
       "code": "",
@@ -43,10 +44,11 @@
       "avito": "",
       "price": "",
       "condition": "",
-      "condition_en": ""
+      "condition_en": "",
+      "date_added": "2026-09-17"
     },
     {
-      "id": "star-wars-by-tombola-1997tombola_fig3",
+      "id": "star-wars-by-tombola-1997_fig3",
       "name": "Лея Органа",
       "name_en": "Leia Organa",
       "code": "",
@@ -56,10 +58,11 @@
       "avito": "",
       "price": "",
       "condition": "",
-      "condition_en": ""
+      "condition_en": "",
+      "date_added": "2026-09-17"
     },
     {
-      "id": "star-wars-by-tombola-1997tombola_fig4",
+      "id": "star-wars-by-tombola-1997_fig4",
       "name": "R2-D2",
       "name_en": "R2-D2",
       "code": "",
@@ -69,10 +72,11 @@
       "avito": "",
       "price": "",
       "condition": "",
-      "condition_en": ""
+      "condition_en": "",
+      "date_added": "2026-09-17"
     },
     {
-      "id": "star-wars-by-tombola-1997tombola_fig5",
+      "id": "star-wars-by-tombola-1997_fig5",
       "name": "C-3PO",
       "name_en": "C-3PO",
       "code": "",
@@ -82,10 +86,11 @@
       "avito": "",
       "price": "",
       "condition": "",
-      "condition_en": ""
+      "condition_en": "",
+      "date_added": "2026-09-17"
     },
     {
-      "id": "star-wars-by-tombola-1997tombola_fig6",
+      "id": "star-wars-by-tombola-1997_fig6",
       "name": "Чубакка",
       "name_en": "Chewbacca6",
       "code": "",
@@ -95,10 +100,11 @@
       "avito": "",
       "price": "",
       "condition": "",
-      "condition_en": ""
+      "condition_en": "",
+      "date_added": "2026-09-17"
     },
     {
-      "id": "star-wars-by-tombola-1997tombola_fig7",
+      "id": "star-wars-by-tombola-1997_fig7",
       "name": "Йода",
       "name_en": "Yoda",
       "code": "",
@@ -108,10 +114,11 @@
       "avito": "",
       "price": "",
       "condition": "",
-      "condition_en": ""
+      "condition_en": "",
+      "date_added": "2026-09-17"
     },
     {
-      "id": "star-wars-by-tombola-1997tombola_fig8",
+      "id": "star-wars-by-tombola-1997_fig8",
       "name": "Дарт Вейдер",
       "name_en": "Darth Vader",
       "code": "",
@@ -121,10 +128,11 @@
       "avito": "",
       "price": "",
       "condition": "",
-      "condition_en": ""
+      "condition_en": "",
+      "date_added": "2026-09-17"
     },
     {
-      "id": "star-wars-by-tombola-1997tombola_fig9",
+      "id": "star-wars-by-tombola-1997_fig9",
       "name": "Штурмовик",
       "name_en": "Stormtrooper",
       "code": "",
@@ -134,10 +142,11 @@
       "avito": "",
       "price": "",
       "condition": "",
-      "condition_en": ""
+      "condition_en": "",
+      "date_added": "2026-09-17"
     },
     {
-      "id": "star-wars-by-tombola-1997tombola_fig10",
+      "id": "star-wars-by-tombola-1997_fig10",
       "name": "Вездеходный бронированный транспорт AT-AT",
       "name_en": "AT-AT",
       "code": "",
@@ -147,10 +156,11 @@
       "avito": "",
       "price": "",
       "condition": "",
-      "condition_en": ""
+      "condition_en": "",
+      "date_added": "2026-09-17"
     },
     {
-      "id": "star-wars-by-tombola-1997tombola_fig11",
+      "id": "star-wars-by-tombola-1997_fig11",
       "name": "Звездный истребитель X-Wing",
       "name_en": "X-Wing",
       "code": "",
@@ -160,10 +170,11 @@
       "avito": "",
       "price": "",
       "condition": "",
-      "condition_en": ""
+      "condition_en": "",
+      "date_added": "2026-09-17"
     },
     {
-      "id": "star-wars-by-tombola-1997tombola_fig12",
+      "id": "star-wars-by-tombola-1997_fig12",
       "name": "Тайдириум",
       "name_en": "Shuttle Tydirium",
       "code": "",
@@ -173,10 +184,11 @@
       "avito": "",
       "price": "",
       "condition": "",
-      "condition_en": ""
+      "condition_en": "",
+      "date_added": "2026-09-17"
     },
     {
-      "id": "star-wars-by-tombola-1997tombola_fig13",
+      "id": "star-wars-by-tombola-1997_fig13",
       "name": "Тысячелетний сокол",
       "name_en": "Millenium Falcon",
       "code": "",
@@ -186,10 +198,11 @@
       "avito": "",
       "price": "",
       "condition": "",
-      "condition_en": ""
+      "condition_en": "",
+      "date_added": "2026-09-17"
     },
     {
-      "id": "star-wars-by-tombola-1997tombola_fig14",
+      "id": "star-wars-by-tombola-1997_fig14",
       "name": "TIE-Истребитель",
       "name_en": "TIE Fighter",
       "code": "",
@@ -199,10 +212,11 @@
       "avito": "",
       "price": "",
       "condition": "",
-      "condition_en": ""
+      "condition_en": "",
+      "date_added": "2026-09-17"
     },
     {
-      "id": "star-wars-by-tombola-1997tombola_fig15",
+      "id": "star-wars-by-tombola-1997_fig15",
       "name": "Истребитель TIE Дарта Вейдера",
       "name_en": "Vaders TIE Fighter",
       "code": "",
@@ -212,14 +226,15 @@
       "avito": "",
       "price": "",
       "condition": "",
-      "condition_en": ""
+      "condition_en": "",
+      "date_added": "2026-09-17"
     }
   ],
   "extras": [],
   "variants": [],
   "inserts": [
     {
-      "id": "star-wars-by-tombola-1997tombola_insert1",
+      "id": "star-wars-by-tombola-1997_insert1",
       "name": "Вкладыш 1",
       "name_en": "Insert 1",
       "code": "",
@@ -229,10 +244,11 @@
       "avito": "",
       "price": "",
       "condition": "",
-      "condition_en": ""
+      "condition_en": "",
+      "date_added": "2026-09-17"
     },
     {
-      "id": "star-wars-by-tombola-1997tombola_insert2",
+      "id": "star-wars-by-tombola-1997_insert2",
       "name": "Вкладыш 2",
       "name_en": "Insert 2",
       "code": "",
@@ -242,10 +258,11 @@
       "avito": "",
       "price": "",
       "condition": "",
-      "condition_en": ""
+      "condition_en": "",
+      "date_added": "2026-09-17"
     },
     {
-      "id": "star-wars-by-tombola-1997tombola_insert3",
+      "id": "star-wars-by-tombola-1997_insert3",
       "name": "Вкладыш 3",
       "name_en": "Insert 3",
       "code": "",
@@ -255,10 +272,11 @@
       "avito": "",
       "price": "",
       "condition": "",
-      "condition_en": ""
+      "condition_en": "",
+      "date_added": "2026-09-17"
     },
     {
-      "id": "star-wars-by-tombola-1997tombola_insert4",
+      "id": "star-wars-by-tombola-1997_insert4",
       "name": "Вкладыш 4",
       "name_en": "Insert 4",
       "code": "",
@@ -268,10 +286,11 @@
       "avito": "",
       "price": "",
       "condition": "",
-      "condition_en": ""
+      "condition_en": "",
+      "date_added": "2026-09-17"
     },
     {
-      "id": "star-wars-by-tombola-1997tombola_insert5",
+      "id": "star-wars-by-tombola-1997_insert5",
       "name": "Вкладыш 5",
       "name_en": "Insert 5",
       "code": "",
@@ -281,10 +300,11 @@
       "avito": "",
       "price": "",
       "condition": "",
-      "condition_en": ""
+      "condition_en": "",
+      "date_added": "2026-09-17"
     },
     {
-      "id": "star-wars-by-tombola-1997tombola_insert6",
+      "id": "star-wars-by-tombola-1997_insert6",
       "name": "Вкладыш 6",
       "name_en": "Insert 6",
       "code": "",
@@ -294,10 +314,11 @@
       "avito": "",
       "price": "",
       "condition": "",
-      "condition_en": ""
+      "condition_en": "",
+      "date_added": "2026-09-17"
     },
     {
-      "id": "star-wars-by-tombola-1997tombola_insert7",
+      "id": "star-wars-by-tombola-1997_insert7",
       "name": "Вкладыш 7",
       "name_en": "Insert 7",
       "code": "",
@@ -307,10 +328,11 @@
       "avito": "",
       "price": "",
       "condition": "",
-      "condition_en": ""
+      "condition_en": "",
+      "date_added": "2026-09-17"
     },
     {
-      "id": "star-wars-by-tombola-1997tombola_insert8",
+      "id": "star-wars-by-tombola-1997_insert8",
       "name": "Вкладыш 8",
       "name_en": "Insert 8",
       "code": "",
@@ -320,7 +342,8 @@
       "avito": "",
       "price": "",
       "condition": "",
-      "condition_en": ""
+      "condition_en": "",
+      "date_added": "2026-09-17"
     }
   ],
   "other": [],

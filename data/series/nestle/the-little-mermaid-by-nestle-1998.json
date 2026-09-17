@@ -27,7 +27,8 @@
       "owned": false,
       "forsale": false,
       "avito": "",
-      "code": ""
+      "code": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "the-little-mermaid-by-nestle-1998_fig2",
@@ -37,7 +38,8 @@
       "owned": false,
       "forsale": false,
       "avito": "",
-      "code": ""
+      "code": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "the-little-mermaid-by-nestle-1998_fig3",
@@ -47,7 +49,8 @@
       "owned": false,
       "forsale": false,
       "avito": "",
-      "code": ""
+      "code": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "the-little-mermaid-by-nestle-1998_fig4",
@@ -57,7 +60,8 @@
       "owned": false,
       "forsale": false,
       "avito": "",
-      "code": ""
+      "code": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "the-little-mermaid-by-nestle-1998_fig5",
@@ -67,7 +71,8 @@
       "owned": false,
       "forsale": false,
       "avito": "",
-      "code": ""
+      "code": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "the-little-mermaid-by-nestle-1998_fig6",
@@ -77,7 +82,8 @@
       "owned": false,
       "forsale": false,
       "avito": "",
-      "code": ""
+      "code": "",
+      "date_added": "2026-09-17"
     }
   ],
   "extras": [],
@@ -94,7 +100,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     }
   ],
   "inserts": [
@@ -106,7 +113,8 @@
       "owned": false,
       "forsale": false,
       "avito": "",
-      "code": ""
+      "code": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "the-little-mermaid-by-nestle-1998_insert2",
@@ -116,7 +124,8 @@
       "owned": false,
       "forsale": false,
       "avito": "",
-      "code": ""
+      "code": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "the-little-mermaid-by-nestle-1998_insert3",
@@ -126,7 +135,8 @@
       "owned": false,
       "forsale": false,
       "avito": "",
-      "code": ""
+      "code": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "the-little-mermaid-by-nestle-1998_insert4",
@@ -136,7 +146,8 @@
       "owned": false,
       "forsale": false,
       "avito": "",
-      "code": ""
+      "code": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "the-little-mermaid-by-nestle-1998_insert5",
@@ -146,7 +157,8 @@
       "owned": false,
       "forsale": false,
       "avito": "",
-      "code": ""
+      "code": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "the-little-mermaid-by-nestle-1998_insert6",
@@ -156,7 +168,8 @@
       "owned": false,
       "forsale": false,
       "avito": "",
-      "code": ""
+      "code": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "the-little-mermaid-by-nestle-1998_insert8",
@@ -166,7 +179,8 @@
       "owned": false,
       "forsale": false,
       "avito": "",
-      "code": ""
+      "code": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "the-little-mermaid-by-nestle-1998_insert8",
@@ -176,7 +190,8 @@
       "owned": false,
       "forsale": false,
       "avito": "",
-      "code": ""
+      "code": "",
+      "date_added": "2026-09-17"
     }
   ],
   "other": [],

@@ -26,7 +26,9 @@
       "name_en": "Figure 1",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "gabbys-dollhouse-by-kinder-2025_fig2",
@@ -36,7 +38,8 @@
       "code": "VC339",
       "owned": true,
       "forsale": true,
-      "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/kinder_syurpriz_volshebnyy_domik_gabbi_7774513027"
+      "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/kinder_syurpriz_volshebnyy_domik_gabbi_7774513027",
+      "date_added": "2026-09-17"
     },
     {
       "id": "gabbys-dollhouse-by-kinder-2025_fig3",
@@ -45,7 +48,9 @@
       "name_en": "Figure 3",
       "owned": true,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "gabbys-dollhouse-by-kinder-2025_fig4",
@@ -54,7 +59,9 @@
       "name_en": "Figure 4",
       "owned": true,
       "forsale": true,
-      "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/kinder_syurpriz_volshebnyy_domik_gabbi_7774513027"
+      "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/kinder_syurpriz_volshebnyy_domik_gabbi_7774513027",
+      "code": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "gabbys-dollhouse-by-kinder-2025_fig5",
@@ -63,7 +70,9 @@
       "name_en": "Figure 5",
       "owned": true,
       "forsale": true,
-      "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/kinder_syurpriz_volshebnyy_domik_gabbi_7774513027"
+      "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/kinder_syurpriz_volshebnyy_domik_gabbi_7774513027",
+      "code": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "gabbys-dollhouse-by-kinder-2025_fig6",
@@ -72,7 +81,9 @@
       "name_en": "Figure 6",
       "owned": true,
       "forsale": true,
-      "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/kinder_syurpriz_volshebnyy_domik_gabbi_7774513027"
+      "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/kinder_syurpriz_volshebnyy_domik_gabbi_7774513027",
+      "code": "",
+      "date_added": "2026-09-17"
     }
   ],
   "extras": [],
@@ -88,7 +99,8 @@
       "avito": "",
       "condition": "Отличное",
       "condition_en": "Excellent",
-      "parentFigureId": "winniethepooh_fig1"
+      "parentFigureId": "winniethepooh_fig1",
+      "date_added": "2026-09-17"
     }
   ],
   "inserts": [
@@ -99,7 +111,9 @@
       "name_en": "Insert 1",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "gabbys-dollhouse-by-kinder-2025_insert2",
@@ -108,7 +122,9 @@
       "name_en": "Insert 2",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "gabbys-dollhouse-by-kinder-2025_insert3",
@@ -117,7 +133,9 @@
       "name_en": "Insert 3",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "gabbys-dollhouse-by-kinder-2025_insert4",
@@ -126,7 +144,9 @@
       "name_en": "Insert 4",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "gabbys-dollhouse-by-kinder-2025_insert5",
@@ -135,7 +155,9 @@
       "name_en": "Insert 5",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "gabbys-dollhouse-by-kinder-2025_insert6",
@@ -144,7 +166,9 @@
       "name_en": "Insert 6",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "gabbys-dollhouse-by-kinder-2025_insert7",
@@ -153,7 +177,9 @@
       "name_en": "Insert 7",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "",
+      "date_added": "2026-09-17"
     }
   ],
   "other": [],

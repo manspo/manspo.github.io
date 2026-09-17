@@ -26,7 +26,9 @@
       "name_en": "Hermes",
       "owned": true,
       "forsale": true,
-      "avito": ""
+      "avito": "",
+      "code": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "hercules-by-nestle-1996_fig2",
@@ -35,7 +37,9 @@
       "name_en": "Hydra",
       "owned": true,
       "forsale": true,
-      "avito": ""
+      "avito": "",
+      "code": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "hercules-by-nestle-1996_fig3",
@@ -44,7 +48,9 @@
       "name_en": "Pain",
       "owned": true,
       "forsale": true,
-      "avito": ""
+      "avito": "",
+      "code": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "hercules-by-nestle-1996_fig4",
@@ -53,7 +59,9 @@
       "name_en": "Zeus",
       "owned": true,
       "forsale": true,
-      "avito": ""
+      "avito": "",
+      "code": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "hercules-by-nestle-1996_fig5",
@@ -62,7 +70,9 @@
       "name_en": "Baby Hercules",
       "owned": true,
       "forsale": true,
-      "avito": ""
+      "avito": "",
+      "code": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "hercules-by-nestle-1996_fig6",
@@ -74,7 +84,9 @@
       "avito": "",
       "price": "",
       "condition": "Отсутствует меч",
-      "condition_en": "Without a sword"
+      "condition_en": "Without a sword",
+      "code": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "hercules-by-nestle-1996_fig7",
@@ -83,7 +95,9 @@
       "name_en": "Hades",
       "owned": true,
       "forsale": true,
-      "avito": ""
+      "avito": "",
+      "code": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "hercules-by-nestle-1996_fig8",
@@ -92,7 +106,9 @@
       "name_en": "Hera",
       "owned": true,
       "forsale": true,
-      "avito": ""
+      "avito": "",
+      "code": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "hercules-by-nestle-1996_fig9",
@@ -101,7 +117,9 @@
       "name_en": "Pegasus",
       "owned": true,
       "forsale": true,
-      "avito": ""
+      "avito": "",
+      "code": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "hercules-by-nestle-1996_fig10",
@@ -110,7 +128,9 @@
       "name_en": "Philoctetes",
       "owned": true,
       "forsale": true,
-      "avito": ""
+      "avito": "",
+      "code": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "hercules-by-nestle-1996_fig11",
@@ -119,7 +139,9 @@
       "name_en": "Panic",
       "owned": true,
       "forsale": true,
-      "avito": ""
+      "avito": "",
+      "code": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "hercules-by-nestle-1996_fig12",
@@ -128,7 +150,9 @@
       "name_en": "Megara",
       "owned": true,
       "forsale": true,
-      "avito": ""
+      "avito": "",
+      "code": "",
+      "date_added": "2026-09-17"
     }
   ],
   "extras": [
@@ -139,7 +163,9 @@
       "name_en": "Hercules and Pegasus",
       "owned": true,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "hercules-by-nestle-1996_extra2",
@@ -148,7 +174,9 @@
       "name_en": "Taxi from Thebes",
       "owned": true,
       "forsale": true,
-      "avito": ""
+      "avito": "",
+      "code": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "hercules-by-nestle-1996_extra3",
@@ -157,7 +185,9 @@
       "name_en": "Chest",
       "owned": true,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "hercules-by-nestle-1996_extra4",
@@ -166,7 +196,9 @@
       "name_en": "Moving monsters",
       "owned": true,
       "forsale": true,
-      "avito": ""
+      "avito": "",
+      "code": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "hercules-by-nestle-1996_extra5",
@@ -175,7 +207,9 @@
       "name_en": "Farmer",
       "owned": true,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "hercules-by-nestle-1996_extra6",
@@ -184,7 +218,9 @@
       "name_en": "Centaur Nessus",
       "owned": true,
       "forsale": true,
-      "avito": ""
+      "avito": "",
+      "code": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "hercules-by-nestle-1996_extra7",
@@ -193,7 +229,9 @@
       "name_en": "Lawnmower Goat",
       "owned": true,
       "forsale": true,
-      "avito": ""
+      "avito": "",
+      "code": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "hercules-by-nestle-1996_extra8",
@@ -202,7 +240,9 @@
       "name_en": "Lithos",
       "owned": true,
       "forsale": true,
-      "avito": ""
+      "avito": "",
+      "code": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "hercules-by-nestle-1996_extra9",
@@ -211,7 +251,9 @@
       "name_en": "Market cart",
       "owned": true,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "hercules-by-nestle-1996_extra10",
@@ -220,7 +262,9 @@
       "name_en": "Moira",
       "owned": true,
       "forsale": true,
-      "avito": ""
+      "avito": "",
+      "code": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "hercules-by-nestle-1996_extra11",
@@ -229,7 +273,9 @@
       "name_en": "Arch",
       "owned": true,
       "forsale": true,
-      "avito": ""
+      "avito": "",
+      "code": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "hercules-by-nestle-1996_extra12",
@@ -238,7 +284,9 @@
       "name_en": "Pyros",
       "owned": true,
       "forsale": true,
-      "avito": ""
+      "avito": "",
+      "code": "",
+      "date_added": "2026-09-17"
     }
   ],
   "variants": [],
@@ -250,7 +298,9 @@
       "name_en": "Insert 1",
       "owned": true,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "hercules-by-nestle-1996_insert2",
@@ -259,7 +309,9 @@
       "name_en": "Insert 2",
       "owned": true,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "hercules-by-nestle-1996_insert3",
@@ -268,7 +320,9 @@
       "name_en": "Insert 3",
       "owned": true,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "",
+      "date_added": "2026-09-17"
     }
   ],
   "other": [],

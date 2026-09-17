@@ -23,7 +23,7 @@
       "id": "unisex-2-by-kinder-2026_fig1",
       "name": "Фигурка 1",
       "name_en": "Figure 1",
-      "code": "VD057",
+      "code": "VD057C",
       "image": "images/series/kinder/unisex-2-by-kinder-2026/kindersurprise_unisex_VD057C.webp",
       "owned": false,
       "forsale": false,
@@ -31,13 +31,14 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "unisex-2-by-kinder-2026_fig2",
       "name": "Фигурка 2",
       "name_en": "Figure 2",
-      "code": "VQ353",
+      "code": "VQ353B",
       "image": "images/series/kinder/unisex-2-by-kinder-2026/kindersurprise_unisex_VQ353B.webp",
       "owned": false,
       "forsale": false,
@@ -45,7 +46,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "unisex-2-by-kinder-2026_fig3",
@@ -59,7 +61,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "unisex-2-by-kinder-2026_fig4",
@@ -73,7 +76,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "unisex-2-by-kinder-2026_fig5",
@@ -87,7 +91,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "unisex-2-by-kinder-2026_fig6",
@@ -101,7 +106,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "unisex-2-by-kinder-2026_fig7",
@@ -115,13 +121,14 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "unisex-2-by-kinder-2026_fig8",
       "name": "Фигурка 8",
       "name_en": "Figure 8",
-      "code": "VT013",
+      "code": "VT013A",
       "image": "images/series/kinder/unisex-2-by-kinder-2026/kindersurprise_unisex_VT013A.webp",
       "owned": false,
       "forsale": false,
@@ -129,13 +136,14 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "unisex-2-by-kinder-2026_fig9",
       "name": "Фигурка 9",
       "name_en": "Figure 9",
-      "code": "VT021",
+      "code": "VT021A",
       "image": "images/series/kinder/unisex-2-by-kinder-2026/kindersurprise_unisex_VT021A.webp",
       "owned": false,
       "forsale": false,
@@ -143,7 +151,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "unisex-2-by-kinder-2026_fig10",
@@ -157,7 +166,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     }
   ],
   "extras": [],

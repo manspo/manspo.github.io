@@ -26,7 +26,9 @@
       "name_en": "Figure 1",
       "owned": true,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "the-lion-king-by-nestle-1995_fig2",
@@ -35,7 +37,9 @@
       "name_en": "Figure 2",
       "owned": true,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "the-lion-king-by-nestle-1995_fig3",
@@ -44,7 +48,9 @@
       "name_en": "Figure 3",
       "owned": true,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "the-lion-king-by-nestle-1995_fig4",
@@ -53,7 +59,9 @@
       "name_en": "Figure 4",
       "owned": true,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "the-lion-king-by-nestle-1995_fig5",
@@ -62,7 +70,9 @@
       "name_en": "Figure 5",
       "owned": true,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "the-lion-king-by-nestle-1995_fig6",
@@ -71,7 +81,9 @@
       "name_en": "Figure 6",
       "owned": true,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "the-lion-king-by-nestle-1995_fig7",
@@ -80,7 +92,9 @@
       "name_en": "Figure 7",
       "owned": true,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "the-lion-king-by-nestle-1995_fig8",
@@ -89,7 +103,9 @@
       "name_en": "Figure 8",
       "owned": true,
       "forsale": true,
-      "avito": ""
+      "avito": "",
+      "code": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "the-lion-king-by-nestle-1995_fig9",
@@ -98,7 +114,9 @@
       "name_en": "Figure 9",
       "owned": true,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "the-lion-king-by-nestle-1995_fig10",
@@ -107,20 +125,24 @@
       "name_en": "Figure 10",
       "owned": true,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "",
+      "date_added": "2026-09-17"
     }
   ],
   "extras": [],
   "variants": [],
   "inserts": [
     {
-      "id": "the-lion-king-by-nestle-1995",
+      "id": "the-lion-king-by-nestle-1995_insert1",
       "image": "images/series/nestle/the-lion-king-by-nestle-1995/01b.webp",
       "name": "Вкладыш",
       "name_en": "BPZ",
       "owned": true,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "code": "",
+      "date_added": "2026-09-17"
     }
   ],
   "other": [],

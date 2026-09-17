@@ -31,7 +31,8 @@
       "price": "999 руб.",
       "condition": "Без вкладыша. Есть небольшие потертости",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     }
   ],
   "extras": [],
@@ -49,7 +50,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     }
   ],
   "other": [],

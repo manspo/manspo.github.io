@@ -27,7 +27,8 @@
       "image": "images/series/konfitoy/winnie-the-pooh-by-konfitoy-2025/Винни_1.webp",
       "owned": true,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "winnie-the-pooh-by-konfitoy-2025_fig2",
@@ -37,7 +38,8 @@
       "image": "images/series/konfitoy/winnie-the-pooh-by-konfitoy-2025/Заяц.webp",
       "owned": true,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "winnie-the-pooh-by-konfitoy-2025_fig3",
@@ -47,7 +49,8 @@
       "image": "images/series/konfitoy/winnie-the-pooh-by-konfitoy-2025/Осел.webp",
       "owned": true,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "winnie-the-pooh-by-konfitoy-2025_fig4",
@@ -59,7 +62,8 @@
       "forsale": false,
       "condition": "Без вкладыша",
       "condition_en": "Without BPZ",
-      "avito": ""
+      "avito": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "winnie-the-pooh-by-konfitoy-2025_fig5",
@@ -69,7 +73,8 @@
       "image": "images/series/konfitoy/winnie-the-pooh-by-konfitoy-2025/Сова.webp",
       "owned": true,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "winnie-the-pooh-by-konfitoy-2025_fig6",
@@ -79,7 +84,8 @@
       "image": "images/series/konfitoy/winnie-the-pooh-by-konfitoy-2025/Винни_2.webp",
       "owned": true,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "date_added": "2026-09-17"
     }
   ],
   "extras": [],
@@ -93,7 +99,8 @@
       "image": "images/series/konfitoy/winnie-the-pooh-by-konfitoy-2025/BPZ.webp",
       "owned": true,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "date_added": "2026-09-17"
     }
   ],
   "other": [
@@ -105,7 +112,8 @@
       "image": "images/series/konfitoy/winnie-the-pooh-by-konfitoy-2025/Коробка.webp",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "winnie-the-pooh-by-konfitoy-2025_other2",
@@ -115,7 +123,8 @@
       "image": "images/series/konfitoy/winnie-the-pooh-by-konfitoy-2025/Фольга1.webp",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "winnie-the-pooh-by-konfitoy-2025_other3",
@@ -125,7 +134,8 @@
       "image": "images/series/konfitoy/winnie-the-pooh-by-konfitoy-2025/Фольга2.webp",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "winnie-the-pooh-by-konfitoy-2025_other4",
@@ -135,7 +145,8 @@
       "image": "images/series/konfitoy/winnie-the-pooh-by-konfitoy-2025/Фольга3.webp",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "winnie-the-pooh-by-konfitoy-2025_other5",
@@ -145,7 +156,8 @@
       "image": "images/series/konfitoy/winnie-the-pooh-by-konfitoy-2025/Фольга4.webp",
       "owned": false,
       "forsale": false,
-      "avito": ""
+      "avito": "",
+      "date_added": "2026-09-17"
     }
   ],
   "videos": {

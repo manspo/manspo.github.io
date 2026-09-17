@@ -280,6 +280,28 @@
             color: #6b7280;
         }
         
+        .item-flags {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            margin-top: 4px;
+            flex-wrap: wrap;
+        }
+        .item-flag {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            color: #374151;
+            cursor: pointer;
+            user-select: none;
+        }
+        .item-flag input {
+            cursor: pointer;
+            width: 16px;
+            height: 16px;
+        }
+        
         .item-actions {
             display: flex;
             gap: 6px;
@@ -397,15 +419,15 @@
         <p>📁 Нажмите для выбора ПАПКИ с файлами (data)</p>
     </div>
     
-<div class="controls-panel" id="controlsPanel" style="display:none;">
-    <input type="text" id="searchInput" placeholder="🔍 Поиск по названию серии, коду или фигурке...">
-    <select id="manufacturerFilter">
-        <option value="all">Все производители</option>
-    </select>
-    <button class="ctrl-btn" id="expandAllBtn">📖 Развернуть все</button>
-    <button class="ctrl-btn" id="collapseAllBtn">📕 Свернуть все</button>
-    <button class="ctrl-btn" id="hideCompleteBtn" title="Скрыть серии, где у всех фигурок указан код">🙈 Только с пропусками</button>
-</div>
+    <div class="controls-panel" id="controlsPanel" style="display:none;">
+        <input type="text" id="searchInput" placeholder="🔍 Поиск по названию серии, коду или фигурке...">
+        <select id="manufacturerFilter">
+            <option value="all">Все производители</option>
+        </select>
+        <button class="ctrl-btn" id="expandAllBtn">📖 Развернуть все</button>
+        <button class="ctrl-btn" id="collapseAllBtn">📕 Свернуть все</button>
+        <button class="ctrl-btn" id="hideCompleteBtn" title="Скрыть серии, где у всех фигурок указан код">🙈 Только с пропусками</button>
+    </div>
     
     <div class="stats-bar" id="statsBar" style="display:none;">
         <div class="stats-bar-item">
@@ -446,7 +468,7 @@ let existingSeries = [];
 let manufacturersData = {};
 let hasUnsavedChanges = false;
 
-// фильтр «показывать только серии, где есть фигурки без кода»
+// фильтр «показывать только серии, где есть элементы без кода»
 let hideCompleteSeries = false;
 
 // снимок количества элементов при загрузке — для защиты от обнуления
@@ -659,21 +681,19 @@ function getFilteredSeries() {
         list = list.filter(s => s.manufacturer === manufacturer);
     }
 
-
-// ===== фильтр «только с пропусками» =====
-// учитываем фигурки, варианты и допы. Вкладыши и прочее не считаем.
-if (hideCompleteSeries) {
-    list = list.filter(s => {
-        const all = [
-            ...(s.figures  || []),
-            ...(s.variants || []),
-            ...(s.extras   || [])
-        ];
-        if (all.length === 0) return true; // нечего закрывать — показываем
-        // показываем серию, если хотя бы у одного элемента пустой код
-        return all.some(f => !f.code || !String(f.code).trim());
-    });
-}
+    // ===== фильтр «только с пропусками» =====
+    // учитываем фигурки, варианты и допы. Вкладыши и прочее не считаем.
+    if (hideCompleteSeries) {
+        list = list.filter(s => {
+            const all = [
+                ...(s.figures  || []),
+                ...(s.variants || []),
+                ...(s.extras   || [])
+            ];
+            if (all.length === 0) return true; // нечего закрывать — показываем
+            return all.some(f => !f.code || !String(f.code).trim());
+        });
+    }
 
     if (search) {
         list = list.filter(s => {
@@ -804,6 +824,16 @@ function createItemHTML(item, idx, type) {
                     <span class="field-label">Путь:</span>
                     <input type="text" class="field-input path item-image"
                            value="${escapeHtml(item.image || '')}" placeholder="images/series/.../01.webp">
+                </div>
+                <div class="item-flags">
+                    <label class="item-flag">
+                        <input type="checkbox" class="item-owned" ${item.owned ? 'checked' : ''}>
+                        <span>📦 В коллекции</span>
+                    </label>
+                    <label class="item-flag">
+                        <input type="checkbox" class="item-forsale" ${item.forsale ? 'checked' : ''}>
+                        <span>💰 В продаже</span>
+                    </label>
                 </div>
                 <div class="item-actions">
                     <button class="action-btn" data-action="replace-image">📁 Заменить картинку</button>
@@ -945,10 +975,16 @@ function syncSectionToData(container) {
             };
         }
 
-        originalItem.name     = itemEl.querySelector('.item-name').value;
-        originalItem.name_en  = itemEl.querySelector('.item-name-en').value;
-        originalItem.code     = itemEl.querySelector('.item-code').value;
-        originalItem.image    = itemEl.querySelector('.item-image').value;
+originalItem.name     = itemEl.querySelector('.item-name').value;
+originalItem.name_en  = itemEl.querySelector('.item-name-en').value;
+originalItem.code     = itemEl.querySelector('.item-code').value;
+originalItem.image    = itemEl.querySelector('.item-image').value;
+originalItem.owned    = itemEl.querySelector('.item-owned')?.checked || false;
+originalItem.forsale  = itemEl.querySelector('.item-forsale')?.checked || false;
+// дата: если её не было — ставим сегодня
+if (!originalItem.date_added) {
+    originalItem.date_added = new Date().toISOString().slice(0, 10);
+}
 
         itemEl.dataset.itemId = originalItem.id;
 
@@ -976,12 +1012,13 @@ function syncAllSections() {
 }
 
 // ============================================================
-// РЕДАКТИРОВАНИЕ ПОЛЕЙ
+// РЕДАКТИРОВАНИЕ ПОЛЕЙ И ЧЕКБОКСОВ
 // ============================================================
 
-document.addEventListener('input', e => {
-    if (!e.target.matches('.field-input')) return;
-    const itemEl = e.target.closest('.sortable-item');
+function handleItemChange(e) {
+    const t = e.target;
+    if (!t.matches('.field-input') && !t.matches('.item-owned') && !t.matches('.item-forsale')) return;
+    const itemEl = t.closest('.sortable-item');
     if (!itemEl) return;
     const container = itemEl.closest('.sortable-items');
     if (!container) {
@@ -989,7 +1026,9 @@ document.addEventListener('input', e => {
         return;
     }
     syncSectionToData(container);
-});
+}
+document.addEventListener('input', handleItemChange);
+document.addEventListener('change', handleItemChange);
 
 // ============================================================
 // КЛИКИ
@@ -1055,14 +1094,15 @@ function addNewItem(type, seriesId) {
     const names = TYPE_NAMES[type] || TYPE_NAMES.figures;
     const prefix = TYPE_PREFIX[type] || 'item';
 
-    const newItem = {
-        id: `${seriesId}_${prefix}${Date.now()}`,
-        name: `${names.ru} ${num}`,
-        name_en: `${names.en} ${num}`,
-        code: '', image: '',
-        owned: false, forsale: false, avito: '', price: '',
-        condition: '', condition_en: '', parentFigureId: ''
-    };
+const newItem = {
+    id: `${seriesId}_${prefix}${Date.now()}`,
+    name: `${names.ru} ${num}`,
+    name_en: `${names.en} ${num}`,
+    code: '', image: '',
+    owned: false, forsale: false, avito: '', price: '',
+    condition: '', condition_en: '', parentFigureId: '',
+    date_added: new Date().toISOString().slice(0, 10)
+};
 
     if (!Array.isArray(series[type])) series[type] = [];
     series[type].push(newItem);
@@ -1121,12 +1161,10 @@ document.getElementById('collapseAllBtn').addEventListener('click', () => {
     document.querySelectorAll('.items-section').forEach(el => el.style.display = 'none');
 });
 
-// кнопка «Только с пропусками»
 document.getElementById('hideCompleteBtn').addEventListener('click', function() {
     hideCompleteSeries = !hideCompleteSeries;
     this.classList.toggle('active', hideCompleteSeries);
     this.textContent = hideCompleteSeries ? '🙈 Скрыто: серии с полными кодами' : '🙈 Только с пропусками';
-    // активный вид кнопки
     if (hideCompleteSeries) {
         this.style.background = '#4f46e5';
         this.style.color = 'white';
@@ -1325,7 +1363,6 @@ document.getElementById('saveBtn').addEventListener('click', async () => {
         return;
     }
 
-    // ============ ВРЕМЕННАЯ ДИАГНОСТИКА ============
     console.log('=== ПЕРЕД syncAllSections ===');
     existingSeries.forEach(s => {
         console.log(s.id, 'figures:', (s.figures||[]).length,
@@ -1343,7 +1380,6 @@ document.getElementById('saveBtn').addEventListener('click', async () => {
                     'variants:', (s.variants||[]).length,
                     'inserts:', (s.inserts||[]).length);
     });
-    // ============ КОНЕЦ ДИАГНОСТИКИ ============
 
     const dropped = [];
     existingSeries.forEach(s => {

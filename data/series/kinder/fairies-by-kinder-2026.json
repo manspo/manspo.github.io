@@ -31,7 +31,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_fig2",
@@ -45,7 +46,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_fig3",
@@ -54,12 +56,13 @@
       "code": "VT090",
       "image": "images/series/kinder/fairies-by-kinder-2026/34.webp",
       "owned": false,
-      "forsale": false,
+      "forsale": true,
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_fig4",
@@ -73,7 +76,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_fig5",
@@ -87,7 +91,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_fig6",
@@ -96,12 +101,13 @@
       "code": "VQ213",
       "image": "images/series/kinder/fairies-by-kinder-2026/21.webp",
       "owned": false,
-      "forsale": false,
+      "forsale": true,
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_fig7",
@@ -110,12 +116,13 @@
       "code": "VQ157",
       "image": "images/series/kinder/fairies-by-kinder-2026/13.webp",
       "owned": false,
-      "forsale": false,
+      "forsale": true,
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_fig8",
@@ -124,12 +131,13 @@
       "code": "VQ200",
       "image": "images/series/kinder/fairies-by-kinder-2026/19.webp",
       "owned": false,
-      "forsale": false,
+      "forsale": true,
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_fig9",
@@ -143,13 +151,14 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_fig10",
       "name": "Фигурка 10",
       "name_en": "Figure 10",
-      "code": "VQ107A",
+      "code": "VQ170A",
       "image": "images/series/kinder/fairies-by-kinder-2026/17.webp",
       "owned": false,
       "forsale": false,
@@ -157,7 +166,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_fig11",
@@ -171,7 +181,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_fig12",
@@ -185,7 +196,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     }
   ],
   "extras": [
@@ -201,7 +213,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_extra2",
@@ -215,7 +228,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_extra3",
@@ -229,7 +243,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_extra4",
@@ -243,7 +258,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_extra5",
@@ -257,7 +273,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_extra6",
@@ -271,7 +288,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_extra7",
@@ -285,7 +303,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_extra8",
@@ -299,7 +318,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_extra9",
@@ -313,7 +333,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_extra10",
@@ -327,7 +348,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_extra11",
@@ -341,7 +363,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_extra12",
@@ -355,7 +378,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_extra13",
@@ -369,7 +393,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_extra14",
@@ -383,7 +408,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_extra15",
@@ -397,7 +423,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_extra16",
@@ -411,7 +438,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_extra17",
@@ -425,7 +453,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_extra18",
@@ -439,7 +468,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_extra19",
@@ -453,7 +483,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_extra20",
@@ -467,7 +498,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_extra21",
@@ -481,7 +513,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_extra22",
@@ -495,7 +528,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_extra23",
@@ -509,7 +543,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_extra24",
@@ -518,12 +553,13 @@
       "code": "SD671G",
       "image": "images/series/kinder/fairies-by-kinder-2026/06.webp",
       "owned": false,
-      "forsale": false,
+      "forsale": true,
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_extra25",
@@ -537,7 +573,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_extra26",
@@ -551,7 +588,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_extra27",
@@ -565,7 +603,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_extra28",
@@ -579,7 +618,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     }
   ],
   "variants": [],
@@ -596,7 +636,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_insert2",
@@ -610,7 +651,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_insert3",
@@ -624,7 +666,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_insert4",
@@ -638,7 +681,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_insert5",
@@ -652,7 +696,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_insert6",
@@ -666,7 +711,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_insert7",
@@ -680,7 +726,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_insert8",
@@ -694,7 +741,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_insert9",
@@ -708,7 +756,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_insert10",
@@ -722,7 +771,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_insert11",
@@ -736,7 +786,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_insert12",
@@ -750,7 +801,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_insert13",
@@ -764,7 +816,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_insert14",
@@ -778,7 +831,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_insert15",
@@ -792,7 +846,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_insert16",
@@ -806,7 +861,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_insert17",
@@ -820,7 +876,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_insert18",
@@ -834,7 +891,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_insert19",
@@ -848,7 +906,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_insert20",
@@ -862,7 +921,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_insert21",
@@ -876,7 +936,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_insert22",
@@ -890,7 +951,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_insert23",
@@ -904,7 +966,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_insert24",
@@ -918,7 +981,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_insert25",
@@ -932,7 +996,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_insert26",
@@ -946,7 +1011,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_insert27",
@@ -960,7 +1026,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_insert28",
@@ -974,7 +1041,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_insert29",
@@ -988,7 +1056,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_insert30",
@@ -1002,7 +1071,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_insert31",
@@ -1016,7 +1086,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_insert32",
@@ -1030,7 +1101,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_insert33",
@@ -1044,7 +1116,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_insert34",
@@ -1058,7 +1131,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_insert35",
@@ -1072,7 +1146,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_insert36",
@@ -1086,7 +1161,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_insert37",
@@ -1100,7 +1176,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_insert38",
@@ -1114,7 +1191,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_insert39",
@@ -1128,7 +1206,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     },
     {
       "id": "fairies-by-kinder-2026_insert40",
@@ -1142,7 +1221,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "parentFigureId": ""
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     }
   ],
   "other": [],
