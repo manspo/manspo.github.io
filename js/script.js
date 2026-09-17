@@ -4691,38 +4691,39 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // ===== INIT =====
-document.addEventListener("DOMContentLoaded", async () => {
+async function runInit() {
   initLangFromUrl();
   const path = window.location.pathname;
+  const filename = path.split('/').pop() || 'index.html';
   
   try {
     await loadManufacturers();
     
-    if (path.includes('catalog.html')) {
+    if (filename === 'catalog.html') {
       initCatalog();
-    } else if (path.includes('series.html')) {
+    } else if (filename === 'series.html') {
       initSeries();
-    } else if (path.includes('figure.html')) {
-      initFigure();
-    } else if (path.includes('lot.html')) {
-      initLot();
-    } else if (path.includes('mycollection.html')) {
-      initMyCollection();
-    } else if (path.includes('forsale.html')) {
-      initForSale();
-	} else if (path.includes('same-figures.html')) {
-      initSameFigures();
-	} else if (path.includes('all-duplicates.html')) {
-      initAllDuplicates();
-	} else if (path.includes('timeline.html')) {
-      initTimeline();
-    } else if (path.includes('figures.html')) {
-      initFigures();
-    } else if (path.includes('single-figure.html')) {
+    } else if (filename === 'single-figure.html') {
       initSingleFigure();
-    } else if (path.includes('videos.html')) {
-      initVideos();         // ← НОВОЕ
-    } else if (path.includes('about.html')) {
+    } else if (filename === 'figure.html') {
+      initFigure();
+    } else if (filename === 'lot.html') {
+      initLot();
+    } else if (filename === 'mycollection.html') {
+      initMyCollection();
+    } else if (filename === 'forsale.html') {
+      initForSale();
+    } else if (filename === 'same-figures.html') {
+      initSameFigures();
+    } else if (filename === 'all-duplicates.html') {
+      initAllDuplicates();
+    } else if (filename === 'timeline.html') {
+      initTimeline();
+    } else if (filename === 'figures.html') {
+      initFigures();
+    } else if (filename === 'videos.html') {
+      initVideos();
+    } else if (filename === 'about.html') {
       initAbout();
     } else {
       initHome();
@@ -4730,8 +4731,16 @@ document.addEventListener("DOMContentLoaded", async () => {
     
     initTheme();
     applyTranslations();
-  } catch(error) {
+  } catch (error) {
     console.error('Ошибка инициализации:', error);
     showError('Произошла ошибка при загрузке страницы');
   }
-});
+}
+
+// Запускаем: если DOM ещё грузится — по событию,
+// если уже готов (скрипт в конце body) — сразу
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', runInit);
+} else {
+  runInit();
+}

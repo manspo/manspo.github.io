@@ -2962,3 +2962,152 @@ img {
   color: var(--muted);
   white-space: nowrap;
   overflow: hidden;
+  
+  /* ===== БЛОК ВКЛАДЫША НА СТРАНИЦАХ ФИГУРОК ===== */
+.single-insert-block {
+  margin-top: 30px;
+  padding: 20px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+}
+
+.single-insert-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--primary);
+  margin: 0 0 16px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.single-insert-content {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.single-insert-image-wrap {
+  flex-shrink: 0;
+  width: 180px;
+  height: 180px;
+  background: linear-gradient(135deg, #f5f7fb 0%, #eef2f6 100%);
+  border-radius: 12px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  cursor: zoom-in;
+  transition: transform 0.2s;
+}
+
+[data-theme="dark"] .single-insert-image-wrap {
+  background: linear-gradient(135deg, #1e1e2e 0%, #2d2d44 100%);
+}
+
+.single-insert-image-wrap:hover {
+  transform: scale(1.02);
+}
+
+.single-insert-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.single-insert-info {
+  flex: 1;
+  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 6px;
+}
+
+.single-insert-name {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.3;
+}
+
+.single-insert-code {
+  font-family: monospace;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--primary);
+  background: rgba(79, 70, 229, 0.1);
+  padding: 5px 12px;
+  border-radius: 20px;
+  width: fit-content;
+  letter-spacing: 0.5px;
+}
+
+/* ===== "Вкладыш не добавлен" ===== */
+.single-insert-empty {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 22px;
+  background: var(--bg);
+  border: 1px dashed var(--border);
+  border-radius: 14px;
+  color: var(--muted);
+  font-size: 15px;
+}
+
+[data-theme="dark"] .single-insert-empty {
+  background: var(--bg-secondary);
+}
+
+.single-insert-empty-icon {
+  font-size: 22px;
+  opacity: 0.5;
+}
+
+.single-insert-empty-text {
+  font-style: italic;
+}
+
+/* ===== Мобильная версия ===== */
+@media (max-width: 768px) {
+  .single-insert-block {
+    margin-top: 20px;
+    padding: 16px;
+  }
+  .single-insert-title {
+    font-size: 16px;
+    margin-bottom: 12px;
+  }
+  .single-insert-content {
+    flex-direction: column;
+    gap: 14px;
+  }
+  .single-insert-image-wrap {
+    width: 140px;
+    height: 140px;
+    margin: 0 auto;
+  }
+  .single-insert-info {
+    min-width: 0;
+    width: 100%;
+    text-align: center;
+    align-items: center;
+  }
+  .single-insert-name {
+    font-size: 15px;
+  }
+  .single-insert-code {
+    font-size: 13px;
+    padding: 4px 10px;
+  }
+  .single-insert-empty {
+    padding: 14px 16px;
+    font-size: 14px;
+  }
+}
