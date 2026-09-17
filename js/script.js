@@ -3977,6 +3977,25 @@ async function initAllDuplicates() {
       return;
     }
 
+    // 3. Грузим search.json, чтобы найти картинку-превью для каждого кода
+    const codeToImage = {};
+    try {
+      const searchRes = await fetch(`${BASE_URL}/data/search.json`);
+      if (searchRes.ok) {
+        const searchIndex = await searchRes.json();
+        searchIndex.forEach(item => {
+          const c = (item.code || '').trim().toLowerCase();
+          if (!c || !item.image) return;
+          // Сохраняем первую картинку для кода
+          if (!codeToImage[c]) {
+            codeToImage[c] = item.image;
+          }
+        });
+      }
+    } catch (e) {
+      console.warn('Не удалось загрузить search.json для превью дублей:', e);
+    }
+
     function render() {
       const filtered = currentQuery
         ? allCodes.filter(c => c.includes(currentQuery))
@@ -3995,16 +4014,23 @@ async function initAllDuplicates() {
 
       container.innerHTML = `
         <div class="duplicates-grid">
-          ${filtered.map(code => `
-            <a href="same-figures.html?code=${encodeURIComponent(code)}" class="duplicate-card">
-              <div class="duplicate-code">${escapeHtml(code.toUpperCase())}</div>
-              <div class="duplicate-count">
-                <span class="duplicate-count-num">${counts[code]}</span>
-                <span class="duplicate-count-label">${currentLang === 'ru' ? 'совпадений' : 'matches'}</span>
-              </div>
-              <div class="duplicate-icon">🔗</div>
-            </a>
-          `).join('')}
+          ${filtered.map(code => {
+            const imgPath = codeToImage[code.toLowerCase()];
+            const imgUrl = imgPath ? `${BASE_URL}/${imgPath}` : 'images/placeholder.svg';
+            return `
+              <a href="same-figures.html?code=${encodeURIComponent(code)}" class="duplicate-card">
+                <div class="duplicate-image-wrapper">
+                  <img src="${imgUrl}" alt="${escapeHtml(code.toUpperCase())}" loading="lazy" onerror="this.src='images/placeholder.svg'">
+                </div>
+                <div class="duplicate-code">${escapeHtml(code.toUpperCase())}</div>
+                <div class="duplicate-count">
+                  <span class="duplicate-count-num">${counts[code]}</span>
+                  <span class="duplicate-count-label">${currentLang === 'ru' ? 'совпадений' : 'matches'}</span>
+                </div>
+                <div class="duplicate-icon">🔗</div>
+              </a>
+            `;
+          }).join('')}
         </div>
       `;
       applyTranslations();

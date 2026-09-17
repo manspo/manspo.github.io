@@ -2401,7 +2401,7 @@ img {
   flex-direction: column;
   align-items: center;
   gap: 8px;
-  padding: 20px 15px;
+  padding: 15px 15px 20px;
   background: var(--card);
   border: 2px solid var(--border);
   border-radius: 14px;
@@ -2421,9 +2421,34 @@ img {
   background: rgba(129, 140, 248, 0.1);
 }
 
+/* ===== ПРЕВЬЮ КАРТИНКИ ===== */
+.duplicate-image-wrapper {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 4px;
+}
+.duplicate-image-wrapper img {
+  max-width: 90%;
+  max-height: 90%;
+  object-fit: contain;
+  transition: transform 0.25s;
+}
+.duplicate-card:hover .duplicate-image-wrapper img {
+  transform: scale(1.05);
+}
+[data-theme="dark"] .duplicate-image-wrapper {
+  background: var(--bg-secondary);
+}
+
 .duplicate-code {
   font-family: monospace;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 700;
   color: var(--primary);
   letter-spacing: 1px;
