@@ -1419,6 +1419,17 @@ async function initCatalog() {
     data = data.filter(s => s.visible !== false);
     const manufacturers = await loadManufacturers();
     
+    // ===== Карта кодов =====
+    window.__codeCounts = {};
+    try {
+      const countsRes = await fetch(`${BASE_URL}/data/code-counts.json`);
+      if (countsRes.ok) {
+        window.__codeCounts = await countsRes.json();
+      }
+    } catch (e) {
+      console.warn('Не удалось загрузить code-counts.json:', e);
+    }
+    
     const sort = document.getElementById("sortSelect");
     const searchInput = document.getElementById("searchInput");
     
@@ -1627,12 +1638,29 @@ async function initCatalog() {
           );
           
           if (matchedFigures.length > 0) {
-            const badgesHtml = matchedFigures.slice(0, 3).map(f => `
-              <span class="search-match-badge">
-                ${f.code ? `<b>${escapeHtml(f.code)}</b>` : ''}
-                ${escapeHtml(f.name || f.name_en || '')}
-              </span>
-            `).join('');
+            const badgesHtml = matchedFigures.slice(0, 3).map(f => {
+              const code = (f.code || '').trim();
+              const count = code ? (window.__codeCounts[code.toLowerCase()] || 0) : 0;
+              const isLink = code && count >= 2;
+              
+              if (isLink) {
+                return `
+                  <a href="same-figures.html?code=${encodeURIComponent(code)}" 
+                     class="search-match-badge search-match-link"
+                     title="${currentLang === 'ru' ? 'Найти все фигурки с этим кодом (' + count + ' шт.)' : 'Find all figures with this code (' + count + ' pcs)'}">
+                    ${code ? `<b>${escapeHtml(code)}</b>` : ''}
+                    ${escapeHtml(f.name || f.name_en || '')}
+                    <span class="search-match-link-icon">🔗</span>
+                  </a>
+                `;
+              }
+              return `
+                <span class="search-match-badge">
+                  ${code ? `<b>${escapeHtml(code)}</b>` : ''}
+                  ${escapeHtml(f.name || f.name_en || '')}
+                </span>
+              `;
+            }).join('');
             
             const moreHtml = matchedFigures.length > 3 
               ? `<span class="search-match-more">+${matchedFigures.length - 3}</span>` 

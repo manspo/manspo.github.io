@@ -2311,3 +2311,35 @@ img {
   }
   .skeleton-card { height: 120px; }
 }
+
+/* ===== БЕЙДЖ-ССЫЛКА НА ОДИНАКОВЫЕ ФИГУРКИ (каталог) ===== */
+.search-match-link {
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  position: relative;
+  padding-right: 22px;
+}
+
+.search-match-link:hover {
+  background: var(--primary);
+  color: white;
+  transform: translateY(-1px);
+}
+
+.search-match-link:hover b {
+  color: white;
+}
+
+.search-match-link-icon {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 10px;
+  opacity: 0.7;
+}
+
+.search-match-link:hover .search-match-link-icon {
+  opacity: 1;
+}
