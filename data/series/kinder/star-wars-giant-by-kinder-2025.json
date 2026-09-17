@@ -1,0 +1,63 @@
+{
+  "id": "star-wars-giant-by-kinder-2025",
+  "name": "Звездные Войны Гигант от Киндер",
+  "name_en": "Star Wars Giant by Kinder",
+  "year": 2025,
+  "manufacturer": "kinder",
+  "cover": "images/series/kinder/star-wars-giant-by-kinder-2025/VTF14.webp",
+  "description": "Гигантские фигурки по Звездным Войнам.",
+  "description_en": "Giant Star Wars figures.",
+  "kind": "giant",
+  "visible": true,
+  "fullSeriesForSale": false,
+  "fullSeriesAvito": "",
+  "fullSeriesPrice": "",
+  "fullSeriesPrice_en": "",
+  "fullSeriesCondition": "",
+  "fullSeriesCondition_en": "",
+  "fullSeriesDateAdded": "",
+  "fullSeriesDescription": "",
+  "fullSeriesDescription_en": "",
+  "figures": [
+    {
+      "id": "star-wars-giant-by-kinder-2025_fig1",
+      "name": "Дарт Вейдер и Люк Скайвокер",
+      "name_en": "Darth Vader and Luke Skywalker",
+      "code": "VTF14",
+      "image": "images/series/kinder/star-wars-giant-by-kinder-2025/VTF14.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": "",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
+    },
+    {
+      "id": "star-wars-giant-by-kinder-2025_fig2",
+      "name": "Дарт Мол и Оби-Ван Кеноби",
+      "name_en": "Darth Maul and Obi-Wan Kenobi",
+      "code": "VTF15",
+      "image": "images/series/kinder/star-wars-giant-by-kinder-2025/VTF15.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": "",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
+    }
+  ],
+  "extras": [],
+  "variants": [],
+  "inserts": [],
+  "other": [],
+  "videos": {
+    "youtube": [],
+    "vk": [],
+    "tiktok": [],
+    "instagram": []
+  }
+}

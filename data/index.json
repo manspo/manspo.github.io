@@ -1,5 +1,53 @@
 [
   {
+    "id": "veterinary-by-kinder-2024",
+    "name": "Ветеринары от Киндер",
+    "name_en": "Veterinary by Kinder",
+    "year": 2024,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/veterinary-by-kinder-2024/cover.webp",
+    "kind": "",
+    "description": "Серия посвященная ветеринарской тематике.",
+    "description_en": "A series dedicated to veterinary topics.",
+    "visible": true
+  },
+  {
+    "id": "star-wars-giant-by-kinder-2025",
+    "name": "Звездные Войны Гигант от Киндер",
+    "name_en": "Star Wars Giant by Kinder",
+    "year": 2025,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/star-wars-giant-by-kinder-2025/VTF14.webp",
+    "kind": "giant",
+    "description": "Гигантские фигурки по Звездным Войнам.",
+    "description_en": "Giant Star Wars figures.",
+    "visible": true
+  },
+  {
+    "id": "cheburashka-by-konfitoy-2025",
+    "name": "Чебурашка от Конфитой",
+    "name_en": "Cheburashka by Konfitoy",
+    "year": 2025,
+    "manufacturer": "konfitoy",
+    "cover": "images/series/konfitoy/cheburashka-by-konfitoy-2025/cover.webp",
+    "kind": "",
+    "description": "Небольшая серия про Чебурашку.",
+    "description_en": "A short series about Cheburashka.",
+    "visible": true
+  },
+  {
+    "id": "racing-emerging-by-kinder-2026",
+    "name": "Развивающиеся гонки от Киндер",
+    "name_en": "Racing Emerging by Kinder",
+    "year": 2026,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/racing-emerging-by-kinder-2026/cover.webp",
+    "kind": "",
+    "description": "Обновленная серия про гонки.",
+    "description_en": "Updated series about racing.",
+    "visible": true
+  },
+  {
     "id": "super-mario-mini-by-kinder-2026",
     "name": "Супер Марио Мини от Киндер",
     "name_en": "Super Mario Mini by Kinder",
