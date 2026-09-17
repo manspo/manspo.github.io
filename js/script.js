@@ -3865,11 +3865,13 @@ async function initSameFigures() {
       item.code && item.code.trim().toLowerCase() === codeNorm
     );
 
-    // Обновляем заголовок
+
+    // Обновляем заголовок (код всегда ВЕРХНИМ регистром)
+    const codeDisplay = code.trim().toUpperCase();
     if (pageTitle) {
       pageTitle.textContent = currentLang === 'ru' 
-        ? `🔍 Фигурки с кодом «${code}»` 
-        : `🔍 Figures with code «${code}»`;
+        ? `🔍 Фигурки с кодом «${codeDisplay}»` 
+        : `🔍 Figures with code «${codeDisplay}»`;
     }
     if (pageSubtitle) {
       pageSubtitle.textContent = currentLang === 'ru'
