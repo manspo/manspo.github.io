@@ -1694,6 +1694,17 @@ async function initMyCollection() {
     await loadManufacturers();
     const manufacturers = await loadManufacturers();
     
+    // ===== Карта кодов =====
+    window.__codeCounts = {};
+    try {
+      const countsRes = await fetch(`${BASE_URL}/data/code-counts.json`);
+      if (countsRes.ok) {
+        window.__codeCounts = await countsRes.json();
+      }
+    } catch (e) {
+      console.warn('Не удалось загрузить code-counts.json:', e);
+    }
+    
     // ===== ЗАГРУЗКА ЧЕРЕЗ COLLECTION.JSON =====
     const allSeries = await loadCollection();
     
@@ -1781,11 +1792,39 @@ async function initMyCollection() {
         }
       }
       if (searchQuery) {
-        list = list.filter(s => {
+        const query = searchQuery.toLowerCase().trim();
+        
+        // Загружаем search.json (один раз)
+        if (!window.searchIndex) {
+          window.searchIndex = await loadSearch();
+        }
+        
+        // Пробуем найти совпадения в коллекции через searchIndex
+        const matchedSeriesIds = new Set();
+        
+        // 1. Поиск по сериям
+        list.forEach(s => {
           const nameRu = (s.name || '').toLowerCase();
           const nameEn = (s.name_en || s.name || '').toLowerCase();
-          return nameRu.includes(searchQuery) || nameEn.includes(searchQuery);
+          const yearStr = (s.year || '').toString();
+          if (nameRu.includes(query) || nameEn.includes(query) || yearStr.includes(query)) {
+            matchedSeriesIds.add(s.id);
+          }
         });
+        
+        // 2. Поиск по фигуркам (только owned)
+        window.searchIndex.forEach(item => {
+          if (!item.owned) return;
+          const code = (item.code || '').toLowerCase();
+          const nameRu = (item.name || '').toLowerCase();
+          const nameEn = (item.name_en || '').toLowerCase();
+          
+          if (code.includes(query) || nameRu.includes(query) || nameEn.includes(query)) {
+            matchedSeriesIds.add(item.seriesId);
+          }
+        });
+        
+        list = list.filter(s => matchedSeriesIds.has(s.id));
       }
       
       const totalOwnedFiguresSpan = document.getElementById('totalOwnedFigures');
@@ -1828,6 +1867,53 @@ async function initMyCollection() {
           </div>
         `;
         grid.appendChild(a);
+        
+        // ===== БЕЙДЖИ СОВПАДЕНИЙ ПО ФИГУРКАМ =====
+        if (searchQuery && window.searchIndex) {
+          const query = searchQuery.toLowerCase().trim();
+          const matchedFigures = window.searchIndex.filter(item => 
+            item.seriesId === s.id && item.owned &&
+            (
+              (item.code || '').toLowerCase().includes(query) ||
+              (item.name || '').toLowerCase().includes(query) ||
+              (item.name_en || '').toLowerCase().includes(query)
+            )
+          );
+          
+          if (matchedFigures.length > 0) {
+            const badgesHtml = matchedFigures.slice(0, 3).map(f => {
+              const code = (f.code || '').trim();
+              const count = code ? (window.__codeCounts[code.toLowerCase()] || 0) : 0;
+              const isLink = code && count >= 2;
+              
+              if (isLink) {
+                return `
+                  <a href="same-figures.html?code=${encodeURIComponent(code)}" 
+                     class="search-match-badge search-match-link"
+                     title="${currentLang === 'ru' ? 'Найти все фигурки с этим кодом (' + count + ' шт.)' : 'Find all figures with this code (' + count + ' pcs)'}">
+                    ${code ? `<b>${escapeHtml(code)}</b>` : ''}
+                    ${escapeHtml(f.name || f.name_en || '')}
+                    <span class="search-match-link-icon">🔗</span>
+                  </a>
+                `;
+              }
+              return `
+                <span class="search-match-badge">
+                  ${code ? `<b>${escapeHtml(code)}</b>` : ''}
+                  ${escapeHtml(f.name || f.name_en || '')}
+                </span>
+              `;
+            }).join('');
+            
+            const moreHtml = matchedFigures.length > 3 
+              ? `<span class="search-match-more">+${matchedFigures.length - 3}</span>` 
+              : '';
+            
+            a.querySelector('.card-body').insertAdjacentHTML('beforeend', `
+              <div class="search-matches">${badgesHtml}${moreHtml}</div>
+            `);
+          }
+        }
       });
       applyTranslations();
     }
