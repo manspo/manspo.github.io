@@ -595,7 +595,7 @@ main {
 .series-info {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 18px;
   min-width: 0;
   padding-top: 8px;
 }
@@ -608,34 +608,88 @@ main {
   margin: 0;
 }
 
+/* ===== БЕЙДЖИ ГОДА И ПРОИЗВОДИТЕЛЯ ===== */
 .series-meta {
-  color: var(--muted);
-  font-size: 15px;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   flex-wrap: wrap;
   margin: 0;
 }
 
-.series-meta .dot { opacity: 0.5; }
+.series-meta .dot { display: none; }  /* убираем точку-разделитель, бейджи и так разделены */
 
 .series-year-link,
 .series-manufacturer-link {
-  color: var(--primary);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
   text-decoration: none;
-  font-weight: 500;
-}
-.series-year-link:hover,
-.series-manufacturer-link:hover {
-  text-decoration: underline;
+  transition: all 0.2s;
+  border: 1px solid transparent;
 }
 
+.series-year-link {
+  background: rgba(79, 70, 229, 0.1);
+  color: var(--primary);
+  border-color: rgba(79, 70, 229, 0.2);
+}
+.series-year-link::before {
+  content: '📅';
+  font-size: 13px;
+}
+.series-year-link:hover {
+  background: var(--primary);
+  color: white;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(79, 70, 229, 0.25);
+}
+
+.series-manufacturer-link {
+  background: rgba(16, 185, 129, 0.1);
+  color: #059669;
+  border-color: rgba(16, 185, 129, 0.2);
+}
+.series-manufacturer-link::before {
+  content: '🏭';
+  font-size: 13px;
+}
+.series-manufacturer-link:hover {
+  background: #10b981;
+  color: white;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
+}
+
+[data-theme="dark"] .series-year-link {
+  background: rgba(129, 140, 248, 0.15);
+  color: #a5b4fc;
+  border-color: rgba(129, 140, 248, 0.25);
+}
+[data-theme="dark"] .series-manufacturer-link {
+  background: rgba(16, 185, 129, 0.15);
+  color: #6ee7b7;
+  border-color: rgba(16, 185, 129, 0.25);
+}
+
+/* ===== БЛОК ОПИСАНИЯ ===== */
 .series-info > p {
-  font-size: 16px;
-  line-height: 1.6;
+  font-size: 15px;
+  line-height: 1.7;
   color: var(--text);
   margin: 0;
+  padding: 16px 20px 16px 22px;
+  background: var(--bg);
+  border-radius: 12px;
+  border-left: 4px solid var(--primary);
+  position: relative;
+}
+[data-theme="dark"] .series-info > p {
+  background: var(--bg-secondary);
 }
 
 /* ===== СПИСКИ ЭЛЕМЕНТОВ ===== */
@@ -1735,7 +1789,12 @@ img {
     }
     .series-info h1 { font-size: 24px !important; text-align: center; }
     .series-meta { justify-content: center !important; }
-    .series-info > p { text-align: center; font-size: 15px; }
+    .series-info > p {
+      text-align: left;
+      font-size: 14px;
+      padding: 14px 16px 14px 18px;
+      border-left-width: 3px;
+    }
 
     .figures-list { grid-template-columns: 1fr; }
     .figure-item { flex-direction: column; text-align: center; }
