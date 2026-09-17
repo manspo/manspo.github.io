@@ -1580,7 +1580,21 @@ async function initCatalog() {
       }
       
       // ===== СОРТИРОВКА =====
-      if (currentSort === "year") {
+      if (currentSort === "date-desc") {
+        list.sort((a, b) => {
+          const dateA = a.date_added ? new Date(a.date_added).getTime() : 0;
+          const dateB = b.date_added ? new Date(b.date_added).getTime() : 0;
+          if (dateB !== dateA) return dateB - dateA;
+          return (a.name || '').localeCompare(b.name || '');
+        });
+      } else if (currentSort === "date-asc") {
+        list.sort((a, b) => {
+          const dateA = a.date_added ? new Date(a.date_added).getTime() : 0;
+          const dateB = b.date_added ? new Date(b.date_added).getTime() : 0;
+          if (dateA !== dateB) return dateA - dateB;
+          return (a.name || '').localeCompare(b.name || '');
+        });
+      } else if (currentSort === "year") {
         list.sort((a, b) => a.year - b.year);
       } else if (currentSort === "year-desc") {
         list.sort((a, b) => b.year - a.year);

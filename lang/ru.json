@@ -73,6 +73,7 @@
   "feature_search_desc": "Поиск по названию, году, производителю",
   "stats_title": "Наша база данных",
   "sort_date_desc": "Недавно добавленные",
+  "sort_date_asc": "Давно добавленные",
   "download_checklist": "Скачать чек-лист (JPG)",
   "checklist_title": "Чек-лист с нумерацией",
   "checklist_loading": "Загрузка чек-листа...",

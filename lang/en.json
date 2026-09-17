@@ -73,6 +73,7 @@
   "feature_search_desc": "Search by name, year, manufacturer",
   "stats_title": "Our Database",
   "sort_date_desc": "Recently added",
+  "sort_date_asc": "Oldest first",
   "download_checklist": "Download checklist (JPG)",
   "checklist_title": "Checklist with numbering",
   "checklist_loading": "Loading checklist...",
