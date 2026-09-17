@@ -2806,24 +2806,27 @@ async function initLot() {
     const name = currentLang === 'en' && series.name_en ? series.name_en : series.name;
     
     const description = currentLang === 'en' 
-        ? (series.fullSeriesDescription_en || series.description_en || series.description || "Описание отсутствует")
-        : (series.fullSeriesDescription || series.description || "Описание отсутствует");
+        ? (series.fullSeriesDescription_en || series.description_en || series.description || "")
+        : (series.fullSeriesDescription || series.description || "");
     
     const manufacturerName = manufacturers[series.manufacturer]?.[currentLang] || series.manufacturer;
     const coverUrl = series.cover ? `${BASE_URL}/${series.cover}` : 'images/placeholder.svg';
 
     const price = currentLang === 'en' 
-        ? (series.fullSeriesPrice_en || series.fullSeriesPrice || 'Price not specified')
-        : (series.fullSeriesPrice || 'Цена не указана');
+        ? (series.fullSeriesPrice_en || series.fullSeriesPrice || '')
+        : (series.fullSeriesPrice || '');
     
     const avitoLink = series.fullSeriesAvito || '#';
     
     const condition = currentLang === 'en' 
-        ? (series.fullSeriesCondition_en || 'Condition not specified')
-        : (series.fullSeriesCondition || 'Состояние не указано');
+        ? (series.fullSeriesCondition_en || '')
+        : (series.fullSeriesCondition || '');
     
-    const dateAdded = series.fullSeriesDateAdded ? new Date(series.fullSeriesDateAdded).toLocaleDateString() : '';
+    const dateAdded = series.fullSeriesDateAdded 
+        ? new Date(series.fullSeriesDateAdded).toLocaleDateString() 
+        : '';
 
+    // Галерея
     const allImages = [];
     if (series.figures) allImages.push(...series.figures.map(f => f.image ? `${BASE_URL}/${f.image}` : 'images/placeholder.svg'));
     if (series.extras) allImages.push(...series.extras.map(e => e.image ? `${BASE_URL}/${e.image}` : 'images/placeholder.svg'));
@@ -2839,27 +2842,66 @@ async function initLot() {
         mainImageSrc = coverUrl;
         const coverFull = `${BASE_URL}/${series.cover}`;
         const found = allImages.findIndex(img => img === coverFull);
-        if (found !== -1) {
-            mainImageIndex = found;
-        }
-    }
-    else if (allImages.length > 0) {
+        if (found !== -1) mainImageIndex = found;
+    } else if (allImages.length > 0) {
         mainImageSrc = allImages[0];
         mainImageIndex = 0;
     }
 
+    // ===== БЛОК ПРОДАЖИ =====
+    let saleBlockHtml = '';
+    if (avitoLink && avitoLink !== '#') {
+      saleBlockHtml = `
+        <a href="${escapeHtml(avitoLink)}" class="figure-btn figure-btn-buy" target="_blank" rel="noopener noreferrer">
+          🛒 ${currentLang === 'ru' ? 'Купить' : 'Buy'}${price ? ' · ' + escapeHtml(price) : ''}
+        </a>
+      `;
+    } else {
+      saleBlockHtml = `
+        <span class="figure-btn figure-btn-disabled">
+          🛒 ${currentLang === 'ru' ? 'В продаже, ссылки нет' : 'For sale, no link'}
+        </span>
+      `;
+    }
+
+    // ===== ПРАВАЯ КОЛОНКА: состояние + описание =====
+    let descriptionBlockHtml = '';
+    if (condition) {
+      descriptionBlockHtml += `
+        <div class="figure-condition">
+          <span class="condition-icon">⚠️</span>
+          <span class="condition-text">${escapeHtml(condition)}</span>
+        </div>
+      `;
+    }
+    if (description) {
+      descriptionBlockHtml += `
+        <div class="figure-description">
+          <p>${escapeHtml(description).replace(/&lt;br&gt;/g, '<br>')}</p>
+        </div>
+      `;
+    }
+
+    // ===== РЕНДЕР (новая структура) =====
     container.innerHTML = `
       <div class="figure-container lot-page">
         <h1 class="figure-title">${escapeHtml(name)}</h1>
         <div class="figure-content">
-          <div class="figure-image-wrapper">
-            <img src="${escapeHtml(mainImageSrc)}" 
-                 alt="${escapeHtml(name)}" 
-                 class="figure-image" 
-                 onclick="openLightbox(${mainImageIndex}, window.seriesGalleryImages || [])" 
-                 onerror="this.src='images/placeholder.svg'">
-            <div class="figure-type-badge">📦 ${currentLang === 'ru' ? 'Полная серия' : 'Full series'}</div>
+          <div class="figure-left">
+            <div class="figure-image-wrapper">
+              <img src="${escapeHtml(mainImageSrc)}" 
+                   alt="${escapeHtml(name)}" 
+                   class="figure-image" 
+                   onclick="openLightbox(${mainImageIndex}, window.seriesGalleryImages || [])" 
+                   onerror="this.src='images/placeholder.svg'">
+              <div class="figure-type-badge">📦 ${currentLang === 'ru' ? 'Полная серия' : 'Full series'}</div>
+            </div>
+            
+            <div class="figure-sale-block">
+              ${saleBlockHtml}
+            </div>
           </div>
+          
           <div class="figure-info">
             <div class="figure-meta">
               <div class="figure-meta-item">
@@ -2883,24 +2925,8 @@ async function initLot() {
                 <span>${currentLang === 'ru' ? 'Добавлено' : 'Added'}: ${escapeHtml(dateAdded)}</span>
               </div>` : ''}
             </div>
-
-            ${condition ? `
-              <div class="figure-condition">
-                <span class="condition-icon">⚠️</span>
-                <span class="condition-text">${escapeHtml(condition)}</span>
-              </div>
-            ` : ''}
-
-            ${description ? `
-              <div class="figure-description">
-                <p>${escapeHtml(description).replace(/&lt;br&gt;/g, '<br>')}</p>
-              </div>
-            ` : ''}
-
-            <div class="figure-actions">
-              ${avitoLink !== '#' ? `<a href="${escapeHtml(avitoLink)}" class="figure-btn figure-btn-buy" target="_blank" rel="noopener noreferrer">🛒 ${currentLang === 'ru' ? 'Купить' : 'Buy'}</a>` : ''}
-              <button class="figure-btn figure-btn-qr" onclick="generateQRCode('series', '${escapeHtml(series.id)}', '${escapeHtml(name).replace(/'/g, "\\'")}', true)">📱 QR-код</button>
-            </div>
+            
+            ${descriptionBlockHtml}
           </div>
         </div>
       </div>
@@ -2908,7 +2934,7 @@ async function initLot() {
 
     const mainElement = document.querySelector('main');
     if (mainElement) {
-        mainElement.classList.add('lot-page');
+      mainElement.classList.add('lot-page');
     }
 
     applyTranslations();
@@ -3119,6 +3145,9 @@ async function initFigure() {
     const name = currentLang === 'en' && figure.name_en ? figure.name_en : figure.name;
     const seriesName = currentLang === 'en' && series.name_en ? series.name_en : series.name;
     
+    // ✅ ГОД ФИГУРКИ = год серии
+    const figureYear = series.year || '';
+    
     const typeNames = {
       figures: { ru: 'Фигурка', en: 'Figure', icon: '🎎' },
       extras: { ru: 'Доп', en: 'Extra', icon: '🎁' },
@@ -3167,7 +3196,7 @@ async function initFigure() {
       }
     }
     
-    // ===== БЛОК ВКЛАДЫША (только для фигурок/допов/вариантов) =====
+    // ===== БЛОК ВКЛАДЫША =====
     let insertBlockHtml = '';
     if (figureType !== 'inserts' && figureType !== 'other') {
       const codeNorm = (figure.code || '').trim().toUpperCase();
@@ -3219,7 +3248,7 @@ async function initFigure() {
       }
     }
     
-    // ===== БЛОК ОПИСАНИЯ / СОСТОЯНИЯ (для правой колонки) =====
+    // ===== ПРАВАЯ КОЛОНКА: состояние + описание =====
     let descriptionBlockHtml = '';
     if (condition) {
       descriptionBlockHtml += `
@@ -3254,11 +3283,15 @@ async function initFigure() {
             <div class="figure-meta">
               <div class="figure-meta-item">
                 <span class="meta-icon">📦</span>
-                <a href="series.html?id=${escapeHtml(series.id)}" class="meta-link">${escapeHtml(seriesName)} (${escapeHtml(series.year)})</a>
+                <a href="series.html?id=${escapeHtml(series.id)}" class="meta-link">${escapeHtml(seriesName)} (${escapeHtml(figureYear)})</a>
               </div>
               <div class="figure-meta-item">
                 <span class="meta-icon">🏭</span>
                 <a href="forsale.html?manufacturer=${escapeHtml(series.manufacturer)}" class="meta-link">${escapeHtml(manufacturerName)}</a>
+              </div>
+              <div class="figure-meta-item">
+                <span class="meta-icon">📅</span>
+                <span>${escapeHtml(figureYear)}</span>
               </div>
               ${figureCode ? `
                 <div class="figure-meta-item">
@@ -4574,6 +4607,9 @@ async function initSingleFigure() {
     const avitoLink = figure.avito || '#';
     const condition = currentLang === 'en' ? figure.condition_en : figure.condition;
     
+    // ✅ ГОД ФИГУРКИ (из самой фигурки)
+    const figureYear = figure.year || '';
+    
     // Галерея
     const galleryImages = [imageUrl];
     if (figure.insert && figure.insert.image) {
@@ -4633,7 +4669,7 @@ async function initSingleFigure() {
       `;
     }
     
-    // ===== БЛОК ОПИСАНИЯ / СОСТОЯНИЯ (правая колонка) =====
+    // ===== ПРАВАЯ КОЛОНКА: состояние + описание =====
     let descriptionBlockHtml = '';
     if (condition) {
       descriptionBlockHtml += `
@@ -4689,7 +4725,7 @@ async function initSingleFigure() {
               </div>
               <div class="figure-meta-item">
                 <span class="meta-icon">📅</span>
-                <span>${escapeHtml(figure.year || '')}</span>
+                <span>${escapeHtml(figureYear)}</span>
               </div>
               ${figureCode ? `
                 <div class="figure-meta-item">
