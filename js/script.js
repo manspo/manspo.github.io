@@ -4368,7 +4368,6 @@ async function initSingleFigure() {
   }
   
   try {
-    // Грузим singles/{manufacturer}.json
     const res = await fetch(`${BASE_URL}/data/singles/${manufacturer}.json`);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const arr = await res.json();
@@ -4396,14 +4395,44 @@ async function initSingleFigure() {
     
     // Галерея: картинка фигурки + картинка вкладыша (если есть)
     const galleryImages = [imageUrl];
-    let insertImageIndex = -1;
     if (figure.insert && figure.insert.image) {
       galleryImages.push(`${BASE_URL}/${figure.insert.image}`);
-      insertImageIndex = 1;
     }
     window.seriesGalleryImages = galleryImages;
     
-    // ===== Блок вкладыша =====
+    // ===== ИНФО + ПРОДАЖА =====
+    let infoHtml = '';
+    
+    if (condition) {
+      infoHtml += `
+        <div class="figure-condition">
+          <span class="condition-icon">⚠️</span>
+          <span class="condition-text">${escapeHtml(condition)}</span>
+        </div>
+      `;
+    }
+    
+    if (isForsale) {
+      if (avitoLink && avitoLink !== '#') {
+        infoHtml += `
+          <div style="margin-top: 10px;">
+            <a href="${escapeHtml(avitoLink)}" class="figure-btn figure-btn-buy" target="_blank" rel="noopener noreferrer">
+              🛒 ${currentLang === 'ru' ? 'Купить' : 'Buy'}${price ? ' · ' + escapeHtml(price) : ''}
+            </a>
+          </div>
+        `;
+      } else {
+        infoHtml += `
+          <div style="margin-top: 10px;">
+            <span class="figure-btn figure-btn-disabled">
+              🛒 ${currentLang === 'ru' ? 'В продаже, ссылки нет' : 'For sale, no link'}
+            </span>
+          </div>
+        `;
+      }
+    }
+    
+    // ===== БЛОК ВКЛАДЫША =====
     let insertBlockHtml = '';
     if (figure.insert) {
       const insertName = currentLang === 'en' && figure.insert.name_en ? figure.insert.name_en : (figure.insert.name || '');
@@ -4418,7 +4447,7 @@ async function initSingleFigure() {
               <img src="${insertImgUrl}" 
                    alt="${escapeHtml(insertName)}" 
                    class="single-insert-image" 
-                   onclick="openLightbox(${insertImageIndex}, window.seriesGalleryImages)"
+                   onclick="openLightbox(1, window.seriesGalleryImages)"
                    onerror="this.src='images/placeholder.svg'">
             </div>
             <div class="single-insert-info">
@@ -4437,24 +4466,7 @@ async function initSingleFigure() {
       `;
     }
     
-    // ===== Информация о продаже =====
-    let saleBlockHtml = '';
-    if (isForsale) {
-      if (avitoLink && avitoLink !== '#') {
-        saleBlockHtml = `
-          <a href="${escapeHtml(avitoLink)}" class="figure-btn figure-btn-buy" target="_blank" rel="noopener noreferrer">
-            🛒 ${currentLang === 'ru' ? 'Купить' : 'Buy'}${price ? ' · ' + escapeHtml(price) : ''}
-          </a>
-        `;
-      } else {
-        saleBlockHtml = `
-          <span class="figure-btn figure-btn-disabled">
-            🛒 ${currentLang === 'ru' ? 'В продаже, ссылки нет' : 'For sale, no link'}
-          </span>
-        `;
-      }
-    }
-    
+    // ===== РЕНДЕР (в стиле figure.html) =====
     container.innerHTML = `
       <div class="figure-container">
         <h1 class="figure-title">${escapeHtml(name)}</h1>
@@ -4466,11 +4478,17 @@ async function initSingleFigure() {
                  onclick="openLightbox(0, window.seriesGalleryImages)"
                  onerror="this.src='images/placeholder.svg'">
             <div class="figure-type-badge">
-              🎎 ${currentLang === 'ru' ? 'Без серии' : 'No series'}
+              🎎 ${currentLang === 'ru' ? 'Фигурка' : 'Figure'}
             </div>
           </div>
           <div class="figure-info">
             <div class="figure-meta">
+              <div class="figure-meta-item">
+                <span class="meta-icon">📦</span>
+                <span class="meta-link" style="color: var(--muted); font-style: italic;">
+                  ${currentLang === 'ru' ? 'Без серии' : 'No series'}
+                </span>
+              </div>
               <div class="figure-meta-item">
                 <span class="meta-icon">🏭</span>
                 <a href="figures.html?manufacturer=${escapeHtml(manufacturer)}" class="meta-link">${escapeHtml(manufacturerName)}</a>
@@ -4485,12 +4503,6 @@ async function initSingleFigure() {
                   <span class="figure-code-value">${escapeHtml(figureCode)}</span>
                 </div>
               ` : ''}
-              ${condition ? `
-                <div class="figure-meta-item">
-                  <span class="meta-icon">⚠️</span>
-                  <span>${escapeHtml(condition)}</span>
-                </div>
-              ` : ''}
             </div>
             
             ${description ? `
@@ -4499,7 +4511,9 @@ async function initSingleFigure() {
               </div>
             ` : ''}
             
-            ${saleBlockHtml ? `<div class="figure-actions">${saleBlockHtml}</div>` : ''}
+            <div class="figure-actions">
+              ${infoHtml}
+            </div>
           </div>
         </div>
         
