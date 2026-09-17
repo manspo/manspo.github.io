@@ -1641,7 +1641,8 @@ async function initCatalog() {
             const badgesHtml = matchedFigures.slice(0, 3).map(f => {
               const code = (f.code || '').trim();
               const count = code ? (window.__codeCounts[code.toLowerCase()] || 0) : 0;
-              const isLink = code && count >= 2;
+              const isServiceType = f.type === 'inserts' || f.type === 'other';
+              const isLink = code && count >= 2 && !isServiceType;
               
               if (isLink) {
                 return `
@@ -2878,7 +2879,7 @@ async function initSeries() {
                     <div>${safeName}</div>
                     ${itemCode ? `<div class="figure-code">${escapeHtml(itemCode)}</div>` : ''}
                   </div>
-                  ${(itemCode && window.__codeCounts && window.__codeCounts[itemCode.trim().toLowerCase()] >= 2) ? `<a href="same-figures.html?code=${encodeURIComponent(itemCode)}" class="same-code-link" title="${currentLang === 'ru' ? 'Найти все фигурки с этим кодом (' + window.__codeCounts[itemCode.trim().toLowerCase()] + ' шт.)' : 'Find all figures with this code (' + window.__codeCounts[itemCode.trim().toLowerCase()] + ' pcs)'}">🔗</a>` : ''}
+                  ${(itemCode && type !== 'inserts' && type !== 'other' && window.__codeCounts && window.__codeCounts[itemCode.trim().toLowerCase()] >= 2) ? `<a href="same-figures.html?code=${encodeURIComponent(itemCode)}" class="same-code-link" title="${currentLang === 'ru' ? 'Найти все фигурки с этим кодом (' + window.__codeCounts[itemCode.trim().toLowerCase()] + ' шт.)' : 'Find all figures with this code (' + window.__codeCounts[itemCode.trim().toLowerCase()] + ' pcs)'}">🔗</a>` : ''}
                   <button class="qr-btn" onclick="generateQRCode('${safeId}', '${safeSeriesId}', '${safeName.replace(/'/g, "\\'")}')" title="QR-код">📱</button>
                 </div>
                 ${item.forsale && item.avito ? `<a href="${escapeHtml(item.avito)}" class="avito-link" target="_blank" rel="noopener noreferrer">🛒</a>` : ''}
