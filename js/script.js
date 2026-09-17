@@ -4050,6 +4050,138 @@ async function initAllDuplicates() {
   }
 }
 
+// ===== СТРАНИЦА ХРОНОЛОГИИ =====
+async function initTimeline() {
+  const container = document.getElementById('timelineContainer');
+  const pageSubtitle = document.getElementById('timelineSubtitle');
+  if (!container) return;
+
+  const currentLang = localStorage.getItem("lang") || "ru";
+
+  try {
+    // 1. Грузим index.json + manufacturers.json
+    const [data, manufacturers] = await Promise.all([
+      loadData(),
+      loadManufacturers()
+    ]);
+
+    // 2. Фильтруем скрытые
+    const allSeries = data.filter(s => s.visible !== false);
+
+    // 3. Собираем уникальных производителей, у которых есть серии
+    const uniqueManufacturers = [...new Set(allSeries.map(s => s.manufacturer))];
+    const sortedManufacturers = manufacturerOrder.filter(m => uniqueManufacturers.includes(m));
+
+    let currentManufacturer = 'all';
+
+    // 4. Рисуем фильтр
+    const filterGroup = document.getElementById('timelineFilterGroup');
+    if (filterGroup) {
+      filterGroup.innerHTML = '';
+      
+      const allBtn = document.createElement('button');
+      allBtn.className = 'filter-btn active';
+      allBtn.dataset.filter = 'all';
+      allBtn.textContent = currentLang === 'ru' ? 'Все' : 'All';
+      filterGroup.appendChild(allBtn);
+
+      sortedManufacturers.forEach(m => {
+        const displayName = manufacturers[m]?.[currentLang] || m;
+        const btn = document.createElement('button');
+        btn.className = 'filter-btn';
+        btn.dataset.filter = m;
+        btn.textContent = displayName;
+        filterGroup.appendChild(btn);
+      });
+
+      filterGroup.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.onclick = () => {
+          filterGroup.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentManufacturer = btn.dataset.filter;
+          render();
+        };
+      });
+    }
+
+    // 5. Рендер
+    function render() {
+      let list = [...allSeries];
+      if (currentManufacturer !== 'all') {
+        list = list.filter(s => s.manufacturer === currentManufacturer);
+      }
+
+      // Группируем по годам
+      const byYear = new Map();
+      list.forEach(s => {
+        const y = parseInt(s.year) || 0;
+        if (!byYear.has(y)) byYear.set(y, []);
+        byYear.get(y).push(s);
+      });
+
+      // Сортируем годы по возрастанию
+      const years = [...byYear.keys()].sort((a, b) => a - b);
+
+      // Счётчик
+      if (pageSubtitle) {
+        const totalSeries = list.length;
+        const totalYears = years.length;
+        pageSubtitle.textContent = currentLang === 'ru'
+          ? `Серий: ${totalSeries} · Годов: ${totalYears}`
+          : `Series: ${totalSeries} · Years: ${totalYears}`;
+      }
+
+      if (list.length === 0) {
+        container.innerHTML = `<p class="empty-message">${currentLang === 'ru' ? 'Ничего не найдено' : 'Nothing found'}</p>`;
+        return;
+      }
+
+      // Рендер
+      let html = '';
+      years.forEach(year => {
+        const series = byYear.get(year).sort((a, b) => {
+          // Внутри года сортируем по имени
+          const nameA = (currentLang === 'en' && a.name_en ? a.name_en : a.name).toLowerCase();
+          const nameB = (currentLang === 'en' && b.name_en ? b.name_en : b.name).toLowerCase();
+          return nameA.localeCompare(nameB);
+        });
+
+        html += `
+          <div class="timeline-year-block">
+            <div class="timeline-year">${year}</div>
+            <div class="timeline-series-grid">
+              ${series.map(s => {
+                const name = currentLang === 'en' && s.name_en ? s.name_en : s.name;
+                const manufacturerName = manufacturers[s.manufacturer]?.[currentLang] || s.manufacturer;
+                const imageUrl = s.cover ? `${BASE_URL}/${s.cover}` : 'images/placeholder.svg';
+                return `
+                  <a href="series.html?id=${escapeHtml(s.id)}" class="timeline-series-card">
+                    <div class="timeline-series-image">
+                      <img src="${imageUrl}" alt="${escapeHtml(name)}" loading="lazy" onerror="this.src='images/placeholder.svg'">
+                    </div>
+                    <div class="timeline-series-info">
+                      <div class="timeline-series-name">${escapeHtml(name)}</div>
+                      <div class="timeline-series-meta">${escapeHtml(manufacturerName)}</div>
+                    </div>
+                  </a>
+                `;
+              }).join('')}
+            </div>
+          </div>
+        `;
+      });
+
+      container.innerHTML = html;
+      applyTranslations();
+    }
+
+    render();
+  } catch (error) {
+    console.error('Ошибка загрузки хронологии:', error);
+    container.innerHTML = `<p class="error-message">❌ ${currentLang === 'ru' ? 'Ошибка загрузки' : 'Loading error'}</p>`;
+  }
+}
+
 // ===== ОБРАБОТКА ГЛУБОКИХ ССЫЛОК =====
 function handleDeepLink() {
     const params = new URLSearchParams(window.location.search);
@@ -4104,6 +4236,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       initSameFigures();
 	} else if (path.includes('all-duplicates.html')) {
       initAllDuplicates();
+	} else if (path.includes('timeline.html')) {
+      initTimeline();
     } else if (path.includes('videos.html')) {
       initVideos();         // ← НОВОЕ
     } else if (path.includes('about.html')) {
