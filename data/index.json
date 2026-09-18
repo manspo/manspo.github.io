@@ -1,5 +1,29 @@
 [
   {
+    "id": "space-mission-by-kinder-2023",
+    "name": "Космическая Миссия от Киндер",
+    "name_en": "Space Mission by Kinder",
+    "year": 2023,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/space-mission-by-kinder-2023/ml_back_space2223_jetpack-spaceman_vd044.webp",
+    "kind": "",
+    "description": "Космическая миссия 2023 года.",
+    "description_en": "Space mission 2023.",
+    "visible": true
+  },
+  {
+    "id": "wonka-by-kinder-2026",
+    "name": "Вонка от Киндер",
+    "name_en": "Wonka by Kinder",
+    "year": 2026,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/wonka-by-kinder-2026/cover.webp",
+    "kind": "",
+    "description": "Вторая серия по Вилли Вонка.",
+    "description_en": "Second series of Willy Wonka.",
+    "visible": true
+  },
+  {
     "id": "magic-box-by-kinder-1998",
     "name": "Волшебная шкатулка от Киндер",
     "name_en": "Magic Box by Kinder",
@@ -125,7 +149,7 @@
     "name_en": "Marvel by Kinder",
     "year": 2024,
     "manufacturer": "kinder",
-    "cover": "images/series/kinder/marvel-by-kinder-2024/BPZ.webp",
+    "cover": "images/series/kinder/marvel-by-kinder-2024/cover.webp",
     "kind": "",
     "description": "Серия посвященная героям вселенной Марвел.",
     "description_en": "A series dedicated to the heroes of the Marvel universe.",
