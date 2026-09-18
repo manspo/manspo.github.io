@@ -4286,7 +4286,8 @@ async function initFigures() {
     
     const [searchIndex, singlesIndex] = await Promise.all([
       loadSearch(),
-      fetch(`${BASE_URL}/data/singles/index.json`).then(r => r.ok ? r.json() : {}).catch(() => ({}))
+      fetch(`${BASE_URL}/data/singles/index.json`).then(r => r.ok ? r.json() : {}).catch(() => ({})),
+      loadData()   // ← гарантирует, что window.seriesIndex заполнен
     ]);
     
     // Фигурки из серий (figures, extras, variants — без inserts и other)
