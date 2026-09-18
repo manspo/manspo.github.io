@@ -4386,7 +4386,10 @@ async function initFigures() {
     }
     
     // ===== ПАГИНАЦИЯ =====
-    function renderPagination(totalItems, currentPage, itemsPerPage) {
+    // ===== ПАГИНАЦИЯ =====
+    // ВАЖНО: currentPage — НЕ параметр, а внешняя переменная initFigures.
+    // Поэтому меняем её напрямую, иначе изменения теряются.
+    function renderPagination(totalItems, itemsPerPage) {
       const totalPages = Math.ceil(totalItems / itemsPerPage);
       if (totalPages <= 1) return null;
       
@@ -4397,9 +4400,11 @@ async function initFigures() {
       prevBtn.className = 'page-btn';
       prevBtn.textContent = '‹';
       prevBtn.disabled = currentPage <= 1;
-      prevBtn.addEventListener('click', () => {
+      prevBtn.type = 'button';
+      prevBtn.addEventListener('click', function(e) {
+        e.preventDefault();
         if (currentPage > 1) {
-          currentPage--;
+          currentPage = currentPage - 1;
           render();
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }
@@ -4414,14 +4419,12 @@ async function initFigures() {
         const btn = document.createElement('button');
         btn.className = 'page-btn' + (i === currentPage ? ' active' : '');
         btn.textContent = i;
-        btn.dataset.page = i;   // ← добавил
-        btn.type = 'button';    // ← добавил
+        btn.dataset.page = i;
+        btn.type = 'button';
         
-        // Замыкаем i локально
         (function(pageNum) {
           btn.addEventListener('click', function(e) {
             e.preventDefault();
-            e.stopPropagation();
             currentPage = pageNum;
             render();
             window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -4435,9 +4438,11 @@ async function initFigures() {
       nextBtn.className = 'page-btn';
       nextBtn.textContent = '›';
       nextBtn.disabled = currentPage >= totalPages;
-      nextBtn.addEventListener('click', () => {
+      nextBtn.type = 'button';
+      nextBtn.addEventListener('click', function(e) {
+        e.preventDefault();
         if (currentPage < totalPages) {
-          currentPage++;
+          currentPage = currentPage + 1;
           render();
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }
@@ -4567,7 +4572,7 @@ async function initFigures() {
       });
       
       // Пагинация внизу
-      const pag = renderPagination(list.length, currentPage, ITEMS_PER_PAGE);
+      const pag = renderPagination(list.length, ITEMS_PER_PAGE);
       if (pag) grid.appendChild(pag);
       
       applyTranslations();
