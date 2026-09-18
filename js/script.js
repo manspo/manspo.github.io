@@ -4397,11 +4397,13 @@ async function initFigures() {
       prevBtn.className = 'page-btn';
       prevBtn.textContent = '‹';
       prevBtn.disabled = currentPage <= 1;
-      prevBtn.onclick = () => {
-        currentPage = Math.max(1, currentPage - 1);
-        render();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      };
+      prevBtn.addEventListener('click', () => {
+        if (currentPage > 1) {
+          currentPage--;
+          render();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      });
       container.appendChild(prevBtn);
       
       let startPage = Math.max(1, currentPage - 2);
@@ -4412,11 +4414,20 @@ async function initFigures() {
         const btn = document.createElement('button');
         btn.className = 'page-btn' + (i === currentPage ? ' active' : '');
         btn.textContent = i;
-        btn.onclick = () => {
-          currentPage = i;
-          render();
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        };
+        btn.dataset.page = i;   // ← добавил
+        btn.type = 'button';    // ← добавил
+        
+        // Замыкаем i локально
+        (function(pageNum) {
+          btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            currentPage = pageNum;
+            render();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          });
+        })(i);
+        
         container.appendChild(btn);
       }
       
@@ -4424,11 +4435,13 @@ async function initFigures() {
       nextBtn.className = 'page-btn';
       nextBtn.textContent = '›';
       nextBtn.disabled = currentPage >= totalPages;
-      nextBtn.onclick = () => {
-        currentPage = Math.min(totalPages, currentPage + 1);
-        render();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      };
+      nextBtn.addEventListener('click', () => {
+        if (currentPage < totalPages) {
+          currentPage++;
+          render();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      });
       container.appendChild(nextBtn);
       
       return container;
