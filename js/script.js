@@ -4449,19 +4449,24 @@ async function initFigures() {
         );
       }
       
+      // Порядок серий по index.json
+      const seriesOrder = {};
+      (window.seriesIndex || []).forEach((s, i) => { seriesOrder[s.id] = i; });
+
       // Сортировка
       if (currentSort === 'date-desc') {
+        // Новые серии — первыми, внутри серии — по позиции в JSON
         list.sort((a, b) => {
-          const da = a.date_added ? new Date(a.date_added).getTime() : 0;
-          const db = b.date_added ? new Date(b.date_added).getTime() : 0;
-          if (db !== da) return db - da;
+          const ia = a.seriesId ? (seriesOrder[a.seriesId] ?? 99999) : 99999;
+          const ib = b.seriesId ? (seriesOrder[b.seriesId] ?? 99999) : 99999;
+          if (ia !== ib) return ia - ib;
           return (a.name || '').localeCompare(b.name || '');
         });
       } else if (currentSort === 'date-asc') {
         list.sort((a, b) => {
-          const da = a.date_added ? new Date(a.date_added).getTime() : 0;
-          const db = b.date_added ? new Date(b.date_added).getTime() : 0;
-          if (da !== db) return da - db;
+          const ia = a.seriesId ? (seriesOrder[a.seriesId] ?? -1) : -1;
+          const ib = b.seriesId ? (seriesOrder[b.seriesId] ?? -1) : -1;
+          if (ib !== ia) return ib - ia;
           return (a.name || '').localeCompare(b.name || '');
         });
       } else if (currentSort === 'name') {
