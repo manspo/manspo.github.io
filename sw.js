@@ -1,4 +1,4 @@
-const CACHE_NAME = 'capsule-images-v1';
+const CACHE_NAME = 'capsule-images-v2';
 
 // ===== ТОЛЬКО ИЗОБРАЖЕНИЯ СЕРИЙ + ЛОГО + ABOUT =====
 self.addEventListener('install', event => {
