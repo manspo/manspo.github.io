@@ -16,6 +16,7 @@
   "fullSeriesCondition": "",
   "fullSeriesCondition_en": "",
   "fullSeriesDateAdded": "",
+  "fullSeriesForsaleDate": "",
   "fullSeriesDescription": "",
   "fullSeriesDescription_en": "",
   "figures": [
@@ -47,7 +48,8 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-16"
+      "date_added": "2026-09-16",
+      "forsale_date": "2026-09-20"
     }
   ],
   "extras": [
@@ -94,7 +96,8 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-16"
+      "date_added": "2026-09-16",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "super-mario-mini-by-kinder-2026_extra4",
@@ -109,7 +112,8 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-16"
+      "date_added": "2026-09-16",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "super-mario-mini-by-kinder-2026_extra5",
@@ -139,7 +143,8 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-16"
+      "date_added": "2026-09-16",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "super-mario-mini-by-kinder-2026_extra7",
@@ -154,7 +159,8 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-16"
+      "date_added": "2026-09-16",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "super-mario-mini-by-kinder-2026_extra8",
@@ -169,7 +175,8 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-16"
+      "date_added": "2026-09-16",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "super-mario-mini-by-kinder-2026_extra9",
@@ -184,7 +191,8 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-16"
+      "date_added": "2026-09-16",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "super-mario-mini-by-kinder-2026_extra10",
@@ -199,7 +207,8 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-16"
+      "date_added": "2026-09-16",
+      "forsale_date": "2026-09-20"
     }
   ],
   "variants": [],

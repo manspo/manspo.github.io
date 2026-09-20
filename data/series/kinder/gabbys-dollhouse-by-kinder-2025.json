@@ -16,6 +16,7 @@
   "fullSeriesCondition": "",
   "fullSeriesCondition_en": "",
   "fullSeriesDateAdded": "",
+  "fullSeriesForsaleDate": "",
   "fullSeriesDescription": "",
   "fullSeriesDescription_en": "",
   "figures": [
@@ -39,7 +40,8 @@
       "owned": true,
       "forsale": true,
       "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/kinder_syurpriz_volshebnyy_domik_gabbi_7774513027",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "gabbys-dollhouse-by-kinder-2025_fig3",
@@ -61,7 +63,8 @@
       "forsale": true,
       "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/kinder_syurpriz_volshebnyy_domik_gabbi_7774513027",
       "code": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "gabbys-dollhouse-by-kinder-2025_fig5",
@@ -72,7 +75,8 @@
       "forsale": true,
       "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/kinder_syurpriz_volshebnyy_domik_gabbi_7774513027",
       "code": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "gabbys-dollhouse-by-kinder-2025_fig6",
@@ -83,7 +87,8 @@
       "forsale": true,
       "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/kinder_syurpriz_volshebnyy_domik_gabbi_7774513027",
       "code": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     }
   ],
   "extras": [],

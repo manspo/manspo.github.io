@@ -16,6 +16,7 @@
   "fullSeriesCondition": "",
   "fullSeriesCondition_en": "",
   "fullSeriesDateAdded": "",
+  "fullSeriesForsaleDate": "",
   "fullSeriesDescription": "",
   "fullSeriesDescription_en": "",
   "figures": [
@@ -28,7 +29,8 @@
       "forsale": true,
       "avito": "",
       "code": "VQ117",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "natoons-baby-by-kinder-2024_fig2",
@@ -39,7 +41,8 @@
       "forsale": true,
       "avito": "",
       "code": "VQ118",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "natoons-baby-by-kinder-2024_fig3",
@@ -50,7 +53,8 @@
       "forsale": true,
       "avito": "",
       "code": "VQ119",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "natoons-baby-by-kinder-2024_fig4",
@@ -61,7 +65,8 @@
       "forsale": true,
       "avito": "",
       "code": "VQ120",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "natoons-baby-by-kinder-2024_fig5",
@@ -72,7 +77,8 @@
       "forsale": true,
       "avito": "",
       "code": "VQ121",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "natoons-baby-by-kinder-2024_fig6",
@@ -83,7 +89,8 @@
       "forsale": true,
       "avito": "",
       "code": "VQ123",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "natoons-baby-by-kinder-2024_fig7",
@@ -94,7 +101,8 @@
       "forsale": true,
       "avito": "",
       "code": "VQ124",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "natoons-baby-by-kinder-2024_fig8",
@@ -105,7 +113,8 @@
       "forsale": true,
       "avito": "",
       "code": "VQ125",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "natoons-baby-by-kinder-2024_fig9",
@@ -116,7 +125,8 @@
       "forsale": true,
       "avito": "",
       "code": "VQ127",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "natoons-baby-by-kinder-2024_fig10",
@@ -127,7 +137,8 @@
       "forsale": true,
       "avito": "",
       "code": "VQ128",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "natoons-baby-by-kinder-2024_fig11",
@@ -149,7 +160,8 @@
       "forsale": true,
       "avito": "",
       "code": "VQ130",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "natoons-baby-by-kinder-2024_fig13",
@@ -160,7 +172,8 @@
       "forsale": true,
       "avito": "",
       "code": "VQ131",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "natoons-baby-by-kinder-2024_fig14",
@@ -171,7 +184,8 @@
       "forsale": true,
       "avito": "",
       "code": "VQ172",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "natoons-baby-by-kinder-2024_fig15",
@@ -182,7 +196,8 @@
       "forsale": true,
       "avito": "",
       "code": "VQ174",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "natoons-baby-by-kinder-2024_fig16",
@@ -193,7 +208,8 @@
       "forsale": true,
       "avito": "",
       "code": "VQ175",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     }
   ],
   "extras": [],

@@ -16,6 +16,7 @@
   "fullSeriesCondition": "",
   "fullSeriesCondition_en": "",
   "fullSeriesDateAdded": "",
+  "fullSeriesForsaleDate": "",
   "fullSeriesDescription": "",
   "fullSeriesDescription_en": "",
   "figures": [
@@ -77,7 +78,8 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "unisex-by-kinder-2026_fig5",
@@ -257,7 +259,8 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "unisex-by-kinder-2026_fig17",
@@ -527,7 +530,8 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "unisex-by-kinder-2026_fig35",
@@ -557,7 +561,8 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "unisex-by-kinder-2026_fig37",
@@ -722,7 +727,8 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "unisex-by-kinder-2026_fig48",
@@ -752,7 +758,8 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "unisex-by-kinder-2026_fig50",
@@ -917,7 +924,8 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "unisex-by-kinder-2026_fig61",
@@ -977,7 +985,8 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "unisex-by-kinder-2026_fig65",
@@ -1097,7 +1106,8 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "unisex-by-kinder-2026_fig73",
@@ -1112,7 +1122,8 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "unisex-by-kinder-2026_fig74",
@@ -1127,7 +1138,8 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     }
   ],
   "extras": [

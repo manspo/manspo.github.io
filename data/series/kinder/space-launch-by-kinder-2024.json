@@ -16,6 +16,7 @@
   "fullSeriesCondition": "",
   "fullSeriesCondition_en": "",
   "fullSeriesDateAdded": "",
+  "fullSeriesForsaleDate": "",
   "fullSeriesDescription": "",
   "fullSeriesDescription_en": "",
   "figures": [
@@ -47,7 +48,8 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-20"
+      "date_added": "2026-09-20",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "space-launch-by-kinder-2024_fig3",
@@ -77,7 +79,8 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-20"
+      "date_added": "2026-09-20",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "space-launch-by-kinder-2024_fig5",

@@ -16,6 +16,7 @@
   "fullSeriesCondition": "",
   "fullSeriesCondition_en": "",
   "fullSeriesDateAdded": "",
+  "fullSeriesForsaleDate": "",
   "fullSeriesDescription": "",
   "fullSeriesDescription_en": "",
   "figures": [
@@ -62,7 +63,8 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "special-fairies-by-kinder-2026_fig4",
@@ -122,7 +124,8 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "special-fairies-by-kinder-2026_fig8",
@@ -137,7 +140,8 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "special-fairies-by-kinder-2026_fig9",
@@ -152,7 +156,8 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "special-fairies-by-kinder-2026_fig10",
@@ -167,7 +172,8 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "special-fairies-by-kinder-2026_fig11",
@@ -182,7 +188,8 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "special-fairies-by-kinder-2026_fig12",
@@ -212,7 +219,8 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "special-fairies-by-kinder-2026_fig14",
@@ -272,7 +280,8 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "special-fairies-by-kinder-2026_fig18",
@@ -287,7 +296,8 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "special-fairies-by-kinder-2026_fig19",
@@ -334,7 +344,8 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "special-fairies-by-kinder-2026_extra2",
@@ -349,7 +360,8 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "special-fairies-by-kinder-2026_extra3",
@@ -364,7 +376,8 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "special-fairies-by-kinder-2026_extra4",
@@ -379,7 +392,8 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "special-fairies-by-kinder-2026_extra5",
@@ -394,7 +408,8 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "special-fairies-by-kinder-2026_extra6",
@@ -409,7 +424,8 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "special-fairies-by-kinder-2026_extra7",
@@ -424,7 +440,8 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "special-fairies-by-kinder-2026_extra8",
@@ -454,7 +471,8 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "special-fairies-by-kinder-2026_extra10",
@@ -469,7 +487,8 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "special-fairies-by-kinder-2026_extra11",
@@ -484,7 +503,8 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "special-fairies-by-kinder-2026_extra12",
@@ -499,7 +519,8 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     }
   ],
   "variants": [],

@@ -16,6 +16,7 @@
   "fullSeriesCondition": "",
   "fullSeriesCondition_en": "",
   "fullSeriesDateAdded": "",
+  "fullSeriesForsaleDate": "",
   "fullSeriesDescription": "",
   "fullSeriesDescription_en": "",
   "figures": [
@@ -39,7 +40,8 @@
       "forsale": true,
       "avito": "",
       "code": "VC376",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "tweety-from-looney-tunes-by-kinder-2026_fig3",
@@ -140,7 +142,8 @@
       "forsale": true,
       "avito": "",
       "code": "VQ362B",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "tweety-from-looney-tunes-by-kinder-2026_extra4",

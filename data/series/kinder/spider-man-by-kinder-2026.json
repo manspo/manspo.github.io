@@ -16,6 +16,7 @@
   "fullSeriesCondition": "",
   "fullSeriesCondition_en": "",
   "fullSeriesDateAdded": "",
+  "fullSeriesForsaleDate": "",
   "fullSeriesDescription": "",
   "fullSeriesDescription_en": "",
   "figures": [
@@ -28,7 +29,8 @@
       "forsale": true,
       "avito": "",
       "code": "VC344",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "spider-man-by-kinder-2026_fig2",
@@ -61,7 +63,8 @@
       "forsale": true,
       "avito": "",
       "code": "VC347",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "spider-man-by-kinder-2026_fig5",
@@ -72,7 +75,8 @@
       "forsale": true,
       "avito": "",
       "code": "VC348",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "spider-man-by-kinder-2026_fig6",
@@ -94,7 +98,8 @@
       "forsale": true,
       "avito": "",
       "code": "VC350",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "spider-man-by-kinder-2026_fig8",
@@ -129,7 +134,8 @@
       "forsale": true,
       "avito": "",
       "code": "VC354B",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "spider-man-by-kinder-2026_extra3",
@@ -151,7 +157,8 @@
       "forsale": true,
       "avito": "",
       "code": "VC354C",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     }
   ],
   "variants": [],

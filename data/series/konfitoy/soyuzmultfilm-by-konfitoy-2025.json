@@ -16,6 +16,7 @@
   "fullSeriesCondition": "",
   "fullSeriesCondition_en": "",
   "fullSeriesDateAdded": "",
+  "fullSeriesForsaleDate": "",
   "fullSeriesDescription": "",
   "fullSeriesDescription_en": "",
   "figures": [
@@ -28,7 +29,8 @@
       "owned": true,
       "forsale": true,
       "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/soyuzmultfilm_yaytso_ne_kinder_4383116204",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "soyuzmultfilm-by-konfitoy-2025_fig2",
@@ -39,7 +41,8 @@
       "owned": true,
       "forsale": true,
       "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/soyuzmultfilm_yaytso_ne_kinder_4383116204",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "soyuzmultfilm-by-konfitoy-2025_fig3",
@@ -61,7 +64,8 @@
       "owned": true,
       "forsale": true,
       "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/soyuzmultfilm_yaytso_ne_kinder_4383116204",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "soyuzmultfilm-by-konfitoy-2025_fig5",
@@ -72,7 +76,8 @@
       "owned": true,
       "forsale": true,
       "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/soyuzmultfilm_yaytso_ne_kinder_4383116204",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "soyuzmultfilm-by-konfitoy-2025_fig6",
@@ -83,7 +88,8 @@
       "owned": true,
       "forsale": true,
       "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/soyuzmultfilm_yaytso_ne_kinder_4383116204",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "soyuzmultfilm-by-konfitoy-2025_fig7",
@@ -94,7 +100,8 @@
       "owned": true,
       "forsale": true,
       "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/soyuzmultfilm_yaytso_ne_kinder_4383116204",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "soyuzmultfilm-by-konfitoy-2025_fig8",
@@ -127,7 +134,8 @@
       "owned": true,
       "forsale": true,
       "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/soyuzmultfilm_yaytso_ne_kinder_4383116204",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "soyuzmultfilm-by-konfitoy-2025_fig11",
@@ -138,7 +146,8 @@
       "owned": true,
       "forsale": true,
       "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/soyuzmultfilm_yaytso_ne_kinder_4383116204",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "soyuzmultfilm-by-konfitoy-2025_fig12",
@@ -160,7 +169,8 @@
       "owned": true,
       "forsale": true,
       "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/soyuzmultfilm_yaytso_ne_kinder_4383116204",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "soyuzmultfilm-by-konfitoy-2025_fig14",

@@ -16,6 +16,7 @@
   "fullSeriesCondition": "",
   "fullSeriesCondition_en": "",
   "fullSeriesDateAdded": "",
+  "fullSeriesForsaleDate": "",
   "fullSeriesDescription": "",
   "fullSeriesDescription_en": "",
   "figures": [
@@ -157,7 +158,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "dinosaurs-by-kinder-2025_fig11",
@@ -171,7 +173,8 @@
       "price": "",
       "condition": "",
       "condition_en": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "dinosaurs-by-kinder-2025_fig12",

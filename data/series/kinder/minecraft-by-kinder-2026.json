@@ -16,6 +16,7 @@
   "fullSeriesCondition": "",
   "fullSeriesCondition_en": "",
   "fullSeriesDateAdded": "",
+  "fullSeriesForsaleDate": "",
   "fullSeriesDescription": "",
   "fullSeriesDescription_en": "",
   "figures": [
@@ -28,7 +29,8 @@
       "forsale": true,
       "avito": "",
       "code": "VC307",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "minecraft-by-kinder-2026_fig2",
@@ -39,7 +41,8 @@
       "forsale": true,
       "avito": "",
       "code": "VC308",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "minecraft-by-kinder-2026_fig3",
@@ -127,7 +130,8 @@
       "forsale": true,
       "avito": "",
       "code": "VC317",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "minecraft-by-kinder-2026_fig11",
@@ -138,7 +142,8 @@
       "forsale": true,
       "avito": "",
       "code": "VC318",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "minecraft-by-kinder-2026_fig12",
@@ -149,7 +154,8 @@
       "forsale": true,
       "avito": "",
       "code": "VC319",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "minecraft-by-kinder-2026_fig13",
@@ -160,7 +166,8 @@
       "forsale": true,
       "avito": "",
       "code": "VC320",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "minecraft-by-kinder-2026_fig14",
@@ -182,7 +189,8 @@
       "forsale": true,
       "avito": "",
       "code": "VC322",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "minecraft-by-kinder-2026_fig16",
@@ -204,7 +212,8 @@
       "forsale": true,
       "avito": "",
       "code": "VC326",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "minecraft-by-kinder-2026_fig18",
@@ -215,7 +224,8 @@
       "forsale": true,
       "avito": "",
       "code": "VC327",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "minecraft-by-kinder-2026_fig19",
@@ -226,7 +236,8 @@
       "forsale": true,
       "avito": "",
       "code": "VC328",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "minecraft-by-kinder-2026_fig20",
@@ -237,7 +248,8 @@
       "forsale": true,
       "avito": "",
       "code": "VC329",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "minecraft-by-kinder-2026_fig21",
@@ -248,7 +260,8 @@
       "forsale": true,
       "avito": "",
       "code": "VC334",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "minecraft-by-kinder-2026_fig22",
@@ -281,7 +294,8 @@
       "forsale": true,
       "avito": "",
       "code": "VC335A",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "minecraft-by-kinder-2026_fig25",
@@ -292,7 +306,8 @@
       "forsale": true,
       "avito": "",
       "code": "VC336",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "minecraft-by-kinder-2026_fig26",
@@ -314,7 +329,8 @@
       "forsale": true,
       "avito": "",
       "code": "VC400",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "minecraft-by-kinder-2026_fig28",

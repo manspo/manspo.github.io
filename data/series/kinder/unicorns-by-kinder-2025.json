@@ -16,6 +16,7 @@
   "fullSeriesCondition": "",
   "fullSeriesCondition_en": "",
   "fullSeriesDateAdded": "",
+  "fullSeriesForsaleDate": "",
   "fullSeriesDescription": "",
   "fullSeriesDescription_en": "",
   "figures": [
@@ -72,7 +73,8 @@
       "forsale": true,
       "avito": "",
       "code": "VC199",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "unicorns-by-kinder-2025_fig6",
@@ -215,7 +217,8 @@
       "forsale": true,
       "avito": "",
       "code": "VC126",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "unicorns-by-kinder-2025_fig19",
@@ -303,7 +306,8 @@
       "forsale": true,
       "avito": "",
       "code": "VC104",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "unicorns-by-kinder-2025_fig27",
@@ -391,7 +395,8 @@
       "forsale": true,
       "avito": "",
       "code": "VC193A",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     }
   ],
   "extras": [],

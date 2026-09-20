@@ -16,6 +16,7 @@
   "fullSeriesCondition": "",
   "fullSeriesCondition_en": "",
   "fullSeriesDateAdded": "",
+  "fullSeriesForsaleDate": "",
   "fullSeriesDescription": "",
   "fullSeriesDescription_en": "",
   "figures": [
@@ -39,7 +40,8 @@
       "forsale": true,
       "avito": "",
       "code": "VT429",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "frozen-2-by-kinder-2025_fig3",
@@ -61,7 +63,8 @@
       "forsale": true,
       "avito": "",
       "code": "VU336",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "frozen-2-by-kinder-2025_fig5",
@@ -83,7 +86,8 @@
       "forsale": true,
       "avito": "",
       "code": "VU338",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "frozen-2-by-kinder-2025_fig7",
@@ -94,7 +98,8 @@
       "forsale": true,
       "avito": "",
       "code": "VU339",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "frozen-2-by-kinder-2025_fig8",

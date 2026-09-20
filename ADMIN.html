@@ -1860,18 +1860,24 @@ window.cleanInsertCodes = cleanInsertCodes;
 // ============================================================
 
 function fillEmptyDates() {
-    if (!existingSeries.length) {
-        alert('Сначала загрузите данные');
+    const hasSeries = existingSeries.length > 0;
+    const hasSingles = Object.keys(singlesData).length > 0;
+    
+    if (!hasSeries && !hasSingles) {
+        alert('Сначала загрузите данные (серии и/или отдельные фигурки)');
         return;
     }
     
-    if (!confirm('Заполнить пустые date_added и forsale_date у всех элементов?\n\nДата добавления берётся из:\n1. fullSeriesDateAdded серии\n2. Сегодняшней даты\n\nДата выставления берётся только для элементов с forsale: true')) {
+    if (!confirm('Заполнить пустые date_added и forsale_date?\n\n• Серии: дата берётся из fullSeriesDateAdded серии или сегодня\n• Отдельные фигурки: сегодня\n• forsale_date — только для элементов с forsale: true')) {
         return;
     }
     
-    let addedCount = 0;
-    let forsaleCount = 0;
+    let seriesAddedCount = 0;
+    let seriesForsaleCount = 0;
+    let singlesAddedCount = 0;
+    let singlesForsaleCount = 0;
     
+    // ===== СЕРИИ =====
     existingSeries.forEach(s => {
         const fallbackAdded = s.fullSeriesDateAdded || todayISO();
         const fallbackForsale = s.fullSeriesForsaleDate || s.fullSeriesDateAdded || todayISO();
@@ -1879,25 +1885,71 @@ function fillEmptyDates() {
         ['figures', 'extras', 'variants', 'inserts', 'other'].forEach(cat => {
             if (!Array.isArray(s[cat])) return;
             s[cat].forEach(item => {
-                // Заполняем date_added
                 if (!item.date_added || !String(item.date_added).trim()) {
                     item.date_added = fallbackAdded;
-                    addedCount++;
+                    seriesAddedCount++;
                 }
-                // Заполняем forsale_date — только если в продаже и дата пустая
                 if (item.forsale === true && (!item.forsale_date || !String(item.forsale_date).trim())) {
                     item.forsale_date = fallbackForsale;
-                    forsaleCount++;
+                    seriesForsaleCount++;
                 }
             });
         });
     });
     
-    alert(`✅ Заполнено:\n• date_added: ${addedCount}\n• forsale_date: ${forsaleCount}\n\nТеперь откройте любую серию и нажмите "💾 Сохранить" — чтобы сформировался ZIP со всеми изменениями.`);
+    // ===== ОТДЕЛЬНЫЕ ФИГУРКИ =====
+    Object.keys(singlesData).forEach(manufacturer => {
+        const arr = singlesData[manufacturer];
+        if (!Array.isArray(arr)) return;
+        
+        arr.forEach(item => {
+            // date_added — ставим сегодня, если пусто
+            if (!item.date_added || !String(item.date_added).trim()) {
+                item.date_added = todayISO();
+                singlesAddedCount++;
+            }
+            // forsale_date — только для forsale: true
+            if (item.forsale === true && (!item.forsale_date || !String(item.forsale_date).trim())) {
+                item.forsale_date = item.date_added || todayISO();
+                singlesForsaleCount++;
+            }
+        });
+    });
     
+    alert(
+        '✅ Заполнено:\n\n' +
+        '📦 Серии:\n' +
+        `   • date_added: ${seriesAddedCount}\n` +
+        `   • forsale_date: ${seriesForsaleCount}\n\n` +
+        '🧩 Отдельные фигурки:\n' +
+        `   • date_added: ${singlesAddedCount}\n` +
+        `   • forsale_date: ${singlesForsaleCount}\n\n` +
+        '⚠️ Не забудьте сохранить:\n' +
+        '• Серии: откройте любую серию → 💾 Сохранить\n' +
+        '• Отдельные фигурки: на вкладке «✏️ Редактирование фигурок» → 💾 Сохранить ZIP'
+    );
+    
+    // Обновляем открытую форму серии, если она открыта
     const editIdx = document.getElementById('editIndex').value;
     if (editIdx !== '' && editIdx !== null && editIdx !== undefined) {
         editSeries(parseInt(editIdx));
+    }
+    
+    // Обновляем открытую форму отдельной фигурки
+    const singleEditIdx = document.getElementById('singleEditIndex').value;
+    if (singleEditIdx !== '' && singleEditIdx !== null && singleEditIdx !== undefined) {
+        const oldM = document.getElementById('singleEditOldManufacturer').value;
+        if (oldM && singlesData[oldM]) {
+            editSingle(oldM, parseInt(singleEditIdx));
+        }
+    }
+    
+    // Обновляем список отдельных фигурок
+    if (typeof refreshSinglesEditList === 'function') {
+        refreshSinglesEditList();
+    }
+    if (typeof refreshSinglesList === 'function') {
+        refreshSinglesList();
     }
     
     updateStats();

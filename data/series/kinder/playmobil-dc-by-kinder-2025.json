@@ -16,6 +16,7 @@
   "fullSeriesCondition": "",
   "fullSeriesCondition_en": "",
   "fullSeriesDateAdded": "",
+  "fullSeriesForsaleDate": "",
   "fullSeriesDescription": "",
   "fullSeriesDescription_en": "",
   "figures": [
@@ -32,7 +33,8 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-16"
+      "date_added": "2026-09-16",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "playmobil-dc-by-kinder-2025_fig2",
@@ -47,7 +49,8 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-16"
+      "date_added": "2026-09-16",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "playmobil-dc-by-kinder-2025_fig3",
@@ -92,7 +95,8 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-16"
+      "date_added": "2026-09-16",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "playmobil-dc-by-kinder-2025_fig6",
@@ -167,7 +171,8 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-16"
+      "date_added": "2026-09-16",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "playmobil-dc-by-kinder-2025_fig11",
@@ -182,7 +187,8 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-16"
+      "date_added": "2026-09-16",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "playmobil-dc-by-kinder-2025_fig12",
@@ -197,7 +203,8 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-16"
+      "date_added": "2026-09-16",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "playmobil-dc-by-kinder-2025_fig13",
@@ -212,7 +219,8 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-16"
+      "date_added": "2026-09-16",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "playmobil-dc-by-kinder-2025_fig14",
@@ -227,7 +235,8 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-16"
+      "date_added": "2026-09-16",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "playmobil-dc-by-kinder-2025_fig15",
@@ -257,7 +266,8 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-16"
+      "date_added": "2026-09-16",
+      "forsale_date": "2026-09-20"
     }
   ],
   "extras": [],

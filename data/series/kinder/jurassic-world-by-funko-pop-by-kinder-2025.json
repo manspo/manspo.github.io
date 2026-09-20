@@ -16,6 +16,7 @@
   "fullSeriesCondition": "",
   "fullSeriesCondition_en": "",
   "fullSeriesDateAdded": "",
+  "fullSeriesForsaleDate": "",
   "fullSeriesDescription": "",
   "fullSeriesDescription_en": "",
   "figures": [
@@ -39,7 +40,8 @@
       "forsale": true,
       "avito": "",
       "code": "VQ285",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "jurassic-world-by-funko-pop-by-kinder-2025_fig3",
@@ -50,7 +52,8 @@
       "forsale": true,
       "avito": "",
       "code": "VQ286",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "jurassic-world-by-funko-pop-by-kinder-2025_fig4",
@@ -61,7 +64,8 @@
       "forsale": true,
       "avito": "",
       "code": "VQ289",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "jurassic-world-by-funko-pop-by-kinder-2025_fig5",
@@ -138,7 +142,8 @@
       "forsale": true,
       "avito": "",
       "code": "VQ319",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "jurassic-world-by-funko-pop-by-kinder-2025_fig12",
@@ -171,7 +176,8 @@
       "forsale": true,
       "avito": "",
       "code": "VQ322",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "jurassic-world-by-funko-pop-by-kinder-2025_fig15",
@@ -204,7 +210,8 @@
       "forsale": true,
       "avito": "",
       "code": "VQ326",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "jurassic-world-by-funko-pop-by-kinder-2025_fig18",
@@ -215,7 +222,8 @@
       "forsale": true,
       "avito": "",
       "code": "VQ287",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "jurassic-world-by-funko-pop-by-kinder-2025_fig19",

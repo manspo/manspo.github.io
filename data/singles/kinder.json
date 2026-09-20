@@ -11,6 +11,7 @@
     "description_en": "",
     "owned": false,
     "forsale": true,
+    "forsale_date": "2026-09-20",
     "avito": "",
     "price": "",
     "condition": "",
@@ -45,7 +46,8 @@
       "name_en": "VD057",
       "code": "Camera by Kinder",
       "image": "images/singles/kinder/olympus-scan_VD057.webp"
-    }
+    },
+    "forsale_date": "2026-09-20"
   },
   {
     "id": "kinder-single-vq063",
@@ -69,7 +71,8 @@
       "name_en": "",
       "code": "VQ063",
       "image": "images/singles/kinder/monster-truck1_1920kh768_VQ063.webp"
-    }
+    },
+    "forsale_date": "2026-09-20"
   },
   {
     "id": "kinder-single-vq059",
@@ -93,7 +96,8 @@
       "name_en": "",
       "code": "VQ059",
       "image": "images/singles/kinder/lifter-truck2_1920kh768_VQ059.webp"
-    }
+    },
+    "forsale_date": "2026-09-20"
   },
   {
     "id": "kinder-single-vu050e",
@@ -142,7 +146,8 @@
       "name_en": "",
       "code": "VQ114",
       "image": "images/singles/kinder/B_VQ114.webp"
-    }
+    },
+    "forsale_date": "2026-09-20"
   },
   {
     "id": "kinder-single-vq079",
@@ -166,7 +171,8 @@
       "name_en": "",
       "code": "VQ079",
       "image": "images/singles/kinder/B_VQ079.webp"
-    }
+    },
+    "forsale_date": "2026-09-20"
   },
   {
     "id": "kinder-single-vq012",
@@ -190,7 +196,8 @@
       "name_en": "",
       "code": "VQ012",
       "image": "images/singles/kinder/B_VQ012.webp"
-    }
+    },
+    "forsale_date": "2026-09-20"
   },
   {
     "id": "kinder-single-vd058b",
@@ -214,7 +221,8 @@
       "name_en": "",
       "code": "VD058B",
       "image": "images/singles/kinder/B_VD058B.webp"
-    }
+    },
+    "forsale_date": "2026-09-20"
   },
   {
     "id": "kinder-single-vd057b",
@@ -238,7 +246,8 @@
       "name_en": "",
       "code": "VD057B",
       "image": "images/singles/kinder/B_VD057B.webp"
-    }
+    },
+    "forsale_date": "2026-09-20"
   },
   {
     "id": "kinder-single-vv018",
@@ -262,7 +271,8 @@
       "name_en": "",
       "code": "VV018",
       "image": "images/singles/kinder/2020B_VV018.webp"
-    }
+    },
+    "forsale_date": "2026-09-20"
   },
   {
     "id": "kinder-single-vv019",
@@ -280,7 +290,8 @@
     "price": "",
     "condition": "",
     "condition_en": "",
-    "date_added": "2026-09-20"
+    "date_added": "2026-09-20",
+    "forsale_date": "2026-09-20"
   },
   {
     "id": "kinder-single-vd168a",
@@ -298,6 +309,7 @@
     "price": "",
     "condition": "",
     "condition_en": "",
-    "date_added": "2026-09-20"
+    "date_added": "2026-09-20",
+    "forsale_date": "2026-09-20"
   }
 ]

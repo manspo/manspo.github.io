@@ -16,6 +16,7 @@
   "fullSeriesCondition": "",
   "fullSeriesCondition_en": "",
   "fullSeriesDateAdded": "",
+  "fullSeriesForsaleDate": "",
   "fullSeriesDescription": "",
   "fullSeriesDescription_en": "",
   "figures": [
@@ -28,7 +29,8 @@
       "forsale": true,
       "avito": "",
       "code": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "hercules-by-nestle-1996_fig2",
@@ -39,7 +41,8 @@
       "forsale": true,
       "avito": "",
       "code": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "hercules-by-nestle-1996_fig3",
@@ -50,7 +53,8 @@
       "forsale": true,
       "avito": "",
       "code": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "hercules-by-nestle-1996_fig4",
@@ -61,7 +65,8 @@
       "forsale": true,
       "avito": "",
       "code": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "hercules-by-nestle-1996_fig5",
@@ -72,7 +77,8 @@
       "forsale": true,
       "avito": "",
       "code": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "hercules-by-nestle-1996_fig6",
@@ -86,7 +92,8 @@
       "condition": "Отсутствует меч",
       "condition_en": "Without a sword",
       "code": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "hercules-by-nestle-1996_fig7",
@@ -97,7 +104,8 @@
       "forsale": true,
       "avito": "",
       "code": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "hercules-by-nestle-1996_fig8",
@@ -108,7 +116,8 @@
       "forsale": true,
       "avito": "",
       "code": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "hercules-by-nestle-1996_fig9",
@@ -119,7 +128,8 @@
       "forsale": true,
       "avito": "",
       "code": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "hercules-by-nestle-1996_fig10",
@@ -130,7 +140,8 @@
       "forsale": true,
       "avito": "",
       "code": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "hercules-by-nestle-1996_fig11",
@@ -141,7 +152,8 @@
       "forsale": true,
       "avito": "",
       "code": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "hercules-by-nestle-1996_fig12",
@@ -152,7 +164,8 @@
       "forsale": true,
       "avito": "",
       "code": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     }
   ],
   "extras": [
@@ -176,7 +189,8 @@
       "forsale": true,
       "avito": "",
       "code": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "hercules-by-nestle-1996_extra3",
@@ -198,7 +212,8 @@
       "forsale": true,
       "avito": "",
       "code": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "hercules-by-nestle-1996_extra5",
@@ -220,7 +235,8 @@
       "forsale": true,
       "avito": "",
       "code": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "hercules-by-nestle-1996_extra7",
@@ -231,7 +247,8 @@
       "forsale": true,
       "avito": "",
       "code": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "hercules-by-nestle-1996_extra8",
@@ -242,7 +259,8 @@
       "forsale": true,
       "avito": "",
       "code": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "hercules-by-nestle-1996_extra9",
@@ -264,7 +282,8 @@
       "forsale": true,
       "avito": "",
       "code": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "hercules-by-nestle-1996_extra11",
@@ -275,7 +294,8 @@
       "forsale": true,
       "avito": "",
       "code": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "hercules-by-nestle-1996_extra12",
@@ -286,7 +306,8 @@
       "forsale": true,
       "avito": "",
       "code": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     }
   ],
   "variants": [],

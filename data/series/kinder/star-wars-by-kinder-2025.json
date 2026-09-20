@@ -16,6 +16,7 @@
   "fullSeriesCondition": "",
   "fullSeriesCondition_en": "",
   "fullSeriesDateAdded": "",
+  "fullSeriesForsaleDate": "",
   "fullSeriesDescription": "",
   "fullSeriesDescription_en": "",
   "figures": [
@@ -28,7 +29,8 @@
       "forsale": true,
       "avito": "",
       "code": "VC365",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "star-wars-by-kinder-2025_fig2",
@@ -39,7 +41,8 @@
       "forsale": true,
       "avito": "",
       "code": "VC366",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "star-wars-by-kinder-2025_fig3",
@@ -50,7 +53,8 @@
       "forsale": true,
       "avito": "",
       "code": "VC367",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "star-wars-by-kinder-2025_fig4",
@@ -72,7 +76,8 @@
       "forsale": true,
       "avito": "",
       "code": "VC369",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "star-wars-by-kinder-2025_fig6",
@@ -94,7 +99,8 @@
       "forsale": true,
       "avito": "",
       "code": "VC371",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "star-wars-by-kinder-2025_fig8",
@@ -116,7 +122,8 @@
       "forsale": true,
       "avito": "",
       "code": "VC373",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "star-wars-by-kinder-2025_fig10",
@@ -127,7 +134,8 @@
       "forsale": true,
       "avito": "",
       "code": "VC374",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     }
   ],
   "extras": [],

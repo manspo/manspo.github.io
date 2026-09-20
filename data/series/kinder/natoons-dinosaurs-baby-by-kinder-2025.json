@@ -16,6 +16,7 @@
   "fullSeriesCondition": "",
   "fullSeriesCondition_en": "",
   "fullSeriesDateAdded": "",
+  "fullSeriesForsaleDate": "",
   "fullSeriesDescription": "",
   "fullSeriesDescription_en": "",
   "figures": [
@@ -28,7 +29,8 @@
       "forsale": true,
       "avito": "",
       "code": "VC097",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "natoons-dinosaurs-baby-by-kinder-2025_fig2",
@@ -61,7 +63,8 @@
       "forsale": true,
       "avito": "",
       "code": "VC100",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "natoons-dinosaurs-baby-by-kinder-2025_fig5",
@@ -83,7 +86,8 @@
       "forsale": true,
       "avito": "",
       "code": "VC102",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "natoons-dinosaurs-baby-by-kinder-2025_fig7",
@@ -94,7 +98,8 @@
       "forsale": true,
       "avito": "",
       "code": "VC103",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "natoons-dinosaurs-baby-by-kinder-2025_fig8",
@@ -138,7 +143,8 @@
       "forsale": true,
       "avito": "",
       "code": "VC111",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "natoons-dinosaurs-baby-by-kinder-2025_fig12",
@@ -182,7 +188,8 @@
       "forsale": true,
       "avito": "",
       "code": "VC122",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     },
     {
       "id": "natoons-dinosaurs-baby-by-kinder-2025_fig16",
@@ -193,7 +200,8 @@
       "forsale": true,
       "avito": "",
       "code": "VC123",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     }
   ],
   "extras": [],
