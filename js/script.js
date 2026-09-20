@@ -2380,7 +2380,7 @@ async function initForSale() {
     
     // ===== ЗАГРУЗКА ЧЕРЕЗ FORSALE.JSON =====
     const allItems = await loadForsale();
-	    // Порядок в forsale.json (для сортировки «как в файле»)
+    // Порядок в forsale.json (для сортировки «как в файле»)
     const forsaleIndexOrder = {};
     allItems.forEach((item, i) => { forsaleIndexOrder[item.id] = i; });
     
@@ -2388,23 +2388,23 @@ async function initForSale() {
     let figureItems = [], extraItems = [], insertItems = [], variantItems = [], fullSeriesItems = [];
     
     allItems.forEach(item => {
-const mapped = {
-  id: item.id,
-  seriesId: item.seriesId,
-  name: (currentLang === 'en' && item.name_en) ? item.name_en : item.name,
-  name_en: item.name_en || '',
-  image: item.image,
-  avito: item.avito,
-  seriesName: (currentLang === 'en' && item.seriesName_en) ? item.seriesName_en : item.seriesName,
-  seriesName_en: item.seriesName_en || '',
-  seriesYear: item.seriesYear,
-  manufacturer: item.manufacturer,
-  price: (currentLang === 'en' && item.price_en) ? item.price_en : (item.price || ''),
-  condition: (currentLang === 'en' ? item.condition_en : item.condition) || '',
-  type: item.type,
-  code: item.code || '',
-  date_added: item.date_added || ''
-};
+      const mapped = {
+        id: item.id,
+        seriesId: item.seriesId,
+        name: (currentLang === 'en' && item.name_en) ? item.name_en : item.name,
+        name_en: item.name_en || '',
+        image: item.image,
+        avito: item.avito,
+        seriesName: (currentLang === 'en' && item.seriesName_en) ? item.seriesName_en : item.seriesName,
+        seriesName_en: item.seriesName_en || '',
+        seriesYear: item.seriesYear,
+        manufacturer: item.manufacturer,
+        price: (currentLang === 'en' && item.price_en) ? item.price_en : (item.price || ''),
+        condition: (currentLang === 'en' ? item.condition_en : item.condition) || '',
+        type: item.type,
+        code: item.code || '',
+        date_added: item.date_added || ''
+      };
       
       if (item.type === 'full') fullSeriesItems.push(mapped);
       else if (item.type === 'figure') figureItems.push(mapped);
@@ -2417,7 +2417,7 @@ const mapped = {
     let currentSearch = filterState.forsale.search || '';
     let currentSort = filterState.forsale.sort || 'date-desc';
     
-    let figuresPage = 1, variantsPage = 1, extrasPage = 1, insertsPage = 1, seriesPage = 1;
+    let figuresPage = 1, insertsPage = 1, seriesPage = 1;
     
     const searchInput = document.getElementById("searchInput");
     const sortSelect = document.getElementById("sortSelect");
@@ -2428,7 +2428,7 @@ const mapped = {
         currentSearch = e.target.value.toLowerCase();
         filterState.forsale.search = currentSearch;
         saveFilterState(filterState);
-        figuresPage = 1; variantsPage = 1; extrasPage = 1; insertsPage = 1; seriesPage = 1;
+        figuresPage = 1; insertsPage = 1; seriesPage = 1;
         renderItems();
       }, CONFIG.DEBOUNCE_DELAY);
     }
@@ -2439,7 +2439,7 @@ const mapped = {
         currentSort = sortSelect.value;
         filterState.forsale.sort = currentSort;
         saveFilterState(filterState);
-        figuresPage = 1; variantsPage = 1; extrasPage = 1; insertsPage = 1; seriesPage = 1;
+        figuresPage = 1; insertsPage = 1; seriesPage = 1;
         renderItems();
       };
     }
@@ -2449,30 +2449,32 @@ const mapped = {
       if (currentManufacturer !== 'all') {
         filtered = filtered.filter(i => i.manufacturer === currentManufacturer);
       }
-if (currentSearch) {
-  const query = currentSearch.toLowerCase();
-  filtered = filtered.filter(i => 
-    (i.name || '').toLowerCase().includes(query) ||
-    (i.name_en || '').toLowerCase().includes(query) ||
-    (i.seriesName || '').toLowerCase().includes(query) ||
-    (i.seriesName_en || '').toLowerCase().includes(query) ||
-    (i.code && i.code.toLowerCase().includes(query))
-  );
-}
-// Сортировка
-if (currentSort === 'date-desc') {
-  filtered.sort((a, b) => (forsaleIndexOrder[a.id] ?? 99999) - (forsaleIndexOrder[b.id] ?? 99999));
-} else if (currentSort === 'date-asc') {
-  filtered.sort((a, b) => (forsaleIndexOrder[b.id] ?? -1) - (forsaleIndexOrder[a.id] ?? -1));
-} else if (currentSort === 'year') {
-  filtered.sort((a, b) => (a.seriesYear || 0) - (b.seriesYear || 0));
-} else if (currentSort === 'year-desc') {
-  filtered.sort((a, b) => (b.seriesYear || 0) - (a.seriesYear || 0));
-} else if (currentSort === 'name') {
-  filtered.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
-} else if (currentSort === 'name-desc') {
-  filtered.sort((a, b) => (b.name || '').localeCompare(a.name || ''));
-}
+      if (currentSearch) {
+        const query = currentSearch.toLowerCase();
+        filtered = filtered.filter(i => 
+          (i.name || '').toLowerCase().includes(query) ||
+          (i.name_en || '').toLowerCase().includes(query) ||
+          (i.seriesName || '').toLowerCase().includes(query) ||
+          (i.seriesName_en || '').toLowerCase().includes(query) ||
+          (i.code && i.code.toLowerCase().includes(query))
+        );
+      }
+      
+      // Сортировка
+      if (currentSort === 'date-desc') {
+        filtered.sort((a, b) => (forsaleIndexOrder[a.id] ?? 99999) - (forsaleIndexOrder[b.id] ?? 99999));
+      } else if (currentSort === 'date-asc') {
+        filtered.sort((a, b) => (forsaleIndexOrder[b.id] ?? -1) - (forsaleIndexOrder[a.id] ?? -1));
+      } else if (currentSort === 'year') {
+        filtered.sort((a, b) => (a.seriesYear || 0) - (b.seriesYear || 0));
+      } else if (currentSort === 'year-desc') {
+        filtered.sort((a, b) => (b.seriesYear || 0) - (a.seriesYear || 0));
+      } else if (currentSort === 'name') {
+        filtered.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
+      } else if (currentSort === 'name-desc') {
+        filtered.sort((a, b) => (b.name || '').localeCompare(a.name || ''));
+      }
+      
       return filtered;
     }
     
@@ -2513,8 +2515,6 @@ if (currentSort === 'date-desc') {
       prevBtn.onclick = () => {
         const pageMap = {
           'figures': () => figuresPage = Math.max(1, figuresPage - 1),
-          'variants': () => variantsPage = Math.max(1, variantsPage - 1),
-          'extras': () => extrasPage = Math.max(1, extrasPage - 1),
           'inserts': () => insertsPage = Math.max(1, insertsPage - 1),
           'series': () => seriesPage = Math.max(1, seriesPage - 1)
         };
@@ -2535,8 +2535,6 @@ if (currentSort === 'date-desc') {
         btn.onclick = () => {
           const pageMap = {
             'figures': () => figuresPage = i,
-            'variants': () => variantsPage = i,
-            'extras': () => extrasPage = i,
             'inserts': () => insertsPage = i,
             'series': () => seriesPage = i
           };
@@ -2553,8 +2551,6 @@ if (currentSort === 'date-desc') {
       nextBtn.onclick = () => {
         const pageMap = {
           'figures': () => figuresPage = Math.min(totalPages, figuresPage + 1),
-          'variants': () => variantsPage = Math.min(totalPages, variantsPage + 1),
-          'extras': () => extrasPage = Math.min(totalPages, extrasPage + 1),
           'inserts': () => insertsPage = Math.min(totalPages, insertsPage + 1),
           'series': () => seriesPage = Math.min(totalPages, seriesPage + 1)
         };
@@ -2645,7 +2641,7 @@ if (currentSort === 'date-desc') {
           currentManufacturer = btn.dataset.filter;
           filterState.forsale.manufacturer = currentManufacturer;
           saveFilterState(filterState);
-          figuresPage = 1; variantsPage = 1; extrasPage = 1; insertsPage = 1; seriesPage = 1;
+          figuresPage = 1; insertsPage = 1; seriesPage = 1;
           renderItems();
         };
       });
@@ -2659,67 +2655,36 @@ if (currentSort === 'date-desc') {
       const series = getFilteredSeries();
       const recent = getRecentItems();
       
+      // ===== ОБЩИЙ СПИСОК: фигурки + варианты + допы =====
+      const mainItems = [...figures, ...variants, ...extras];
+      
       const totalFigures = document.getElementById('totalFiguresForSale');
       const totalSeries = document.getElementById('totalSeriesForSale');
-      if (totalFigures) totalFigures.textContent = figures.length + variants.length + extras.length + inserts.length;
+      if (totalFigures) totalFigures.textContent = mainItems.length + inserts.length;
       if (totalSeries) totalSeries.textContent = series.length;
       
       grid.innerHTML = '';
       
-      if (figures.length > 0) {
-        const totalPages = Math.ceil(figures.length / CONFIG.ITEMS_PER_PAGE);
+      // ===== ОСНОВНОЙ РАЗДЕЛ: ТОВАРЫ =====
+      if (mainItems.length > 0) {
+        const totalPages = Math.ceil(mainItems.length / CONFIG.ITEMS_PER_PAGE);
         if (figuresPage > totalPages) figuresPage = totalPages || 1;
         const start = (figuresPage - 1) * CONFIG.ITEMS_PER_PAGE;
         const end = start + CONFIG.ITEMS_PER_PAGE;
-        const paginated = figures.slice(start, end);
+        const paginated = mainItems.slice(start, end);
         
         const divider = document.createElement('div');
         divider.className = 'section-divider';
-        divider.innerHTML = `📦 ${currentLang === 'ru' ? 'Фигурки' : 'Figures'} <span class="badge">${figures.length}</span>`;
+        divider.innerHTML = `📦 ${currentLang === 'ru' ? 'Товары' : 'Items'} <span class="badge">${mainItems.length}</span>`;
         grid.appendChild(divider);
         paginated.forEach(item => grid.appendChild(createItemCard(item)));
         if (totalPages > 1) {
-          const pag = renderPagination(figures.length, figuresPage, CONFIG.ITEMS_PER_PAGE, 'figures');
+          const pag = renderPagination(mainItems.length, figuresPage, CONFIG.ITEMS_PER_PAGE, 'figures');
           if (pag) grid.appendChild(pag);
         }
       }
       
-      if (variants.length > 0) {
-        const totalPages = Math.ceil(variants.length / CONFIG.ITEMS_PER_PAGE);
-        if (variantsPage > totalPages) variantsPage = totalPages || 1;
-        const start = (variantsPage - 1) * CONFIG.ITEMS_PER_PAGE;
-        const end = start + CONFIG.ITEMS_PER_PAGE;
-        const paginated = variants.slice(start, end);
-        
-        const divider = document.createElement('div');
-        divider.className = 'section-divider';
-        divider.innerHTML = `🎲 ${currentLang === 'ru' ? 'Варианты' : 'Variants'} <span class="badge">${variants.length}</span>`;
-        grid.appendChild(divider);
-        paginated.forEach(item => grid.appendChild(createItemCard(item)));
-        if (totalPages > 1) {
-          const pag = renderPagination(variants.length, variantsPage, CONFIG.ITEMS_PER_PAGE, 'variants');
-          if (pag) grid.appendChild(pag);
-        }
-      }
-      
-      if (extras.length > 0) {
-        const totalPages = Math.ceil(extras.length / CONFIG.ITEMS_PER_PAGE);
-        if (extrasPage > totalPages) extrasPage = totalPages || 1;
-        const start = (extrasPage - 1) * CONFIG.ITEMS_PER_PAGE;
-        const end = start + CONFIG.ITEMS_PER_PAGE;
-        const paginated = extras.slice(start, end);
-        
-        const divider = document.createElement('div');
-        divider.className = 'section-divider';
-        divider.innerHTML = `🎁 ${currentLang === 'ru' ? 'Допы' : 'Extras'} <span class="badge">${extras.length}</span>`;
-        grid.appendChild(divider);
-        paginated.forEach(item => grid.appendChild(createItemCard(item)));
-        if (totalPages > 1) {
-          const pag = renderPagination(extras.length, extrasPage, CONFIG.ITEMS_PER_PAGE, 'extras');
-          if (pag) grid.appendChild(pag);
-        }
-      }
-      
+      // ===== ВКЛАДЫШИ (отдельный раздел) =====
       if (inserts.length > 0) {
         const totalPages = Math.ceil(inserts.length / CONFIG.ITEMS_PER_PAGE);
         if (insertsPage > totalPages) insertsPage = totalPages || 1;
@@ -2738,6 +2703,7 @@ if (currentSort === 'date-desc') {
         }
       }
       
+      // ===== ПОЛНЫЕ СЕРИИ (отдельный раздел) =====
       if (series.length > 0) {
         const totalPages = Math.ceil(series.length / CONFIG.ITEMS_PER_PAGE);
         if (seriesPage > totalPages) seriesPage = totalPages || 1;
@@ -2756,6 +2722,7 @@ if (currentSort === 'date-desc') {
         }
       }
       
+      // ===== НЕДАВНО ДОБАВЛЕННОЕ =====
       if (recent.length > 0) {
         const divider = document.createElement('div');
         divider.className = 'section-divider';
@@ -2764,7 +2731,8 @@ if (currentSort === 'date-desc') {
         recent.forEach(item => grid.appendChild(createItemCard(item)));
       }
       
-      if (figures.length === 0 && variants.length === 0 && extras.length === 0 && inserts.length === 0 && series.length === 0 && recent.length === 0) {
+      // ===== ЕСЛИ НИЧЕГО НЕТ =====
+      if (mainItems.length === 0 && inserts.length === 0 && series.length === 0 && recent.length === 0) {
         grid.innerHTML = '<p class="empty-message">' + (currentLang === 'ru' ? 'Нет товаров в продаже' : 'No items for sale') + '</p>';
       }
     }
