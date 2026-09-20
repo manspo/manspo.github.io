@@ -29,6 +29,8 @@
         }
         .file-upload-main:hover { border-color: #4f46e5; background: #f0f0ff; }
         .file-upload-main input { display: none; }
+        .file-upload-main p { margin: 4px 0; }
+        .file-upload-main .hint { font-size: 12px; color: #6b7280; }
         
         .controls-panel {
             background: white;
@@ -66,6 +68,11 @@
             transition: all 0.2s;
         }
         .ctrl-btn:hover { border-color: #4f46e5; color: #4f46e5; }
+        .ctrl-btn.active {
+            background: #4f46e5;
+            color: white;
+            border-color: #4f46e5;
+        }
         
         .stats-bar {
             background: white;
@@ -249,7 +256,7 @@
             align-items: center;
         }
         .field-label {
-            width: 90px;
+            width: 110px;
             font-size: 12px;
             font-weight: 600;
             color: #6b7280;
@@ -402,7 +409,7 @@
             .sortable-item { flex-direction: column; padding: 10px; position: relative; }
             .item-preview { width: 100%; max-width: 200px; height: auto; aspect-ratio: 1/1; margin: 0 auto; }
             .item-number { position: absolute; top: 10px; left: 10px; margin: 0; }
-            .field-label { width: 70px; font-size: 11px; }
+            .field-label { width: 80px; font-size: 11px; }
             .field-input { font-size: 12px; }
             .save-btn { padding: 10px 20px; font-size: 14px; }
             .save-bar-info { display: none; }
@@ -417,6 +424,7 @@
     <div class="file-upload-main" id="fileUploadMain">
         <input type="file" id="fileInput" webkitdirectory directory style="display:none;">
         <p>📁 Нажмите для выбора ПАПКИ с файлами (data)</p>
+        <p class="hint">Подхватываются: index.json, series/{manufacturer}/{id}.json, singles/*.json, manufacturers.json</p>
     </div>
     
     <div class="controls-panel" id="controlsPanel" style="display:none;">
@@ -442,6 +450,10 @@
             <span>Фигурок:</span>
             <span class="stats-bar-value" id="totalFigures">0</span>
         </div>
+        <div class="stats-bar-item">
+            <span>Отдельных фигурок:</span>
+            <span class="stats-bar-value" id="totalSingles">0</span>
+        </div>
     </div>
     
     <div id="seriesContainer"></div>
@@ -465,29 +477,26 @@
 // ============================================================
 
 let existingSeries = [];
+let singlesData = {};
 let manufacturersData = {};
 let hasUnsavedChanges = false;
-
-// фильтр «показывать только серии, где есть элементы без кода»
 let hideCompleteSeries = false;
-
-// снимок количества элементов при загрузке — для защиты от обнуления
 const initialCounts = new Map();
 
 const TYPE_NAMES = {
-    figures: { ru: 'Фигурка',  en: 'Figure'  },
-    extras:  { ru: 'Доп',      en: 'Extra'   },
-    variants:{ ru: 'Вариант',  en: 'Variant' },
-    inserts: { ru: 'Вкладыш',  en: 'Insert'  },
-    other:   { ru: 'Прочее',   en: 'Other'   }
+    figures:  { ru: 'Фигурка', en: 'Figure'  },
+    extras:   { ru: 'Доп',     en: 'Extra'   },
+    variants: { ru: 'Вариант', en: 'Variant' },
+    inserts:  { ru: 'Вкладыш', en: 'Insert'  },
+    other:    { ru: 'Прочее',  en: 'Other'   }
 };
 
 const TYPE_PREFIX = {
-    figures: 'fig',
-    extras:  'extra',
-    variants:'variant',
-    inserts: 'insert',
-    other:   'other'
+    figures:  'fig',
+    extras:   'extra',
+    variants: 'variant',
+    inserts:  'insert',
+    other:    'other'
 };
 
 // ============================================================
@@ -501,6 +510,14 @@ function escapeHtml(str) {
     }[m]));
 }
 
+function todayISO() {
+    return new Date().toISOString().slice(0, 10);
+}
+
+function getManufacturerFolder(m) {
+    return m || 'other';
+}
+
 function showToast(message, type = 'success') {
     const toast = document.getElementById('toast');
     toast.textContent = message;
@@ -511,17 +528,26 @@ function showToast(message, type = 'success') {
 
 function debounce(fn, delay) {
     let timer = null;
-    return function(...args) {
+    return function (...args) {
         clearTimeout(timer);
         timer = setTimeout(() => fn.apply(this, args), delay);
     };
+}
+
+function readFileText(file) {
+    return new Promise((resolve, reject) => {
+        const r = new FileReader();
+        r.onload = e => resolve(e.target.result);
+        r.onerror = () => reject(new Error('Не удалось прочитать ' + file.name));
+        r.readAsText(file);
+    });
 }
 
 // ============================================================
 // ПРЕДУПРЕЖДЕНИЕ ПРИ ЗАКРЫТИИ
 // ============================================================
 
-window.addEventListener('beforeunload', function(e) {
+window.addEventListener('beforeunload', function (e) {
     if (hasUnsavedChanges) {
         e.preventDefault();
         e.returnValue = 'У вас есть несохранённые изменения.';
@@ -533,29 +559,25 @@ window.addEventListener('beforeunload', function(e) {
 // ЗАГРУЗКА
 // ============================================================
 
-document.getElementById('fileUploadMain').onclick = function() {
+document.getElementById('fileUploadMain').onclick = function () {
     document.getElementById('fileInput').click();
 };
 
-document.getElementById('fileInput').onchange = function(e) {
+document.getElementById('fileInput').onchange = function (e) {
     if (!e.target.files.length) return;
     loadDataFromFiles(e.target.files);
 };
 
-function readFileText(file) {
-    return new Promise((resolve, reject) => {
-        const r = new FileReader();
-        r.onload = e => resolve(e.target.result);
-        r.onerror = () => reject(new Error('Не удалось прочитать ' + file.name));
-        r.readAsText(file);
-    });
-}
-
 async function loadDataFromFiles(files) {
     const allFiles = Array.from(files);
     const jsonFiles = allFiles.filter(f => f.name.endsWith('.json'));
-    const indexFile = jsonFiles.find(f => f.name === 'index.json');
 
+    const findByPath = (suffix) => jsonFiles.filter(f => {
+        const p = (f.webkitRelativePath || f.name).replace(/\\/g, '/');
+        return p.endsWith(suffix) || f.name === suffix;
+    });
+
+    const indexFile = findByPath('index.json')[0];
     if (!indexFile) {
         showToast('Не найден index.json', 'error');
         return;
@@ -563,6 +585,26 @@ async function loadDataFromFiles(files) {
 
     try {
         const indexData = JSON.parse(await readFileText(indexFile));
+        if (!Array.isArray(indexData)) {
+            showToast('index.json не является массивом', 'error');
+            return;
+        }
+
+        // ===== ПРОИЗВОДИТЕЛИ =====
+        const mfFile = findByPath('manufacturers.json')[0];
+        if (mfFile) {
+            try {
+                manufacturersData = JSON.parse(await readFileText(mfFile));
+            } catch (e) {
+                console.warn('manufacturers.json битый:', e);
+            }
+        }
+
+        // ===== СЕРИИ =====
+        existingSeries = [];
+        singlesData = {};
+        initialCounts.clear();
+        const problems = [];
 
         const byName = new Map();
         jsonFiles.forEach(f => {
@@ -570,17 +612,24 @@ async function loadDataFromFiles(files) {
             byName.get(f.name).push(f);
         });
 
-        existingSeries = [];
-        initialCounts.clear();
-        const problems = [];
-
         for (const s of indexData) {
             if (!s || !s.id) {
                 problems.push(`Серия без id: "${s?.name || '?'}"`);
                 continue;
             }
 
-            const candidates = byName.get(`${s.id}.json`) || [];
+            const manufFolder = getManufacturerFolder(s.manufacturer);
+
+            // Ищем в series/{manufacturer}/{id}.json
+            let candidates = jsonFiles.filter(f => {
+                const p = (f.webkitRelativePath || '').replace(/\\/g, '/');
+                return p.endsWith(`/${s.id}.json`) && p.includes(`/series/${manufFolder}/`);
+            });
+
+            // Fallback: любой файл с таким именем
+            if (candidates.length === 0) {
+                candidates = byName.get(`${s.id}.json`) || [];
+            }
 
             if (candidates.length === 0) {
                 problems.push(`Нет файла ${s.id}.json (${s.name || '?'})`);
@@ -604,33 +653,44 @@ async function loadDataFromFiles(files) {
                 content = { ...s };
             }
 
-            content.figures  = Array.isArray(content.figures)  ? content.figures  : [];
-            content.extras   = Array.isArray(content.extras)   ? content.extras   : [];
-            content.variants = Array.isArray(content.variants) ? content.variants : [];
-            content.inserts  = Array.isArray(content.inserts)  ? content.inserts  : [];
-            content.other    = Array.isArray(content.other)    ? content.other    : [];
+            ['figures', 'extras', 'variants', 'inserts', 'other'].forEach(cat => {
+                content[cat] = Array.isArray(content[cat]) ? content[cat] : [];
+            });
             if (!content.videos || typeof content.videos !== 'object') {
                 content.videos = { youtube: [], vk: [], tiktok: [], instagram: [] };
             }
 
             existingSeries.push(content);
 
-            ['figures','extras','variants','inserts','other'].forEach(t => {
+            ['figures', 'extras', 'variants', 'inserts', 'other'].forEach(t => {
                 initialCounts.set(`${s.id}::${t}`, content[t].length);
             });
         }
 
-        try {
-            const mfRes = await fetch('data/manufacturers.json');
-            if (mfRes.ok) manufacturersData = await mfRes.json();
-        } catch (e) {
-            console.warn('Производители не загружены:', e);
+        // ===== ОТДЕЛЬНЫЕ ФИГУРКИ =====
+        const singlesFiles = jsonFiles.filter(f => {
+            const p = (f.webkitRelativePath || '').replace(/\\/g, '/');
+            return p.includes('/singles/') && f.name !== 'index.json';
+        });
+
+        for (const f of singlesFiles) {
+            try {
+                const data = JSON.parse(await readFileText(f));
+                const m = f.name.replace('.json', '');
+                if (Array.isArray(data)) {
+                    singlesData[m] = data;
+                }
+            } catch (err) {
+                problems.push(`Битый singles/${f.name}: ${err.message}`);
+            }
         }
 
         hasUnsavedChanges = false;
 
-        const totalFigs = existingSeries.reduce((a, s) => a + s.figures.length, 0);
-        showToast(`✅ Загружено ${existingSeries.length} серий, фигурок: ${totalFigs}`, 'success');
+        const totalFigs = existingSeries.reduce((a, s) => a + (s.figures || []).length, 0);
+        const totalSingles = Object.values(singlesData).reduce((a, arr) => a + arr.length, 0);
+
+        showToast(`✅ ${existingSeries.length} серий, ${totalFigs} фигурок, ${totalSingles} отдельных`, 'success');
 
         if (problems.length) {
             console.warn('⚠️ ПРОБЛЕМЫ ПРИ ЗАГРУЗКЕ:\n' + problems.join('\n'));
@@ -681,16 +741,14 @@ function getFilteredSeries() {
         list = list.filter(s => s.manufacturer === manufacturer);
     }
 
-    // ===== фильтр «только с пропусками» =====
-    // учитываем фигурки, варианты и допы. Вкладыши и прочее не считаем.
     if (hideCompleteSeries) {
         list = list.filter(s => {
             const all = [
-                ...(s.figures  || []),
+                ...(s.figures || []),
                 ...(s.variants || []),
-                ...(s.extras   || [])
+                ...(s.extras || [])
             ];
-            if (all.length === 0) return true; // нечего закрывать — показываем
+            if (all.length === 0) return true;
             return all.some(f => !f.code || !String(f.code).trim());
         });
     }
@@ -702,10 +760,10 @@ function getFilteredSeries() {
             if (String(s.year || '').includes(search)) return true;
 
             const items = [
-                ...(s.figures  || []),
-                ...(s.extras   || []),
+                ...(s.figures || []),
+                ...(s.extras || []),
                 ...(s.variants || []),
-                ...(s.inserts  || [])
+                ...(s.inserts || [])
             ];
             return items.some(item =>
                 (item.code || '').toLowerCase().includes(search) ||
@@ -796,10 +854,19 @@ function createItemHTML(item, idx, type) {
         ? `https://manspo.github.io/${item.image}`
         : 'images/placeholder.svg';
 
+    const forsaleDate = item.forsale_date || '';
+    const dateAdded = item.date_added || '';
+    const avito = item.avito || '';
+    const price = item.price || '';
+    const condition = item.condition || '';
+    const conditionEn = item.condition_en || '';
+    const parentFigureId = item.parentFigureId || '';
+
     return `
         <div class="sortable-item" draggable="true"
              data-item-id="${escapeHtml(item.id || '')}"
-             data-type="${type}">
+             data-type="${type}"
+             data-date-added="${escapeHtml(dateAdded)}">
             <div class="drag-handle">⠿</div>
             <div class="item-number">${num}</div>
             <img class="item-preview" src="${imageUrl}"
@@ -824,6 +891,41 @@ function createItemHTML(item, idx, type) {
                     <span class="field-label">Путь:</span>
                     <input type="text" class="field-input path item-image"
                            value="${escapeHtml(item.image || '')}" placeholder="images/series/.../01.webp">
+                </div>
+                <div class="field-row">
+                    <span class="field-label">Avito:</span>
+                    <input type="text" class="field-input item-avito"
+                           value="${escapeHtml(avito)}" placeholder="https://...">
+                </div>
+                <div class="field-row">
+                    <span class="field-label">Цена:</span>
+                    <input type="text" class="field-input item-price"
+                           value="${escapeHtml(price)}" placeholder="999 ₽">
+                </div>
+                <div class="field-row">
+                    <span class="field-label">Состояние RU:</span>
+                    <input type="text" class="field-input item-condition"
+                           value="${escapeHtml(condition)}" placeholder="Идеальное">
+                </div>
+                <div class="field-row">
+                    <span class="field-label">Condition EN:</span>
+                    <input type="text" class="field-input item-condition-en"
+                           value="${escapeHtml(conditionEn)}" placeholder="Perfect">
+                </div>
+                <div class="field-row">
+                    <span class="field-label">ID осн. фиг.:</span>
+                    <input type="text" class="field-input item-parent-id"
+                           value="${escapeHtml(parentFigureId)}" placeholder="seriesId_fig1">
+                </div>
+                <div class="field-row">
+                    <span class="field-label">Дата доб.:</span>
+                    <input type="date" class="field-input item-date-added"
+                           value="${escapeHtml(dateAdded)}">
+                </div>
+                <div class="field-row">
+                    <span class="field-label">Дата продажи:</span>
+                    <input type="date" class="field-input item-forsale-date"
+                           value="${escapeHtml(forsaleDate)}">
                 </div>
                 <div class="item-flags">
                     <label class="item-flag">
@@ -923,7 +1025,6 @@ function renumberAll(container) {
 
     items.forEach((item, idx) => {
         const num = idx + 1;
-
         item.querySelector('.item-number').textContent = num;
 
         const nameInput = item.querySelector('.item-name');
@@ -953,6 +1054,7 @@ function syncSectionToData(container) {
     const source = Array.isArray(series[type]) ? series[type] : [];
     const domItems = Array.from(container.querySelectorAll('.sortable-item'));
 
+    // Защита от обнуления
     if (domItems.length === 0 && source.length > 0) {
         console.warn(`syncSectionToData: DOM пуст для ${seriesId}::${type}, в данных ${source.length} — пропускаем обнуление`);
         return;
@@ -963,36 +1065,56 @@ function syncSectionToData(container) {
     domItems.forEach((itemEl, idx) => {
         const itemId = itemEl.dataset.itemId;
         let originalItem = itemId ? source.find(i => i.id === itemId) : null;
-
         if (!originalItem) originalItem = source[idx];
 
         if (!originalItem) {
             originalItem = {
                 id: `${seriesId}_${TYPE_PREFIX[type] || 'item'}${Date.now()}_${idx}`,
                 name: '', name_en: '', code: '', image: '',
-                owned: false, forsale: false, avito: '', price: '',
-                condition: '', condition_en: '', parentFigureId: ''
+                owned: false, forsale: false, forsale_date: '',
+                avito: '', price: '', condition: '', condition_en: '',
+                parentFigureId: '', date_added: todayISO()
             };
         }
 
-originalItem.name     = itemEl.querySelector('.item-name').value;
-originalItem.name_en  = itemEl.querySelector('.item-name-en').value;
-originalItem.code     = itemEl.querySelector('.item-code').value;
-originalItem.image    = itemEl.querySelector('.item-image').value;
-originalItem.owned    = itemEl.querySelector('.item-owned')?.checked || false;
-originalItem.forsale  = itemEl.querySelector('.item-forsale')?.checked || false;
-// дата: если её не было — ставим сегодня
-if (!originalItem.date_added) {
-    originalItem.date_added = new Date().toISOString().slice(0, 10);
-}
+        // ===== ЧТЕНИЕ ВСЕХ ПОЛЕЙ =====
+        originalItem.name          = itemEl.querySelector('.item-name').value;
+        originalItem.name_en       = itemEl.querySelector('.item-name-en').value;
+        originalItem.code          = itemEl.querySelector('.item-code').value;
+        originalItem.image         = itemEl.querySelector('.item-image').value;
+        originalItem.avito         = itemEl.querySelector('.item-avito')?.value || '';
+        originalItem.price         = itemEl.querySelector('.item-price')?.value || '';
+        originalItem.condition     = itemEl.querySelector('.item-condition')?.value || '';
+        originalItem.condition_en  = itemEl.querySelector('.item-condition-en')?.value || '';
+        originalItem.parentFigureId = itemEl.querySelector('.item-parent-id')?.value || '';
+        originalItem.owned         = itemEl.querySelector('.item-owned')?.checked || false;
+        originalItem.forsale       = itemEl.querySelector('.item-forsale')?.checked || false;
+
+        // Дата добавления: из поля или из data-атрибута
+        const dateAddedInput = itemEl.querySelector('.item-date-added')?.value;
+        if (dateAddedInput) {
+            originalItem.date_added = dateAddedInput;
+        } else if (!originalItem.date_added) {
+            originalItem.date_added = todayISO();
+        }
+
+        // Дата продажи: из поля
+        const forsaleDateInput = itemEl.querySelector('.item-forsale-date')?.value || '';
+        if (originalItem.forsale) {
+            originalItem.forsale_date = forsaleDateInput || originalItem.forsale_date || todayISO();
+        } else {
+            originalItem.forsale_date = '';
+        }
 
         itemEl.dataset.itemId = originalItem.id;
+        itemEl.dataset.dateAdded = originalItem.date_added;
 
         newArr.push(originalItem);
     });
 
     series[type] = newArr;
 
+    // Переиндексация ID
     const prefix = TYPE_PREFIX[type] || 'item';
     newArr.forEach((item, idx) => {
         item.id = `${seriesId}_${prefix}${idx + 1}`;
@@ -1017,14 +1139,25 @@ function syncAllSections() {
 
 function handleItemChange(e) {
     const t = e.target;
-    if (!t.matches('.field-input') && !t.matches('.item-owned') && !t.matches('.item-forsale')) return;
+    if (!t.matches('.field-input') &&
+        !t.matches('.item-owned') &&
+        !t.matches('.item-forsale')) return;
+
     const itemEl = t.closest('.sortable-item');
     if (!itemEl) return;
     const container = itemEl.closest('.sortable-items');
-    if (!container) {
-        console.warn('Нет .sortable-items у', itemEl);
-        return;
+    if (!container) return;
+
+    // Автодата при установке "В продаже"
+    if (t.matches('.item-forsale')) {
+        const dateInput = itemEl.querySelector('.item-forsale-date');
+        if (t.checked) {
+            if (!dateInput.value) dateInput.value = todayISO();
+        } else {
+            dateInput.value = '';
+        }
     }
+
     syncSectionToData(container);
 }
 document.addEventListener('input', handleItemChange);
@@ -1094,15 +1227,16 @@ function addNewItem(type, seriesId) {
     const names = TYPE_NAMES[type] || TYPE_NAMES.figures;
     const prefix = TYPE_PREFIX[type] || 'item';
 
-const newItem = {
-    id: `${seriesId}_${prefix}${Date.now()}`,
-    name: `${names.ru} ${num}`,
-    name_en: `${names.en} ${num}`,
-    code: '', image: '',
-    owned: false, forsale: false, avito: '', price: '',
-    condition: '', condition_en: '', parentFigureId: '',
-    date_added: new Date().toISOString().slice(0,10)
-};
+    const newItem = {
+        id: `${seriesId}_${prefix}${Date.now()}`,
+        name: `${names.ru} ${num}`,
+        name_en: `${names.en} ${num}`,
+        code: '', image: '',
+        owned: false, forsale: false, forsale_date: '',
+        avito: '', price: '', condition: '', condition_en: '',
+        parentFigureId: '',
+        date_added: todayISO()
+    };
 
     if (!Array.isArray(series[type])) series[type] = [];
     series[type].push(newItem);
@@ -1124,14 +1258,15 @@ function openImagePicker(itemEl, seriesId) {
     input.type = 'file';
     input.accept = 'image/*';
 
-    input.onchange = function(e) {
+    input.onchange = function (e) {
         const file = e.target.files[0];
         if (!file) return;
 
         const series = existingSeries.find(s => s.id === seriesId);
         if (!series) return;
 
-        const imagePath = `images/series/${series.manufacturer}/${seriesId}/${file.name}`;
+        const manufFolder = getManufacturerFolder(series.manufacturer);
+        const imagePath = `images/series/${manufFolder}/${seriesId}/${file.name}`;
         const previewUrl = URL.createObjectURL(file);
 
         itemEl.querySelector('.item-image').value = imagePath;
@@ -1161,19 +1296,10 @@ document.getElementById('collapseAllBtn').addEventListener('click', () => {
     document.querySelectorAll('.items-section').forEach(el => el.style.display = 'none');
 });
 
-document.getElementById('hideCompleteBtn').addEventListener('click', function() {
+document.getElementById('hideCompleteBtn').addEventListener('click', function () {
     hideCompleteSeries = !hideCompleteSeries;
     this.classList.toggle('active', hideCompleteSeries);
     this.textContent = hideCompleteSeries ? '🙈 Скрыто: серии с полными кодами' : '🙈 Только с пропусками';
-    if (hideCompleteSeries) {
-        this.style.background = '#4f46e5';
-        this.style.color = 'white';
-        this.style.borderColor = '#4f46e5';
-    } else {
-        this.style.background = '';
-        this.style.color = '';
-        this.style.borderColor = '';
-    }
     renderSeries();
 });
 
@@ -1186,17 +1312,23 @@ function updateStats() {
     let totalFigures = 0;
 
     existingSeries.forEach(s => {
-        totalFigures += (s.figures  || []).length;
-        totalItems += (s.figures  || []).length
-                    + (s.extras   || []).length
+        totalFigures += (s.figures || []).length;
+        totalItems += (s.figures || []).length
+                    + (s.extras || []).length
                     + (s.variants || []).length
-                    + (s.inserts  || []).length
-                    + (s.other    || []).length;
+                    + (s.inserts || []).length
+                    + (s.other || []).length;
+    });
+
+    let totalSingles = 0;
+    Object.values(singlesData).forEach(arr => {
+        if (Array.isArray(arr)) totalSingles += arr.length;
     });
 
     document.getElementById('totalSeries').textContent = existingSeries.length;
     document.getElementById('totalItems').textContent = totalItems;
     document.getElementById('totalFigures').textContent = totalFigures;
+    document.getElementById('totalSingles').textContent = totalSingles;
     document.getElementById('editedCount').textContent = existingSeries.length;
 }
 
@@ -1204,21 +1336,30 @@ function updateStats() {
 // ГЕНЕРАЦИЯ ИНДЕКСНЫХ ФАЙЛОВ
 // ============================================================
 
-function generateStatsData(list) {
+function generateStatsData(list, singles) {
     let totalFigures = 0, totalInserts = 0, totalForSale = 0;
 
     list.forEach(s => {
-        totalFigures += (s.figures  || []).length;
-        totalFigures += (s.extras   || []).length;
+        totalFigures += (s.figures || []).length;
+        totalFigures += (s.extras || []).length;
         totalFigures += (s.variants || []).length;
-        totalInserts += (s.inserts  || []).length;
+        totalInserts += (s.inserts || []).length;
 
-        totalForSale += (s.figures  || []).filter(f => f.forsale).length;
-        totalForSale += (s.extras   || []).filter(e => e.forsale).length;
-        totalForSale += (s.inserts  || []).filter(i => i.forsale).length;
+        totalForSale += (s.figures || []).filter(f => f.forsale).length;
+        totalForSale += (s.extras || []).filter(e => e.forsale).length;
+        totalForSale += (s.inserts || []).filter(i => i.forsale).length;
         totalForSale += (s.variants || []).filter(v => v.forsale).length;
         if (s.fullSeriesForSale) totalForSale += 1;
     });
+
+    if (singles) {
+        Object.keys(singles).forEach(m => {
+            const arr = singles[m];
+            if (!Array.isArray(arr)) return;
+            totalFigures += arr.length;
+            totalForSale += arr.filter(i => i.forsale === true).length;
+        });
+    }
 
     const uniqueManufacturers = [...new Set(list.map(s => s.manufacturer))];
 
@@ -1236,20 +1377,28 @@ function generateVideosData(list) {
     const out = [];
     list.forEach(s => {
         if (!s.videos) return;
-        ['youtube','vk','tiktok','instagram'].forEach(host => {
+        ['youtube', 'vk', 'tiktok', 'instagram'].forEach(host => {
             const arr = s.videos[host];
             if (!Array.isArray(arr) || arr.length === 0) return;
             arr.forEach(url => {
                 if (!url || !url.trim()) return;
                 out.push({
                     host, url,
-                    seriesId: s.id, seriesName: s.name,
+                    seriesId: s.id,
+                    seriesName: s.name,
                     seriesName_en: s.name_en || s.name,
-                    year: s.year, manufacturer: s.manufacturer,
+                    year: s.year,
+                    manufacturer: s.manufacturer,
                     date_added: s.date_added || s.fullSeriesDateAdded || ''
                 });
             });
         });
+    });
+    out.sort((a, b) => {
+        const da = a.date_added || '';
+        const db = b.date_added || '';
+        if (db !== da) return db.localeCompare(da);
+        return (a.seriesName || '').localeCompare(b.seriesName || '');
     });
     return out;
 }
@@ -1259,10 +1408,15 @@ function generateForsaleData(list) {
     list.forEach(s => {
         if (s.fullSeriesForSale === true) {
             out.push({
-                type: 'full', id: s.id, seriesId: s.id,
-                seriesName: s.name, seriesName_en: s.name_en || s.name,
-                seriesYear: s.year, manufacturer: s.manufacturer,
-                name: s.name, name_en: s.name_en || s.name,
+                type: 'full',
+                id: s.id,
+                seriesId: s.id,
+                seriesName: s.name,
+                seriesName_en: s.name_en || s.name,
+                seriesYear: s.year,
+                manufacturer: s.manufacturer,
+                name: s.name,
+                name_en: s.name_en || s.name,
                 image: s.cover,
                 avito: s.fullSeriesAvito || '',
                 price: s.fullSeriesPrice || '',
@@ -1270,27 +1424,86 @@ function generateForsaleData(list) {
                 condition: s.fullSeriesCondition || '',
                 condition_en: s.fullSeriesCondition_en || '',
                 code: '',
-                date_added: s.fullSeriesDateAdded || s.date_added || ''
+                date_added: s.fullSeriesDateAdded || s.date_added || '',
+                forsale_date: s.fullSeriesForsaleDate || s.fullSeriesDateAdded || s.date_added || ''
             });
         }
+
         const typeMap = { figures: 'figure', variants: 'variant', extras: 'extra', inserts: 'insert' };
-        ['figures','variants','extras','inserts'].forEach(cat => {
+        ['figures', 'variants', 'extras', 'inserts'].forEach(cat => {
             (s[cat] || []).forEach(item => {
                 if (item.forsale !== true) return;
                 out.push({
-                    type: typeMap[cat], id: item.id, seriesId: s.id,
-                    seriesName: s.name, seriesName_en: s.name_en || s.name,
-                    seriesYear: s.year, manufacturer: s.manufacturer,
-                    name: item.name || '', name_en: item.name_en || item.name || '',
-                    image: item.image || '', avito: item.avito || '',
-                    price: item.price || '', condition: item.condition || '',
-                    condition_en: item.condition_en || '', code: item.code || '',
-                    date_added: item.date_added || s.date_added || ''
+                    type: typeMap[cat],
+                    id: item.id,
+                    seriesId: s.id,
+                    seriesName: s.name,
+                    seriesName_en: s.name_en || s.name,
+                    seriesYear: s.year,
+                    manufacturer: s.manufacturer,
+                    name: item.name || '',
+                    name_en: item.name_en || item.name || '',
+                    image: item.image || '',
+                    avito: item.avito || '',
+                    price: item.price || '',
+                    condition: item.condition || '',
+                    condition_en: item.condition_en || '',
+                    code: item.code || '',
+                    date_added: item.date_added || s.date_added || '',
+                    forsale_date: item.forsale_date || item.date_added || s.date_added || ''
                 });
             });
         });
     });
+    out.sort((a, b) => {
+        const da = a.forsale_date || a.date_added || '';
+        const db = b.forsale_date || b.date_added || '';
+        if (db !== da) return db.localeCompare(da);
+        return (a.name || '').localeCompare(b.name || '');
+    });
     return out;
+}
+
+function generateSinglesForsaleData(singles) {
+    const out = [];
+    Object.keys(singles || {}).forEach(manufacturer => {
+        const arr = singles[manufacturer];
+        if (!Array.isArray(arr)) return;
+        arr.forEach(item => {
+            if (item.forsale !== true) return;
+            out.push({
+                type: 'single',
+                id: item.id,
+                seriesId: null,
+                seriesName: '',
+                seriesName_en: '',
+                seriesYear: item.year || '',
+                manufacturer: manufacturer,
+                name: item.name || '',
+                name_en: item.name_en || item.name || '',
+                image: item.image || '',
+                avito: item.avito || '',
+                price: item.price || '',
+                condition: item.condition || '',
+                condition_en: item.condition_en || '',
+                code: item.code || '',
+                date_added: item.date_added || '',
+                forsale_date: item.forsale_date || item.date_added || ''
+            });
+        });
+    });
+    return out;
+}
+
+function generateFullForsaleData(list, singles) {
+    const all = [...generateForsaleData(list), ...generateSinglesForsaleData(singles)];
+    all.sort((a, b) => {
+        const da = a.forsale_date || a.date_added || '';
+        const db = b.forsale_date || b.date_added || '';
+        if (db !== da) return db.localeCompare(da);
+        return (a.name || '').localeCompare(b.name || '');
+    });
+    return all;
 }
 
 function generateCollectionData(list) {
@@ -1330,7 +1543,7 @@ function generateCollectionData(list) {
 function generateSearchData(list) {
     const out = [];
     list.forEach(s => {
-        ['figures','variants','extras','inserts'].forEach(cat => {
+        ['figures', 'variants', 'extras', 'inserts'].forEach(cat => {
             (s[cat] || []).forEach(item => {
                 const hasCode = item.code && item.code.trim();
                 const hasName = item.name && item.name.trim() &&
@@ -1344,48 +1557,77 @@ function generateSearchData(list) {
                     seriesId: s.id, seriesName: s.name,
                     seriesName_en: s.name_en || s.name,
                     seriesYear: s.year, manufacturer: s.manufacturer,
-                    owned: item.owned === true, forsale: item.forsale === true,
-                    avito: item.avito || '', price: item.price || '', type: cat
+                    owned: item.owned === true,
+                    forsale: item.forsale === true,
+                    avito: item.avito || '', price: item.price || '',
+                    type: cat
                 });
             });
         });
     });
+    out.sort((a, b) => {
+        const ca = (a.code || '').toUpperCase();
+        const cb = (b.code || '').toUpperCase();
+        if (ca && cb) return ca.localeCompare(cb);
+        if (ca) return -1;
+        if (cb) return 1;
+        return (a.name || '').localeCompare(b.name || '');
+    });
     return out;
 }
 
+function generateCodeCountsData(list) {
+    const counts = {};
+    ['figures', 'variants', 'extras'].forEach(cat => {
+        list.forEach(s => {
+            (s[cat] || []).forEach(item => {
+                const code = (item.code || '').trim().toLowerCase();
+                if (!code) return;
+                counts[code] = (counts[code] || 0) + 1;
+            });
+        });
+    });
+    return counts;
+}
+
 // ============================================================
-// СОХРАНЕНИЕ В ZIP  (+ диагностика)
+// СОХРАНЕНИЕ В ZIP
 // ============================================================
 
 document.getElementById('saveBtn').addEventListener('click', async () => {
-    if (existingSeries.length === 0) {
+    if (existingSeries.length === 0 && Object.keys(singlesData).length === 0) {
         showToast('Нет данных для сохранения', 'error');
         return;
     }
 
     console.log('=== ПЕРЕД syncAllSections ===');
     existingSeries.forEach(s => {
-        console.log(s.id, 'figures:', (s.figures||[]).length,
-                    'extras:', (s.extras||[]).length,
-                    'variants:', (s.variants||[]).length,
-                    'inserts:', (s.inserts||[]).length);
+        console.log(s.id,
+            'figures:', (s.figures || []).length,
+            'extras:', (s.extras || []).length,
+            'variants:', (s.variants || []).length,
+            'inserts:', (s.inserts || []).length,
+            'other:', (s.other || []).length);
     });
 
     syncAllSections();
 
     console.log('=== ПОСЛЕ syncAllSections ===');
     existingSeries.forEach(s => {
-        console.log(s.id, 'figures:', (s.figures||[]).length,
-                    'extras:', (s.extras||[]).length,
-                    'variants:', (s.variants||[]).length,
-                    'inserts:', (s.inserts||[]).length);
+        console.log(s.id,
+            'figures:', (s.figures || []).length,
+            'extras:', (s.extras || []).length,
+            'variants:', (s.variants || []).length,
+            'inserts:', (s.inserts || []).length,
+            'other:', (s.other || []).length);
     });
 
+    // Проверка на обнуление
     const dropped = [];
     existingSeries.forEach(s => {
-        ['figures','extras','variants','inserts','other'].forEach(t => {
+        ['figures', 'extras', 'variants', 'inserts', 'other'].forEach(t => {
             const before = initialCounts.get(`${s.id}::${t}`) ?? 0;
-            const after  = (s[t] || []).length;
+            const after = (s[t] || []).length;
             if (before > 0 && after === 0) {
                 dropped.push(`${s.name} → ${t} (было ${before}, стало 0)`);
             }
@@ -1398,9 +1640,7 @@ document.getElementById('saveBtn').addEventListener('click', async () => {
             dropped.slice(0, 15).map(x => '• ' + x).join('\n') +
             (dropped.length > 15 ? `\n...и ещё ${dropped.length - 15}` : '') +
             '\n\nПродолжить сохранение? Это перезапишет оригинальные JSON.';
-        if (!confirm(msg)) {
-            return;
-        }
+        if (!confirm(msg)) return;
     }
 
     const btn = document.getElementById('saveBtn');
@@ -1410,28 +1650,45 @@ document.getElementById('saveBtn').addEventListener('click', async () => {
     try {
         const zip = new JSZip();
 
+        // index.json
         const indexData = existingSeries.map(s => ({
-            id: s.id, name: s.name, name_en: s.name_en || s.name,
-            year: s.year, manufacturer: s.manufacturer, cover: s.cover,
-            kind: s.kind || '', description: s.description || '',
-            description_en: s.description_en || '', visible: s.visible !== false
+            id: s.id,
+            name: s.name,
+            name_en: s.name_en || s.name,
+            year: s.year,
+            manufacturer: s.manufacturer,
+            cover: s.cover,
+            kind: s.kind || '',
+            description: s.description || '',
+            description_en: s.description_en || '',
+            visible: s.visible !== false
         }));
         zip.file('index.json', JSON.stringify(indexData, null, 2));
 
-        zip.file('stats.json',      JSON.stringify(generateStatsData(existingSeries), null, 2));
-        zip.file('videos.json',     JSON.stringify(generateVideosData(existingSeries), null, 2));
-        zip.file('forsale.json',    JSON.stringify(generateForsaleData(existingSeries), null, 2));
-        zip.file('collection.json', JSON.stringify(generateCollectionData(existingSeries), null, 2));
-        zip.file('search.json',     JSON.stringify(generateSearchData(existingSeries), null, 2));
+        // Индексы
+        zip.file('stats.json',       JSON.stringify(generateStatsData(existingSeries, singlesData), null, 2));
+        zip.file('videos.json',      JSON.stringify(generateVideosData(existingSeries), null, 2));
+        zip.file('forsale.json',     JSON.stringify(generateFullForsaleData(existingSeries, singlesData), null, 2));
+        zip.file('collection.json',  JSON.stringify(generateCollectionData(existingSeries), null, 2));
+        zip.file('search.json',      JSON.stringify(generateSearchData(existingSeries), null, 2));
+        zip.file('code-counts.json', JSON.stringify(generateCodeCountsData(existingSeries), null, 2));
 
+        // Серии
         existingSeries.forEach(s => {
-            const manufFolder = s.manufacturer || 'other';
+            const manufFolder = getManufacturerFolder(s.manufacturer);
             const seriesFolder = zip.folder(`series/${manufFolder}`);
+
             const data = {
-                id: s.id, name: s.name, name_en: s.name_en || s.name,
-                year: s.year, manufacturer: s.manufacturer, cover: s.cover,
-                description: s.description || '', description_en: s.description_en || '',
-                kind: s.kind || '', visible: s.visible !== false,
+                id: s.id,
+                name: s.name,
+                name_en: s.name_en || s.name,
+                year: s.year,
+                manufacturer: s.manufacturer,
+                cover: s.cover,
+                description: s.description || '',
+                description_en: s.description_en || '',
+                kind: s.kind || '',
+                visible: s.visible !== false,
                 fullSeriesForSale: s.fullSeriesForSale || false,
                 fullSeriesAvito: s.fullSeriesAvito || '',
                 fullSeriesPrice: s.fullSeriesPrice || '',
@@ -1439,6 +1696,7 @@ document.getElementById('saveBtn').addEventListener('click', async () => {
                 fullSeriesCondition: s.fullSeriesCondition || '',
                 fullSeriesCondition_en: s.fullSeriesCondition_en || '',
                 fullSeriesDateAdded: s.fullSeriesDateAdded || '',
+                fullSeriesForsaleDate: s.fullSeriesForsaleDate || '',
                 fullSeriesDescription: s.fullSeriesDescription || '',
                 fullSeriesDescription_en: s.fullSeriesDescription_en || '',
                 figures:  s.figures  || [],
@@ -1451,10 +1709,21 @@ document.getElementById('saveBtn').addEventListener('click', async () => {
             seriesFolder.file(`${s.id}.json`, JSON.stringify(data, null, 2));
         });
 
+        // Отдельные фигурки
+        if (Object.keys(singlesData).length > 0) {
+            const singlesFolder = zip.folder('singles');
+            const singlesIndex = {};
+            Object.keys(singlesData).forEach(m => {
+                singlesIndex[m] = singlesData[m].length;
+                singlesFolder.file(`${m}.json`, JSON.stringify(singlesData[m], null, 2));
+            });
+            singlesFolder.file('index.json', JSON.stringify(singlesIndex, null, 2));
+        }
+
         const blob = await zip.generateAsync({ type: 'blob' });
         const a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = `capsule_sort_${new Date().toISOString().slice(0,19).replace(/:/g,'-')}.zip`;
+        a.download = `capsule_sort_${new Date().toISOString().slice(0, 19).replace(/:/g, '-')}.zip`;
         a.click();
         URL.revokeObjectURL(blob);
 
