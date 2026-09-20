@@ -27,10 +27,11 @@
       "name_en": "Alex",
       "owned": false,
       "forsale": true,
-      "avito": "",
+      "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/kinder_dzhoy_maynkraft_8189938432",
       "code": "VC307",
       "date_added": "2026-09-17",
-      "forsale_date": "2026-09-20"
+      "forsale_date": "2026-09-20",
+      "price": "99 руб. (с учетом комиссии Авито)"
     },
     {
       "id": "minecraft-by-kinder-2026_fig2",
@@ -39,10 +40,11 @@
       "name_en": "Steve",
       "owned": false,
       "forsale": true,
-      "avito": "",
+      "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/kinder_dzhoy_maynkraft_8189938432",
       "code": "VC308",
       "date_added": "2026-09-17",
-      "forsale_date": "2026-09-20"
+      "forsale_date": "2026-09-20",
+      "price": "99 руб. (с учетом комиссии Авито)"
     },
     {
       "id": "minecraft-by-kinder-2026_fig3",
@@ -128,10 +130,11 @@
       "name_en": "Alex in Golden armor 2",
       "owned": false,
       "forsale": true,
-      "avito": "",
+      "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/kinder_dzhoy_maynkraft_8189938432",
       "code": "VC317",
       "date_added": "2026-09-17",
-      "forsale_date": "2026-09-20"
+      "forsale_date": "2026-09-20",
+      "price": "199 руб. (с учетом комиссии Авито)"
     },
     {
       "id": "minecraft-by-kinder-2026_fig11",
@@ -140,10 +143,11 @@
       "name_en": "Steve in Diamond armor 2",
       "owned": false,
       "forsale": true,
-      "avito": "",
+      "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/kinder_dzhoy_maynkraft_8189938432",
       "code": "VC318",
       "date_added": "2026-09-17",
-      "forsale_date": "2026-09-20"
+      "forsale_date": "2026-09-20",
+      "price": "199 руб. (с учетом комиссии Авито)"
     },
     {
       "id": "minecraft-by-kinder-2026_fig12",
@@ -152,10 +156,11 @@
       "name_en": "Ender Dragon",
       "owned": false,
       "forsale": true,
-      "avito": "",
+      "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/kinder_dzhoy_maynkraft_8189938432",
       "code": "VC319",
       "date_added": "2026-09-17",
-      "forsale_date": "2026-09-20"
+      "forsale_date": "2026-09-20",
+      "price": "199 руб. (с учетом комиссии Авито)"
     },
     {
       "id": "minecraft-by-kinder-2026_fig13",
@@ -164,10 +169,11 @@
       "name_en": "Bat",
       "owned": false,
       "forsale": true,
-      "avito": "",
+      "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/kinder_dzhoy_maynkraft_8189938432",
       "code": "VC320",
       "date_added": "2026-09-17",
-      "forsale_date": "2026-09-20"
+      "forsale_date": "2026-09-20",
+      "price": "149 руб. (с учетом комиссии Авито)"
     },
     {
       "id": "minecraft-by-kinder-2026_fig14",
@@ -187,10 +193,11 @@
       "name_en": "Ocelot",
       "owned": false,
       "forsale": true,
-      "avito": "",
+      "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/kinder_dzhoy_maynkraft_8189938432",
       "code": "VC322",
       "date_added": "2026-09-17",
-      "forsale_date": "2026-09-20"
+      "forsale_date": "2026-09-20",
+      "price": "349 руб. (с учетом комиссии Авито)"
     },
     {
       "id": "minecraft-by-kinder-2026_fig16",
@@ -210,10 +217,11 @@
       "name_en": "Wither Skeleton at the Nether Portal",
       "owned": false,
       "forsale": true,
-      "avito": "",
+      "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/kinder_dzhoy_maynkraft_8189938432",
       "code": "VC326",
       "date_added": "2026-09-17",
-      "forsale_date": "2026-09-20"
+      "forsale_date": "2026-09-20",
+      "price": "349 руб. (с учетом комиссии Авито)"
     },
     {
       "id": "minecraft-by-kinder-2026_fig18",
@@ -222,10 +230,11 @@
       "name_en": "Fox",
       "owned": false,
       "forsale": true,
-      "avito": "",
+      "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/kinder_dzhoy_maynkraft_8189938432",
       "code": "VC327",
       "date_added": "2026-09-17",
-      "forsale_date": "2026-09-20"
+      "forsale_date": "2026-09-20",
+      "price": ""
     },
     {
       "id": "minecraft-by-kinder-2026_fig19",
@@ -234,10 +243,11 @@
       "name_en": "Glow Octopus",
       "owned": false,
       "forsale": true,
-      "avito": "",
+      "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/kinder_dzhoy_maynkraft_8189938432",
       "code": "VC328",
       "date_added": "2026-09-17",
-      "forsale_date": "2026-09-20"
+      "forsale_date": "2026-09-20",
+      "price": "499 руб. (с учетом комиссии Авито)"
     },
     {
       "id": "minecraft-by-kinder-2026_fig20",
@@ -246,10 +256,11 @@
       "name_en": "Shulker Box",
       "owned": false,
       "forsale": true,
-      "avito": "",
+      "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/kinder_dzhoy_maynkraft_8189938432",
       "code": "VC329",
       "date_added": "2026-09-17",
-      "forsale_date": "2026-09-20"
+      "forsale_date": "2026-09-20",
+      "price": "249 руб. (с учетом комиссии Авито)"
     },
     {
       "id": "minecraft-by-kinder-2026_fig21",
@@ -258,10 +269,11 @@
       "name_en": "Diamond Ore",
       "owned": false,
       "forsale": true,
-      "avito": "",
+      "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/kinder_dzhoy_maynkraft_8189938432",
       "code": "VC334",
       "date_added": "2026-09-17",
-      "forsale_date": "2026-09-20"
+      "forsale_date": "2026-09-20",
+      "price": "249 руб. (с учетом комиссии Авито)"
     },
     {
       "id": "minecraft-by-kinder-2026_fig22",
@@ -292,10 +304,11 @@
       "name_en": "Ice block",
       "owned": false,
       "forsale": true,
-      "avito": "",
+      "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/kinder_dzhoy_maynkraft_8189938432",
       "code": "VC335A",
       "date_added": "2026-09-17",
-      "forsale_date": "2026-09-20"
+      "forsale_date": "2026-09-20",
+      "price": "199 руб. (с учетом комиссии Авито)"
     },
     {
       "id": "minecraft-by-kinder-2026_fig25",
@@ -304,10 +317,11 @@
       "name_en": "Grass Block",
       "owned": false,
       "forsale": true,
-      "avito": "",
+      "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/kinder_dzhoy_maynkraft_8189938432",
       "code": "VC336",
       "date_added": "2026-09-17",
-      "forsale_date": "2026-09-20"
+      "forsale_date": "2026-09-20",
+      "price": "299 руб. (с учетом комиссии Авито)"
     },
     {
       "id": "minecraft-by-kinder-2026_fig26",
@@ -327,10 +341,11 @@
       "name_en": "Cat Jelly",
       "owned": false,
       "forsale": true,
-      "avito": "",
+      "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/kinder_dzhoy_maynkraft_8189938432",
       "code": "VC400",
       "date_added": "2026-09-17",
-      "forsale_date": "2026-09-20"
+      "forsale_date": "2026-09-20",
+      "price": "349 руб. (с учетом комиссии Авито)"
     },
     {
       "id": "minecraft-by-kinder-2026_fig28",

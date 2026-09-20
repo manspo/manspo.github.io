@@ -13,7 +13,8 @@
             padding: 20px;
             padding-bottom: 100px;
         }
-        .container { max-width: 1200px; margin: 0 auto; }
+        .container { max-width: 1400px; margin: 0 auto; }
+        
         h1 { margin-bottom: 20px; color: #4f46e5; font-size: 24px; }
         
         .file-upload-main {
@@ -28,6 +29,8 @@
         }
         .file-upload-main:hover { border-color: #4f46e5; background: #f0f0ff; }
         .file-upload-main input { display: none; }
+        .file-upload-main p { margin: 4px 0; }
+        .file-upload-main .hint { font-size: 12px; color: #6b7280; }
         
         .controls-panel {
             background: white;
@@ -53,6 +56,28 @@
         .controls-panel select:focus {
             outline: none;
             border-color: #4f46e5;
+        }
+        .ctrl-btn {
+            padding: 8px 16px;
+            border: 1px solid #e5e7eb;
+            background: white;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        .ctrl-btn:hover { border-color: #4f46e5; color: #4f46e5; }
+        
+        /* ===== КНОПКА-ФИЛЬТР "ТОЛЬКО В ПРОДАЖЕ" ===== */
+        .ctrl-btn.toggle-forsale.active {
+            background: #4f46e5;
+            color: white;
+            border-color: #4f46e5;
+        }
+        .ctrl-btn.toggle-forsale.active:hover {
+            background: #6366f1;
+            color: white;
         }
         
         .stats-bar {
@@ -150,78 +175,174 @@
         .mass-btn.unset-all:hover { background: #fee2e2; border-color: #ef4444; color: #ef4444; }
         
         .series-items { padding: 8px 0; }
+        
+        /* ===== СТРОКА ТОВАРА ===== */
         .item-row {
-            display: flex;
+            display: grid;
+            grid-template-columns: auto 60px auto auto 1fr auto auto;
             align-items: center;
             gap: 10px;
-            padding: 6px 20px;
+            padding: 10px 20px;
             border-bottom: 1px solid #f3f4f6;
             transition: background 0.15s;
-            cursor: pointer;
         }
         .item-row:last-child { border-bottom: none; }
         .item-row:hover { background: #f9fafb; }
-        .item-row input[type="checkbox"] {
+        
+        .item-row input[type="checkbox"].item-checkbox {
             width: 18px;
             height: 18px;
             cursor: pointer;
-            flex-shrink: 0;
             accent-color: #4f46e5;
         }
+        
         .item-thumb {
-            width: 70px;
-            height: 70px;
+            width: 60px;
+            height: 60px;
             object-fit: contain;
             background: #f5f5f5;
             border-radius: 8px;
             padding: 4px;
-            flex-shrink: 0;
         }
+        
         .item-type {
             font-size: 11px;
             padding: 2px 8px;
             border-radius: 10px;
             font-weight: 600;
-            flex-shrink: 0;
+            white-space: nowrap;
         }
         .item-type.figure { background: #e0e7ff; color: #4f46e5; }
         .item-type.extra { background: #dcfce7; color: #10b981; }
         .item-type.variant { background: #fef3c7; color: #92400e; }
         .item-type.insert { background: #fce7f3; color: #be185d; }
+        .item-type.single { background: #dbeafe; color: #1e40af; }
+        
         .item-code {
             font-family: monospace;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 700;
             color: #4f46e5;
             background: #f5f7fb;
             padding: 2px 8px;
             border-radius: 6px;
-            flex-shrink: 0;
+            white-space: nowrap;
         }
+        
         .item-name {
             font-size: 14px;
             color: #1f2937;
-            flex: 1;
-            min-width: 0;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
+            min-width: 0;
         }
-        .item-avito {
-            font-size: 11px;
-            color: #f59e0b;
-            flex-shrink: 0;
-        }
+        
         .item-forsale-date {
             font-size: 12px;
             color: #6b7280;
             background: #f3f4f6;
             padding: 2px 8px;
             border-radius: 6px;
+            white-space: nowrap;
+        }
+        
+        /* ===== ПРАВАЯ ЧАСТЬ: ЦЕНА + АВИТО ===== */
+        .item-right {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
             flex-shrink: 0;
         }
         
-        /* ===== СЕКЦИЯ ОТДЕЛЬНЫХ ФИГУРОК ===== */
+        .item-price-wrap {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: #f9fafb;
+            padding: 4px 6px 4px 10px;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+        }
+        .item-price-input {
+            width: 90px;
+            padding: 5px 8px;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            font-size: 13px;
+            background: white;
+            font-family: inherit;
+            text-align: right;
+        }
+        .item-price-input:focus {
+            outline: none;
+            border-color: #4f46e5;
+        }
+        .item-price-currency {
+            font-size: 13px;
+            font-weight: 600;
+            color: #6b7280;
+            user-select: none;
+        }
+        .item-avito-check {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #9ca3af;
+            cursor: pointer;
+            user-select: none;
+            white-space: nowrap;
+            padding: 4px 8px;
+            border-radius: 6px;
+            transition: all 0.15s;
+        }
+        .item-avito-check:hover { background: #f3f4f6; }
+        .item-avito-check input {
+            cursor: pointer;
+            accent-color: #f59e0b;
+            width: 15px;
+            height: 15px;
+        }
+        .item-avito-check.checked {
+            color: #f59e0b;
+            background: #fef3c7;
+        }
+        
+        /* ===== ССЫЛКА НА АВИТО ===== */
+        .item-avito-url-wrap {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: #f9fafb;
+            padding: 4px 8px;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+        }
+        .item-avito-url-icon {
+            font-size: 13px;
+            user-select: none;
+        }
+        .item-avito-url-input {
+            width: 220px;
+            padding: 5px 8px;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            font-size: 12px;
+            background: white;
+            font-family: inherit;
+            color: #1f2937;
+        }
+        .item-avito-url-input:focus {
+            outline: none;
+            border-color: #f59e0b;
+        }
+        .item-avito-url-input.filled {
+            border-color: #f59e0b;
+            background: #fffbeb;
+        }
+        
         .singles-section {
             margin-top: 30px;
         }
@@ -246,7 +367,7 @@
             z-index: 100;
         }
         .save-bar-inner {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             display: flex;
             gap: 12px;
@@ -292,6 +413,7 @@
             z-index: 999;
             pointer-events: none;
             max-width: 90vw;
+            text-align: center;
         }
         .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
         .toast.error { background: #ef4444; }
@@ -304,18 +426,26 @@
             font-size: 16px;
         }
         
-        @media (max-width: 768px) {
+        @media (max-width: 900px) {
+            .item-row {
+                grid-template-columns: auto 50px auto 1fr;
+                row-gap: 6px;
+            }
+            .item-row .item-name {
+                grid-column: 1 / -1;
+            }
+            .item-row .item-right {
+                grid-column: 1 / -1;
+            }
+            .item-price-input { width: auto; flex: 1; text-align: left; }
+            .item-avito-url-input { width: auto; flex: 1; }
+        }
+        
+        @media (max-width: 600px) {
             body { padding: 12px; padding-bottom: 100px; }
             h1 { font-size: 20px; }
-            .series-title { font-size: 15px; }
-            .item-row { padding: 10px 20px; gap: 14px; }
-            .item-thumb { width: 50px; height: 50px; }
-            .item-name { font-size: 13px; }
-            .item-code { font-size: 11px; padding: 1px 6px; }
-            .item-type { font-size: 10px; padding: 1px 6px; }
             .save-btn { padding: 10px 20px; font-size: 14px; }
             .save-bar-info { display: none; }
-            .series-mass-buttons { flex-wrap: wrap; }
         }
     </style>
 </head>
@@ -325,8 +455,8 @@
     
     <div class="file-upload-main" id="fileUploadMain">
         <input type="file" id="fileInput" webkitdirectory directory style="display:none;">
-        <p>📁 Нажмите для выбора ПАПКИ с файлами (data)</p>
-        <p style="font-size:12px;color:#6b7280;margin-top:6px;">Подхватываются: index.json, series/, singles/, manufacturers.json</p>
+        <p>📁 Нажмите для выбора КОРНЯ проекта <code>manspo.github.io</code></p>
+        <p class="hint">Нужны подпапки <code>data/</code> и <code>images/</code> — превью подхватятся локально</p>
     </div>
     
     <div class="controls-panel" id="controlsPanel" style="display:none;">
@@ -334,8 +464,11 @@
         <select id="manufacturerFilter">
             <option value="all">Все производители</option>
         </select>
-        <button class="mass-btn" id="expandAllBtn">📖 Развернуть все</button>
-        <button class="mass-btn" id="collapseAllBtn">📕 Свернуть все</button>
+        <button class="ctrl-btn toggle-forsale" id="toggleForsaleBtn" title="Показать только товары со статусом «В продаже»">
+            ✅ Только в продаже
+        </button>
+        <button class="ctrl-btn" id="expandAllBtn">📖 Развернуть все</button>
+        <button class="ctrl-btn" id="collapseAllBtn">📕 Свернуть все</button>
     </div>
     
     <div class="stats-bar" id="statsBar" style="display:none;">
@@ -355,11 +488,13 @@
             <span>Отдельных фигурок:</span>
             <span class="stats-bar-value" id="singlesCount">0</span>
         </div>
+        <div class="stats-bar-item">
+            <span>С ценой:</span>
+            <span class="stats-bar-value" id="withPriceCount">0</span>
+        </div>
     </div>
     
     <div id="seriesContainer"></div>
-    
-    <!-- СЕКЦИЯ ОТДЕЛЬНЫХ ФИГУРОК -->
     <div id="singlesContainer" class="singles-section" style="display:none;"></div>
 </div>
 
@@ -377,13 +512,26 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <script>
 // ============================================================
-// ОСНОВНЫЕ ПЕРЕМЕННЫЕ
+// КОНСТАНТЫ
 // ============================================================
 
-let existingSeries = [];      // серии (с фигурками, допами, вариантами, вкладышами)
-let singlesData = {};         // { manufacturer: [items] }
-let manufacturersData = {};   // { key: { ru, en } }
+const AVITO_SUFFIX = ' (с учетом комиссии Авито)';
+const CURRENCY = 'руб.';
+
+// ============================================================
+// СОСТОЯНИЕ
+// ============================================================
+
+let existingSeries = [];
+let singlesData = {};
+let manufacturersData = {};
 let hasUnsavedChanges = false;
+
+// Фильтр «показать только в продаже»
+let showOnlyForsale = false;
+
+// Карта локальных blob-URL
+const localImages = new Map();
 
 // ============================================================
 // УТИЛИТЫ
@@ -396,6 +544,14 @@ function escapeHtml(str) {
     }[m]));
 }
 
+function todayISO() {
+    return new Date().toISOString().slice(0, 10);
+}
+
+function getManufacturerFolder(m) {
+    return m || 'other';
+}
+
 function showToast(message, type = 'success') {
     const toast = document.getElementById('toast');
     toast.textContent = message;
@@ -404,12 +560,38 @@ function showToast(message, type = 'success') {
     showToast._t = setTimeout(() => toast.classList.remove('show'), 2500);
 }
 
-function todayISO() {
-    return new Date().toISOString().slice(0, 10);
+// ============================================================
+// КАРТИНКИ
+// ============================================================
+
+function getImageUrl(path) {
+    if (!path) return 'images/placeholder.svg';
+    if (localImages.has(path)) return localImages.get(path);
+    return 'images/placeholder.svg';
 }
 
-function getManufacturerFolder(m) {
-    return m || 'other';
+// ============================================================
+// ЦЕНА
+// ============================================================
+
+function extractPriceNumber(price) {
+    if (!price) return '';
+    let s = String(price);
+    s = s.replace(/\s*\(с учетом комиссии Авито\)\s*$/, '');
+    s = s.replace(/\s*руб\.?\s*$/i, '').trim();
+    return s;
+}
+
+function hasAvitoSuffix(price) {
+    if (!price) return false;
+    return /\(с учетом комиссии Авито\)\s*$/.test(String(price));
+}
+
+function buildPrice(baseNumber, isAvito) {
+    const clean = String(baseNumber || '').trim();
+    if (!clean) return '';
+    const withCurrency = `${clean} ${CURRENCY}`;
+    return isAvito ? withCurrency + AVITO_SUFFIX : withCurrency;
 }
 
 // ============================================================
@@ -425,7 +607,7 @@ window.addEventListener('beforeunload', function(e) {
 });
 
 // ============================================================
-// ЗАГРУЗКА ДАННЫХ (с поддержкой подпапок series/ и singles/)
+// ЗАГРУЗКА ДАННЫХ
 // ============================================================
 
 document.getElementById('fileUploadMain').onclick = function() {
@@ -448,10 +630,29 @@ function readFileText(file) {
 
 async function loadDataFromFiles(files) {
     const allFiles = Array.from(files);
+    const jsonFiles = allFiles.filter(f => f.name.endsWith('.json'));
     
-    // Ищем файлы по относительному пути (webkitRelativePath)
-    const findByPath = (suffix) => allFiles.filter(f => {
-        const p = f.webkitRelativePath || f.name;
+    // ===== СОБИРАЕМ ЛОКАЛЬНЫЕ КАРТИНКИ =====
+    localImages.forEach(url => {
+        try { URL.revokeObjectURL(url); } catch(e) {}
+    });
+    localImages.clear();
+    
+    allFiles.forEach(f => {
+        const relPath = (f.webkitRelativePath || f.name).replace(/\\/g, '/');
+        if (!/\.(webp|jpg|jpeg|png|gif|svg)$/i.test(relPath)) return;
+        
+        let cleanPath = relPath;
+        const idx = cleanPath.indexOf('images/');
+        if (idx === -1) return;
+        cleanPath = cleanPath.substring(idx);
+        
+        localImages.set(cleanPath, URL.createObjectURL(f));
+    });
+    console.log('🖼️ Локальных картинок подхвачено:', localImages.size);
+    
+    const findByPath = (suffix) => jsonFiles.filter(f => {
+        const p = (f.webkitRelativePath || f.name).replace(/\\/g, '/');
         return p.endsWith(suffix) || f.name === suffix;
     });
     
@@ -462,25 +663,41 @@ async function loadDataFromFiles(files) {
     }
     
     try {
-        // ===== 1. ИНДЕКС СЕРИЙ =====
         const indexData = JSON.parse(await readFileText(indexFile));
         if (!Array.isArray(indexData)) {
             showToast('index.json не является массивом', 'error');
             return;
         }
         
-        // ===== 2. ПРОИЗВОДИТЕЛИ =====
+        // ===== ПРОИЗВОДИТЕЛИ =====
         const mfFile = findByPath('manufacturers.json')[0];
         if (mfFile) {
             try {
                 manufacturersData = JSON.parse(await readFileText(mfFile));
-            } catch(e) {
+            } catch (e) {
                 console.warn('manufacturers.json битый:', e);
             }
         }
         
-        // ===== 3. СЕРИИ (из series/*/ или из корня) =====
+        // ===== FORSALE.JSON (для восстановления цены и ссылки) =====
+        const forsaleFile = findByPath('forsale.json')[0];
+        let forsaleMap = {};
+        if (forsaleFile) {
+            try {
+                const forsaleArr = JSON.parse(await readFileText(forsaleFile));
+                if (Array.isArray(forsaleArr)) {
+                    forsaleArr.forEach(f => {
+                        if (f.id) forsaleMap[f.id] = f;
+                    });
+                }
+            } catch (e) {
+                console.warn('forsale.json битый:', e);
+            }
+        }
+        
+        // ===== СЕРИИ =====
         existingSeries = [];
+        singlesData = {};
         const problems = [];
         
         for (const s of indexData) {
@@ -489,19 +706,16 @@ async function loadDataFromFiles(files) {
                 continue;
             }
             
-            // Ищем файл серии: series/{manufacturer}/{id}.json ИЛИ {id}.json в корне
             const manufFolder = getManufacturerFolder(s.manufacturer);
-            const candidates = allFiles.filter(f => {
+            let candidates = jsonFiles.filter(f => {
                 const p = (f.webkitRelativePath || '').replace(/\\/g, '/');
-                return p.endsWith(`/${s.id}.json`) && 
-                       (p.includes(`/series/${manufFolder}/`) || p.includes(`/series/`));
+                return p.endsWith(`/${s.id}.json`) && p.includes(`/series/${manufFolder}/`);
             });
+            if (candidates.length === 0) {
+                candidates = jsonFiles.filter(f => f.name === `${s.id}.json`);
+            }
             
-            // Фолбэк: ищем просто по имени в корне
-            const fallback = allFiles.filter(f => f.name === `${s.id}.json`);
-            const file = candidates[0] || fallback[0];
-            
-            if (!file) {
+            if (candidates.length === 0) {
                 problems.push(`Нет файла ${s.id}.json`);
                 existingSeries.push({
                     ...s,
@@ -511,32 +725,38 @@ async function loadDataFromFiles(files) {
                 continue;
             }
             
+            let content;
             try {
-                const content = JSON.parse(await readFileText(file));
-                content.figures  = Array.isArray(content.figures)  ? content.figures  : [];
-                content.extras   = Array.isArray(content.extras)   ? content.extras   : [];
-                content.variants = Array.isArray(content.variants) ? content.variants : [];
-                content.inserts  = Array.isArray(content.inserts)  ? content.inserts  : [];
-                content.other    = Array.isArray(content.other)    ? content.other    : [];
-                if (!content.videos || typeof content.videos !== 'object') {
-                    content.videos = { youtube: [], vk: [], tiktok: [], instagram: [] };
-                }
-                existingSeries.push(content);
+                content = JSON.parse(await readFileText(candidates[0]));
             } catch (err) {
                 problems.push(`Битый JSON ${s.id}.json: ${err.message}`);
-                existingSeries.push({
-                    ...s,
-                    figures: [], extras: [], variants: [], inserts: [], other: [],
-                    videos: { youtube: [], vk: [], tiktok: [], instagram: [] }
-                });
+                content = { ...s };
             }
+            
+            ['figures', 'extras', 'variants', 'inserts', 'other'].forEach(cat => {
+                content[cat] = Array.isArray(content[cat]) ? content[cat] : [];
+            });
+            if (!content.videos || typeof content.videos !== 'object') {
+                content.videos = { youtube: [], vk: [], tiktok: [], instagram: [] };
+            }
+            
+            // Подтягиваем цены и ссылки из forsale.json
+            ['figures', 'extras', 'variants', 'inserts'].forEach(cat => {
+                content[cat].forEach(item => {
+                    const f = forsaleMap[item.id];
+                    if (!f) return;
+                    if (f.price && !item.price) item.price = f.price;
+                    if (f.avito && !item.avito) item.avito = f.avito;
+                });
+            });
+            
+            existingSeries.push(content);
         }
         
-        // ===== 4. ОТДЕЛЬНЫЕ ФИГУРКИ (из singles/*.json) =====
-        singlesData = {};
-        const singlesFiles = allFiles.filter(f => {
+        // ===== ОТДЕЛЬНЫЕ ФИГУРКИ =====
+        const singlesFiles = jsonFiles.filter(f => {
             const p = (f.webkitRelativePath || '').replace(/\\/g, '/');
-            return p.includes('/singles/') && f.name.endsWith('.json') && f.name !== 'index.json';
+            return p.includes('/singles/') && f.name !== 'index.json';
         });
         
         for (const f of singlesFiles) {
@@ -544,6 +764,12 @@ async function loadDataFromFiles(files) {
                 const data = JSON.parse(await readFileText(f));
                 const m = f.name.replace('.json', '');
                 if (Array.isArray(data)) {
+                    data.forEach(item => {
+                        const fs = forsaleMap[item.id];
+                        if (!fs) return;
+                        if (fs.price && !item.price) item.price = fs.price;
+                        if (fs.avito && !item.avito) item.avito = fs.avito;
+                    });
                     singlesData[m] = data;
                 }
             } catch (err) {
@@ -554,7 +780,7 @@ async function loadDataFromFiles(files) {
         hasUnsavedChanges = false;
         
         const totalSingles = Object.values(singlesData).reduce((a, arr) => a + arr.length, 0);
-        showToast(`✅ ${existingSeries.length} серий, ${totalSingles} отдельных фигурок`, 'success');
+        showToast(`✅ ${existingSeries.length} серий, ${totalSingles} отдельных фигурок, ${localImages.size} картинок`, 'success');
         
         if (problems.length) {
             console.warn('⚠️ ПРОБЛЕМЫ:\n' + problems.join('\n'));
@@ -606,13 +832,9 @@ function getFilteredSeries() {
     
     if (search) {
         list = list.filter(s => {
-            const nameRu = (s.name || '').toLowerCase();
-            const nameEn = (s.name_en || '').toLowerCase();
-            const year = String(s.year || '');
-            
-            if (nameRu.includes(search) || nameEn.includes(search) || year.includes(search)) {
-                return true;
-            }
+            if ((s.name || '').toLowerCase().includes(search)) return true;
+            if ((s.name_en || '').toLowerCase().includes(search)) return true;
+            if (String(s.year || '').includes(search)) return true;
             
             const items = [
                 ...(s.figures || []),
@@ -620,11 +842,24 @@ function getFilteredSeries() {
                 ...(s.variants || []),
                 ...(s.inserts || [])
             ];
-            return items.some(item => 
+            return items.some(item =>
                 (item.code || '').toLowerCase().includes(search) ||
                 (item.name || '').toLowerCase().includes(search) ||
                 (item.name_en || '').toLowerCase().includes(search)
             );
+        });
+    }
+    
+    // ===== ФИЛЬТР "ТОЛЬКО В ПРОДАЖЕ" =====
+    if (showOnlyForsale) {
+        list = list.filter(s => {
+            const items = [
+                ...(s.figures || []),
+                ...(s.extras || []),
+                ...(s.variants || []),
+                ...(s.inserts || [])
+            ];
+            return items.some(i => i.forsale === true) || s.fullSeriesForSale === true;
         });
     }
     
@@ -651,12 +886,16 @@ function createSeriesBlock(s) {
     
     const manufacturerName = manufacturersData[s.manufacturer]?.ru || s.manufacturer;
     
-    // ===== СОБИРАЕМ ВСЕ ЭЛЕМЕНТЫ: фигурки, допы, варианты, вкладыши =====
-    const items = [];
-    if (s.figures) s.figures.forEach(f => items.push({ ...f, _type: 'figure' }));
-    if (s.extras) s.extras.forEach(e => items.push({ ...e, _type: 'extra' }));
-    if (s.variants) s.variants.forEach(v => items.push({ ...v, _type: 'variant' }));
-    if (s.inserts) s.inserts.forEach(i => items.push({ ...i, _type: 'insert' }));
+    // Собираем элементы + фильтруем, если включён режим "только в продаже"
+    let items = [];
+    if (s.figures) s.figures.forEach(f => items.push({ ...f, _type: 'figure', _cat: 'figures' }));
+    if (s.extras) s.extras.forEach(e => items.push({ ...e, _type: 'extra', _cat: 'extras' }));
+    if (s.variants) s.variants.forEach(v => items.push({ ...v, _type: 'variant', _cat: 'variants' }));
+    if (s.inserts) s.inserts.forEach(i => items.push({ ...i, _type: 'insert', _cat: 'inserts' }));
+    
+    if (showOnlyForsale) {
+        items = items.filter(i => i.forsale === true);
+    }
     
     const markedCount = items.filter(i => i.forsale === true).length;
     
@@ -685,22 +924,7 @@ function createSeriesBlock(s) {
             </div>
         </div>
         <div class="series-items">
-            ${items.map(item => `
-                <label class="item-row" data-item-type="${item._type}" data-item-id="${escapeHtml(item.id)}">
-                    <input type="checkbox" class="item-checkbox" ${item.forsale ? 'checked' : ''}>
-                    <img class="item-thumb" 
-                         src="${item.image ? 'https://manspo.github.io/' + escapeHtml(item.image) : 'images/placeholder.svg'}" 
-                         onerror="this.src='images/placeholder.svg'"
-                         loading="lazy">
-                    <span class="item-type ${item._type}">
-                        ${typeIcons[item._type]} ${typeNames[item._type]}
-                    </span>
-                    ${item.code ? `<span class="item-code">${escapeHtml(item.code)}</span>` : ''}
-                    <span class="item-name">${escapeHtml(item.name || item.name_en || '—')}</span>
-                    ${item.forsale_date ? `<span class="item-forsale-date">📅 ${escapeHtml(item.forsale_date)}</span>` : ''}
-                    ${item.avito ? '<span class="item-avito">🛒</span>' : ''}
-                </label>
-            `).join('')}
+            ${items.map(item => renderItemRow(item, s)).join('')}
         </div>
     `;
     
@@ -715,30 +939,61 @@ function createSeriesBlock(s) {
         updateStats();
     });
     
-    // Чекбоксы элементов
+    // ===== ОБРАБОТЧИКИ СТРОК =====
     block.querySelectorAll('.item-row').forEach(row => {
         const checkbox = row.querySelector('.item-checkbox');
-        const type = row.dataset.itemType;
+        const cat = row.dataset.cat;
         const id = row.dataset.itemId;
+        const item = s[cat]?.find(i => i.id === id);
         
+        if (!item) return;
+        
+        // Чекбокс "В продаже"
         checkbox.addEventListener('change', () => {
-            const categoryMap = { figure: 'figures', extra: 'extras', variant: 'variants', insert: 'inserts' };
-            const cat = categoryMap[type];
-            const item = s[cat]?.find(i => i.id === id);
-            
-            if (item) {
-                item.forsale = checkbox.checked;
-                // Автодата выставления
-                if (checkbox.checked) {
-                    if (!item.forsale_date) item.forsale_date = todayISO();
-                } else {
-                    item.forsale_date = '';
-                }
+            item.forsale = checkbox.checked;
+            if (checkbox.checked) {
+                if (!item.forsale_date) item.forsale_date = todayISO();
+            } else {
+                item.forsale_date = '';
+            }
+            hasUnsavedChanges = true;
+            updateStats();
+            updateSeriesMeta(block, s);
+        });
+        
+        // Поле цены
+        const priceInput = row.querySelector('.item-price-input');
+        if (priceInput) {
+            priceInput.addEventListener('input', () => {
+                const avitoCheck = row.querySelector('.item-avito-checkbox');
+                item.price = buildPrice(priceInput.value, avitoCheck.checked);
                 hasUnsavedChanges = true;
                 updateStats();
-                updateSeriesMeta(block, s);
-            }
-        });
+            });
+        }
+        
+        // Чекбокс Авито
+        const avitoCheckbox = row.querySelector('.item-avito-checkbox');
+        const avitoLabel = row.querySelector('.item-avito-check');
+        if (avitoCheckbox) {
+            avitoCheckbox.addEventListener('change', () => {
+                const priceInput = row.querySelector('.item-price-input');
+                item.price = buildPrice(priceInput.value, avitoCheckbox.checked);
+                avitoLabel.classList.toggle('checked', avitoCheckbox.checked);
+                hasUnsavedChanges = true;
+                updateStats();
+            });
+        }
+        
+        // Ссылка на Avito
+        const avitoUrlInput = row.querySelector('.item-avito-url-input');
+        if (avitoUrlInput) {
+            avitoUrlInput.addEventListener('input', () => {
+                item.avito = avitoUrlInput.value.trim();
+                avitoUrlInput.classList.toggle('filled', !!item.avito);
+                hasUnsavedChanges = true;
+            });
+        }
     });
     
     // Массовые кнопки
@@ -752,11 +1007,9 @@ function createSeriesBlock(s) {
                 if (!item.forsale_date) item.forsale_date = today;
             });
         });
-        block.querySelectorAll('.item-checkbox').forEach(cb => cb.checked = true);
         hasUnsavedChanges = true;
+        renderSeries();
         updateStats();
-        updateSeriesMeta(block, s);
-        renderSeries(); // перерисовка для дат
     });
     
     block.querySelector('.mass-btn.unset-all').addEventListener('click', (e) => {
@@ -768,14 +1021,60 @@ function createSeriesBlock(s) {
                 item.forsale_date = '';
             });
         });
-        block.querySelectorAll('.item-checkbox').forEach(cb => cb.checked = false);
         hasUnsavedChanges = true;
-        updateStats();
-        updateSeriesMeta(block, s);
         renderSeries();
+        updateStats();
     });
     
     return block;
+}
+
+// ===== СТРОКА ТОВАРА (серия) =====
+function renderItemRow(item, series) {
+    const typeNames = { figure: 'Фигурка', extra: 'Доп', variant: 'Вариант', insert: 'Вкладыш' };
+    const typeIcons = { figure: '🖼️', extra: '🎁', variant: '🎲', insert: '📄' };
+    
+    const priceNum = extractPriceNumber(item.price);
+    const isAvito = hasAvitoSuffix(item.price);
+    const avitoUrl = item.avito || '';
+    
+    return `
+        <div class="item-row" data-cat="${item._cat}" data-item-id="${escapeHtml(item.id)}">
+            <input type="checkbox" class="item-checkbox" ${item.forsale ? 'checked' : ''}>
+            <img class="item-thumb" 
+                 src="${getImageUrl(item.image)}" 
+                 onerror="this.src='images/placeholder.svg'"
+                 loading="lazy">
+            <span class="item-type ${item._type}">
+                ${typeIcons[item._type]} ${typeNames[item._type]}
+            </span>
+            ${item.code ? `<span class="item-code">${escapeHtml(item.code)}</span>` : '<span></span>'}
+            <span class="item-name">${escapeHtml(item.name || item.name_en || '—')}</span>
+            ${item.forsale_date ? `<span class="item-forsale-date">📅 ${escapeHtml(item.forsale_date)}</span>` : '<span></span>'}
+            
+            <div class="item-right">
+                <span class="item-price-wrap">
+                    <input type="text" 
+                           class="item-price-input" 
+                           placeholder="Цена"
+                           value="${escapeHtml(priceNum)}"
+                           inputmode="numeric">
+                    <span class="item-price-currency">${CURRENCY}</span>
+                    <label class="item-avito-check ${isAvito ? 'checked' : ''}" title="Добавить «${AVITO_SUFFIX.trim()}»">
+                        <input type="checkbox" class="item-avito-checkbox" ${isAvito ? 'checked' : ''}>
+                        <span>🛒 Авито</span>
+                    </label>
+                </span>
+                <span class="item-avito-url-wrap">
+                    <span class="item-avito-url-icon">🔗</span>
+                    <input type="url" 
+                           class="item-avito-url-input ${avitoUrl ? 'filled' : ''}" 
+                           placeholder="Ссылка на Avito"
+                           value="${escapeHtml(avitoUrl)}">
+                </span>
+            </div>
+        </div>
+    `;
 }
 
 function updateSeriesMeta(block, s) {
@@ -810,16 +1109,17 @@ function renderSingles() {
     }
     
     container.style.display = 'block';
-    
-    const typeIcons = { figure: '🧩' };
-    
-    container.innerHTML = `
-        <h2>🧩 Отдельные фигурки (${keys.length} производителей)</h2>
-    `;
+    container.innerHTML = `<h2>🧩 Отдельные фигурки (${keys.length} производителей)</h2>`;
     
     keys.forEach(manufacturer => {
-        const arr = singlesData[manufacturer];
+        let arr = singlesData[manufacturer];
         if (!arr || arr.length === 0) return;
+        
+        // Фильтр "только в продаже"
+        if (showOnlyForsale) {
+            arr = arr.filter(i => i.forsale === true);
+            if (arr.length === 0) return;  // производитель пропускается целиком
+        }
         
         const manufacturerName = manufacturersData[manufacturer]?.ru || manufacturer;
         const markedCount = arr.filter(i => i.forsale === true).length;
@@ -838,47 +1138,64 @@ function renderSingles() {
                     </div>
                 </div>
                 <div class="series-mass-buttons">
-                    <button class="mass-btn set-all" data-action="set-all-singles" data-manufacturer="${escapeHtml(manufacturer)}">✅ Всем</button>
-                    <button class="mass-btn unset-all" data-action="unset-all-singles" data-manufacturer="${escapeHtml(manufacturer)}">❌ Снять у всех</button>
+                    <button class="mass-btn set-all" data-manufacturer="${escapeHtml(manufacturer)}">✅ Всем</button>
+                    <button class="mass-btn unset-all" data-manufacturer="${escapeHtml(manufacturer)}">❌ Снять у всех</button>
                 </div>
             </div>
             <div class="series-items">
-                ${arr.map(item => `
-                    <label class="item-row" data-single-id="${escapeHtml(item.id)}" data-manufacturer="${escapeHtml(manufacturer)}">
-                        <input type="checkbox" class="item-checkbox" ${item.forsale ? 'checked' : ''}>
-                        <img class="item-thumb" 
-                             src="${item.image ? 'https://manspo.github.io/' + escapeHtml(item.image) : 'images/placeholder.svg'}" 
-                             onerror="this.src='images/placeholder.svg'"
-                             loading="lazy">
-                        <span class="item-type figure">🧩 Фигурка</span>
-                        ${item.code ? `<span class="item-code">${escapeHtml(item.code)}</span>` : ''}
-                        <span class="item-name">${escapeHtml(item.name || item.name_en || '—')}</span>
-                        ${item.forsale_date ? `<span class="item-forsale-date">📅 ${escapeHtml(item.forsale_date)}</span>` : ''}
-                        ${item.avito ? '<span class="item-avito">🛒</span>' : ''}
-                    </label>
-                `).join('')}
+                ${arr.map(item => renderSingleRow(item, manufacturer)).join('')}
             </div>
         `;
         
-        // Чекбоксы
+        // Обработчики строк
         block.querySelectorAll('.item-row').forEach(row => {
             const checkbox = row.querySelector('.item-checkbox');
-            const id = row.dataset.singleId;
-            const m = row.dataset.manufacturer;
+            const id = row.dataset.itemId;
+            const item = singlesData[manufacturer]?.find(i => i.id === id);
+            
+            if (!item) return;
             
             checkbox.addEventListener('change', () => {
-                const item = singlesData[m]?.find(i => i.id === id);
-                if (item) {
-                    item.forsale = checkbox.checked;
-                    if (checkbox.checked) {
-                        if (!item.forsale_date) item.forsale_date = todayISO();
-                    } else {
-                        item.forsale_date = '';
-                    }
+                item.forsale = checkbox.checked;
+                if (checkbox.checked) {
+                    if (!item.forsale_date) item.forsale_date = todayISO();
+                } else {
+                    item.forsale_date = '';
+                }
+                hasUnsavedChanges = true;
+                updateStats();
+            });
+            
+            const priceInput = row.querySelector('.item-price-input');
+            if (priceInput) {
+                priceInput.addEventListener('input', () => {
+                    const avitoCheck = row.querySelector('.item-avito-checkbox');
+                    item.price = buildPrice(priceInput.value, avitoCheck.checked);
                     hasUnsavedChanges = true;
                     updateStats();
-                }
-            });
+                });
+            }
+            
+            const avitoCheckbox = row.querySelector('.item-avito-checkbox');
+            const avitoLabel = row.querySelector('.item-avito-check');
+            if (avitoCheckbox) {
+                avitoCheckbox.addEventListener('change', () => {
+                    const priceInput = row.querySelector('.item-price-input');
+                    item.price = buildPrice(priceInput.value, avitoCheckbox.checked);
+                    avitoLabel.classList.toggle('checked', avitoCheckbox.checked);
+                    hasUnsavedChanges = true;
+                    updateStats();
+                });
+            }
+            
+            const avitoUrlInput = row.querySelector('.item-avito-url-input');
+            if (avitoUrlInput) {
+                avitoUrlInput.addEventListener('input', () => {
+                    item.avito = avitoUrlInput.value.trim();
+                    avitoUrlInput.classList.toggle('filled', !!item.avito);
+                    hasUnsavedChanges = true;
+                });
+            }
         });
         
         // Массовые кнопки
@@ -886,8 +1203,7 @@ function renderSingles() {
             e.preventDefault();
             e.stopPropagation();
             const today = todayISO();
-            const m = e.target.dataset.manufacturer;
-            singlesData[m].forEach(item => {
+            singlesData[manufacturer].forEach(item => {
                 item.forsale = true;
                 if (!item.forsale_date) item.forsale_date = today;
             });
@@ -899,8 +1215,7 @@ function renderSingles() {
         block.querySelector('.mass-btn.unset-all').addEventListener('click', (e) => {
             e.preventDefault();
             e.stopPropagation();
-            const m = e.target.dataset.manufacturer;
-            singlesData[m].forEach(item => {
+            singlesData[manufacturer].forEach(item => {
                 item.forsale = false;
                 item.forsale_date = '';
             });
@@ -913,6 +1228,48 @@ function renderSingles() {
     });
 }
 
+function renderSingleRow(item, manufacturer) {
+    const priceNum = extractPriceNumber(item.price);
+    const isAvito = hasAvitoSuffix(item.price);
+    const avitoUrl = item.avito || '';
+    
+    return `
+        <div class="item-row" data-item-id="${escapeHtml(item.id)}" data-manufacturer="${escapeHtml(manufacturer)}">
+            <input type="checkbox" class="item-checkbox" ${item.forsale ? 'checked' : ''}>
+            <img class="item-thumb" 
+                 src="${getImageUrl(item.image)}" 
+                 onerror="this.src='images/placeholder.svg'"
+                 loading="lazy">
+            <span class="item-type single">🧩 Фигурка</span>
+            ${item.code ? `<span class="item-code">${escapeHtml(item.code)}</span>` : '<span></span>'}
+            <span class="item-name">${escapeHtml(item.name || item.name_en || '—')}</span>
+            ${item.forsale_date ? `<span class="item-forsale-date">📅 ${escapeHtml(item.forsale_date)}</span>` : '<span></span>'}
+            
+            <div class="item-right">
+                <span class="item-price-wrap">
+                    <input type="text" 
+                           class="item-price-input" 
+                           placeholder="Цена"
+                           value="${escapeHtml(priceNum)}"
+                           inputmode="numeric">
+                    <span class="item-price-currency">${CURRENCY}</span>
+                    <label class="item-avito-check ${isAvito ? 'checked' : ''}" title="Добавить «${AVITO_SUFFIX.trim()}»">
+                        <input type="checkbox" class="item-avito-checkbox" ${isAvito ? 'checked' : ''}>
+                        <span>🛒 Авито</span>
+                    </label>
+                </span>
+                <span class="item-avito-url-wrap">
+                    <span class="item-avito-url-icon">🔗</span>
+                    <input type="url" 
+                           class="item-avito-url-input ${avitoUrl ? 'filled' : ''}" 
+                           placeholder="Ссылка на Avito"
+                           value="${escapeHtml(avitoUrl)}">
+                </span>
+            </div>
+        </div>
+    `;
+}
+
 // ============================================================
 // СТАТИСТИКА
 // ============================================================
@@ -921,6 +1278,7 @@ function updateStats() {
     let totalItems = 0;
     let forSaleItems = 0;
     let fullSeriesCount = 0;
+    let withPriceCount = 0;
     
     existingSeries.forEach(s => {
         const items = [
@@ -931,22 +1289,24 @@ function updateStats() {
         ];
         totalItems += items.length;
         forSaleItems += items.filter(i => i.forsale === true).length;
+        withPriceCount += items.filter(i => i.price && String(i.price).trim()).length;
         if (s.fullSeriesForSale === true) fullSeriesCount++;
     });
     
-    // Отдельные фигурки
     let singlesTotal = 0;
     Object.values(singlesData).forEach(arr => {
         if (!Array.isArray(arr)) return;
         singlesTotal += arr.length;
         totalItems += arr.length;
         forSaleItems += arr.filter(i => i.forsale === true).length;
+        withPriceCount += arr.filter(i => i.price && String(i.price).trim()).length;
     });
     
     document.getElementById('totalItems').textContent = totalItems;
     document.getElementById('forSaleItems').textContent = forSaleItems;
     document.getElementById('fullSeriesCount').textContent = fullSeriesCount;
     document.getElementById('singlesCount').textContent = singlesTotal;
+    document.getElementById('withPriceCount').textContent = withPriceCount;
     document.getElementById('markedCount').textContent = forSaleItems;
 }
 
@@ -954,8 +1314,30 @@ function updateStats() {
 // ФИЛЬТРЫ
 // ============================================================
 
-document.getElementById('searchInput').addEventListener('input', () => renderSeries());
-document.getElementById('manufacturerFilter').addEventListener('change', () => renderSeries());
+document.getElementById('searchInput').addEventListener('input', () => {
+    renderSeries();
+    renderSingles();
+});
+
+document.getElementById('manufacturerFilter').addEventListener('change', () => {
+    renderSeries();
+    renderSingles();
+});
+
+// ===== КНОПКА "ТОЛЬКО В ПРОДАЖЕ" =====
+document.getElementById('toggleForsaleBtn').addEventListener('click', function() {
+    showOnlyForsale = !showOnlyForsale;
+    this.classList.toggle('active', showOnlyForsale);
+    this.textContent = showOnlyForsale ? '✅ Только в продаже' : '✅ Только в продаже';
+    renderSeries();
+    renderSingles();
+    showToast(
+        showOnlyForsale
+            ? '🔍 Показаны только товары в продаже'
+            : '📋 Показаны все товары',
+        'info'
+    );
+});
 
 document.getElementById('expandAllBtn').addEventListener('click', () => {
     document.querySelectorAll('.series-items').forEach(el => el.style.display = 'block');
@@ -965,7 +1347,7 @@ document.getElementById('collapseAllBtn').addEventListener('click', () => {
 });
 
 // ============================================================
-// ГЕНЕРАЦИЯ INDEX-ФАЙЛОВ (ПОЛНАЯ ВЕРСИЯ ИЗ ADMIN.HTML)
+// ГЕНЕРАЦИЯ INDEX-ФАЙЛОВ
 // ============================================================
 
 function generateStatsData(seriesList, singlesData) {
@@ -1026,12 +1408,6 @@ function generateVideosData(seriesList) {
             });
         });
     });
-    videos.sort((a, b) => {
-        const da = a.date_added || '';
-        const db = b.date_added || '';
-        if (db !== da) return db.localeCompare(da);
-        return (a.seriesName || '').localeCompare(b.seriesName || '');
-    });
     return videos;
 }
 
@@ -1039,7 +1415,6 @@ function generateForsaleData(seriesList) {
     const items = [];
     
     seriesList.forEach(s => {
-        // Полная серия
         if (s.fullSeriesForSale === true) {
             items.push({
                 type: 'full',
@@ -1134,9 +1509,7 @@ function generateSinglesForsaleData(singlesData) {
 }
 
 function generateFullForsaleData(seriesList, singlesData) {
-    const seriesItems = generateForsaleData(seriesList);
-    const singlesItems = generateSinglesForsaleData(singlesData);
-    const all = [...seriesItems, ...singlesItems];
+    const all = [...generateForsaleData(seriesList), ...generateSinglesForsaleData(singlesData)];
     all.sort((a, b) => {
         const da = a.forsale_date || a.date_added || '';
         const db = b.forsale_date || b.date_added || '';
@@ -1163,7 +1536,7 @@ function generateCollectionData(seriesList) {
         const totalInserts = s.inserts?.length || 0;
         const totalItems = totalFigures + totalExtras + totalVariants + totalInserts;
         
-        const forSaleCount = 
+        const forSaleCount =
             (s.figures?.filter(f => f.forsale).length || 0) +
             (s.extras?.filter(e => e.forsale).length || 0) +
             (s.variants?.filter(v => v.forsale).length || 0) +
@@ -1188,9 +1561,9 @@ function generateSearchData(seriesList) {
             if (!s[cat]) return;
             s[cat].forEach(item => {
                 const hasCode = item.code && item.code.trim();
-                const hasName = item.name && item.name.trim() && 
-                               !/^(Фигурка|Доп|Вариант|Вкладыш|Прочее)\s+\d+$/i.test(item.name.trim()) &&
-                               !/^(Figure|Extra|Variant|Insert|Other)\s+\d+$/i.test(item.name.trim());
+                const hasName = item.name && item.name.trim() &&
+                    !/^(Фигурка|Доп|Вариант|Вкладыш|Прочее)\s+\d+$/i.test(item.name.trim()) &&
+                    !/^(Figure|Extra|Variant|Insert|Other)\s+\d+$/i.test(item.name.trim());
                 if (!hasCode && !hasName) return;
                 items.push({
                     id: item.id, code: item.code || '',
@@ -1263,7 +1636,7 @@ document.getElementById('saveBtn').addEventListener('click', async () => {
         // videos.json
         zip.file("videos.json", JSON.stringify(generateVideosData(existingSeries), null, 2));
         
-        // forsale.json (серии + отдельные)
+        // forsale.json
         zip.file("forsale.json", JSON.stringify(generateFullForsaleData(existingSeries, singlesData), null, 2));
         
         // collection.json

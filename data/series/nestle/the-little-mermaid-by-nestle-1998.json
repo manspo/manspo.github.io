@@ -26,10 +26,12 @@
       "name_en": "Ariel",
       "image": "images/series/nestle/the-little-mermaid-by-nestle-1998/06.webp",
       "owned": false,
-      "forsale": false,
-      "avito": "",
+      "forsale": true,
+      "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/edinichki_figurki_nestle_gerkules_rusalochka_7806036277",
       "code": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20",
+      "price": "499 руб. (с учетом комиссии Авито)"
     },
     {
       "id": "the-little-mermaid-by-nestle-1998_fig2",
@@ -37,10 +39,12 @@
       "name_en": "Triton",
       "image": "images/series/nestle/the-little-mermaid-by-nestle-1998/01.webp",
       "owned": false,
-      "forsale": false,
-      "avito": "",
+      "forsale": true,
+      "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/edinichki_figurki_nestle_gerkules_rusalochka_7806036277",
       "code": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20",
+      "price": "749 руб. (с учетом комиссии Авито)"
     },
     {
       "id": "the-little-mermaid-by-nestle-1998_fig3",
@@ -96,13 +100,14 @@
       "code": "",
       "image": "images/series/nestle/the-little-mermaid-by-nestle-1998/07.webp",
       "owned": false,
-      "forsale": false,
-      "avito": "",
-      "price": "",
+      "forsale": true,
+      "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/edinichki_figurki_nestle_gerkules_rusalochka_7806036277",
+      "price": "499 руб. (с учетом комиссии Авито)",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20"
     }
   ],
   "inserts": [

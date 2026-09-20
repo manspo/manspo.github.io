@@ -38,10 +38,11 @@
       "name_en": "Anna",
       "owned": false,
       "forsale": true,
-      "avito": "",
+      "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/kinder_syurpriz_holodnoe_serdtse_2026_8190170728",
       "code": "VT429",
       "date_added": "2026-09-17",
-      "forsale_date": "2026-09-20"
+      "forsale_date": "2026-09-20",
+      "price": "249 руб. (с учетом комиссии Авито)"
     },
     {
       "id": "frozen-2-by-kinder-2025_fig3",
@@ -61,10 +62,11 @@
       "name_en": "Olaf",
       "owned": false,
       "forsale": true,
-      "avito": "",
+      "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/kinder_syurpriz_holodnoe_serdtse_2026_8190170728",
       "code": "VU336",
       "date_added": "2026-09-17",
-      "forsale_date": "2026-09-20"
+      "forsale_date": "2026-09-20",
+      "price": "249 руб. (с учетом комиссии Авито)"
     },
     {
       "id": "frozen-2-by-kinder-2025_fig5",
@@ -84,10 +86,11 @@
       "name_en": "Bruni (Salamander/Lizard)",
       "owned": false,
       "forsale": true,
-      "avito": "",
+      "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/kinder_syurpriz_holodnoe_serdtse_2026_8190170728",
       "code": "VU338",
       "date_added": "2026-09-17",
-      "forsale_date": "2026-09-20"
+      "forsale_date": "2026-09-20",
+      "price": "499 руб. (с учетом комиссии Авито)"
     },
     {
       "id": "frozen-2-by-kinder-2025_fig7",
@@ -96,10 +99,11 @@
       "name_en": "Kristoff",
       "owned": false,
       "forsale": true,
-      "avito": "",
+      "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/kinder_syurpriz_holodnoe_serdtse_2026_8190170728",
       "code": "VU339",
       "date_added": "2026-09-17",
-      "forsale_date": "2026-09-20"
+      "forsale_date": "2026-09-20",
+      "price": "119 руб. (с учетом комиссии Авито)"
     },
     {
       "id": "frozen-2-by-kinder-2025_fig8",

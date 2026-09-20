@@ -197,7 +197,7 @@
     "totalVariants": 0,
     "totalInserts": 8,
     "totalItems": 14,
-    "forSaleCount": 0
+    "forSaleCount": 2
   },
   {
     "id": "easter-by-kinder-2026",
@@ -497,7 +497,7 @@
     "totalVariants": 0,
     "totalInserts": 3,
     "totalItems": 27,
-    "forSaleCount": 20
+    "forSaleCount": 6
   },
   {
     "id": "the-lion-king-by-nestle-1995",
@@ -517,6 +517,6 @@
     "totalVariants": 0,
     "totalInserts": 1,
     "totalItems": 11,
-    "forSaleCount": 1
+    "forSaleCount": 2
   }
 ]

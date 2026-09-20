@@ -26,11 +26,11 @@
       "name": "Гермес",
       "name_en": "Hermes",
       "owned": true,
-      "forsale": true,
+      "forsale": false,
       "avito": "",
       "code": "",
       "date_added": "2026-09-17",
-      "forsale_date": "2026-09-20"
+      "forsale_date": ""
     },
     {
       "id": "hercules-by-nestle-1996_fig2",
@@ -38,11 +38,11 @@
       "name": "Гидра",
       "name_en": "Hydra",
       "owned": true,
-      "forsale": true,
+      "forsale": false,
       "avito": "",
       "code": "",
       "date_added": "2026-09-17",
-      "forsale_date": "2026-09-20"
+      "forsale_date": ""
     },
     {
       "id": "hercules-by-nestle-1996_fig3",
@@ -50,11 +50,11 @@
       "name": "Боль",
       "name_en": "Pain",
       "owned": true,
-      "forsale": true,
+      "forsale": false,
       "avito": "",
       "code": "",
       "date_added": "2026-09-17",
-      "forsale_date": "2026-09-20"
+      "forsale_date": ""
     },
     {
       "id": "hercules-by-nestle-1996_fig4",
@@ -63,10 +63,11 @@
       "name_en": "Zeus",
       "owned": true,
       "forsale": true,
-      "avito": "",
+      "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/edinichki_figurki_nestle_gerkules_rusalochka_7806036277",
       "code": "",
       "date_added": "2026-09-17",
-      "forsale_date": "2026-09-20"
+      "forsale_date": "2026-09-20",
+      "price": "999 руб. (с учетом комиссии Авито)"
     },
     {
       "id": "hercules-by-nestle-1996_fig5",
@@ -75,10 +76,11 @@
       "name_en": "Baby Hercules",
       "owned": true,
       "forsale": true,
-      "avito": "",
+      "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/edinichki_figurki_nestle_gerkules_rusalochka_7806036277",
       "code": "",
       "date_added": "2026-09-17",
-      "forsale_date": "2026-09-20"
+      "forsale_date": "2026-09-20",
+      "price": "555 руб. (с учетом комиссии Авито)"
     },
     {
       "id": "hercules-by-nestle-1996_fig6",
@@ -87,8 +89,8 @@
       "name_en": "Hercules",
       "owned": true,
       "forsale": true,
-      "avito": "",
-      "price": "",
+      "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/edinichki_figurki_nestle_gerkules_rusalochka_7806036277",
+      "price": "499 руб. (с учетом комиссии Авито)",
       "condition": "Отсутствует меч",
       "condition_en": "Without a sword",
       "code": "",
@@ -101,11 +103,11 @@
       "name": "Аид",
       "name_en": "Hades",
       "owned": true,
-      "forsale": true,
+      "forsale": false,
       "avito": "",
       "code": "",
       "date_added": "2026-09-17",
-      "forsale_date": "2026-09-20"
+      "forsale_date": ""
     },
     {
       "id": "hercules-by-nestle-1996_fig8",
@@ -113,11 +115,11 @@
       "name": "Гера",
       "name_en": "Hera",
       "owned": true,
-      "forsale": true,
+      "forsale": false,
       "avito": "",
       "code": "",
       "date_added": "2026-09-17",
-      "forsale_date": "2026-09-20"
+      "forsale_date": ""
     },
     {
       "id": "hercules-by-nestle-1996_fig9",
@@ -129,7 +131,8 @@
       "avito": "",
       "code": "",
       "date_added": "2026-09-17",
-      "forsale_date": "2026-09-20"
+      "forsale_date": "2026-09-20",
+      "price": "399 руб."
     },
     {
       "id": "hercules-by-nestle-1996_fig10",
@@ -141,7 +144,8 @@
       "avito": "",
       "code": "",
       "date_added": "2026-09-17",
-      "forsale_date": "2026-09-20"
+      "forsale_date": "2026-09-20",
+      "price": "399 руб."
     },
     {
       "id": "hercules-by-nestle-1996_fig11",
@@ -149,11 +153,11 @@
       "name": "Паник",
       "name_en": "Panic",
       "owned": true,
-      "forsale": true,
+      "forsale": false,
       "avito": "",
       "code": "",
       "date_added": "2026-09-17",
-      "forsale_date": "2026-09-20"
+      "forsale_date": ""
     },
     {
       "id": "hercules-by-nestle-1996_fig12",
@@ -161,11 +165,11 @@
       "name": "Мегара",
       "name_en": "Megara",
       "owned": true,
-      "forsale": true,
+      "forsale": false,
       "avito": "",
       "code": "",
       "date_added": "2026-09-17",
-      "forsale_date": "2026-09-20"
+      "forsale_date": ""
     }
   ],
   "extras": [
@@ -186,11 +190,11 @@
       "name": "Такси из Фив",
       "name_en": "Taxi from Thebes",
       "owned": true,
-      "forsale": true,
+      "forsale": false,
       "avito": "",
       "code": "",
       "date_added": "2026-09-17",
-      "forsale_date": "2026-09-20"
+      "forsale_date": ""
     },
     {
       "id": "hercules-by-nestle-1996_extra3",
@@ -213,7 +217,8 @@
       "avito": "",
       "code": "",
       "date_added": "2026-09-17",
-      "forsale_date": "2026-09-20"
+      "forsale_date": "2026-09-20",
+      "price": "209 руб."
     },
     {
       "id": "hercules-by-nestle-1996_extra5",
@@ -232,11 +237,11 @@
       "name": "Кентавр Несс",
       "name_en": "Centaur Nessus",
       "owned": true,
-      "forsale": true,
+      "forsale": false,
       "avito": "",
       "code": "",
       "date_added": "2026-09-17",
-      "forsale_date": "2026-09-20"
+      "forsale_date": ""
     },
     {
       "id": "hercules-by-nestle-1996_extra7",
@@ -244,11 +249,11 @@
       "name": "Коза-Газонокосилка",
       "name_en": "Lawnmower Goat",
       "owned": true,
-      "forsale": true,
+      "forsale": false,
       "avito": "",
       "code": "",
       "date_added": "2026-09-17",
-      "forsale_date": "2026-09-20"
+      "forsale_date": ""
     },
     {
       "id": "hercules-by-nestle-1996_extra8",
@@ -256,11 +261,11 @@
       "name": "Литос",
       "name_en": "Lithos",
       "owned": true,
-      "forsale": true,
+      "forsale": false,
       "avito": "",
       "code": "",
       "date_added": "2026-09-17",
-      "forsale_date": "2026-09-20"
+      "forsale_date": ""
     },
     {
       "id": "hercules-by-nestle-1996_extra9",
@@ -279,11 +284,11 @@
       "name": "Мойра",
       "name_en": "Moira",
       "owned": true,
-      "forsale": true,
+      "forsale": false,
       "avito": "",
       "code": "",
       "date_added": "2026-09-17",
-      "forsale_date": "2026-09-20"
+      "forsale_date": ""
     },
     {
       "id": "hercules-by-nestle-1996_extra11",
@@ -291,11 +296,11 @@
       "name": "Арка",
       "name_en": "Arch",
       "owned": true,
-      "forsale": true,
+      "forsale": false,
       "avito": "",
       "code": "",
       "date_added": "2026-09-17",
-      "forsale_date": "2026-09-20"
+      "forsale_date": ""
     },
     {
       "id": "hercules-by-nestle-1996_extra12",
@@ -303,11 +308,11 @@
       "name": "Пирос",
       "name_en": "Pyros",
       "owned": true,
-      "forsale": true,
+      "forsale": false,
       "avito": "",
       "code": "",
       "date_added": "2026-09-17",
-      "forsale_date": "2026-09-20"
+      "forsale_date": ""
     }
   ],
   "variants": [],

@@ -71,10 +71,11 @@
       "name_en": "Figure 5",
       "owned": false,
       "forsale": true,
-      "avito": "",
+      "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/edinichki_kinder_sborka_7838764043",
       "code": "VC199",
       "date_added": "2026-09-17",
-      "forsale_date": "2026-09-20"
+      "forsale_date": "2026-09-20",
+      "price": "199 руб. (с учетом комиссии Авито)"
     },
     {
       "id": "unicorns-by-kinder-2025_fig6",
@@ -215,10 +216,11 @@
       "name_en": "Figure 18",
       "owned": false,
       "forsale": true,
-      "avito": "",
+      "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/edinichki_kinder_sborka_7838764043",
       "code": "VC126",
       "date_added": "2026-09-17",
-      "forsale_date": "2026-09-20"
+      "forsale_date": "2026-09-20",
+      "price": "199 руб. (с учетом комиссии Авито)"
     },
     {
       "id": "unicorns-by-kinder-2025_fig19",
@@ -304,10 +306,11 @@
       "name_en": "Figure 26",
       "owned": false,
       "forsale": true,
-      "avito": "",
+      "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/edinichki_kinder_sborka_7838764043",
       "code": "VC104",
       "date_added": "2026-09-17",
-      "forsale_date": "2026-09-20"
+      "forsale_date": "2026-09-20",
+      "price": "129 руб. (с учетом комиссии Авито)"
     },
     {
       "id": "unicorns-by-kinder-2025_fig27",
@@ -393,10 +396,11 @@
       "name_en": "Figure 34",
       "owned": false,
       "forsale": true,
-      "avito": "",
+      "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/edinichki_kinder_sborka_7838764043",
       "code": "VC193A",
       "date_added": "2026-09-17",
-      "forsale_date": "2026-09-20"
+      "forsale_date": "2026-09-20",
+      "price": "99 руб. (с учетом комиссии Авито)"
     }
   ],
   "extras": [],

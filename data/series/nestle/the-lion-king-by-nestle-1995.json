@@ -59,10 +59,12 @@
       "name": "Фигурка 4",
       "name_en": "Figure 4",
       "owned": true,
-      "forsale": false,
-      "avito": "",
+      "forsale": true,
+      "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/edinichki_figurki_nestle_gerkules_rusalochka_7806036277",
       "code": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": "2026-09-20",
+      "price": "149 руб. (с учетом комиссии Авито)"
     },
     {
       "id": "the-lion-king-by-nestle-1995_fig5",
@@ -107,7 +109,8 @@
       "avito": "",
       "code": "",
       "date_added": "2026-09-17",
-      "forsale_date": "2026-09-20"
+      "forsale_date": "2026-09-20",
+      "price": "149 руб. (с учетом комиссии Авито)"
     },
     {
       "id": "the-lion-king-by-nestle-1995_fig9",

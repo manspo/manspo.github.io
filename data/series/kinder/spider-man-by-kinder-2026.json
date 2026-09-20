@@ -27,10 +27,11 @@
       "name_en": "Spider-Man",
       "owned": false,
       "forsale": true,
-      "avito": "",
+      "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/chelovek-pauk_kinder_dzhoy_syurpriz_2026_8318728222",
       "code": "VC344",
       "date_added": "2026-09-17",
-      "forsale_date": "2026-09-20"
+      "forsale_date": "2026-09-20",
+      "price": "149 руб. (с учетом комиссии Авито)"
     },
     {
       "id": "spider-man-by-kinder-2026_fig2",
@@ -61,10 +62,11 @@
       "name_en": "Lizard",
       "owned": false,
       "forsale": true,
-      "avito": "",
+      "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/chelovek-pauk_kinder_dzhoy_syurpriz_2026_8318728222",
       "code": "VC347",
       "date_added": "2026-09-17",
-      "forsale_date": "2026-09-20"
+      "forsale_date": "2026-09-20",
+      "price": "149 руб. (с учетом комиссии Авито)"
     },
     {
       "id": "spider-man-by-kinder-2026_fig5",
@@ -73,10 +75,11 @@
       "name_en": "Rhino",
       "owned": false,
       "forsale": true,
-      "avito": "",
+      "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/chelovek-pauk_kinder_dzhoy_syurpriz_2026_8318728222",
       "code": "VC348",
       "date_added": "2026-09-17",
-      "forsale_date": "2026-09-20"
+      "forsale_date": "2026-09-20",
+      "price": "149 руб. (с учетом комиссии Авито)"
     },
     {
       "id": "spider-man-by-kinder-2026_fig6",
@@ -95,11 +98,11 @@
       "name": "Человек-Паук Симбиот",
       "name_en": "Spider-Man Symbiote",
       "owned": false,
-      "forsale": true,
+      "forsale": false,
       "avito": "",
       "code": "VC350",
       "date_added": "2026-09-17",
-      "forsale_date": "2026-09-20"
+      "forsale_date": ""
     },
     {
       "id": "spider-man-by-kinder-2026_fig8",
@@ -132,10 +135,11 @@
       "name_en": "Blue and red bracelet",
       "owned": false,
       "forsale": true,
-      "avito": "",
+      "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/chelovek-pauk_kinder_dzhoy_syurpriz_2026_8318728222",
       "code": "VC354B",
       "date_added": "2026-09-17",
-      "forsale_date": "2026-09-20"
+      "forsale_date": "2026-09-20",
+      "price": "149 руб. (с учетом комиссии Авито)"
     },
     {
       "id": "spider-man-by-kinder-2026_extra3",
@@ -155,10 +159,11 @@
       "name_en": "White and pink bracelet",
       "owned": false,
       "forsale": true,
-      "avito": "",
+      "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/chelovek-pauk_kinder_dzhoy_syurpriz_2026_8318728222",
       "code": "VC354C",
       "date_added": "2026-09-17",
-      "forsale_date": "2026-09-20"
+      "forsale_date": "2026-09-20",
+      "price": "149 руб. (с учетом комиссии Авито)"
     }
   ],
   "variants": [],
