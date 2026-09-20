@@ -5706,7 +5706,7 @@
     "seriesYear": 2026,
     "manufacturer": "kinder",
     "owned": false,
-    "forsale": false,
+    "forsale": true,
     "avito": "",
     "price": "",
     "type": "figures"
@@ -5740,7 +5740,7 @@
     "seriesYear": 2026,
     "manufacturer": "kinder",
     "owned": false,
-    "forsale": false,
+    "forsale": true,
     "avito": "",
     "price": "",
     "type": "figures"
@@ -5808,7 +5808,7 @@
     "seriesYear": 2026,
     "manufacturer": "kinder",
     "owned": false,
-    "forsale": false,
+    "forsale": true,
     "avito": "",
     "price": "",
     "type": "figures"
@@ -8205,7 +8205,7 @@
     "seriesYear": 2024,
     "manufacturer": "kinder",
     "owned": false,
-    "forsale": true,
+    "forsale": false,
     "avito": "",
     "price": "",
     "type": "extras"

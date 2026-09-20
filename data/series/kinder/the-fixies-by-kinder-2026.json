@@ -26,7 +26,7 @@
       "code": "VC397",
       "image": "images/series/kinder/the-fixies-by-kinder-2026/Альт_VC397.webp",
       "owned": false,
-      "forsale": false,
+      "forsale": true,
       "avito": "",
       "price": "",
       "condition": "",
@@ -71,7 +71,7 @@
       "code": "VC391",
       "image": "images/series/kinder/the-fixies-by-kinder-2026/Игрек_VC391.webp",
       "owned": false,
-      "forsale": false,
+      "forsale": true,
       "avito": "",
       "price": "",
       "condition": "",
@@ -116,7 +116,7 @@
       "code": "VC393",
       "image": "images/series/kinder/the-fixies-by-kinder-2026/Файер_VC393.webp",
       "owned": false,
-      "forsale": false,
+      "forsale": true,
       "avito": "",
       "price": "",
       "condition": "",
@@ -178,6 +178,7 @@
   "videos": {
     "youtube": [],
     "vk": [],
-    "tiktok": []
+    "tiktok": [],
+    "instagram": []
   }
 }
