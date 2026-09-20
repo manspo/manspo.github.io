@@ -2485,18 +2485,11 @@ async function initForSale() {
     function getFilteredSeries() { return applyFiltersAndSort(fullSeriesItems); }
     
     function getRecentItems() {
+      // Берём все товары (фигурки, варианты, допы, вкладыши, полные серии)
       let all = [...figureItems, ...variantItems, ...extraItems, ...insertItems, ...fullSeriesItems];
-      if (currentSearch) {
-        const query = currentSearch.toLowerCase();
-        all = all.filter(i => 
-          (i.name || '').toLowerCase().includes(query) ||
-          (i.name_en || '').toLowerCase().includes(query) ||
-          (i.seriesName || '').toLowerCase().includes(query) ||
-          (i.seriesName_en || '').toLowerCase().includes(query) ||
-          (i.code && i.code.toLowerCase().includes(query))
-        );
-      }
-      // Порядок как в forsale.json
+      
+      // БЕЗ фильтра поиска — берём все
+      // Сортируем по порядку в forsale.json
       all.sort((a, b) => (forsaleIndexOrder[a.id] ?? 99999) - (forsaleIndexOrder[b.id] ?? 99999));
       return all.slice(0, CONFIG.RECENT_COUNT);
     }
@@ -2723,7 +2716,10 @@ async function initForSale() {
       }
       
       // ===== НЕДАВНО ДОБАВЛЕННОЕ =====
-      if (recent.length > 0) {
+      // Показываем ТОЛЬКО когда нет поиска и производитель "все"
+      const showRecent = !currentSearch && currentManufacturer === 'all';
+      
+      if (showRecent && recent.length > 0) {
         const divider = document.createElement('div');
         divider.className = 'section-divider';
         divider.innerHTML = `🆕 ${currentLang === 'ru' ? 'Недавно добавленное' : 'Recently added'}`;
