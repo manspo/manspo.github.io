@@ -81,12 +81,13 @@
     </div>
     
     <!-- ВКЛАДКИ -->
-    <div class="tabs">
-        <div class="tab active" data-tab="add">➕ Добавление</div>
-        <div class="tab" data-tab="edit">✏️ Редактирование</div>
-        <div class="tab" data-tab="temp">📋 Временные</div>
-        <div class="tab" data-tab="singles">🧩 Отдельные фигурки</div>
-    </div>
+<div class="tabs">
+    <div class="tab active" data-tab="add">➕ Добавление</div>
+    <div class="tab" data-tab="edit">✏️ Редактирование</div>
+    <div class="tab" data-tab="temp">📋 Временные</div>
+    <div class="tab" data-tab="singles">🧩 Отдельные фигурки</div>
+    <div class="tab" data-tab="singleEdit">✏️ Редактирование фигурок</div>
+</div>
     
     <!-- ===== ВКЛАДКА ДОБАВЛЕНИЕ ===== -->
     <div id="tabAdd">
@@ -400,7 +401,94 @@
             </div>
         </div>
     </div>
+	<!-- ===== ВКЛАДКА РЕДАКТИРОВАНИЕ ОТДЕЛЬНЫХ ФИГУРОК ===== -->
+<div id="tabSingleEdit" style="display:none;">
+    <div class="flex">
+        <div class="col">
+            <div class="card">
+                <h2>📋 Список отдельных фигурок</h2>
+                <p style="color:#6b7280;font-size:13px;margin-bottom:12px;">
+                    Загрузите файлы <code>singles/*.json</code>, затем нажмите ✏️ рядом с нужной фигуркой.
+                </p>
+                <div class="file-upload-box" onclick="document.getElementById('singleEditFileInput').click()" style="margin-bottom:15px;">
+                    <input type="file" id="singleEditFileInput" multiple accept=".json">
+                    <span>📁 Загрузить singles/*.json</span>
+                </div>
+                <div class="series-list" id="singlesEditList"><p>Файлы не загружены</p></div>
+                <div style="margin-top:15px;">
+                    <button class="secondary" onclick="downloadSinglesZip()">💾 Сохранить ZIP</button>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card edit-section" id="singleEditForm" style="display:none;">
+                <h2>✏️ Редактирование фигурки</h2>
+                <input type="hidden" id="singleEditIndex">
+                <input type="hidden" id="singleEditOldManufacturer">
+
+                <div class="form-group"><label>Название (рус) *</label><input type="text" id="singleEditNameRu"></div>
+                <div class="form-group"><label>Название (англ)</label><input type="text" id="singleEditNameEn"></div>
+                <div class="form-group"><label>Код</label><input type="text" id="singleEditCode"></div>
+                <div class="form-group"><label>Год *</label><input type="number" id="singleEditYear"></div>
+                <div class="form-group"><label>Производитель *</label>
+                    <select id="singleEditManufacturerSelect"></select>
+                </div>
+
+                <hr style="margin:15px 0;border-color:#e5e7eb;">
+                <h3>📄 Вкладыш</h3>
+                <div class="form-group">
+                    <label><input type="checkbox" id="singleEditHasInsert"> Приложить вкладыш</label>
+                </div>
+                <div id="singleEditInsertFields" style="display:none;">
+                    <div class="form-group"><label>Название вкладыша (рус)</label><input type="text" id="singleEditInsertNameRu"></div>
+                    <div class="form-group"><label>Название вкладыша (англ)</label><input type="text" id="singleEditInsertNameEn"></div>
+                    <div class="form-group"><label>Код вкладыша</label><input type="text" id="singleEditInsertCode"></div>
+                    <div class="form-group"><label>Картинка вкладыша</label>
+                        <div class="flex" style="gap:8px;">
+                            <div class="file-upload-box" style="flex:1;padding:6px;" onclick="document.getElementById('singleEditInsertImageFile').click()">
+                                <input type="file" id="singleEditInsertImageFile" accept="image/*">
+                                <span>📁 Выбрать</span>
+                            </div>
+                            <input type="text" id="singleEditInsertImage" placeholder="Путь" style="flex:2;">
+                        </div>
+                        <div class="cover-preview" id="singleEditInsertImagePreview"></div>
+                    </div>
+                </div>
+
+                <hr style="margin:15px 0;border-color:#e5e7eb;">
+                <h3>🖼️ Картинка фигурки</h3>
+                <div class="form-group">
+                    <div class="flex" style="gap:8px;">
+                        <div class="file-upload-box" style="flex:1;padding:6px;" onclick="document.getElementById('singleEditImageFile').click()">
+                            <input type="file" id="singleEditImageFile" accept="image/*">
+                            <span>📁 Выбрать</span>
+                        </div>
+                        <input type="text" id="singleEditImage" placeholder="Путь" style="flex:2;">
+                    </div>
+                    <div class="cover-preview" id="singleEditImagePreview"></div>
+                </div>
+
+                <div class="form-group"><label>Описание (рус)</label><textarea id="singleEditDescription" rows="3"></textarea></div>
+                <div class="form-group"><label>Описание (англ)</label><textarea id="singleEditDescriptionEn" rows="3"></textarea></div>
+
+                <div class="form-group"><label><input type="checkbox" id="singleEditOwned"> В коллекции</label></div>
+                <div class="form-group"><label><input type="checkbox" id="singleEditForsale"> В продаже</label></div>
+                <div class="form-group"><input type="text" id="singleEditAvito" placeholder="Ссылка Avito"></div>
+                <div class="form-group"><input type="text" id="singleEditPrice" placeholder="Цена"></div>
+                <div class="form-group"><input type="text" id="singleEditCondition" placeholder="Состояние (рус)"></div>
+                <div class="form-group"><input type="text" id="singleEditConditionEn" placeholder="Condition (en)"></div>
+                <div class="form-group"><input type="text" id="singleEditDateAdded" placeholder="Дата добавления"></div>
+
+                <div style="margin-top:15px;">
+                    <button onclick="saveSingleEdit()">💾 Сохранить</button>
+                    <button class="danger" onclick="cancelSingleEdit()">Отмена</button>
+                    <button class="danger" onclick="deleteSingleFromEdit()">🗑️ Удалить</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
 
 <div id="saveStatus" class="save-status">✅ Сохранено!</div>
 
@@ -553,6 +641,190 @@ function deleteSingle(manufacturer, idx) {
     if (singlesData[manufacturer].length === 0) delete singlesData[manufacturer];
     refreshSinglesList();
 }
+
+// ============================================================
+// РЕДАКТИРОВАНИЕ ОТДЕЛЬНЫХ ФИГУРОК (отдельная вкладка)
+// ============================================================
+
+function refreshSinglesEditList() {
+    const list = document.getElementById('singlesEditList');
+    if (!list) return;
+
+    const keys = Object.keys(singlesData);
+    if (keys.length === 0) {
+        list.innerHTML = '<p>Файлы не загружены</p>';
+        return;
+    }
+
+    let html = '';
+    keys.forEach(m => {
+        const arr = singlesData[m];
+        html += `<div style="margin-bottom:15px;">
+            <strong>${m}</strong> (${arr.length} шт.)
+            <div style="margin-top:6px;">`;
+        arr.forEach((item, idx) => {
+            html += `<div class="series-item" style="padding:8px;">
+                <div>
+                    <strong>${escapeHtml(item.name)}</strong>
+                    ${item.code ? `<span style="color:#6b7280;font-size:12px;">[${escapeHtml(item.code)}]</span>` : ''}
+                    (${item.year})
+                </div>
+                <button class="small" onclick="editSingle('${m}', ${idx})">✏️</button>
+            </div>`;
+        });
+        html += `</div></div>`;
+    });
+    list.innerHTML = html;
+}
+
+function editSingle(manufacturer, idx) {
+    const item = singlesData[manufacturer]?.[idx];
+    if (!item) {
+        alert('Фигурка не найдена');
+        return;
+    }
+
+    document.getElementById('singleEditIndex').value = idx;
+    document.getElementById('singleEditOldManufacturer').value = manufacturer;
+    document.getElementById('singleEditNameRu').value = item.name || '';
+    document.getElementById('singleEditNameEn').value = item.name_en || '';
+    document.getElementById('singleEditCode').value = item.code || '';
+    document.getElementById('singleEditYear').value = item.year || 2026;
+
+    const sel = document.getElementById('singleEditManufacturerSelect');
+    if (sel.children.length === 0) {
+        Object.entries(manufacturersData).forEach(([key, value]) => {
+            const opt = document.createElement('option');
+            opt.value = key;
+            opt.textContent = value.ru;
+            sel.appendChild(opt);
+        });
+    }
+    sel.value = manufacturer;
+
+    document.getElementById('singleEditImage').value = item.image || '';
+    document.getElementById('singleEditDescription').value = item.description || '';
+    document.getElementById('singleEditDescriptionEn').value = item.description_en || '';
+    document.getElementById('singleEditOwned').checked = item.owned === true;
+    document.getElementById('singleEditForsale').checked = item.forsale === true;
+    document.getElementById('singleEditAvito').value = item.avito || '';
+    document.getElementById('singleEditPrice').value = item.price || '';
+    document.getElementById('singleEditCondition').value = item.condition || '';
+    document.getElementById('singleEditConditionEn').value = item.condition_en || '';
+    document.getElementById('singleEditDateAdded').value = item.date_added || '';
+
+    const hasInsert = !!item.insert;
+    document.getElementById('singleEditHasInsert').checked = hasInsert;
+    document.getElementById('singleEditInsertFields').style.display = hasInsert ? 'block' : 'none';
+
+    if (hasInsert) {
+        document.getElementById('singleEditInsertNameRu').value = item.insert.name || '';
+        document.getElementById('singleEditInsertNameEn').value = item.insert.name_en || '';
+        document.getElementById('singleEditInsertCode').value = item.insert.code || '';
+        document.getElementById('singleEditInsertImage').value = item.insert.image || '';
+    } else {
+        document.getElementById('singleEditInsertNameRu').value = '';
+        document.getElementById('singleEditInsertNameEn').value = '';
+        document.getElementById('singleEditInsertCode').value = '';
+        document.getElementById('singleEditInsertImage').value = '';
+    }
+
+    const imgPreview = document.getElementById('singleEditImagePreview');
+    imgPreview.innerHTML = item.image ? `<div class="img-item"><img src="${item.image}" onerror="this.style.display='none'"></div>` : '';
+
+    const insertPreview = document.getElementById('singleEditInsertImagePreview');
+    insertPreview.innerHTML = item.insert?.image ? `<div class="img-item"><img src="${item.insert.image}" onerror="this.style.display='none'"></div>` : '';
+
+    document.getElementById('singleEditForm').style.display = 'block';
+    document.getElementById('singleEditForm').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function cancelSingleEdit() {
+    document.getElementById('singleEditForm').style.display = 'none';
+}
+
+function saveSingleEdit() {
+    const idx = parseInt(document.getElementById('singleEditIndex').value);
+    const oldManufacturer = document.getElementById('singleEditOldManufacturer').value;
+    const newManufacturer = document.getElementById('singleEditManufacturerSelect').value;
+
+    if (!singlesData[oldManufacturer] || !singlesData[oldManufacturer][idx]) {
+        alert('Фигурка не найдена');
+        return;
+    }
+
+    const nameRu = document.getElementById('singleEditNameRu').value.trim();
+    const year = document.getElementById('singleEditYear').value;
+
+    if (!nameRu) { alert('Введите название'); return; }
+    if (!year) { alert('Введите год'); return; }
+
+    const code = document.getElementById('singleEditCode').value.trim();
+
+    const updated = {
+        id: `${newManufacturer}-single-${(code || Date.now()).toLowerCase().replace(/[^a-z0-9]/g, '')}`,
+        code: code,
+        name: nameRu,
+        name_en: document.getElementById('singleEditNameEn').value.trim() || nameRu,
+        year: parseInt(year),
+        manufacturer: newManufacturer,
+        image: document.getElementById('singleEditImage').value.trim(),
+        description: document.getElementById('singleEditDescription').value.trim(),
+        description_en: document.getElementById('singleEditDescriptionEn').value.trim(),
+        owned: document.getElementById('singleEditOwned').checked,
+        forsale: document.getElementById('singleEditForsale').checked,
+        avito: document.getElementById('singleEditAvito').value.trim(),
+        price: document.getElementById('singleEditPrice').value.trim(),
+        condition: document.getElementById('singleEditCondition').value.trim(),
+        condition_en: document.getElementById('singleEditConditionEn').value.trim(),
+        date_added: document.getElementById('singleEditDateAdded').value.trim() || todayISO()
+    };
+
+    if (document.getElementById('singleEditHasInsert').checked) {
+        updated.insert = {
+            name: document.getElementById('singleEditInsertNameRu').value.trim(),
+            name_en: document.getElementById('singleEditInsertNameEn').value.trim(),
+            code: document.getElementById('singleEditInsertCode').value.trim(),
+            image: document.getElementById('singleEditInsertImage').value.trim()
+        };
+    }
+
+    if (oldManufacturer !== newManufacturer) {
+        singlesData[oldManufacturer].splice(idx, 1);
+        if (singlesData[oldManufacturer].length === 0) delete singlesData[oldManufacturer];
+        if (!singlesData[newManufacturer]) singlesData[newManufacturer] = [];
+        singlesData[newManufacturer].push(updated);
+    } else {
+        singlesData[oldManufacturer][idx] = updated;
+    }
+
+    cancelSingleEdit();
+    refreshSinglesEditList();
+    refreshSinglesList();
+    showStatus();
+}
+
+function deleteSingleFromEdit() {
+    const idx = parseInt(document.getElementById('singleEditIndex').value);
+    const manufacturer = document.getElementById('singleEditOldManufacturer').value;
+
+    if (!confirm('Удалить эту фигурку?')) return;
+
+    if (singlesData[manufacturer]) {
+        singlesData[manufacturer].splice(idx, 1);
+        if (singlesData[manufacturer].length === 0) delete singlesData[manufacturer];
+    }
+
+    cancelSingleEdit();
+    refreshSinglesEditList();
+    refreshSinglesList();
+    showStatus();
+}
+
+window.editSingle = editSingle;
+window.saveSingleEdit = saveSingleEdit;
+window.cancelSingleEdit = cancelSingleEdit;
+window.deleteSingleFromEdit = deleteSingleFromEdit;
 
 function clearAllSingles() {
     if (!confirm('Очистить все отдельные фигурки?')) return;
@@ -756,8 +1028,10 @@ function createItemElement(data, idx, type, seriesId) {
         div.dataset.dateAdded = data.date_added;
     }
     
-    let imgHtml = imagePath ? `<img src="${imagePath}" onerror="this.style.display='none'">` : '';
-    let previewAttr = data?._preview ? `src="${data._preview}"` : '';
+    let previewUrl = data?._preview || (imagePath ? imagePath : '');
+    
+    // Уникальный ID для input файла
+    const fileInputId = `img_file_${seriesId}_${type}_${num}_${Date.now()}_${Math.random().toString(36).slice(2,7)}`;
     
     div.innerHTML = `
         <div class="row">
@@ -766,8 +1040,12 @@ function createItemElement(data, idx, type, seriesId) {
             <input type="text" class="item-name" placeholder="Название" value="${escapeHtml(nameRu)}" style="flex:1;min-width:80px;">
             <input type="text" class="item-name-en" placeholder="Name (en)" value="${escapeHtml(nameEn)}" style="flex:1;min-width:80px;">
             <input type="text" class="item-code" placeholder="Код" value="${escapeHtml(code)}" style="width:100px;">
+        </div>
+        <div class="row" style="margin-top:5px;">
+            <button type="button" class="small secondary item-pick-file" data-input-id="${fileInputId}">📁 Выбрать</button>
+            <input type="file" id="${fileInputId}" accept="image/*" style="display:none;">
             <input type="text" class="item-image" placeholder="Путь к картинке" value="${escapeHtml(imagePath)}" style="flex:1;min-width:100px;">
-            ${imgHtml ? `<img src="${imagePath}" onerror="this.style.display='none'">` : (previewAttr ? `<img ${previewAttr} style="width:50px;height:50px;object-fit:contain;">` : '')}
+            <img class="item-preview" src="${previewUrl}" onerror="this.style.display='none'" style="width:50px;height:50px;object-fit:contain;${previewUrl ? '' : 'display:none;'}">
         </div>
         <div class="row" style="margin-top:5px;">
             <label style="font-weight:normal;font-size:13px;"><input type="checkbox" class="item-owned" ${owned ? 'checked' : ''}> В коллекции</label>
@@ -780,6 +1058,56 @@ function createItemElement(data, idx, type, seriesId) {
             <button class="danger small" onclick="removeItem(this)">✖</button>
         </div>
     `;
+    
+    // ===== ОБРАБОТЧИК КНОПКИ ВЫБОРА ФАЙЛА =====
+    const btn = div.querySelector('.item-pick-file');
+    const fileInput = div.querySelector(`#${fileInputId}`);
+    const pathInput = div.querySelector('.item-image');
+    const previewImg = div.querySelector('.item-preview');
+    
+    btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        fileInput.click();
+    });
+    
+    fileInput.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+        
+        // Определяем производителя и seriesId
+        const manufacturerSelect = document.getElementById('manufacturer');
+        const editManufacturerSelect = document.getElementById('editManufacturer');
+        let manufacturer = 'other';
+        
+        if (manufacturerSelect && manufacturerSelect.value) {
+            manufacturer = manufacturerSelect.value;
+        } else if (editManufacturerSelect && editManufacturerSelect.value) {
+            manufacturer = editManufacturerSelect.value;
+        }
+        
+        const manufFolder = getManufacturerFolder(manufacturer);
+        const path = `images/series/${manufFolder}/${seriesId}/${file.name}`;
+        
+        pathInput.value = path;
+        
+        // Обновляем превью
+        const url = URL.createObjectURL(file);
+        previewImg.src = url;
+        previewImg.style.display = 'block';
+        
+        // Извлекаем код из имени файла
+        const code = extractCodeFromFilename(file.name);
+        if (code) {
+            const codeInput = div.querySelector('.item-code');
+            if (codeInput && !codeInput.value.trim()) {
+                codeInput.value = code;
+            }
+        }
+        
+        showStatus();
+    });
+    
     return div;
 }
 
@@ -1949,13 +2277,34 @@ document.querySelectorAll('.tab').forEach(tab => {
         document.getElementById('tabAdd').style.display = tabName === 'add' ? 'block' : 'none';
         document.getElementById('tabEdit').style.display = tabName === 'edit' ? 'block' : 'none';
         document.getElementById('tabTemp').style.display = tabName === 'temp' ? 'block' : 'none';
+
         const singlesTab = document.getElementById('tabSingles');
         if (singlesTab) {
             singlesTab.style.display = tabName === 'singles' ? 'block' : 'none';
         }
+
+        const singleEditTab = document.getElementById('tabSingleEdit');
+        if (singleEditTab) {
+            singleEditTab.style.display = tabName === 'singleEdit' ? 'block' : 'none';
+        }
+
         if (tabName === 'singles') {
             loadSingleManufacturersToSelect();
             refreshSinglesList();
+        }
+
+        if (tabName === 'singleEdit') {
+            // Заполняем селект производителей
+            const sel = document.getElementById('singleEditManufacturerSelect');
+            if (sel && sel.children.length === 0) {
+                Object.entries(manufacturersData).forEach(([key, value]) => {
+                    const opt = document.createElement('option');
+                    opt.value = key;
+                    opt.textContent = value.ru;
+                    sel.appendChild(opt);
+                });
+            }
+            refreshSinglesEditList();
         }
     });
 });
@@ -2025,7 +2374,7 @@ document.addEventListener('DOMContentLoaded', async function() {
                 }
             }
             refreshSinglesList();
-            input.value = '';
+            input.value = e.target.value = '';
         });
     }
     
@@ -2065,6 +2414,66 @@ document.addEventListener('DOMContentLoaded', async function() {
             document.getElementById('singleInsertImage').value = `images/singles/${manufFolder}/${file.name}`;
         });
     }
+	// Загрузка singles/*.json на вкладке редактирования
+const singleEditFileInput = document.getElementById('singleEditFileInput');
+if (singleEditFileInput) {
+    singleEditFileInput.addEventListener('change', async function(e) {
+        const files = Array.from(e.target.files);
+        for (const file of files) {
+            try {
+                const text = await file.text();
+                const data = JSON.parse(text);
+                const m = file.name.replace('.json', '');
+                if (Array.isArray(data)) {
+                    singlesData[m] = data;
+                }
+            } catch (err) {
+                console.error('Ошибка чтения', file.name, err);
+            }
+        }
+        refreshSinglesEditList();
+        e.target.value = '';
+    });
+}
+
+// Превью картинки фигурки
+const editImgInput = document.getElementById('singleEditImageFile');
+if (editImgInput) {
+    editImgInput.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+        const url = URL.createObjectURL(file);
+        document.getElementById('singleEditImagePreview').innerHTML = 
+            `<div class="img-item"><img src="${url}"></div>`;
+        const manufacturer = document.getElementById('singleEditManufacturerSelect').value;
+        const manufFolder = getManufacturerFolder(manufacturer);
+        document.getElementById('singleEditImage').value = `images/singles/${manufFolder}/${file.name}`;
+    });
+}
+
+// Превью вкладыша
+const editInsertImgInput = document.getElementById('singleEditInsertImageFile');
+if (editInsertImgInput) {
+    editInsertImgInput.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+        const url = URL.createObjectURL(file);
+        document.getElementById('singleEditInsertImagePreview').innerHTML = 
+            `<div class="img-item"><img src="${url}"></div>`;
+        const manufacturer = document.getElementById('singleEditManufacturerSelect').value;
+        const manufFolder = getManufacturerFolder(manufacturer);
+        document.getElementById('singleEditInsertImage').value = `images/singles/${manufFolder}/${file.name}`;
+    });
+}
+
+// Показ/скрытие блока вкладыша
+const editHasInsertCheckbox = document.getElementById('singleEditHasInsert');
+if (editHasInsertCheckbox) {
+    editHasInsertCheckbox.addEventListener('change', function() {
+        document.getElementById('singleEditInsertFields').style.display = this.checked ? 'block' : 'none';
+    });
+}
+	
 });
 
 function removeSingleCover() {

@@ -138,6 +138,96 @@
       "condition_en": "",
       "parentFigureId": "",
       "date_added": "2026-09-17"
+    },
+    {
+      "id": "veterinary-by-kinder-2024_fig9",
+      "name": "Фигурка 9",
+      "name_en": "Figure 9",
+      "code": "VQ005",
+      "image": "images/series/danone/veterinary-by-kinder-2024/figurine-desktop-mobile-363x328px-veterinaire-2025-05.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": "",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "date_added": "2026-09-20"
+    },
+    {
+      "id": "veterinary-by-kinder-2024_fig10",
+      "name": "Фигурка 10",
+      "name_en": "Figure 10",
+      "code": "VQ006",
+      "image": "images/series/danone/veterinary-by-kinder-2024/figurine-desktop-mobile-363x328px-veterinaire-2025-06.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": "",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "date_added": "2026-09-20"
+    },
+    {
+      "id": "veterinary-by-kinder-2024_fig11",
+      "name": "Фигурка 11",
+      "name_en": "Figure 11",
+      "code": "VQ018",
+      "image": "images/series/danone/veterinary-by-kinder-2024/figurine-desktop-mobile-363x328px-veterinaire-2025-09.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": "",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "date_added": "2026-09-20"
+    },
+    {
+      "id": "veterinary-by-kinder-2024_fig12",
+      "name": "Фигурка 12",
+      "name_en": "Figure 12",
+      "code": "VQ019",
+      "image": "images/series/danone/veterinary-by-kinder-2024/figurine-desktop-mobile-363x328px-veterinaire-2025-10.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": "",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "date_added": "2026-09-20"
+    },
+    {
+      "id": "veterinary-by-kinder-2024_fig13",
+      "name": "Фигурка 13",
+      "name_en": "Figure 13",
+      "code": "VQ041",
+      "image": "images/series/danone/veterinary-by-kinder-2024/figurine-desktop-mobile-363x328px-veterinaire-2025-17.webp",
+      "owned": false,
+      "forsale": true,
+      "avito": "",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "date_added": "2026-09-20"
+    },
+    {
+      "id": "veterinary-by-kinder-2024_fig14",
+      "name": "Фигурка 14",
+      "name_en": "Figure 14",
+      "code": "VQ042",
+      "image": "images/series/danone/veterinary-by-kinder-2024/figurine-desktop-mobile-363x328px-veterinaire-2025-18.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": "",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "date_added": "2026-09-20"
     }
   ],
   "extras": [
@@ -410,11 +500,162 @@
       "condition_en": "",
       "parentFigureId": "",
       "date_added": "2026-09-17"
+    },
+    {
+      "id": "veterinary-by-kinder-2024_extra19",
+      "name": "Доп 19",
+      "name_en": "Extra 19",
+      "code": "VQ180",
+      "image": "images/series/danone/veterinary-by-kinder-2024/figurine-desktop-mobile-363x328px-veterinaire-2025-41.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": "",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "date_added": "2026-09-20"
+    },
+    {
+      "id": "veterinary-by-kinder-2024_extra20",
+      "name": "Доп 20",
+      "name_en": "Extra 20",
+      "code": "VQ181",
+      "image": "images/series/danone/veterinary-by-kinder-2024/figurine-desktop-mobile-363x328px-veterinaire-2025-42.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": "",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "date_added": "2026-09-20"
+    },
+    {
+      "id": "veterinary-by-kinder-2024_extra21",
+      "name": "Доп 21",
+      "name_en": "Extra 21",
+      "code": "VT048C",
+      "image": "images/series/danone/veterinary-by-kinder-2024/figurine-desktop-mobile-363x328px-veterinaire-2025-40.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": "",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "date_added": "2026-09-20"
+    },
+    {
+      "id": "veterinary-by-kinder-2024_extra22",
+      "name": "Доп 22",
+      "name_en": "Extra 22",
+      "code": "VT048B",
+      "image": "images/series/danone/veterinary-by-kinder-2024/figurine-desktop-mobile-363x328px-veterinaire-2025-39.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": "",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "date_added": "2026-09-20"
+    },
+    {
+      "id": "veterinary-by-kinder-2024_extra23",
+      "name": "Доп 23",
+      "name_en": "Extra 23",
+      "code": "VT040A",
+      "image": "images/series/danone/veterinary-by-kinder-2024/figurine-desktop-mobile-363x328px-veterinaire-2025-37.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": "",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "date_added": "2026-09-20"
+    },
+    {
+      "id": "veterinary-by-kinder-2024_extra24",
+      "name": "Доп 24",
+      "name_en": "Extra 24",
+      "code": "VT041A",
+      "image": "images/series/danone/veterinary-by-kinder-2024/figurine-desktop-mobile-363x328px-veterinaire-2025-38.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": "",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "date_added": "2026-09-20"
+    },
+    {
+      "id": "veterinary-by-kinder-2024_extra25",
+      "name": "Доп 25",
+      "name_en": "Extra 25",
+      "code": "VQ251",
+      "image": "images/series/danone/veterinary-by-kinder-2024/figurine-desktop-mobile-363x328px-veterinaire-2025-33.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": "",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "date_added": "2026-09-20"
+    },
+    {
+      "id": "veterinary-by-kinder-2024_extra26",
+      "name": "Доп 26",
+      "name_en": "Extra 26",
+      "code": "VQ251B",
+      "image": "images/series/danone/veterinary-by-kinder-2024/figurine-desktop-mobile-363x328px-veterinaire-2025-34.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": "",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "date_added": "2026-09-20"
+    },
+    {
+      "id": "veterinary-by-kinder-2024_extra27",
+      "name": "Доп 27",
+      "name_en": "Extra 27",
+      "code": "VQ092",
+      "image": "images/series/danone/veterinary-by-kinder-2024/2024F_VQ092.webp",
+      "owned": false,
+      "forsale": true,
+      "avito": "",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "date_added": "2026-09-20"
+    },
+    {
+      "id": "veterinary-by-kinder-2024_extra28",
+      "name": "Доп 28",
+      "name_en": "Extra 28",
+      "code": "VQ093",
+      "image": "images/series/danone/veterinary-by-kinder-2024/figurine-desktop-mobile-363x328px-veterinaire-2025-04.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": "",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "date_added": "2026-09-20"
     }
   ],
-  "variants": [
-    {
-      "id": "veterinary-by-kinder-2024_variant1",
+  "variants": [],
+  "inserts": [
+  {
+      "id": "veterinary-by-kinder-2024_insert1",
       "name": "Вариант 1",
       "name_en": "Variant 1",
       "code": "",
@@ -429,7 +670,7 @@
       "date_added": "2026-09-17"
     },
     {
-      "id": "veterinary-by-kinder-2024_variant2",
+      "id": "veterinary-by-kinder-2024_insert2",
       "name": "Вариант 2",
       "name_en": "Variant 2",
       "code": "",
@@ -444,7 +685,7 @@
       "date_added": "2026-09-17"
     },
     {
-      "id": "veterinary-by-kinder-2024_variant3",
+      "id": "veterinary-by-kinder-2024_insert3",
       "name": "Вариант 3",
       "name_en": "Variant 3",
       "code": "",
@@ -459,7 +700,7 @@
       "date_added": "2026-09-17"
     },
     {
-      "id": "veterinary-by-kinder-2024_variant4",
+      "id": "veterinary-by-kinder-2024_insert4",
       "name": "Вариант 4",
       "name_en": "Variant 4",
       "code": "",
@@ -474,7 +715,7 @@
       "date_added": "2026-09-17"
     },
     {
-      "id": "veterinary-by-kinder-2024_variant5",
+      "id": "veterinary-by-kinder-2024_insert5",
       "name": "Вариант 5",
       "name_en": "Variant 5",
       "code": "",
@@ -489,7 +730,7 @@
       "date_added": "2026-09-17"
     },
     {
-      "id": "veterinary-by-kinder-2024_variant6",
+      "id": "veterinary-by-kinder-2024_insert6",
       "name": "Вариант 6",
       "name_en": "Variant 6",
       "code": "",
@@ -504,7 +745,7 @@
       "date_added": "2026-09-17"
     },
     {
-      "id": "veterinary-by-kinder-2024_variant7",
+      "id": "veterinary-by-kinder-2024_insert7",
       "name": "Вариант 7",
       "name_en": "Variant 7",
       "code": "",
@@ -519,7 +760,7 @@
       "date_added": "2026-09-17"
     },
     {
-      "id": "veterinary-by-kinder-2024_variant8",
+      "id": "veterinary-by-kinder-2024_insert8",
       "name": "Вариант 8",
       "name_en": "Variant 8",
       "code": "",
@@ -534,7 +775,7 @@
       "date_added": "2026-09-17"
     },
     {
-      "id": "veterinary-by-kinder-2024_variant9",
+      "id": "veterinary-by-kinder-2024_insert9",
       "name": "Вариант 9",
       "name_en": "Variant 9",
       "code": "",
@@ -549,7 +790,7 @@
       "date_added": "2026-09-17"
     },
     {
-      "id": "veterinary-by-kinder-2024_variant10",
+      "id": "veterinary-by-kinder-2024_insert10",
       "name": "Вариант 10",
       "name_en": "Variant 10",
       "code": "",
@@ -564,7 +805,7 @@
       "date_added": "2026-09-17"
     },
     {
-      "id": "veterinary-by-kinder-2024_variant11",
+      "id": "veterinary-by-kinder-2024_insert11",
       "name": "Вариант 11",
       "name_en": "Variant 11",
       "code": "",
@@ -579,7 +820,7 @@
       "date_added": "2026-09-17"
     },
     {
-      "id": "veterinary-by-kinder-2024_variant12",
+      "id": "veterinary-by-kinder-2024_insert12",
       "name": "Вариант 12",
       "name_en": "Variant 12",
       "code": "",
@@ -594,7 +835,7 @@
       "date_added": "2026-09-17"
     },
     {
-      "id": "veterinary-by-kinder-2024_variant13",
+      "id": "veterinary-by-kinder-2024_insert13",
       "name": "Вариант 13",
       "name_en": "Variant 13",
       "code": "",
@@ -609,7 +850,7 @@
       "date_added": "2026-09-17"
     },
     {
-      "id": "veterinary-by-kinder-2024_variant14",
+      "id": "veterinary-by-kinder-2024_insert14",
       "name": "Вариант 14",
       "name_en": "Variant 14",
       "code": "",
@@ -624,7 +865,7 @@
       "date_added": "2026-09-17"
     },
     {
-      "id": "veterinary-by-kinder-2024_variant15",
+      "id": "veterinary-by-kinder-2024_insert15",
       "name": "Вариант 15",
       "name_en": "Variant 15",
       "code": "",
@@ -639,7 +880,7 @@
       "date_added": "2026-09-17"
     },
     {
-      "id": "veterinary-by-kinder-2024_variant16",
+      "id": "veterinary-by-kinder-2024_insert16",
       "name": "Вариант 16",
       "name_en": "Variant 16",
       "code": "",
@@ -654,7 +895,7 @@
       "date_added": "2026-09-17"
     },
     {
-      "id": "veterinary-by-kinder-2024_variant17",
+      "id": "veterinary-by-kinder-2024_insert17",
       "name": "Вариант 17",
       "name_en": "Variant 17",
       "code": "",
@@ -669,7 +910,7 @@
       "date_added": "2026-09-17"
     },
     {
-      "id": "veterinary-by-kinder-2024_variant18",
+      "id": "veterinary-by-kinder-2024_insert18",
       "name": "Вариант 18",
       "name_en": "Variant 18",
       "code": "",
@@ -684,7 +925,7 @@
       "date_added": "2026-09-17"
     },
     {
-      "id": "veterinary-by-kinder-2024_variant19",
+      "id": "veterinary-by-kinder-2024_insert19",
       "name": "Вариант 19",
       "name_en": "Variant 19",
       "code": "",
@@ -699,7 +940,7 @@
       "date_added": "2026-09-17"
     },
     {
-      "id": "veterinary-by-kinder-2024_variant20",
+      "id": "veterinary-by-kinder-2024_insert20",
       "name": "Вариант 20",
       "name_en": "Variant 20",
       "code": "",
@@ -714,7 +955,7 @@
       "date_added": "2026-09-17"
     },
     {
-      "id": "veterinary-by-kinder-2024_variant21",
+      "id": "veterinary-by-kinder-2024_insert21",
       "name": "Вариант 21",
       "name_en": "Variant 21",
       "code": "",
@@ -729,7 +970,7 @@
       "date_added": "2026-09-17"
     },
     {
-      "id": "veterinary-by-kinder-2024_variant22",
+      "id": "veterinary-by-kinder-2024_insert22",
       "name": "Вариант 22",
       "name_en": "Variant 22",
       "code": "",
@@ -744,7 +985,7 @@
       "date_added": "2026-09-17"
     },
     {
-      "id": "veterinary-by-kinder-2024_variant23",
+      "id": "veterinary-by-kinder-2024_insert23",
       "name": "Вариант 23",
       "name_en": "Variant 23",
       "code": "",
@@ -759,7 +1000,7 @@
       "date_added": "2026-09-17"
     },
     {
-      "id": "veterinary-by-kinder-2024_variant24",
+      "id": "veterinary-by-kinder-2024_insert24",
       "name": "Вариант 24",
       "name_en": "Variant 24",
       "code": "",
@@ -774,7 +1015,7 @@
       "date_added": "2026-09-17"
     },
     {
-      "id": "veterinary-by-kinder-2024_variant25",
+      "id": "veterinary-by-kinder-2024_insert25",
       "name": "Вариант 25",
       "name_en": "Variant 25",
       "code": "",
@@ -789,7 +1030,7 @@
       "date_added": "2026-09-17"
     },
     {
-      "id": "veterinary-by-kinder-2024_variant26",
+      "id": "veterinary-by-kinder-2024_insert26",
       "name": "Вариант 26",
       "name_en": "Variant 26",
       "code": "",
@@ -802,9 +1043,23 @@
       "condition_en": "",
       "parentFigureId": "",
       "date_added": "2026-09-17"
+    },
+    {
+      "id": "veterinary-by-kinder-2024_insert26",
+      "name": "Вариант 27",
+      "name_en": "Variant 27",
+      "code": "VQ180",
+      "image": "images/series/kinder/veterinary-by-kinder-2024/colorful-spinner2_1920kh768_VQ180.webp",
+      "owned": false,
+      "forsale": false,
+      "avito": "",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "date_added": "2026-09-17"
     }
   ],
-  "inserts": [],
   "other": [],
   "videos": {
     "youtube": [],
