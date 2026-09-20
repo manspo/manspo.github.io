@@ -4000,8 +4000,6 @@ async function downloadCollage(seriesId, seriesName, onlyForSale = false) {
         }
         
         const jpegData = await generateCollage(seriesId, seriesTitle, figures, extras, variants, lang);
-        ...
-        const base64Data = jpegData.split(',')[1];
         const safeName = seriesTitle.replace(/[^a-zа-яё0-9]/gi, '_');
         const fileName = `checklist_${safeName}_${Date.now()}.jpg`;
         
