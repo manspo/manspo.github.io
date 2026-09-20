@@ -1,5 +1,41 @@
 [
   {
+    "id": "adventurous-by-kinder-2025",
+    "name": "Авантюристы от Киндер",
+    "name_en": "Adventurous by Kinder",
+    "year": 2025,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/adventurous-by-kinder-2025/kinderjoy_adventurous_banner_dsk.webp",
+    "kind": "",
+    "description": "Серия про авантюристов очень схожая с серией Драконы.",
+    "description_en": "The series about adventurers is very similar to the Dragons series.",
+    "visible": true
+  },
+  {
+    "id": "space-launch-by-kinder-2024",
+    "name": "Космический запуск от Kinder",
+    "name_en": "Space Launch by Kinder",
+    "year": 2024,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/space-launch-by-kinder-2024/cover.webp",
+    "kind": "",
+    "description": "Серия посвященная комическим миссиям.",
+    "description_en": "A series dedicated to comic missions.",
+    "visible": true
+  },
+  {
+    "id": "cats-in-furniture-by-kinder-1998",
+    "name": "Коты в мебели от Киндер",
+    "name_en": "Cats in furniture by Kinder",
+    "year": 1998,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/cats-in-furniture-by-kinder-1998/cover.webp",
+    "kind": "",
+    "description": "Такую серию все называли \"Коты в мебели\". Оригинальное название на немецком было - \"Katzenstube\".",
+    "description_en": "Everyone called this series “Cats in Furniture.” The original name in German was \"Katzenstube\".",
+    "visible": true
+  },
+  {
     "id": "space-mission-by-kinder-2023",
     "name": "Космическая Миссия от Киндер",
     "name_en": "Space Mission by Kinder",

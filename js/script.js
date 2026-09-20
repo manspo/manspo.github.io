@@ -2226,7 +2226,8 @@ async function initVideos() {
     }
     
     // ===== ПАГИНАЦИЯ =====
-    function renderPagination(totalItems, currentPage, itemsPerPage) {
+    // currentPage — НЕ параметр, а внешняя переменная initVideos.
+    function renderPagination(totalItems, itemsPerPage) {
       const totalPages = Math.ceil(totalItems / itemsPerPage);
       if (totalPages <= 1) return null;
       
@@ -2236,12 +2237,16 @@ async function initVideos() {
       const prevBtn = document.createElement('button');
       prevBtn.className = 'page-btn';
       prevBtn.textContent = '‹';
+      prevBtn.type = 'button';
       prevBtn.disabled = currentPage <= 1;
-      prevBtn.onclick = () => {
-        currentPage = Math.max(1, currentPage - 1);
-        render();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      };
+      prevBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        if (currentPage > 1) {
+          currentPage = currentPage - 1;
+          render();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      });
       container.appendChild(prevBtn);
       
       let startPage = Math.max(1, currentPage - 2);
@@ -2253,23 +2258,34 @@ async function initVideos() {
         const btn = document.createElement('button');
         btn.className = 'page-btn' + (i === currentPage ? ' active' : '');
         btn.textContent = i;
-        btn.onclick = () => {
-          currentPage = i;
-          render();
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        };
+        btn.dataset.page = i;
+        btn.type = 'button';
+        
+        (function(pageNum) {
+          btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            currentPage = pageNum;
+            render();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          });
+        })(i);
+        
         container.appendChild(btn);
       }
       
       const nextBtn = document.createElement('button');
       nextBtn.className = 'page-btn';
       nextBtn.textContent = '›';
+      nextBtn.type = 'button';
       nextBtn.disabled = currentPage >= totalPages;
-      nextBtn.onclick = () => {
-        currentPage = Math.min(totalPages, currentPage + 1);
-        render();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      };
+      nextBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        if (currentPage < totalPages) {
+          currentPage = currentPage + 1;
+          render();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      });
       container.appendChild(nextBtn);
       
       return container;
@@ -2340,7 +2356,7 @@ async function initVideos() {
       paginated.forEach(video => grid.appendChild(createVideoCard(video)));
       
       // Пагинация
-      const pag = renderPagination(filtered.length, currentPage, ITEMS_PER_PAGE);
+      const pag = renderPagination(filtered.length, ITEMS_PER_PAGE);
       if (pag) grid.appendChild(pag);
     }
     
