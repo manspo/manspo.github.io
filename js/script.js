@@ -2368,7 +2368,7 @@ async function initVideos() {
   }
 }
 
-// ===== FOR SALE (ОПТИМИЗИРОВАННАЯ ВЕРСИЯ) =====
+// ===== FOR SALE (ПОЛНАЯ ВЕРСИЯ С ПОДДЕРЖКОЙ SINGLE) =====
 async function initForSale() {
   const grid = document.getElementById("forsaleGrid");
   if (!grid) return;
@@ -2380,12 +2380,17 @@ async function initForSale() {
     
     // ===== ЗАГРУЗКА ЧЕРЕЗ FORSALE.JSON =====
     const allItems = await loadForsale();
+    
     // Порядок в forsale.json (для сортировки «как в файле»)
     const forsaleIndexOrder = {};
     allItems.forEach((item, i) => { forsaleIndexOrder[item.id] = i; });
     
     // Разбиваем по типам
-    let figureItems = [], extraItems = [], insertItems = [], variantItems = [], fullSeriesItems = [];
+    let figureItems = [];       // figure + single
+    let extraItems = [];
+    let insertItems = [];
+    let variantItems = [];
+    let fullSeriesItems = [];
     
     allItems.forEach(item => {
       const mapped = {
@@ -2404,7 +2409,7 @@ async function initForSale() {
         type: item.type,
         code: item.code || '',
         date_added: item.date_added || '',
-		forsale_date: item.forsale_date || ''
+        forsale_date: item.forsale_date || ''
       };
       
       if (item.type === 'full') fullSeriesItems.push(mapped);
@@ -2412,6 +2417,7 @@ async function initForSale() {
       else if (item.type === 'variant') variantItems.push(mapped);
       else if (item.type === 'extra') extraItems.push(mapped);
       else if (item.type === 'insert') insertItems.push(mapped);
+      else if (item.type === 'single') figureItems.push(mapped); // ← отдельные фигурки идут в общий список
     });
     
     let currentManufacturer = filterState.forsale.manufacturer || 'all';
@@ -2445,11 +2451,14 @@ async function initForSale() {
       };
     }
     
+    // ===== ФИЛЬТР + СОРТИРОВКА =====
     function applyFiltersAndSort(items) {
       let filtered = [...items];
+      
       if (currentManufacturer !== 'all') {
         filtered = filtered.filter(i => i.manufacturer === currentManufacturer);
       }
+      
       if (currentSearch) {
         const query = currentSearch.toLowerCase();
         filtered = filtered.filter(i => 
@@ -2461,7 +2470,7 @@ async function initForSale() {
         );
       }
       
-      // Сортировка
+      // ===== СОРТИРОВКА =====
       if (currentSort === 'date-desc') {
         // Новые выставленные на продажу — первыми
         filtered.sort((a, b) => {
@@ -2491,14 +2500,21 @@ async function initForSale() {
       return filtered;
     }
     
-    function getFilteredFigures() { return applyFiltersAndSort(figureItems); }
+    function getFilteredFigures()  { return applyFiltersAndSort(figureItems); }
     function getFilteredVariants() { return applyFiltersAndSort(variantItems); }
-    function getFilteredExtras() { return applyFiltersAndSort(extraItems); }
-    function getFilteredInserts() { return applyFiltersAndSort(insertItems); }
-    function getFilteredSeries() { return applyFiltersAndSort(fullSeriesItems); }
+    function getFilteredExtras()   { return applyFiltersAndSort(extraItems); }
+    function getFilteredInserts()  { return applyFiltersAndSort(insertItems); }
+    function getFilteredSeries()   { return applyFiltersAndSort(fullSeriesItems); }
     
+    // ===== НЕДАВНО ДОБАВЛЕННОЕ =====
     function getRecentItems() {
-      let all = [...figureItems, ...variantItems, ...extraItems, ...insertItems, ...fullSeriesItems];
+      let all = [
+        ...figureItems,
+        ...variantItems,
+        ...extraItems,
+        ...insertItems,
+        ...fullSeriesItems
+      ];
       
       // Сортируем по дате выставления — новые первыми
       all.sort((a, b) => {
@@ -2507,9 +2523,11 @@ async function initForSale() {
         if (db !== da) return db.localeCompare(da);
         return (forsaleIndexOrder[a.id] ?? 99999) - (forsaleIndexOrder[b.id] ?? 99999);
       });
+      
       return all.slice(0, CONFIG.RECENT_COUNT);
     }
     
+    // ===== ПАГИНАЦИЯ =====
     function renderPagination(totalItems, currentPage, itemsPerPage, type) {
       const totalPages = Math.ceil(totalItems / itemsPerPage);
       if (totalPages <= 1) return null;
@@ -2525,7 +2543,7 @@ async function initForSale() {
         const pageMap = {
           'figures': () => figuresPage = Math.max(1, figuresPage - 1),
           'inserts': () => insertsPage = Math.max(1, insertsPage - 1),
-          'series': () => seriesPage = Math.max(1, seriesPage - 1)
+          'series':  () => seriesPage  = Math.max(1, seriesPage  - 1)
         };
         if (pageMap[type]) pageMap[type]();
         renderItems();
@@ -2537,6 +2555,7 @@ async function initForSale() {
       if (endPage - startPage < 4) {
         startPage = Math.max(1, endPage - 4);
       }
+      
       for (let i = startPage; i <= endPage; i++) {
         const btn = document.createElement('button');
         btn.className = 'page-btn' + (i === currentPage ? ' active' : '');
@@ -2545,7 +2564,7 @@ async function initForSale() {
           const pageMap = {
             'figures': () => figuresPage = i,
             'inserts': () => insertsPage = i,
-            'series': () => seriesPage = i
+            'series':  () => seriesPage  = i
           };
           if (pageMap[type]) pageMap[type]();
           renderItems();
@@ -2561,7 +2580,7 @@ async function initForSale() {
         const pageMap = {
           'figures': () => figuresPage = Math.min(totalPages, figuresPage + 1),
           'inserts': () => insertsPage = Math.min(totalPages, insertsPage + 1),
-          'series': () => seriesPage = Math.min(totalPages, seriesPage + 1)
+          'series':  () => seriesPage  = Math.min(totalPages, seriesPage  + 1)
         };
         if (pageMap[type]) pageMap[type]();
         renderItems();
@@ -2571,12 +2590,12 @@ async function initForSale() {
       return container;
     }
     
+    // ===== КАРТОЧКА ТОВАРА =====
     function createItemCard(item) {
       const div = document.createElement('div');
       div.className = 'forsale-item-card';
-      if (item.type === 'full') {
-        div.classList.add('full-series-card');
-      }
+      if (item.type === 'full') div.classList.add('full-series-card');
+      if (item.type === 'single') div.classList.add('single-figure-card');
       
       const manufacturerName = manufacturers[item.manufacturer]?.[currentLang] || item.manufacturer;
       
@@ -2585,20 +2604,52 @@ async function initForSale() {
         'variant': currentLang === 'ru' ? 'Вариант' : 'Variant',
         'extra': currentLang === 'ru' ? 'Доп' : 'Extra',
         'insert': currentLang === 'ru' ? 'Вкладыш' : 'Insert',
-        'full': currentLang === 'ru' ? 'Полная серия' : 'Full series'
+        'full': currentLang === 'ru' ? 'Полная серия' : 'Full series',
+        'single': currentLang === 'ru' ? 'Без серии' : 'No series'
       };
       
       const imageUrl = item.image ? `${BASE_URL}/${item.image}` : 'images/placeholder.svg';
       
-      const linkUrl = item.type === 'full' ? `lot.html?id=${item.seriesId}` : `figure.html?series=${item.seriesId}&fig=${item.id}`;
+      // ===== ПРАВИЛЬНАЯ ССЫЛКА ПО ТИПУ =====
+      let linkUrl;
+      if (item.type === 'full') {
+        linkUrl = `lot.html?id=${encodeURIComponent(item.seriesId)}`;
+      } else if (item.type === 'single') {
+        linkUrl = `single-figure.html?id=${encodeURIComponent(item.id)}&manufacturer=${encodeURIComponent(item.manufacturer)}`;
+      } else {
+        linkUrl = `figure.html?series=${encodeURIComponent(item.seriesId)}&fig=${encodeURIComponent(item.id)}`;
+      }
+      
+      // ===== БЛОК СЕРИИ =====
+      const seriesBlockHtml = item.type === 'single'
+        ? `
+          <div class="forsale-item-series">
+            <span style="color:var(--muted);font-style:italic;">
+              ${currentLang === 'ru' ? 'Без серии' : 'No series'}
+            </span>
+            <div class="forsale-item-manufacturer">
+              <a href="forsale.html?manufacturer=${encodeURIComponent(item.manufacturer)}">${escapeHtml(manufacturerName)}</a>
+            </div>
+          </div>
+        `
+        : `
+          <div class="forsale-item-series">
+            <a href="series.html?id=${encodeURIComponent(item.seriesId)}">${escapeHtml(item.seriesName || '')}</a>
+            <span style="margin:0 4px;">·</span>
+            ${escapeHtml(item.seriesYear || '')}
+            <div class="forsale-item-manufacturer">
+              <a href="forsale.html?manufacturer=${encodeURIComponent(item.manufacturer)}">${escapeHtml(manufacturerName)}</a>
+            </div>
+          </div>
+        `;
       
       div.innerHTML = `
         <a href="${linkUrl}">
-          <img src="${imageUrl}" alt="${escapeHtml(item.name)}" loading="lazy" onerror="this.src='images/placeholder.svg'">
+          <img src="${imageUrl}" alt="${escapeHtml(item.name || '')}" loading="lazy" onerror="this.src='images/placeholder.svg'">
         </a>
         <div class="forsale-item-body">
           <div class="forsale-item-header">
-            <span class="forsale-item-name">${escapeHtml(item.name)}</span>
+            <span class="forsale-item-name">${escapeHtml(item.name || '')}</span>
             ${item.price ? `<span class="forsale-item-price">${escapeHtml(item.price)}</span>` : ''}
           </div>
           <div class="forsale-item-tags">
@@ -2606,14 +2657,7 @@ async function initForSale() {
             ${item.code ? `<span class="tag tag-code">${escapeHtml(item.code)}</span>` : ''}
             ${item.condition ? `<span class="tag tag-condition">⚠️ ${escapeHtml(item.condition)}</span>` : ''}
           </div>
-          <div class="forsale-item-series">
-            <a href="series.html?id=${item.seriesId}">${escapeHtml(item.seriesName)}</a>
-            <span style="margin:0 4px;">·</span>
-            ${escapeHtml(item.seriesYear)}
-            <div class="forsale-item-manufacturer">
-              <a href="forsale.html?manufacturer=${item.manufacturer}">${escapeHtml(manufacturerName)}</a>
-            </div>
-          </div>
+          ${seriesBlockHtml}
         </div>
       `;
       
@@ -2656,6 +2700,7 @@ async function initForSale() {
       });
     }
     
+    // ===== РЕНДЕР =====
     function renderItems() {
       const figures = getFilteredFigures();
       const variants = getFilteredVariants();
@@ -2664,7 +2709,7 @@ async function initForSale() {
       const series = getFilteredSeries();
       const recent = getRecentItems();
       
-      // ===== ОБЩИЙ СПИСОК: фигурки + варианты + допы =====
+      // ===== ОБЩИЙ СПИСОК: фигурки (вкл. single) + варианты + допы =====
       const mainItems = [...figures, ...variants, ...extras];
       
       const totalFigures = document.getElementById('totalFiguresForSale');
@@ -2687,6 +2732,7 @@ async function initForSale() {
         divider.innerHTML = `📦 ${currentLang === 'ru' ? 'Товары' : 'Items'} <span class="badge">${mainItems.length}</span>`;
         grid.appendChild(divider);
         paginated.forEach(item => grid.appendChild(createItemCard(item)));
+        
         if (totalPages > 1) {
           const pag = renderPagination(mainItems.length, figuresPage, CONFIG.ITEMS_PER_PAGE, 'figures');
           if (pag) grid.appendChild(pag);
@@ -2706,6 +2752,7 @@ async function initForSale() {
         divider.innerHTML = `📄 ${currentLang === 'ru' ? 'Вкладыши' : 'Inserts'} <span class="badge">${inserts.length}</span>`;
         grid.appendChild(divider);
         paginated.forEach(item => grid.appendChild(createItemCard(item)));
+        
         if (totalPages > 1) {
           const pag = renderPagination(inserts.length, insertsPage, CONFIG.ITEMS_PER_PAGE, 'inserts');
           if (pag) grid.appendChild(pag);
@@ -2725,6 +2772,7 @@ async function initForSale() {
         divider.innerHTML = `📚 ${currentLang === 'ru' ? 'Полные серии' : 'Full series'} <span class="badge">${series.length}</span>`;
         grid.appendChild(divider);
         paginated.forEach(item => grid.appendChild(createItemCard(item)));
+        
         if (totalPages > 1) {
           const pag = renderPagination(series.length, seriesPage, CONFIG.ITEMS_PER_PAGE, 'series');
           if (pag) grid.appendChild(pag);
