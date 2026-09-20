@@ -856,6 +856,11 @@ function downloadSinglesZip() {
     });
     folder.file('index.json', JSON.stringify(index, null, 2));
     
+    // ===== ГЕНЕРАЦИЯ FORSALE (серии + отдельные) =====
+    const forsaleData = generateFullForsaleData(existingSeries, singlesData);
+    zip.file("forsale.json", JSON.stringify(forsaleData, null, 2));
+    console.log('✅ forsale.json:', forsaleData.length, 'товаров (серии + отдельные)');
+    
     zip.generateAsync({ type: 'blob' }).then(blob => {
         const a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
@@ -2049,7 +2054,7 @@ function mergeWithMain() {
 // ГЕНЕРАЦИЯ INDEX-ФАЙЛОВ
 // ============================================================
 
-function generateStatsData(seriesList) {
+function generateStatsData(seriesList, singlesData) {
     let totalFigures = 0;
     let totalInserts = 0;
     let totalForSale = 0;
@@ -2065,6 +2070,16 @@ function generateStatsData(seriesList) {
         totalForSale += s.variants?.filter(v => v.forsale).length || 0;
         if (s.fullSeriesForSale) totalForSale += 1;
     });
+    
+    // Отдельные фигурки
+    if (singlesData) {
+        Object.keys(singlesData).forEach(m => {
+            const arr = singlesData[m];
+            if (!Array.isArray(arr)) return;
+            totalFigures += arr.length;
+            totalForSale += arr.filter(i => i.forsale === true).length;
+        });
+    }
     
     const uniqueManufacturers = [...new Set(seriesList.map(s => s.manufacturer))];
     
@@ -2190,6 +2205,65 @@ function generateForsaleData(seriesList) {
     });
     
     return items;
+}
+
+// ============================================================
+// ГЕНЕРАЦИЯ FORSALE ДЛЯ ОТДЕЛЬНЫХ ФИГУРОК
+// ============================================================
+
+function generateSinglesForsaleData(singlesData) {
+    const items = [];
+    
+    Object.keys(singlesData || {}).forEach(manufacturer => {
+        const arr = singlesData[manufacturer];
+        if (!Array.isArray(arr)) return;
+        
+        arr.forEach(item => {
+            if (item.forsale !== true) return;
+            
+            items.push({
+                type: 'single',
+                id: item.id,
+                seriesId: null,
+                seriesName: '',
+                seriesName_en: '',
+                seriesYear: item.year || '',
+                manufacturer: manufacturer,
+                name: item.name || '',
+                name_en: item.name_en || item.name || '',
+                image: item.image || '',
+                avito: item.avito || '',
+                price: item.price || '',
+                condition: item.condition || '',
+                condition_en: item.condition_en || '',
+                code: item.code || '',
+                date_added: item.date_added || '',
+                forsale_date: item.forsale_date || item.date_added || ''
+            });
+        });
+    });
+    
+    return items;
+}
+
+// ============================================================
+// ГЕНЕРАЦИЯ ПОЛНОГО FORSALE (СЕРИИ + ОТДЕЛЬНЫЕ ФИГУРКИ)
+// ============================================================
+
+function generateFullForsaleData(seriesList, singlesData) {
+    const seriesItems = generateForsaleData(seriesList);
+    const singlesItems = generateSinglesForsaleData(singlesData);
+    const all = [...seriesItems, ...singlesItems];
+    
+    // Сортировка: новые выставленные — первыми
+    all.sort((a, b) => {
+        const da = a.forsale_date || a.date_added || '';
+        const db = b.forsale_date || b.date_added || '';
+        if (db !== da) return db.localeCompare(da);
+        return (a.name || '').localeCompare(b.name || '');
+    });
+    
+    return all;
 }
 
 function generateCollectionData(seriesList) {
@@ -2332,7 +2406,7 @@ function downloadAsZip(seriesList) {
     }));
     zip.file("index.json", JSON.stringify(indexData, null, 2));
     
-    const statsData = generateStatsData(seriesList);
+    const statsData = generateStatsData(seriesList, singlesData);
     zip.file("stats.json", JSON.stringify(statsData, null, 2));
     console.log('✅ stats.json:', statsData);
     
@@ -2340,9 +2414,9 @@ function downloadAsZip(seriesList) {
     zip.file("videos.json", JSON.stringify(videosData, null, 2));
     console.log('✅ videos.json:', videosData.length, 'видео');
     
-    const forsaleData = generateForsaleData(seriesList);
-    zip.file("forsale.json", JSON.stringify(forsaleData, null, 2));
-    console.log('✅ forsale.json:', forsaleData.length, 'товаров');
+const forsaleData = generateFullForsaleData(seriesList, singlesData);
+zip.file("forsale.json", JSON.stringify(forsaleData, null, 2));
+console.log('✅ forsale.json:', forsaleData.length, 'товаров (серии + отдельные)');
     
     const collectionData = generateCollectionData(seriesList);
     zip.file("collection.json", JSON.stringify(collectionData, null, 2));
