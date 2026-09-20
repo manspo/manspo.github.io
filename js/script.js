@@ -2403,7 +2403,8 @@ async function initForSale() {
         condition: (currentLang === 'en' ? item.condition_en : item.condition) || '',
         type: item.type,
         code: item.code || '',
-        date_added: item.date_added || ''
+        date_added: item.date_added || '',
+		forsale_date: item.forsale_date || ''
       };
       
       if (item.type === 'full') fullSeriesItems.push(mapped);
@@ -2462,9 +2463,21 @@ async function initForSale() {
       
       // Сортировка
       if (currentSort === 'date-desc') {
-        filtered.sort((a, b) => (forsaleIndexOrder[a.id] ?? 99999) - (forsaleIndexOrder[b.id] ?? 99999));
+        // Новые выставленные на продажу — первыми
+        filtered.sort((a, b) => {
+          const da = a.forsale_date || a.date_added || '';
+          const db = b.forsale_date || b.date_added || '';
+          if (db !== da) return db.localeCompare(da);
+          return (forsaleIndexOrder[a.id] ?? 99999) - (forsaleIndexOrder[b.id] ?? 99999);
+        });
       } else if (currentSort === 'date-asc') {
-        filtered.sort((a, b) => (forsaleIndexOrder[b.id] ?? -1) - (forsaleIndexOrder[a.id] ?? -1));
+        // Старые выставленные — первыми
+        filtered.sort((a, b) => {
+          const da = a.forsale_date || a.date_added || '';
+          const db = b.forsale_date || b.date_added || '';
+          if (da !== db) return da.localeCompare(db);
+          return (forsaleIndexOrder[a.id] ?? 99999) - (forsaleIndexOrder[b.id] ?? 99999);
+        });
       } else if (currentSort === 'year') {
         filtered.sort((a, b) => (a.seriesYear || 0) - (b.seriesYear || 0));
       } else if (currentSort === 'year-desc') {
@@ -2485,12 +2498,15 @@ async function initForSale() {
     function getFilteredSeries() { return applyFiltersAndSort(fullSeriesItems); }
     
     function getRecentItems() {
-      // Берём все товары (фигурки, варианты, допы, вкладыши, полные серии)
       let all = [...figureItems, ...variantItems, ...extraItems, ...insertItems, ...fullSeriesItems];
       
-      // БЕЗ фильтра поиска — берём все
-      // Сортируем по порядку в forsale.json
-      all.sort((a, b) => (forsaleIndexOrder[a.id] ?? 99999) - (forsaleIndexOrder[b.id] ?? 99999));
+      // Сортируем по дате выставления — новые первыми
+      all.sort((a, b) => {
+        const da = a.forsale_date || a.date_added || '';
+        const db = b.forsale_date || b.date_added || '';
+        if (db !== da) return db.localeCompare(da);
+        return (forsaleIndexOrder[a.id] ?? 99999) - (forsaleIndexOrder[b.id] ?? 99999);
+      });
       return all.slice(0, CONFIG.RECENT_COUNT);
     }
     
@@ -4636,6 +4652,7 @@ async function initSingleFigure() {
     const avitoLink = figure.avito || '#';
     const condition = currentLang === 'en' ? figure.condition_en : figure.condition;
     const figureYear = figure.year || '';
+	    const figureForsaleDate = figure.forsale_date || '';
     
     const galleryImages = [imageUrl];
     if (figure.insert && figure.insert.image) {

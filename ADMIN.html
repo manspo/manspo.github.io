@@ -106,6 +106,7 @@
                     <hr style="margin:15px 0;border-color:#e5e7eb;">
                     <h3>📦 Полная серия на продажу</h3>
                     <div class="form-group"><label><input type="checkbox" id="fullSeriesForSale"> Полная серия в продаже</label></div>
+					<div class="form-group"><input type="date" id="fullSeriesForsaleDate" placeholder="Дата выставления на продажу"></div>
                     <div class="form-group"><input type="text" id="fullSeriesAvito" placeholder="Ссылка на продажу всей серии"></div>
                     <div class="form-group"><input type="text" id="fullSeriesPrice" placeholder="Цена всей серии (рус)"></div>
                     <div class="form-group"><input type="text" id="fullSeriesPriceEn" placeholder="Price (en)"></div>
@@ -210,8 +211,9 @@
             <div class="col">
                 <div class="card">
                     <h2>📋 Существующие серии</h2>
-                    <div style="margin-bottom:12px;">
+                    <div style="margin-bottom:12px; display:flex; gap:8px; flex-wrap:wrap;">
                         <button class="danger" onclick="cleanInsertCodes()">🧹 Очистить коды вкладышей</button>
+                        <button class="secondary" onclick="fillEmptyDates()">🩹 Заполнить пустые даты</button>
                     </div>
                     <div class="series-list" id="existingSeriesList"><p>Сначала загрузите данные</p></div>
                 </div>
@@ -231,6 +233,7 @@
                     <hr style="margin:15px 0;border-color:#e5e7eb;">
                     <h3>📦 Полная серия на продажу</h3>
                     <div class="form-group"><label><input type="checkbox" id="editFullSeriesForSale"> Полная серия в продаже</label></div>
+					<div class="form-group"><input type="date" id="editFullSeriesForsaleDate" placeholder="Дата выставления"></div>
                     <div class="form-group"><input type="text" id="editFullSeriesAvito" placeholder="Ссылка на продажу"></div>
                     <div class="form-group"><input type="text" id="editFullSeriesPrice" placeholder="Цена (рус)"></div>
                     <div class="form-group"><input type="text" id="editFullSeriesPriceEn" placeholder="Price (en)"></div>
@@ -303,10 +306,10 @@
                         <li>ID генерируется из английского названия + год</li>
                         <li>При массовой загрузке название из имени файла</li>
                         <li>Порядок элементов — перетаскиванием</li>
-                        <li><strong>Код</strong> извлекается из имени файла (например, VS369 из kinderjoy_onepiece_VS369.webp)</li>
+                        <li><strong>Код</strong> извлекается из имени файла</li>
                         <li>Поля для полной серии на продажу сохраняются в JSON</li>
-                        <li>Производители автоматически загружаются из manufacturers.json</li>
-                        <li><strong>Дата добавления</strong> для фигурок/допов/вкладышей ставится автоматически (сегодня) и попадает в forsale.json</li>
+                        <li><strong>Дата добавления</strong> — когда фигурка добавлена в каталог</li>
+                        <li><strong>Дата выставления на продажу</strong> — отдельное поле <code>forsale_date</code>. Ставится автоматически при включении «В продаже», <strong>очищается при снятии галочки</strong></li>
                         <li><strong>При экспорте</strong> генерируются: <code>stats.json</code>, <code>videos.json</code>, <code>forsale.json</code>, <code>collection.json</code>, <code>search.json</code></li>
                     </ul>
                 </div>
@@ -372,6 +375,7 @@
                     
                     <div class="form-group"><label><input type="checkbox" id="singleOwned"> В коллекции</label></div>
                     <div class="form-group"><label><input type="checkbox" id="singleForsale"> В продаже</label></div>
+                    <div class="form-group"><input type="date" id="singleForsaleDate" placeholder="Дата выставления"></div>
                     <div class="form-group"><input type="text" id="singleAvito" placeholder="Ссылка Avito"></div>
                     <div class="form-group"><input type="text" id="singlePrice" placeholder="Цена"></div>
                     <div class="form-group"><input type="text" id="singleCondition" placeholder="Состояние (рус)"></div>
@@ -473,6 +477,7 @@
 
                 <div class="form-group"><label><input type="checkbox" id="singleEditOwned"> В коллекции</label></div>
                 <div class="form-group"><label><input type="checkbox" id="singleEditForsale"> В продаже</label></div>
+                <div class="form-group"><input type="date" id="singleEditForsaleDate" placeholder="Дата выставления"></div>
                 <div class="form-group"><input type="text" id="singleEditAvito" placeholder="Ссылка Avito"></div>
                 <div class="form-group"><input type="text" id="singleEditPrice" placeholder="Цена"></div>
                 <div class="form-group"><input type="text" id="singleEditCondition" placeholder="Состояние (рус)"></div>
@@ -540,6 +545,7 @@ function clearSingleForm() {
     document.getElementById('singleDescriptionEn').value = '';
     document.getElementById('singleOwned').checked = false;
     document.getElementById('singleForsale').checked = false;
+    document.getElementById('singleForsaleDate').value = '';
     document.getElementById('singleAvito').value = '';
     document.getElementById('singlePrice').value = '';
     document.getElementById('singleCondition').value = '';
@@ -580,6 +586,7 @@ function addSingle() {
         description_en: document.getElementById('singleDescriptionEn').value.trim(),
         owned: document.getElementById('singleOwned').checked,
         forsale: document.getElementById('singleForsale').checked,
+        forsale_date: document.getElementById('singleForsaleDate').value.trim(),
         avito: document.getElementById('singleAvito').value.trim(),
         price: document.getElementById('singlePrice').value.trim(),
         condition: document.getElementById('singleCondition').value.trim(),
@@ -707,6 +714,7 @@ function editSingle(manufacturer, idx) {
     document.getElementById('singleEditDescriptionEn').value = item.description_en || '';
     document.getElementById('singleEditOwned').checked = item.owned === true;
     document.getElementById('singleEditForsale').checked = item.forsale === true;
+    document.getElementById('singleEditForsaleDate').value = item.forsale_date || '';
     document.getElementById('singleEditAvito').value = item.avito || '';
     document.getElementById('singleEditPrice').value = item.price || '';
     document.getElementById('singleEditCondition').value = item.condition || '';
@@ -773,6 +781,7 @@ function saveSingleEdit() {
         description_en: document.getElementById('singleEditDescriptionEn').value.trim(),
         owned: document.getElementById('singleEditOwned').checked,
         forsale: document.getElementById('singleEditForsale').checked,
+        forsale_date: document.getElementById('singleEditForsaleDate').value.trim(),
         avito: document.getElementById('singleEditAvito').value.trim(),
         price: document.getElementById('singleEditPrice').value.trim(),
         condition: document.getElementById('singleEditCondition').value.trim(),
@@ -1013,6 +1022,7 @@ function createItemElement(data, idx, type, seriesId) {
     
     let owned = data?.owned || false;
     let forsale = data?.forsale || false;
+    let forsaleDate = data?.forsale_date || '';
     let avito = data?.avito || '';
     let price = data?.price || '';
     let condition = data?.condition || '';
@@ -1024,13 +1034,10 @@ function createItemElement(data, idx, type, seriesId) {
     div.setAttribute('draggable', 'true');
     div.dataset.type = type;
     
-    if (data?.date_added) {
-        div.dataset.dateAdded = data.date_added;
-    }
+div.dataset.dateAdded = data?.date_added || todayISO();
     
     let previewUrl = data?._preview || (imagePath ? imagePath : '');
     
-    // Уникальный ID для input файла
     const fileInputId = `img_file_${seriesId}_${type}_${num}_${Date.now()}_${Math.random().toString(36).slice(2,7)}`;
     
     div.innerHTML = `
@@ -1050,6 +1057,7 @@ function createItemElement(data, idx, type, seriesId) {
         <div class="row" style="margin-top:5px;">
             <label style="font-weight:normal;font-size:13px;"><input type="checkbox" class="item-owned" ${owned ? 'checked' : ''}> В коллекции</label>
             <label style="font-weight:normal;font-size:13px;"><input type="checkbox" class="item-forsale" ${forsale ? 'checked' : ''}> В продаже</label>
+            <input type="date" class="item-forsale-date" placeholder="Дата выставления" value="${escapeHtml(forsaleDate)}" style="width:140px;" title="Дата выставления на продажу">
             <input type="text" class="item-avito" placeholder="Ссылка Avito" value="${escapeHtml(avito)}" style="flex:1;min-width:100px;">
             <input type="text" class="item-price" placeholder="Цена" value="${escapeHtml(price)}" style="width:80px;">
             <input type="text" class="item-condition" placeholder="Состояние (рус)" value="${escapeHtml(condition)}" style="flex:1;min-width:80px;">
@@ -1075,7 +1083,6 @@ function createItemElement(data, idx, type, seriesId) {
         const file = e.target.files[0];
         if (!file) return;
         
-        // Определяем производителя и seriesId
         const manufacturerSelect = document.getElementById('manufacturer');
         const editManufacturerSelect = document.getElementById('editManufacturer');
         let manufacturer = 'other';
@@ -1091,12 +1098,10 @@ function createItemElement(data, idx, type, seriesId) {
         
         pathInput.value = path;
         
-        // Обновляем превью
         const url = URL.createObjectURL(file);
         previewImg.src = url;
         previewImg.style.display = 'block';
         
-        // Извлекаем код из имени файла
         const code = extractCodeFromFilename(file.name);
         if (code) {
             const codeInput = div.querySelector('.item-code');
@@ -1107,6 +1112,21 @@ function createItemElement(data, idx, type, seriesId) {
         
         showStatus();
     });
+    
+    // ===== АВТОПОДСТАНОВКА И ОЧИСТКА ДАТЫ ПРИ ПЕРЕКЛЮЧЕНИИ "В ПРОДАЖЕ" =====
+    const forsaleCheckbox = div.querySelector('.item-forsale');
+    const forsaleDateInput = div.querySelector('.item-forsale-date');
+    if (forsaleCheckbox && forsaleDateInput) {
+        forsaleCheckbox.addEventListener('change', function() {
+            if (this.checked) {
+                if (!forsaleDateInput.value) {
+                    forsaleDateInput.value = new Date().toISOString().slice(0, 10);
+                }
+            } else {
+                forsaleDateInput.value = '';
+            }
+        });
+    }
     
     return div;
 }
@@ -1175,7 +1195,7 @@ function renumberAll(container) {
 }
 
 // ============================================================
-// СБОР ЭЛЕМЕНТОВ (с авто-датой добавления)
+// СБОР ЭЛЕМЕНТОВ (с авто-датой добавления и forsale_date)
 // ============================================================
 
 function collectItems(container) {
@@ -1190,6 +1210,7 @@ function collectItems(container) {
             image: item.querySelector('.item-image')?.value || '',
             owned: item.querySelector('.item-owned')?.checked || false,
             forsale: item.querySelector('.item-forsale')?.checked || false,
+            forsale_date: item.querySelector('.item-forsale-date')?.value || '',
             avito: item.querySelector('.item-avito')?.value || '',
             price: item.querySelector('.item-price')?.value || '',
             condition: item.querySelector('.item-condition')?.value || '',
@@ -1581,6 +1602,7 @@ function addSeries() {
         fullSeriesCondition: document.getElementById('fullSeriesCondition').value,
         fullSeriesCondition_en: document.getElementById('fullSeriesConditionEn').value,
         fullSeriesDateAdded: document.getElementById('fullSeriesDateAdded').value,
+		fullSeriesForsaleDate: document.getElementById('fullSeriesForsaleDate').value,
         fullSeriesDescription: document.getElementById('fullSeriesDescription').value,
         fullSeriesDescription_en: document.getElementById('fullSeriesDescriptionEn').value,
         figures: newFigures,
@@ -1620,6 +1642,7 @@ function clearAddForm() {
     document.getElementById('fullSeriesCondition').value = '';
     document.getElementById('fullSeriesConditionEn').value = '';
     document.getElementById('fullSeriesDateAdded').value = '';
+	document.getElementById('fullSeriesForsaleDate').value = '';
     document.getElementById('fullSeriesDescription').value = '';
     document.getElementById('fullSeriesDescriptionEn').value = '';
     document.getElementById('addVideoYoutube').value = '';
@@ -1662,6 +1685,7 @@ function editSeries(idx) {
     document.getElementById('editFullSeriesCondition').value = s.fullSeriesCondition || '';
     document.getElementById('editFullSeriesConditionEn').value = s.fullSeriesCondition_en || '';
     document.getElementById('editFullSeriesDateAdded').value = s.fullSeriesDateAdded || '';
+	document.getElementById('editFullSeriesForsaleDate').value = s.fullSeriesForsaleDate || '';
     document.getElementById('editFullSeriesDescription').value = s.fullSeriesDescription || '';
     document.getElementById('editFullSeriesDescriptionEn').value = s.fullSeriesDescription_en || '';
     
@@ -1753,6 +1777,7 @@ function saveEdit() {
         fullSeriesCondition: document.getElementById('editFullSeriesCondition').value,
         fullSeriesCondition_en: document.getElementById('editFullSeriesConditionEn').value,
         fullSeriesDateAdded: document.getElementById('editFullSeriesDateAdded').value,
+		fullSeriesForsaleDate: document.getElementById('editFullSeriesForsaleDate').value,
         fullSeriesDescription: document.getElementById('editFullSeriesDescription').value,
         fullSeriesDescription_en: document.getElementById('editFullSeriesDescriptionEn').value,
         figures: newFigures,
@@ -1831,6 +1856,56 @@ function cleanInsertCodes() {
 window.cleanInsertCodes = cleanInsertCodes;
 
 // ============================================================
+// ЗАПОЛНЕНИЕ ПУСТЫХ ДАТ ДОБАВЛЕНИЯ
+// ============================================================
+
+function fillEmptyDates() {
+    if (!existingSeries.length) {
+        alert('Сначала загрузите данные');
+        return;
+    }
+    
+    if (!confirm('Заполнить пустые date_added и forsale_date у всех элементов?\n\nДата добавления берётся из:\n1. fullSeriesDateAdded серии\n2. Сегодняшней даты\n\nДата выставления берётся только для элементов с forsale: true')) {
+        return;
+    }
+    
+    let addedCount = 0;
+    let forsaleCount = 0;
+    
+    existingSeries.forEach(s => {
+        const fallbackAdded = s.fullSeriesDateAdded || todayISO();
+        const fallbackForsale = s.fullSeriesForsaleDate || s.fullSeriesDateAdded || todayISO();
+        
+        ['figures', 'extras', 'variants', 'inserts', 'other'].forEach(cat => {
+            if (!Array.isArray(s[cat])) return;
+            s[cat].forEach(item => {
+                // Заполняем date_added
+                if (!item.date_added || !String(item.date_added).trim()) {
+                    item.date_added = fallbackAdded;
+                    addedCount++;
+                }
+                // Заполняем forsale_date — только если в продаже и дата пустая
+                if (item.forsale === true && (!item.forsale_date || !String(item.forsale_date).trim())) {
+                    item.forsale_date = fallbackForsale;
+                    forsaleCount++;
+                }
+            });
+        });
+    });
+    
+    alert(`✅ Заполнено:\n• date_added: ${addedCount}\n• forsale_date: ${forsaleCount}\n\nТеперь откройте любую серию и нажмите "💾 Сохранить" — чтобы сформировался ZIP со всеми изменениями.`);
+    
+    const editIdx = document.getElementById('editIndex').value;
+    if (editIdx !== '' && editIdx !== null && editIdx !== undefined) {
+        editSeries(parseInt(editIdx));
+    }
+    
+    updateStats();
+}
+
+window.fillEmptyDates = fillEmptyDates;
+
+// ============================================================
 // ВРЕМЕННЫЕ
 // ============================================================
 
@@ -1852,6 +1927,7 @@ function editTempSeries(idx) {
     document.getElementById('fullSeriesCondition').value = s.fullSeriesCondition || '';
     document.getElementById('fullSeriesConditionEn').value = s.fullSeriesCondition_en || '';
     document.getElementById('fullSeriesDateAdded').value = s.fullSeriesDateAdded || '';
+	document.getElementById('fullSeriesDateAdded').value = s.fullSeriesDateAdded || '';
     document.getElementById('fullSeriesDescription').value = s.fullSeriesDescription || '';
     document.getElementById('fullSeriesDescriptionEn').value = s.fullSeriesDescription_en || '';
     
@@ -1992,6 +2068,7 @@ function generateForsaleData(seriesList) {
     const items = [];
     
     seriesList.forEach(s => {
+        // ===== ПОЛНАЯ СЕРИЯ =====
         if (s.fullSeriesForSale === true) {
             items.push({
                 type: 'full',
@@ -2010,10 +2087,12 @@ function generateForsaleData(seriesList) {
                 condition: s.fullSeriesCondition || '',
                 condition_en: s.fullSeriesCondition_en || '',
                 code: '',
-                date_added: s.fullSeriesDateAdded || s.date_added || ''
+                date_added: s.fullSeriesDateAdded || s.date_added || '',
+                forsale_date: s.fullSeriesForsaleDate || s.fullSeriesDateAdded || s.date_added || ''
             });
         }
         
+        // ===== ФИГУРКИ, ВАРИАНТЫ, ДОПЫ, ВКЛАДЫШИ =====
         const typeMap = {
             'figures': 'figure',
             'variants': 'variant',
@@ -2043,16 +2122,19 @@ function generateForsaleData(seriesList) {
                     condition: item.condition || '',
                     condition_en: item.condition_en || '',
                     code: item.code || '',
-                    date_added: item.date_added || s.date_added || ''
+                    date_added: item.date_added || s.date_added || '',
+                    forsale_date: item.forsale_date || item.date_added || s.date_added || ''
                 });
             });
         });
     });
     
+    // Сортировка: новые выставленные на продажу — первыми
     items.sort((a, b) => {
-        const dateA = a.date_added ? new Date(a.date_added) : new Date(0);
-        const dateB = b.date_added ? new Date(b.date_added) : new Date(0);
-        return dateB - dateA;
+        const da = a.forsale_date || a.date_added || '';
+        const db = b.forsale_date || b.date_added || '';
+        if (db !== da) return db.localeCompare(da);
+        return (a.name || '').localeCompare(b.name || '');
     });
     
     return items;
@@ -2243,6 +2325,7 @@ function downloadAsZip(seriesList) {
             fullSeriesCondition: s.fullSeriesCondition || '',
             fullSeriesCondition_en: s.fullSeriesCondition_en || '',
             fullSeriesDateAdded: s.fullSeriesDateAdded || '',
+			fullSeriesForsaleDate: s.fullSeriesForsaleDate || '',
             fullSeriesDescription: s.fullSeriesDescription || '',
             fullSeriesDescription_en: s.fullSeriesDescription_en || '',
             figures: s.figures || [],
@@ -2294,7 +2377,6 @@ document.querySelectorAll('.tab').forEach(tab => {
         }
 
         if (tabName === 'singleEdit') {
-            // Заполняем селект производителей
             const sel = document.getElementById('singleEditManufacturerSelect');
             if (sel && sel.children.length === 0) {
                 Object.entries(manufacturersData).forEach(([key, value]) => {
@@ -2374,7 +2456,7 @@ document.addEventListener('DOMContentLoaded', async function() {
                 }
             }
             refreshSinglesList();
-            input.value = e.target.value = '';
+            e.target.value = '';
         });
     }
     
@@ -2414,66 +2496,96 @@ document.addEventListener('DOMContentLoaded', async function() {
             document.getElementById('singleInsertImage').value = `images/singles/${manufFolder}/${file.name}`;
         });
     }
-	// Загрузка singles/*.json на вкладке редактирования
-const singleEditFileInput = document.getElementById('singleEditFileInput');
-if (singleEditFileInput) {
-    singleEditFileInput.addEventListener('change', async function(e) {
-        const files = Array.from(e.target.files);
-        for (const file of files) {
-            try {
-                const text = await file.text();
-                const data = JSON.parse(text);
-                const m = file.name.replace('.json', '');
-                if (Array.isArray(data)) {
-                    singlesData[m] = data;
-                }
-            } catch (err) {
-                console.error('Ошибка чтения', file.name, err);
-            }
-        }
-        refreshSinglesEditList();
-        e.target.value = '';
-    });
-}
-
-// Превью картинки фигурки
-const editImgInput = document.getElementById('singleEditImageFile');
-if (editImgInput) {
-    editImgInput.addEventListener('change', function(e) {
-        const file = e.target.files[0];
-        if (!file) return;
-        const url = URL.createObjectURL(file);
-        document.getElementById('singleEditImagePreview').innerHTML = 
-            `<div class="img-item"><img src="${url}"></div>`;
-        const manufacturer = document.getElementById('singleEditManufacturerSelect').value;
-        const manufFolder = getManufacturerFolder(manufacturer);
-        document.getElementById('singleEditImage').value = `images/singles/${manufFolder}/${file.name}`;
-    });
-}
-
-// Превью вкладыша
-const editInsertImgInput = document.getElementById('singleEditInsertImageFile');
-if (editInsertImgInput) {
-    editInsertImgInput.addEventListener('change', function(e) {
-        const file = e.target.files[0];
-        if (!file) return;
-        const url = URL.createObjectURL(file);
-        document.getElementById('singleEditInsertImagePreview').innerHTML = 
-            `<div class="img-item"><img src="${url}"></div>`;
-        const manufacturer = document.getElementById('singleEditManufacturerSelect').value;
-        const manufFolder = getManufacturerFolder(manufacturer);
-        document.getElementById('singleEditInsertImage').value = `images/singles/${manufFolder}/${file.name}`;
-    });
-}
-
-// Показ/скрытие блока вкладыша
-const editHasInsertCheckbox = document.getElementById('singleEditHasInsert');
-if (editHasInsertCheckbox) {
-    editHasInsertCheckbox.addEventListener('change', function() {
-        document.getElementById('singleEditInsertFields').style.display = this.checked ? 'block' : 'none';
-    });
-}
 	
+    // ===== АВТООЧИСТКА ДАТЫ У ОТДЕЛЬНОЙ ФИГУРКИ (ДОБАВЛЕНИЕ) =====
+    const singleForsaleCheckbox = document.getElementById('singleForsale');
+    const singleForsaleDateInput = document.getElementById('singleForsaleDate');
+    if (singleForsaleCheckbox && singleForsaleDateInput) {
+        singleForsaleCheckbox.addEventListener('change', function() {
+            if (this.checked) {
+                if (!singleForsaleDateInput.value) {
+                    singleForsaleDateInput.value = new Date().toISOString().slice(0, 10);
+                }
+            } else {
+                singleForsaleDateInput.value = '';
+            }
+        });
+    }
+    
+    // ===== АВТООЧИСТКА ДАТЫ У ОТДЕЛЬНОЙ ФИГУРКИ (РЕДАКТИРОВАНИЕ) =====
+    const singleEditForsaleCheckbox = document.getElementById('singleEditForsale');
+    const singleEditForsaleDateInput = document.getElementById('singleEditForsaleDate');
+    if (singleEditForsaleCheckbox && singleEditForsaleDateInput) {
+        singleEditForsaleCheckbox.addEventListener('change', function() {
+            if (this.checked) {
+                if (!singleEditForsaleDateInput.value) {
+                    singleEditForsaleDateInput.value = new Date().toISOString().slice(0, 10);
+                }
+            } else {
+                singleEditForsaleDateInput.value = '';
+            }
+        });
+    }
+	
+    // Загрузка singles/*.json на вкладке редактирования
+    const singleEditFileInput = document.getElementById('singleEditFileInput');
+    if (singleEditFileInput) {
+        singleEditFileInput.addEventListener('change', async function(e) {
+            const files = Array.from(e.target.files);
+            for (const file of files) {
+                try {
+                    const text = await file.text();
+                    const data = JSON.parse(text);
+                    const m = file.name.replace('.json', '');
+                    if (Array.isArray(data)) {
+                        singlesData[m] = data;
+                    }
+                } catch (err) {
+                    console.error('Ошибка чтения', file.name, err);
+                }
+            }
+            refreshSinglesEditList();
+            e.target.value = '';
+        });
+    }
+
+    // Превью картинки фигурки
+    const editImgInput = document.getElementById('singleEditImageFile');
+    if (editImgInput) {
+        editImgInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            const url = URL.createObjectURL(file);
+            document.getElementById('singleEditImagePreview').innerHTML = 
+                `<div class="img-item"><img src="${url}"></div>`;
+            const manufacturer = document.getElementById('singleEditManufacturerSelect').value;
+            const manufFolder = getManufacturerFolder(manufacturer);
+            document.getElementById('singleEditImage').value = `images/singles/${manufFolder}/${file.name}`;
+        });
+    }
+
+    // Превью вкладыша
+    const editInsertImgInput = document.getElementById('singleEditInsertImageFile');
+    if (editInsertImgInput) {
+        editInsertImgInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            const url = URL.createObjectURL(file);
+            document.getElementById('singleEditInsertImagePreview').innerHTML = 
+                `<div class="img-item"><img src="${url}"></div>`;
+            const manufacturer = document.getElementById('singleEditManufacturerSelect').value;
+            const manufFolder = getManufacturerFolder(manufacturer);
+            document.getElementById('singleEditInsertImage').value = `images/singles/${manufFolder}/${file.name}`;
+        });
+    }
+
+    // Показ/скрытие блока вкладыша
+    const editHasInsertCheckbox = document.getElementById('singleEditHasInsert');
+    if (editHasInsertCheckbox) {
+        editHasInsertCheckbox.addEventListener('change', function() {
+            document.getElementById('singleEditInsertFields').style.display = this.checked ? 'block' : 'none';
+        });
+    }
 });
 
 function removeSingleCover() {
@@ -2511,6 +2623,7 @@ window.deleteSingle = deleteSingle;
 window.clearAllSingles = clearAllSingles;
 window.downloadSinglesZip = downloadSinglesZip;
 window.removeSingleInsertCover = removeSingleInsertCover;
+window.fillEmptyDates = fillEmptyDates;
 </script>
 </body>
 </html>
