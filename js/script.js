@@ -2970,6 +2970,10 @@ async function initSeries() {
     const hasCollage = (s.figures && s.figures.length > 0) || 
                        (s.extras && s.extras.length > 0) || 
                        (s.variants && s.variants.length > 0);
+	const hasForSale = 
+      (s.figures && s.figures.some(f => f.forsale === true)) ||
+      (s.extras && s.extras.some(e => e.forsale === true)) ||
+      (s.variants && s.variants.some(v => v.forsale === true));
     
     function createItemsList(items, type, startIndex) {
       if (!items || items.length === 0) return '';
@@ -3042,7 +3046,18 @@ async function initSeries() {
       ${createItemsList(s.variants, 'variants', variantsStartIndex)}
       ${createItemsList(s.inserts, 'inserts', insertsStartIndex)}
       ${createItemsList(s.other, 'other', otherStartIndex)}
-      ${hasCollage ? `<div class="collage-section"><button class="collage-download-btn" onclick="downloadCollage('${escapeHtml(s.id)}', '${escapeHtml(name).replace(/'/g, "\\'")}')">💾 ${currentLang === 'ru' ? 'Скачать чек-лист (JPG)' : 'Download checklist (JPG)'}</button></div>` : ''}
+      ${hasCollage ? `
+        <div class="collage-section">
+          <button class="collage-download-btn" onclick="downloadCollage('${escapeHtml(s.id)}', '${escapeHtml(name).replace(/'/g, "\\'")}')">
+            💾 ${currentLang === 'ru' ? 'Скачать чек-лист (JPG)' : 'Download checklist (JPG)'}
+          </button>
+          ${hasForSale ? `
+            <button class="collage-download-btn collage-download-btn-sale" onclick="downloadCollage('${escapeHtml(s.id)}', '${escapeHtml(name).replace(/'/g, "\\'")}', true)">
+              💰 ${currentLang === 'ru' ? 'Скачать чек-лист (на продажу)' : 'Download checklist (for sale)'}
+            </button>
+          ` : ''}
+        </div>
+      ` : ''}
       ${createVideosBlock(s.videos, currentLang)}
     `;
     
@@ -3936,7 +3951,7 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
     });
 }
 
-async function downloadCollage(seriesId, seriesName) {
+async function downloadCollage(seriesId, seriesName, onlyForSale = false) {
     if (isDownloadingChecklist) {
         console.warn('⏳ Уже генерируется чек-лист');
         return;
@@ -3956,20 +3971,36 @@ async function downloadCollage(seriesId, seriesName) {
             return;
         }
         
-        const figures = series.figures || [];
-        const extras = series.extras || [];
-        const variants = series.variants || [];
+        // Берём только элементы, которые в продаже (если onlyForSale)
+        let figures = series.figures || [];
+        let extras = series.extras || [];
+        let variants = series.variants || [];
+        
+        if (onlyForSale) {
+            figures = figures.filter(f => f.forsale === true);
+            extras = extras.filter(e => e.forsale === true);
+            variants = variants.filter(v => v.forsale === true);
+        }
         
         if (figures.length === 0 && extras.length === 0 && variants.length === 0) {
-            showError(lang === 'ru' ? 'Нет элементов для чек-листа' : 'No items for checklist');
+            showError(
+                onlyForSale
+                    ? (lang === 'ru' ? 'Нет фигурок в продаже' : 'No figures for sale')
+                    : (lang === 'ru' ? 'Нет элементов для чек-листа' : 'No items for checklist')
+            );
             hideLoadingToast();
             isDownloadingChecklist = false;
             return;
         }
         
-        const seriesTitle = lang === 'en' && series.name_en ? series.name_en : series.name;
+        // Название чек-листа — добавляем пометку для версии "на продажу"
+        let seriesTitle = lang === 'en' && series.name_en ? series.name_en : series.name;
+        if (onlyForSale) {
+            seriesTitle += lang === 'ru' ? ' (на продажу)' : ' (for sale)';
+        }
         
         const jpegData = await generateCollage(seriesId, seriesTitle, figures, extras, variants, lang);
+        ...
         const base64Data = jpegData.split(',')[1];
         const safeName = seriesTitle.replace(/[^a-zа-яё0-9]/gi, '_');
         const fileName = `checklist_${safeName}_${Date.now()}.jpg`;

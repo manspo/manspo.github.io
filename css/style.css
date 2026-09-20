@@ -787,6 +787,23 @@ main {
 }
 .collage-download-btn:hover { transform: translateY(-2px); background: var(--primary-2); }
 
+.collage-download-btn-sale {
+  background: var(--warning);
+  margin-left: 12px;
+}
+.collage-download-btn-sale:hover {
+  background: #fbbf24;
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+}
+
+@media (max-width: 768px) {
+  .collage-download-btn-sale {
+    margin-left: 0;
+    margin-top: 10px;
+    width: 100%;
+  }
+}
+
 /* ===== ЗАГОЛОВКИ СТРАНИЦ ===== */
 .page-header {
   text-align: center;
