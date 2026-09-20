@@ -1,5 +1,41 @@
 [
   {
+    "id": "disney-anniversary-100-by-kinder-2024",
+    "name": "Дисней Юбилей 100 от Киндер",
+    "name_en": "Disney Anniversary 100 by Kinder",
+    "year": 2024,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/disney-anniversary-100-by-kinder-2024/kinderjoy_disney100_banner_dsk.webp",
+    "kind": "",
+    "description": "Серия посвященная юбилею Дисней. 100 лет!",
+    "description_en": "Disney anniversary series. 100 years!",
+    "visible": true
+  },
+  {
+    "id": "veterinary-emerging-by-kinder-2026",
+    "name": "Ветеринария от Киндер",
+    "name_en": "Veterinary Emerging by Kinder",
+    "year": 2026,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/veterinary-emerging-by-kinder-2026/kinderjoy_veterinaryemerging_banner_dsk.webp",
+    "kind": "",
+    "description": "Обновленная серия посвященная Ветеринарам.",
+    "description_en": "Updated series dedicated to Veterinarians.",
+    "visible": true
+  },
+  {
+    "id": "ramadan-2-by-kinder-2026",
+    "name": "Рамадан 2 от Киндер",
+    "name_en": "Ramadan 2 by Kinder",
+    "year": 2026,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/ramadan-2-by-kinder-2026/kinderjoy_ramadan_banner_dsk.webp",
+    "kind": "",
+    "description": "Новая версия серии посвященная священному мусульманскому месяцу Рамадан!",
+    "description_en": "A new version of the series dedicated to the holy Muslim month of Ramadan!",
+    "visible": true
+  },
+  {
     "id": "adventurous-by-kinder-2025",
     "name": "Авантюристы от Киндер",
     "name_en": "Adventurous by Kinder",
