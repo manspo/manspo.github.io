@@ -3768,7 +3768,7 @@ function isDefaultName(item, type) {
                 }
                 
                 ctx.save();
-                ctx.globalAlpha = 0.35;
+                ctx.globalAlpha = 0.45;
                 ctx.translate(x + size/2, y + size/2);
                 ctx.rotate(-Math.PI / 4);
                 ctx.font = `bold ${Math.floor(size * 0.18)}px Inter, system-ui`;
