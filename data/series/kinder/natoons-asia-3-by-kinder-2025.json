@@ -1,10 +1,10 @@
 {
-  "id": "natoons-asia-2-by-kinder-2025",
-  "name": "Натунс Азия 2 от Киндер",
-  "name_en": "Natoons Asia 2 by Kinder",
+  "id": "natoons-asia-3-by-kinder-2025",
+  "name": "Натунс Азия 3 от Киндер",
+  "name_en": "Natoons Asia 3 by Kinder",
   "year": 2025,
   "manufacturer": "kinder",
-  "cover": "images/series/kinder/natoons-asia-2-by-kinder-2025/cover.webp",
+  "cover": "images/series/kinder/natoons-asia-3-by-kinder-2025/cover.webp",
   "description": "Серия с животными Азии",
   "description_en": "Series with Asian animals",
   "kind": "joy",
@@ -21,11 +21,11 @@
   "fullSeriesDescription_en": "",
   "figures": [
     {
-      "id": "natoons-asia-2-by-kinder-2025_fig1",
+      "id": "natoons-asia-3-by-kinder-2025_fig1",
       "name": "Хамелеон (Оранжевый)",
       "name_en": "Chameleon (Orange)",
       "code": "VD478B",
-      "image": "images/series/kinder/natoons-asia-2-by-kinder-2025/chamaleon-vd478b.webp",
+      "image": "images/series/kinder/natoons-asia-3-by-kinder-2025/chamaleon-vd478b.webp",
       "owned": true,
       "forsale": false,
       "forsale_date": "",
@@ -37,11 +37,11 @@
       "date_added": "2026-09-17"
     },
     {
-      "id": "natoons-asia-2-by-kinder-2025_fig2",
+      "id": "natoons-asia-3-by-kinder-2025_fig2",
       "name": "Олень (Коричневый)",
       "name_en": "Deer (Brown)",
       "code": "VQ125B",
-      "image": "images/series/kinder/natoons-asia-2-by-kinder-2025/deer-vq125b.webp",
+      "image": "images/series/kinder/natoons-asia-3-by-kinder-2025/deer-vq125b.webp",
       "owned": true,
       "forsale": false,
       "forsale_date": "",
@@ -53,11 +53,11 @@
       "date_added": "2026-09-17"
     },
     {
-      "id": "natoons-asia-2-by-kinder-2025_fig3",
+      "id": "natoons-asia-3-by-kinder-2025_fig3",
       "name": "Рыба Красный император (Желтая)",
       "name_en": "Red Emperor Fish (Yellow)",
       "code": "VV276C",
-      "image": "images/series/kinder/natoons-asia-2-by-kinder-2025/fish-vv276c.webp",
+      "image": "images/series/kinder/natoons-asia-3-by-kinder-2025/fish-vv276c.webp",
       "owned": true,
       "forsale": false,
       "forsale_date": "",
@@ -69,11 +69,11 @@
       "date_added": "2026-09-17"
     },
     {
-      "id": "natoons-asia-2-by-kinder-2025_fig4",
+      "id": "natoons-asia-3-by-kinder-2025_fig4",
       "name": "Фламинго (Розовый)",
       "name_en": "Flamingo (Pink)",
       "code": "VD407B",
-      "image": "images/series/kinder/natoons-asia-2-by-kinder-2025/flamingo-vd407b.webp",
+      "image": "images/series/kinder/natoons-asia-3-by-kinder-2025/flamingo-vd407b.webp",
       "owned": true,
       "forsale": false,
       "forsale_date": "",
@@ -85,11 +85,11 @@
       "date_added": "2026-09-17"
     },
     {
-      "id": "natoons-asia-2-by-kinder-2025_fig5",
+      "id": "natoons-asia-3-by-kinder-2025_fig5",
       "name": "Гаур / Индийский бизон",
       "name_en": "Gaur / Bison",
       "code": "VT384A",
-      "image": "images/series/kinder/natoons-asia-2-by-kinder-2025/gaur-vt384a.webp",
+      "image": "images/series/kinder/natoons-asia-3-by-kinder-2025/gaur-vt384a.webp",
       "owned": true,
       "forsale": false,
       "forsale_date": "",
@@ -101,11 +101,11 @@
       "date_added": "2026-09-17"
     },
     {
-      "id": "natoons-asia-2-by-kinder-2025_fig6",
+      "id": "natoons-asia-3-by-kinder-2025_fig6",
       "name": "Лошадь / Конь (Коричневая)",
       "name_en": "Horse / Steed (Brown)",
       "code": "VD398B",
-      "image": "images/series/kinder/natoons-asia-2-by-kinder-2025/horse-vd398b.webp",
+      "image": "images/series/kinder/natoons-asia-3-by-kinder-2025/horse-vd398b.webp",
       "owned": true,
       "forsale": false,
       "forsale_date": "",
@@ -117,11 +117,11 @@
       "date_added": "2026-09-17"
     },
     {
-      "id": "natoons-asia-2-by-kinder-2025_fig7",
+      "id": "natoons-asia-3-by-kinder-2025_fig7",
       "name": "Сова (Коричневая)",
       "name_en": "Owl (Brown)",
       "code": "VU229B",
-      "image": "images/series/kinder/natoons-asia-2-by-kinder-2025/owl-vu229b.webp",
+      "image": "images/series/kinder/natoons-asia-3-by-kinder-2025/owl-vu229b.webp",
       "owned": true,
       "forsale": false,
       "forsale_date": "",
@@ -133,11 +133,11 @@
       "date_added": "2026-09-17"
     },
     {
-      "id": "natoons-asia-2-by-kinder-2025_fig8",
+      "id": "natoons-asia-3-by-kinder-2025_fig8",
       "name": "Морской Конек (Синий)",
       "name_en": "Seahorse (Blue)",
       "code": "VD416A",
-      "image": "images/series/kinder/natoons-asia-2-by-kinder-2025/seahorse-vd398a.webp",
+      "image": "images/series/kinder/natoons-asia-3-by-kinder-2025/seahorse-vd398a.webp",
       "owned": true,
       "forsale": false,
       "forsale_date": "",
@@ -149,11 +149,11 @@
       "date_added": "2026-09-17"
     },
     {
-      "id": "natoons-asia-2-by-kinder-2025_fig9",
+      "id": "natoons-asia-3-by-kinder-2025_fig9",
       "name": "Тигр",
       "name_en": "Tiger",
       "code": "VT386A",
-      "image": "images/series/kinder/natoons-asia-2-by-kinder-2025/tiger-vt386a.webp",
+      "image": "images/series/kinder/natoons-asia-3-by-kinder-2025/tiger-vt386a.webp",
       "owned": false,
       "forsale": false,
       "forsale_date": "",
@@ -165,11 +165,11 @@
       "date_added": "2026-09-17"
     },
     {
-      "id": "natoons-asia-2-by-kinder-2025_fig10",
+      "id": "natoons-asia-3-by-kinder-2025_fig10",
       "name": "Черепаха (Бирюзовая)",
       "name_en": "Turtle (Turquoise)",
       "code": "EN266A",
-      "image": "images/series/kinder/natoons-asia-2-by-kinder-2025/turtle-en266a.webp",
+      "image": "images/series/kinder/natoons-asia-3-by-kinder-2025/turtle-en266a.webp",
       "owned": true,
       "forsale": false,
       "forsale_date": "",
@@ -181,11 +181,11 @@
       "date_added": "2026-09-17"
     },
     {
-      "id": "natoons-asia-2-by-kinder-2025_fig11",
+      "id": "natoons-asia-3-by-kinder-2025_fig11",
       "name": "Черная Пантера",
       "name_en": "Black Panther",
       "code": "VT381",
-      "image": "images/series/kinder/natoons-asia-2-by-kinder-2025/vt381_panther.webp",
+      "image": "images/series/kinder/natoons-asia-3-by-kinder-2025/vt381_panther.webp",
       "owned": true,
       "forsale": true,
       "forsale_date": "2026-09-20",
@@ -197,11 +197,11 @@
       "date_added": "2026-09-17"
     },
     {
-      "id": "natoons-asia-2-by-kinder-2025_fig12",
+      "id": "natoons-asia-3-by-kinder-2025_fig12",
       "name": "Слон",
       "name_en": "Elephant",
       "code": "VT385",
-      "image": "images/series/kinder/natoons-asia-2-by-kinder-2025/vt385_indian_elephant.webp",
+      "image": "images/series/kinder/natoons-asia-3-by-kinder-2025/vt385_indian_elephant.webp",
       "owned": true,
       "forsale": false,
       "forsale_date": "",
@@ -217,11 +217,11 @@
   "variants": [],
   "inserts": [
     {
-      "id": "natoons-asia-2-by-kinder-2025_insert1",
+      "id": "natoons-asia-3-by-kinder-2025_insert1",
       "name": "Вкладыш 1",
       "name_en": "Insert 1",
       "code": "",
-      "image": "images/series/kinder/natoons-asia-2-by-kinder-2025/cover.webp",
+      "image": "images/series/kinder/natoons-asia-3-by-kinder-2025/cover.webp",
       "owned": true,
       "forsale": false,
       "forsale_date": "",

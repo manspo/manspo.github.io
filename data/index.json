@@ -1,5 +1,17 @@
 [
   {
+    "id": "natoons-asia-2-by-kinder-2024",
+    "name": "Натунс Азия 2 от Киндер",
+    "name_en": "Natoons Asia 2 by Kinder",
+    "year": 2024,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/natoons-asia-2-by-kinder-2024/cover.webp",
+    "kind": "joy",
+    "description": "Еще одна вариация азиатской версии Натунс. ",
+    "description_en": "Another variation of the Asian version of Natuns.",
+    "visible": true
+  },
+  {
     "id": "natoons-asia-by-kinder-2024",
     "name": "Натунс Азия от Киндер",
     "name_en": "Natoons Asia by Kinder",
@@ -12,12 +24,12 @@
     "visible": true
   },
   {
-    "id": "natoons-asia-2-by-kinder-2025",
-    "name": "Натунс Азия 2 от Киндер",
-    "name_en": "Natoons Asia 2 by Kinder",
+    "id": "natoons-asia-3-by-kinder-2025",
+    "name": "Натунс Азия 3 от Киндер",
+    "name_en": "Natoons Asia 3 by Kinder",
     "year": 2025,
     "manufacturer": "kinder",
-    "cover": "images/series/kinder/natoons-asia-2-by-kinder-2025/cover.webp",
+    "cover": "images/series/kinder/natoons-asia-3-by-kinder-2025/cover.webp",
     "kind": "joy",
     "description": "Серия с животными Азии",
     "description_en": "Series with Asian animals",
