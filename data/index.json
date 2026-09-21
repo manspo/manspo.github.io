@@ -1,5 +1,17 @@
 [
   {
+    "id": "natoons-asia-by-kinder-2025",
+    "name": "Натунс Азия от Киндер",
+    "name_en": "Natoons Asia by Kinder",
+    "year": 2025,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/natoons-asia-2-by-kinder-2025/cover.webp",
+    "kind": "joy",
+    "description": "Серия с животными Азии",
+    "description_en": "Series with Asian animals",
+    "visible": true
+  },
+  {
     "id": "disney-anniversary-100-by-kinder-2024",
     "name": "Дисней Юбилей 100 от Киндер",
     "name_en": "Disney Anniversary 100 by Kinder",
@@ -825,18 +837,6 @@
     "kind": "joy",
     "description": "Серия про птичку Твити из Луни Тюнз",
     "description_en": "Episode about Tweety Bird from Looney Tunes",
-    "visible": true
-  },
-  {
-    "id": "natoons-asia-by-kinder-2025",
-    "name": "Натунс Азия от Киндер",
-    "name_en": "Natoons Asia by Kinder",
-    "year": 2025,
-    "manufacturer": "kinder",
-    "cover": "images/series/kinder/natoons-asia-by-kinder-2025/cover.webp",
-    "kind": "joy",
-    "description": "Серия с животными Азии",
-    "description_en": "Series with Asian animals",
     "visible": true
   },
   {

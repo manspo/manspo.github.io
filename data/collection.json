@@ -1,5 +1,25 @@
 [
   {
+    "id": "natoons-asia-by-kinder-2025",
+    "name": "Натунс Азия от Киндер",
+    "name_en": "Natoons Asia by Kinder",
+    "year": 2025,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/natoons-asia-2-by-kinder-2025/cover.webp",
+    "kind": "joy",
+    "ownedFigures": 11,
+    "ownedExtras": 0,
+    "ownedVariants": 0,
+    "ownedInserts": 1,
+    "totalOwned": 12,
+    "totalFigures": 12,
+    "totalExtras": 0,
+    "totalVariants": 0,
+    "totalInserts": 1,
+    "totalItems": 13,
+    "forSaleCount": 1
+  },
+  {
     "id": "crystal-duck-by-kinder-1997",
     "name": "Хрустальная Утка от Киндер",
     "name_en": "Crystal Duck by Kinder",
@@ -218,26 +238,6 @@
     "totalInserts": 13,
     "totalItems": 26,
     "forSaleCount": 0
-  },
-  {
-    "id": "natoons-asia-by-kinder-2025",
-    "name": "Натунс Азия от Киндер",
-    "name_en": "Natoons Asia by Kinder",
-    "year": 2025,
-    "manufacturer": "kinder",
-    "cover": "images/series/kinder/natoons-asia-by-kinder-2025/cover.webp",
-    "kind": "joy",
-    "ownedFigures": 11,
-    "ownedExtras": 0,
-    "ownedVariants": 0,
-    "ownedInserts": 1,
-    "totalOwned": 12,
-    "totalFigures": 12,
-    "totalExtras": 0,
-    "totalVariants": 0,
-    "totalInserts": 1,
-    "totalItems": 13,
-    "forSaleCount": 1
   },
   {
     "id": "gabbys-dollhouse-by-kinder-2025",
