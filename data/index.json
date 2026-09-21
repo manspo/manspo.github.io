@@ -1,5 +1,17 @@
 [
   {
+    "id": "pocahontas-by-nestle-1996",
+    "name": "Покахонтас от Нестле",
+    "name_en": "Pocahontas by Nestle",
+    "year": 1996,
+    "manufacturer": "nestle",
+    "cover": "images/series/nestle/pocahontas-by-nestle-1996/899.webp",
+    "kind": "",
+    "description": "Невероятная серия по одноименному мультфильму с 20 допами!",
+    "description_en": "An incredible series based on the cartoon of the same name with 20 extras!",
+    "visible": true
+  },
+  {
     "id": "natoons-asia-2-by-kinder-2024",
     "name": "Натунс Азия 2 от Киндер",
     "name_en": "Natoons Asia 2 by Kinder",
