@@ -3407,22 +3407,25 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
             }
             
             // ===== ПРОВЕРКА ДЕФОЛТНЫХ НАЗВАНИЙ =====
-            function isDefaultName(item, type) {
-                if (!item.name) return true;
-                const nameRu = item.name.trim();
-                const nameEn = (item.name_en || '').trim();
-                
-                const defaultPatterns = {
-                    figure: [/^Фигурка\s+\d+$/i, /^Figure\s+\d+$/i],
-                    extra: [/^Доп\s+\d+$/i, /^Extra\s+\d+$/i],
-                    variant: [/^Вариант\s+\d+$/i, /^Variant\s+\d+$/i],
-                    insert: [/^Вкладыш\s+\d+$/i, /^Insert\s+\d+$/i],
-                    other: [/^Прочее\s+\d+$/i, /^Other\s+\d+$/i]
-                };
-                
-                const patterns = defaultPatterns[type] || defaultPatterns.figure;
-                return patterns.some(p => p.test(nameRu) || p.test(nameEn));
-            }
+function isDefaultName(item, type) {
+    // Смотрим имя только на языке, на котором генерируется чек-лист
+    const checkName = (lang === 'en')
+        ? (item.name_en || item.name || '')
+        : (item.name || '');
+    
+    if (!checkName || !checkName.trim()) return true;
+    
+    const defaultPatterns = {
+        figure: [/^Фигурка\s+\d+$/i, /^Figure\s+\d+$/i],
+        extra: [/^Доп\s+\d+$/i, /^Extra\s+\d+$/i],
+        variant: [/^Вариант\s+\d+$/i, /^Variant\s+\d+$/i],
+        insert: [/^Вкладыш\s+\d+$/i, /^Insert\s+\d+$/i],
+        other: [/^Прочее\s+\d+$/i, /^Other\s+\d+$/i]
+    };
+    
+    const patterns = defaultPatterns[type] || defaultPatterns.figure;
+    return patterns.some(p => p.test(checkName.trim()));
+}
             
             function hasAnyCode(items) {
                 return items.some(item => item.code && item.code.trim());
