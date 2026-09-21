@@ -23,7 +23,7 @@
     {
       "id": "natoons-asia-2-by-kinder-2024_fig1",
       "name": "Лошадь / Конь (Черная)",
-      "name_en": "Figure 1",
+      "name_en": "Horse/Steed (Black)",
       "code": "VD398",
       "image": "images/series/kinder/natoons-asia-2-by-kinder-2024/F_VD398.webp",
       "owned": false,
@@ -39,7 +39,7 @@
     {
       "id": "natoons-asia-2-by-kinder-2024_fig2",
       "name": "Олень (Светло-Коричневый)",
-      "name_en": "Figure 2",
+      "name_en": "Deer (Light Brown)",
       "code": "VD399",
       "image": "images/series/kinder/natoons-asia-2-by-kinder-2024/F_VD399.webp",
       "owned": false,
@@ -55,7 +55,7 @@
     {
       "id": "natoons-asia-2-by-kinder-2024_fig3",
       "name": "Фламинго (Ярко-Розовый)",
-      "name_en": "Figure 3",
+      "name_en": "Flamingo (Light Pink)",
       "code": "VD407",
       "image": "images/series/kinder/natoons-asia-2-by-kinder-2024/F_VD407.webp",
       "owned": false,
@@ -71,7 +71,7 @@
     {
       "id": "natoons-asia-2-by-kinder-2024_fig4",
       "name": "Морской Конек (Оранжевый)",
-      "name_en": "Figure 4",
+      "name_en": "Seahorse (Orange)",
       "code": "VD416",
       "image": "images/series/kinder/natoons-asia-2-by-kinder-2024/F_VD416.webp",
       "owned": false,
@@ -87,7 +87,7 @@
     {
       "id": "natoons-asia-2-by-kinder-2024_fig5",
       "name": "Черепаха (Светло-Коричневая)",
-      "name_en": "Figure 5",
+      "name_en": "Turtle (Light Brown)",
       "code": "EN266B",
       "image": "images/series/kinder/natoons-asia-2-by-kinder-2024/F_EN266B.webp",
       "owned": false,
@@ -103,7 +103,7 @@
     {
       "id": "natoons-asia-2-by-kinder-2024_fig6",
       "name": "Дельфин",
-      "name_en": "Figure 6",
+      "name_en": "Dolphin",
       "code": "VD441",
       "image": "images/series/kinder/natoons-asia-2-by-kinder-2024/F_VD441.webp",
       "owned": false,
@@ -119,7 +119,7 @@
     {
       "id": "natoons-asia-2-by-kinder-2024_fig7",
       "name": "Хамелеон (Зеленый)",
-      "name_en": "Figure 7",
+      "name_en": "Chameleon (Green)",
       "code": "VD478",
       "image": "images/series/kinder/natoons-asia-2-by-kinder-2024/F_VD478.webp",
       "owned": false,
@@ -135,7 +135,7 @@
     {
       "id": "natoons-asia-2-by-kinder-2024_fig8",
       "name": "Лев (Светло-Коричневый)",
-      "name_en": "Figure 8",
+      "name_en": "Leo (Light Brown)",
       "code": "VU223A",
       "image": "images/series/kinder/natoons-asia-2-by-kinder-2024/F_VU223A.webp",
       "owned": false,
@@ -151,7 +151,7 @@
     {
       "id": "natoons-asia-2-by-kinder-2024_fig9",
       "name": "Носорог (Коричневая подставка)",
-      "name_en": "Figure 9",
+      "name_en": "Rhinoceros (Brown Stand)",
       "code": "VU224B",
       "image": "images/series/kinder/natoons-asia-2-by-kinder-2024/F_VU224B.webp",
       "owned": false,
@@ -167,7 +167,7 @@
     {
       "id": "natoons-asia-2-by-kinder-2024_fig10",
       "name": "Сова (Светло-Коричневая)",
-      "name_en": "Figure 10",
+      "name_en": "Owl (Light Brown)",
       "code": "VU229A",
       "image": "images/series/kinder/natoons-asia-2-by-kinder-2024/F_VU229A.webp",
       "owned": false,
@@ -183,7 +183,7 @@
     {
       "id": "natoons-asia-2-by-kinder-2024_fig11",
       "name": "Обезьяна",
-      "name_en": "Figure 11",
+      "name_en": "Monkey",
       "code": "VU243A",
       "image": "images/series/kinder/natoons-asia-2-by-kinder-2024/F_VU243A.webp",
       "owned": false,
@@ -199,7 +199,7 @@
     {
       "id": "natoons-asia-2-by-kinder-2024_fig12",
       "name": "Рыба Красный император (Сине-Желтая)",
-      "name_en": "Figure 12",
+      "name_en": "Fish Red Emperor",
       "code": "VV276A",
       "image": "images/series/kinder/natoons-asia-2-by-kinder-2024/F_VV276A.webp",
       "owned": false,
