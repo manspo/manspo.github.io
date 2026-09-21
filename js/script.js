@@ -3394,7 +3394,7 @@ function hideLoadingToast() {
   if (toast) toast.style.display = 'none';
 }
 
-async function generateCollage(seriesId, seriesName, figures, extras, variants, lang) {
+async function generateCollage(seriesId, seriesName, figures, extras, variants, lang, seriesYear = '') {
     return new Promise(async (resolve, reject) => {
         try {
             const allItems = [...figures, ...extras, ...variants];
@@ -3436,19 +3436,28 @@ function isDefaultName(item, type) {
             }
             
             // ===== РАЗМЕРЫ =====
-            const itemsPerRow = 6;
-            const itemSize = 220;
-            const itemGap = 20;
-            const padding = 40;
-            const headerHeight = 320; // было 260 — увеличили запас под 2 строки заголовка
-            const footerHeight = 70;
-            const qrSize = 220;
-            const groupHeaderHeight = 55;
-            const labelGap = 6;
-            const innerGap = 8;
-            
-            const codeRowHeight = 44;
-            const nameRowHeight = 56;
+const itemsPerRow = 6;
+const itemSize = 220;
+const itemGap = 20;
+const padding = 40;
+const headerHeight = 340; // запас под 2 строки названия + год + "Всего"
+const footerHeight = 80;
+const qrSize = 220;
+const groupHeaderHeight = 55;
+const labelGap = 6;
+const innerGap = 8;
+
+const codeRowHeight = 44;
+const nameRowHeight = 56;
+
+// Размеры шрифтов в шапке (единые для названия и года)
+const TITLE_FONT_SIZE = 40;
+const TITLE_LINE_HEIGHT = 50;
+const TITLE_MAX_LINES = 2;
+const YEAR_FONT_SIZE = 40;
+const YEAR_LINE_HEIGHT = 50;
+const TOTAL_FONT_SIZE = 22;
+const FOOTER_FONT_SIZE = 24;
             
             const figureRows = Math.ceil(figures.length / itemsPerRow);
             const extraRows = Math.ceil(extras.length / itemsPerRow);
@@ -3545,106 +3554,115 @@ function isDefaultName(item, type) {
             ctx.fill();
             ctx.restore();
             
-            // ===== ЛОГОТИП ПО ЦЕНТРУ =====
-            const logoImage = await loadImage(`${BASE_URL}/images/logo.webp`);
-            const logoSize = 180;
-            const logoX = (totalWidth - logoSize) / 2;
-            const logoY = padding + 10;
-            
-            if (logoImage && logoImage.complete && logoImage.naturalWidth > 0) {
-                const imgW = logoImage.naturalWidth;
-                const imgH = logoImage.naturalHeight;
-                let drawW, drawH;
-                if (imgW > imgH) {
-                    drawW = logoSize;
-                    drawH = (imgH / imgW) * logoSize;
-                } else {
-                    drawH = logoSize;
-                    drawW = (imgW / imgH) * logoSize;
-                }
-                const drawX = logoX + (logoSize - drawW) / 2;
-                const drawY = logoY + (logoSize - drawH) / 2;
-                ctx.drawImage(logoImage, drawX, drawY, drawW, drawH);
-            } else {
-                ctx.font = 'bold 64px Inter, system-ui';
-                ctx.fillStyle = TEXT_COLOR;
-                ctx.textAlign = 'center';
-                ctx.textBaseline = 'middle';
-                ctx.fillText('КАПСУЛА', totalWidth / 2, logoY + logoSize / 2);
-            }
-            
-            // ===== ЗАГОЛОВОК С ПЕРЕНОСОМ =====
-            const titleY = padding + 20;
-            
-            ctx.fillStyle = '#4f46e5';
-            ctx.beginPath();
-            if (ctx.roundRect) {
-                ctx.roundRect(padding, titleY, 6, 45, 3);
-            } else {
-                ctx.rect(padding, titleY, 6, 45);
-            }
-            ctx.fill();
-            
-            const titleFontSize = 38;
-            const titleLineHeight = 46;
-            const titleMaxLines = 2;
-            
-            ctx.font = `bold ${titleFontSize}px Inter, system-ui`;
-            ctx.fillStyle = TEXT_COLOR;
-            ctx.textAlign = 'left';
-            ctx.textBaseline = 'top';
-            
-            // Область под заголовок: от левого края до центрального лого (не залезаем на лого)
-            const titleBoxX = padding + 22;
-            const logoLeftEdge = logoX - 20;
-            const titleBoxWidth = logoLeftEdge - titleBoxX;
-            
-            // Переносим слова по ширине
-            const titleWords = String(seriesName || 'Checklist').split(' ');
-            const titleLines = [];
-            let currentTitleLine = '';
-            
-            for (const word of titleWords) {
-                const testLine = currentTitleLine ? currentTitleLine + ' ' + word : word;
-                const metrics = ctx.measureText(testLine);
-                if (metrics.width > titleBoxWidth && currentTitleLine) {
-                    titleLines.push(currentTitleLine);
-                    currentTitleLine = word;
-                } else {
-                    currentTitleLine = testLine;
-                }
-            }
-            if (currentTitleLine) titleLines.push(currentTitleLine);
-            
-            // Рисуем максимум titleMaxLines строк, при переполнении — многоточие
-            const displayTitleLines = titleLines.slice(0, titleMaxLines);
-            if (titleLines.length > titleMaxLines) {
-                let lastLine = displayTitleLines[titleMaxLines - 1];
-                while (ctx.measureText(lastLine + '…').width > titleBoxWidth && lastLine.length > 1) {
-                    lastLine = lastLine.slice(0, -1);
-                }
-                displayTitleLines[titleMaxLines - 1] = lastLine + '…';
-            }
-            
-            displayTitleLines.forEach((line, idx) => {
-                ctx.fillText(line, titleBoxX, titleY - 3 + idx * titleLineHeight);
-            });
-            
-            // Сдвиг вниз, если заголовок занял 2 строки
-            const headerShift = (displayTitleLines.length - 1) * titleLineHeight;
-            
-            // ===== "ЧЕК-ЛИСТ" =====
-            ctx.font = 'bold 17px Inter, system-ui';
-            ctx.fillStyle = TEXT_COLOR;
-            ctx.globalAlpha = 0.7;
-            ctx.fillText(t.checklist, padding, titleY + 65 + headerShift);
-            ctx.globalAlpha = 1;
-            
-            // ===== "Всего: N" =====
-            const totalItems = figures.length + extras.length + variants.length;
-            ctx.font = 'bold 17px Inter, system-ui';
-            ctx.fillStyle = TEXT_COLOR;
-            ctx.fillText(`${t.total}: ${totalItems}`, padding, titleY + 95 + headerShift);
+// ===== ЛОГОТИП ПО ЦЕНТРУ =====
+const logoImage = await loadImage(`${BASE_URL}/images/logo.webp`);
+const logoSize = 180;
+const logoX = (totalWidth - logoSize) / 2;
+const logoY = padding + 10;
+
+if (logoImage && logoImage.complete && logoImage.naturalWidth > 0) {
+    const imgW = logoImage.naturalWidth;
+    const imgH = logoImage.naturalHeight;
+    let drawW, drawH;
+    if (imgW > imgH) {
+        drawW = logoSize;
+        drawH = (imgH / imgW) * logoSize;
+    } else {
+        drawH = logoSize;
+        drawW = (imgW / imgH) * logoSize;
+    }
+    const drawX = logoX + (logoSize - drawW) / 2;
+    const drawY = logoY + (logoSize - drawH) / 2;
+    ctx.drawImage(logoImage, drawX, drawY, drawW, drawH);
+} else {
+    ctx.font = 'bold 64px Inter, system-ui';
+    ctx.fillStyle = TEXT_COLOR;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('КАПСУЛА', totalWidth / 2, logoY + logoSize / 2);
+}
+
+// ===== ЗАГОЛОВОК: НАЗВАНИЕ СЕРИИ + ГОД =====
+const titleY = padding + 20;
+
+// Фиолетовая вертикальная полоса слева
+ctx.fillStyle = '#4f46e5';
+ctx.beginPath();
+if (ctx.roundRect) {
+    ctx.roundRect(padding, titleY, 6, 45, 3);
+} else {
+    ctx.rect(padding, titleY, 6, 45);
+}
+ctx.fill();
+
+ctx.font = `bold ${TITLE_FONT_SIZE}px Inter, system-ui`;
+ctx.fillStyle = TEXT_COLOR;
+ctx.textAlign = 'left';
+ctx.textBaseline = 'top';
+
+// Область под заголовок: от левого края до центрального лого
+const titleBoxX = padding + 22;
+const logoLeftEdge = logoX - 20;
+const titleBoxWidth = logoLeftEdge - titleBoxX;
+
+// Переносим слова названия по ширине
+const titleWords = String(seriesName || 'Checklist').split(' ');
+const titleLines = [];
+let currentTitleLine = '';
+
+for (const word of titleWords) {
+    const testLine = currentTitleLine ? currentTitleLine + ' ' + word : word;
+    const metrics = ctx.measureText(testLine);
+    if (metrics.width > titleBoxWidth && currentTitleLine) {
+        titleLines.push(currentTitleLine);
+        currentTitleLine = word;
+    } else {
+        currentTitleLine = testLine;
+    }
+}
+if (currentTitleLine) titleLines.push(currentTitleLine);
+
+// Ограничиваем 2 строками, при переполнении — многоточие
+const displayTitleLines = titleLines.slice(0, TITLE_MAX_LINES);
+if (titleLines.length > TITLE_MAX_LINES) {
+    let lastLine = displayTitleLines[TITLE_MAX_LINES - 1];
+    while (ctx.measureText(lastLine + '…').width > titleBoxWidth && lastLine.length > 1) {
+        lastLine = lastLine.slice(0, -1);
+    }
+    displayTitleLines[TITLE_MAX_LINES - 1] = lastLine + '…';
+}
+
+// Рисуем название
+let titleRowY = titleY - 3;
+displayTitleLines.forEach((line, idx) => {
+    ctx.fillText(line, titleBoxX, titleRowY + idx * TITLE_LINE_HEIGHT);
+});
+
+// Вычисляем Y для года: сразу под названием
+const titleBlockHeight = displayTitleLines.length * TITLE_LINE_HEIGHT;
+const yearY = titleRowY + titleBlockHeight + 6;
+
+// ===== ГОД СЕРИИ (тот же размер и жирность, что и название) =====
+const yearText = String(seriesYear || '');
+if (yearText) {
+    ctx.font = `bold ${YEAR_FONT_SIZE}px Inter, system-ui`;
+    ctx.fillStyle = TEXT_COLOR;
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'top';
+    ctx.fillText(yearText, titleBoxX, yearY);
+}
+
+// ===== "Всего: N" — увеличенный шрифт =====
+const totalItems = figures.length + extras.length + variants.length;
+const totalY = yearY + YEAR_LINE_HEIGHT + 12;
+
+ctx.font = `bold ${TOTAL_FONT_SIZE}px Inter, system-ui`;
+ctx.fillStyle = TEXT_COLOR;
+ctx.globalAlpha = 0.75;
+ctx.textAlign = 'left';
+ctx.textBaseline = 'top';
+ctx.fillText(`${t.total}: ${totalItems}`, padding, totalY);
+ctx.globalAlpha = 1;
             
             // ===== QR-КОД СПРАВА =====
             const qrImage = await loadImage(`${BASE_URL}/images/qrcodesite.png`);
@@ -3994,20 +4012,20 @@ function isDefaultName(item, type) {
                 currentY = await drawGroup(variants, t.variants, currentY, '#f59e0b', 'variant', showCodeVariants, showNameVariants, variantCellHeight);
             }
             
-            const footerY = totalHeight - footerHeight;
-            
-            ctx.strokeStyle = '#e5e7eb';
-            ctx.lineWidth = 1;
-            ctx.beginPath();
-            ctx.moveTo(padding, footerY);
-            ctx.lineTo(totalWidth - padding, footerY);
-            ctx.stroke();
-            
-            ctx.font = 'bold 22px Inter, system-ui';
-            ctx.fillStyle = TEXT_COLOR;
-            ctx.textAlign = 'left';
-            ctx.textBaseline = 'middle';
-            ctx.fillText(`${t.footer} ${t.site}`, padding, footerY + footerHeight/2);
+const footerY = totalHeight - footerHeight;
+
+ctx.strokeStyle = '#e5e7eb';
+ctx.lineWidth = 1;
+ctx.beginPath();
+ctx.moveTo(padding, footerY);
+ctx.lineTo(totalWidth - padding, footerY);
+ctx.stroke();
+
+ctx.font = `bold ${FOOTER_FONT_SIZE}px Inter, system-ui`;
+ctx.fillStyle = TEXT_COLOR;
+ctx.textAlign = 'left';
+ctx.textBaseline = 'middle';
+ctx.fillText(`${t.footer} ${t.site}`, padding, footerY + footerHeight/2);
             
             const jpegData = canvas.toDataURL('image/jpeg', 0.95);
             resolve(jpegData);
@@ -4061,12 +4079,15 @@ async function downloadCollage(seriesId, seriesName, onlyForSale = false) {
         }
         
         // Название чек-листа — добавляем пометку для версии "на продажу"
-        let seriesTitle = lang === 'en' && series.name_en ? series.name_en : series.name;
-        if (onlyForSale) {
-            seriesTitle += lang === 'ru' ? ' (на продажу)' : ' (for sale)';
-        }
-        
-        const jpegData = await generateCollage(seriesId, seriesTitle, figures, extras, variants, lang);
+let seriesTitle = lang === 'en' && series.name_en ? series.name_en : series.name;
+
+const seriesYear = series.year || '';
+const seriesYearSuffix = seriesYear ? ` (${seriesYear})` : '';
+if (onlyForSale) {
+    seriesTitle += lang === 'ru' ? ' (на продажу)' : ' (for sale)';
+}
+
+const jpegData = await generateCollage(seriesId, seriesTitle, figures, extras, variants, lang, seriesYear);
         const safeName = seriesTitle.replace(/[^a-zа-яё0-9]/gi, '_');
         const fileName = `checklist_${safeName}_${Date.now()}.jpg`;
         
