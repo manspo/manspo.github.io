@@ -1,5 +1,17 @@
 [
   {
+    "id": "natoons-asia-by-kinder-2024",
+    "name": "Натунс Азия от Киндер",
+    "name_en": "Natoons Asia by Kinder",
+    "year": 2024,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/natoons-asia-by-kinder-2024/cover.webp",
+    "kind": "",
+    "description": "Азиатская версия Натунс. Продавались в основном в Малайзии, Турции и Филиппинах.",
+    "description_en": "Asian version of Natuns. Sold mainly in Malaysia, Turkey and the Philippines.",
+    "visible": true
+  },
+  {
     "id": "natoons-asia-2-by-kinder-2025",
     "name": "Натунс Азия 2 от Киндер",
     "name_en": "Natoons Asia 2 by Kinder",
