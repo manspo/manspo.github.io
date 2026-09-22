@@ -1,5 +1,17 @@
 [
   {
+    "id": "anniversary-christmas-maxi-by-kinder-2014",
+    "name": "Юбилейная Рождественская Макси от Киндер",
+    "name_en": "Anniversary Christmas Maxi by Kinder",
+    "year": 2014,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/anniversary-christmas-maxi-by-kinder-2014/cover.webp",
+    "kind": "maxi",
+    "description": "Юбилейная серия выпущенная на Рождество в 2014 году.",
+    "description_en": "Anniversary series released for Christmas in 2014.",
+    "visible": true
+  },
+  {
     "id": "pocahontas-by-nestle-1996",
     "name": "Покахонтас от Нестле",
     "name_en": "Pocahontas by Nestle",
