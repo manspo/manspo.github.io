@@ -1722,7 +1722,15 @@ async function initCatalog() {
         });
       }
       
-      grid.innerHTML = '';
+            // Счётчик найденных серий
+      const catalogSubtitle = document.getElementById('catalogSubtitle');
+      if (catalogSubtitle) {
+        catalogSubtitle.textContent = currentLang === 'ru'
+          ? `Найдено серий: ${list.length}`
+          : `Series found: ${list.length}`;
+      }
+	  
+	  grid.innerHTML = '';
       
       if (list.length === 0 && (!window.__matchedSingles || window.__matchedSingles.length === 0)) {
         grid.innerHTML = '<p class="empty-message" data-i18n="nothing_found">Ничего не найдено</p>';
@@ -2969,7 +2977,7 @@ async function initLot() {
             <div class="figure-image-wrapper">
               <img src="${escapeHtml(mainImageSrc)}" 
                    alt="${escapeHtml(name)}" 
-                   class="figure-image" 
+                   class="figure-image lot-cover-image" 
                    onclick="openLightbox(0, window.seriesGalleryImages || [], window.seriesGalleryTitles || [])" 
                    onerror="this.src='images/placeholder.svg'">
               <div class="figure-type-badge">📦 ${currentLang === 'ru' ? 'Полная серия' : 'Full series'}</div>
@@ -3140,7 +3148,7 @@ window.seriesGalleryTitles = allTitles;
                 <img src="${imageUrl}" alt="${safeName}" loading="lazy" onerror="this.src='images/placeholder.svg'" onclick="openLightbox(${globalIndex}, window.seriesGalleryImages, window.seriesGalleryTitles)" style="cursor:pointer">
                 <div class="figure-info">
                   <div class="figure-name">${safeName}</div>
-                  ${itemCode ? `<div class="figure-code">${escapeHtml(itemCode)}</div>` : ''}
+                  ${itemCode ? `<div class="figure-code copyable-code" data-code="${escapeHtml(itemCode)}" title="Нажмите, чтобы скопировать">${escapeHtml(itemCode)}</div>` : ''}
                   <div class="figure-actions">
                     <button class="qr-btn" onclick="generateQRCode('${safeId}', '${safeSeriesId}', '${safeName.replace(/'/g, "\\'")}')" title="QR-код">📱</button>
                     ${hasDup ? `<a href="same-figures.html?code=${encodeURIComponent(itemCode)}" class="same-code-link" title="${currentLang === 'ru' ? 'Найти все фигурки с этим кодом (' + window.__codeCounts[itemCode.trim().toLowerCase()] + ' шт.)' : 'Find all figures with this code (' + window.__codeCounts[itemCode.trim().toLowerCase()] + ' pcs)'}">🔗</a>` : ''}
@@ -3325,42 +3333,54 @@ async function initFigure() {
     let insertBlockHtml = '';
     if (figureType !== 'inserts' && figureType !== 'other') {
       const codeNorm = (figure.code || '').trim().toUpperCase();
-      let pairedInsert = null;
+      let pairedInserts = [];
       
       if (codeNorm && Array.isArray(series.inserts)) {
-        pairedInsert = series.inserts.find(ins => 
+        pairedInserts = series.inserts.filter(ins => 
           (ins.code || '').trim().toUpperCase() === codeNorm
-        ) || null;
+        );
       }
       
-      if (pairedInsert) {
-        const insertName = currentLang === 'en' && pairedInsert.name_en 
-          ? pairedInsert.name_en 
-          : (pairedInsert.name || '');
-        const insertCode = pairedInsert.code || '';
-        const insertImgUrl = pairedInsert.image 
-          ? `${BASE_URL}/${pairedInsert.image}` 
-          : 'images/placeholder.svg';
-        
-        const insertIdxInGallery = allSeriesImages.findIndex(img => img === insertImgUrl);
-        const insertGalleryIdx = insertIdxInGallery !== -1 ? insertIdxInGallery : 0;
-        
-        insertBlockHtml = `
-          <div class="single-insert-block">
-            <h3 class="single-insert-title">📄 ${currentLang === 'ru' ? 'Вкладыш' : 'Insert'}</h3>
-            <div class="single-insert-content">
-              <div class="single-insert-image-wrap">
-              <img src="${insertImgUrl}" 
-                   alt="${escapeHtml(insertName)}" 
-                   class="single-insert-image" 
-                   onclick="openLightbox(1, window.seriesGalleryImages, window.seriesGalleryTitles)"
-                   onerror="this.src='images/placeholder.svg'">
-              </div>
-              <div class="single-insert-info">
-                ${insertName ? `<div class="single-insert-name">${escapeHtml(insertName)}</div>` : ''}
-                ${insertCode ? `<div class="single-insert-code">${escapeHtml(insertCode)}</div>` : ''}
+      if (pairedInserts.length > 0) {
+        const insertTitle = pairedInserts.length === 1
+          ? (currentLang === 'ru' ? 'Вкладыш' : 'Insert')
+          : (currentLang === 'ru' ? 'Вкладыши' : 'Inserts');
+
+        const insertsHtml = pairedInserts.map((pairedInsert, pi) => {
+          const insertName = currentLang === 'en' && pairedInsert.name_en 
+            ? pairedInsert.name_en 
+            : (pairedInsert.name || '');
+          const insertCode = pairedInsert.code || '';
+          const insertImgUrl = pairedInsert.image 
+            ? `${BASE_URL}/${pairedInsert.image}` 
+            : 'images/placeholder.svg';
+          
+          const insertIdxInGallery = allSeriesImages.findIndex(img => img === insertImgUrl);
+          const insertGalleryIdx = insertIdxInGallery !== -1 ? insertIdxInGallery : 0;
+          
+          return `
+            <div class="single-insert-block">
+              <div class="single-insert-content">
+                <div class="single-insert-image-wrap">
+                  <img src="${insertImgUrl}" 
+                       alt="${escapeHtml(insertName)}" 
+                       class="single-insert-image" 
+                       onclick="openLightbox(${insertGalleryIdx}, window.seriesGalleryImages, window.seriesGalleryTitles)"
+                       onerror="this.src='images/placeholder.svg'">
+                </div>
+                <div class="single-insert-info">
+                  ${insertName ? `<div class="single-insert-name">${escapeHtml(insertName)}</div>` : ''}
+                  ${insertCode ? `<div class="single-insert-code">${escapeHtml(insertCode)}</div>` : ''}
+                </div>
               </div>
             </div>
+          `;
+        }).join('');
+
+        insertBlockHtml = `
+          <div class="multi-inserts-wrapper">
+            <h3 class="single-insert-title">📄 ${insertTitle}</h3>
+            ${insertsHtml}
           </div>
         `;
       } else {
@@ -3521,7 +3541,8 @@ const itemsPerRow = 6;
 const itemSize = 220;
 const itemGap = 20;
 const padding = 40;
-const headerHeight = 250; // запас под 2 строки названия + год + "Всего"
+// Высота шапки с учётом до 3 строк названия
+const headerHeight = 250;
 const footerHeight = 80;
 const qrSize = 220;
 const groupHeaderHeight = 55;
@@ -3534,7 +3555,7 @@ const nameRowHeight = 56;
 // Размеры шрифтов в шапке (единые для названия и года)
 const TITLE_FONT_SIZE = 40;
 const TITLE_LINE_HEIGHT = 50;
-const TITLE_MAX_LINES = 2;
+const TITLE_MAX_LINES = 3;
 const YEAR_FONT_SIZE = 40;
 const YEAR_LINE_HEIGHT = 50;
 const TOTAL_FONT_SIZE = 22;
@@ -3569,7 +3590,14 @@ const FOOTER_FONT_SIZE = 24;
             if (extras.length > 0) visibleGroups.push({ rows: extraRows, cellHeight: extraCellHeight });
             if (variants.length > 0) visibleGroups.push({ rows: variantRows, cellHeight: variantCellHeight });
             
-            let totalHeight = padding + headerHeight;
+            let headerHeightDynamic = padding + 20
+  + displayTitleLines.length * TITLE_LINE_HEIGHT  // название
+  + 6 + YEAR_LINE_HEIGHT                          // год
+  + 12 + 30                                       // "Всего: N" + отступ
+  + 40;                                           // финальный зазор
+if (headerHeightDynamic < headerHeight) headerHeightDynamic = headerHeight;
+
+let totalHeight = headerDynamic;
             
             visibleGroups.forEach((group, idx) => {
                 totalHeight += groupHeaderHeight;
@@ -3705,13 +3733,7 @@ if (currentTitleLine) titleLines.push(currentTitleLine);
 
 // Ограничиваем 2 строками, при переполнении — многоточие
 const displayTitleLines = titleLines.slice(0, TITLE_MAX_LINES);
-if (titleLines.length > TITLE_MAX_LINES) {
-    let lastLine = displayTitleLines[TITLE_MAX_LINES - 1];
-    while (ctx.measureText(lastLine + '…').width > titleBoxWidth && lastLine.length > 1) {
-        lastLine = lastLine.slice(0, -1);
-    }
-    displayTitleLines[TITLE_MAX_LINES - 1] = lastLine + '…';
-}
+// Обрезки с «…» больше нет — рисуем столько строк, сколько нужно (до 3)
 
 // Рисуем название
 let titleRowY = titleY - 3;
@@ -5177,5 +5199,46 @@ async function runInit() {
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', runInit);
 } else {
+	// ===== КОПИРОВАНИЕ КОДА ФИГУРКИ ПРИ КЛИКЕ =====
+document.addEventListener('click', function(e) {
+  const codeEl = e.target.closest('.copyable-code');
+  if (!codeEl) return;
+  e.preventDefault();
+  e.stopPropagation();
+  const code = codeEl.dataset.code || codeEl.textContent.trim();
+  if (!code) return;
+
+  const showCopied = () => {
+    const original = codeEl.textContent;
+    codeEl.textContent = '✅ Скопировано';
+    codeEl.classList.add('copied');
+    setTimeout(() => {
+      codeEl.textContent = original;
+      codeEl.classList.remove('copied');
+    }, 1200);
+  };
+
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(code).then(showCopied).catch(() => fallbackCopy(code, showCopied));
+  } else {
+    fallbackCopy(code, showCopied);
+  }
+});
+
+function fallbackCopy(text, onSuccess) {
+  try {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.left = '-9999px';
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    onSuccess();
+  } catch (e) {
+    console.warn('Не удалось скопировать:', e);
+  }
+}
   runInit();
 }
