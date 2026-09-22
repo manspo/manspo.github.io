@@ -83,7 +83,6 @@
   animation: shimmer 1.5s infinite;
   border-radius: 12px;
 }
-
 @keyframes shimmer {
   0% { background-position: 200% 0; }
   100% { background-position: -200% 0; }
@@ -98,7 +97,6 @@
   animation: spin 0.8s linear infinite;
   margin: 0 auto;
 }
-
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
@@ -112,7 +110,6 @@
   border-radius: 4px;
   overflow: hidden;
 }
-
 .loader-progress .bar {
   width: 0%;
   height: 100%;
@@ -126,13 +123,11 @@
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 20px;
 }
-
 .skeleton-stats {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
 }
-
 @media (max-width: 768px) {
   .skeleton-stats { grid-template-columns: repeat(2, 1fr); }
   .skeleton-grid { grid-template-columns: 1fr; }
@@ -190,7 +185,6 @@ body {
   margin-bottom: 20px;
   position: relative;
 }
-
 .lang-switch-footer {
   display: flex;
   align-items: center;
@@ -256,18 +250,20 @@ main {
 .hero-image { width: 100%; height: 400px; overflow: hidden; border-radius: 20px; margin-bottom: 30px; }
 .hero-img { width: 100%; height: 100%; object-fit: cover; }
 
+/* ===== ШАГ 3а: 8 карточек в 2 ряда по 4 =====
+   Ширина ряда = ряд из 5 соцсетей (grid из 20 ячеек, карточка = 5 ячеек) */
 .main-grid {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(20, 1fr);
   gap: 20px;
   margin-bottom: 30px;
 }
-.main-grid .row { display: flex; gap: 20px; }
 .main-grid .home-card {
-  flex: 1;
+  grid-column: span 5;
+  min-height: 140px;
+  padding: 30px 20px;
   background: var(--card);
   border-radius: var(--radius);
-  padding: 30px 20px;
   text-align: center;
   text-decoration: none;
   color: var(--text);
@@ -277,7 +273,10 @@ main {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 140px;
+}
+.main-grid .home-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
 }
 .home-card:hover {
   transform: translateY(-4px);
@@ -509,7 +508,6 @@ main {
 }
 .kind-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
 
-/* ===== КАТАЛОГ - СЕТКА (4 колонки на ПК) ===== */
 .catalog-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -519,7 +517,6 @@ main {
   margin: 0 auto;
 }
 
-/* ===== КАТАЛОГ - КАРТОЧКИ ===== */
 .catalog-card {
   background: #fff;
   border-radius: 14px;
@@ -548,7 +545,6 @@ main {
   border-radius: 20px;
 }
 
-/* ===== АДАПТИВ КАТАЛОГА ===== */
 @media (max-width: 992px) {
   .catalog-grid {
     grid-template-columns: repeat(3, 1fr);
@@ -567,14 +563,12 @@ main {
   margin-bottom: 40px;
   align-items: flex-start;
 }
-
 .series-cover-wrap {
   display: flex;
   flex-direction: column;
   gap: 16px;
   width: 100%;
 }
-
 .series-cover {
   width: 100%;
   height: auto;
@@ -583,13 +577,11 @@ main {
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
   background: var(--bg);
 }
-
 .series-cover-wrap .qr-btn-series {
   width: 100%;
   justify-content: center;
   margin-top: 0;
 }
-
 .series-info {
   display: flex;
   flex-direction: column;
@@ -597,7 +589,6 @@ main {
   min-width: 0;
   padding-top: 8px;
 }
-
 .series-info h1 {
   font-size: 34px;
   font-weight: 700;
@@ -606,7 +597,7 @@ main {
   margin: 0;
 }
 
-/* ===== БЕЙДЖИ ГОДА И ПРОИЗВОДИТЕЛЯ ===== */
+/* ===== ПИЛЮЛИ ГОДА И ПРОИЗВОДИТЕЛЯ — ОДИНАКОВЫЙ СТИЛЬ ===== */
 .series-meta {
   display: flex;
   align-items: center;
@@ -614,7 +605,6 @@ main {
   flex-wrap: wrap;
   margin: 0;
 }
-
 .series-meta .dot { display: none; }
 
 .series-year-link,
@@ -629,52 +619,35 @@ main {
   text-decoration: none;
   transition: all 0.2s;
   border: 1px solid transparent;
+  color: #fff;
 }
-
 .series-year-link {
-  background: rgba(79, 70, 229, 0.1);
-  color: var(--primary);
-  border-color: rgba(79, 70, 229, 0.2);
-}
-.series-year-link::before {
-  content: '📅';
-  font-size: 13px;
+  background: #4f46e5;
+  border-color: #4f46e5;
 }
 .series-year-link:hover {
-  background: var(--primary);
-  color: white;
+  background: #6366f1;
+  border-color: #6366f1;
   transform: translateY(-1px);
-  box-shadow: 0 4px 10px rgba(79, 70, 229, 0.25);
+  box-shadow: 0 4px 10px rgba(79, 70, 229, 0.3);
 }
+.series-year-link::before { content: '📅'; font-size: 13px; }
 
 .series-manufacturer-link {
-  background: rgba(16, 185, 129, 0.1);
-  color: #059669;
-  border-color: rgba(16, 185, 129, 0.2);
-}
-.series-manufacturer-link::before {
-  content: '🏭';
-  font-size: 13px;
+  background: #818cf8;
+  border-color: #818cf8;
 }
 .series-manufacturer-link:hover {
-  background: #10b981;
-  color: white;
+  background: #a5b4fc;
+  border-color: #a5b4fc;
   transform: translateY(-1px);
-  box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
+  box-shadow: 0 4px 10px rgba(129, 140, 248, 0.3);
 }
+.series-manufacturer-link::before { content: '🏭'; font-size: 13px; }
 
-[data-theme="dark"] .series-year-link {
-  background: rgba(129, 140, 248, 0.15);
-  color: #a5b4fc;
-  border-color: rgba(129, 140, 248, 0.25);
-}
-[data-theme="dark"] .series-manufacturer-link {
-  background: rgba(16, 185, 129, 0.15);
-  color: #6ee7b7;
-  border-color: rgba(16, 185, 129, 0.25);
-}
+[data-theme="dark"] .series-year-link { background: #6366f1; border-color: #6366f1; color: #fff; }
+[data-theme="dark"] .series-manufacturer-link { background: #a5b4fc; border-color: #a5b4fc; color: #1f2937; }
 
-/* ===== БЛОК ОПИСАНИЯ СЕРИИ ===== */
 .series-info > p {
   font-size: 15px;
   line-height: 1.7;
@@ -692,7 +665,6 @@ main {
   border-color: var(--border);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
-
 .series-info > p::before {
   content: '📖';
   display: inline-block;
@@ -701,23 +673,34 @@ main {
   vertical-align: -2px;
 }
 
-/* ===== СПИСКИ ЭЛЕМЕНТОВ (в серии) ===== */
-.figures-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 20px; margin: 20px 0 30px; }
-.figure-item {
-  display: flex;
+/* ============================================================
+   ШАГ 3б: КАРТОЧКА ФИГУРКИ (имя → код → кнопки), единая высота
+   ============================================================ */
+.figures-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
   gap: 20px;
-  background: white;
+  margin: 20px 0 30px;
+}
+.figure-item {
+  display: grid;
+  grid-template-columns: 40px 130px 1fr;
+  gap: 16px;
+  background: var(--card);
   border-radius: 12px;
-  padding: 20px;
+  padding: 16px;
   box-shadow: var(--shadow);
-  align-items: center;
+  align-items: flex-start;
   position: relative;
   border-left: 4px solid transparent;
   border-right: 4px solid transparent;
+  min-height: 200px;
+  box-sizing: border-box;
 }
 .figure-item.owned { border-left-color: var(--success); }
 .figure-item.forsale { border-right-color: var(--warning); }
-.figure-number {
+
+.figure-item .figure-number {
   width: 30px;
   height: 30px;
   background: var(--primary);
@@ -729,19 +712,123 @@ main {
   font-weight: bold;
   font-size: 14px;
   flex-shrink: 0;
-}
-.figure-item img { width: 130px; height: 130px; object-fit: contain; background: #f5f5f5; border-radius: 8px; padding: 5px; cursor: pointer; flex-shrink: 0; }
-.figure-item .figure-info { flex: 1; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
-.figure-item .figure-name { font-weight: 600; font-size: 16px; display: flex; flex-direction: column; }
-.figure-code {
-  font-size: 14px;
-  color: var(--muted);
-  font-family: monospace;
-  font-weight: 600;
-  margin-top: 4px;
-  letter-spacing: 0.5px;
+  margin-top: 50px;
 }
 
+.figure-item > img {
+  width: 130px;
+  height: 130px;
+  object-fit: contain;
+  background: #f5f5f5;
+  border-radius: 8px;
+  padding: 5px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+[data-theme="dark"] .figure-item > img { background: #1a1a2e; }
+
+.figure-item .figure-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+  align-items: flex-start;
+}
+
+.figure-item .figure-name {
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--text);
+  line-height: 1.3;
+  margin: 0;
+  display: block;
+  word-break: break-word;
+}
+
+/* Код — 14px, жирный, слева, под именем */
+.figure-item .figure-code {
+  font-family: monospace;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--primary);
+  letter-spacing: 0.5px;
+  margin: 0;
+  padding: 2px 8px;
+  background: rgba(79, 70, 229, 0.08);
+  border-radius: 6px;
+  display: inline-block;
+  width: fit-content;
+}
+[data-theme="dark"] .figure-item .figure-code {
+  background: rgba(129, 140, 248, 0.15);
+  color: #a5b4fc;
+}
+
+/* Кнопки под кодом, слева */
+.figure-item .figure-actions {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  margin-top: 4px;
+  align-items: center;
+}
+.figure-item .qr-btn {
+  background: var(--primary);
+  color: white;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+.figure-item .qr-btn:hover { background: var(--primary-2); transform: scale(1.08); }
+
+.figure-item .same-code-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: rgba(79, 70, 229, 0.12);
+  color: var(--primary);
+  border-radius: 50%;
+  text-decoration: none;
+  font-size: 16px;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+.figure-item .same-code-link:hover {
+  background: var(--primary);
+  color: white;
+  transform: scale(1.08);
+}
+
+.figure-item .avito-link {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: var(--warning);
+  color: white;
+  border-radius: 50%;
+  text-decoration: none;
+  transition: transform 0.2s;
+  font-size: 16px;
+}
+.figure-item .avito-link:hover { transform: scale(1.1); }
+
+/* Общие кнопки QR (для совместимости) */
 .qr-btn, .qr-btn-series {
   background: var(--primary);
   color: white;
@@ -758,20 +845,45 @@ main {
 .qr-btn:hover, .qr-btn-series:hover { background: var(--primary-2); transform: scale(1.05); }
 .qr-btn-series { font-size: 16px; padding: 12px 20px; }
 
-.avito-link {
+/* ============================================================
+   ШАГ 3б.5: СТИЛИЗОВАННЫЕ ЗАГОЛОВКИ СЕКЦИЙ
+   ============================================================ */
+.series-section-title {
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  background: var(--warning);
-  color: white;
-  border-radius: 50%;
-  text-decoration: none;
-  transition: transform 0.2s;
-  flex-shrink: 0;
+  gap: 10px;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text);
+  margin: 30px 0 20px;
+  padding-left: 14px;
+  position: relative;
 }
-.avito-link:hover { transform: scale(1.1); }
+.series-section-title::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 2px;
+  bottom: 2px;
+  width: 5px;
+  background: var(--primary);
+  border-radius: 3px;
+}
+.series-section-title .section-icon {
+  font-size: 22px;
+}
+.series-section-title .section-count {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--muted);
+  background: var(--bg);
+  padding: 2px 12px;
+  border-radius: 20px;
+  margin-left: 4px;
+}
+[data-theme="dark"] .series-section-title .section-count {
+  background: var(--bg-secondary);
+}
 
 .collage-section { text-align: center; margin: 30px 0 20px; padding: 20px; background: var(--card); border-radius: 16px; box-shadow: var(--shadow); }
 .collage-download-btn {
@@ -811,7 +923,6 @@ main {
   position: relative;
   padding-bottom: 28px;
 }
-
 .page-header h1 {
   font-size: 32px;
   font-weight: 800;
@@ -823,7 +934,6 @@ main {
   position: relative;
   padding: 0 8px;
 }
-
 .page-header h1::after {
   content: '';
   position: absolute;
@@ -836,10 +946,7 @@ main {
   background: linear-gradient(90deg, var(--primary), var(--primary-2));
   transition: width 0.3s ease;
 }
-.page-header:hover h1::after {
-  width: 100px;
-}
-
+.page-header:hover h1::after { width: 100px; }
 .page-header::after {
   content: '';
   position: absolute;
@@ -851,22 +958,18 @@ main {
   background: var(--border);
   opacity: 0.6;
 }
-
 @keyframes headerFadeIn {
   from { opacity: 0; transform: translateY(-6px); }
   to { opacity: 1; transform: translateY(0); }
 }
-.page-header h1 {
-  animation: headerFadeIn 0.4s ease forwards;
-}
+.page-header h1 { animation: headerFadeIn 0.4s ease forwards; }
 
-/* ===== FOR SALE - СЕТКА ===== */
+/* ===== FOR SALE ===== */
 .forsale-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
 }
-
 @media (max-width: 992px) {
   .forsale-grid { grid-template-columns: repeat(3, 1fr); gap: 16px; }
 }
@@ -1006,7 +1109,9 @@ main {
 .page-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
 .page-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
-/* ===== LIGHTBOX ===== */
+/* ============================================================
+   ШАГ 3в: ЛАЙТБОКС + НАЗВАНИЕ НАД КАРТИНКОЙ
+   ============================================================ */
 .lightbox {
   display: none;
   position: fixed;
@@ -1026,7 +1131,6 @@ main {
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
 }
-
 .lightbox-zoom-container {
   width: 100%;
   height: 100%;
@@ -1072,6 +1176,12 @@ main {
 .lightbox-next { right: 20px; }
 .lightbox-prev:hover, .lightbox-next:hover { background: rgba(79, 70, 229, 0.8); transform: translateY(-50%) scale(1.1); }
 
+/* Скрытие стрелок, если картинка одна (для lot.html) */
+.lightbox.single-image .lightbox-prev,
+.lightbox.single-image .lightbox-next {
+  display: none !important;
+}
+
 .lightbox-counter {
   position: absolute;
   bottom: 20px;
@@ -1106,6 +1216,31 @@ main {
   justify-content: center;
 }
 .zoom-btn:hover { background: var(--primary); transform: scale(1.05); }
+
+/* ===== НАЗВАНИЕ В ЛАЙТБОКСЕ (над картинкой, по центру) ===== */
+.lightbox-title {
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 80%;
+  text-align: center;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.3;
+  pointer-events: none;
+  z-index: 2001;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #141D35;
+  text-shadow: 0 1px 3px rgba(255,255,255,0.6);
+}
+[data-theme="dark"] .lightbox-title {
+  color: #f5f5f5;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+}
+.lightbox-title.hidden { display: none; }
 
 /* ===== QR МОДАЛЬНОЕ ОКНО ===== */
 .qr-modal {
@@ -1165,7 +1300,6 @@ main {
   background: var(--danger);
   color: #fff;
 }
-
 .qr-code-container { margin: 20px 0; display: flex; justify-content: center; }
 .qr-download-btn {
   margin-top: 15px;
@@ -1204,7 +1338,6 @@ img {
   -webkit-touch-callout: none;
 }
 
-/* ===== АНИМАЦИИ ===== */
 @keyframes fadeInUp {
   from { opacity: 0; transform: translateY(30px); }
   to { opacity: 1; transform: translateY(0); }
@@ -1212,7 +1345,6 @@ img {
 .catalog-card, .figure-item { animation: fadeInUp 0.3s ease forwards; }
 .featured-card { animation: fadeIn 0.5s ease; }
 
-/* ===== ЯКОРЯ ===== */
 #figuresList, #extrasList, #insertsList,
 #collection, #forsale { scroll-margin-top: 20px; }
 
@@ -1352,7 +1484,7 @@ img {
 .hall-details-series-list { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; padding-left: 8px; }
 
 /* ============================================================
-   СТРАНИЦА ФИГУРКИ (правильная раскладка)
+   СТРАНИЦА ФИГУРКИ
    ============================================================ */
 .figure-container { max-width: 900px; margin: 0 auto; }
 .figure-title { font-size: 28px; margin-bottom: 20px; color: var(--text); }
@@ -1362,16 +1494,12 @@ img {
   flex-direction: column;
   gap: 24px;
 }
-
-/* ===== ВЕРХНИЙ РЯД: фигурка слева, вкладыш справа ===== */
 .figure-top-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 30px;
   align-items: flex-start;
 }
-
-/* Фигурка */
 .figure-image-wrapper { position: relative; width: 100%; }
 .figure-image {
   width: 100%;
@@ -1384,11 +1512,9 @@ img {
   transition: transform 0.2s;
 }
 .figure-image:hover { transform: scale(1.02); }
-
 [data-theme="dark"] .figure-image {
   background: linear-gradient(135deg, #1e1e2e 0%, #2d2d44 100%);
 }
-
 .figure-type-badge {
   position: absolute;
   top: 10px;
@@ -1400,14 +1526,10 @@ img {
   font-size: 12px;
   font-weight: 600;
 }
-
-/* ===== ВКЛАДЫШ СПРАВА ===== */
 .figure-insert-right {
   display: flex;
   flex-direction: column;
 }
-
-/* ===== КНОПКА ПО ЦЕНТРУ ===== */
 .figure-sale-block {
   display: flex;
   justify-content: center;
@@ -1415,14 +1537,11 @@ img {
   min-height: 0;
 }
 .figure-sale-block:empty { display: none; }
-
-/* ===== НИЖНИЙ БЛОК: мета + описание ===== */
 .figure-bottom {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
-
 .figure-meta {
   display: flex;
   flex-direction: column;
@@ -1431,7 +1550,6 @@ img {
   border-radius: 16px;
   padding: 16px 20px;
 }
-
 .figure-meta-item {
   display: flex;
   align-items: center;
@@ -1441,12 +1559,9 @@ img {
   font-size: 14px;
 }
 .figure-meta-item:last-child { border-bottom: none; }
-
 .meta-icon { font-size: 18px; width: 28px; }
-
 .meta-link { color: var(--primary); text-decoration: none; font-weight: 500; }
 .meta-link:hover { text-decoration: underline; }
-
 .figure-code-value {
   font-family: monospace;
   font-size: 16px;
@@ -1457,7 +1572,6 @@ img {
   border-radius: 20px;
   letter-spacing: 0.5px;
 }
-
 .figure-condition {
   display: flex;
   align-items: center;
@@ -1470,7 +1584,6 @@ img {
 .condition-icon { font-size: 18px; }
 .condition-text { flex: 1; font-size: 14px; color: #92400e; }
 [data-theme="dark"] .condition-text { color: #fde68a; }
-
 .figure-description {
   margin: 0;
   font-size: 16px;
@@ -1482,7 +1595,6 @@ img {
 }
 .figure-description p { margin: 0 0 8px 0; }
 .figure-description p:last-child { margin-bottom: 0; }
-
 .figure-btn {
   display: inline-flex;
   align-items: center;
@@ -1499,17 +1611,14 @@ img {
   gap: 8px;
   min-height: 44px;
 }
-
 .figure-btn-buy { background: var(--warning); color: white; }
 .figure-btn-buy:hover {
   transform: translateY(-2px);
   background: #fbbf24;
   box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
 }
-
 .figure-btn-disabled { background: var(--muted); color: white; cursor: default; opacity: 0.7; }
 
-/* ===== БЛОК ВКЛАДЫША ===== */
 .single-insert-block {
   padding: 20px;
   background: var(--card);
@@ -1517,7 +1626,6 @@ img {
   border-radius: 16px;
   box-shadow: var(--shadow);
 }
-
 .single-insert-title {
   font-size: 18px;
   font-weight: 700;
@@ -1527,14 +1635,12 @@ img {
   align-items: center;
   gap: 8px;
 }
-
 .single-insert-content {
   display: flex;
   gap: 20px;
   align-items: flex-start;
   flex-wrap: wrap;
 }
-
 .single-insert-image-wrap {
   flex-shrink: 0;
   width: 180px;
@@ -1549,22 +1655,16 @@ img {
   cursor: zoom-in;
   transition: transform 0.2s;
 }
-
 [data-theme="dark"] .single-insert-image-wrap {
   background: linear-gradient(135deg, #1e1e2e 0%, #2d2d44 100%);
 }
-
-.single-insert-image-wrap:hover {
-  transform: scale(1.02);
-}
-
+.single-insert-image-wrap:hover { transform: scale(1.02); }
 .single-insert-image {
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
   display: block;
 }
-
 .single-insert-info {
   flex: 1;
   min-width: 200px;
@@ -1573,14 +1673,12 @@ img {
   gap: 10px;
   padding-top: 6px;
 }
-
 .single-insert-name {
   font-size: 17px;
   font-weight: 600;
   color: var(--text);
   line-height: 1.3;
 }
-
 .single-insert-code {
   font-family: monospace;
   font-size: 14px;
@@ -1592,8 +1690,6 @@ img {
   width: fit-content;
   letter-spacing: 0.5px;
 }
-
-/* ===== "Вкладыш не добавлен" ===== */
 .single-insert-empty {
   display: flex;
   align-items: center;
@@ -1605,66 +1701,50 @@ img {
   color: var(--muted);
   font-size: 15px;
 }
-
-[data-theme="dark"] .single-insert-empty {
-  background: var(--bg-secondary);
-}
-
-.single-insert-empty-icon {
-  font-size: 22px;
-  opacity: 0.5;
-}
-
-.single-insert-empty-text {
-  font-style: italic;
-}
+[data-theme="dark"] .single-insert-empty { background: var(--bg-secondary); }
+.single-insert-empty-icon { font-size: 22px; opacity: 0.5; }
+.single-insert-empty-text { font-style: italic; }
 
 /* ===== ОВЕРЛЕЙ ЗАГРУЗКИ ===== */
 #loadingOverlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1000;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-    background: rgba(0, 0, 0, 0.15);
-    backdrop-filter: blur(2px);
-    -webkit-backdrop-filter: blur(2px);
-    transition: opacity 0.6s ease, visibility 0.6s ease;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  background: rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  transition: opacity 0.6s ease, visibility 0.6s ease;
 }
-
 #loadingOverlay.hidden {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
 }
-
 [data-theme="dark"] #loadingOverlay {
-    background: rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
 }
-
 [data-theme="dark"] #loadingOverlay .loader {
-    border-color: rgba(255,255,255,0.2);
-    border-top-color: var(--primary);
+  border-color: rgba(255,255,255,0.2);
+  border-top-color: var(--primary);
 }
-
 [data-theme="dark"] #loadingOverlay #loadingStatus {
-    background: rgba(30, 30, 46, 0.9);
-    color: var(--text);
+  background: rgba(30, 30, 46, 0.9);
+  color: var(--text);
 }
-
 [data-theme="dark"] #loadingOverlay #progressText {
-    background: rgba(0,0,0,0.5);
-    color: rgba(255,255,255,0.7);
+  background: rgba(0,0,0,0.5);
+  color: rgba(255,255,255,0.7);
 }
-
 #mainContent.loading { filter: blur(4px); transition: filter 0.6s ease; }
 #mainContent.loaded { filter: blur(0px); transition: filter 0.6s ease; }
 
@@ -1673,15 +1753,15 @@ img {
 .about-banner-img { width: 100%; height: auto; object-fit: cover; display: block; }
 .about-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin: 30px 0; }
 .about-stat-item {
-    background: var(--card);
-    padding: 25px 20px;
-    border-radius: 16px;
-    text-align: center;
-    box-shadow: var(--shadow);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
+  background: var(--card);
+  padding: 25px 20px;
+  border-radius: 16px;
+  text-align: center;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
 }
 .about-stat-icon { width: 48px; height: 48px; object-fit: contain; }
 .about-stat-number { font-size: 36px; font-weight: 700; color: var(--primary); }
@@ -1690,436 +1770,431 @@ img {
 .about-text p { margin-bottom: 16px; }
 
 /* ============================================================
-   МОБИЛЬНАЯ ВЕРСИЯ (до 768px)
+   МОБИЛЬНАЯ ВЕРСИЯ
    ============================================================ */
 @media (max-width: 768px) {
-    .header { flex-direction: column; padding: 10px; }
-    .header-left { position: static; margin-bottom: 10px; }
-    .logo-img { height: 35px; }
-    .tagline-main { font-size: 14px; }
-    .tagline-sub { font-size: 11px; }
+  .header { flex-direction: column; padding: 10px; }
+  .header-left { position: static; margin-bottom: 10px; }
+  .logo-img { height: 35px; }
+  .tagline-main { font-size: 14px; }
+  .tagline-sub { font-size: 11px; }
 
-    .main-grid .row { flex-direction: column; gap: 12px; }
-    .home-card, #socialGrid .home-card {
-        padding: 16px 20px;
-        flex-direction: row;
-        justify-content: flex-start;
-        align-items: center;
-        gap: 20px;
-        min-height: auto;
-        width: 100%;
-        box-sizing: border-box;
-    }
-    .icon, #socialGrid .icon { font-size: 28px; margin-bottom: 0; width: 36px; text-align: center; }
-    .home-title, #socialGrid .home-title { font-size: 16px; font-weight: 600; }
-    .section-title { text-align: left; font-size: 20px; margin: 20px 0 12px 0; padding-left: 4px; }
-    #socialGrid {
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: stretch;
-        gap: 12px;
-        width: 100%;
-    }
-    #socialGrid .home-card {
-        width: 100% !important;
-        max-width: 100% !important;
-        padding: 16px 20px !important;
-        flex-direction: row !important;
-        justify-content: flex-start !important;
-        align-items: center !important;
-        gap: 20px !important;
-        min-height: auto !important;
-    }
-    #socialGrid .icon { font-size: 28px !important; margin-bottom: 0 !important; width: 36px !important; text-align: center !important; }
-    #socialGrid .home-title { font-size: 16px !important; font-weight: 600 !important; }
+  /* Главная: 8 карточек по одной в ряд */
+  .main-grid {
+    display: flex !important;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .main-grid .home-card {
+    padding: 16px 20px;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+    min-height: auto;
+    width: 100%;
+  }
+  .main-grid .icon { font-size: 28px; margin-bottom: 0; width: 36px; text-align: center; }
+  .main-grid .home-title { font-size: 16px; font-weight: 600; }
 
-    .stats { display: flex; flex-direction: column; gap: 10px; margin: 20px 0; }
-    .stat-item {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 14px 20px;
-        background: var(--card);
-        border-radius: var(--radius);
-        box-shadow: var(--shadow);
-    }
-    .stat-number { font-size: 24px; font-weight: 700; color: var(--primary); margin-bottom: 0; }
-    .stat-label { font-size: 14px; color: var(--muted); text-transform: none; letter-spacing: normal; }
+  .home-card, #socialGrid .home-card {
+    padding: 16px 20px;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+    min-height: auto;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .icon, #socialGrid .icon { font-size: 28px; margin-bottom: 0; width: 36px; text-align: center; }
+  .home-title, #socialGrid .home-title { font-size: 16px; font-weight: 600; }
+  .section-title { text-align: left; font-size: 20px; margin: 20px 0 12px 0; padding-left: 4px; }
+  #socialGrid {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch;
+    gap: 12px;
+    width: 100%;
+  }
+  #socialGrid .home-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 16px 20px !important;
+    flex-direction: row !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    gap: 20px !important;
+    min-height: auto !important;
+  }
+  #socialGrid .icon { font-size: 28px !important; margin-bottom: 0 !important; width: 36px !important; text-align: center !important; }
+  #socialGrid .home-title { font-size: 16px !important; font-weight: 600 !important; }
 
-    .featured-grid { grid-template-columns: 1fr; }
-    .featured-card { height: 200px; }
+  .stats { display: flex; flex-direction: column; gap: 10px; margin: 20px 0; }
+  .stat-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 20px;
+    background: var(--card);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+  }
+  .stat-number { font-size: 24px; font-weight: 700; color: var(--primary); margin-bottom: 0; }
+  .stat-label { font-size: 14px; color: var(--muted); text-transform: none; letter-spacing: normal; }
 
-    /* ===== КАТАЛОГ И КОЛЛЕКЦИИ: 1 СЕРИЯ В РЯД ===== */
-    .catalog-grid,
-    #collectionGrid {
-        grid-template-columns: 1fr !important;
-        gap: 16px !important;
-        padding: 12px 0 !important;
-    }
+  .featured-grid { grid-template-columns: 1fr; }
+  .featured-card { height: 200px; }
 
-    .catalog-card,
-    #collectionGrid .catalog-card {
-        position: relative !important;
-        display: flex !important;
-        flex-direction: column !important;
-        justify-content: flex-end !important;
-        align-items: stretch !important;
-        height: 200px !important;
-        min-height: 200px !important;
-        border-radius: 16px !important;
-        overflow: hidden !important;
-        box-shadow: var(--shadow) !important;
-        text-decoration: none !important;
-        color: #ffffff !important;
-        border: none !important;
-        padding: 0 !important;
-        background: #1e1e2e !important;
-    }
-
-    .catalog-card:hover,
-    #collectionGrid .catalog-card:hover { transform: translateY(-2px); }
-
-    .catalog-card img,
-    #collectionGrid .catalog-card img {
-        position: absolute !important;
-        top: 0 !important;
-        left: 0 !important;
-        width: 100% !important;
-        height: 100% !important;
-        object-fit: cover !important;
-        border-radius: 0 !important;
-        padding: 0 !important;
-        background: transparent !important;
-        transition: transform 0.3s ease !important;
-    }
-
-    .catalog-card .card-body,
-    #collectionGrid .catalog-card .card-body {
-        position: relative !important;
-        z-index: 1 !important;
-        width: 100% !important;
-        box-sizing: border-box !important;
-        padding: 20px 16px 16px !important;
-        background: linear-gradient(to top, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.45) 60%, transparent 100%) !important;
-        display: flex !important;
-        flex-direction: column !important;
-        gap: 3px !important;
-    }
-
-    .catalog-card .card-body h3,
-    #collectionGrid .catalog-card .card-body h3 {
-        font-size: 18px !important;
-        font-weight: 700 !important;
-        color: #ffffff !important;
-        margin: 0 !important;
-        line-height: 1.25 !important;
-        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7) !important;
-        display: -webkit-box !important;
-        -webkit-line-clamp: 2 !important;
-        -webkit-box-orient: vertical !important;
-        overflow: hidden !important;
-    }
-
-    .catalog-card .card-body .year,
-    #collectionGrid .catalog-card .card-body .year {
-        font-size: 13px !important;
-        color: rgba(255, 255, 255, 0.9) !important;
-        margin: 0 !important;
-        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7) !important;
-    }
-
-    #collectionGrid .catalog-card .card-body .collection-stats {
-        font-size: 12px !important;
-        font-weight: 600 !important;
-        color: #c7d2fe !important;
-        margin-top: 3px !important;
-        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7) !important;
-    }
-
-    #collectionGrid .catalog-card .card-body .forsale-count,
-    .catalog-card .card-body .forsale-count {
-        font-size: 11px !important;
-        font-weight: 600 !important;
-        background: rgba(245, 158, 11, 0.95) !important;
-        color: #ffffff !important;
-        padding: 3px 10px !important;
-        border-radius: 20px !important;
-        margin-top: 4px !important;
-        display: inline-block !important;
-        width: fit-content !important;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3) !important;
-    }
-
-    /* ===== ПРОДАЖА: МОБИЛЬНЫЙ ВИД ===== */
-    .forsale-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 12px !important;
-    }
-
-    .forsale-item-card {
-        display: flex !important;
-        flex-direction: column !important;
-        border-radius: 12px !important;
-        overflow: hidden !important;
-        background: var(--card) !important;
-        box-shadow: var(--shadow) !important;
-        height: auto !important;
-    }
-
-    .forsale-item-card img {
-        width: 100% !important;
-        aspect-ratio: 1/1 !important;
-        object-fit: contain !important;
-        padding: 8px !important;
-        background: var(--bg) !important;
-    }
-
-    .forsale-item-body { padding: 10px 12px 12px !important; }
-    .forsale-item-name { font-size: 13px !important; font-weight: 600 !important; }
-    .forsale-item-price { font-size: 12px !important; padding: 2px 8px !important; }
-    .tag { font-size: 9px !important; padding: 1px 6px !important; }
-    .forsale-item-series { font-size: 11px !important; }
-
-    .full-series-card {
-        grid-column: 1 / -1 !important;
-        position: relative !important;
-        display: flex !important;
-        flex-direction: column !important;
-        justify-content: flex-end !important;
-        height: 180px !important;
-        min-height: 180px !important;
-        border-radius: 14px !important;
-        overflow: hidden !important;
-        box-shadow: var(--shadow) !important;
-        border: none !important;
-        background: var(--card) !important;
-    }
-
-    .full-series-card img {
-        position: absolute !important;
-        top: 0 !important;
-        left: 0 !important;
-        width: 100% !important;
-        height: 100% !important;
-        object-fit: cover !important;
-        padding: 0 !important;
-        background: transparent !important;
-        border-radius: 0 !important;
-    }
-
-    .full-series-card .forsale-item-body {
-        position: relative !important;
-        z-index: 1 !important;
-        width: 100% !important;
-        padding: 16px 14px 12px !important;
-        background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.3) 70%, transparent 100%) !important;
-        border: none !important;
-    }
-
-    .full-series-card .forsale-item-name {
-        font-size: 16px !important;
-        font-weight: 700 !important;
-        color: #ffffff !important;
-        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7) !important;
-    }
-
-    .full-series-card .forsale-item-price {
-        font-size: 13px !important;
-        font-weight: 700 !important;
-        background: var(--primary) !important;
-        color: #ffffff !important;
-        padding: 4px 10px !important;
-        border-radius: 20px !important;
-    }
-
-    .full-series-card .forsale-item-series {
-        font-size: 12px !important;
-        color: rgba(255, 255, 255, 0.9) !important;
-        border-top: none !important;
-        padding-top: 0 !important;
-        margin-top: 2px !important;
-        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7) !important;
-    }
-
-    .full-series-card .forsale-item-series a { color: rgba(255, 255, 255, 0.95) !important; }
-    .full-series-card .forsale-item-manufacturer { color: rgba(255, 255, 255, 0.8) !important; }
-    .full-series-card .forsale-item-manufacturer a { color: rgba(255, 255, 255, 0.95) !important; }
-    .full-series-card .tag { background: rgba(255, 255, 255, 0.2) !important; color: #ffffff !important; }
-    .full-series-card .forsale-buy-link { display: none !important; }
-
-    .section-divider { font-size: 12px; padding: 6px 12px; }
-
-    /* ===== СТРАНИЦА СЕРИИ (МОБИЛЬНАЯ) ===== */
-    .series-header {
-        grid-template-columns: 1fr !important;
-        gap: 20px !important;
-        text-align: center !important;
-    }
-    .series-cover-wrap {
-        max-width: 320px !important;
-        margin: 0 auto !important;
-        width: 100% !important;
-    }
-    .series-cover {
-        width: 100% !important;
-        max-width: 320px !important;
-    }
-    .series-info {
-        align-items: center !important;
-        padding-top: 0 !important;
-    }
-    .series-info h1 { font-size: 24px !important; text-align: center; }
-    .series-meta { justify-content: center !important; }
-    .series-info > p {
-      text-align: left;
-      font-size: 14px;
-      padding: 14px 16px;
-      border-left-width: 1px;
-    }
-
-    .figures-list { grid-template-columns: 1fr; }
-    .figure-item { flex-direction: column; text-align: center; }
-    .figure-number { position: absolute; top: 5px; left: 5px; }
-    .figure-item img { width: 160px; height: 160px; margin: 10px auto; }
-
-    /* ===== СТРАНИЦА ФИГУРКИ (МОБИЛЬНАЯ) ===== */
-    .figure-top-row {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-    .figure-image-wrapper { max-width: 280px; margin: 0 auto; }
-    .figure-image { width: 100%; aspect-ratio: 1/1; object-fit: contain; padding: 10px; }
-    .figure-title { font-size: 22px; text-align: center; margin-bottom: 16px; }
-    .figure-meta { padding: 12px 16px; }
-    .figure-meta-item { justify-content: flex-start; padding: 6px 0; font-size: 13px; }
-    .figure-condition { padding: 10px 14px; font-size: 13px; }
-    .figure-description { font-size: 14px; padding: 12px; }
-    .figure-btn { width: 100%; justify-content: center; padding: 14px 24px; font-size: 16px; }
-
-    /* Вкладыш на мобильном */
-    .single-insert-block { padding: 16px; }
-    .single-insert-title { font-size: 16px; margin-bottom: 12px; }
-    .single-insert-content { flex-direction: column; gap: 14px; }
-    .single-insert-image-wrap { width: 140px; height: 140px; margin: 0 auto; }
-    .single-insert-info {
-        min-width: 0;
-        width: 100%;
-        text-align: center;
-        align-items: center;
-    }
-    .single-insert-name { font-size: 15px; }
-    .single-insert-code { font-size: 13px; padding: 4px 10px; }
-    .single-insert-empty { padding: 14px 16px; font-size: 14px; }
-
-    /* ===== ФУТЕР ===== */
-    .footer-controls { justify-content: flex-end; }
-    .lang-switch-footer { position: static; left: auto; transform: none; flex: 1; justify-content: center; }
-    .theme-switch { margin-left: 0; }
-
-    /* ===== QR ===== */
-    .qr-btn-series { width: 100%; justify-content: center; }
-    .qr-btn { background: var(--primary); color: white; border-radius: 30px; padding: 8px 12px; }
-
-    /* ===== LIGHTBOX ===== */
-    .lightbox-prev, .lightbox-next { width: 40px; height: 40px; font-size: 24px; }
-    .lightbox-prev { left: 10px; }
-    .lightbox-next { right: 10px; }
-    .lightbox-zoom-controls { bottom: 20px; right: 10px; }
-    .zoom-btn { width: 36px; height: 36px; font-size: 16px; }
-
-    /* ===== ВИДЕО ===== */
-    .video-section { display: block !important; margin: 20px 0; }
-    .video-wrapper { display: block !important; border-radius: 8px; }
-    .video-source-btn { padding: 6px 12px; font-size: 12px; }
-    .video-links-grid { display: flex !important; flex-wrap: wrap; gap: 8px; justify-content: center; }
-    .video-external-link { padding: 8px 14px; font-size: 13px; flex: 1; min-width: 100px; justify-content: center; }
-    .video-external-link span { font-size: 13px; }
-
-    /* ===== ОСТАЛЬНОЕ ===== */
-    body.lightbox-open { overflow: hidden; position: fixed; width: 100%; }
-    .history-grid { grid-template-columns: 1fr; }
-    .history-detail h1 { font-size: 24px; }
-    .history-detail-gallery { grid-template-columns: repeat(2, 1fr); }
-    .archive-grid { grid-template-columns: 1fr; }
-    .hall-card { flex-direction: column; align-items: flex-start; }
-    .hall-rank-col { width: 100%; justify-content: flex-start; }
-    .hall-rank { font-size: 40px; }
-    .hall-stats { gap: 12px; }
-    .hall-stat { padding: 4px 12px; }
-    .hall-stat-icon { font-size: 16px; }
-    .hall-stat-value { font-size: 16px; }
-    .about-stats { grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 20px 0; }
-    .about-stat-item { padding: 16px 12px; }
-    .about-stat-icon { width: 32px; height: 32px; }
-    .about-stat-number { font-size: 24px; }
-    .about-stat-label { font-size: 11px; }
-    .about-text { font-size: 15px; padding: 10px 4px; line-height: 1.6; }
-    .about-banner { max-height: 150px; }
-}
-
-/* ===== ДОПОЛНИТЕЛЬНАЯ АДАПТАЦИЯ ДЛЯ ОЧЕНЬ МАЛЕНЬКИХ ЭКРАНОВ ===== */
-@media (max-width: 480px) {
-    .icon { font-size: 24px; width: 32px; }
-    .home-title { font-size: 15px; }
-    .home-card { padding: 14px 16px; }
-    #socialGrid .home-card { padding: 14px 16px; }
-    .video-external-link { padding: 6px 12px; font-size: 12px; min-width: 80px; }
-
-    .forsale-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 8px !important; }
-    .forsale-item-body { padding: 8px 10px 10px; }
-    .forsale-item-name { font-size: 12px; }
-    .forsale-item-price { font-size: 11px; padding: 2px 8px; }
-    .forsale-item-series { font-size: 10px; }
-
-    .stat-card-simple { padding: 10px 16px; min-width: 80px; }
-    .stat-card-simple .stat-number { font-size: 22px; }
-    .stat-card-simple .stat-label { font-size: 12px; }
-
-    .about-stats { grid-template-columns: repeat(3, 1fr); gap: 8px; }
-    .about-stat-item { padding: 12px 8px; }
-    .about-stat-icon { width: 28px; height: 28px; }
-    .about-stat-number { font-size: 20px; }
-    .about-stat-label { font-size: 10px; }
-    .about-text { font-size: 14px; }
-
-    .figure-image-wrapper { max-width: 220px; }
-    .figure-title { font-size: 20px; }
-    .figure-meta-item { font-size: 12px; padding: 5px 0; }
-    .figure-description { font-size: 13px; padding: 10px; }
-}
-
-/* ===== ФИКС ДЛЯ ЦЕНЫ В КАРТОЧКАХ ПРОДАЖ ===== */
-.forsale-item-price {
-    max-width: 45% !important;
+  .catalog-grid, #collectionGrid {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+    padding: 12px 0 !important;
+  }
+  .catalog-card, #collectionGrid .catalog-card {
+    position: relative !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-end !important;
+    align-items: stretch !important;
+    height: 200px !important;
+    min-height: 200px !important;
+    border-radius: 16px !important;
     overflow: hidden !important;
-    text-overflow: ellipsis !important;
-    white-space: nowrap !important;
+    box-shadow: var(--shadow) !important;
+    text-decoration: none !important;
+    color: #ffffff !important;
+    border: none !important;
+    padding: 0 !important;
+    background: #1e1e2e !important;
+  }
+  .catalog-card:hover, #collectionGrid .catalog-card:hover { transform: translateY(-2px); }
+  .catalog-card img, #collectionGrid .catalog-card img {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    background: transparent !important;
+    transition: transform 0.3s ease !important;
+  }
+  .catalog-card .card-body, #collectionGrid .catalog-card .card-body {
+    position: relative !important;
+    z-index: 1 !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 20px 16px 16px !important;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.45) 60%, transparent 100%) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 3px !important;
+  }
+  .catalog-card .card-body h3, #collectionGrid .catalog-card .card-body h3 {
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    color: #ffffff !important;
+    margin: 0 !important;
+    line-height: 1.25 !important;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7) !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+  }
+  .catalog-card .card-body .year, #collectionGrid .catalog-card .card-body .year {
+    font-size: 13px !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+    margin: 0 !important;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7) !important;
+  }
+  #collectionGrid .catalog-card .card-body .collection-stats {
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    color: #c7d2fe !important;
+    margin-top: 3px !important;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7) !important;
+  }
+  #collectionGrid .catalog-card .card-body .forsale-count,
+  .catalog-card .card-body .forsale-count {
     font-size: 11px !important;
-    padding: 3px 8px !important;
+    font-weight: 600 !important;
+    background: rgba(245, 158, 11, 0.95) !important;
+    color: #ffffff !important;
+    padding: 3px 10px !important;
+    border-radius: 20px !important;
+    margin-top: 4px !important;
     display: inline-block !important;
-    flex-shrink: 0 !important;
-}
+    width: fit-content !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3) !important;
+  }
 
-@media (max-width: 768px) {
-    .forsale-item-price { max-width: 40% !important; font-size: 10px !important; padding: 2px 6px !important; }
-    .forsale-item-header { gap: 4px !important; }
+  .forsale-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px !important;
+  }
+  .forsale-item-card {
+    display: flex !important;
+    flex-direction: column !important;
+    border-radius: 12px !important;
+    overflow: hidden !important;
+    background: var(--card) !important;
+    box-shadow: var(--shadow) !important;
+    height: auto !important;
+  }
+  .forsale-item-card img {
+    width: 100% !important;
+    aspect-ratio: 1/1 !important;
+    object-fit: contain !important;
+    padding: 8px !important;
+    background: var(--bg) !important;
+  }
+  .forsale-item-body { padding: 10px 12px 12px !important; }
+  .forsale-item-name { font-size: 13px !important; font-weight: 600 !important; }
+  .forsale-item-price { font-size: 12px !important; padding: 2px 8px !important; }
+  .tag { font-size: 9px !important; padding: 1px 6px !important; }
+  .forsale-item-series { font-size: 11px !important; }
+
+  .full-series-card {
+    grid-column: 1 / -1 !important;
+    position: relative !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-end !important;
+    height: 180px !important;
+    min-height: 180px !important;
+    border-radius: 14px !important;
+    overflow: hidden !important;
+    box-shadow: var(--shadow) !important;
+    border: none !important;
+    background: var(--card) !important;
+  }
+  .full-series-card img {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    padding: 0 !important;
+    background: transparent !important;
+    border-radius: 0 !important;
+  }
+  .full-series-card .forsale-item-body {
+    position: relative !important;
+    z-index: 1 !important;
+    width: 100% !important;
+    padding: 16px 14px 12px !important;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.3) 70%, transparent 100%) !important;
+    border: none !important;
+  }
+  .full-series-card .forsale-item-name {
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    color: #ffffff !important;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7) !important;
+  }
+  .full-series-card .forsale-item-price {
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    background: var(--primary) !important;
+    color: #ffffff !important;
+    padding: 4px 10px !important;
+    border-radius: 20px !important;
+  }
+  .full-series-card .forsale-item-series {
+    font-size: 12px !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+    border-top: none !important;
+    padding-top: 0 !important;
+    margin-top: 2px !important;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7) !important;
+  }
+  .full-series-card .forsale-item-series a { color: rgba(255, 255, 255, 0.95) !important; }
+  .full-series-card .forsale-item-manufacturer { color: rgba(255, 255, 255, 0.8) !important; }
+  .full-series-card .forsale-item-manufacturer a { color: rgba(255, 255, 255, 0.95) !important; }
+  .full-series-card .tag { background: rgba(255, 255, 255, 0.2) !important; color: #ffffff !important; }
+  .full-series-card .forsale-buy-link { display: none !important; }
+
+  .section-divider { font-size: 12px; padding: 6px 12px; }
+
+  /* Страница серии — мобильная */
+  .series-header {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+    text-align: center !important;
+  }
+  .series-cover-wrap {
+    max-width: 320px !important;
+    margin: 0 auto !important;
+    width: 100% !important;
+  }
+  .series-cover {
+    width: 100% !important;
+    max-width: 320px !important;
+  }
+  .series-info {
+    align-items: center !important;
+    padding-top: 0 !important;
+  }
+  .series-info h1 { font-size: 24px !important; text-align: center; }
+  .series-meta { justify-content: center !important; }
+  .series-info > p {
+    text-align: left;
+    font-size: 14px;
+    padding: 14px 16px;
+    border-left-width: 1px;
+  }
+
+  /* Карточки фигурок — компактнее на мобильном */
+  .figures-list { grid-template-columns: 1fr; }
+  .figure-item {
+    grid-template-columns: 30px 90px 1fr;
+    gap: 10px;
+    padding: 12px;
+    min-height: 160px;
+  }
+  .figure-item .figure-number { margin-top: 30px; width: 26px; height: 26px; font-size: 12px; }
+  .figure-item > img { width: 90px; height: 90px; }
+  .figure-item .figure-name { font-size: 14px; }
+  .figure-item .qr-btn,
+  .figure-item .same-code-link { width: 34px; height: 34px; font-size: 14px; }
+  .figure-item .avito-link { top: 10px; right: 10px; width: 32px; height: 32px; font-size: 14px; }
+
+  /* Заголовки секций — компактнее */
+  .series-section-title { font-size: 18px; margin: 20px 0 14px; }
+  .series-section-title .section-icon { font-size: 18px; }
+  .series-section-title .section-count { font-size: 12px; padding: 2px 10px; }
+
+  /* Страница фигурки — мобильная */
+  .figure-top-row { grid-template-columns: 1fr; gap: 20px; }
+  .figure-image-wrapper { max-width: 280px; margin: 0 auto; }
+  .figure-image { width: 100%; aspect-ratio: 1/1; object-fit: contain; padding: 10px; }
+  .figure-title { font-size: 22px; text-align: center; margin-bottom: 16px; }
+  .figure-meta { padding: 12px 16px; }
+  .figure-meta-item { justify-content: flex-start; padding: 6px 0; font-size: 13px; }
+  .figure-condition { padding: 10px 14px; font-size: 13px; }
+  .figure-description { font-size: 14px; padding: 12px; }
+  .figure-btn { width: 100%; justify-content: center; padding: 14px 24px; font-size: 16px; }
+
+  .single-insert-block { padding: 16px; }
+  .single-insert-title { font-size: 16px; margin-bottom: 12px; }
+  .single-insert-content { flex-direction: column; gap: 14px; }
+  .single-insert-image-wrap { width: 140px; height: 140px; margin: 0 auto; }
+  .single-insert-info {
+    min-width: 0;
+    width: 100%;
+    text-align: center;
+    align-items: center;
+  }
+  .single-insert-name { font-size: 15px; }
+  .single-insert-code { font-size: 13px; padding: 4px 10px; }
+  .single-insert-empty { padding: 14px 16px; font-size: 14px; }
+
+  .footer-controls { justify-content: flex-end; }
+  .lang-switch-footer { position: static; left: auto; transform: none; flex: 1; justify-content: center; }
+  .theme-switch { margin-left: 0; }
+
+  .qr-btn-series { width: 100%; justify-content: center; }
+  .qr-btn { background: var(--primary); color: white; border-radius: 30px; padding: 8px 12px; }
+
+  /* Лайтбокс — мобильный */
+  .lightbox-prev, .lightbox-next { width: 40px; height: 40px; font-size: 24px; }
+  .lightbox-prev { left: 10px; }
+  .lightbox-next { right: 10px; }
+  .lightbox-zoom-controls { bottom: 20px; right: 10px; }
+  .zoom-btn { width: 36px; height: 36px; font-size: 16px; }
+  .lightbox-title { font-size: 15px; top: 10px; max-width: 90%; }
+
+  /* Видео */
+  .video-section { display: block !important; margin: 20px 0; }
+  .video-wrapper { display: block !important; border-radius: 8px; }
+  .video-source-btn { padding: 6px 12px; font-size: 12px; }
+  .video-links-grid { display: flex !important; flex-wrap: wrap; gap: 8px; justify-content: center; }
+  .video-external-link { padding: 8px 14px; font-size: 13px; flex: 1; min-width: 100px; justify-content: center; }
+  .video-external-link span { font-size: 13px; }
+
+  body.lightbox-open { overflow: hidden; position: fixed; width: 100%; }
+  .history-grid { grid-template-columns: 1fr; }
+  .history-detail h1 { font-size: 24px; }
+  .history-detail-gallery { grid-template-columns: repeat(2, 1fr); }
+  .archive-grid { grid-template-columns: 1fr; }
+  .hall-card { flex-direction: column; align-items: flex-start; }
+  .hall-rank-col { width: 100%; justify-content: flex-start; }
+  .hall-rank { font-size: 40px; }
+  .hall-stats { gap: 12px; }
+  .hall-stat { padding: 4px 12px; }
+  .hall-stat-icon { font-size: 16px; }
+  .hall-stat-value { font-size: 16px; }
+  .about-stats { grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 20px 0; }
+  .about-stat-item { padding: 16px 12px; }
+  .about-stat-icon { width: 32px; height: 32px; }
+  .about-stat-number { font-size: 24px; }
+  .about-stat-label { font-size: 11px; }
+  .about-text { font-size: 15px; padding: 10px 4px; line-height: 1.6; }
+  .about-banner { max-height: 150px; }
 }
 
 @media (max-width: 480px) {
-    .forsale-item-price { max-width: 50% !important; font-size: 9px !important; padding: 2px 4px !important; }
+  .icon { font-size: 24px; width: 32px; }
+  .home-title { font-size: 15px; }
+  .home-card { padding: 14px 16px; }
+  #socialGrid .home-card { padding: 14px 16px; }
+  .video-external-link { padding: 6px 12px; font-size: 12px; min-width: 80px; }
+
+  .forsale-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 8px !important; }
+  .forsale-item-body { padding: 8px 10px 10px; }
+  .forsale-item-name { font-size: 12px; }
+  .forsale-item-price { font-size: 11px; padding: 2px 8px; }
+  .forsale-item-series { font-size: 10px; }
+
+  .stat-card-simple { padding: 10px 16px; min-width: 80px; }
+  .stat-card-simple .stat-number { font-size: 22px; }
+  .stat-card-simple .stat-label { font-size: 12px; }
+
+  .about-stats { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .about-stat-item { padding: 12px 8px; }
+  .about-stat-icon { width: 28px; height: 28px; }
+  .about-stat-number { font-size: 20px; }
+  .about-stat-label { font-size: 10px; }
+  .about-text { font-size: 14px; }
+
+  .figure-image-wrapper { max-width: 220px; }
+  .figure-title { font-size: 20px; }
+  .figure-meta-item { font-size: 12px; padding: 5px 0; }
+  .figure-description { font-size: 13px; padding: 10px; }
+}
+
+/* ===== ФИКС ДЛЯ ЦЕНЫ ===== */
+.forsale-item-price {
+  max-width: 45% !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+  font-size: 11px !important;
+  padding: 3px 8px !important;
+  display: inline-block !important;
+  flex-shrink: 0 !important;
+}
+@media (max-width: 768px) {
+  .forsale-item-price { max-width: 40% !important; font-size: 10px !important; padding: 2px 6px !important; }
+  .forsale-item-header { gap: 4px !important; }
+}
+@media (max-width: 480px) {
+  .forsale-item-price { max-width: 50% !important; font-size: 9px !important; padding: 2px 4px !important; }
 }
 
 /* ===== БЛОК ВИДЕО В СЕРИИ ===== */
 .videos-section { margin: 30px 0; }
 .videos-section h2 { margin-bottom: 20px; }
-
 .videos-embeds {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
   margin-bottom: 20px;
 }
-
 .video-embed {
   position: relative;
   width: 100%;
@@ -2130,7 +2205,6 @@ img {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
   background: #000;
 }
-
 .video-embed iframe {
   position: absolute;
   top: 0;
@@ -2140,13 +2214,11 @@ img {
   border: none;
   border-radius: 16px;
 }
-
 .videos-links {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
 }
-
 .video-link {
   display: flex;
   align-items: center;
@@ -2165,7 +2237,6 @@ img {
   position: relative;
   overflow: hidden;
 }
-
 .video-link::before {
   content: '';
   position: absolute;
@@ -2176,10 +2247,8 @@ img {
   opacity: 0.05;
   transition: opacity 0.25s;
 }
-
 .video-link.tiktok::before { background: linear-gradient(135deg, #000 0%, #FE2C55 50%, #25F4EE 100%); }
 .video-link.instagram::before { background: linear-gradient(135deg, #833AB4 0%, #FD1D1D 50%, #FCB045 100%); }
-
 .video-link:hover { transform: translateY(-4px); box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15); }
 .video-link.tiktok:hover { border-color: #FE2C55; background: #000; color: #fff; }
 .video-link.instagram:hover {
@@ -2187,21 +2256,18 @@ img {
   background: linear-gradient(135deg, #833AB4 0%, #FD1D1D 50%, #FCB045 100%);
   color: #fff;
 }
-
 .video-link-icon { font-size: 28px; flex-shrink: 0; }
 .video-link-text { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; }
 .video-link-name { font-size: 17px; font-weight: 700; }
 .video-link-hint { font-size: 12px; opacity: 0.7; font-weight: 500; }
-
 @media (max-width: 768px) {
-  .videos-embeds,
-  .videos-links { grid-template-columns: 1fr; gap: 16px; }
+  .videos-embeds, .videos-links { grid-template-columns: 1fr; gap: 16px; }
   .video-link { padding: 20px 16px; font-size: 16px; }
   .video-link-icon { font-size: 24px; }
 }
 
 /* ============================================================
-   ВИДЕОАРХИВ (videos.html)
+   ВИДЕОАРХИВ
    ============================================================ */
 .videos-counter {
   text-align: center;
@@ -2226,9 +2292,7 @@ img {
   gap: 20px;
   padding: 10px 0;
 }
-
 .video-card { display: flex; flex-direction: column; gap: 12px; animation: fadeInUp 0.3s ease forwards; }
-
 .video-card-player {
   width: 100%;
   border-radius: 14px;
@@ -2255,7 +2319,6 @@ img {
   width: 100%; height: 100%;
   border: none;
 }
-
 .video-card-player .video-link {
   display: flex;
   align-items: center;
@@ -2304,7 +2367,6 @@ img {
   box-shadow: var(--shadow-hover);
 }
 [data-theme="dark"] .video-card-series:hover { background: rgba(129, 140, 248, 0.1); }
-
 .video-card-series-icon { font-size: 24px; flex-shrink: 0; }
 .video-card-series-info { flex: 1; min-width: 0; }
 .video-card-series-name {
@@ -2323,7 +2385,6 @@ img {
 @media (max-width: 992px) {
   .videos-page-grid { grid-template-columns: repeat(3, 1fr); gap: 16px; }
 }
-
 @media (max-width: 600px) {
   .videos-page-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
   .video-card-series { padding: 10px 12px; gap: 8px; }
@@ -2332,7 +2393,6 @@ img {
   .video-card-series-meta { font-size: 11px; }
   .videos-counter { font-size: 13px; padding: 8px 16px; }
 }
-
 @media (max-width: 400px) {
   .videos-page-grid { grid-template-columns: 1fr; gap: 16px; }
 }
@@ -2377,7 +2437,6 @@ img {
   font-weight: 600;
 }
 [data-theme="dark"] .search-match-more { background: var(--bg-secondary); }
-
 @media (max-width: 768px) {
   .search-match-badge { font-size: 10px; padding: 2px 6px; }
 }
@@ -2410,7 +2469,6 @@ img {
   font-size: 15px;
   margin-top: 8px;
 }
-
 .same-figures-group {
   margin-bottom: 35px;
   background: var(--card);
@@ -2418,13 +2476,11 @@ img {
   padding: 20px;
   box-shadow: var(--shadow);
 }
-
 .same-figures-series-header {
   margin-bottom: 18px;
   padding-bottom: 14px;
   border-bottom: 1px solid var(--border);
 }
-
 .same-figures-series-link {
   display: flex;
   flex-direction: column;
@@ -2432,7 +2488,6 @@ img {
   text-decoration: none;
   color: inherit;
 }
-
 .same-figures-series-name {
   font-size: 20px;
   font-weight: 700;
@@ -2442,18 +2497,15 @@ img {
 .same-figures-series-link:hover .same-figures-series-name {
   text-decoration: underline;
 }
-
 .same-figures-series-meta {
   font-size: 13px;
   color: var(--muted);
 }
-
 .same-figures-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 15px;
 }
-
 .same-figure-card {
   display: flex;
   gap: 12px;
@@ -2476,7 +2528,6 @@ img {
   color: rgba(255, 255, 255, 0.9);
   background: rgba(255, 255, 255, 0.2);
 }
-
 .same-figure-card img {
   width: 70px;
   height: 70px;
@@ -2486,14 +2537,12 @@ img {
   padding: 4px;
   flex-shrink: 0;
 }
-
 .same-figure-info {
   display: flex;
   flex-direction: column;
   gap: 4px;
   min-width: 0;
 }
-
 .same-figure-name {
   font-weight: 600;
   font-size: 14px;
@@ -2503,7 +2552,6 @@ img {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
-
 .same-figure-code {
   font-family: monospace;
   font-size: 14px;
@@ -2515,66 +2563,37 @@ img {
   font-weight: 700;
   letter-spacing: 0.5px;
 }
-
 @media (max-width: 768px) {
-  .same-figures-list {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-  }
-  .same-figure-card {
-    flex-direction: column;
-    text-align: center;
-    padding: 10px 8px;
-  }
-  .same-figure-card img {
-    width: 80px;
-    height: 80px;
-  }
+  .same-figures-list { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .same-figure-card { flex-direction: column; text-align: center; padding: 10px 8px; }
+  .same-figure-card img { width: 80px; height: 80px; }
   .same-figure-name { font-size: 12px; }
   .same-figures-group { padding: 14px; }
   .same-figures-series-name { font-size: 17px; }
 }
 
-/* ===== СКЕЛЕТОН ДЛЯ СТРАНИЦЫ ОДИНАКОВЫХ ФИГУРОК ===== */
-.same-figures-skeleton {
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-}
-
+/* ===== СКЕЛЕТОН ===== */
+.same-figures-skeleton { display: flex; flex-direction: column; gap: 30px; }
 .skeleton-group {
   background: var(--card);
   border-radius: 16px;
   padding: 20px;
   box-shadow: var(--shadow);
 }
-
-.skeleton-line {
-  margin-bottom: 12px;
-  border-radius: 8px;
-}
-
+.skeleton-line { margin-bottom: 12px; border-radius: 8px; }
 .skeleton-cards {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 15px;
   margin-top: 20px;
 }
-
-.skeleton-card {
-  height: 90px;
-  border-radius: 12px;
-}
-
+.skeleton-card { height: 90px; border-radius: 12px; }
 @media (max-width: 768px) {
-  .skeleton-cards {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-  }
+  .skeleton-cards { grid-template-columns: repeat(2, 1fr); gap: 10px; }
   .skeleton-card { height: 120px; }
 }
 
-/* ===== БЕЙДЖ-ССЫЛКА НА ОДИНАКОВЫЕ ФИГУРКИ (каталог) ===== */
+/* ===== БЕЙДЖ-ССЫЛКА ===== */
 .search-match-link {
   text-decoration: none;
   cursor: pointer;
@@ -2582,17 +2601,12 @@ img {
   position: relative;
   padding-right: 22px;
 }
-
 .search-match-link:hover {
   background: var(--primary);
   color: white;
   transform: translateY(-1px);
 }
-
-.search-match-link:hover b {
-  color: white;
-}
-
+.search-match-link:hover b { color: white; }
 .search-match-link-icon {
   position: absolute;
   right: 6px;
@@ -2601,10 +2615,7 @@ img {
   font-size: 10px;
   opacity: 0.7;
 }
-
-.search-match-link:hover .search-match-link-icon {
-  opacity: 1;
-}
+.search-match-link:hover .search-match-link-icon { opacity: 1; }
 
 /* ===== КНОПКА "ВСЕ ДУБЛИ" ===== */
 .duplicates-btn {
@@ -2635,7 +2646,6 @@ img {
   transform: translateY(0);
   box-shadow: 0 2px 6px rgba(79, 70, 229, 0.2);
 }
-
 @media (max-width: 500px) {
   .duplicates-btn {
     margin-left: 0;
@@ -2650,14 +2660,12 @@ img {
   justify-content: center;
   margin-bottom: 25px;
 }
-
 .duplicates-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 15px;
   padding: 5px 0;
 }
-
 .duplicate-card {
   display: flex;
   flex-direction: column;
@@ -2679,10 +2687,7 @@ img {
   transform: translateY(-4px);
   box-shadow: 0 8px 20px rgba(79, 70, 229, 0.2);
 }
-[data-theme="dark"] .duplicate-card:hover {
-  background: rgba(129, 140, 248, 0.1);
-}
-
+[data-theme="dark"] .duplicate-card:hover { background: rgba(129, 140, 248, 0.1); }
 .duplicate-image-wrapper {
   width: 100%;
   aspect-ratio: 1 / 1;
@@ -2700,13 +2705,8 @@ img {
   object-fit: contain;
   transition: transform 0.25s;
 }
-.duplicate-card:hover .duplicate-image-wrapper img {
-  transform: scale(1.05);
-}
-[data-theme="dark"] .duplicate-image-wrapper {
-  background: var(--bg-secondary);
-}
-
+.duplicate-card:hover .duplicate-image-wrapper img { transform: scale(1.05); }
+[data-theme="dark"] .duplicate-image-wrapper { background: var(--bg-secondary); }
 .duplicate-code {
   font-family: monospace;
   font-size: 18px;
@@ -2717,57 +2717,37 @@ img {
   text-align: center;
   line-height: 1.2;
 }
-
 .duplicate-count {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 2px;
 }
-.duplicate-count-num {
-  font-size: 24px;
-  font-weight: 700;
-  color: var(--text);
-}
+.duplicate-count-num { font-size: 24px; font-weight: 700; color: var(--text); }
 .duplicate-count-label {
   font-size: 11px;
   color: var(--muted);
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
-
-.duplicate-icon {
-  font-size: 16px;
-  opacity: 0.5;
-  margin-top: 4px;
-}
-.duplicate-card:hover .duplicate-icon {
-  opacity: 1;
-}
-
+.duplicate-icon { font-size: 16px; opacity: 0.5; margin-top: 4px; }
+.duplicate-card:hover .duplicate-icon { opacity: 1; }
 @media (max-width: 768px) {
-  .duplicates-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-  }
+  .duplicates-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
   .duplicate-card { padding: 14px 10px; }
   .duplicate-code { font-size: 16px; }
   .duplicate-count-num { font-size: 20px; }
   .duplicates-btn { padding: 10px 14px; font-size: 13px; }
 }
 
-/* ===== ХРОНОЛОГИЯ СЕРИЙ ===== */
+/* ===== ХРОНОЛОГИЯ ===== */
 .timeline-subtitle {
   text-align: center;
   color: var(--muted);
   font-size: 15px;
   margin-top: 8px;
 }
-
-.timeline-year-block {
-  margin-bottom: 50px;
-}
-
+.timeline-year-block { margin-bottom: 50px; }
 .timeline-year {
   font-size: 56px;
   font-weight: 800;
@@ -2789,13 +2769,11 @@ img {
 }
 .timeline-year::before { left: 0; }
 .timeline-year::after { right: 0; }
-
 .timeline-series-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 16px;
 }
-
 .timeline-series-card {
   display: flex;
   gap: 14px;
@@ -2814,7 +2792,6 @@ img {
   border-color: var(--primary);
   box-shadow: var(--shadow-hover);
 }
-
 .timeline-series-image {
   width: 80px;
   height: 80px;
@@ -2831,12 +2808,7 @@ img {
   max-height: 90%;
   object-fit: contain;
 }
-
-.timeline-series-info {
-  flex: 1;
-  min-width: 0;
-}
-
+.timeline-series-info { flex: 1; min-width: 0; }
 .timeline-series-name {
   font-size: 15px;
   font-weight: 600;
@@ -2848,60 +2820,26 @@ img {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
-
-.timeline-series-meta {
-  font-size: 12px;
-  color: var(--muted);
-}
-
+.timeline-series-meta { font-size: 12px; color: var(--muted); }
 @media (max-width: 768px) {
-  .timeline-year {
-    font-size: 42px;
-    margin-bottom: 18px;
-  }
-  .timeline-year::before,
-  .timeline-year::after {
-    width: calc(50% - 60px);
-  }
-  .timeline-series-grid {
-    grid-template-columns: 1fr;
-  }
-  .timeline-series-image {
-    width: 64px;
-    height: 64px;
-  }
-  .timeline-series-name {
-    font-size: 14px;
-  }
-  .timeline-year-block {
-    margin-bottom: 35px;
-  }
+  .timeline-year { font-size: 42px; margin-bottom: 18px; }
+  .timeline-year::before, .timeline-year::after { width: calc(50% - 60px); }
+  .timeline-series-grid { grid-template-columns: 1fr; }
+  .timeline-series-image { width: 64px; height: 64px; }
+  .timeline-series-name { font-size: 14px; }
+  .timeline-year-block { margin-bottom: 35px; }
 }
 
-/* ===== МОБИЛЬНЫЕ ПРАВКИ ДЛЯ ЗАГОЛОВКОВ СТРАНИЦ ===== */
+/* ===== МОБИЛЬНЫЕ ПРАВКИ ДЛЯ ЗАГОЛОВКОВ ===== */
 @media (max-width: 768px) {
-  .page-header {
-    margin-bottom: 25px;
-    padding-bottom: 14px;
-  }
-  .page-header h1 {
-    font-size: 24px;
-    padding: 0 4px;
-  }
-  .page-header h1::after {
-    width: 45px;
-    bottom: -10px;
-    height: 3px;
-  }
-  .page-header:hover h1::after {
-    width: 70px;
-  }
-  .page-header::after {
-    width: 60px;
-  }
+  .page-header { margin-bottom: 25px; padding-bottom: 14px; }
+  .page-header h1 { font-size: 24px; padding: 0 4px; }
+  .page-header h1::after { width: 45px; bottom: -10px; height: 3px; }
+  .page-header:hover h1::after { width: 70px; }
+  .page-header::after { width: 60px; }
 }
 
-/* ===== КАРТОЧКИ СТАТИСТИКИ (Мои коллекции / На продажу) ===== */
+/* ===== КАРТОЧКИ СТАТИСТИКИ ===== */
 .stats-cards {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -2909,7 +2847,6 @@ img {
   margin: 0 auto 25px;
   max-width: 500px;
 }
-
 .stat-card-simple {
   display: flex;
   flex-direction: column;
@@ -2925,7 +2862,6 @@ img {
   position: relative;
   overflow: hidden;
 }
-
 .stat-card-simple::before {
   content: '';
   position: absolute;
@@ -2936,13 +2872,11 @@ img {
   background: linear-gradient(90deg, var(--primary), var(--primary-2));
   border-radius: 16px 16px 0 0;
 }
-
 .stat-card-simple:hover {
   transform: translateY(-3px);
   box-shadow: var(--shadow-hover);
   border-color: var(--primary);
 }
-
 .stat-card-simple .stat-number {
   font-size: 36px;
   font-weight: 800;
@@ -2950,7 +2884,6 @@ img {
   line-height: 1;
   letter-spacing: -1px;
 }
-
 .stat-card-simple .stat-label {
   font-size: 13px;
   color: var(--muted);
@@ -2958,30 +2891,20 @@ img {
   letter-spacing: 0.8px;
   font-weight: 600;
 }
-
 @media (max-width: 480px) {
-  .stat-card-simple .stat-number {
-    font-size: 28px;
-  }
-  .stat-card-simple .stat-label {
-    font-size: 11px;
-  }
-  .stat-card-simple {
-    padding: 14px 12px;
-  }
-  .stats-cards {
-    gap: 10px;
-  }
+  .stat-card-simple .stat-number { font-size: 28px; }
+  .stat-card-simple .stat-label { font-size: 11px; }
+  .stat-card-simple { padding: 14px 12px; }
+  .stats-cards { gap: 10px; }
 }
 
-/* ===== КАТАЛОГ ФИГУРОК (figures.html) ===== */
+/* ===== КАТАЛОГ ФИГУРОК ===== */
 .figures-catalog-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 18px;
   padding: 10px 0;
 }
-
 .figure-catalog-card {
   background: var(--card);
   border: 1px solid var(--border);
@@ -2999,7 +2922,6 @@ img {
   box-shadow: var(--shadow-hover);
   border-color: var(--primary);
 }
-
 .figure-catalog-image {
   position: relative;
   width: 100%;
@@ -3016,10 +2938,7 @@ img {
   object-fit: contain;
   transition: transform 0.25s;
 }
-.figure-catalog-card:hover .figure-catalog-image img {
-  transform: scale(1.05);
-}
-
+.figure-catalog-card:hover .figure-catalog-image img { transform: scale(1.05); }
 .figure-catalog-insert-badge {
   position: absolute;
   top: 8px;
@@ -3035,14 +2954,12 @@ img {
   font-size: 14px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 }
-
 .figure-catalog-body {
   padding: 12px 14px 14px;
   display: flex;
   flex-direction: column;
   gap: 4px;
 }
-
 .figure-catalog-name {
   font-size: 14px;
   font-weight: 600;
@@ -3053,7 +2970,6 @@ img {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
-
 .figure-catalog-code {
   font-family: monospace;
   font-size: 13px;
@@ -3065,7 +2981,6 @@ img {
   padding: 2px 8px;
   border-radius: 8px;
 }
-
 .figure-catalog-meta,
 .figure-catalog-meta-second {
   font-size: 12px;
@@ -3073,8 +2988,6 @@ img {
   white-space: nowrap;
   overflow: hidden;
 }
-
-/* ===== ССЫЛКА НА СЕРИЮ В КАРТОЧКЕ ФИГУРКИ ===== */
 .figure-catalog-series-link {
   display: inline-flex;
   align-items: center;
@@ -3094,13 +3007,7 @@ img {
   white-space: nowrap;
   border: 1px solid transparent;
 }
-
-.figure-catalog-series-link::before {
-  content: '📚';
-  font-size: 11px;
-  flex-shrink: 0;
-}
-
+.figure-catalog-series-link::before { content: '📚'; font-size: 11px; flex-shrink: 0; }
 .figure-catalog-series-link:hover {
   background: var(--primary);
   color: #fff;
@@ -3108,13 +3015,10 @@ img {
   transform: translateY(-1px);
   box-shadow: 0 3px 8px rgba(79, 70, 229, 0.25);
 }
-
 [data-theme="dark"] .figure-catalog-series-link {
   background: rgba(129, 140, 248, 0.15);
   color: #a5b4fc;
 }
-
-/* Бейдж "Без серии" — курсив, приглушённый */
 .figure-catalog-single {
   display: inline-flex;
   align-items: center;
@@ -3128,13 +3032,5 @@ img {
   font-style: italic;
   border: 1px dashed var(--border);
 }
-
-.figure-catalog-single::before {
-  content: '🚫';
-  font-size: 10px;
-  font-style: normal;
-}
-
-[data-theme="dark"] .figure-catalog-single {
-  background: var(--bg-secondary);
-}
+.figure-catalog-single::before { content: '🚫'; font-size: 10px; font-style: normal; }
+[data-theme="dark"] .figure-catalog-single { background: var(--bg-secondary); }

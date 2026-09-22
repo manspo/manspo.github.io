@@ -141,6 +141,30 @@ function escapeHtml(text) {
   return String(text).replace(/[&<>"'/`]/g, m => map[m] || m);
 }
 
+
+// ===== ОБЩАЯ ФУНКЦИЯ ПРОВЕРКИ ДЕФОЛТНОГО ИМЕНИ =====
+// Используется в createItemsList() и в лайтбоксе
+function isDefaultName(item, type) {
+    if (!item) return true;
+    const currentLang = localStorage.getItem('lang') || 'ru';
+    const checkName = String(
+      (currentLang === 'en')
+        ? (item.name_en || item.name || '')
+        : (item.name || '')
+    ).trim();
+    if (!checkName) return true;
+
+    const patterns = {
+        figure: [/^Фигурка\s+\d+$/i, /^Figure\s+\d+$/i],
+        extra:  [/^Доп\s+\d+$/i,     /^Extra\s+\d+$/i],
+        variant:[/^Вариант\s+\d+$/i, /^Variant\s+\d+$/i],
+        insert: [/^Вкладыш\s+\d+$/i, /^Insert\s+\d+$/i],
+        other:  [/^Прочее\s+\d+$/i,  /^Other\s+\d+$/i]
+    };
+    const p = patterns[type] || patterns.figure;
+    return p.some(re => re.test(checkName));
+}
+
 function debounce(fn, delay = CONFIG.DEBOUNCE_DELAY) {
   let timer = null;
   return function(...args) {
@@ -685,7 +709,7 @@ function generateQRCode(figureId, seriesId, figureName, isSeries = false) {
         <h3 class="qr-title">${escapeHtml(isSeries ? (currentLang === 'ru' ? `Серия: ${figureName}` : `Series: ${figureName}`) : figureName)}</h3>
         <div class="qr-code-container"></div>
         <p class="qr-description">${currentLang === 'ru' ? 'QR-код' : 'QR code'}</p>
-        <button type="button" class="qr-download-btn" id="qr-download-btn">💾 ${currentLang === 'ru' ? 'Сохранить в галерею' : 'Save to gallery'}</button>
+        <button type="button" class="qr-download-btn" id="qr-download-btn">💾 ${currentLang === 'ru' ? 'Сохранить' : 'Save'}</button>
       </div>
     `;
     document.body.appendChild(modal);
@@ -866,30 +890,50 @@ async function saveQRCodeNative(base64Data, fileName) {
     });
 }
 
-// ===== ГАЛЕРЕЯ =====
+// ===== ГАЛЕРЕЯ (ЛАЙТБОКС + НАЗВАНИЕ) =====
 let lightboxImages = [];
+let lightboxTitles = [];
 let currentLightboxIndex = 0;
 let currentZoom = 1;
 let isPanning = false;
 let startX = 0, startY = 0, translateX = 0, translateY = 0;
 
-window.openLightbox = function(index, images) {
+window.openLightbox = function(index, images, titles) {
   try {
     lightboxImages = images || [];
+    lightboxTitles = titles || [];
     currentLightboxIndex = typeof index === 'number' ? index : 0;
     const lightbox = document.getElementById('lightbox');
     const img = document.getElementById('lightboxImg');
     const counter = document.getElementById('imageCounter');
-    
+
     resetZoom();
     document.body.style.overflow = 'hidden';
-    
+
     if (lightbox && img && lightboxImages.length > 0) {
       const idx = Math.min(Math.max(currentLightboxIndex, 0), lightboxImages.length - 1);
       img.src = lightboxImages[idx];
       if (counter) counter.textContent = `${idx + 1} / ${lightboxImages.length}`;
+
+      // Скрываем стрелки и счётчик, если картинка одна (для lot.html)
+      if (lightboxImages.length <= 1) {
+        lightbox.classList.add('single-image');
+        if (counter) counter.style.display = 'none';
+      } else {
+        lightbox.classList.remove('single-image');
+        if (counter) counter.style.display = '';
+      }
+
+      // Название над картинкой
+      let titleEl = lightbox.querySelector('.lightbox-title');
+      if (!titleEl) {
+        titleEl = document.createElement('div');
+        titleEl.className = 'lightbox-title';
+        lightbox.appendChild(titleEl);
+      }
+      updateLightboxTitle(idx);
+
       lightbox.style.display = 'flex';
-      
       img.onload = function() { initZoomFeatures(); };
       if (img.complete) setTimeout(() => initZoomFeatures(), 50);
     }
@@ -897,6 +941,22 @@ window.openLightbox = function(index, images) {
     console.error('Ошибка открытия лайтбокса:', error);
   }
 };
+
+function updateLightboxTitle(idx) {
+  const lightbox = document.getElementById('lightbox');
+  if (!lightbox) return;
+  const titleEl = lightbox.querySelector('.lightbox-title');
+  if (!titleEl) return;
+
+  const title = lightboxTitles[idx] || '';
+  if (!title || isDefaultName({ name: title, name_en: title }, 'figure')) {
+    titleEl.classList.add('hidden');
+    titleEl.textContent = '';
+  } else {
+    titleEl.classList.remove('hidden');
+    titleEl.textContent = title;
+  }
+}
 
 function resetZoom() {
   const img = document.getElementById('lightboxImg');
@@ -906,6 +966,8 @@ function resetZoom() {
   img.style.transform = 'scale(1) translate(0px, 0px)';
   img.classList.remove('zoomed');
   img.style.cursor = 'zoom-in';
+  const titleEl = document.querySelector('#lightbox .lightbox-title');
+  if (titleEl) titleEl.classList.remove('hidden');
 }
 
 function zoomIn() {
@@ -918,6 +980,8 @@ function zoomIn() {
       img.classList.add('zoomed');
       img.style.cursor = 'grab';
     }
+    const titleEl = document.querySelector('#lightbox .lightbox-title');
+    if (titleEl) titleEl.classList.add('hidden');
   }
 }
 
@@ -931,6 +995,8 @@ function zoomOut() {
     if (currentZoom <= 1) {
       img.classList.remove('zoomed');
       img.style.cursor = 'zoom-in';
+      const titleEl = document.querySelector('#lightbox .lightbox-title');
+      if (titleEl) titleEl.classList.remove('hidden');
     }
   }
 }
@@ -938,21 +1004,21 @@ function zoomOut() {
 function initZoomFeatures() {
   const img = document.getElementById('lightboxImg');
   if (!img) return;
-  
+
   if (img._touchStartHandler) img.removeEventListener('touchstart', img._touchStartHandler);
   if (img._touchMoveHandler) img.removeEventListener('touchmove', img._touchMoveHandler);
   if (img._touchEndHandler) img.removeEventListener('touchend', img._touchEndHandler);
-  
+
   document.getElementById('zoomInBtn').onclick = (e) => { e.stopPropagation(); zoomIn(); };
   document.getElementById('zoomOutBtn').onclick = (e) => { e.stopPropagation(); zoomOut(); };
   document.getElementById('zoomResetBtn').onclick = (e) => { e.stopPropagation(); resetZoom(); };
-  
+
   img.onclick = (e) => {
     e.stopPropagation();
     if (currentZoom > 1) resetZoom();
     else zoomIn();
   };
-  
+
   img.onmousedown = (e) => {
     if (currentZoom <= 1) return;
     e.preventDefault();
@@ -961,7 +1027,7 @@ function initZoomFeatures() {
     startY = e.clientY - translateY;
     img.style.cursor = 'grabbing';
   };
-  
+
   window.onmousemove = (e) => {
     if (!isPanning || currentZoom <= 1) return;
     e.preventDefault();
@@ -969,25 +1035,21 @@ function initZoomFeatures() {
     translateY = e.clientY - startY;
     img.style.transform = `scale(${currentZoom}) translate(${translateX}px, ${translateY}px)`;
   };
-  
+
   window.onmouseup = () => {
-    if (isPanning) {
-      isPanning = false;
-      if (img) img.style.cursor = 'grab';
-    }
+    if (isPanning) { isPanning = false; if (img) img.style.cursor = 'grab'; }
   };
-  
+
   let touchStartDistance = 0, touchStartZoom = 1;
   let isTouching = false, isPanningTouch = false;
   let panStartX = 0, panStartY = 0;
   let swipeStartX = 0, swipeStartTime = 0, isSwiping = false;
-  
+
   function handleTouchStart(e) {
     e.preventDefault();
     swipeStartX = e.touches[0].clientX;
     swipeStartTime = Date.now();
     isSwiping = true;
-    
     if (e.touches.length === 2) {
       const dx = e.touches[0].clientX - e.touches[1].clientX;
       const dy = e.touches[0].clientY - e.touches[1].clientY;
@@ -996,7 +1058,6 @@ function initZoomFeatures() {
       isTouching = true;
       isSwiping = false;
     }
-    
     if (currentZoom > 1 && e.touches.length === 1) {
       isPanningTouch = true;
       panStartX = e.touches[0].clientX - translateX;
@@ -1004,45 +1065,45 @@ function initZoomFeatures() {
       isSwiping = false;
     }
   }
-  
+
   function handleTouchMove(e) {
     e.preventDefault();
-    
     if (e.touches.length === 1 && isPanningTouch && currentZoom > 1) {
       translateX = e.touches[0].clientX - panStartX;
       translateY = e.touches[0].clientY - panStartY;
       img.style.transform = `scale(${currentZoom}) translate(${translateX}px, ${translateY}px)`;
       isSwiping = false;
     }
-    
     if (e.touches.length === 2 && isTouching) {
       const dx = e.touches[0].clientX - e.touches[1].clientX;
       const dy = e.touches[0].clientY - e.touches[1].clientY;
       const distance = Math.hypot(dx, dy);
       let scale = touchStartZoom * (distance / touchStartDistance);
       scale = Math.min(CONFIG.MAX_ZOOM, Math.max(1, scale));
-      
       if (scale !== currentZoom) {
         currentZoom = scale;
         img.style.transform = `scale(${currentZoom}) translate(${translateX}px, ${translateY}px)`;
         if (currentZoom > 1) {
           img.classList.add('zoomed');
           img.style.cursor = 'grab';
+          const titleEl = document.querySelector('#lightbox .lightbox-title');
+          if (titleEl) titleEl.classList.add('hidden');
         } else {
           img.classList.remove('zoomed');
           img.style.cursor = 'zoom-in';
           translateX = 0; translateY = 0;
           img.style.transform = 'scale(1) translate(0px, 0px)';
+          const titleEl = document.querySelector('#lightbox .lightbox-title');
+          if (titleEl) titleEl.classList.remove('hidden');
         }
       }
       isSwiping = false;
     }
   }
-  
+
   function handleTouchEnd(e) {
     e.preventDefault();
-    
-    if (isSwiping && currentZoom <= 1) {
+    if (isSwiping && currentZoom <= 1 && lightboxImages.length > 1) {
       const deltaX = e.changedTouches[0].clientX - swipeStartX;
       const deltaTime = Date.now() - swipeStartTime;
       if (Math.abs(deltaX) > 50 && deltaTime < 300) {
@@ -1050,17 +1111,16 @@ function initZoomFeatures() {
         else nextLightboxImage();
       }
     }
-    
     isPanningTouch = false;
     isTouching = false;
     isSwiping = false;
     if (currentZoom <= 1) { translateX = 0; translateY = 0; }
   }
-  
+
   img._touchStartHandler = handleTouchStart;
   img._touchMoveHandler = handleTouchMove;
   img._touchEndHandler = handleTouchEnd;
-  
+
   img.addEventListener('touchstart', handleTouchStart, { passive: false });
   img.addEventListener('touchmove', handleTouchMove, { passive: false });
   img.addEventListener('touchend', handleTouchEnd);
@@ -1073,23 +1133,25 @@ window.closeLightbox = function() {
 };
 
 window.prevLightboxImage = function() {
-  if (lightboxImages.length > 0) {
+  if (lightboxImages.length > 1) {
     currentLightboxIndex = (currentLightboxIndex - 1 + lightboxImages.length) % lightboxImages.length;
     const img = document.getElementById('lightboxImg');
     resetZoom();
     img.src = lightboxImages[currentLightboxIndex];
     document.getElementById('imageCounter').textContent = `${currentLightboxIndex + 1} / ${lightboxImages.length}`;
+    updateLightboxTitle(currentLightboxIndex);
     setTimeout(() => initZoomFeatures(), 100);
   }
 };
 
 window.nextLightboxImage = function() {
-  if (lightboxImages.length > 0) {
+  if (lightboxImages.length > 1) {
     currentLightboxIndex = (currentLightboxIndex + 1) % lightboxImages.length;
     const img = document.getElementById('lightboxImg');
     resetZoom();
     img.src = lightboxImages[currentLightboxIndex];
     document.getElementById('imageCounter').textContent = `${currentLightboxIndex + 1} / ${lightboxImages.length}`;
+    updateLightboxTitle(currentLightboxIndex);
     setTimeout(() => initZoomFeatures(), 100);
   }
 };
@@ -2856,27 +2918,13 @@ async function initLot() {
         ? new Date(series.fullSeriesDateAdded).toLocaleDateString() 
         : '';
 
-    // Галерея
-    const allImages = [];
-    if (series.figures) allImages.push(...series.figures.map(f => f.image ? `${BASE_URL}/${f.image}` : 'images/placeholder.svg'));
-    if (series.extras) allImages.push(...series.extras.map(e => e.image ? `${BASE_URL}/${e.image}` : 'images/placeholder.svg'));
-    if (series.variants) allImages.push(...series.variants.map(v => v.image ? `${BASE_URL}/${v.image}` : 'images/placeholder.svg'));
-    if (series.inserts) allImages.push(...series.inserts.map(i => i.image ? `${BASE_URL}/${i.image}` : 'images/placeholder.svg'));
-    if (series.other) allImages.push(...series.other.map(o => o.image ? `${BASE_URL}/${o.image}` : 'images/placeholder.svg'));
-    window.seriesGalleryImages = allImages;
+    // Для lot.html — только обложка, без листания
+    const coverFull = series.cover ? `${BASE_URL}/${series.cover}` : 'images/placeholder.svg';
+    window.seriesGalleryImages = [coverFull];
+    window.seriesGalleryTitles = [name];
 
-    let mainImageSrc = coverUrl;
-    let mainImageIndex = 0;
-
-    if (series.cover) {
-        mainImageSrc = coverUrl;
-        const coverFull = `${BASE_URL}/${series.cover}`;
-        const found = allImages.findIndex(img => img === coverFull);
-        if (found !== -1) mainImageIndex = found;
-    } else if (allImages.length > 0) {
-        mainImageSrc = allImages[0];
-        mainImageIndex = 0;
-    }
+    const mainImageSrc = coverFull;
+    const mainImageIndex = 0;
 
     // ===== БЛОК ПРОДАЖИ =====
     let saleBlockHtml = '';
@@ -2922,7 +2970,7 @@ async function initLot() {
               <img src="${escapeHtml(mainImageSrc)}" 
                    alt="${escapeHtml(name)}" 
                    class="figure-image" 
-                   onclick="openLightbox(${mainImageIndex}, window.seriesGalleryImages || [])" 
+                   onclick="openLightbox(0, window.seriesGalleryImages || [], window.seriesGalleryTitles || [])" 
                    onerror="this.src='images/placeholder.svg'">
               <div class="figure-type-badge">📦 ${currentLang === 'ru' ? 'Полная серия' : 'Full series'}</div>
             </div>
@@ -3023,13 +3071,24 @@ async function initSeries() {
     
     const coverUrl = s.cover ? `${BASE_URL}/${s.cover}` : 'images/placeholder.svg';
     
-    const allImages = [];
-    if (s.figures) allImages.push(...s.figures.map(f => f.image ? `${BASE_URL}/${f.image}` : 'images/placeholder.svg'));
-    if (s.extras) allImages.push(...s.extras.map(e => e.image ? `${BASE_URL}/${e.image}` : 'images/placeholder.svg'));
-    if (s.variants) allImages.push(...s.variants.map(v => v.image ? `${BASE_URL}/${v.image}` : 'images/placeholder.svg'));
-    if (s.inserts) allImages.push(...s.inserts.map(i => i.image ? `${BASE_URL}/${i.image}` : 'images/placeholder.svg'));
-    if (s.other) allImages.push(...s.other.map(o => o.image ? `${BASE_URL}/${o.image}` : 'images/placeholder.svg'));
-    window.seriesGalleryImages = allImages;
+const allImages = [];
+const allTitles = [];
+
+function pushItems(arr, defaultType) {
+  (arr || []).forEach(item => {
+    allImages.push(item.image ? `${BASE_URL}/${item.image}` : 'images/placeholder.svg');
+    const n = (currentLang === 'en' && item.name_en) ? item.name_en : (item.name || '');
+    allTitles.push(isDefaultName(item, defaultType) ? '' : n);
+  });
+}
+pushItems(s.figures, 'figure');
+pushItems(s.extras, 'extra');
+pushItems(s.variants, 'variant');
+pushItems(s.inserts, 'insert');
+pushItems(s.other, 'other');
+
+window.seriesGalleryImages = allImages;
+window.seriesGalleryTitles = allTitles;
     
     const hasCollage = (s.figures && s.figures.length > 0) || 
                        (s.extras && s.extras.length > 0) || 
@@ -3039,20 +3098,29 @@ async function initSeries() {
       (s.extras && s.extras.some(e => e.forsale === true)) ||
       (s.variants && s.variants.some(v => v.forsale === true));
     
+    const titleIcons = {
+      figures: '📦', extras: '🎁', variants: '🎲', inserts: '📄', other: '📦'
+    };
+    const titleNames = {
+      figures: { ru: 'Фигурки', en: 'Figures' },
+      extras:  { ru: 'Допы',    en: 'Extras' },
+      variants:{ ru: 'Варианты',en: 'Variants' },
+      inserts: { ru: 'Вкладыши',en: 'Inserts' },
+      other:   { ru: 'Прочее',  en: 'Other' }
+    };
+
     function createItemsList(items, type, startIndex) {
       if (!items || items.length === 0) return '';
-      
-      const typeMap = {
-        'figures': { title: 'figures', name: 'Фигурки', nameEn: 'Figures' },
-        'extras': { title: 'extras', name: 'Допы', nameEn: 'Extras' },
-        'variants': { title: 'variants', name: 'Варианты', nameEn: 'Variants' },
-        'inserts': { title: 'inserts', name: 'Вкладыши', nameEn: 'Inserts' },
-        'other': { title: 'other', name: 'Прочее', nameEn: 'Other' }
-      };
-      const info = typeMap[type] || typeMap.other;
-      
+      const info = titleNames[type] || titleNames.other;
+      const icon = titleIcons[type] || '📦';
+      const sectionTitle = currentLang === 'en' ? info.en : info.ru;
+
       return `
-        <h2 data-i18n="${info.title}">${currentLang === 'en' ? info.nameEn : info.name}</h2>
+        <h2 class="series-section-title">
+          <span class="section-icon">${icon}</span>
+          <span>${sectionTitle}</span>
+          <span class="section-count">${items.length}</span>
+        </h2>
         <div class="figures-list">
           ${items.map((item, idx) => {
             const itemName = currentLang === 'en' && item.name_en ? item.name_en : item.name;
@@ -3062,20 +3130,23 @@ async function initSeries() {
             const safeId = escapeHtml(item.id || idx);
             const safeSeriesId = escapeHtml(s.id);
             const imageUrl = item.image ? `${BASE_URL}/${item.image}` : 'images/placeholder.svg';
-            
+
+            const hasDup = itemCode && window.__codeCounts &&
+                           (window.__codeCounts[itemCode.trim().toLowerCase()] >= 2);
+
             return `
-              <div class="figure-item ${type !== 'inserts' && item.owned ? 'owned' : ''} ${item.forsale ? 'forsale' : ''}">
+              <div class="figure-item ${type !== 'inserts' ? (item.owned ? 'owned' : '') : ''} ${item.forsale ? 'forsale' : ''}">
                 <div class="figure-number">${idx + 1}</div>
-                <img src="${imageUrl}" alt="${safeName}" loading="lazy" onerror="this.src='images/placeholder.svg'" onclick="openLightbox(${globalIndex}, window.seriesGalleryImages)" style="cursor:pointer">
+                <img src="${imageUrl}" alt="${safeName}" loading="lazy" onerror="this.src='images/placeholder.svg'" onclick="openLightbox(${globalIndex}, window.seriesGalleryImages, window.seriesGalleryTitles)" style="cursor:pointer">
                 <div class="figure-info">
-                  <div class="figure-name">
-                    <div>${safeName}</div>
-                    ${itemCode ? `<div class="figure-code">${escapeHtml(itemCode)}</div>` : ''}
+                  <div class="figure-name">${safeName}</div>
+                  ${itemCode ? `<div class="figure-code">${escapeHtml(itemCode)}</div>` : ''}
+                  <div class="figure-actions">
+                    <button class="qr-btn" onclick="generateQRCode('${safeId}', '${safeSeriesId}', '${safeName.replace(/'/g, "\\'")}')" title="QR-код">📱</button>
+                    ${hasDup ? `<a href="same-figures.html?code=${encodeURIComponent(itemCode)}" class="same-code-link" title="${currentLang === 'ru' ? 'Найти все фигурки с этим кодом (' + window.__codeCounts[itemCode.trim().toLowerCase()] + ' шт.)' : 'Find all figures with this code (' + window.__codeCounts[itemCode.trim().toLowerCase()] + ' pcs)'}">🔗</a>` : ''}
                   </div>
-                  ${(itemCode && type !== 'inserts' && type !== 'other' && window.__codeCounts && window.__codeCounts[itemCode.trim().toLowerCase()] >= 2) ? `<a href="same-figures.html?code=${encodeURIComponent(itemCode)}" class="same-code-link" title="${currentLang === 'ru' ? 'Найти все фигурки с этим кодом (' + window.__codeCounts[itemCode.trim().toLowerCase()] + ' шт.)' : 'Find all figures with this code (' + window.__codeCounts[itemCode.trim().toLowerCase()] + ' pcs)'}">🔗</a>` : ''}
-                  <button class="qr-btn" onclick="generateQRCode('${safeId}', '${safeSeriesId}', '${safeName.replace(/'/g, "\\'")}')" title="QR-код">📱</button>
                 </div>
-                ${item.forsale && item.avito ? `<a href="${escapeHtml(item.avito)}" class="avito-link" target="_blank" rel="noopener noreferrer">🛒</a>` : ''}
+                ${item.forsale && item.avito ? `<a href="${escapeHtml(item.avito)}" class="avito-link" target="_blank" rel="noopener noreferrer" title="Avito">🛒</a>` : ''}
               </div>
             `;
           }).join('')}
@@ -3204,15 +3275,25 @@ async function initFigure() {
     const typeName = typeNames[figureType]?.[currentLang] || figureType;
     
     const allSeriesImages = [];
-    if (series.figures) allSeriesImages.push(...series.figures.map(f => f.image ? `${BASE_URL}/${f.image}` : 'images/placeholder.svg'));
-    if (series.extras) allSeriesImages.push(...series.extras.map(e => e.image ? `${BASE_URL}/${e.image}` : 'images/placeholder.svg'));
-    if (series.variants) allSeriesImages.push(...series.variants.map(v => v.image ? `${BASE_URL}/${v.image}` : 'images/placeholder.svg'));
-    if (series.inserts) allSeriesImages.push(...series.inserts.map(i => i.image ? `${BASE_URL}/${i.image}` : 'images/placeholder.svg'));
-    if (series.other) allSeriesImages.push(...series.other.map(o => o.image ? `${BASE_URL}/${o.image}` : 'images/placeholder.svg'));
-    
+    const allTitles = [];
+
+    function pushItems(arr, defaultType) {
+      (arr || []).forEach(item => {
+        allSeriesImages.push(item.image ? `${BASE_URL}/${item.image}` : 'images/placeholder.svg');
+        const n = (currentLang === 'en' && item.name_en) ? item.name_en : (item.name || '');
+        allTitles.push(isDefaultName(item, defaultType) ? '' : n);
+      });
+    }
+    pushItems(series.figures, 'figure');
+    pushItems(series.extras, 'extra');
+    pushItems(series.variants, 'variant');
+    pushItems(series.inserts, 'insert');
+    pushItems(series.other, 'other');
+
     let imageIndex = allSeriesImages.findIndex(img => img === (figure.image ? `${BASE_URL}/${figure.image}` : 'images/placeholder.svg'));
     if (imageIndex === -1) imageIndex = 0;
     window.seriesGalleryImages = allSeriesImages;
+    window.seriesGalleryTitles = allTitles;
     
     const condition = currentLang === 'en' ? figure.condition_en : figure.condition;
     const price = figure.price || '';
@@ -3269,11 +3350,11 @@ async function initFigure() {
             <h3 class="single-insert-title">📄 ${currentLang === 'ru' ? 'Вкладыш' : 'Insert'}</h3>
             <div class="single-insert-content">
               <div class="single-insert-image-wrap">
-                <img src="${insertImgUrl}" 
-                     alt="${escapeHtml(insertName)}" 
-                     class="single-insert-image" 
-                     onclick="openLightbox(${insertGalleryIdx}, window.seriesGalleryImages)"
-                     onerror="this.src='images/placeholder.svg'">
+              <img src="${insertImgUrl}" 
+                   alt="${escapeHtml(insertName)}" 
+                   class="single-insert-image" 
+                   onclick="openLightbox(1, window.seriesGalleryImages, window.seriesGalleryTitles)"
+                   onerror="this.src='images/placeholder.svg'">
               </div>
               <div class="single-insert-info">
                 ${insertName ? `<div class="single-insert-name">${escapeHtml(insertName)}</div>` : ''}
@@ -3315,7 +3396,7 @@ async function initFigure() {
               <img src="${imageUrl}" 
                    alt="${escapeHtml(name)}" 
                    class="figure-image" 
-                   onclick="openLightbox(${imageIndex}, window.seriesGalleryImages || [])" 
+                   onclick="openLightbox(${imageIndex}, window.seriesGalleryImages || [], window.seriesGalleryTitles || [])" 
                    onerror="this.src='images/placeholder.svg'">
               <div class="figure-type-badge">
                 ${escapeHtml(typeIcon)} ${escapeHtml(typeName)}${figureNumber ? ' #' + figureNumber : ''}
@@ -3440,7 +3521,7 @@ const itemsPerRow = 6;
 const itemSize = 220;
 const itemGap = 20;
 const padding = 40;
-const headerHeight = 340; // запас под 2 строки названия + год + "Всего"
+const headerHeight = 250; // запас под 2 строки названия + год + "Всего"
 const footerHeight = 80;
 const qrSize = 220;
 const groupHeaderHeight = 55;
@@ -3785,16 +3866,24 @@ ctx.globalAlpha = 1;
                     ctx.fillText('🖼️', x + size/2, y + size/2);
                 }
                 
-                ctx.save();
-                ctx.globalAlpha = 0.45;
-                ctx.translate(x + size/2, y + size/2);
-                ctx.rotate(-Math.PI / 4);
-                ctx.font = `bold ${Math.floor(size * 0.18)}px Inter, system-ui`;
-                ctx.fillStyle = '#4f46e5';
-                ctx.textAlign = 'center';
-                ctx.textBaseline = 'middle';
-                ctx.fillText('MANSUR', 0, 0);
-                ctx.restore();
+ctx.save();
+ctx.globalAlpha = 0.55;
+ctx.translate(x + size/2, y + size/2);
+ctx.rotate(-Math.PI / 4);
+ctx.font = `bold ${Math.floor(size * 0.18)}px Inter, system-ui`;
+ctx.textAlign = 'center';
+ctx.textBaseline = 'middle';
+
+// Белая обводка (толстый контур)
+ctx.lineWidth = 4;
+ctx.strokeStyle = '#ffffff';
+ctx.strokeText('MANSUR', 0, 0);
+
+// Фиолетовая заливка
+ctx.fillStyle = '#4f46e5';
+ctx.fillText('MANSUR', 0, 0);
+
+ctx.restore();
                 
                 let rowY = y + size + labelGap;
                 const numBoxY = rowY;
@@ -4731,6 +4820,10 @@ async function initSingleFigure() {
       galleryImages.push(`${BASE_URL}/${figure.insert.image}`);
     }
     window.seriesGalleryImages = galleryImages;
+    window.seriesGalleryTitles = [
+      isDefaultName(figure, 'figure') ? '' : name,
+      figure.insert ? ((currentLang === 'en' && figure.insert.name_en ? figure.insert.name_en : figure.insert.name) || '') : ''
+    ];
     
     // ===== БЛОК ПРОДАЖИ =====
     let saleBlockHtml = '';
@@ -4814,7 +4907,7 @@ async function initSingleFigure() {
               <img src="${imageUrl}" 
                    alt="${escapeHtml(name)}" 
                    class="figure-image" 
-                   onclick="openLightbox(0, window.seriesGalleryImages)"
+                   onclick="openLightbox(0, window.seriesGalleryImages, window.seriesGalleryTitles)"
                    onerror="this.src='images/placeholder.svg'">
               <div class="figure-type-badge">
                 🎎 ${currentLang === 'ru' ? 'Фигурка' : 'Figure'}

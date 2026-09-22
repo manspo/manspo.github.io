@@ -52,8 +52,6 @@
 
   <style>
     /* ===== СТИЛИ ДЛЯ ЗАГРУЗКИ ===== */
-    
-    /* Оверлей загрузки */
     #loadingOverlay {
         position: fixed;
         top: 0;
@@ -71,36 +69,28 @@
         -webkit-backdrop-filter: blur(2px);
         transition: opacity 0.6s ease, visibility 0.6s ease;
     }
-
     #loadingOverlay.hidden {
         opacity: 0;
         visibility: hidden;
         pointer-events: none;
     }
-
-    /* Для тёмной темы */
     [data-theme="dark"] #loadingOverlay {
         background: rgba(0, 0, 0, 0.3);
         backdrop-filter: blur(4px);
         -webkit-backdrop-filter: blur(4px);
     }
-
     [data-theme="dark"] #loadingOverlay .loader {
         border-color: rgba(255,255,255,0.2);
         border-top-color: var(--primary);
     }
-
     [data-theme="dark"] #loadingOverlay #loadingStatus {
         background: rgba(30, 30, 46, 0.9);
         color: var(--text);
     }
-
     [data-theme="dark"] #loadingOverlay #progressText {
         background: rgba(0,0,0,0.5);
         color: rgba(255,255,255,0.7);
     }
-
-    /* Анимация спиннера */
     .loader {
         width: 48px;
         height: 48px;
@@ -109,18 +99,14 @@
         border-radius: 50%;
         animation: spin 0.8s linear infinite;
     }
-
     [data-theme="dark"] .loader {
         border-color: rgba(255,255,255,0.15);
         border-top-color: var(--primary);
     }
-
     @keyframes spin {
         0% { transform: rotate(0deg); }
         100% { transform: rotate(360deg); }
     }
-
-    /* Статус загрузки */
     #loadingStatus {
         font-size: 18px;
         font-weight: 600;
@@ -133,8 +119,6 @@
         transition: all 0.3s ease;
         text-align: center;
     }
-
-    /* Прогресс-бар */
     .progress-container {
         width: 200px;
         height: 4px;
@@ -142,11 +126,9 @@
         border-radius: 4px;
         overflow: hidden;
     }
-
     [data-theme="dark"] .progress-container {
         background: rgba(255, 255, 255, 0.1);
     }
-
     .progress-container .bar {
         width: 0%;
         height: 100%;
@@ -154,7 +136,6 @@
         border-radius: 4px;
         transition: width 0.3s ease;
     }
-
     #progressText {
         font-size: 13px;
         color: rgba(255, 255, 255, 0.8);
@@ -163,13 +144,10 @@
         border-radius: 20px;
         transition: all 0.3s ease;
     }
-
     [data-theme="dark"] #progressText {
         background: rgba(0, 0, 0, 0.5);
         color: rgba(255, 255, 255, 0.7);
     }
-
-    /* Кнопка "Повторить" */
     .retry-btn {
         padding: 12px 32px;
         background: var(--primary);
@@ -183,23 +161,17 @@
         transition: transform 0.2s;
         margin-top: 10px;
     }
-
     .retry-btn:hover {
         transform: scale(1.05);
     }
-
-    /* Размытый контент во время загрузки */
     #mainContent.loading {
         filter: blur(4px);
         transition: filter 0.6s ease;
     }
-
     #mainContent.loaded {
         filter: blur(0px);
         transition: filter 0.6s ease;
     }
-
-    /* Мобильные устройства */
     @media (max-width: 768px) {
         #loadingStatus {
             font-size: 15px;
@@ -217,14 +189,13 @@
 </head>
 <body>
 <script>
-  // Определяем Capacitor
   if (window.Capacitor && window.Capacitor.isNativePlatform()) {
     document.documentElement.classList.add('capacitor-app');
     document.documentElement.setAttribute('data-platform', 'capacitor');
   }
 </script>
 
-<!-- ===== ОСНОВНОЙ КОНТЕНТ (ВИДЕН СРАЗУ, НО РАЗМЫТ) ===== -->
+<!-- ===== ОСНОВНОЙ КОНТЕНТ ===== -->
 <div id="mainContent" class="loading">
 
   <header class="header">
@@ -245,29 +216,40 @@
       <img src="images/hero/collection.webp" alt="Collection" class="hero-img" loading="lazy" decoding="async">
     </section>
 
+    <!-- ===== 8 КАРТОЧЕК: 2 РЯДА ПО 4 ===== -->
     <section class="main-grid">
-      <div class="row">
-        <a href="catalog.html" class="home-card" data-page="catalog">
-          <div class="icon">📦</div>
-          <div class="home-title" data-i18n="nav_catalog">Каталог серий</div>
-        </a>
-        <a href="mycollection.html" class="home-card" data-page="mycollection">
-          <div class="icon">🏷️</div>
-          <div class="home-title" data-i18n="my_collections">Мои коллекции</div>
-        </a>
-        <a href="forsale.html" class="home-card" data-page="forsale">
-          <div class="icon">💰</div>
-          <div class="home-title" data-i18n="forsale">На продажу</div>
-        </a>
-		    <a href="videos.html" class="home-card" data-page="videos">
-      <div class="icon">📺</div>
-      <div class="home-title" data-i18n="nav_videos">Видеоархив</div>
-    </a>
-        <a href="about.html" class="home-card" data-page="about">
-          <div class="icon">📖</div>
-          <div class="home-title" data-i18n="nav_about">О сайте</div>
-        </a>
-      </div>
+      <a href="catalog.html" class="home-card" data-page="catalog">
+        <div class="icon">📦</div>
+        <div class="home-title" data-i18n="nav_catalog">Каталог серий</div>
+      </a>
+      <a href="figures.html" class="home-card" data-page="figures">
+        <div class="icon">🎎</div>
+        <div class="home-title" data-i18n="figures_title">Каталог фигурок</div>
+      </a>
+      <a href="forsale.html" class="home-card" data-page="forsale">
+        <div class="icon">💰</div>
+        <div class="home-title" data-i18n="forsale">На продажу</div>
+      </a>
+      <a href="timeline.html" class="home-card" data-page="timeline">
+        <div class="icon">📅</div>
+        <div class="home-title" data-i18n="timeline_btn">Хронология</div>
+      </a>
+      <a href="mycollection.html" class="home-card" data-page="mycollection">
+        <div class="icon">🏷️</div>
+        <div class="home-title" data-i18n="my_collections">Мои коллекции</div>
+      </a>
+      <a href="videos.html" class="home-card" data-page="videos">
+        <div class="icon">📺</div>
+        <div class="home-title" data-i18n="nav_videos">Видеоархив</div>
+      </a>
+      <a href="all-duplicates.html" class="home-card" data-page="duplicates">
+        <div class="icon">🔗</div>
+        <div class="home-title" data-i18n="all_duplicates">Дубликаты</div>
+      </a>
+      <a href="about.html" class="home-card" data-page="about">
+        <div class="icon">📖</div>
+        <div class="home-title" data-i18n="nav_about">О сайте</div>
+      </a>
     </section>
 
     <section class="social-grid">
@@ -319,16 +301,13 @@
   </footer>
 </div>
 
-<!-- ===== ОВЕРЛЕЙ ЗАГРУЗКИ (ПОВЕРХ РАЗМЫТОГО КОНТЕНТА) ===== -->
+<!-- ===== ОВЕРЛЕЙ ЗАГРУЗКИ ===== -->
 <div id="loadingOverlay">
     <div class="loader"></div>
-    
     <div id="loadingStatus">Загрузка данных...</div>
-    
     <div class="progress-container">
         <div class="bar" id="progressBar" style="width: 0%;"></div>
     </div>
-    
     <div id="progressText">Подготовка...</div>
 </div>
 
@@ -358,7 +337,6 @@ navigator.serviceWorker.addEventListener('controllerchange', () => {
 // ============================================================
 // НАВИГАЦИЯ
 // ============================================================
-
 (function() {
   let exitTimer = null;
 
@@ -391,9 +369,7 @@ navigator.serviceWorker.addEventListener('controllerchange', () => {
     toast.textContent = 'Нажмите ещё раз, чтобы выйти';
     toast.style.opacity = '1';
     clearTimeout(exitTimer);
-    exitTimer = setTimeout(() => {
-      toast.style.opacity = '0';
-    }, 2000);
+    exitTimer = setTimeout(() => { toast.style.opacity = '0'; }, 2000);
   }
 
   function handleBack() {
@@ -412,10 +388,7 @@ navigator.serviceWorker.addEventListener('controllerchange', () => {
     }
 
     const qrModal = document.querySelector('.qr-modal');
-    if (qrModal) {
-      qrModal.remove();
-      return;
-    }
+    if (qrModal) { qrModal.remove(); return; }
 
     if (current === 'home') {
       showExitToast();
@@ -437,22 +410,15 @@ navigator.serviceWorker.addEventListener('controllerchange', () => {
     if (current === 'figure') {
       const params = new URLSearchParams(window.location.search);
       const seriesId = params.get('series');
-      if (seriesId) {
-        window.location.href = `series.html?id=${encodeURIComponent(seriesId)}`;
-      } else {
-        window.location.href = 'catalog.html';
-      }
+      if (seriesId) window.location.href = `series.html?id=${encodeURIComponent(seriesId)}`;
+      else window.location.href = 'catalog.html';
       return;
     }
 
     if (current === 'series') {
-      if (referrer.includes('mycollection.html')) {
-        window.location.href = 'mycollection.html';
-      } else if (referrer.includes('forsale.html')) {
-        window.location.href = 'forsale.html';
-      } else {
-        window.location.href = 'catalog.html';
-      }
+      if (referrer.includes('mycollection.html')) window.location.href = 'mycollection.html';
+      else if (referrer.includes('forsale.html')) window.location.href = 'forsale.html';
+      else window.location.href = 'catalog.html';
       return;
     }
 
@@ -474,10 +440,10 @@ navigator.serviceWorker.addEventListener('controllerchange', () => {
       console.log('⚠️ Используется fallback для браузера');
     }
   });
-
 })();
 </script>
 
+<!-- Проверка Capacitor плагинов -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   if (window.Capacitor && window.Capacitor.isNativePlatform()) {
@@ -492,6 +458,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
+<!-- Запрос разрешений на Android -->
 <script>
 if (window.Capacitor && window.Capacitor.Plugins) {
   const Permissions = window.Capacitor.Plugins.Permissions;
@@ -510,13 +477,12 @@ if (window.Capacitor && window.Capacitor.Plugins) {
 }
 </script>
 
-<!-- ===== ОБРАБОТКА ГЛУБОКИХ ССЫЛОК ===== -->
+<!-- Обработка глубоких ссылок -->
 <script>
 (function() {
   function handleDeepLink() {
     const params = new URLSearchParams(window.location.search);
     const id = params.get('id');
-    
     if (id) {
       console.log('📱 Открыто через глубокую ссылку, серия:', id);
       setTimeout(() => {
@@ -526,8 +492,6 @@ if (window.Capacitor && window.Capacitor.Plugins) {
     }
     return false;
   }
-
-  // Проверяем при загрузке
   if (document.readyState === 'complete') {
     handleDeepLink();
   } else {
