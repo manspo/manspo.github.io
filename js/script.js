@@ -3539,7 +3539,7 @@ const itemSize = 220;
 const itemGap = 20;
 const padding = 40;
 // Высота шапки с учётом до 3 строк названия
-const headerHeight = 250;
+const headerHeight = 270;
 const footerHeight = 80;
 const qrSize = 220;
 const groupHeaderHeight = 55;
@@ -3747,7 +3747,7 @@ if (yearText) {
 
 // ===== "Всего: N" — увеличенный шрифт =====
 const totalItems = figures.length + extras.length + variants.length;
-const totalY = yearY + YEAR_LINE_HEIGHT + 30;
+const totalY = yearY + YEAR_LINE_HEIGHT + 15;
 
 ctx.font = `bold ${TOTAL_FONT_SIZE}px Inter, system-ui`;
 ctx.fillStyle = TEXT_COLOR;
