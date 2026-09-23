@@ -125,8 +125,17 @@
   ],
   "other": [],
   "videos": {
-    "youtube": [],
-    "vk": [],
-    "tiktok": []
+    "youtube": [
+      "https://www.youtube.com/watch?v=CRZuLOfRq3Q"
+    ],
+    "vk": [
+      "https://vk.ru/clip-230111118_456239041"
+    ],
+    "tiktok": [
+      "https://www.tiktok.com/@kindersurprisejoymaxi/video/7616663304424918280"
+    ],
+    "instagram": [
+      "https://www.instagram.com/p/DV0Xi4TiKgc"
+    ]
   }
 }

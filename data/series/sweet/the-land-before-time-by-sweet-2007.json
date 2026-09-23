@@ -126,7 +126,7 @@
       "name_en": "Insert 1",
       "code": "",
       "image": "images/series/sweet/the-land-before-time-by-sweet-2007/4691.webp",
-      "owned": false,
+      "owned": true,
       "forsale": false,
       "forsale_date": "",
       "avito": "",
@@ -142,7 +142,7 @@
       "name_en": "Insert 2",
       "code": "",
       "image": "images/series/sweet/the-land-before-time-by-sweet-2007/4691_0b.webp",
-      "owned": false,
+      "owned": true,
       "forsale": false,
       "forsale_date": "",
       "avito": "",
@@ -155,9 +155,17 @@
   ],
   "other": [],
   "videos": {
-    "youtube": [],
-    "vk": [],
-    "tiktok": [],
-    "instagram": []
+    "youtube": [
+      "https://www.youtube.com/watch?v=TMvSb8fRaA4"
+    ],
+    "vk": [
+      "https://vk.ru/clip-230111118_456239032"
+    ],
+    "tiktok": [
+      "https://www.tiktok.com/@kindersurprisejoymaxi/video/7603683351307783432?is_from_webapp=1&sender_device=pc"
+    ],
+    "instagram": [
+      "https://www.instagram.com/p/DUQ1TeJEVBQ/"
+    ]
   }
 }

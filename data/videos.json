@@ -1,6 +1,76 @@
 [
   {
     "host": "youtube",
+    "url": "https://www.youtube.com/watch?v=CRZuLOfRq3Q",
+    "seriesId": "brother-bear-by-nesquik-2003",
+    "seriesName": "Братец Медвежонок от Нестле",
+    "seriesName_en": "Brother Bear by Nestle",
+    "year": 2003,
+    "manufacturer": "nesquik",
+    "date_added": ""
+  },
+  {
+    "host": "vk",
+    "url": "https://vk.ru/clip-230111118_456239041",
+    "seriesId": "brother-bear-by-nesquik-2003",
+    "seriesName": "Братец Медвежонок от Нестле",
+    "seriesName_en": "Brother Bear by Nestle",
+    "year": 2003,
+    "manufacturer": "nesquik",
+    "date_added": ""
+  },
+  {
+    "host": "tiktok",
+    "url": "https://www.tiktok.com/@kindersurprisejoymaxi/video/7616663304424918280",
+    "seriesId": "brother-bear-by-nesquik-2003",
+    "seriesName": "Братец Медвежонок от Нестле",
+    "seriesName_en": "Brother Bear by Nestle",
+    "year": 2003,
+    "manufacturer": "nesquik",
+    "date_added": ""
+  },
+  {
+    "host": "instagram",
+    "url": "https://www.instagram.com/p/DV0Xi4TiKgc",
+    "seriesId": "brother-bear-by-nesquik-2003",
+    "seriesName": "Братец Медвежонок от Нестле",
+    "seriesName_en": "Brother Bear by Nestle",
+    "year": 2003,
+    "manufacturer": "nesquik",
+    "date_added": ""
+  },
+  {
+    "host": "youtube",
+    "url": "https://www.youtube.com/shorts/AUvy8juH0Ho",
+    "seriesId": "hercules-by-nestle-1996",
+    "seriesName": "Геркулес от Нестле",
+    "seriesName_en": "Hercules by Nestle",
+    "year": 1996,
+    "manufacturer": "nestle",
+    "date_added": ""
+  },
+  {
+    "host": "tiktok",
+    "url": "https://www.tiktok.com/@kindersurprisejoymaxi/video/7503277042314546439",
+    "seriesId": "hercules-by-nestle-1996",
+    "seriesName": "Геркулес от Нестле",
+    "seriesName_en": "Hercules by Nestle",
+    "year": 1996,
+    "manufacturer": "nestle",
+    "date_added": ""
+  },
+  {
+    "host": "instagram",
+    "url": "https://www.instagram.com/kindersurprisejoymaxi/reel/DJhon6GxIjz",
+    "seriesId": "hercules-by-nestle-1996",
+    "seriesName": "Геркулес от Нестле",
+    "seriesName_en": "Hercules by Nestle",
+    "year": 1996,
+    "manufacturer": "nestle",
+    "date_added": ""
+  },
+  {
+    "host": "youtube",
     "url": "https://www.youtube.com/watch?v=Rht7DraS9oI",
     "seriesId": "star-wars-by-kinder-2025",
     "seriesName": "Звездные Войны от Киндер",
@@ -35,6 +105,226 @@
     "seriesId": "star-wars-by-kinder-2025",
     "seriesName": "Звездные Войны от Киндер",
     "seriesName_en": "Star Wars by Kinder",
+    "year": 2025,
+    "manufacturer": "kinder",
+    "date_added": ""
+  },
+  {
+    "host": "youtube",
+    "url": "https://www.youtube.com/watch?v=TMvSb8fRaA4",
+    "seriesId": "the-land-before-time-by-sweet-2007",
+    "seriesName": "Земля До Начала Времен от Свит",
+    "seriesName_en": "The Land Before Time by Sweet",
+    "year": 2007,
+    "manufacturer": "sweet",
+    "date_added": ""
+  },
+  {
+    "host": "vk",
+    "url": "https://vk.ru/clip-230111118_456239032",
+    "seriesId": "the-land-before-time-by-sweet-2007",
+    "seriesName": "Земля До Начала Времен от Свит",
+    "seriesName_en": "The Land Before Time by Sweet",
+    "year": 2007,
+    "manufacturer": "sweet",
+    "date_added": ""
+  },
+  {
+    "host": "tiktok",
+    "url": "https://www.tiktok.com/@kindersurprisejoymaxi/video/7603683351307783432?is_from_webapp=1&sender_device=pc",
+    "seriesId": "the-land-before-time-by-sweet-2007",
+    "seriesName": "Земля До Начала Времен от Свит",
+    "seriesName_en": "The Land Before Time by Sweet",
+    "year": 2007,
+    "manufacturer": "sweet",
+    "date_added": ""
+  },
+  {
+    "host": "instagram",
+    "url": "https://www.instagram.com/p/DUQ1TeJEVBQ/",
+    "seriesId": "the-land-before-time-by-sweet-2007",
+    "seriesName": "Земля До Начала Времен от Свит",
+    "seriesName_en": "The Land Before Time by Sweet",
+    "year": 2007,
+    "manufacturer": "sweet",
+    "date_added": ""
+  },
+  {
+    "host": "youtube",
+    "url": "https://www.youtube.com/shorts/-lOlXUmqIfY",
+    "seriesId": "the-lion-king-by-nestle-1995",
+    "seriesName": "Король Лев от Нестле",
+    "seriesName_en": "The Lion King by Nestle",
+    "year": 1995,
+    "manufacturer": "nestle",
+    "date_added": ""
+  },
+  {
+    "host": "tiktok",
+    "url": "https://www.tiktok.com/@kindersurprisejoymaxi/video/7518471963317161223",
+    "seriesId": "the-lion-king-by-nestle-1995",
+    "seriesName": "Король Лев от Нестле",
+    "seriesName_en": "The Lion King by Nestle",
+    "year": 1995,
+    "manufacturer": "nestle",
+    "date_added": ""
+  },
+  {
+    "host": "instagram",
+    "url": "https://www.instagram.com/kindersurprisejoymaxi/reel/DLLMP4ORqz4/",
+    "seriesId": "the-lion-king-by-nestle-1995",
+    "seriesName": "Король Лев от Нестле",
+    "seriesName_en": "The Lion King by Nestle",
+    "year": 1995,
+    "manufacturer": "nestle",
+    "date_added": ""
+  },
+  {
+    "host": "youtube",
+    "url": "https://www.youtube.com/shorts/YwYVPd0fOKw",
+    "seriesId": "natoons-baby-by-kinder-2024",
+    "seriesName": "Натунс Детеныши от Киндер",
+    "seriesName_en": "Natoons Baby by Kinder",
+    "year": 2024,
+    "manufacturer": "kinder",
+    "date_added": ""
+  },
+  {
+    "host": "tiktok",
+    "url": "https://www.tiktok.com/@kindersurprisejoymaxi/video/7499687227035815176",
+    "seriesId": "natoons-baby-by-kinder-2024",
+    "seriesName": "Натунс Детеныши от Киндер",
+    "seriesName_en": "Natoons Baby by Kinder",
+    "year": 2024,
+    "manufacturer": "kinder",
+    "date_added": ""
+  },
+  {
+    "host": "instagram",
+    "url": "https://www.instagram.com/kindersurprisejoymaxi/reel/DJH70AHx_Ld",
+    "seriesId": "natoons-baby-by-kinder-2024",
+    "seriesName": "Натунс Детеныши от Киндер",
+    "seriesName_en": "Natoons Baby by Kinder",
+    "year": 2024,
+    "manufacturer": "kinder",
+    "date_added": ""
+  },
+  {
+    "host": "youtube",
+    "url": "https://www.youtube.com/shorts/6JL33RmhcVM",
+    "seriesId": "wrestling-2-by-dolci-preziosi-2006",
+    "seriesName": "Реслинг 2 от Дольчи Прециози",
+    "seriesName_en": "Wrestling 2 by Dolci Preziosi",
+    "year": 2006,
+    "manufacturer": "dolci-preziosi",
+    "date_added": ""
+  },
+  {
+    "host": "tiktok",
+    "url": "https://www.tiktok.com/@kindersurprisejoymaxi/video/7511425409632947464",
+    "seriesId": "wrestling-2-by-dolci-preziosi-2006",
+    "seriesName": "Реслинг 2 от Дольчи Прециози",
+    "seriesName_en": "Wrestling 2 by Dolci Preziosi",
+    "year": 2006,
+    "manufacturer": "dolci-preziosi",
+    "date_added": ""
+  },
+  {
+    "host": "instagram",
+    "url": "https://www.instagram.com/kindersurprisejoymaxi/reel/DKaLLy2RoWv/",
+    "seriesId": "wrestling-2-by-dolci-preziosi-2006",
+    "seriesName": "Реслинг 2 от Дольчи Прециози",
+    "seriesName_en": "Wrestling 2 by Dolci Preziosi",
+    "year": 2006,
+    "manufacturer": "dolci-preziosi",
+    "date_added": ""
+  },
+  {
+    "host": "youtube",
+    "url": "https://www.youtube.com/shorts/FqGLBLVqwiw",
+    "seriesId": "simpsons-2-by-panini-1999",
+    "seriesName": "Симпсоны 2 от Панини",
+    "seriesName_en": "Simpsons 2 by Panini",
+    "year": 1999,
+    "manufacturer": "panini",
+    "date_added": ""
+  },
+  {
+    "host": "tiktok",
+    "url": "https://www.tiktok.com/@kindersurprisejoymaxi/video/7509212616066092295",
+    "seriesId": "simpsons-2-by-panini-1999",
+    "seriesName": "Симпсоны 2 от Панини",
+    "seriesName_en": "Simpsons 2 by Panini",
+    "year": 1999,
+    "manufacturer": "panini",
+    "date_added": ""
+  },
+  {
+    "host": "instagram",
+    "url": "https://www.instagram.com/kindersurprisejoymaxi/reel/DKK2qyCxJ8c",
+    "seriesId": "simpsons-2-by-panini-1999",
+    "seriesName": "Симпсоны 2 от Панини",
+    "seriesName_en": "Simpsons 2 by Panini",
+    "year": 1999,
+    "manufacturer": "panini",
+    "date_added": ""
+  },
+  {
+    "host": "youtube",
+    "url": "https://www.youtube.com/shorts/CVHcXVkXqmo",
+    "seriesId": "the-simpsons-by-tombola-1991",
+    "seriesName": "Симпсоны от Томбола",
+    "seriesName_en": "The Simpsons by Tombola",
+    "year": 1991,
+    "manufacturer": "tombola",
+    "date_added": ""
+  },
+  {
+    "host": "tiktok",
+    "url": "https://www.tiktok.com/@kindersurprisejoymaxi/video/7509212616066092295",
+    "seriesId": "the-simpsons-by-tombola-1991",
+    "seriesName": "Симпсоны от Томбола",
+    "seriesName_en": "The Simpsons by Tombola",
+    "year": 1991,
+    "manufacturer": "tombola",
+    "date_added": ""
+  },
+  {
+    "host": "instagram",
+    "url": "https://www.instagram.com/kindersurprisejoymaxi/reel/DI-Lj24CemE",
+    "seriesId": "the-simpsons-by-tombola-1991",
+    "seriesName": "Симпсоны от Томбола",
+    "seriesName_en": "The Simpsons by Tombola",
+    "year": 1991,
+    "manufacturer": "tombola",
+    "date_added": ""
+  },
+  {
+    "host": "youtube",
+    "url": "https://www.youtube.com/shorts/KNedFE4rKy8",
+    "seriesId": "super-mario-by-kinder-2025",
+    "seriesName": "Супер Марио от Киндер",
+    "seriesName_en": "Super Mario by Kinder",
+    "year": 2025,
+    "manufacturer": "kinder",
+    "date_added": ""
+  },
+  {
+    "host": "tiktok",
+    "url": "https://www.tiktok.com/@kindersurprisejoymaxi/video/7516173496653712647",
+    "seriesId": "super-mario-by-kinder-2025",
+    "seriesName": "Супер Марио от Киндер",
+    "seriesName_en": "Super Mario by Kinder",
+    "year": 2025,
+    "manufacturer": "kinder",
+    "date_added": ""
+  },
+  {
+    "host": "instagram",
+    "url": "https://www.instagram.com/kindersurprisejoymaxi/reel/DK7HyUwxR2Y/",
+    "seriesId": "super-mario-by-kinder-2025",
+    "seriesName": "Супер Марио от Киндер",
+    "seriesName_en": "Super Mario by Kinder",
     "year": 2025,
     "manufacturer": "kinder",
     "date_added": ""

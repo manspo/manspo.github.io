@@ -409,8 +409,15 @@
   ],
   "other": [],
   "videos": {
-    "youtube": [],
+    "youtube": [
+      "https://www.youtube.com/shorts/YwYVPd0fOKw"
+    ],
     "vk": [],
-    "tiktok": []
+    "tiktok": [
+      "https://www.tiktok.com/@kindersurprisejoymaxi/video/7499687227035815176"
+    ],
+    "instagram": [
+      "https://www.instagram.com/kindersurprisejoymaxi/reel/DJH70AHx_Ld"
+    ]
   }
 }
