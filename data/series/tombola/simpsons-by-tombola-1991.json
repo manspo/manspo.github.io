@@ -1,10 +1,10 @@
 {
-  "id": "the-simpsons-by-tombola-1991",
+  "id": "simpsons-by-tombola-1991",
   "name": "Симпсоны от Томбола",
   "name_en": "The Simpsons by Tombola",
   "year": 1991,
   "manufacturer": "tombola",
-  "cover": "images/series/tombola/the-simpsons-by-tombola-1991/cover.webp",
+  "cover": "images/series/tombola/simpsons-by-tombola-1991/cover.webp",
   "description": "Знаменитые Симпсоны",
   "description_en": "Famous Simpsons",
   "kind": "",
@@ -21,11 +21,11 @@
   "fullSeriesDescription_en": "",
   "figures": [
     {
-      "id": "the-simpsons-by-tombola-1991_fig1",
+      "id": "simpsons-by-tombola-1991_fig1",
       "name": "Барт Симпсон",
       "name_en": "Bart Simpson",
       "code": "",
-      "image": "images/series/tombola/the-simpsons-by-tombola-1991/Барт.webp",
+      "image": "images/series/tombola/simpsons-by-tombola-1991/Барт.webp",
       "owned": true,
       "forsale": false,
       "avito": "",
@@ -35,11 +35,11 @@
       "date_added": "2026-09-17"
     },
     {
-      "id": "the-simpsons-by-tombola-1991_fig2",
+      "id": "simpsons-by-tombola-1991_fig2",
       "name": "Гомер Симпсон",
       "name_en": "Homer Simpson",
       "code": "",
-      "image": "images/series/tombola/the-simpsons-by-tombola-1991/Гомер.webp",
+      "image": "images/series/tombola/simpsons-by-tombola-1991/Гомер.webp",
       "owned": true,
       "forsale": false,
       "avito": "",
@@ -49,11 +49,11 @@
       "date_added": "2026-09-17"
     },
     {
-      "id": "the-simpsons-by-tombola-1991_fig3",
+      "id": "simpsons-by-tombola-1991_fig3",
       "name": "Лиза Симпсон",
       "name_en": "Lisa Simpson",
       "code": "",
-      "image": "images/series/tombola/the-simpsons-by-tombola-1991/Лиза.webp",
+      "image": "images/series/tombola/simpsons-by-tombola-1991/Лиза.webp",
       "owned": true,
       "forsale": false,
       "avito": "",
@@ -63,11 +63,11 @@
       "date_added": "2026-09-17"
     },
     {
-      "id": "the-simpsons-by-tombola-1991_fig4",
+      "id": "simpsons-by-tombola-1991_fig4",
       "name": "Мардж Симпсон",
       "name_en": "Marge Simpson",
       "code": "",
-      "image": "images/series/tombola/the-simpsons-by-tombola-1991/Мардж.webp",
+      "image": "images/series/tombola/simpsons-by-tombola-1991/Мардж.webp",
       "owned": true,
       "forsale": false,
       "avito": "",
@@ -77,11 +77,11 @@
       "date_added": "2026-09-17"
     },
     {
-      "id": "the-simpsons-by-tombola-1991_fig5",
+      "id": "simpsons-by-tombola-1991_fig5",
       "name": "Мэгги Симпсон",
       "name_en": "Maggie Simpson",
       "code": "",
-      "image": "images/series/tombola/the-simpsons-by-tombola-1991/Мегги.webp",
+      "image": "images/series/tombola/simpsons-by-tombola-1991/Мегги.webp",
       "owned": true,
       "forsale": false,
       "avito": "",
@@ -95,11 +95,11 @@
   "variants": [],
   "inserts": [
     {
-      "id": "the-simpsons-by-tombola-1991_insert1",
+      "id": "simpsons-by-tombola-1991_insert1",
       "name": "Вкладыш 1",
       "name_en": "Insert 1",
       "code": "",
-      "image": "images/series/tombola/the-simpsons-by-tombola-1991/cover.webp",
+      "image": "images/series/tombola/simpsons-by-tombola-1991/cover.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -109,11 +109,11 @@
       "date_added": "2026-09-17"
     },
     {
-      "id": "the-simpsons-by-tombola-1991_insert2",
+      "id": "simpsons-by-tombola-1991_insert2",
       "name": "Вкладыш 2",
       "name_en": "Insert 2",
       "code": "",
-      "image": "images/series/tombola/the-simpsons-by-tombola-1991/01b.webp",
+      "image": "images/series/tombola/simpsons-by-tombola-1991/01b.webp",
       "owned": false,
       "forsale": false,
       "avito": "",
@@ -126,7 +126,7 @@
   "other": [],
   "videos": {
     "youtube": [
-      "https://www.youtube.com/shorts/CVHcXVkXqmo"
+      "https://www.youtube.com/watch?v=CVHcXVkXqmo"
     ],
     "vk": [],
     "tiktok": [
