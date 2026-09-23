@@ -1,5 +1,17 @@
 [
   {
+    "id": "the-land-before-time-by-sweet-2007",
+    "name": "Земля До Начала Времен от Свит",
+    "name_en": "The Land Before Time by Sweet",
+    "year": 2007,
+    "manufacturer": "sweet",
+    "cover": "images/series/sweet/the-land-before-time-by-sweet-2007/cover.webp",
+    "kind": "",
+    "description": "«Земля до начала времён» — это знаменитый анимационный фильм 1988 года от режиссера Дона Блута и продюсеров Стивена Спилберга с Джорджем Лукасом.\n\nЛиттлфут (Крошки-ножки) — добрый и отважный детёныш бронтозавра (апатозавра), лидер компании.\nСэра (Цэра) — упрямая и гордая самочка трицератопса, которая часто спорит с Литтлфутом.\nДаки — милый и болтливый детёныш зауролофа (или анатозавра), оптимистичная и дружелюбная.\nПитри — забавный и немного трусливый детёныш птеродактиля, который долго учится летать.\nСпайк — молчаливый и вечно голодный детёныш стегозавра, которого усыновила семья Даки.\nЗубастик - он единственный хищник в компании травоядных динозавриков. Позже он становится одним из главных героев одноимённого мультсериала.",
+    "description_en": "The Land Before Time is a famous 1988 animated film directed by Don Bluth and produced by Steven Spielberg and George Lucas.\n\nLittlefoot (Little Legs) is a kind and brave baby Brontosaurus (Apatosaurus), the leader of the company.\nCera is a stubborn and proud female Triceratops who often argues with Littlefoot.\nDucky is a cute and talkative saurolophus (or anatosaurus) baby who is optimistic and friendly.\nPetrie is a funny and slightly cowardly baby pterodactyl who takes a long time to learn to fly.\nSpike is a silent and always hungry baby stegosaurus who was adopted by Ducky's family.\nChomper is the only predator in the company of herbivorous dinosaurs.\nLater he becomes one of the main characters in the animated series of the same name.",
+    "visible": true
+  },
+  {
     "id": "anniversary-christmas-maxi-by-kinder-2014",
     "name": "Юбилейная Рождественская Макси от Киндер",
     "name_en": "Anniversary Christmas Maxi by Kinder",
