@@ -3139,21 +3139,21 @@ window.seriesGalleryTitles = allTitles;
             const safeSeriesId = escapeHtml(s.id);
             const imageUrl = item.image ? `${BASE_URL}/${item.image}` : 'images/placeholder.svg';
 
-            const hasDup = itemCode && window.__codeCounts &&
-                           (window.__codeCounts[itemCode.trim().toLowerCase()] >= 2);
+const hasDup = itemCode && window.__codeCounts &&
+               (window.__codeCounts[itemCode.trim().toLowerCase()] >= 2);
 
             return `
               <div class="figure-item ${type !== 'inserts' ? (item.owned ? 'owned' : '') : ''} ${item.forsale ? 'forsale' : ''}">
                 <div class="figure-number">${idx + 1}</div>
                 <img src="${imageUrl}" alt="${safeName}" loading="lazy" onerror="this.src='images/placeholder.svg'" onclick="openLightbox(${globalIndex}, window.seriesGalleryImages, window.seriesGalleryTitles)" style="cursor:pointer">
-                <div class="figure-info">
-                  <div class="figure-name">${safeName}</div>
-                  ${itemCode ? `<div class="figure-code copyable-code" data-code="${escapeHtml(itemCode)}" title="Нажмите, чтобы скопировать">${escapeHtml(itemCode)}</div>` : ''}
-                  <div class="figure-actions">
-                    <button class="qr-btn" onclick="generateQRCode('${safeId}', '${safeSeriesId}', '${safeName.replace(/'/g, "\\'")}')" title="QR-код">📱</button>
-                    ${hasDup ? `<a href="same-figures.html?code=${encodeURIComponent(itemCode)}" class="same-code-link" title="${currentLang === 'ru' ? 'Найти все фигурки с этим кодом (' + window.__codeCounts[itemCode.trim().toLowerCase()] + ' шт.)' : 'Find all figures with this code (' + window.__codeCounts[itemCode.trim().toLowerCase()] + ' pcs)'}">🔗</a>` : ''}
-                  </div>
-                </div>
+<div class="figure-info">
+  <div class="figure-name">${safeName}</div>
+  ${itemCode ? `<div class="figure-code copyable-code" data-code="${escapeHtml(itemCode)}" title="Нажмите, чтобы скопировать">${escapeHtml(itemCode)}</div>` : ''}
+  <div class="figure-actions">
+    <button class="qr-btn" onclick="generateQRCode('${safeId}', '${safeSeriesId}', '${safeName.replace(/'/g, "\\'")}')" title="QR-код">📱</button>
+    ${hasDup ? `<a href="same-figures.html?code=${encodeURIComponent(itemCode)}" class="same-code-link" title="${currentLang === 'ru' ? 'Найти все фигурки с этим кодом (' + window.__codeCounts[itemCode.trim().toLowerCase()] + ' шт.)' : 'Find all figures with this code (' + window.__codeCounts[itemCode.trim().toLowerCase()] + ' pcs)'}">🔗</a>` : ''}
+  </div>
+</div>
                 ${item.forsale && item.avito ? `<a href="${escapeHtml(item.avito)}" class="avito-link" target="_blank" rel="noopener noreferrer" title="Avito">🛒</a>` : ''}
               </div>
             `;
@@ -5196,14 +5196,23 @@ async function runInit() {
 
 // Запускаем: если DOM ещё грузится — по событию,
 // если уже готов (скрипт в конце body) — сразу
-// ===== КОПИРОВАНИЕ КОДА ФИГУРКИ ПРИ КЛИКЕ =====
+// ===== КОПИРОВАНИЕ КОДА ФИГУРКИ ПРИ КЛИКЕ (везде) =====
 document.addEventListener('click', function(e) {
-  const codeEl = e.target.closest('.copyable-code');
+  // Ищем ближайший элемент с кодом из разрешённых классов
+  const codeEl = e.target.closest(
+    '.copyable-code, .figure-code-value, .figure-catalog-code, .tag-code, .same-figure-code, .single-insert-code'
+  );
   if (!codeEl) return;
+  // Не обрабатываем клики по ссылкам-родителям
+  if (codeEl.tagName === 'A' && !codeEl.classList.contains('copyable-code')) return;
+
+  const code = (codeEl.dataset.code || codeEl.textContent || '').trim();
+  if (!code) return;
+  // Пропускаем «мусорные» значения
+  if (code.length < 2) return;
+
   e.preventDefault();
   e.stopPropagation();
-  const code = codeEl.dataset.code || codeEl.textContent.trim();
-  if (!code) return;
 
   const showCopied = () => {
     const original = codeEl.textContent;
