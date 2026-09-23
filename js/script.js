@@ -690,6 +690,9 @@ function createVideosBlock(videos, currentLang) {
 // TikTok/Instagram (только перезагрузка iframe).
 // ============================================================
 
+// ============================================================
+// КООРДИНАЦИЯ ВИДЕО: одновременно играет только одно
+// ============================================================
 function pauseAllVideosExcept(activeIframe) {
   if (!activeIframe) return;
   
@@ -699,40 +702,26 @@ function pauseAllVideosExcept(activeIframe) {
   
   allIframes.forEach(iframe => {
     if (iframe === activeIframe) return;
-    
-    const src = iframe.src || '';
-    if (!src) return;
-    
-    // ---- YouTube: пауза через postMessage ----
-    if (src.includes('youtube.com/embed')) {
-      try {
-        iframe.contentWindow.postMessage(
-          JSON.stringify({ event: 'command', func: 'pauseVideo', args: [] }),
-          '*'
-        );
-      } catch (e) {
-        // postMessage не сработал — перезагрузим iframe
-        reloadIframe(iframe);
-      }
-      return;
-    }
-    
-    // ---- VK: пробуем postMessage, потом перезагружаем ----
-    if (src.includes('vk.com/video_ext') || src.includes('vk.ru/video_ext')) {
-      try {
-        iframe.contentWindow.postMessage(JSON.stringify({ method: 'pause' }), '*');
-      } catch (e) {
-        // игнор
-      }
-      // VK не всегда слушает postMessage — перезагружаем для надёжности
-      reloadIframe(iframe);
-      return;
-    }
-    
-    // ---- TikTok, Instagram и всё остальное — перезагрузка ----
     reloadIframe(iframe);
   });
 }
+
+// Перезагрузка iframe — гарантированно останавливает видео
+function reloadIframe(iframe) {
+  const src = iframe.src;
+  if (!src || src === 'about:blank') return;
+  iframe.src = 'about:blank';
+  setTimeout(() => { iframe.src = src; }, 30);
+}
+
+// Делегированный обработчик клика по iframe
+document.addEventListener('click', function(e) {
+  const iframe = e.target.closest(
+    '.video-embed iframe, .video-card-player iframe, .videos-section iframe'
+  );
+  if (!iframe) return;
+  pauseAllVideosExcept(iframe);
+}, true);
 
 // Перезагрузка iframe без мигания (сбрасывает воспроизведение)
 function reloadIframe(iframe) {
