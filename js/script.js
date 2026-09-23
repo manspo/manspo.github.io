@@ -527,10 +527,10 @@ function loadImage(src) {
 
 function extractYouTubeId(url) {
   if (!url) return null;
-  const patterns = [
-    /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([a-zA-Z0-9_-]{11})/,
-    /^([a-zA-Z0-9_-]{11})$/
-  ];
+const patterns = [
+  /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/|youtube\.com\/shorts\/)([a-zA-Z0-9_-]{11})/,
+  /^([a-zA-Z0-9_-]{11})$/
+];
   for (const p of patterns) {
     const m = url.match(p);
     if (m) return m[1];
@@ -543,7 +543,7 @@ function extractVKId(url) {
   // https://vk.com/clip-230111118_456239019
   // https://vk.com/video-230111118_456239019
   // https://vk.com/video_ext.php?oid=-230111118&id=456239019
-  const match1 = url.match(/vk\.com\/(?:clip|video)(-?\d+)_(\d+)/);
+  const match1 = url.match(/vk\.(?:com|ru)\/(?:clip|video)(-?\d+)_(\d+)/);
   if (match1) {
     return { oid: match1[1], id: match1[2] };
   }
@@ -2191,10 +2191,10 @@ async function initVideos() {
     // ===== ИЗВЛЕЧЕНИЕ ID ИЗ URL =====
     function extractYouTubeId(url) {
       if (!url) return null;
-      const patterns = [
-        /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([a-zA-Z0-9_-]{11})/,
-        /^([a-zA-Z0-9_-]{11})$/
-      ];
+const patterns = [
+  /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/|youtube\.com\/shorts\/)([a-zA-Z0-9_-]{11})/,
+  /^([a-zA-Z0-9_-]{11})$/
+];
       for (const p of patterns) {
         const m = url.match(p);
         if (m) return m[1];
@@ -2204,7 +2204,7 @@ async function initVideos() {
     
     function extractVKId(url) {
       if (!url) return null;
-      const match1 = url.match(/vk\.com\/(?:clip|video)(-?\d+)_(\d+)/);
+      const match1 = url.match(/vk\.(?:com|ru)\/(?:clip|video)(-?\d+)_(\d+)/);
       if (match1) return { oid: match1[1], id: match1[2] };
       const match2 = url.match(/[?&]oid=(-?\d+).*[?&]id=(\d+)/);
       if (match2) return { oid: match2[1], id: match2[2] };
