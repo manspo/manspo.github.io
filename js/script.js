@@ -576,7 +576,7 @@ function createVideosBlock(videos, currentLang) {
         embeds.push(`
           <div class="video-embed">
             <iframe 
-              src="https://www.youtube.com/embed/${videoId}" 
+        src="https://www.youtube.com/embed/${videoId}?enablejsapi=1"
               frameborder="0" 
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowfullscreen
@@ -681,6 +681,107 @@ function createVideosBlock(videos, currentLang) {
   
   return html;
 }
+
+// ============================================================
+// КООРДИНАЦИЯ ВИДЕО: одновременно играет только одно
+// ============================================================
+// Работает для YouTube (через postMessage + enablejsapi=1),
+// VK (через postMessage + фолбэк на перезагрузку iframe),
+// TikTok/Instagram (только перезагрузка iframe).
+// ============================================================
+
+function pauseAllVideosExcept(activeIframe) {
+  if (!activeIframe) return;
+  
+  const allIframes = document.querySelectorAll(
+    '.video-embed iframe, .video-card-player iframe, .videos-section iframe'
+  );
+  
+  allIframes.forEach(iframe => {
+    if (iframe === activeIframe) return;
+    
+    const src = iframe.src || '';
+    if (!src) return;
+    
+    // ---- YouTube: пауза через postMessage ----
+    if (src.includes('youtube.com/embed')) {
+      try {
+        iframe.contentWindow.postMessage(
+          JSON.stringify({ event: 'command', func: 'pauseVideo', args: [] }),
+          '*'
+        );
+      } catch (e) {
+        // postMessage не сработал — перезагрузим iframe
+        reloadIframe(iframe);
+      }
+      return;
+    }
+    
+    // ---- VK: пробуем postMessage, потом перезагружаем ----
+    if (src.includes('vk.com/video_ext') || src.includes('vk.ru/video_ext')) {
+      try {
+        iframe.contentWindow.postMessage(JSON.stringify({ method: 'pause' }), '*');
+      } catch (e) {
+        // игнор
+      }
+      // VK не всегда слушает postMessage — перезагружаем для надёжности
+      reloadIframe(iframe);
+      return;
+    }
+    
+    // ---- TikTok, Instagram и всё остальное — перезагрузка ----
+    reloadIframe(iframe);
+  });
+}
+
+// Перезагрузка iframe без мигания (сбрасывает воспроизведение)
+function reloadIframe(iframe) {
+  const src = iframe.src;
+  if (!src) return;
+  iframe.src = 'about:blank';
+  // Небольшая задержка, чтобы браузер успел выгрузить старый контент
+  setTimeout(() => { iframe.src = src; }, 30);
+}
+
+// Делегированный обработчик клика по iframe.
+// capture:true нужен, потому что клик внутри iframe не всплывает на document.
+document.addEventListener('click', function(e) {
+  const iframe = e.target.closest(
+    '.video-embed iframe, .video-card-player iframe, .videos-section iframe'
+  );
+  if (!iframe) return;
+  pauseAllVideosExcept(iframe);
+}, true);
+
+// ============================================================
+// ОПЦИОНАЛЬНО: пауза видео при уходе с экрана
+// ============================================================
+// Если не нужно — закомментируйте этот блок.
+(function() {
+  if (!('IntersectionObserver' in window)) return;
+  
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) return;
+      const iframe = entry.target.querySelector('iframe');
+      if (!iframe) return;
+      const src = iframe.src || '';
+      if (src.includes('youtube.com/embed')) {
+        try {
+          iframe.contentWindow.postMessage(
+            JSON.stringify({ event: 'command', func: 'pauseVideo', args: [] }),
+            '*'
+          );
+        } catch (e) { /* игнор */ }
+      }
+    });
+  }, { threshold: 0.3 });
+  
+  // Наблюдаем только те блоки, где есть iframe
+  document.querySelectorAll('.video-embed, .video-card-player, .videos-section').forEach(el => {
+    if (el.querySelector('iframe')) observer.observe(el);
+  });
+})();
 
 // ===== QR-КОДЫ =====
 function generateQRCode(figureId, seriesId, figureName, isSeries = false) {
@@ -2228,7 +2329,7 @@ const patterns = [
           return `
             <div class="video-embed">
               <iframe 
-                src="https://www.youtube.com/embed/${videoId}" 
+          src="https://www.youtube.com/embed/${videoId}?enablejsapi=1"
                 frameborder="0" 
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowfullscreen
