@@ -3656,7 +3656,7 @@ let totalHeight = padding + headerHeight;
 // ===== ЛОГОТИП ПО ЦЕНТРУ =====
 const logoImage = await loadImage(`${BASE_URL}/images/logo.webp`);
 const logoSize = 180;
-const logoX = (totalWidth - logoSize) / 2;
+const logoX = (totalWidth - logoSize) / 2 + 70;
 const logoY = padding + 10;
 
 if (logoImage && logoImage.complete && logoImage.naturalWidth > 0) {
