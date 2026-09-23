@@ -2977,7 +2977,7 @@ async function initLot() {
             <div class="figure-image-wrapper">
               <img src="${escapeHtml(mainImageSrc)}" 
                    alt="${escapeHtml(name)}" 
-                   class="figure-image lot-cover-image" 
+                   class="figure-image" 
                    onclick="openLightbox(0, window.seriesGalleryImages || [], window.seriesGalleryTitles || [])" 
                    onerror="this.src='images/placeholder.svg'">
               <div class="figure-type-badge">📦 ${currentLang === 'ru' ? 'Полная серия' : 'Full series'}</div>
@@ -3410,21 +3410,15 @@ async function initFigure() {
         <h1 class="figure-title">${escapeHtml(name)}</h1>
         <div class="figure-content">
           
-          <!-- Верхний ряд: фигурка + вкладыш -->
-          <div class="figure-top-row">
-            <div class="figure-image-wrapper">
-              <img src="${imageUrl}" 
-                   alt="${escapeHtml(name)}" 
-                   class="figure-image" 
-                   onclick="openLightbox(${imageIndex}, window.seriesGalleryImages || [], window.seriesGalleryTitles || [])" 
-                   onerror="this.src='images/placeholder.svg'">
-              <div class="figure-type-badge">
-                ${escapeHtml(typeIcon)} ${escapeHtml(typeName)}${figureNumber ? ' #' + figureNumber : ''}
-              </div>
-            </div>
-            
-            <div class="figure-insert-right">
-              ${insertBlockHtml}
+          <!-- Фигурка -->
+          <div class="figure-image-wrapper">
+            <img src="${imageUrl}" 
+                 alt="${escapeHtml(name)}" 
+                 class="figure-image" 
+                 onclick="openLightbox(${imageIndex}, window.seriesGalleryImages || [], window.seriesGalleryTitles || [])" 
+                 onerror="this.src='images/placeholder.svg'">
+            <div class="figure-type-badge">
+              ${escapeHtml(typeIcon)} ${escapeHtml(typeName)}${figureNumber ? ' #' + figureNumber : ''}
             </div>
           </div>
           
@@ -3432,6 +3426,9 @@ async function initFigure() {
           <div class="figure-sale-block">
             ${saleBlockHtml}
           </div>
+          
+          <!-- Вкладыши внизу, 3 в ряд -->
+          ${insertBlockHtml}
           
           <!-- Нижний блок: мета + описание -->
           <div class="figure-bottom">
@@ -3590,14 +3587,7 @@ const FOOTER_FONT_SIZE = 24;
             if (extras.length > 0) visibleGroups.push({ rows: extraRows, cellHeight: extraCellHeight });
             if (variants.length > 0) visibleGroups.push({ rows: variantRows, cellHeight: variantCellHeight });
             
-            let headerHeightDynamic = padding + 20
-  + displayTitleLines.length * TITLE_LINE_HEIGHT  // название
-  + 6 + YEAR_LINE_HEIGHT                          // год
-  + 12 + 30                                       // "Всего: N" + отступ
-  + 40;                                           // финальный зазор
-if (headerHeightDynamic < headerHeight) headerHeightDynamic = headerHeight;
-
-let totalHeight = headerDynamic;
+let totalHeight = padding + headerHeight;
             
             visibleGroups.forEach((group, idx) => {
                 totalHeight += groupHeaderHeight;
@@ -4756,25 +4746,35 @@ async function initFigures() {
         const imageUrl = item.image ? `${BASE_URL}/${item.image}` : 'images/placeholder.svg';
         const manufacturerName = manufacturers[item.manufacturer]?.[currentLang] || item.manufacturer;
         
-        card.innerHTML = `
-          <div class="figure-catalog-image">
-            <img src="${imageUrl}" alt="${escapeHtml(name)}" loading="lazy" onerror="this.src='images/placeholder.svg'">
-            ${item.hasInsert ? `<div class="figure-catalog-insert-badge" title="${currentLang === 'ru' ? 'Есть вкладыш' : 'Has insert'}">📄</div>` : ''}
-          </div>
-          <div class="figure-catalog-body">
-            <div class="figure-catalog-name">${escapeHtml(name)}</div>
-            ${item.code ? `<div class="figure-catalog-code">${escapeHtml(item.code)}</div>` : ''}
-            <div class="figure-catalog-meta">
-              ${item.fromSeries 
-                ? `<a href="series.html?id=${encodeURIComponent(item.seriesId)}" class="figure-catalog-series-link">${escapeHtml(currentLang === 'en' && item.seriesName_en ? item.seriesName_en : item.seriesName)}</a>`
-                : `<span class="figure-catalog-single">${currentLang === 'ru' ? 'Без серии' : 'No series'}</span>`
-              }
-            </div>
-            <div class="figure-catalog-meta-second">
-              ${escapeHtml(item.year || '')} · ${escapeHtml(manufacturerName)}
-            </div>
-          </div>
-        `;
+const typeLabels = {
+  'figures': { ru: 'Фигурка', en: 'Figure' },
+  'extras':  { ru: 'Доп',     en: 'Extra' },
+  'variants':{ ru: 'Вариант', en: 'Variant' }
+};
+const typeLabel = typeLabels[item.type]?.[currentLang] || '';
+
+card.innerHTML = `
+  <div class="figure-catalog-image">
+    <img src="${imageUrl}" alt="${escapeHtml(name)}" loading="lazy" onerror="this.src='images/placeholder.svg'">
+    ${item.hasInsert ? `<div class="figure-catalog-insert-badge" title="${currentLang === 'ru' ? 'Есть вкладыш' : 'Has insert'}">📄</div>` : ''}
+  </div>
+  <div class="figure-catalog-body">
+    <div class="figure-catalog-name">${escapeHtml(name)}</div>
+    <div class="figure-catalog-codes">
+      ${typeLabel ? `<span class="figure-catalog-type">${typeLabel}</span>` : ''}
+      ${item.code ? `<span class="figure-catalog-code">${escapeHtml(item.code)}</span>` : ''}
+    </div>
+    <div class="figure-catalog-meta">
+      ${item.fromSeries 
+        ? `<a href="series.html?id=${encodeURIComponent(item.seriesId)}" class="figure-catalog-series-link">${escapeHtml(currentLang === 'en' && item.seriesName_en ? item.seriesName_en : item.seriesName)}</a>`
+        : `<span class="figure-catalog-single">${currentLang === 'ru' ? 'Без серии' : 'No series'}</span>`
+      }
+    </div>
+    <div class="figure-catalog-meta-second">
+      ${escapeHtml(item.year || '')} · ${escapeHtml(manufacturerName)}
+    </div>
+  </div>
+`;
         
         grid.appendChild(card);
       });
@@ -5196,10 +5196,7 @@ async function runInit() {
 
 // Запускаем: если DOM ещё грузится — по событию,
 // если уже готов (скрипт в конце body) — сразу
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', runInit);
-} else {
-	// ===== КОПИРОВАНИЕ КОДА ФИГУРКИ ПРИ КЛИКЕ =====
+// ===== КОПИРОВАНИЕ КОДА ФИГУРКИ ПРИ КЛИКЕ =====
 document.addEventListener('click', function(e) {
   const codeEl = e.target.closest('.copyable-code');
   if (!codeEl) return;
@@ -5240,5 +5237,9 @@ function fallbackCopy(text, onSuccess) {
     console.warn('Не удалось скопировать:', e);
   }
 }
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', runInit);
+} else {
   runInit();
 }
