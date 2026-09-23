@@ -3190,3 +3190,19 @@ img {
     grid-template-columns: 1fr;
   }
 }
+
+.video-embed {
+  position: relative;
+}
+
+.video-click-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  cursor: pointer;
+  background: transparent;
+}
+
+.video-click-overlay.hidden {
+  display: none;
+}

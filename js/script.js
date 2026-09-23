@@ -575,6 +575,7 @@ function createVideosBlock(videos, currentLang) {
       if (videoId) {
         embeds.push(`
           <div class="video-embed">
+		      <div class="video-click-overlay"></div>
             <iframe 
         src="https://www.youtube.com/embed/${videoId}?enablejsapi=1"
               frameborder="0" 
@@ -606,6 +607,8 @@ function createVideosBlock(videos, currentLang) {
       if (vkData) {
         embeds.push(`
           <div class="video-embed">
+		            <div class="video-click-overlay"></div>
+		      <div class="video-click-overlay"></div>
             <iframe 
               src="https://vk.com/video_ext.php?oid=${vkData.oid}&id=${vkData.id}&hd=2"
               frameborder="0" 
@@ -2312,39 +2315,41 @@ const patterns = [
       const host = video.host;
       const url = video.url;
       
-      if (host === 'youtube') {
-        const videoId = extractYouTubeId(url);
-        if (videoId) {
-          return `
-            <div class="video-embed">
-              <iframe 
-          src="https://www.youtube.com/embed/${videoId}?enablejsapi=1"
-                frameborder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen
-                loading="lazy">
-              </iframe>
-            </div>
-          `;
-        }
-      }
+if (host === 'youtube') {
+  const videoId = extractYouTubeId(url);
+  if (videoId) {
+    return `
+      <div class="video-embed">
+        <div class="video-click-overlay"></div>
+        <iframe 
+          src="https://www.youtube.com/embed/${videoId}" 
+          frameborder="0" 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          loading="lazy">
+        </iframe>
+      </div>
+    `;
+  }
+}
       
-      if (host === 'vk') {
-        const vkData = extractVKId(url);
-        if (vkData) {
-          return `
-            <div class="video-embed">
-              <iframe 
-                src="https://vk.com/video_ext.php?oid=${vkData.oid}&id=${vkData.id}&hd=2"
-                frameborder="0" 
-                allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
-                allowfullscreen
-                loading="lazy">
-              </iframe>
-            </div>
-          `;
-        }
-      }
+if (host === 'vk') {
+  const vkData = extractVKId(url);
+  if (vkData) {
+    return `
+      <div class="video-embed">
+        <div class="video-click-overlay"></div>
+        <iframe 
+          src="https://vk.com/video_ext.php?oid=${vkData.oid}&id=${vkData.id}&hd=2"
+          frameborder="0" 
+          allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+          allowfullscreen
+          loading="lazy">
+        </iframe>
+      </div>
+    `;
+  }
+}
       
       if (host === 'tiktok') {
         const videoId = extractTikTokId(url);
@@ -5236,6 +5241,48 @@ document.addEventListener('DOMContentLoaded', function() {
         handleDeepLink();
     }
 });
+
+// ============================================================
+// КООРДИНАЦИЯ ВИДЕО: одновременно играет только одно
+// ============================================================
+
+function pauseAllVideosExcept(activeIframe) {
+  if (!activeIframe) return;
+  const allIframes = document.querySelectorAll('.video-embed iframe, .video-card-player iframe');
+  allIframes.forEach(iframe => {
+    if (iframe === activeIframe) return;
+    reloadIframe(iframe);
+  });
+}
+
+function reloadIframe(iframe) {
+  const src = iframe.src;
+  if (!src || src === 'about:blank') return;
+  iframe.src = 'about:blank';
+  setTimeout(() => { iframe.src = src; }, 30);
+}
+
+document.addEventListener('click', function(e) {
+  const overlay = e.target.closest('.video-click-overlay');
+  if (!overlay) return;
+  
+  const wrapper = overlay.closest('.video-embed, .video-card-player');
+  if (!wrapper) return;
+  
+  const iframe = wrapper.querySelector('iframe');
+  if (!iframe) return;
+  
+  // Останавливаем все остальные видео
+  pauseAllVideosExcept(iframe);
+  
+  // Скрываем оверлей, чтобы клик прошёл в YouTube
+  overlay.classList.add('hidden');
+  
+  // Возвращаем оверлей через 3 секунды
+  setTimeout(() => {
+    overlay.classList.remove('hidden');
+  }, 3000);
+}, true);
 
 // ===== INIT =====
 async function runInit() {
