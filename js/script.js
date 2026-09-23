@@ -3747,7 +3747,7 @@ if (yearText) {
 
 // ===== "Всего: N" — увеличенный шрифт =====
 const totalItems = figures.length + extras.length + variants.length;
-const totalY = yearY + YEAR_LINE_HEIGHT + 12;
+const totalY = yearY + YEAR_LINE_HEIGHT + 30;
 
 ctx.font = `bold ${TOTAL_FONT_SIZE}px Inter, system-ui`;
 ctx.fillStyle = TEXT_COLOR;
