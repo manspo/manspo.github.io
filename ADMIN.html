@@ -2330,8 +2330,6 @@ function generateSearchData(seriesList) {
                                !/^(Фигурка|Доп|Вариант|Вкладыш|Прочее)\s+\d+$/i.test(item.name.trim()) &&
                                !/^(Figure|Extra|Variant|Insert|Other)\s+\d+$/i.test(item.name.trim());
                 
-                if (!hasCode && !hasName) return;
-                
                 items.push({
                     id: item.id,
                     code: item.code || '',
