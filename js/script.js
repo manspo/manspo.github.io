@@ -3195,6 +3195,9 @@ return `
     </div>
   </div>
 `;
+    }).join('')}
+      </div>
+    `;
     }
     
     let figuresStartIndex = 0;
