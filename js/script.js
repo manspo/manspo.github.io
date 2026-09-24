@@ -577,7 +577,7 @@ function createVideosBlock(videos, currentLang) {
           <div class="video-embed">
 		      <div class="video-click-overlay"></div>
             <iframe 
-        src="https://www.youtube.com/embed/${videoId}?enablejsapi=1"
+        src="https://www.youtube.com/embed/${videoId}"
               frameborder="0" 
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowfullscreen
@@ -607,7 +607,6 @@ function createVideosBlock(videos, currentLang) {
       if (vkData) {
         embeds.push(`
           <div class="video-embed">
-		            <div class="video-click-overlay"></div>
 		      <div class="video-click-overlay"></div>
             <iframe 
               src="https://vk.com/video_ext.php?oid=${vkData.oid}&id=${vkData.id}&hd=2"
@@ -684,66 +683,6 @@ function createVideosBlock(videos, currentLang) {
   
   return html;
 }
-
-// ============================================================
-// КООРДИНАЦИЯ ВИДЕО: одновременно играет только одно
-// ============================================================
-// Работает для YouTube (через postMessage + enablejsapi=1),
-// VK (через postMessage + фолбэк на перезагрузку iframe),
-// TikTok/Instagram (только перезагрузка iframe).
-// ============================================================
-
-// ============================================================
-// КООРДИНАЦИЯ ВИДЕО: одновременно играет только одно
-// ============================================================
-function pauseAllVideosExcept(activeIframe) {
-  if (!activeIframe) return;
-  
-  const allIframes = document.querySelectorAll(
-    '.video-embed iframe, .video-card-player iframe, .videos-section iframe'
-  );
-  
-  allIframes.forEach(iframe => {
-    if (iframe === activeIframe) return;
-    reloadIframe(iframe);
-  });
-}
-
-// Перезагрузка iframe — гарантированно останавливает видео
-function reloadIframe(iframe) {
-  const src = iframe.src;
-  if (!src || src === 'about:blank') return;
-  iframe.src = 'about:blank';
-  setTimeout(() => { iframe.src = src; }, 30);
-}
-
-// Делегированный обработчик клика по iframe
-document.addEventListener('click', function(e) {
-  const iframe = e.target.closest(
-    '.video-embed iframe, .video-card-player iframe, .videos-section iframe'
-  );
-  if (!iframe) return;
-  pauseAllVideosExcept(iframe);
-}, true);
-
-// Перезагрузка iframe без мигания (сбрасывает воспроизведение)
-function reloadIframe(iframe) {
-  const src = iframe.src;
-  if (!src) return;
-  iframe.src = 'about:blank';
-  // Небольшая задержка, чтобы браузер успел выгрузить старый контент
-  setTimeout(() => { iframe.src = src; }, 30);
-}
-
-// Делегированный обработчик клика по iframe.
-// capture:true нужен, потому что клик внутри iframe не всплывает на document.
-document.addEventListener('click', function(e) {
-  const iframe = e.target.closest(
-    '.video-embed iframe, .video-card-player iframe, .videos-section iframe'
-  );
-  if (!iframe) return;
-  pauseAllVideosExcept(iframe);
-}, true);
 
 // ============================================================
 // ОПЦИОНАЛЬНО: пауза видео при уходе с экрана
@@ -3237,24 +3176,25 @@ window.seriesGalleryTitles = allTitles;
 const hasDup = itemCode && window.__codeCounts &&
                (window.__codeCounts[itemCode.trim().toLowerCase()] >= 2);
 
-            return `
-              <div class="figure-item ${type !== 'inserts' ? (item.owned ? 'owned' : '') : ''} ${item.forsale ? 'forsale' : ''}">
-                <div class="figure-number">${idx + 1}</div>
-                <img src="${imageUrl}" alt="${safeName}" loading="lazy" onerror="this.src='images/placeholder.svg'" onclick="openLightbox(${globalIndex}, window.seriesGalleryImages, window.seriesGalleryTitles)" style="cursor:pointer">
-<div class="figure-info">
-  <div class="figure-name">${safeName}</div>
-  ${itemCode ? `<div class="figure-code copyable-code" data-code="${escapeHtml(itemCode)}" title="Нажмите, чтобы скопировать">${escapeHtml(itemCode)}</div>` : ''}
-  <div class="figure-actions">
-    <button class="qr-btn" onclick="generateQRCode('${safeId}', '${safeSeriesId}', '${safeName.replace(/'/g, "\\'")}')" title="QR-код">📱</button>
-    ${hasDup ? `<a href="same-figures.html?code=${encodeURIComponent(itemCode)}" class="same-code-link" title="${currentLang === 'ru' ? 'Найти все фигурки с этим кодом (' + window.__codeCounts[itemCode.trim().toLowerCase()] + ' шт.)' : 'Find all figures with this code (' + window.__codeCounts[itemCode.trim().toLowerCase()] + ' pcs)'}">🔗</a>` : ''}
+return `
+  <div class="figure-item ${type !== 'inserts' ? (item.owned ? 'owned' : '') : ''} ${item.forsale ? 'forsale' : ''}">
+    <div class="figure-number">${idx + 1}</div>
+    <img src="${imageUrl}" alt="${safeName}" loading="lazy" onerror="this.src='images/placeholder.svg'" onclick="openLightbox(${globalIndex}, window.seriesGalleryImages, window.seriesGalleryTitles)" style="cursor:pointer">
+    <div class="figure-info">
+      <div class="figure-name">${safeName}</div>
+      ${itemCode ? `<div class="figure-code copyable-code" data-code="${escapeHtml(itemCode)}" title="Нажмите, чтобы скопировать">${escapeHtml(itemCode)}</div>` : ''}
+      <div class="figure-actions">
+        <button class="qr-btn" onclick="generateQRCode('${safeId}', '${safeSeriesId}', '${safeName.replace(/'/g, "\\'")}')" title="QR-код">📱</button>
+        ${hasDup 
+          ? `<a href="same-figures.html?code=${encodeURIComponent(itemCode)}" class="same-code-link" title="${currentLang === 'ru' ? 'Найти все фигурки с этим кодом (' + window.__codeCounts[itemCode.trim().toLowerCase()] + ' шт.)' : 'Find all figures with this code (' + window.__codeCounts[itemCode.trim().toLowerCase()] + ' pcs)'}">🔗</a>` 
+          : `<span class="figure-action-placeholder"></span>`}
+        ${item.forsale && item.avito 
+          ? `<a href="${escapeHtml(item.avito)}" class="avito-link" target="_blank" rel="noopener noreferrer" title="Avito">🛒</a>` 
+          : `<span class="figure-action-placeholder"></span>`}
+      </div>
+    </div>
   </div>
-</div>
-                ${item.forsale && item.avito ? `<a href="${escapeHtml(item.avito)}" class="avito-link" target="_blank" rel="noopener noreferrer" title="Avito">🛒</a>` : ''}
-              </div>
-            `;
-          }).join('')}
-        </div>
-      `;
+`;
     }
     
     let figuresStartIndex = 0;
