@@ -160,12 +160,12 @@
     "forSaleCount": 0
   },
   {
-    "id": "the-simpsons-by-tombola-1991",
+    "id": "simpsons-by-tombola-1991",
     "name": "Симпсоны от Томбола",
     "name_en": "The Simpsons by Tombola",
     "year": 1991,
     "manufacturer": "tombola",
-    "cover": "images/series/tombola/the-simpsons-by-tombola-1991/cover.webp",
+    "cover": "images/series/tombola/simpsons-by-tombola-1991/cover.webp",
     "kind": "",
     "ownedFigures": 5,
     "ownedExtras": 0,

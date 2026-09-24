@@ -744,12 +744,12 @@
     "visible": true
   },
   {
-    "id": "the-simpsons-by-tombola-1991",
+    "id": "simpsons-by-tombola-1991",
     "name": "Симпсоны от Томбола",
     "name_en": "The Simpsons by Tombola",
     "year": 1991,
     "manufacturer": "tombola",
-    "cover": "images/series/tombola/the-simpsons-by-tombola-1991/cover.webp",
+    "cover": "images/series/tombola/simpsons-by-tombola-1991/cover.webp",
     "kind": "",
     "description": "Знаменитые Симпсоны",
     "description_en": "Famous Simpsons",
@@ -876,7 +876,7 @@
     "visible": true
   },
   {
-    "id": "spider-man-by-kinder-2026",
+    "id": "spiderman-by-kinder-2026",
     "name": "Человек-Паук от Киндер ",
     "name_en": "Spider-Man by Kinder",
     "year": 2026,
