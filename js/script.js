@@ -5353,7 +5353,7 @@ function fallbackCopy(text, onSuccess) {
 }
 
 // ============================================================
-// ЧЕК-ЛИСТ КОЛЛЕКЦИОНЕРА: «МОЙ ПОИСК» (есть / нужно / на обмен)
+// ЧЕК-ЛИСТ КОЛЛЕКТОРA: «МОЙ ПОИСК»
 // ============================================================
 
 async function openWantedList(seriesId) {
@@ -5361,29 +5361,28 @@ async function openWantedList(seriesId) {
   const series = await loadSeriesById(seriesId);
   if (!series) return;
 
-  // Загружаем сохранённые статусы из localStorage
+  // Загружаем сохранённые статусы
   const storageKey = `wantedList_${seriesId}`;
   let statuses = {};
   try {
     statuses = JSON.parse(localStorage.getItem(storageKey) || '{}');
-  } catch (e) {
-    statuses = {};
-  }
+  } catch (e) { statuses = {}; }
 
-  // Собираем все фигурки
+  // Собираем ВСЕ фигурки (figures, extras, variants, inserts, other)
   const allItems = [
-    ...(series.figures || []).map(f => ({ ...f, _type: 'figures' })),
-    ...(series.extras || []).map(f => ({ ...f, _type: 'extras' })),
-    ...(series.variants || []).map(f => ({ ...f, _type: 'variants' }))
+    ...(series.figures  || []).map(f => ({ ...f, _type: 'figure'  })),
+    ...(series.extras   || []).map(f => ({ ...f, _type: 'extra'   })),
+    ...(series.variants || []).map(f => ({ ...f, _type: 'variant' })),
+    ...(series.inserts  || []).map(f => ({ ...f, _type: 'insert'  })),
+    ...(series.other    || []).map(f => ({ ...f, _type: 'other'   }))
   ];
 
   const statusLabels = {
-    'have': { icon: '✅', label_ru: 'Есть', label_en: 'Have', color: '#10b981' },
-    'need': { icon: '❌', label_ru: 'Нужно', label_en: 'Need', color: '#ef4444' },
-    'trade': { icon: '🔄', label_ru: 'На обмен', label_en: 'Trade', color: '#f59e0b' }
+    'have':  { icon: '✅', label_ru: 'Имеется',  label_en: 'Have',   color: '#10b981' },
+    'need':  { icon: '🔍', label_ru: 'Ищу',      label_en: 'Looking',color: '#ef4444' },
+    'trade': { icon: '🔄', label_ru: 'На обмен', label_en: 'Trade',  color: '#f59e0b' }
   };
 
-  // Создаём модальное окно
   const modal = document.createElement('div');
   modal.className = 'wanted-modal';
   modal.innerHTML = `
@@ -5391,25 +5390,41 @@ async function openWantedList(seriesId) {
       <button type="button" class="wanted-modal-close">×</button>
       <h2>${currentLang === 'ru' ? 'Мой поиск' : 'My wanted list'}</h2>
       <p class="wanted-modal-subtitle">${escapeHtml(currentLang === 'en' && series.name_en ? series.name_en : series.name)}</p>
+      <p class="wanted-modal-hint">
+        ${currentLang === 'ru' 
+          ? 'Отметьте статус для каждой фигурки. Можно одновременно «Имеется» и «На обмен».' 
+          : 'Set a status for each figure. You can combine "Have" and "Trade".'}
+      </p>
       <div class="wanted-list">
         ${allItems.map((item, idx) => {
           const itemName = currentLang === 'en' && item.name_en ? item.name_en : item.name;
           const itemCode = item.code || '';
-          const status = statuses[item.id] || '';
+          const itemImage = item.image ? `${BASE_URL}/${item.image}` : 'images/placeholder.svg';
+          const curStatus = statuses[item.id] || {};
+          const isHave  = curStatus.have  === true;
+          const isNeed  = curStatus.need  === true;
+          const isTrade = curStatus.trade === true;
           return `
-            <div class="wanted-item" data-id="${escapeHtml(item.id)}">
+            <div class="wanted-item" data-id="${escapeHtml(item.id)}" data-type="${item._type}">
               <div class="wanted-item-info">
-                <span class="wanted-item-num">${idx + 1}</span>
-                <span class="wanted-item-name">${escapeHtml(itemName)}</span>
-                ${itemCode ? `<span class="wanted-item-code">${escapeHtml(itemCode)}</span>` : ''}
+                <img class="wanted-item-preview" 
+                     src="${itemImage}" 
+                     alt="${escapeHtml(itemName)}"
+                     onerror="this.src='images/placeholder.svg'">
+                <div class="wanted-item-text">
+                  <span class="wanted-item-num">${idx + 1}</span>
+                  <span class="wanted-item-name">${escapeHtml(itemName)}</span>
+                  ${itemCode ? `<span class="wanted-item-code">${escapeHtml(itemCode)}</span>` : ''}
+                </div>
               </div>
               <div class="wanted-item-buttons">
                 ${Object.entries(statusLabels).map(([key, val]) => `
-                  <button class="wanted-btn ${status === key ? 'active' : ''}" 
+                  <button class="wanted-btn ${curStatus[key] ? 'active' : ''}" 
                           data-status="${key}" 
                           data-item="${escapeHtml(item.id)}"
                           style="--btn-color: ${val.color}">
-                    ${val.icon}
+                    <span class="wanted-btn-icon">${val.icon}</span>
+                    <span class="wanted-btn-label">${currentLang === 'ru' ? val.label_ru : val.label_en}</span>
                   </button>
                 `).join('')}
               </div>
@@ -5426,31 +5441,40 @@ async function openWantedList(seriesId) {
   `;
   document.body.appendChild(modal);
 
-  // Закрытие
   modal.querySelector('.wanted-modal-close').onclick = () => modal.remove();
   modal.onclick = (e) => { if (e.target === modal) modal.remove(); };
 
-  // Обработка кнопок статусов
+  // Обработка кнопок — теперь каждая кнопка независима (можно ha ve + trade)
   modal.querySelectorAll('.wanted-btn').forEach(btn => {
     btn.onclick = () => {
       const itemId = btn.dataset.item;
       const status = btn.dataset.status;
-      const parent = btn.closest('.wanted-item');
-      
-      parent.querySelectorAll('.wanted-btn').forEach(b => b.classList.remove('active'));
-      
-      if (statuses[itemId] === status) {
-        delete statuses[itemId];
+
+      if (!statuses[itemId]) statuses[itemId] = {};
+
+      if (statuses[itemId][status]) {
+        delete statuses[itemId][status];
       } else {
-        btn.classList.add('active');
-        statuses[itemId] = status;
+        statuses[itemId][status] = true;
+        // Если ставим "Ищу" — снимаем "Имеется" (они взаимоисключающие)
+        if (status === 'need') statuses[itemId].have = false;
+        // Если ставим "Имеется" — снимаем "Ищу"
+        if (status === 'have') statuses[itemId].need = false;
       }
-      
+
+      btn.classList.toggle('active', !!statuses[itemId][status]);
+
+      // Обновляем соседние кнопки (have/need взаимоисключающие)
+      const parent = btn.closest('.wanted-item');
+      parent.querySelectorAll('.wanted-btn').forEach(b => {
+        const s = b.dataset.status;
+        b.classList.toggle('active', !!statuses[itemId][s]);
+      });
+
       localStorage.setItem(storageKey, JSON.stringify(statuses));
     };
   });
 
-  // Кнопка скачивания
   document.getElementById('wantedSaveBtn').onclick = async () => {
     await generateWantedListImage(seriesId, allItems, statuses, currentLang);
     modal.remove();
