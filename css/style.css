@@ -3301,6 +3301,15 @@ img {
   gap: 18px;
   padding: 10px 0;
 }
+
+/* ← ДОБАВИТЬ ЭТУ ЧАСТЬ СРАЗУ ПОСЛЕ БАЗОВОГО ПРАВИЛА */
+@media (max-width: 992px) {
+  .figures-catalog-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 16px !important;
+  }
+}
+
 .figure-catalog-card {
   background: var(--card);
   border: 1px solid var(--border);
