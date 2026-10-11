@@ -5363,10 +5363,18 @@ async function openWantedList(seriesId) {
 
   // Загружаем сохранённые статусы
   const storageKey = `wantedList_${seriesId}`;
-  let statuses = {};
-  try {
-    statuses = JSON.parse(localStorage.getItem(storageKey) || '{}');
-  } catch (e) { statuses = {}; }
+let statuses = {};
+try {
+  statuses = JSON.parse(localStorage.getItem(storageKey) || '{}');
+} catch (e) { statuses = {}; }
+
+// Миграция старого формата (строка → объект)
+Object.keys(statuses).forEach(key => {
+  if (typeof statuses[key] !== 'object' || statuses[key] === null) {
+    statuses[key] = {};   // сбрасываем некорректное значение
+  }
+});
+localStorage.setItem(storageKey, JSON.stringify(statuses));
 
   // ⚠️ ТОЛЬКО фигурки, допы и варианты
   const allItems = [
@@ -5955,7 +5963,9 @@ document.addEventListener('click', function(e) {
     statuses = JSON.parse(localStorage.getItem(storageKey) || '{}');
   } catch (err) { statuses = {}; }
 
-  if (!statuses[itemId]) statuses[itemId] = {};
+if (!statuses[itemId] || typeof statuses[itemId] !== 'object') {
+  statuses[itemId] = {};
+}
 
   if (statuses[itemId][status]) {
     delete statuses[itemId][status];
