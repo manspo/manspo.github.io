@@ -563,6 +563,12 @@ main {
     gap: 16px;
     padding: 16px;
   }
+
+  /* Каталог фигурок — 3 в ряд на планшетах */
+  .figures-catalog-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
 }
 
 /* ============================================================
