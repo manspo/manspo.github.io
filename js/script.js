@@ -5363,18 +5363,18 @@ async function openWantedList(seriesId) {
 
   // Загружаем сохранённые статусы
   const storageKey = `wantedList_${seriesId}`;
-let statuses = {};
-try {
-  statuses = JSON.parse(localStorage.getItem(storageKey) || '{}');
-} catch (e) { statuses = {}; }
+  let statuses = {};
+  try {
+    statuses = JSON.parse(localStorage.getItem(storageKey) || '{}');
+  } catch (e) { statuses = {}; }
 
-// Миграция старого формата (строка → объект)
-Object.keys(statuses).forEach(key => {
-  if (typeof statuses[key] !== 'object' || statuses[key] === null) {
-    statuses[key] = {};   // сбрасываем некорректное значение
-  }
-});
-localStorage.setItem(storageKey, JSON.stringify(statuses));
+  // Миграция старого формата (строка → объект)
+  Object.keys(statuses).forEach(key => {
+    if (typeof statuses[key] !== 'object' || statuses[key] === null) {
+      statuses[key] = {};
+    }
+  });
+  localStorage.setItem(storageKey, JSON.stringify(statuses));
 
   // ⚠️ ТОЛЬКО фигурки, допы и варианты
   const allItems = [
@@ -5399,7 +5399,7 @@ localStorage.setItem(storageKey, JSON.stringify(statuses));
 
   const modal = document.createElement('div');
   modal.className = 'wanted-modal';
-  modal.dataset.storageKey = storageKey;   // ← добавьте эту строку
+  modal.dataset.storageKey = storageKey;
   modal.innerHTML = `
     <div class="wanted-modal-content">
       <button type="button" class="wanted-modal-close">×</button>
@@ -5445,6 +5445,20 @@ localStorage.setItem(storageKey, JSON.stringify(statuses));
           `;
         }).join('')}
       </div>
+
+      <div class="wanted-name-field">
+        <label for="wantedNameInput">
+          ${currentLang === 'ru' ? 'Ваше имя (необязательно):' : 'Your name (optional):'}
+        </label>
+        <input 
+          type="text" 
+          id="wantedNameInput" 
+          maxlength="20" 
+          placeholder="${currentLang === 'ru' ? 'Введите имя' : 'Enter name'}"
+          value="${escapeHtml(localStorage.getItem('wantedName') || '')}"
+        >
+      </div>
+
       <div class="wanted-actions">
         <button type="button" class="wanted-save-btn" id="wantedSaveBtn">
           💾 ${currentLang === 'ru' ? 'Скачать чек-лист поиска' : 'Download wanted list'}
@@ -5459,28 +5473,38 @@ localStorage.setItem(storageKey, JSON.stringify(statuses));
 
   modal.onclick = (e) => { if (e.target === modal) modal.remove(); };
 
-  // ===== КНОПКА СКАЧИВАНИЯ =====
-const saveBtn = document.getElementById('wantedSaveBtn');
-if (saveBtn) {
-  saveBtn.onclick = async () => {
-    // Перечитываем актуальные статусы из localStorage
-    let freshStatuses = {};
-    try {
-      freshStatuses = JSON.parse(localStorage.getItem(storageKey) || '{}');
-    } catch (e) { freshStatuses = {}; }
+  // Сохраняем имя при вводе
+  const nameInput = document.getElementById('wantedNameInput');
+  if (nameInput) {
+    nameInput.oninput = () => {
+      localStorage.setItem('wantedName', nameInput.value.trim());
+    };
+  }
 
-    await generateWantedListImage(seriesId, allItems, freshStatuses, currentLang);
-    
-    // Сбрасываем после скачивания
-    localStorage.removeItem(storageKey);
-    
-    modal.remove();
-  };
-}
+  // ===== КНОПКА СКАЧИВАНИЯ =====
+  const saveBtn = document.getElementById('wantedSaveBtn');
+  if (saveBtn) {
+    saveBtn.onclick = async () => {
+      // Перечитываем АКТУАЛЬНЫЕ статусы из localStorage
+      let freshStatuses = {};
+      try {
+        freshStatuses = JSON.parse(localStorage.getItem(storageKey) || '{}');
+      } catch (e) { freshStatuses = {}; }
+
+      const userName = (nameInput?.value || '').trim();
+
+      await generateWantedListImage(seriesId, allItems, freshStatuses, currentLang, userName);
+
+      // Сбрасываем статусы ПОСЛЕ успешной генерации
+      localStorage.removeItem(storageKey);
+
+      modal.remove();
+    };
+  }
 }
 
 // ===== ГЕНЕРАЦИЯ ИЗОБРАЖЕНИЯ СПИСКА ПОИСКА =====
-async function generateWantedListImage(seriesId, items, statuses, lang) {
+async function generateWantedListImage(seriesId, items, statuses, lang, userName = '') {
   const series = await loadSeriesById(seriesId);
   if (!series) return;
 
@@ -5490,23 +5514,14 @@ async function generateWantedListImage(seriesId, items, statuses, lang) {
     const seriesName = lang === 'en' && series.name_en ? series.name_en : series.name;
     const seriesYear = series.year || '';
 
-    // ===== РАЗДЕЛ 1: ВСЕ ВЫБРАННЫЕ (have || need || trade) =====
-    const allSelected = items.filter(it => {
-      const s = statuses[it.id] || {};
-      return s.have || s.need || s.trade;
-    });
+    // ===== РАЗДЕЛ 1: ВСЕ ЭЛЕМЕНТЫ (и выбранные, и нет) =====
+    const allItems = items.slice();
 
-    // ===== РАЗДЕЛ 2: ТОЛЬКО НА ОБМЕН (trade) =====
+    // ===== РАЗДЕЛ 2: ТОЛЬКО НА ОБМЕН =====
     const tradeOnly = items.filter(it => {
       const s = statuses[it.id] || {};
       return s.trade;
     });
-
-    if (allSelected.length === 0) {
-      hideLoadingToast();
-      showError(lang === 'ru' ? 'Ничего не выбрано' : 'Nothing selected');
-      return;
-    }
 
     // ===== ГРУППИРУЕМ ПО ТИПАМ =====
     function splitByType(arr) {
@@ -5517,12 +5532,12 @@ async function generateWantedListImage(seriesId, items, statuses, lang) {
       };
     }
 
-    const mainGroups = splitByType(allSelected);
+    const mainGroups = splitByType(allItems);
     const tradeGroups = splitByType(tradeOnly);
 
-    // ===== ЗАГРУЖАЕМ ТОЛЬКО ВЫБРАННЫЕ ФОТО =====
+    // ===== ЗАГРУЖАЕМ ВСЕ КАРТИНКИ (нужны для непрозрачных выбранных) =====
     const imageMap = new Map();
-    for (const item of allSelected) {
+    for (const item of allItems) {
       const imageUrl = item.image ? `${BASE_URL}/${item.image}` : 'images/placeholder.svg';
       const img = await loadImage(imageUrl);
       imageMap.set(item.id, img || createEmptyImage());
@@ -5561,11 +5576,9 @@ async function generateWantedListImage(seriesId, items, statuses, lang) {
 
     let totalHeight = padding + headerHeight;
 
-    // Раздел 1
     totalHeight += sectionHeaderHeight;
     totalHeight += calcGroupsHeight(mainGroups);
 
-    // Разделитель и раздел 2
     const hasTradeSection = tradeOnly.length > 0;
     if (hasTradeSection) {
       totalHeight += dividerHeight;
@@ -5724,17 +5737,22 @@ async function generateWantedListImage(seriesId, items, statuses, lang) {
       ctx.restore();
     }
 
-    // Заголовок раздела (крупный, по центру)
-    function drawSectionHeader(text, y, color) {
+    // Заголовок раздела (крупный, по центру, с подчёркиванием)
+    // sectionSubtitle — опциональная строка (например, имя пользователя), которая идёт после «—»
+    function drawSectionHeader(text, subtitle, y, color) {
       ctx.save();
       ctx.font = 'bold 32px Inter, system-ui';
       ctx.fillStyle = color;
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      ctx.fillText(text, totalWidth/2, y + sectionHeaderHeight/2);
+
+      let fullText = text;
+      if (subtitle) fullText = text + ' — ' + subtitle;
+
+      ctx.fillText(fullText, totalWidth/2, y + sectionHeaderHeight/2);
 
       // Подчёркивание
-      const w = ctx.measureText(text).width;
+      const w = ctx.measureText(fullText).width;
       ctx.strokeStyle = color;
       ctx.lineWidth = 3;
       ctx.beginPath();
@@ -5745,8 +5763,8 @@ async function generateWantedListImage(seriesId, items, statuses, lang) {
     }
 
     // Отрисовка одной группы
-    function drawGroup(items, labelRu, labelEn, groupColor, startY, numberOffset = 0) {
-      if (items.length === 0) return startY;
+    function drawGroup(groupItems, labelRu, labelEn, groupColor, startY) {
+      if (groupItems.length === 0) return startY;
 
       let y = startY;
 
@@ -5765,20 +5783,25 @@ async function generateWantedListImage(seriesId, items, statuses, lang) {
       y += groupHeaderHeight;
 
       let col = 0;
-      for (let i = 0; i < items.length; i++) {
-        const item = items[i];
+      for (let i = 0; i < groupItems.length; i++) {
+        const item = groupItems[i];
         const x = padding + col * (itemSize + itemGap);
         const status = statuses[item.id] || {};
         const img = imageMap.get(item.id);
-        const hasStatus = status.have || status.need || status.trade;
+        const isSelected = status.have || status.need || status.trade;
 
         // ===== СОЧНЫЙ ФОН ПО СТАТУСУ =====
         let cardBg = '#ffffff';
-        if (status.trade)      cardBg = '#60a5fa';   // голубой — на обмен
-        else if (status.have)  cardBg = '#f87171';   // красный — имеется
-        else if (status.need)  cardBg = '#4ade80';   // зелёный — ищу
+        if (status.trade)      cardBg = '#60a5fa';
+        else if (status.have)  cardBg = '#f87171';
+        else if (status.need)  cardBg = '#4ade80';
 
-        // Рамка
+        // ===== ПРОЗРАЧНОСТЬ ДЛЯ НЕ ВЫБРАННЫХ =====
+        // Фон карточки рисуем всегда непрозрачным (белым),
+        // а содержимое (фото/номер/код/название) — с прозрачностью 0.3
+        const contentAlpha = isSelected ? 1 : 0.3;
+
+        // Рамка + фон (непрозрачные)
         ctx.save();
         ctx.shadowColor = 'rgba(0,0,0,0.08)';
         ctx.shadowBlur = 14;
@@ -5797,8 +5820,12 @@ async function generateWantedListImage(seriesId, items, statuses, lang) {
         else ctx.rect(x, y, itemSize, itemSize);
         ctx.stroke();
 
+        // ===== СОДЕРЖИМОЕ С ПРОЗРАЧНОСТЬЮ =====
+        ctx.save();
+        ctx.globalAlpha = contentAlpha;
+
         // Фото или ?
-        if (hasStatus && img && img.complete && img.naturalWidth > 0) {
+        if (isSelected && img && img.complete && img.naturalWidth > 0) {
           const maxSize = itemSize - 10;
           const ratio = Math.min(maxSize / img.naturalWidth, maxSize / img.naturalHeight);
           const dw = img.naturalWidth * ratio;
@@ -5808,7 +5835,7 @@ async function generateWantedListImage(seriesId, items, statuses, lang) {
           drawQuestionMark(x, y, itemSize);
         }
 
-        if (hasStatus) drawMansurWatermark(x, y, itemSize);
+        if (isSelected) drawMansurWatermark(x, y, itemSize);
 
         // Номер + код
         let labelY = y + itemSize + labelGap;
@@ -5830,7 +5857,7 @@ async function generateWantedListImage(seriesId, items, statuses, lang) {
         ctx.fillStyle = TEXT_COLOR;
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-        ctx.fillText(String(i + 1 + numberOffset), x + numBoxSize/2, labelY + numBoxSize/2 + 1);
+        ctx.fillText(String(i + 1), x + numBoxSize/2, labelY + numBoxSize/2 + 1);
 
         if (item.code) {
           const codeX = x + numBoxSize + 8;
@@ -5896,6 +5923,8 @@ async function generateWantedListImage(seriesId, items, statuses, lang) {
           dispLines.forEach((line, k) => ctx.fillText(line, x + itemSize/2, startY + k * lh));
         }
 
+        ctx.restore();   // ← сбрасываем globalAlpha
+
         col++;
         if (col >= itemsPerRow) {
           col = 0;
@@ -5913,6 +5942,7 @@ async function generateWantedListImage(seriesId, items, statuses, lang) {
     let currentY = padding + headerHeight;
     drawSectionHeader(
       lang === 'ru' ? 'МОЙ ПОИСК' : 'WANTED LIST',
+      userName,
       currentY,
       '#4f46e5'
     );
@@ -5933,15 +5963,13 @@ async function generateWantedListImage(seriesId, items, statuses, lang) {
         mainLabels[k].ru,
         mainLabels[k].en,
         mainColors[k],
-        currentY,
-        0
+        currentY
       );
       currentY += 20;
     }
 
     // ===== РАЗДЕЛИТЕЛЬ + РАЗДЕЛ 2: НА ОБМЕН =====
     if (hasTradeSection) {
-      // Разделитель
       currentY += 10;
       ctx.strokeStyle = '#60a5fa';
       ctx.lineWidth = 4;
@@ -5953,9 +5981,9 @@ async function generateWantedListImage(seriesId, items, statuses, lang) {
       ctx.setLineDash([]);
       currentY += 30;
 
-      // Заголовок раздела
       drawSectionHeader(
         lang === 'ru' ? '🔄 НА ОБМЕН' : '🔄 FOR TRADE',
+        '',
         currentY,
         '#2563eb'
       );
@@ -5968,8 +5996,7 @@ async function generateWantedListImage(seriesId, items, statuses, lang) {
           mainLabels[k].ru,
           mainLabels[k].en,
           mainColors[k],
-          currentY,
-          0
+          currentY
         );
         currentY += 20;
       }
