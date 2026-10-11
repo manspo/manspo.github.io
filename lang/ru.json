@@ -120,5 +120,9 @@
   "timeline_btn": "Хронология",
   "figures_title": "Каталог фигурок",
   "search_figures_placeholder": "🔍 Поиск по названию или коду фигурки...",
-  "title_figures": "Каталог фигурок — Капсула"
+  "title_figures": "Каталог фигурок — Капсула",
+  "collection_progress": "Прогресс коллекции",
+"download_android": "📱 Скачать APK",
+"my_wanted_list": "Мой поиск",
+"download_wanted_list": "Скачать чек-лист поиска"
 }

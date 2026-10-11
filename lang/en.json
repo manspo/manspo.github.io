@@ -121,5 +121,9 @@
   "timeline_btn": "Timeline",
   "figures_title": "Figures catalog",
   "search_figures_placeholder": "🔍 Search by name or figure code...",
-  "title_figures": "Figures catalog — Capsule"
+  "title_figures": "Figures catalog — Capsule",
+  "collection_progress": "Collection progress",
+"download_android": "📱 Download APK",
+"my_wanted_list": "My wanted list",
+"download_wanted_list": "Download wanted list"
 }

@@ -73,6 +73,20 @@
   </div>
 </div>
 
+<div class="collection-progress-wrapper">
+  <div class="collection-progress-label">
+    <span data-i18n="collection_progress">Прогресс коллекции</span>
+    <span id="progressPercent">0%</span>
+  </div>
+  <div class="collection-progress-bar">
+    <div class="collection-progress-fill" id="progressFill"></div>
+  </div>
+  <div class="collection-progress-stats">
+    <span>✅ <span id="progressOwned">0</span> <span data-i18n="pieces">шт.</span></span>
+    <span>❌ <span id="progressMissing">0</span> <span data-i18n="pieces">шт.</span></span>
+  </div>
+</div>
+
 <div class="catalog-header">
   <div class="search-box">
     <input type="text" id="searchInput" class="search-input" data-i18n="search_collection_placeholder" placeholder="🔍 Поиск в коллекции...">
@@ -99,9 +113,10 @@
     </div>
     <div class="theme-switch">🌙</div>
   </div>
-  <div class="support-buttons">
-    <a href="https://dalink.to/mansurdm" class="support-btn" data-i18n="support_project">Поддержать проект</a>
-  </div>
+<div class="support-buttons">
+  <a href="https://dalink.to/mansurdm" class="support-btn" data-i18n="support_project">Поддержать проект</a>
+  <a href="AndroidCapsule.apk" class="support-btn apk-btn" download data-i18n="download_android">📱 Скачать APK</a>
+</div>
   <div class="copyright" data-i18n="footer_copyright">© 2026 Капсула</div>
 </footer>
 

@@ -2058,15 +2058,36 @@ async function initMyCollection() {
         list = list.filter(s => matchedSeriesIds.has(s.id));
       }
       
-      const totalOwnedFiguresSpan = document.getElementById('totalOwnedFigures');
-      const totalOwnedSeriesSpan = document.getElementById('totalOwnedSeries');
-      if (totalOwnedFiguresSpan) {
-        const totalFigures = list.reduce((sum, s) => sum + (s.totalOwned || 0), 0);
-        totalOwnedFiguresSpan.textContent = totalFigures;
-      }
-      if (totalOwnedSeriesSpan) {
-        totalOwnedSeriesSpan.textContent = list.length;
-      }
+const totalOwnedFiguresSpan = document.getElementById('totalOwnedFigures');
+const totalOwnedSeriesSpan = document.getElementById('totalOwnedSeries');
+
+// Считаем общие показатели по ВСЕЙ коллекции (без учёта фильтров)
+const allOwned = allSeries.reduce((sum, s) => sum + (s.totalOwned || 0), 0);
+const allTotal = allSeries.reduce((sum, s) => sum + (s.totalItems || 0), 0);
+
+if (totalOwnedFiguresSpan) {
+  totalOwnedFiguresSpan.textContent = allOwned;
+}
+if (totalOwnedSeriesSpan) {
+  totalOwnedSeriesSpan.textContent = allSeries.length;
+}
+
+// ===== ПРОГРЕСС-БАР =====
+const progressFill = document.getElementById('progressFill');
+const progressPercent = document.getElementById('progressPercent');
+const progressOwned = document.getElementById('progressOwned');
+const progressMissing = document.getElementById('progressMissing');
+
+if (progressFill) {
+  const missing = Math.max(0, allTotal - allOwned);
+  const percent = allTotal > 0 ? Math.round((allOwned / allTotal) * 100) : 0;
+
+  progressFill.style.width = percent + '%';
+  if (progressPercent) progressPercent.textContent = percent + '%';
+  if (progressOwned) progressOwned.textContent = allOwned;
+  if (progressMissing) progressMissing.textContent = missing;
+}
+
       
       grid.innerHTML = "";
       if (list.length === 0) {
@@ -2563,16 +2584,17 @@ async function initForSale() {
         filtered = filtered.filter(i => i.manufacturer === currentManufacturer);
       }
       
-      if (currentSearch) {
-        const query = currentSearch.toLowerCase();
-        filtered = filtered.filter(i => 
-          (i.name || '').toLowerCase().includes(query) ||
-          (i.name_en || '').toLowerCase().includes(query) ||
-          (i.seriesName || '').toLowerCase().includes(query) ||
-          (i.seriesName_en || '').toLowerCase().includes(query) ||
-          (i.code && i.code.toLowerCase().includes(query))
-        );
-      }
+if (currentSearch) {
+  const query = currentSearch.toLowerCase();
+  filtered = filtered.filter(i =>
+    (i.name || '').toLowerCase().includes(query) ||
+    (i.name_en || '').toLowerCase().includes(query) ||
+    (i.seriesName || '').toLowerCase().includes(query) ||
+    (i.seriesName_en || '').toLowerCase().includes(query) ||
+    (i.code && i.code.toLowerCase().includes(query)) ||
+    (i.seriesYear && String(i.seriesYear).includes(query))   // ← добавлено
+  );
+}
       
       // ===== СОРТИРОВКА =====
       if (currentSort === 'date-desc') {
@@ -3237,6 +3259,9 @@ return `
               💰 ${currentLang === 'ru' ? 'Скачать чек-лист (на продажу)' : 'Download checklist (for sale)'}
             </button>
           ` : ''}
+		            <button class="collage-download-btn collage-download-btn-search" onclick="openWantedList('${escapeHtml(s.id)}')">
+            🔍 ${currentLang === 'ru' ? 'Мой поиск' : 'My wanted list'}
+          </button>
         </div>
       ` : ''}
       ${createVideosBlock(s.videos, currentLang)}
@@ -4520,11 +4545,11 @@ async function initFigures() {
     await loadManufacturers();
     const manufacturers = await loadManufacturers();
     
-    const [searchIndex, singlesIndex] = await Promise.all([
-      loadSearch(),
-      fetch(`${BASE_URL}/data/singles/index.json`).then(r => r.ok ? r.json() : {}).catch(() => ({})),
-      loadData()   // ← гарантирует, что window.seriesIndex заполнен
-    ]);
+const [searchIndex, singlesIndex] = await Promise.all([
+  loadSearch(),
+  fetch(`${BASE_URL}/data/singles/index.json`).then(r => r.ok ? r.json() : {}).catch(() => ({}))
+]);
+await loadData(); // ← отдельным вызовом
     
     // Фигурки из серий (figures, extras, variants — без inserts и other)
     const figuresFromSeries = searchIndex
@@ -5326,6 +5351,297 @@ function fallbackCopy(text, onSuccess) {
     console.warn('Не удалось скопировать:', e);
   }
 }
+
+// ============================================================
+// ЧЕК-ЛИСТ КОЛЛЕКЦИОНЕРА: «МОЙ ПОИСК» (есть / нужно / на обмен)
+// ============================================================
+
+async function openWantedList(seriesId) {
+  const currentLang = localStorage.getItem("lang") || "ru";
+  const series = await loadSeriesById(seriesId);
+  if (!series) return;
+
+  // Загружаем сохранённые статусы из localStorage
+  const storageKey = `wantedList_${seriesId}`;
+  let statuses = {};
+  try {
+    statuses = JSON.parse(localStorage.getItem(storageKey) || '{}');
+  } catch (e) {
+    statuses = {};
+  }
+
+  // Собираем все фигурки
+  const allItems = [
+    ...(series.figures || []).map(f => ({ ...f, _type: 'figures' })),
+    ...(series.extras || []).map(f => ({ ...f, _type: 'extras' })),
+    ...(series.variants || []).map(f => ({ ...f, _type: 'variants' }))
+  ];
+
+  const statusLabels = {
+    'have': { icon: '✅', label_ru: 'Есть', label_en: 'Have', color: '#10b981' },
+    'need': { icon: '❌', label_ru: 'Нужно', label_en: 'Need', color: '#ef4444' },
+    'trade': { icon: '🔄', label_ru: 'На обмен', label_en: 'Trade', color: '#f59e0b' }
+  };
+
+  // Создаём модальное окно
+  const modal = document.createElement('div');
+  modal.className = 'wanted-modal';
+  modal.innerHTML = `
+    <div class="wanted-modal-content">
+      <button type="button" class="wanted-modal-close">×</button>
+      <h2>${currentLang === 'ru' ? 'Мой поиск' : 'My wanted list'}</h2>
+      <p class="wanted-modal-subtitle">${escapeHtml(currentLang === 'en' && series.name_en ? series.name_en : series.name)}</p>
+      <div class="wanted-list">
+        ${allItems.map((item, idx) => {
+          const itemName = currentLang === 'en' && item.name_en ? item.name_en : item.name;
+          const itemCode = item.code || '';
+          const status = statuses[item.id] || '';
+          return `
+            <div class="wanted-item" data-id="${escapeHtml(item.id)}">
+              <div class="wanted-item-info">
+                <span class="wanted-item-num">${idx + 1}</span>
+                <span class="wanted-item-name">${escapeHtml(itemName)}</span>
+                ${itemCode ? `<span class="wanted-item-code">${escapeHtml(itemCode)}</span>` : ''}
+              </div>
+              <div class="wanted-item-buttons">
+                ${Object.entries(statusLabels).map(([key, val]) => `
+                  <button class="wanted-btn ${status === key ? 'active' : ''}" 
+                          data-status="${key}" 
+                          data-item="${escapeHtml(item.id)}"
+                          style="--btn-color: ${val.color}">
+                    ${val.icon}
+                  </button>
+                `).join('')}
+              </div>
+            </div>
+          `;
+        }).join('')}
+      </div>
+      <div class="wanted-actions">
+        <button class="wanted-save-btn" id="wantedSaveBtn">
+          💾 ${currentLang === 'ru' ? 'Скачать чек-лист поиска' : 'Download wanted list'}
+        </button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(modal);
+
+  // Закрытие
+  modal.querySelector('.wanted-modal-close').onclick = () => modal.remove();
+  modal.onclick = (e) => { if (e.target === modal) modal.remove(); };
+
+  // Обработка кнопок статусов
+  modal.querySelectorAll('.wanted-btn').forEach(btn => {
+    btn.onclick = () => {
+      const itemId = btn.dataset.item;
+      const status = btn.dataset.status;
+      const parent = btn.closest('.wanted-item');
+      
+      parent.querySelectorAll('.wanted-btn').forEach(b => b.classList.remove('active'));
+      
+      if (statuses[itemId] === status) {
+        delete statuses[itemId];
+      } else {
+        btn.classList.add('active');
+        statuses[itemId] = status;
+      }
+      
+      localStorage.setItem(storageKey, JSON.stringify(statuses));
+    };
+  });
+
+  // Кнопка скачивания
+  document.getElementById('wantedSaveBtn').onclick = async () => {
+    await generateWantedListImage(seriesId, allItems, statuses, currentLang);
+    modal.remove();
+  };
+}
+
+// ===== ГЕНЕРАЦИЯ ИЗОБРАЖЕНИЯ СПИСКА ПОИСКА =====
+async function generateWantedListImage(seriesId, items, statuses, lang) {
+  const series = await loadSeriesById(seriesId);
+  if (!series) return;
+
+  showLoadingToast(lang === 'ru' ? 'Генерация списка...' : 'Generating list...');
+
+  try {
+    const seriesName = lang === 'en' && series.name_en ? series.name_en : series.name;
+    const seriesYear = series.year || '';
+
+    const imageMap = new Map();
+    for (const item of items) {
+      const imageUrl = item.image ? `${BASE_URL}/${item.image}` : 'images/placeholder.svg';
+      const img = await loadImage(imageUrl);
+      imageMap.set(item.id, img || createEmptyImage());
+    }
+
+    const itemsPerRow = 6;
+    const itemSize = 200;
+    const itemGap = 15;
+    const padding = 40;
+    const headerHeight = 200;
+    const footerHeight = 80;
+    const nameRowHeight = 80;
+
+    const rows = Math.ceil(items.length / itemsPerRow);
+    const totalWidth = padding * 2 + itemsPerRow * itemSize + (itemsPerRow - 1) * itemGap;
+    const totalHeight = padding + headerHeight + rows * (itemSize + nameRowHeight) + (rows - 1) * itemGap + footerHeight + padding;
+
+    const SCALE = 1.5;
+    const canvas = document.createElement('canvas');
+    canvas.width = totalWidth * SCALE;
+    canvas.height = totalHeight * SCALE;
+    const ctx = canvas.getContext('2d');
+    ctx.scale(SCALE, SCALE);
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
+
+    const TEXT_COLOR = '#141D35';
+
+    const bgGradient = ctx.createLinearGradient(0, 0, 0, totalHeight);
+    bgGradient.addColorStop(0, '#ffffff');
+    bgGradient.addColorStop(1, '#f5f7fb');
+    ctx.fillStyle = bgGradient;
+    ctx.fillRect(0, 0, totalWidth, totalHeight);
+
+    ctx.font = 'bold 36px Inter, system-ui';
+    ctx.fillStyle = TEXT_COLOR;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'top';
+    ctx.fillText(
+      lang === 'ru' ? `🔍 Мой поиск: ${seriesName}` : `🔍 My wanted list: ${seriesName}`,
+      totalWidth / 2,
+      padding + 20
+    );
+    ctx.font = 'bold 24px Inter, system-ui';
+    ctx.fillStyle = '#6b7280';
+    ctx.fillText(seriesYear, totalWidth / 2, padding + 70);
+
+    const legendY = padding + 130;
+    const legendItems = [
+      { icon: '✅', label: lang === 'ru' ? 'Есть' : 'Have', color: '#10b981' },
+      { icon: '❌', label: lang === 'ru' ? 'Нужно' : 'Need', color: '#ef4444' },
+      { icon: '🔄', label: lang === 'ru' ? 'На обмен' : 'Trade', color: '#f59e0b' }
+    ];
+    let legendX = totalWidth / 2 - 250;
+    legendItems.forEach(item => {
+      ctx.font = 'bold 20px Inter, system-ui';
+      ctx.fillStyle = item.color;
+      ctx.textAlign = 'left';
+      ctx.fillText(item.icon, legendX, legendY);
+      ctx.fillStyle = TEXT_COLOR;
+      ctx.fillText(item.label, legendX + 32, legendY);
+      legendX += 170;
+    });
+
+    let startY = padding + headerHeight + 20;
+    items.forEach((item, idx) => {
+      const col = idx % itemsPerRow;
+      const row = Math.floor(idx / itemsPerRow);
+      const x = padding + col * (itemSize + itemGap);
+      const y = startY + row * (itemSize + nameRowHeight + itemGap);
+
+      const img = imageMap.get(item.id) || createEmptyImage();
+      const status = statuses[item.id] || '';
+
+      ctx.fillStyle = '#ffffff';
+      ctx.beginPath();
+      if (ctx.roundRect) ctx.roundRect(x, y, itemSize, itemSize, 12);
+      else ctx.rect(x, y, itemSize, itemSize);
+      ctx.fill();
+
+      const statusColor = status === 'have' ? '#10b981' 
+                        : status === 'need' ? '#ef4444' 
+                        : status === 'trade' ? '#f59e0b' 
+                        : '#141D35';
+      ctx.strokeStyle = statusColor;
+      ctx.lineWidth = status ? 6 : 3;
+      ctx.beginPath();
+      if (ctx.roundRect) ctx.roundRect(x, y, itemSize, itemSize, 12);
+      else ctx.rect(x, y, itemSize, itemSize);
+      ctx.stroke();
+
+      if (img && img.complete && img.naturalWidth > 0) {
+        const maxSize = itemSize - 20;
+        const ratio = Math.min(maxSize / img.naturalWidth, maxSize / img.naturalHeight);
+        const dw = img.naturalWidth * ratio;
+        const dh = img.naturalHeight * ratio;
+        ctx.drawImage(img, x + (itemSize - dw) / 2, y + (itemSize - dh) / 2, dw, dh);
+      }
+
+      ctx.fillStyle = statusColor;
+      ctx.font = 'bold 24px Inter, system-ui';
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'top';
+      ctx.fillText(String(idx + 1), x + 10, y + 8);
+
+      const itemName = lang === 'en' && item.name_en ? item.name_en : item.name;
+      ctx.font = 'bold 14px Inter, system-ui';
+      ctx.fillStyle = TEXT_COLOR;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'top';
+      const maxWidth = itemSize - 10;
+      const words = String(itemName || '').split(' ');
+      const lines = [];
+      let currentLine = '';
+      for (const word of words) {
+        const testLine = currentLine ? currentLine + ' ' + word : word;
+        if (ctx.measureText(testLine).width > maxWidth && currentLine) {
+          lines.push(currentLine);
+          currentLine = word;
+        } else {
+          currentLine = testLine;
+        }
+      }
+      if (currentLine) lines.push(currentLine);
+      const displayLines = lines.slice(0, 2);
+      displayLines.forEach((line, li) => {
+        ctx.fillText(line, x + itemSize / 2, y + itemSize + 8 + li * 18);
+      });
+
+      if (item.code) {
+        ctx.font = 'bold 14px monospace';
+        ctx.fillStyle = '#4f46e5';
+        ctx.fillText(item.code, x + itemSize / 2, y + itemSize + 50);
+      }
+    });
+
+    const footerY = totalHeight - footerHeight;
+    ctx.strokeStyle = '#e5e7eb';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(padding, footerY);
+    ctx.lineTo(totalWidth - padding, footerY);
+    ctx.stroke();
+
+    ctx.font = 'bold 22px Inter, system-ui';
+    ctx.fillStyle = TEXT_COLOR;
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(
+      lang === 'ru' ? 'Скачано с manspo.github.io' : 'Downloaded from manspo.github.io',
+      padding,
+      footerY + footerHeight / 2
+    );
+
+    const dataUrl = canvas.toDataURL('image/jpeg', 0.95);
+    const safeName = seriesName.replace(/[^a-zа-яё0-9]/gi, '_');
+    const link = document.createElement('a');
+    link.href = dataUrl;
+    link.download = `wanted_${safeName}_${Date.now()}.jpg`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    hideLoadingToast();
+    showSuccess(lang === 'ru' ? '✅ Список поиска скачан' : '✅ Wanted list downloaded');
+  } catch (error) {
+    console.error('Ошибка генерации списка поиска:', error);
+    hideLoadingToast();
+    showError(lang === 'ru' ? 'Не удалось создать список' : 'Failed to create list');
+  }
+}
+
 
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', runInit);

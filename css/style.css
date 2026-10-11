@@ -223,7 +223,13 @@ body {
 }
 .theme-switch:hover { transform: scale(1.05); }
 
-.support-buttons { margin-bottom: 20px; }
+.support-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
 .support-btn {
   display: inline-block;
   padding: 12px 30px;
@@ -235,6 +241,14 @@ body {
   transition: all 0.2s;
 }
 .support-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3); }
+
+.support-btn.apk-btn {
+  background: var(--success);
+}
+.support-btn.apk-btn:hover {
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
 .copyright { opacity: 0.8; }
 
 /* ===== ОСНОВНОЙ КОНТЕЙНЕР ===== */
@@ -250,8 +264,6 @@ main {
 .hero-image { width: 100%; height: 400px; overflow: hidden; border-radius: 20px; margin-bottom: 30px; }
 .hero-img { width: 100%; height: 100%; object-fit: cover; }
 
-/* ===== ШАГ 3а: 8 карточек в 2 ряда по 4 =====
-   Ширина ряда = ряд из 5 соцсетей (grid из 20 ячеек, карточка = 5 ячеек) */
 .main-grid {
   display: grid;
   grid-template-columns: repeat(20, 1fr);
@@ -597,7 +609,6 @@ main {
   margin: 0;
 }
 
-/* ===== ПИЛЮЛИ ГОДА И ПРОИЗВОДИТЕЛЯ — ОДИНАКОВЫЙ СТИЛЬ ===== */
 .series-meta {
   display: flex;
   align-items: center;
@@ -679,7 +690,7 @@ main {
 }
 
 /* ============================================================
-   ШАГ 3б: КАРТОЧКА ФИГУРКИ (имя → код → кнопки), единая высота
+   КАРТОЧКА ФИГУРКИ
    ============================================================ */
 .figures-list {
   display: grid;
@@ -751,7 +762,6 @@ main {
   word-break: break-word;
 }
 
-/* Код — 14px, жирный, слева, под именем */
 .figure-item .figure-code {
   font-family: monospace;
   font-size: 14px;
@@ -770,7 +780,6 @@ main {
   color: #a5b4fc;
 }
 
-/* Кнопки под кодом, слева */
 .figure-item .figure-actions {
   display: flex;
   flex-direction: row;
@@ -841,7 +850,6 @@ main {
 }
 .figure-item .avito-link:hover { transform: scale(1.1); }
 
-/* Общие кнопки QR (для совместимости) */
 .qr-btn, .qr-btn-series {
   background: var(--primary);
   color: white;
@@ -859,7 +867,7 @@ main {
 .qr-btn-series { font-size: 16px; padding: 12px 20px; }
 
 /* ============================================================
-   ШАГ 3б.5: СТИЛИЗОВАННЫЕ ЗАГОЛОВКИ СЕКЦИЙ
+   ЗАГОЛОВКИ СЕКЦИЙ
    ============================================================ */
 .series-section-title {
   display: flex;
@@ -921,12 +929,13 @@ main {
   box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
 }
 
-@media (max-width: 768px) {
-  .collage-download-btn-sale {
-    margin-left: 0;
-    margin-top: 10px;
-    width: 100%;
-  }
+.collage-download-btn-search {
+  background: var(--success);
+  margin-left: 12px;
+}
+.collage-download-btn-search:hover {
+  background: #34d399;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
 }
 
 /* ===== ЗАГОЛОВКИ СТРАНИЦ ===== */
@@ -1129,7 +1138,7 @@ main {
 .page-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
 /* ============================================================
-   ШАГ 3в: ЛАЙТБОКС + НАЗВАНИЕ НАД КАРТИНКОЙ
+   ЛАЙТБОКС
    ============================================================ */
 .lightbox {
   display: none;
@@ -1200,7 +1209,6 @@ main {
 .lightbox-next { right: 20px; }
 .lightbox-prev:hover, .lightbox-next:hover { background: rgba(79, 70, 229, 0.8); transform: translateY(-50%) scale(1.1); }
 
-/* Скрытие стрелок, если картинка одна (для lot.html) */
 .lightbox.single-image .lightbox-prev,
 .lightbox.single-image .lightbox-next {
   display: none !important;
@@ -1241,7 +1249,6 @@ main {
 }
 .zoom-btn:hover { background: var(--primary); transform: scale(1.05); }
 
-/* ===== НАЗВАНИЕ В ЛАЙТБОКСЕ (над картинкой, по центру) ===== */
 .lightbox-title {
   position: absolute;
   top: 16px;
@@ -1333,6 +1340,227 @@ main {
   border: none;
   border-radius: 8px;
   cursor: pointer;
+}
+
+/* ===== МОДАЛЬНОЕ ОКНО "МОЙ ПОИСК" ===== */
+.wanted-modal {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3000;
+  padding: 20px;
+}
+
+.wanted-modal-content {
+  background: var(--card);
+  border-radius: 20px;
+  padding: 25px;
+  max-width: 700px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+.wanted-modal-close {
+  position: absolute;
+  top: 15px; right: 15px;
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: var(--bg);
+  color: var(--muted);
+  font-size: 22px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+.wanted-modal-close:hover {
+  background: var(--danger);
+  color: white;
+  transform: rotate(90deg);
+}
+
+.wanted-modal h2 {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0 0 6px;
+  text-align: center;
+}
+
+.wanted-modal-subtitle {
+  text-align: center;
+  color: var(--muted);
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.wanted-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.wanted-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 12px;
+  background: var(--bg);
+  border-radius: 10px;
+  border: 1px solid var(--border);
+}
+
+.wanted-item-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+}
+
+.wanted-item-num {
+  font-weight: 700;
+  color: var(--primary);
+  font-size: 14px;
+  min-width: 24px;
+}
+
+.wanted-item-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.wanted-item-code {
+  font-family: monospace;
+  font-size: 12px;
+  color: var(--primary);
+  background: rgba(79, 70, 229, 0.1);
+  padding: 2px 8px;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.wanted-item-buttons {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.wanted-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  background: var(--card);
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wanted-btn:hover {
+  transform: scale(1.1);
+  border-color: var(--btn-color, var(--primary));
+}
+
+.wanted-btn.active {
+  background: var(--btn-color, var(--primary));
+  border-color: var(--btn-color, var(--primary));
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+  transform: scale(1.05);
+}
+
+.wanted-actions {
+  display: flex;
+  justify-content: center;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+}
+
+.wanted-save-btn {
+  padding: 12px 28px;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 30px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.wanted-save-btn:hover {
+  background: var(--primary-2);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+}
+
+/* ===== ПРОГРЕСС-БАР КОЛЛЕКЦИИ ===== */
+.collection-progress-wrapper {
+  max-width: 500px;
+  margin: 0 auto 25px;
+  padding: 16px 20px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+}
+
+.collection-progress-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+
+#progressPercent {
+  color: var(--primary);
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.collection-progress-bar {
+  width: 100%;
+  height: 12px;
+  background: var(--bg);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.collection-progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--success), #34d399);
+  border-radius: 8px;
+  transition: width 0.5s ease;
+}
+
+.collection-progress-stats {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 500;
 }
 
 /* ===== ОБЩИЕ ===== */
@@ -1960,6 +2188,58 @@ img {
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3) !important;
   }
 
+  /* ===== КАТАЛОГ ФИГУРОК — 2 В РЯД (как в продаже) ===== */
+  .figures-catalog-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px !important;
+    padding: 10px 0 !important;
+  }
+  .figure-catalog-card {
+    border-radius: 12px !important;
+  }
+  .figure-catalog-body {
+    padding: 10px 12px 12px !important;
+    gap: 3px !important;
+  }
+  .figure-catalog-name {
+    font-size: 13px !important;
+    -webkit-line-clamp: 2 !important;
+    line-height: 1.25 !important;
+  }
+  .figure-catalog-codes {
+    gap: 4px !important;
+  }
+  .figure-catalog-type {
+    font-size: 10px !important;
+    padding: 2px 8px !important;
+  }
+  .figure-catalog-code {
+    font-size: 11px !important;
+    padding: 2px 8px !important;
+  }
+  .figure-catalog-series-link {
+    font-size: 11px !important;
+    padding: 3px 8px 3px 6px !important;
+  }
+  .figure-catalog-series-link::before {
+    font-size: 10px !important;
+  }
+  .figure-catalog-single {
+    font-size: 11px !important;
+    padding: 3px 8px 3px 6px !important;
+  }
+  .figure-catalog-meta,
+  .figure-catalog-meta-second {
+    font-size: 11px !important;
+  }
+  .figure-catalog-insert-badge {
+    width: 24px !important;
+    height: 24px !important;
+    font-size: 12px !important;
+    top: 6px !important;
+    right: 6px !important;
+  }
+
   .forsale-grid {
     grid-template-columns: repeat(2, 1fr) !important;
     gap: 12px !important;
@@ -2079,23 +2359,23 @@ img {
 
   /* Карточки фигурок — компактнее на мобильном */
   .figures-list { grid-template-columns: 1fr; }
-.figure-item {
-  grid-template-columns: 26px 80px 1fr;
-  gap: 10px;
-  padding: 12px;
-  min-height: auto;
-}
-.figure-item .figure-number {
-  width: 26px;
-  height: 26px;
-  font-size: 12px;
-}
+  .figure-item {
+    grid-template-columns: 26px 80px 1fr;
+    gap: 10px;
+    padding: 12px;
+    min-height: auto;
+  }
+  .figure-item .figure-number {
+    width: 26px;
+    height: 26px;
+    font-size: 12px;
+  }
   .figure-item > img { width: 90px; height: 90px; }
   .figure-item .figure-name { font-size: 14px; }
   .figure-item .qr-btn,
   .figure-item .same-code-link { width: 34px; height: 34px; font-size: 14px; }
   .figure-item .avito-link { width: 34px; height: 34px; font-size: 14px; }
-.figure-action-placeholder { width: 34px; height: 34px; }
+  .figure-action-placeholder { width: 34px; height: 34px; }
 
   /* Заголовки секций — компактнее */
   .series-section-title { font-size: 18px; margin: 20px 0 14px; }
@@ -2169,6 +2449,35 @@ img {
   .about-stat-label { font-size: 11px; }
   .about-text { font-size: 15px; padding: 10px 4px; line-height: 1.6; }
   .about-banner { max-height: 150px; }
+
+  /* Модальное окно "Мой поиск" — мобильное */
+  .wanted-modal-content {
+    padding: 20px 15px;
+  }
+  .wanted-item {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+  .wanted-item-info {
+    justify-content: flex-start;
+  }
+  .wanted-item-buttons {
+    justify-content: center;
+  }
+  .wanted-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+  }
+
+  /* Кнопки в секции коллажа — на мобильном в столбик */
+  .collage-download-btn-sale,
+  .collage-download-btn-search {
+    margin-left: 0;
+    margin-top: 10px;
+    width: 100%;
+  }
 }
 
 @media (max-width: 480px) {
@@ -2199,6 +2508,37 @@ img {
   .figure-title { font-size: 20px; }
   .figure-meta-item { font-size: 12px; padding: 5px 0; }
   .figure-description { font-size: 13px; padding: 10px; }
+
+  /* Каталог фигурок — 2 в ряд, компактнее */
+  .figures-catalog-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px !important;
+  }
+  .figure-catalog-name {
+    font-size: 12px !important;
+  }
+  .figure-catalog-code {
+    font-size: 10px !important;
+    padding: 2px 6px !important;
+  }
+  .figure-catalog-type {
+    font-size: 9px !important;
+    padding: 2px 6px !important;
+  }
+  .figure-catalog-series-link {
+    font-size: 10px !important;
+  }
+
+  /* Кнопки в футере — в столбик */
+  .support-buttons {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  .support-btn.apk-btn {
+    width: 100%;
+    text-align: center;
+  }
 }
 
 /* ===== ФИКС ДЛЯ ЦЕНЫ ===== */
