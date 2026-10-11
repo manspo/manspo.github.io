@@ -4531,7 +4531,7 @@ async function initAllDuplicates() {
     container.innerHTML = `<p class="error-message">❌ ${currentLang === 'ru' ? 'Ошибка загрузки' : 'Loading error'}</p>`;
   }
 }
-
+ 
 // ===== СТРАНИЦА КАТАЛОГА ФИГУРОК =====
 async function initFigures() {
   const grid = document.getElementById('figuresGrid');
