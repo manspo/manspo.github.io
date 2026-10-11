@@ -5492,6 +5492,7 @@ async function generateWantedListImage(seriesId, items, statuses, lang) {
     const seriesName = lang === 'en' && series.name_en ? series.name_en : series.name;
     const seriesYear = series.year || '';
 
+    // ===== ЗАГРУЖАЕМ ВСЕ КАРТИНКИ =====
     const imageMap = new Map();
     for (const item of items) {
       const imageUrl = item.image ? `${BASE_URL}/${item.image}` : 'images/placeholder.svg';
@@ -5499,17 +5500,44 @@ async function generateWantedListImage(seriesId, items, statuses, lang) {
       imageMap.set(item.id, img || createEmptyImage());
     }
 
-    const itemsPerRow = 6;
-    const itemSize = 200;
-    const itemGap = 15;
-    const padding = 40;
-    const headerHeight = 200;
-    const footerHeight = 80;
-    const nameRowHeight = 80;
+    // ===== ГРУППИРУЕМ ПО КАТЕГОРИЯМ =====
+    const groups = {
+      figure:  { items: [], label_ru: '📦 ФИГУРКИ',   label_en: '📦 FIGURES',   color: '#4f46e5' },
+      extra:   { items: [], label_ru: '🎁 ДОПЫ',      label_en: '🎁 EXTRAS',    color: '#10b981' },
+      variant: { items: [], label_ru: '🎲 ВАРИАНТЫ',  label_en: '🎲 VARIANTS',  color: '#f59e0b' },
+      insert:  { items: [], label_ru: '📄 ВКЛАДЫШИ',  label_en: '📄 INSERTS',   color: '#be185d' },
+      other:   { items: [], label_ru: '📦 ПРОЧЕЕ',    label_en: '📦 OTHER',     color: '#6b7280' }
+    };
+    items.forEach(it => { if (groups[it._type]) groups[it._type].items.push(it); });
 
-    const rows = Math.ceil(items.length / itemsPerRow);
+    // ===== РАЗМЕРЫ =====
+    const itemsPerRow = 6;
+    const itemSize = 220;
+    const itemGap = 20;
+    const padding = 40;
+    const headerHeight = 280;
+    const footerHeight = 80;
+    const qrSize = 200;
+    const groupHeaderHeight = 55;
+    const statusBandHeight = 36;   // плашка статуса над фигуркой
+    const labelGap = 6;
+    const codeRowHeight = 44;
+    const nameRowHeight = 56;
+
     const totalWidth = padding * 2 + itemsPerRow * itemSize + (itemsPerRow - 1) * itemGap;
-    const totalHeight = padding + headerHeight + rows * (itemSize + nameRowHeight) + (rows - 1) * itemGap + footerHeight + padding;
+
+    // Считаем высоту
+    let totalHeight = padding + headerHeight;
+    const visibleGroups = [];
+    Object.keys(groups).forEach(k => {
+      const g = groups[k];
+      if (g.items.length === 0) return;
+      const rows = Math.ceil(g.items.length / itemsPerRow);
+      const cellHeight = statusBandHeight + labelGap + itemSize + labelGap + codeRowHeight + labelGap + nameRowHeight;
+      visibleGroups.push({ key: k, rows, cellHeight });
+      totalHeight += groupHeaderHeight + rows * cellHeight + (rows - 1) * itemGap + 10;
+    });
+    totalHeight += footerHeight + padding;
 
     const SCALE = 1.5;
     const canvas = document.createElement('canvas');
@@ -5520,116 +5548,373 @@ async function generateWantedListImage(seriesId, items, statuses, lang) {
     ctx.imageSmoothingEnabled = true;
     ctx.imageSmoothingQuality = 'high';
 
+    const BORDER_COLOR = '#141D35';
     const TEXT_COLOR = '#141D35';
 
+    // ===== ФОН =====
     const bgGradient = ctx.createLinearGradient(0, 0, 0, totalHeight);
     bgGradient.addColorStop(0, '#ffffff');
     bgGradient.addColorStop(1, '#f5f7fb');
     ctx.fillStyle = bgGradient;
     ctx.fillRect(0, 0, totalWidth, totalHeight);
 
-    ctx.font = 'bold 36px Inter, system-ui';
-    ctx.fillStyle = TEXT_COLOR;
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'top';
-    ctx.fillText(
-      lang === 'ru' ? `🔍 Мой поиск: ${seriesName}` : `🔍 My wanted list: ${seriesName}`,
-      totalWidth / 2,
-      padding + 20
-    );
-    ctx.font = 'bold 24px Inter, system-ui';
-    ctx.fillStyle = '#6b7280';
-    ctx.fillText(seriesYear, totalWidth / 2, padding + 70);
+    // Декоративные круги
+    ctx.save();
+    ctx.globalAlpha = 0.03;
+    ctx.fillStyle = '#4f46e5';
+    ctx.beginPath(); ctx.arc(totalWidth - 200, 100, 300, 0, Math.PI*2); ctx.fill();
+    ctx.beginPath(); ctx.arc(150, totalHeight - 150, 250, 0, Math.PI*2); ctx.fill();
+    ctx.restore();
 
-    const legendY = padding + 130;
-    const legendItems = [
-      { icon: '✅', label: lang === 'ru' ? 'Есть' : 'Have', color: '#10b981' },
-      { icon: '❌', label: lang === 'ru' ? 'Нужно' : 'Need', color: '#ef4444' },
-      { icon: '🔄', label: lang === 'ru' ? 'На обмен' : 'Trade', color: '#f59e0b' }
-    ];
-    let legendX = totalWidth / 2 - 250;
-    legendItems.forEach(item => {
-      ctx.font = 'bold 20px Inter, system-ui';
-      ctx.fillStyle = item.color;
-      ctx.textAlign = 'left';
-      ctx.fillText(item.icon, legendX, legendY);
-      ctx.fillStyle = TEXT_COLOR;
-      ctx.fillText(item.label, legendX + 32, legendY);
-      legendX += 170;
+    // ===== ШАПКА: ЛОГО ПО ЦЕНТРУ =====
+    const logoImage = await loadImage(`${BASE_URL}/images/logo.webp`);
+    const logoSize = 180;
+    const logoX = (totalWidth - logoSize) / 2 + 70;
+    const logoY = padding + 10;
+
+    if (logoImage && logoImage.complete && logoImage.naturalWidth > 0) {
+      const iw = logoImage.naturalWidth, ih = logoImage.naturalHeight;
+      let dw, dh;
+      if (iw > ih) { dw = logoSize; dh = (ih/iw) * logoSize; }
+      else { dh = logoSize; dw = (iw/ih) * logoSize; }
+      ctx.drawImage(logoImage, logoX + (logoSize - dw)/2, logoY + (logoSize - dh)/2, dw, dh);
+    }
+
+    // ===== ЗАГОЛОВОК =====
+    const titleY = padding + 20;
+    ctx.fillStyle = '#4f46e5';
+    ctx.beginPath();
+    if (ctx.roundRect) ctx.roundRect(padding, titleY, 6, 45, 3);
+    else ctx.rect(padding, titleY, 6, 45);
+    ctx.fill();
+
+    ctx.font = `bold 40px Inter, system-ui`;
+    ctx.fillStyle = TEXT_COLOR;
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'top';
+
+    const titleBoxX = padding + 22;
+    const titleBoxWidth = (logoX - 20) - titleBoxX;
+
+    const titleWords = String(seriesName || 'Checklist').split(' ');
+    const titleLines = [];
+    let curLine = '';
+    for (const word of titleWords) {
+      const test = curLine ? curLine + ' ' + word : word;
+      if (ctx.measureText(test).width > titleBoxWidth && curLine) {
+        titleLines.push(curLine);
+        curLine = word;
+      } else curLine = test;
+    }
+    if (curLine) titleLines.push(curLine);
+
+    const displayTitleLines = titleLines.slice(0, 3);
+    let titleRowY = titleY - 3;
+    displayTitleLines.forEach((line, i) => {
+      ctx.fillText(line, titleBoxX, titleRowY + i * 50);
     });
 
-    let startY = padding + headerHeight + 20;
-    items.forEach((item, idx) => {
-      const col = idx % itemsPerRow;
-      const row = Math.floor(idx / itemsPerRow);
-      const x = padding + col * (itemSize + itemGap);
-      const y = startY + row * (itemSize + nameRowHeight + itemGap);
+    const titleBlockHeight = displayTitleLines.length * 50;
+    const yearY = titleRowY + titleBlockHeight + 6;
 
-      const img = imageMap.get(item.id) || createEmptyImage();
-      const status = statuses[item.id] || '';
+    if (seriesYear) {
+      ctx.font = `bold 40px Inter, system-ui`;
+      ctx.fillText(String(seriesYear), titleBoxX, yearY);
+    }
 
-      ctx.fillStyle = '#ffffff';
+    // ===== QR-КОД СПРАВА =====
+    const qrImage = await loadImage(`${BASE_URL}/images/qrcodesite.png`);
+    const qrX = totalWidth - padding - qrSize;
+    const qrY = padding;
+
+    ctx.save();
+    ctx.shadowColor = 'rgba(0,0,0,0.12)';
+    ctx.shadowBlur = 24;
+    ctx.shadowOffsetY = 4;
+    ctx.fillStyle = '#ffffff';
+    ctx.beginPath();
+    if (ctx.roundRect) ctx.roundRect(qrX - 14, qrY - 14, qrSize + 28, qrSize + 28, 20);
+    else ctx.rect(qrX - 14, qrY - 14, qrSize + 28, qrSize + 28);
+    ctx.fill();
+    ctx.restore();
+
+    ctx.strokeStyle = BORDER_COLOR;
+    ctx.lineWidth = 4;
+    ctx.beginPath();
+    if (ctx.roundRect) ctx.roundRect(qrX - 14, qrY - 14, qrSize + 28, qrSize + 28, 20);
+    else ctx.rect(qrX - 14, qrY - 14, qrSize + 28, qrSize + 28);
+    ctx.stroke();
+
+    if (qrImage && qrImage.complete && qrImage.naturalWidth > 0) {
+      ctx.drawImage(qrImage, qrX, qrY, qrSize, qrSize);
+    }
+
+    // ===== ХЕЛПЕРЫ =====
+    function drawStatusBand(x, y, w, status) {
+      // Плашка над фигуркой — только если есть статус
+      if (!status) return;
+      let text = '', color = '';
+      if (status.have)  { text = lang === 'en' ? 'HAVE'   : 'ИМЕЕТСЯ';   color = '#10b981'; }
+      else if (status.need) { text = lang === 'en' ? 'LOOKING': 'ИЩУ';    color = '#ef4444'; }
+      else if (status.trade) { text = lang === 'en' ? 'TRADE' : 'НА ОБМЕН'; color = '#f59e0b'; }
+
+      ctx.fillStyle = color;
       ctx.beginPath();
-      if (ctx.roundRect) ctx.roundRect(x, y, itemSize, itemSize, 12);
-      else ctx.rect(x, y, itemSize, itemSize);
+      if (ctx.roundRect) ctx.roundRect(x, y, w, statusBandHeight - 6, 6);
+      else ctx.rect(x, y, w, statusBandHeight - 6);
       ctx.fill();
 
-      const statusColor = status === 'have' ? '#10b981' 
-                        : status === 'need' ? '#ef4444' 
-                        : status === 'trade' ? '#f59e0b' 
-                        : '#141D35';
-      ctx.strokeStyle = statusColor;
-      ctx.lineWidth = status ? 6 : 3;
+      ctx.font = 'bold 18px Inter, system-ui';
+      ctx.fillStyle = '#ffffff';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(text, x + w/2, y + (statusBandHeight - 6)/2 + 1);
+    }
+
+    function drawCross(x, y, size) {
+      // Красный крест поверх фигурки, с белой обводкой
+      ctx.save();
+      ctx.strokeStyle = '#ffffff';
+      ctx.lineWidth = 14;
+      ctx.lineCap = 'round';
       ctx.beginPath();
-      if (ctx.roundRect) ctx.roundRect(x, y, itemSize, itemSize, 12);
-      else ctx.rect(x, y, itemSize, itemSize);
+      ctx.moveTo(x + size*0.15, y + size*0.15);
+      ctx.lineTo(x + size*0.85, y + size*0.85);
+      ctx.moveTo(x + size*0.85, y + size*0.15);
+      ctx.lineTo(x + size*0.15, y + size*0.85);
       ctx.stroke();
 
-      if (img && img.complete && img.naturalWidth > 0) {
-        const maxSize = itemSize - 20;
-        const ratio = Math.min(maxSize / img.naturalWidth, maxSize / img.naturalHeight);
-        const dw = img.naturalWidth * ratio;
-        const dh = img.naturalHeight * ratio;
-        ctx.drawImage(img, x + (itemSize - dw) / 2, y + (itemSize - dh) / 2, dw, dh);
-      }
+      ctx.strokeStyle = '#ef4444';
+      ctx.lineWidth = 8;
+      ctx.beginPath();
+      ctx.moveTo(x + size*0.15, y + size*0.15);
+      ctx.lineTo(x + size*0.85, y + size*0.85);
+      ctx.moveTo(x + size*0.85, y + size*0.15);
+      ctx.lineTo(x + size*0.15, y + size*0.85);
+      ctx.stroke();
+      ctx.restore();
+    }
 
-      ctx.fillStyle = statusColor;
+    function drawTradeMark(x, y, size) {
+      // 🔄 значок с прозрачностью
+      ctx.save();
+      ctx.globalAlpha = 0.35;
+      ctx.font = `${Math.floor(size * 0.7)}px serif`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('🔄', x + size/2, y + size/2 + 5);
+      ctx.restore();
+    }
+
+    function drawQuestionMark(x, y, size) {
+      // Знак вопроса БЕЗ прозрачности
+      ctx.save();
+      ctx.font = `bold ${Math.floor(size * 0.8)}px Inter, system-ui`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.lineWidth = 10;
+      ctx.strokeStyle = '#ffffff';
+      ctx.strokeText('?', x + size/2, y + size/2 + 5);
+      ctx.fillStyle = '#ef4444';
+      ctx.fillText('?', x + size/2, y + size/2 + 5);
+      ctx.restore();
+    }
+
+    function drawMansurWatermark(x, y, size) {
+      ctx.save();
+      ctx.globalAlpha = 0.55;
+      ctx.translate(x + size/2, y + size/2);
+      ctx.rotate(-Math.PI / 4);
+      ctx.font = `bold ${Math.floor(size * 0.18)}px Inter, system-ui`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.lineWidth = 4;
+      ctx.strokeStyle = '#ffffff';
+      ctx.strokeText('MANSUR', 0, 0);
+      ctx.fillStyle = '#4f46e5';
+      ctx.fillText('MANSUR', 0, 0);
+      ctx.restore();
+    }
+
+    // ===== РИСУЕМ КАТЕГОРИИ =====
+    let currentY = padding + headerHeight;
+
+    for (const gr of visibleGroups) {
+      const g = groups[gr.key];
+
+      // Заголовок категории
+      ctx.fillStyle = g.color;
+      ctx.beginPath();
+      if (ctx.roundRect) ctx.roundRect(padding, currentY, 5, 42, 3);
+      else ctx.rect(padding, currentY, 5, 42);
+      ctx.fill();
+
       ctx.font = 'bold 24px Inter, system-ui';
+      ctx.fillStyle = TEXT_COLOR;
       ctx.textAlign = 'left';
       ctx.textBaseline = 'top';
-      ctx.fillText(String(idx + 1), x + 10, y + 8);
+      ctx.fillText(lang === 'en' ? g.label_en : g.label_ru, padding + 25, currentY + 6);
 
-      const itemName = lang === 'en' && item.name_en ? item.name_en : item.name;
-      ctx.font = 'bold 14px Inter, system-ui';
-      ctx.fillStyle = TEXT_COLOR;
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'top';
-      const maxWidth = itemSize - 10;
-      const words = String(itemName || '').split(' ');
-      const lines = [];
-      let currentLine = '';
-      for (const word of words) {
-        const testLine = currentLine ? currentLine + ' ' + word : word;
-        if (ctx.measureText(testLine).width > maxWidth && currentLine) {
-          lines.push(currentLine);
-          currentLine = word;
-        } else {
-          currentLine = testLine;
+      currentY += groupHeaderHeight;
+
+      // Сетка фигурок
+      let col = 0, rowY = currentY;
+      for (let i = 0; i < g.items.length; i++) {
+        const item = g.items[i];
+        const x = padding + col * (itemSize + itemGap);
+        const img = imageMap.get(item.id) || createEmptyImage();
+        const status = statuses[item.id] || {};
+
+        // Плашка статуса над фигуркой
+        drawStatusBand(x, rowY, itemSize, status);
+        const boxY = rowY + statusBandHeight;
+
+        // Рамка фигурки
+        ctx.save();
+        ctx.shadowColor = 'rgba(0,0,0,0.08)';
+        ctx.shadowBlur = 14;
+        ctx.shadowOffsetY = 3;
+        ctx.fillStyle = '#ffffff';
+        ctx.beginPath();
+        if (ctx.roundRect) ctx.roundRect(x, boxY, itemSize, itemSize, 16);
+        else ctx.rect(x, boxY, itemSize, itemSize);
+        ctx.fill();
+        ctx.restore();
+
+        ctx.strokeStyle = BORDER_COLOR;
+        ctx.lineWidth = 4;
+        ctx.beginPath();
+        if (ctx.roundRect) ctx.roundRect(x, boxY, itemSize, itemSize, 16);
+        else ctx.rect(x, boxY, itemSize, itemSize);
+        ctx.stroke();
+
+        // Картинка внутри
+        if (img && img.complete && img.naturalWidth > 0) {
+          const maxSize = itemSize - 10;
+          const ratio = Math.min(maxSize / img.naturalWidth, maxSize / img.naturalHeight);
+          const dw = img.naturalWidth * ratio;
+          const dh = img.naturalHeight * ratio;
+          ctx.drawImage(img, x + (itemSize - dw)/2, boxY + (itemSize - dh)/2, dw, dh);
+        }
+
+        // ===== НАЛОЖЕНИЯ ПОВЕРХ =====
+        if (status.have) {
+          drawCross(x, boxY, itemSize);         // красный крест (Имеется)
+        } else if (status.need) {
+          // ничего не накладываем — фигурка чистая
+        } else if (status.trade && !status.have) {
+          drawTradeMark(x, boxY, itemSize);      // 🔄 с прозрачностью (только на обмен)
+        } else if (!status.have && !status.need && !status.trade) {
+          drawQuestionMark(x, boxY, itemSize);   // знак вопроса
+        }
+
+        // Водяной знак MANSUR
+        drawMansurWatermark(x, boxY, itemSize);
+
+        // Если Имеется И На обмен — рисуем обмен поверх креста
+        if (status.have && status.trade) {
+          drawTradeMark(x, boxY, itemSize);
+        }
+
+        // Номер + код
+        let labelY = boxY + itemSize + labelGap;
+        const numBoxSize = codeRowHeight;
+        ctx.fillStyle = '#ffffff';
+        ctx.beginPath();
+        if (ctx.roundRect) ctx.roundRect(x, labelY, numBoxSize, numBoxSize, 8);
+        else ctx.rect(x, labelY, numBoxSize, numBoxSize);
+        ctx.fill();
+
+        ctx.strokeStyle = BORDER_COLOR;
+        ctx.lineWidth = 4;
+        ctx.beginPath();
+        if (ctx.roundRect) ctx.roundRect(x, labelY, numBoxSize, numBoxSize, 8);
+        else ctx.rect(x, labelY, numBoxSize, numBoxSize);
+        ctx.stroke();
+
+        ctx.font = 'bold 26px Inter, system-ui';
+        ctx.fillStyle = TEXT_COLOR;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(String(i + 1), x + numBoxSize/2, labelY + numBoxSize/2 + 1);
+
+        if (item.code) {
+          const codeX = x + numBoxSize + 8;
+          const codeW = itemSize - numBoxSize - 8;
+          ctx.fillStyle = '#ffffff';
+          ctx.beginPath();
+          if (ctx.roundRect) ctx.roundRect(codeX, labelY, codeW, numBoxSize, 8);
+          else ctx.rect(codeX, labelY, codeW, numBoxSize);
+          ctx.fill();
+          ctx.strokeStyle = BORDER_COLOR;
+          ctx.lineWidth = 4;
+          ctx.beginPath();
+          if (ctx.roundRect) ctx.roundRect(codeX, labelY, codeW, numBoxSize, 8);
+          else ctx.rect(codeX, labelY, codeW, numBoxSize);
+          ctx.stroke();
+
+          let displayCode = item.code;
+          ctx.font = 'bold 22px monospace';
+          while (ctx.measureText(displayCode).width > codeW - 12 && displayCode.length > 3) {
+            displayCode = displayCode.substring(0, displayCode.length - 1);
+          }
+          if (displayCode !== item.code) displayCode = displayCode.slice(0, -1) + '…';
+          ctx.fillStyle = TEXT_COLOR;
+          ctx.fillText(displayCode, codeX + codeW/2, labelY + numBoxSize/2 + 1);
+        }
+
+        labelY += codeRowHeight + labelGap;
+
+        // Название (крупнее чем раньше)
+        const itemName = (lang === 'en' && item.name_en) ? item.name_en : item.name;
+        ctx.fillStyle = '#ffffff';
+        ctx.beginPath();
+        if (ctx.roundRect) ctx.roundRect(x, labelY, itemSize, nameRowHeight, 8);
+        else ctx.rect(x, labelY, itemSize, nameRowHeight);
+        ctx.fill();
+        ctx.strokeStyle = BORDER_COLOR;
+        ctx.lineWidth = 4;
+        ctx.beginPath();
+        if (ctx.roundRect) ctx.roundRect(x, labelY, itemSize, nameRowHeight, 8);
+        else ctx.rect(x, labelY, itemSize, nameRowHeight);
+        ctx.stroke();
+
+        if (itemName && !/^(Фигурка|Figure|Доп|Extra|Вариант|Variant|Вкладыш|Insert|Прочее|Other)\s+\d+$/i.test(itemName.trim())) {
+          ctx.font = 'bold 20px Inter, system-ui';
+          ctx.fillStyle = TEXT_COLOR;
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+
+          const maxW = itemSize - 16;
+          const words = itemName.split(' ');
+          const lines = [];
+          let cur = '';
+          for (const w of words) {
+            const test = cur ? cur + ' ' + w : w;
+            if (ctx.measureText(test).width > maxW && cur) { lines.push(cur); cur = w; }
+            else cur = test;
+          }
+          if (cur) lines.push(cur);
+          const dispLines = lines.slice(0, 2);
+          const lh = 24;
+          const totalTextH = dispLines.length * lh;
+          const startY = labelY + (nameRowHeight - totalTextH)/2 + lh/2;
+          dispLines.forEach((line, k) => ctx.fillText(line, x + itemSize/2, startY + k * lh));
+        }
+
+        col++;
+        if (col >= itemsPerRow) {
+          col = 0;
+          rowY += statusBandHeight + itemSize + labelGap + codeRowHeight + labelGap + nameRowHeight + itemGap;
         }
       }
-      if (currentLine) lines.push(currentLine);
-      const displayLines = lines.slice(0, 2);
-      displayLines.forEach((line, li) => {
-        ctx.fillText(line, x + itemSize / 2, y + itemSize + 8 + li * 18);
-      });
-
-      if (item.code) {
-        ctx.font = 'bold 14px monospace';
-        ctx.fillStyle = '#4f46e5';
-        ctx.fillText(item.code, x + itemSize / 2, y + itemSize + 50);
+      if (col !== 0) {
+        rowY += statusBandHeight + itemSize + labelGap + codeRowHeight + labelGap + nameRowHeight;
       }
-    });
+      currentY = rowY + 10;
+    }
 
+    // ===== ФУТЕР =====
     const footerY = totalHeight - footerHeight;
     ctx.strokeStyle = '#e5e7eb';
     ctx.lineWidth = 1;
@@ -5638,16 +5923,17 @@ async function generateWantedListImage(seriesId, items, statuses, lang) {
     ctx.lineTo(totalWidth - padding, footerY);
     ctx.stroke();
 
-    ctx.font = 'bold 22px Inter, system-ui';
+    ctx.font = 'bold 24px Inter, system-ui';
     ctx.fillStyle = TEXT_COLOR;
     ctx.textAlign = 'left';
     ctx.textBaseline = 'middle';
     ctx.fillText(
       lang === 'ru' ? 'Скачано с manspo.github.io' : 'Downloaded from manspo.github.io',
       padding,
-      footerY + footerHeight / 2
+      footerY + footerHeight/2
     );
 
+    // ===== СКАЧИВАЕМ =====
     const dataUrl = canvas.toDataURL('image/jpeg', 0.95);
     const safeName = seriesName.replace(/[^a-zа-яё0-9]/gi, '_');
     const link = document.createElement('a');

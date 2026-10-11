@@ -124,5 +124,9 @@
   "collection_progress": "Прогресс коллекции",
 "download_android": "📱 Скачать APK",
 "my_wanted_list": "Мой поиск",
-"download_wanted_list": "Скачать чек-лист поиска"
+"download_wanted_list": "Скачать чек-лист поиска",
+"wanted_hint": "Отметьте статус для каждой фигурки. Можно одновременно «Имеется» и «На обмен».",
+"status_have": "Имеется",
+"status_need": "Ищу",
+"status_trade": "На обмен"
 }
