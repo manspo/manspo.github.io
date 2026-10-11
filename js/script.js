@@ -5480,7 +5480,6 @@ if (saveBtn) {
 }
 
 // ===== ГЕНЕРАЦИЯ ИЗОБРАЖЕНИЯ СПИСКА ПОИСКА =====
-// ===== ГЕНЕРАЦИЯ ИЗОБРАЖЕНИЯ СПИСКА ПОИСКА =====
 async function generateWantedListImage(seriesId, items, statuses, lang) {
   const series = await loadSeriesById(seriesId);
   if (!series) return;
@@ -5491,65 +5490,93 @@ async function generateWantedListImage(seriesId, items, statuses, lang) {
     const seriesName = lang === 'en' && series.name_en ? series.name_en : series.name;
     const seriesYear = series.year || '';
 
-    // ===== ЗАГРУЖАЕМ ТОЛЬКО ВЫБРАННЫЕ КАРТИНКИ =====
-    const imageMap = new Map();
-    for (const item of items) {
-      const status = statuses[item.id] || {};
-      const hasStatus = status.have || status.need || status.trade;
-      if (!hasStatus) continue;   // не выбранные — фото не грузим
+    // ===== РАЗДЕЛ 1: ВСЕ ВЫБРАННЫЕ (have || need || trade) =====
+    const allSelected = items.filter(it => {
+      const s = statuses[it.id] || {};
+      return s.have || s.need || s.trade;
+    });
 
+    // ===== РАЗДЕЛ 2: ТОЛЬКО НА ОБМЕН (trade) =====
+    const tradeOnly = items.filter(it => {
+      const s = statuses[it.id] || {};
+      return s.trade;
+    });
+
+    if (allSelected.length === 0) {
+      hideLoadingToast();
+      showError(lang === 'ru' ? 'Ничего не выбрано' : 'Nothing selected');
+      return;
+    }
+
+    // ===== ГРУППИРУЕМ ПО ТИПАМ =====
+    function splitByType(arr) {
+      return {
+        figure:  arr.filter(x => x._type === 'figure'),
+        extra:   arr.filter(x => x._type === 'extra'),
+        variant: arr.filter(x => x._type === 'variant')
+      };
+    }
+
+    const mainGroups = splitByType(allSelected);
+    const tradeGroups = splitByType(tradeOnly);
+
+    // ===== ЗАГРУЖАЕМ ТОЛЬКО ВЫБРАННЫЕ ФОТО =====
+    const imageMap = new Map();
+    for (const item of allSelected) {
       const imageUrl = item.image ? `${BASE_URL}/${item.image}` : 'images/placeholder.svg';
       const img = await loadImage(imageUrl);
       imageMap.set(item.id, img || createEmptyImage());
     }
-
-    // ===== ГРУППИРУЕМ ПО КАТЕГОРИЯМ =====
-    const groups = {
-      figure:  { items: [], label_ru: '📦 ФИГУРКИ',   label_en: '📦 FIGURES',   color: '#4f46e5' },
-      extra:   { items: [], label_ru: '🎁 ДОПЫ',      label_en: '🎁 EXTRAS',    color: '#10b981' },
-      variant: { items: [], label_ru: '🎲 ВАРИАНТЫ',  label_en: '🎲 VARIANTS',  color: '#f59e0b' }
-    };
-    items.forEach(it => { if (groups[it._type]) groups[it._type].items.push(it); });
 
     // ===== РАЗМЕРЫ =====
     const itemsPerRow = 6;
     const itemSize = 220;
     const itemGap = 20;
     const padding = 40;
-    const headerHeight = 320;    // увеличили под «МОЙ ПОИСК»
+    const headerHeight = 360;
     const footerHeight = 80;
     const qrSize = 200;
     const groupHeaderHeight = 55;
     const labelGap = 6;
     const codeRowHeight = 44;
     const nameRowHeight = 56;
+    const sectionHeaderHeight = 70;
+    const dividerHeight = 70;
 
     const totalWidth = padding * 2 + itemsPerRow * itemSize + (itemsPerRow - 1) * itemGap;
 
-    // Считаем высоту
+    // ===== СЧИТАЕМ ВЫСОТУ =====
+    function calcGroupsHeight(groups) {
+      let h = 0;
+      const order = ['figure', 'extra', 'variant'];
+      const visible = order.filter(k => groups[k].length > 0);
+      visible.forEach((k, idx) => {
+        const rows = Math.ceil(groups[k].length / itemsPerRow);
+        const cellHeight = labelGap + itemSize + labelGap + codeRowHeight + labelGap + nameRowHeight;
+        h += groupHeaderHeight + rows * cellHeight + (rows - 1) * itemGap;
+        if (idx < visible.length - 1) h += 20;
+      });
+      return h;
+    }
+
     let totalHeight = padding + headerHeight;
-    const visibleGroups = [];
 
-    // Порядок отрисовки: допы → варианты → разделитель → фигурки
-    const drawOrder = [];
-    if (groups.extra.items.length > 0)   drawOrder.push('extra');
-    if (groups.variant.items.length > 0) drawOrder.push('variant');
-    if (groups.figure.items.length > 0)  drawOrder.push('figure');
+    // Раздел 1
+    totalHeight += sectionHeaderHeight;
+    totalHeight += calcGroupsHeight(mainGroups);
 
-    drawOrder.forEach(k => {
-      const g = groups[k];
-      const rows = Math.ceil(g.items.length / itemsPerRow);
-      const cellHeight = labelGap + itemSize + labelGap + codeRowHeight + labelGap + nameRowHeight;
-      visibleGroups.push({ key: k, rows, cellHeight });
-      totalHeight += groupHeaderHeight + rows * cellHeight + (rows - 1) * itemGap + 10;
-    });
+    // Разделитель и раздел 2
+    const hasTradeSection = tradeOnly.length > 0;
+    if (hasTradeSection) {
+      totalHeight += dividerHeight;
+      totalHeight += sectionHeaderHeight;
+      totalHeight += calcGroupsHeight(tradeGroups);
+    }
 
-    // Высота разделительной линии (если есть и допы/варианты, и фигурки)
-    const hasDivider = groups.figure.items.length > 0 && (groups.extra.items.length > 0 || groups.variant.items.length > 0);
-    if (hasDivider) totalHeight += 50;
-
+    totalHeight += 40;
     totalHeight += footerHeight + padding;
 
+    // ===== CANVAS =====
     const SCALE = 1.5;
     const canvas = document.createElement('canvas');
     canvas.width = totalWidth * SCALE;
@@ -5569,7 +5596,6 @@ async function generateWantedListImage(seriesId, items, statuses, lang) {
     ctx.fillStyle = bgGradient;
     ctx.fillRect(0, 0, totalWidth, totalHeight);
 
-    // Декоративные круги
     ctx.save();
     ctx.globalAlpha = 0.03;
     ctx.fillStyle = '#4f46e5';
@@ -5577,7 +5603,15 @@ async function generateWantedListImage(seriesId, items, statuses, lang) {
     ctx.beginPath(); ctx.arc(150, totalHeight - 150, 250, 0, Math.PI*2); ctx.fill();
     ctx.restore();
 
-    // ===== ШАПКА: ЛОГО ПО ЦЕНТРУ =====
+    // ===== ШАПКА: ЗАГОЛОВОК «МОЙ ПОИСК» СВЕРХУ =====
+    const wantedTitle = lang === 'ru' ? '🔍 МОЙ ПОИСК' : '🔍 WANTED LIST';
+    ctx.font = `bold 38px Inter, system-ui`;
+    ctx.fillStyle = '#4f46e5';
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'top';
+    ctx.fillText(wantedTitle, padding, padding + 10);
+
+    // Логотип по центру
     const logoImage = await loadImage(`${BASE_URL}/images/logo.webp`);
     const logoSize = 160;
     const logoX = (totalWidth - logoSize) / 2 + 70;
@@ -5591,8 +5625,8 @@ async function generateWantedListImage(seriesId, items, statuses, lang) {
       ctx.drawImage(logoImage, logoX + (logoSize - dw)/2, logoY + (logoSize - dh)/2, dw, dh);
     }
 
-    // ===== ЗАГОЛОВОК =====
-    const titleY = padding + 20;
+    // ===== НАЗВАНИЕ СЕРИИ + ГОД =====
+    const titleY = padding + 80;
     ctx.fillStyle = '#4f46e5';
     ctx.beginPath();
     if (ctx.roundRect) ctx.roundRect(padding, titleY, 6, 45, 3);
@@ -5628,19 +5662,10 @@ async function generateWantedListImage(seriesId, items, statuses, lang) {
     const titleBlockHeight = displayTitleLines.length * 50;
     const yearY = titleRowY + titleBlockHeight + 6;
 
-    // Год
     if (seriesYear) {
       ctx.font = `bold 40px Inter, system-ui`;
       ctx.fillText(String(seriesYear), titleBoxX, yearY);
     }
-
-    // ===== ПОДЗАГОЛОВОК «МОЙ ПОИСК» / «WANTED LIST» =====
-    ctx.font = `bold 32px Inter, system-ui`;
-    ctx.fillStyle = '#4f46e5';
-    ctx.textAlign = 'left';
-    ctx.textBaseline = 'top';
-    const wantedTitle = lang === 'ru' ? '🔍 МОЙ ПОИСК' : '🔍 WANTED LIST';
-    ctx.fillText(wantedTitle, titleBoxX, yearY + 55);
 
     // ===== QR-КОД СПРАВА =====
     const qrImage = await loadImage(`${BASE_URL}/images/qrcodesite.png`);
@@ -5669,7 +5694,7 @@ async function generateWantedListImage(seriesId, items, statuses, lang) {
       ctx.drawImage(qrImage, qrX, qrY, qrSize, qrSize);
     }
 
-    // ===== ХЕЛПЕР: ЗНАК ВОПРОСА =====
+    // ===== ХЕЛПЕРЫ =====
     function drawQuestionMark(x, y, size) {
       ctx.save();
       ctx.font = `bold ${Math.floor(size * 0.8)}px Inter, system-ui`;
@@ -5683,7 +5708,6 @@ async function generateWantedListImage(seriesId, items, statuses, lang) {
       ctx.restore();
     }
 
-    // ===== ХЕЛПЕР: ВОДЯНОЙ ЗНАК =====
     function drawMansurWatermark(x, y, size) {
       ctx.save();
       ctx.globalAlpha = 0.55;
@@ -5700,15 +5724,33 @@ async function generateWantedListImage(seriesId, items, statuses, lang) {
       ctx.restore();
     }
 
-    // ===== ОТРИСОВКА ГРУППЫ =====
-    function drawGroup(groupKey, startY) {
-      const g = groups[groupKey];
-      if (g.items.length === 0) return startY;
+    // Заголовок раздела (крупный, по центру)
+    function drawSectionHeader(text, y, color) {
+      ctx.save();
+      ctx.font = 'bold 32px Inter, system-ui';
+      ctx.fillStyle = color;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(text, totalWidth/2, y + sectionHeaderHeight/2);
+
+      // Подчёркивание
+      const w = ctx.measureText(text).width;
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.moveTo(totalWidth/2 - w/2, y + sectionHeaderHeight/2 + 25);
+      ctx.lineTo(totalWidth/2 + w/2, y + sectionHeaderHeight/2 + 25);
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    // Отрисовка одной группы
+    function drawGroup(items, labelRu, labelEn, groupColor, startY, numberOffset = 0) {
+      if (items.length === 0) return startY;
 
       let y = startY;
 
-      // Заголовок группы
-      ctx.fillStyle = g.color;
+      ctx.fillStyle = groupColor;
       ctx.beginPath();
       if (ctx.roundRect) ctx.roundRect(padding, y, 5, 42, 3);
       else ctx.rect(padding, y, 5, 42);
@@ -5718,26 +5760,25 @@ async function generateWantedListImage(seriesId, items, statuses, lang) {
       ctx.fillStyle = TEXT_COLOR;
       ctx.textAlign = 'left';
       ctx.textBaseline = 'top';
-      ctx.fillText(lang === 'en' ? g.label_en : g.label_ru, padding + 25, y + 6);
+      ctx.fillText(lang === 'en' ? labelEn : labelRu, padding + 25, y + 6);
 
       y += groupHeaderHeight;
 
-      // Сетка
       let col = 0;
-      for (let i = 0; i < g.items.length; i++) {
-        const item = g.items[i];
+      for (let i = 0; i < items.length; i++) {
+        const item = items[i];
         const x = padding + col * (itemSize + itemGap);
         const status = statuses[item.id] || {};
-        const hasStatus = status.have || status.need || status.trade;
         const img = imageMap.get(item.id);
+        const hasStatus = status.have || status.need || status.trade;
 
-        // ===== ЦВЕТ ФОНА ПО СТАТУСУ =====
+        // ===== СОЧНЫЙ ФОН ПО СТАТУСУ =====
         let cardBg = '#ffffff';
-        if (status.have)       cardBg = '#fecaca';   // красноватый — «имеется»
-        else if (status.need)  cardBg = '#bbf7d0';   // зелёный — «ищу»
-        else if (status.trade) cardBg = '#bae6fd';   // голубой — «на обмен»
+        if (status.trade)      cardBg = '#60a5fa';   // голубой — на обмен
+        else if (status.have)  cardBg = '#f87171';   // красный — имеется
+        else if (status.need)  cardBg = '#4ade80';   // зелёный — ищу
 
-        // Рамка фигурки
+        // Рамка
         ctx.save();
         ctx.shadowColor = 'rgba(0,0,0,0.08)';
         ctx.shadowBlur = 14;
@@ -5756,25 +5797,23 @@ async function generateWantedListImage(seriesId, items, statuses, lang) {
         else ctx.rect(x, y, itemSize, itemSize);
         ctx.stroke();
 
-        // ===== ФОТО ИЛИ «?» =====
+        // Фото или ?
         if (hasStatus && img && img.complete && img.naturalWidth > 0) {
           const maxSize = itemSize - 10;
           const ratio = Math.min(maxSize / img.naturalWidth, maxSize / img.naturalHeight);
           const dw = img.naturalWidth * ratio;
           const dh = img.naturalHeight * ratio;
           ctx.drawImage(img, x + (itemSize - dw)/2, y + (itemSize - dh)/2, dw, dh);
-        } else if (!hasStatus) {
+        } else {
           drawQuestionMark(x, y, itemSize);
         }
 
-        // Водяной знак — только для выбранных
         if (hasStatus) drawMansurWatermark(x, y, itemSize);
 
-        // ===== НОМЕР + КОД =====
+        // Номер + код
         let labelY = y + itemSize + labelGap;
         const numBoxSize = codeRowHeight;
 
-        // Номер
         ctx.fillStyle = '#ffffff';
         ctx.beginPath();
         if (ctx.roundRect) ctx.roundRect(x, labelY, numBoxSize, numBoxSize, 8);
@@ -5791,9 +5830,8 @@ async function generateWantedListImage(seriesId, items, statuses, lang) {
         ctx.fillStyle = TEXT_COLOR;
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-        ctx.fillText(String(i + 1), x + numBoxSize/2, labelY + numBoxSize/2 + 1);
+        ctx.fillText(String(i + 1 + numberOffset), x + numBoxSize/2, labelY + numBoxSize/2 + 1);
 
-        // Код (если есть)
         if (item.code) {
           const codeX = x + numBoxSize + 8;
           const codeW = itemSize - numBoxSize - 8;
@@ -5821,7 +5859,7 @@ async function generateWantedListImage(seriesId, items, statuses, lang) {
 
         labelY += codeRowHeight + labelGap;
 
-        // ===== НАЗВАНИЕ =====
+        // Название
         const itemName = (lang === 'en' && item.name_en) ? item.name_en : item.name;
         ctx.fillStyle = '#ffffff';
         ctx.beginPath();
@@ -5871,38 +5909,70 @@ async function generateWantedListImage(seriesId, items, statuses, lang) {
       return y;
     }
 
-    // ===== ОТРИСОВКА ПО ПОРЯДКУ =====
+    // ===== ОТРИСОВКА РАЗДЕЛА 1: МОЙ ПОИСК =====
     let currentY = padding + headerHeight;
+    drawSectionHeader(
+      lang === 'ru' ? 'МОЙ ПОИСК' : 'WANTED LIST',
+      currentY,
+      '#4f46e5'
+    );
+    currentY += sectionHeaderHeight;
 
-    // Допы
-    if (groups.extra.items.length > 0) {
-      currentY = drawGroup('extra', currentY);
-      currentY += 10;
+    const order = ['figure', 'extra', 'variant'];
+    const mainLabels = {
+      figure:  { ru: '📦 ФИГУРКИ',  en: '📦 FIGURES'  },
+      extra:   { ru: '🎁 ДОПЫ',     en: '🎁 EXTRAS'   },
+      variant: { ru: '🎲 ВАРИАНТЫ', en: '🎲 VARIANTS' }
+    };
+    const mainColors = { figure: '#4f46e5', extra: '#10b981', variant: '#f59e0b' };
+
+    for (const k of order) {
+      if (mainGroups[k].length === 0) continue;
+      currentY = drawGroup(
+        mainGroups[k],
+        mainLabels[k].ru,
+        mainLabels[k].en,
+        mainColors[k],
+        currentY,
+        0
+      );
+      currentY += 20;
     }
 
-    // Варианты
-    if (groups.variant.items.length > 0) {
-      currentY = drawGroup('variant', currentY);
+    // ===== РАЗДЕЛИТЕЛЬ + РАЗДЕЛ 2: НА ОБМЕН =====
+    if (hasTradeSection) {
+      // Разделитель
       currentY += 10;
-    }
-
-    // ===== РАЗДЕЛИТЕЛЬНАЯ ЛИНИЯ =====
-    if (hasDivider) {
-      currentY += 15;
-      ctx.strokeStyle = '#4f46e5';
-      ctx.lineWidth = 3;
-      ctx.setLineDash([12, 8]);
+      ctx.strokeStyle = '#60a5fa';
+      ctx.lineWidth = 4;
+      ctx.setLineDash([14, 10]);
       ctx.beginPath();
       ctx.moveTo(padding, currentY);
       ctx.lineTo(totalWidth - padding, currentY);
       ctx.stroke();
       ctx.setLineDash([]);
       currentY += 30;
-    }
 
-    // Фигурки — внизу
-    if (groups.figure.items.length > 0) {
-      currentY = drawGroup('figure', currentY);
+      // Заголовок раздела
+      drawSectionHeader(
+        lang === 'ru' ? '🔄 НА ОБМЕН' : '🔄 FOR TRADE',
+        currentY,
+        '#2563eb'
+      );
+      currentY += sectionHeaderHeight;
+
+      for (const k of order) {
+        if (tradeGroups[k].length === 0) continue;
+        currentY = drawGroup(
+          tradeGroups[k],
+          mainLabels[k].ru,
+          mainLabels[k].en,
+          mainColors[k],
+          currentY,
+          0
+        );
+        currentY += 20;
+      }
     }
 
     // ===== ФУТЕР =====
@@ -5968,16 +6038,35 @@ document.addEventListener('click', function(e) {
     statuses = JSON.parse(localStorage.getItem(storageKey) || '{}');
   } catch (err) { statuses = {}; }
 
-if (!statuses[itemId] || typeof statuses[itemId] !== 'object') {
-  statuses[itemId] = {};
-}
+  if (!statuses[itemId] || typeof statuses[itemId] !== 'object') {
+    statuses[itemId] = {};
+  }
 
   if (statuses[itemId][status]) {
+    // ===== СНЯТИЕ СТАТУСА =====
     delete statuses[itemId][status];
+    // Если сняли trade — снимаем и have (он был автоматическим)
+    if (status === 'trade') {
+      delete statuses[itemId].have;
+    }
   } else {
+    // ===== УСТАНОВКА СТАТУСА =====
     statuses[itemId][status] = true;
-    if (status === 'need') statuses[itemId].have = false;
-    if (status === 'have') statuses[itemId].need = false;
+
+    if (status === 'need') {
+      // Ищу — снимаем have и trade
+      delete statuses[itemId].have;
+      delete statuses[itemId].trade;
+    }
+    if (status === 'have') {
+      // Имеется — снимаем need
+      delete statuses[itemId].need;
+    }
+    if (status === 'trade') {
+      // На обмен — автоматически ставим have, снимаем need
+      statuses[itemId].have = true;
+      delete statuses[itemId].need;
+    }
   }
 
   const parent = btn.closest('.wanted-item');
