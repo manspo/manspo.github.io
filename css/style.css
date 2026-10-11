@@ -564,12 +564,6 @@ main {
     padding: 16px;
   }
 
-  /* Каталог фигурок — 3 в ряд на планшетах */
-  .figures-catalog-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-  }
-}
  
 /* ============================================================
    СТРАНИЦА СЕРИИ
@@ -2195,11 +2189,7 @@ img {
   }
 
   /* ===== КАТАЛОГ ФИГУРОК — 2 В РЯД (как в продаже) ===== */
-  .figures-catalog-grid {
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 12px !important;
-    padding: 10px 0 !important;
-  }
+
   .figure-catalog-card {
     border-radius: 12px !important;
   }
@@ -2516,10 +2506,7 @@ img {
   .figure-description { font-size: 13px; padding: 10px; }
 
   /* Каталог фигурок — 2 в ряд, компактнее */
-  .figures-catalog-grid {
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 8px !important;
-  }
+
   .figure-catalog-name {
     font-size: 12px !important;
   }
@@ -3302,11 +3289,24 @@ img {
   padding: 10px 0;
 }
 
-/* ← ДОБАВИТЬ ЭТУ ЧАСТЬ СРАЗУ ПОСЛЕ БАЗОВОГО ПРАВИЛА */
 @media (max-width: 992px) {
   .figures-catalog-grid {
-    grid-template-columns: repeat(3, 1fr) !important;
-    gap: 16px !important;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .figures-catalog-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .figures-catalog-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px !important;
   }
 }
 
