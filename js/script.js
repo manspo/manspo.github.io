@@ -5368,19 +5368,25 @@ async function openWantedList(seriesId) {
     statuses = JSON.parse(localStorage.getItem(storageKey) || '{}');
   } catch (e) { statuses = {}; }
 
-  // Собираем ВСЕ фигурки (figures, extras, variants, inserts, other)
+  // ⚠️ ТОЛЬКО фигурки, допы и варианты
   const allItems = [
     ...(series.figures  || []).map(f => ({ ...f, _type: 'figure'  })),
     ...(series.extras   || []).map(f => ({ ...f, _type: 'extra'   })),
-    ...(series.variants || []).map(f => ({ ...f, _type: 'variant' })),
-    ...(series.inserts  || []).map(f => ({ ...f, _type: 'insert'  })),
-    ...(series.other    || []).map(f => ({ ...f, _type: 'other'   }))
+    ...(series.variants || []).map(f => ({ ...f, _type: 'variant' }))
   ];
 
+  // Если вообще нет элементов — выходим
+  if (allItems.length === 0) {
+    showError(currentLang === 'ru' 
+      ? 'В этой серии нет фигурок для поиска' 
+      : 'No figures in this series for wanted list');
+    return;
+  }
+
   const statusLabels = {
-    'have':  { icon: '✅', label_ru: 'Имеется',  label_en: 'Have',   color: '#10b981' },
-    'need':  { icon: '🔍', label_ru: 'Ищу',      label_en: 'Looking',color: '#ef4444' },
-    'trade': { icon: '🔄', label_ru: 'На обмен', label_en: 'Trade',  color: '#f59e0b' }
+    'have':  { icon: '✅', label_ru: 'Имеется',  label_en: 'Have',    color: '#10b981' },
+    'need':  { icon: '🔍', label_ru: 'Ищу',      label_en: 'Looking', color: '#ef4444' },
+    'trade': { icon: '🔄', label_ru: 'На обмен', label_en: 'Trade',   color: '#f59e0b' }
   };
 
   const modal = document.createElement('div');
@@ -5401,9 +5407,6 @@ async function openWantedList(seriesId) {
           const itemCode = item.code || '';
           const itemImage = item.image ? `${BASE_URL}/${item.image}` : 'images/placeholder.svg';
           const curStatus = statuses[item.id] || {};
-          const isHave  = curStatus.have  === true;
-          const isNeed  = curStatus.need  === true;
-          const isTrade = curStatus.trade === true;
           return `
             <div class="wanted-item" data-id="${escapeHtml(item.id)}" data-type="${item._type}">
               <div class="wanted-item-info">
@@ -5419,7 +5422,8 @@ async function openWantedList(seriesId) {
               </div>
               <div class="wanted-item-buttons">
                 ${Object.entries(statusLabels).map(([key, val]) => `
-                  <button class="wanted-btn ${curStatus[key] ? 'active' : ''}" 
+                  <button type="button" 
+                          class="wanted-btn ${curStatus[key] ? 'active' : ''}" 
                           data-status="${key}" 
                           data-item="${escapeHtml(item.id)}"
                           style="--btn-color: ${val.color}">
@@ -5433,7 +5437,7 @@ async function openWantedList(seriesId) {
         }).join('')}
       </div>
       <div class="wanted-actions">
-        <button class="wanted-save-btn" id="wantedSaveBtn">
+        <button type="button" class="wanted-save-btn" id="wantedSaveBtn">
           💾 ${currentLang === 'ru' ? 'Скачать чек-лист поиска' : 'Download wanted list'}
         </button>
       </div>
@@ -5441,14 +5445,19 @@ async function openWantedList(seriesId) {
   `;
   document.body.appendChild(modal);
 
-  modal.querySelector('.wanted-modal-close').onclick = () => modal.remove();
+  const closeBtn = modal.querySelector('.wanted-modal-close');
+  if (closeBtn) closeBtn.onclick = () => modal.remove();
+
   modal.onclick = (e) => { if (e.target === modal) modal.remove(); };
 
-  // Обработка кнопок — теперь каждая кнопка независима (можно ha ve + trade)
+  // ===== ОБРАБОТЧИКИ КНОПОК (делегирование через querySelectorAll — надёжно) =====
   modal.querySelectorAll('.wanted-btn').forEach(btn => {
-    btn.onclick = () => {
-      const itemId = btn.dataset.item;
-      const status = btn.dataset.status;
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+
+      const itemId = this.dataset.item;
+      const status = this.dataset.status;
 
       if (!statuses[itemId]) statuses[itemId] = {};
 
@@ -5456,29 +5465,29 @@ async function openWantedList(seriesId) {
         delete statuses[itemId][status];
       } else {
         statuses[itemId][status] = true;
-        // Если ставим "Ищу" — снимаем "Имеется" (они взаимоисключающие)
         if (status === 'need') statuses[itemId].have = false;
-        // Если ставим "Имеется" — снимаем "Ищу"
         if (status === 'have') statuses[itemId].need = false;
       }
 
-      btn.classList.toggle('active', !!statuses[itemId][status]);
-
-      // Обновляем соседние кнопки (have/need взаимоисключающие)
-      const parent = btn.closest('.wanted-item');
+      // Обновляем все три кнопки для этой фигурки
+      const parent = this.closest('.wanted-item');
       parent.querySelectorAll('.wanted-btn').forEach(b => {
         const s = b.dataset.status;
         b.classList.toggle('active', !!statuses[itemId][s]);
       });
 
       localStorage.setItem(storageKey, JSON.stringify(statuses));
-    };
+    });
   });
 
-  document.getElementById('wantedSaveBtn').onclick = async () => {
-    await generateWantedListImage(seriesId, allItems, statuses, currentLang);
-    modal.remove();
-  };
+  // ===== КНОПКА СКАЧИВАНИЯ =====
+  const saveBtn = document.getElementById('wantedSaveBtn');
+  if (saveBtn) {
+    saveBtn.onclick = async () => {
+      await generateWantedListImage(seriesId, allItems, statuses, currentLang);
+      modal.remove();
+    };
+  }
 }
 
 // ===== ГЕНЕРАЦИЯ ИЗОБРАЖЕНИЯ СПИСКА ПОИСКА =====
@@ -5501,13 +5510,11 @@ async function generateWantedListImage(seriesId, items, statuses, lang) {
     }
 
     // ===== ГРУППИРУЕМ ПО КАТЕГОРИЯМ =====
-    const groups = {
-      figure:  { items: [], label_ru: '📦 ФИГУРКИ',   label_en: '📦 FIGURES',   color: '#4f46e5' },
-      extra:   { items: [], label_ru: '🎁 ДОПЫ',      label_en: '🎁 EXTRAS',    color: '#10b981' },
-      variant: { items: [], label_ru: '🎲 ВАРИАНТЫ',  label_en: '🎲 VARIANTS',  color: '#f59e0b' },
-      insert:  { items: [], label_ru: '📄 ВКЛАДЫШИ',  label_en: '📄 INSERTS',   color: '#be185d' },
-      other:   { items: [], label_ru: '📦 ПРОЧЕЕ',    label_en: '📦 OTHER',     color: '#6b7280' }
-    };
+const groups = {
+  figure:  { items: [], label_ru: '📦 ФИГУРКИ',   label_en: '📦 FIGURES',   color: '#4f46e5' },
+  extra:   { items: [], label_ru: '🎁 ДОПЫ',      label_en: '🎁 EXTRAS',    color: '#10b981' },
+  variant: { items: [], label_ru: '🎲 ВАРИАНТЫ',  label_en: '🎲 VARIANTS',  color: '#f59e0b' }
+};
     items.forEach(it => { if (groups[it._type]) groups[it._type].items.push(it); });
 
     // ===== РАЗМЕРЫ =====
