@@ -5460,13 +5460,23 @@ localStorage.setItem(storageKey, JSON.stringify(statuses));
   modal.onclick = (e) => { if (e.target === modal) modal.remove(); };
 
   // ===== КНОПКА СКАЧИВАНИЯ =====
-  const saveBtn = document.getElementById('wantedSaveBtn');
-  if (saveBtn) {
-    saveBtn.onclick = async () => {
-      await generateWantedListImage(seriesId, allItems, statuses, currentLang);
-      modal.remove();
-    };
-  }
+const saveBtn = document.getElementById('wantedSaveBtn');
+if (saveBtn) {
+  saveBtn.onclick = async () => {
+    // Перечитываем актуальные статусы из localStorage
+    let freshStatuses = {};
+    try {
+      freshStatuses = JSON.parse(localStorage.getItem(storageKey) || '{}');
+    } catch (e) { freshStatuses = {}; }
+
+    await generateWantedListImage(seriesId, allItems, freshStatuses, currentLang);
+    
+    // Сбрасываем после скачивания
+    localStorage.removeItem(storageKey);
+    
+    modal.remove();
+  };
+}
 }
 
 // ===== ГЕНЕРАЦИЯ ИЗОБРАЖЕНИЯ СПИСКА ПОИСКА =====
