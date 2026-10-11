@@ -5763,7 +5763,7 @@ async function generateWantedListImage(seriesId, items, statuses, lang, userName
     }
 
     // Отрисовка одной группы
-    function drawGroup(groupItems, labelRu, labelEn, groupColor, startY) {
+    function drawGroup(groupItems, labelRu, labelEn, groupColor, startY, forceOpaque = false) {
       if (groupItems.length === 0) return startY;
 
       let y = startY;
@@ -5799,7 +5799,7 @@ async function generateWantedListImage(seriesId, items, statuses, lang, userName
         // ===== ПРОЗРАЧНОСТЬ ДЛЯ НЕ ВЫБРАННЫХ =====
         // Фон карточки рисуем всегда непрозрачным (белым),
         // а содержимое (фото/номер/код/название) — с прозрачностью 0.3
-        const contentAlpha = isSelected ? 1 : 0.3;
+        const contentAlpha = forceOpaque ? 1 : (status.need ? 1 : 0.2);
 
         // Рамка + фон (непрозрачные)
         ctx.save();
@@ -5996,7 +5996,8 @@ async function generateWantedListImage(seriesId, items, statuses, lang, userName
           mainLabels[k].ru,
           mainLabels[k].en,
           mainColors[k],
-          currentY
+          currentY,
+          true   // ← все элементы в разделе «НА ОБМЕН» — непрозрачные
         );
         currentY += 20;
       }
