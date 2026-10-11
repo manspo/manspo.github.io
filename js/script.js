@@ -5391,6 +5391,7 @@ async function openWantedList(seriesId) {
 
   const modal = document.createElement('div');
   modal.className = 'wanted-modal';
+  modal.dataset.storageKey = storageKey;   // ← добавьте эту строку
   modal.innerHTML = `
     <div class="wanted-modal-content">
       <button type="button" class="wanted-modal-close">×</button>
@@ -5449,36 +5450,6 @@ async function openWantedList(seriesId) {
   if (closeBtn) closeBtn.onclick = () => modal.remove();
 
   modal.onclick = (e) => { if (e.target === modal) modal.remove(); };
-
-  // ===== ОБРАБОТЧИКИ КНОПОК (делегирование через querySelectorAll — надёжно) =====
-  modal.querySelectorAll('.wanted-btn').forEach(btn => {
-    btn.addEventListener('click', function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-
-      const itemId = this.dataset.item;
-      const status = this.dataset.status;
-
-      if (!statuses[itemId]) statuses[itemId] = {};
-
-      if (statuses[itemId][status]) {
-        delete statuses[itemId][status];
-      } else {
-        statuses[itemId][status] = true;
-        if (status === 'need') statuses[itemId].have = false;
-        if (status === 'have') statuses[itemId].need = false;
-      }
-
-      // Обновляем все три кнопки для этой фигурки
-      const parent = this.closest('.wanted-item');
-      parent.querySelectorAll('.wanted-btn').forEach(b => {
-        const s = b.dataset.status;
-        b.classList.toggle('active', !!statuses[itemId][s]);
-      });
-
-      localStorage.setItem(storageKey, JSON.stringify(statuses));
-    });
-  });
 
   // ===== КНОПКА СКАЧИВАНИЯ =====
   const saveBtn = document.getElementById('wantedSaveBtn');
@@ -5959,6 +5930,51 @@ const groups = {
   }
 }
 
+// ============================================================
+// ГЛОБАЛЬНЫЙ ОБРАБОТЧИК КНОПОК «МОЙ ПОИСК»
+// Работает через делегирование — сработает всегда
+// ============================================================
+document.addEventListener('click', function(e) {
+  const btn = e.target.closest('.wanted-btn');
+  if (!btn) return;
+  if (!btn.closest('.wanted-modal')) return;
+
+  e.preventDefault();
+  e.stopPropagation();
+
+  const itemId = btn.dataset.item;
+  const status = btn.dataset.status;
+  if (!itemId || !status) return;
+
+  const modal = btn.closest('.wanted-modal');
+  const storageKey = modal.dataset.storageKey;
+  if (!storageKey) return;
+
+  let statuses = {};
+  try {
+    statuses = JSON.parse(localStorage.getItem(storageKey) || '{}');
+  } catch (err) { statuses = {}; }
+
+  if (!statuses[itemId]) statuses[itemId] = {};
+
+  if (statuses[itemId][status]) {
+    delete statuses[itemId][status];
+  } else {
+    statuses[itemId][status] = true;
+    if (status === 'need') statuses[itemId].have = false;
+    if (status === 'have') statuses[itemId].need = false;
+  }
+
+  const parent = btn.closest('.wanted-item');
+  if (parent) {
+    parent.querySelectorAll('.wanted-btn').forEach(b => {
+      const s = b.dataset.status;
+      b.classList.toggle('active', !!statuses[itemId][s]);
+    });
+  }
+
+  localStorage.setItem(storageKey, JSON.stringify(statuses));
+});
 
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', runInit);
