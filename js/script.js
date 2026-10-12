@@ -3558,14 +3558,14 @@ function hideLoadingToast() {
 async function generateCollage(seriesId, seriesName, figures, extras, variants, lang, seriesYear = '') {
   return new Promise(async (resolve, reject) => {
     try {
-      // ===== ОБЪЕДИНЯЕМ ВСЕ ЭЛЕМЕНТЫ В ОДИН СПИСОК =====
+      // ===== ОБЪЕДИНЯЕМ ВСЁ В ОДИН СПИСОК =====
       const allItems = [
-        ...figures.map(f => ({ ...f, _badge: null })),
-        ...extras.map(f => ({ ...f, _badge: 'ДОП' })),
-        ...variants.map(f => ({ ...f, _badge: 'ВАРИАНТ' }))
+        ...figures.map(f => ({ ...f, _type: 'figure', _typeLabel: lang === 'en' ? 'FIGURE' : 'ФИГУРКА' })),
+        ...extras.map(f => ({ ...f, _type: 'extra', _typeLabel: lang === 'en' ? 'EXTRA' : 'ДОП' })),
+        ...variants.map(f => ({ ...f, _type: 'variant', _typeLabel: lang === 'en' ? 'VARIANT' : 'ВАРИАНТ' }))
       ];
 
-      // ===== ЗАГРУЖАЕМ КАРТИНКИ =====
+      // ===== КАРТИНКИ =====
       const imageMap = new Map();
       for (const item of allItems) {
         const imageUrl = item.image ? `${BASE_URL}/${item.image}` : 'images/placeholder.svg';
@@ -3573,14 +3573,10 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
         imageMap.set(item.id || item.name, img || createEmptyImage());
       }
 
-      // ===== QR-КОД =====
       const qrImage = await loadImage(`${BASE_URL}/images/qrcodesite.png`);
 
-      // ===== ПРОВЕРКА ДЕФОЛТНЫХ НАЗВАНИЙ =====
       function isDefaultName(item) {
-        const checkName = (lang === 'en')
-          ? (item.name_en || item.name || '')
-          : (item.name || '');
+        const checkName = (lang === 'en') ? (item.name_en || item.name || '') : (item.name || '');
         if (!checkName || !checkName.trim()) return true;
         const patterns = [
           /^Фигурка\s+\d+$/i, /^Figure\s+\d+$/i,
@@ -3594,15 +3590,13 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
 
       // ===== РАЗМЕРЫ =====
       const itemsPerRow = 6;
-      const itemSize = 200;
+      const cardW = 200;   // ширина карточки
+      const cardH = 290;   // высота карточки (квадрат фото + плашки)
       const itemGap = 16;
       const padding = 36;
       const headerHeight = 280;
       const footerHeight = 90;
       const qrSize = 180;
-      const labelGap = 8;
-      const codeRowHeight = 40;
-      const nameRowHeight = 50;
 
       const TITLE_FONT_SIZE = 40;
       const TITLE_LINE_HEIGHT = 50;
@@ -3619,14 +3613,19 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
         cardBorder: '#e0e7ff'
       };
 
-      // ===== РАЗМЕРЫ =====
-      const cellHeight = itemSize + labelGap + codeRowHeight + labelGap + nameRowHeight;
+      // ===== ЦВЕТА РАМОК ПО ТИПУ =====
+      const typeColors = {
+        figure:  { main: '#4f46e5', light: '#eef2ff', label: 'ФИГУРКА' },
+        extra:   { main: '#10b981', light: '#ecfdf5', label: 'ДОП' },
+        variant: { main: '#f59e0b', light: '#fffbeb', label: 'ВАРИАНТ' }
+      };
+
+      const totalWidth = padding * 2 + itemsPerRow * cardW + (itemsPerRow - 1) * itemGap;
       const totalRows = Math.ceil(allItems.length / itemsPerRow);
-      const totalWidth = padding * 2 + itemsPerRow * itemSize + (itemsPerRow - 1) * itemGap;
 
       let totalHeight = padding + headerHeight;
       totalHeight += 80; // заголовок "ПОЛНАЯ КОЛЛЕКЦИЯ"
-      totalHeight += totalRows * cellHeight + Math.max(0, totalRows - 1) * itemGap;
+      totalHeight += totalRows * cardH + Math.max(0, totalRows - 1) * itemGap;
       totalHeight += 40 + footerHeight + padding;
 
       // ===== CANVAS =====
@@ -3635,12 +3634,11 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
       canvas.width = totalWidth * SCALE;
       canvas.height = totalHeight * SCALE;
       const ctx = canvas.getContext('2d');
-
       ctx.imageSmoothingEnabled = true;
       ctx.imageSmoothingQuality = 'high';
       ctx.scale(SCALE, SCALE);
 
-      // ===== ФОН: лаванда → голубой → мятный =====
+      // ===== ФОН =====
       const bgGrad = ctx.createLinearGradient(0, 0, totalWidth, totalHeight);
       bgGrad.addColorStop(0, '#f5f3ff');
       bgGrad.addColorStop(0.5, '#f0f9ff');
@@ -3648,7 +3646,6 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
       ctx.fillStyle = bgGrad;
       ctx.fillRect(0, 0, totalWidth, totalHeight);
 
-      // Мягкие цветные пятна
       const blob1 = ctx.createRadialGradient(totalWidth - 150, 150, 0, totalWidth - 150, 150, 400);
       blob1.addColorStop(0, 'rgba(129, 140, 248, 0.15)');
       blob1.addColorStop(1, 'rgba(129, 140, 248, 0)');
@@ -3668,19 +3665,12 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
       const logoY = padding + 5;
 
       if (logoImage && logoImage.complete && logoImage.naturalWidth > 0) {
-        const imgW = logoImage.naturalWidth;
-        const imgH = logoImage.naturalHeight;
-        let drawW, drawH;
-        if (imgW > imgH) {
-          drawW = logoSize;
-          drawH = (imgH / imgW) * logoSize;
-        } else {
-          drawH = logoSize;
-          drawW = (imgW / imgH) * logoSize;
-        }
-        const drawX = logoX + (logoSize - drawW) / 2;
-        const drawY = logoY + (logoSize - drawH) / 2;
-        ctx.drawImage(logoImage, drawX, drawY, drawW, drawH);
+        const iw = logoImage.naturalWidth;
+        const ih = logoImage.naturalHeight;
+        let dw, dh;
+        if (iw > ih) { dw = logoSize; dh = (ih / iw) * logoSize; }
+        else { dh = logoSize; dw = (iw / ih) * logoSize; }
+        ctx.drawImage(logoImage, logoX + (logoSize - dw) / 2, logoY + (logoSize - dh) / 2, dw, dh);
       }
 
       // ===== НАЗВАНИЕ СЕРИИ =====
@@ -3703,25 +3693,18 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
       const titleWords = String(seriesName || 'Checklist').split(' ');
       const titleLines = [];
       let currentTitleLine = '';
-
       for (const word of titleWords) {
         const testLine = currentTitleLine ? currentTitleLine + ' ' + word : word;
-        const metrics = ctx.measureText(testLine);
-        if (metrics.width > titleBoxWidth && currentTitleLine) {
+        if (ctx.measureText(testLine).width > titleBoxWidth && currentTitleLine) {
           titleLines.push(currentTitleLine);
           currentTitleLine = word;
-        } else {
-          currentTitleLine = testLine;
-        }
+        } else currentTitleLine = testLine;
       }
       if (currentTitleLine) titleLines.push(currentTitleLine);
 
       const displayTitleLines = titleLines.slice(0, 3);
       let titleRowY = titleY - 3;
-
-      displayTitleLines.forEach((line, idx) => {
-        ctx.fillText(line, titleBoxX, titleRowY + idx * TITLE_LINE_HEIGHT);
-      });
+      displayTitleLines.forEach((line, idx) => ctx.fillText(line, titleBoxX, titleRowY + idx * TITLE_LINE_HEIGHT));
 
       const titleBlockHeight = displayTitleLines.length * TITLE_LINE_HEIGHT;
       const yearY = titleRowY + titleBlockHeight + 10;
@@ -3731,17 +3714,14 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
         const yearText = String(seriesYear);
         ctx.font = `bold ${YEAR_FONT_SIZE}px Inter, system-ui`;
         const yearW = ctx.measureText(yearText).width + 44;
-
         const yearGrad = ctx.createLinearGradient(titleBoxX, yearY, titleBoxX + yearW, yearY + 46);
         yearGrad.addColorStop(0, PALETTE.primary);
         yearGrad.addColorStop(1, PALETTE.primaryLight);
-
         ctx.fillStyle = yearGrad;
         ctx.beginPath();
         if (ctx.roundRect) ctx.roundRect(titleBoxX, yearY, yearW, 46, 23);
         else ctx.rect(titleBoxX, yearY, yearW, 46);
         ctx.fill();
-
         ctx.fillStyle = PALETTE.white;
         ctx.textAlign = 'left';
         ctx.textBaseline = 'middle';
@@ -3749,21 +3729,17 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
       }
 
       // ===== "Всего: N" =====
-      const totalItems = allItems.length;
       const totalY = yearY + 60;
-
       ctx.font = `bold 20px Inter, system-ui`;
       ctx.fillStyle = PALETTE.textMuted;
       ctx.textAlign = 'left';
       ctx.textBaseline = 'top';
-      const totalLabel = lang === 'ru' ? `Всего: ${totalItems}` : `Total: ${totalItems}`;
-      ctx.fillText(totalLabel, padding, totalY);
+      ctx.fillText(lang === 'ru' ? `Всего: ${allItems.length}` : `Total: ${allItems.length}`, padding, totalY);
 
       // ===== QR-КОД =====
       const qrX = totalWidth - padding - qrSize;
       const qrY = padding + 10;
 
-      // Карточка QR
       ctx.save();
       ctx.shadowColor = 'rgba(79, 70, 229, 0.15)';
       ctx.shadowBlur = 24;
@@ -3775,7 +3751,6 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
       ctx.fill();
       ctx.restore();
 
-      // Обводка
       ctx.strokeStyle = PALETTE.cardBorder;
       ctx.lineWidth = 2;
       ctx.beginPath();
@@ -3783,11 +3758,9 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
       else ctx.rect(qrX - 14, qrY - 14, qrSize + 28, qrSize + 28);
       ctx.stroke();
 
-      // Сам QR или заглушка
       if (qrImage && qrImage.complete && qrImage.naturalWidth > 0) {
         ctx.drawImage(qrImage, qrX, qrY, qrSize, qrSize);
       } else {
-        // Заглушка: рисуем рамку и надпись QR
         ctx.fillStyle = '#f1f5f9';
         ctx.fillRect(qrX, qrY, qrSize, qrSize);
         ctx.fillStyle = PALETTE.primary;
@@ -3799,19 +3772,16 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
 
       // ===== ЗАГОЛОВОК "ПОЛНАЯ КОЛЛЕКЦИЯ" =====
       const sectionHeaderY = padding + headerHeight;
-
       const sectionText = lang === 'ru' ? 'ПОЛНАЯ КОЛЛЕКЦИЯ' : 'FULL COLLECTION';
       ctx.font = 'bold 26px Inter, system-ui';
       const sectionTextW = ctx.measureText(sectionText).width;
       const sectionHeaderW = sectionTextW + 100;
       const sectionHeaderH = 52;
 
-      // Градиент
       const sectionGrad = ctx.createLinearGradient(padding, sectionHeaderY, padding + sectionHeaderW, sectionHeaderY + sectionHeaderH);
       sectionGrad.addColorStop(0, PALETTE.primary);
       sectionGrad.addColorStop(1, PALETTE.primaryLight);
 
-      // Тень
       ctx.save();
       ctx.fillStyle = PALETTE.primaryDark;
       ctx.beginPath();
@@ -3820,260 +3790,263 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
       ctx.fill();
       ctx.restore();
 
-      // Основная плашка
       ctx.fillStyle = sectionGrad;
       ctx.beginPath();
       if (ctx.roundRect) ctx.roundRect(padding, sectionHeaderY, sectionHeaderW, sectionHeaderH, 26);
       else ctx.rect(padding, sectionHeaderY, sectionHeaderW, sectionHeaderH);
       ctx.fill();
 
-      // Текст
       ctx.fillStyle = PALETTE.white;
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       ctx.fillText(sectionText, padding + sectionHeaderW / 2, sectionHeaderY + sectionHeaderH / 2 + 1);
 
-      // Счётчик справа
-      const countText = String(totalItems);
+      // Счётчик
+      const countText = String(allItems.length);
       ctx.font = 'bold 20px Inter, system-ui';
       const countW = ctx.measureText(countText).width + 24;
       const countX = padding + sectionHeaderW + 14;
-
       ctx.fillStyle = '#eef2ff';
       ctx.beginPath();
       if (ctx.roundRect) ctx.roundRect(countX, sectionHeaderY + 10, countW, 32, 16);
       else ctx.rect(countX, sectionHeaderY + 10, countW, 32);
       ctx.fill();
-
       ctx.fillStyle = PALETTE.primary;
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       ctx.fillText(countText, countX + countW / 2, sectionHeaderY + 26);
 
-      // ===== ОТРИСОВКА ЯЧЕЙКИ =====
-      function drawCell(x, y, item, num) {
-        // ===== КАРТОЧКА ФОТО =====
+      // ============================================================
+      // КАРТОЧКА В СТИЛЕ POKÉMON TCG
+      // ============================================================
+      function drawTcgCard(x, y, item, num) {
+        const tc = typeColors[item._type] || typeColors.figure;
+
+        // ===== ВНЕШНЯЯ РАМКА (толстая цветная) =====
+        // Тень
         ctx.save();
-        ctx.shadowColor = 'rgba(79, 70, 229, 0.12)';
-        ctx.shadowBlur = 15;
-        ctx.shadowOffsetY = 5;
-        ctx.fillStyle = PALETTE.white;
+        ctx.shadowColor = 'rgba(0,0,0,0.15)';
+        ctx.shadowBlur = 18;
+        ctx.shadowOffsetY = 6;
+        ctx.fillStyle = tc.main;
         ctx.beginPath();
-        if (ctx.roundRect) ctx.roundRect(x, y, itemSize, itemSize, 20);
-        else ctx.rect(x, y, itemSize, itemSize);
+        if (ctx.roundRect) ctx.roundRect(x, y, cardW, cardH, 18);
+        else ctx.rect(x, y, cardW, cardH);
         ctx.fill();
         ctx.restore();
 
-        // Обводка
-        ctx.strokeStyle = PALETTE.cardBorder;
-        ctx.lineWidth = 2;
+        // ===== ВНУТРЕННЯЯ ОБЛАСТЬ (светлая) =====
+        const innerPad = 8;
+        const innerX = x + innerPad;
+        const innerY = y + innerPad;
+        const innerW = cardW - innerPad * 2;
+        const innerH = cardH - innerPad * 2;
+
+        // Градиент внутри
+        const innerGrad = ctx.createLinearGradient(innerX, innerY, innerX, innerY + innerH);
+        innerGrad.addColorStop(0, tc.light);
+        innerGrad.addColorStop(1, PALETTE.white);
+
+        ctx.fillStyle = innerGrad;
         ctx.beginPath();
-        if (ctx.roundRect) ctx.roundRect(x, y, itemSize, itemSize, 20);
-        else ctx.rect(x, y, itemSize, itemSize);
-        ctx.stroke();
+        if (ctx.roundRect) ctx.roundRect(innerX, innerY, innerW, innerH, 12);
+        else ctx.rect(innerX, innerY, innerW, innerH);
+        ctx.fill();
 
-        // ===== БЕЙДЖ (ДОП / ВАРИАНТ) =====
-        if (item._badge) {
-          const badgeText = item._badge;
-          const badgeColor = item._badge === 'ДОП' ? '#10b981' : '#f59e0b';
+        // ===== ВЕРХНЯЯ ПЛАШКА: НАЗВАНИЕ + ТИП =====
+        const headerH = 40;
+        const headerX = innerX + 6;
+        const headerY = innerY + 6;
+        const headerW = innerW - 12;
 
+        // Плашка с градиентом
+        const headGrad = ctx.createLinearGradient(headerX, headerY, headerX + headerW, headerY + headerH);
+        headGrad.addColorStop(0, tc.main);
+        headGrad.addColorStop(1, PALETTE.primaryLight);
+
+        ctx.fillStyle = headGrad;
+        ctx.beginPath();
+        if (ctx.roundRect) ctx.roundRect(headerX, headerY, headerW, headerH, 8);
+        else ctx.rect(headerX, headerY, headerW, headerH);
+        ctx.fill();
+
+        // Название
+        const itemName = (lang === 'en' && item.name_en) ? item.name_en : item.name;
+        const isDefault = isDefaultName(item);
+
+        if (!isDefault && itemName) {
           ctx.font = 'bold 13px Inter, system-ui';
-          const badgeTextW = ctx.measureText(badgeText).width;
-          const badgeW = badgeTextW + 20;
-          const badgeH = 26;
-          const badgeX = x + itemSize - badgeW - 8;
-          const badgeY = y + 8;
-
-          // Тень бейджа
-          ctx.save();
-          ctx.fillStyle = badgeColor;
-          ctx.beginPath();
-          if (ctx.roundRect) ctx.roundRect(badgeX, badgeY + 2, badgeW, badgeH, 13);
-          else ctx.rect(badgeX, badgeY + 2, badgeW, badgeH);
-          ctx.fill();
-          ctx.restore();
-
-          // Бейдж
-          ctx.fillStyle = badgeColor;
-          ctx.beginPath();
-          if (ctx.roundRect) ctx.roundRect(badgeX, badgeY, badgeW, badgeH, 13);
-          else ctx.rect(badgeX, badgeY, badgeW, badgeH);
-          ctx.fill();
-
           ctx.fillStyle = PALETTE.white;
           ctx.textAlign = 'center';
           ctx.textBaseline = 'middle';
-          ctx.fillText(badgeText, badgeX + badgeW / 2, badgeY + badgeH / 2 + 1);
+
+          let displayName = itemName;
+          const maxNameW = headerW - 12;
+          while (ctx.measureText(displayName).width > maxNameW && displayName.length > 3) {
+            displayName = displayName.substring(0, displayName.length - 1);
+          }
+          if (displayName !== itemName) {
+            displayName = displayName.substring(0, displayName.length - 1) + '…';
+          }
+          ctx.fillText(displayName, headerX + headerW / 2, headerY + headerH / 2 + 1);
+        } else {
+          // Если имя дефолтное — пишем тип
+          ctx.font = 'bold 14px Inter, system-ui';
+          ctx.fillStyle = PALETTE.white;
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText(item._typeLabel, headerX + headerW / 2, headerY + headerH / 2 + 1);
         }
 
         // ===== ФОТО =====
+        const photoX = innerX + 6;
+        const photoY = headerY + headerH + 6;
+        const photoW = innerW - 12;
+        const photoH = 150;
+
+        // Рамка фото
+        ctx.fillStyle = PALETTE.white;
+        ctx.beginPath();
+        if (ctx.roundRect) ctx.roundRect(photoX, photoY, photoW, photoH, 8);
+        else ctx.rect(photoX, photoY, photoW, photoH);
+        ctx.fill();
+
+        ctx.strokeStyle = tc.main;
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        if (ctx.roundRect) ctx.roundRect(photoX, photoY, photoW, photoH, 8);
+        else ctx.rect(photoX, photoY, photoW, photoH);
+        ctx.stroke();
+
+        // Фото внутри
         const img = imageMap.get(item.id || item.name);
         if (img && img.complete && img.naturalWidth > 0) {
-          const maxImgSize = itemSize - 16;
+          const maxImgW = photoW - 10;
+          const maxImgH = photoH - 10;
           const iw = img.naturalWidth;
           const ih = img.naturalHeight;
-          let dw, dh;
-          if (iw > ih) {
-            dw = maxImgSize;
-            dh = (ih / iw) * maxImgSize;
-          } else {
-            dh = maxImgSize;
-            dw = (iw / ih) * maxImgSize;
-          }
-          const imgX = x + (itemSize - dw) / 2;
-          const imgY = y + (itemSize - dh) / 2;
+          const ratio = Math.min(maxImgW / iw, maxImgH / ih);
+          const dw = iw * ratio;
+          const dh = ih * ratio;
+          const imgX = photoX + (photoW - dw) / 2;
+          const imgY = photoY + (photoH - dh) / 2;
 
           ctx.save();
           ctx.beginPath();
-          if (ctx.roundRect) ctx.roundRect(x + 4, y + 4, itemSize - 8, itemSize - 8, 16);
-          else ctx.rect(x + 4, y + 4, itemSize - 8, itemSize - 8);
+          if (ctx.roundRect) ctx.roundRect(photoX + 3, photoY + 3, photoW - 6, photoH - 6, 6);
+          else ctx.rect(photoX + 3, photoY + 3, photoW - 6, photoH - 6);
           ctx.clip();
           ctx.drawImage(img, imgX, imgY, dw, dh);
           ctx.restore();
         } else {
           ctx.fillStyle = '#f1f5f9';
           ctx.beginPath();
-          if (ctx.roundRect) ctx.roundRect(x + 8, y + 8, itemSize - 16, itemSize - 16, 14);
-          else ctx.rect(x + 8, y + 8, itemSize - 16, itemSize - 16);
+          if (ctx.roundRect) ctx.roundRect(photoX + 3, photoY + 3, photoW - 6, photoH - 6, 6);
+          else ctx.rect(photoX + 3, photoY + 3, photoW - 6, photoH - 6);
           ctx.fill();
-          ctx.font = '44px Inter';
+          ctx.font = '40px Inter';
           ctx.fillStyle = '#94a3b8';
           ctx.textAlign = 'center';
           ctx.textBaseline = 'middle';
-          ctx.fillText('🖼️', x + itemSize/2, y + itemSize/2);
+          ctx.fillText('🖼️', photoX + photoW/2, photoY + photoH/2);
         }
 
-        // ===== ВОДЯНОЙ ЗНАК =====
+        // Водяной знак
         ctx.save();
-        ctx.globalAlpha = 0.4;
-        ctx.translate(x + itemSize/2, y + itemSize/2);
+        ctx.globalAlpha = 0.35;
+        ctx.translate(photoX + photoW/2, photoY + photoH/2);
         ctx.rotate(-Math.PI / 4);
-        ctx.font = `bold ${Math.floor(itemSize * 0.16)}px Inter, system-ui`;
+        ctx.font = 'bold 22px Inter, system-ui';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-        ctx.lineWidth = 4;
+        ctx.lineWidth = 3;
         ctx.strokeStyle = PALETTE.white;
         ctx.strokeText('MANSUR', 0, 0);
-        ctx.fillStyle = PALETTE.primary;
+        ctx.fillStyle = tc.main;
         ctx.fillText('MANSUR', 0, 0);
         ctx.restore();
 
-        // ===== НОМЕР (медальон) =====
-        const labelY = y + itemSize + labelGap;
-        const numCircleR = 20;
-        const numCX = x + numCircleR;
+        // ===== НИЖНЯЯ ПЛАШКА: ТИП + КОД =====
+        const bottomY = photoY + photoH + 6;
+        const bottomH = innerH - (bottomY - innerY) - 6;
+        const bottomX = innerX + 6;
+        const bottomW = innerW - 12;
 
-        const numGrad = ctx.createLinearGradient(numCX - numCircleR, labelY + 20 - numCircleR, numCX + numCircleR, labelY + 20 + numCircleR);
-        numGrad.addColorStop(0, PALETTE.primary);
-        numGrad.addColorStop(1, PALETTE.primaryLight);
+        // Два блока: тип и код
+        const typeBlockW = 70;
+        const codeBlockW = bottomW - typeBlockW - 6;
 
-        // Тень медальона
-        ctx.save();
-        ctx.fillStyle = PALETTE.primaryDark;
+        // ===== Блок типа (номер + тип) =====
+        ctx.fillStyle = tc.main;
         ctx.beginPath();
-        ctx.arc(numCX, labelY + 22 + 3, numCircleR, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.restore();
-
-        // Круг
-        ctx.fillStyle = numGrad;
-        ctx.beginPath();
-        ctx.arc(numCX, labelY + 20, numCircleR, 0, Math.PI * 2);
+        if (ctx.roundRect) ctx.roundRect(bottomX, bottomY, typeBlockW, bottomH, 8);
+        else ctx.rect(bottomX, bottomY, typeBlockW, bottomH);
         ctx.fill();
 
-        // Цифра
+        // Номер
+        ctx.font = 'bold 22px Inter, system-ui';
         ctx.fillStyle = PALETTE.white;
-        ctx.font = 'bold 20px Inter, system-ui';
         ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.fillText(String(num), numCX, labelY + 21);
+        ctx.textBaseline = 'top';
+        ctx.fillText(String(num), bottomX + typeBlockW / 2, bottomY + 4);
 
-        // ===== КОД =====
+        // Тип
+        ctx.font = 'bold 10px Inter, system-ui';
+        ctx.textBaseline = 'bottom';
+        ctx.fillText(item._typeLabel, bottomX + typeBlockW / 2, bottomY + bottomH - 4);
+
+        // ===== Блок кода =====
+        const codeX = bottomX + typeBlockW + 6;
+
+        ctx.fillStyle = PALETTE.white;
+        ctx.beginPath();
+        if (ctx.roundRect) ctx.roundRect(codeX, bottomY, codeBlockW, bottomH, 8);
+        else ctx.rect(codeX, bottomY, codeBlockW, bottomH);
+        ctx.fill();
+
+        ctx.strokeStyle = tc.main + '55';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        if (ctx.roundRect) ctx.roundRect(codeX, bottomY, codeBlockW, bottomH, 8);
+        else ctx.rect(codeX, bottomY, codeBlockW, bottomH);
+        ctx.stroke();
+
+        // Код
         const itemCode = item.code && item.code.trim() ? item.code : '';
         if (itemCode) {
-          const codeX = x + numCircleR * 2 + 8;
-          const codeW = itemSize - (numCircleR * 2) - 8;
-          const codeH = 40;
-
-          // Плашка кода
-          ctx.fillStyle = '#eef2ff';
-          ctx.beginPath();
-          if (ctx.roundRect) ctx.roundRect(codeX, labelY, codeW, codeH, 10);
-          else ctx.rect(codeX, labelY, codeW, codeH);
-          ctx.fill();
-
-          // Обводка
-          ctx.strokeStyle = PALETTE.primary + '33';
-          ctx.lineWidth = 1.5;
-          ctx.stroke();
-
-          // Текст
           let displayCode = itemCode;
-          ctx.font = 'bold 18px monospace';
-          ctx.fillStyle = PALETTE.primary;
+          ctx.font = 'bold 15px monospace';
+          ctx.fillStyle = tc.main;
           ctx.textAlign = 'center';
           ctx.textBaseline = 'middle';
-          while (ctx.measureText(displayCode).width > codeW - 16 && displayCode.length > 3) {
+          while (ctx.measureText(displayCode).width > codeBlockW - 10 && displayCode.length > 3) {
             displayCode = displayCode.substring(0, displayCode.length - 1);
           }
           if (displayCode !== itemCode) {
             displayCode = displayCode.substring(0, displayCode.length - 1) + '…';
           }
-          ctx.fillText(displayCode, codeX + codeW/2, labelY + codeH/2 + 1);
-        }
-
-        // ===== НАЗВАНИЕ =====
-        const nameY = labelY + codeRowHeight + labelGap;
-        const itemName = (lang === 'en' && item.name_en) ? item.name_en : item.name;
-        const isDefault = isDefaultName(item);
-
-        if (!isDefault && itemName) {
-          ctx.font = 'bold 15px Inter, system-ui';
-          ctx.fillStyle = PALETTE.text;
-          ctx.textAlign = 'center';
-          ctx.textBaseline = 'middle';
-
-          const maxW = itemSize - 12;
-          const words = itemName.split(' ');
-          const lines = [];
-          let cur = '';
-          for (const w of words) {
-            const test = cur ? cur + ' ' + w : w;
-            if (ctx.measureText(test).width > maxW && cur) { lines.push(cur); cur = w; }
-            else cur = test;
-          }
-          if (cur) lines.push(cur);
-
-          const dispLines = lines.slice(0, 2);
-          const lh = 18;
-          const totalTextH = dispLines.length * lh;
-          const startY = nameY + (nameRowHeight - totalTextH) / 2 + lh / 2;
-
-          dispLines.forEach((line, k) => {
-            ctx.fillText(line, x + itemSize / 2, startY + k * lh);
-          });
+          ctx.fillText(displayCode, codeX + codeBlockW / 2, bottomY + bottomH / 2 + 1);
         }
       }
 
-      // ===== РИСУЕМ ВСЕ ЯЧЕЙКИ =====
+      // ===== РИСУЕМ ВСЕ КАРТОЧКИ =====
       let gridY = sectionHeaderY + 80;
       let col = 0;
 
       for (let i = 0; i < allItems.length; i++) {
         const item = allItems[i];
-        const x = padding + col * (itemSize + itemGap);
-        drawCell(x, gridY, item, i + 1);
+        const x = padding + col * (cardW + itemGap);
+        drawTcgCard(x, gridY, item, i + 1);
 
         col++;
         if (col >= itemsPerRow) {
           col = 0;
-          gridY += cellHeight + itemGap;
+          gridY += cardH + itemGap;
         }
       }
 
       // ===== ФУТЕР =====
       const footerY = totalHeight - footerHeight;
-
       ctx.strokeStyle = PALETTE.cardBorder;
       ctx.lineWidth = 1;
       ctx.beginPath();
@@ -4085,8 +4058,10 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
       ctx.fillStyle = PALETTE.textMuted;
       ctx.textAlign = 'left';
       ctx.textBaseline = 'middle';
-      const footerText = lang === 'ru' ? 'Скачано с manspo.github.io' : 'Downloaded from manspo.github.io';
-      ctx.fillText(footerText, padding, footerY + footerHeight / 2);
+      ctx.fillText(
+        lang === 'ru' ? 'Скачано с manspo.github.io' : 'Downloaded from manspo.github.io',
+        padding, footerY + footerHeight / 2
+      );
 
       // ===== ЭКСПОРТ =====
       const jpegData = canvas.toDataURL('image/jpeg', 0.95);
@@ -4096,7 +4071,7 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
       reject(error);
     }
   });
-} 
+}
 
 async function downloadCollage(seriesId, seriesName, onlyForSale = false) {
     if (isDownloadingChecklist) {
