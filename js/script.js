@@ -4096,7 +4096,7 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
       reject(error);
     }
   });
-}
+} 
 
 async function downloadCollage(seriesId, seriesName, onlyForSale = false) {
     if (isDownloadingChecklist) {
