@@ -3613,12 +3613,16 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
         textMuted: '#64748b',
         white: '#ffffff',
         cardBorder: '#c7d2fe',
+        // Единый цвет полоски — тёмно-фиолетовый
+        stripeMain: '#4338ca',
+        stripeDark: '#3730a3',
+        // Название — тёмно-синий + голубая рамка
         nameBg: '#eff6ff',
         nameBorder: '#93c5fd',
         nameText: '#1e40af'
       };
 
-      // ===== ЦВЕТА ПО ТИПУ =====
+      // ===== ЦВЕТА ПО ТИПУ (только для рамок фото) =====
       const typeColors = {
         figure: {
           main: '#4f46e5',
@@ -3814,21 +3818,23 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
       function drawCell(x, y, item, num) {
         const tc = typeColors[item._type] || typeColors.figure;
 
-        // ===== ВЕРХНЯЯ ПОЛОСКА С ТЕКСТОМ =====
+        // ===== ВЕРХНЯЯ ПОЛОСКА (тёмно-фиолетовая, одинаковая для всех) =====
         const stripeY = y;
         const stripeH = stripeHeight;
 
+        // Тень полоски
         ctx.save();
-        ctx.fillStyle = tc.main;
+        ctx.fillStyle = PALETTE.stripeDark;
         ctx.beginPath();
         if (ctx.roundRect) ctx.roundRect(x, stripeY + 2, itemSize, stripeH, [12, 12, 0, 0]);
         else ctx.rect(x, stripeY, itemSize, stripeH);
         ctx.fill();
         ctx.restore();
 
+        // Полоска
         const stripeGrad = ctx.createLinearGradient(x, stripeY, x + itemSize, stripeY + stripeH);
-        stripeGrad.addColorStop(0, tc.main);
-        stripeGrad.addColorStop(1, tc.border);
+        stripeGrad.addColorStop(0, PALETTE.stripeMain);
+        stripeGrad.addColorStop(1, PALETTE.stripeDark);
 
         ctx.fillStyle = stripeGrad;
         ctx.beginPath();
@@ -3836,6 +3842,7 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
         else ctx.rect(x, stripeY, itemSize, stripeH);
         ctx.fill();
 
+        // Текст типа
         ctx.font = 'bold 12px Inter, system-ui';
         ctx.fillStyle = PALETTE.white;
         ctx.textAlign = 'center';
@@ -3918,38 +3925,41 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
         ctx.lineWidth = 3;
         ctx.strokeStyle = PALETTE.white;
         ctx.strokeText('MANSUR', 0, 0);
-        ctx.fillStyle = tc.main;
+        ctx.fillStyle = PALETTE.primary;
         ctx.fillText('MANSUR', 0, 0);
         ctx.restore();
 
-        // ===== НОМЕР (медальон) =====
+        // ===== НОМЕР (медальон — всегда фиолетовый) =====
         const labelY = photoY + photoH + labelGap;
         const numCircleR = 19;
         const numCX = x + numCircleR;
 
         const numGrad = ctx.createLinearGradient(numCX - numCircleR, labelY + numCircleR, numCX + numCircleR, labelY + numCircleR * 3);
-        numGrad.addColorStop(0, tc.main);
-        numGrad.addColorStop(1, tc.border);
+        numGrad.addColorStop(0, PALETTE.primary);
+        numGrad.addColorStop(1, PALETTE.primaryLight);
 
+        // Тень медальона
         ctx.save();
-        ctx.fillStyle = tc.main;
+        ctx.fillStyle = PALETTE.primaryDark;
         ctx.beginPath();
         ctx.arc(numCX, labelY + numCircleR + 3, numCircleR, 0, Math.PI * 2);
         ctx.fill();
         ctx.restore();
 
+        // Круг
         ctx.fillStyle = numGrad;
         ctx.beginPath();
         ctx.arc(numCX, labelY + numCircleR, numCircleR, 0, Math.PI * 2);
         ctx.fill();
 
+        // Цифра
         ctx.fillStyle = PALETTE.white;
         ctx.font = 'bold 20px Inter, system-ui';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         ctx.fillText(String(num), numCX, labelY + numCircleR + 1);
 
-        // ===== КОД (рисуем всегда) =====
+        // ===== КОД (всегда фиолетовый) =====
         const itemCode = item.code && item.code.trim() ? item.code : '';
         const codeX = x + numCircleR * 2 + 8;
         const codeW = itemSize - (numCircleR * 2) - 8;
@@ -3957,7 +3967,7 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
 
         // Тень
         ctx.save();
-        ctx.fillStyle = tc.border;
+        ctx.fillStyle = PALETTE.cardBorder;
         ctx.beginPath();
         if (ctx.roundRect) ctx.roundRect(codeX, labelY + 2, codeW, codeH, 10);
         else ctx.rect(codeX, labelY + 2, codeW, codeH);
@@ -3965,25 +3975,25 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
         ctx.restore();
 
         // Плашка
-        ctx.fillStyle = tc.light;
+        ctx.fillStyle = '#eef2ff';
         ctx.beginPath();
         if (ctx.roundRect) ctx.roundRect(codeX, labelY, codeW, codeH, 10);
         else ctx.rect(codeX, labelY, codeW, codeH);
         ctx.fill();
 
         // Обводка
-        ctx.strokeStyle = tc.main;
+        ctx.strokeStyle = PALETTE.primary;
         ctx.lineWidth = 2.5;
         ctx.beginPath();
         if (ctx.roundRect) ctx.roundRect(codeX, labelY, codeW, codeH, 10);
         else ctx.rect(codeX, labelY, codeW, codeH);
         ctx.stroke();
 
-        // Текст кода (если есть)
+        // Текст кода
         if (itemCode) {
           let displayCode = itemCode;
           ctx.font = 'bold 17px monospace';
-          ctx.fillStyle = tc.main;
+          ctx.fillStyle = PALETTE.primary;
           ctx.textAlign = 'center';
           ctx.textBaseline = 'middle';
           while (ctx.measureText(displayCode).width > codeW - 16 && displayCode.length > 3) {
@@ -3995,7 +4005,7 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
           ctx.fillText(displayCode, codeX + codeW/2, labelY + codeH/2 + 1);
         }
 
-        // ===== НАЗВАНИЕ (рисуем всегда) =====
+        // ===== НАЗВАНИЕ =====
         const nameY = labelY + codeRowHeight + labelGap;
         const itemName = (lang === 'en' && item.name_en) ? item.name_en : item.name;
         const isDefault = isDefaultName(item);
@@ -4028,7 +4038,7 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
         else ctx.rect(nameX, nameY, nameW, nameH);
         ctx.stroke();
 
-        // Текст названия (если не дефолтное)
+        // Текст названия
         if (!isDefault && itemName) {
           ctx.font = 'bold 15px Inter, system-ui';
           ctx.fillStyle = PALETTE.nameText;
