@@ -3590,17 +3590,19 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
 
       // ===== РАЗМЕРЫ =====
       const itemsPerRow = 6;
-      const cardW = 200;   // ширина карточки
-      const cardH = 290;   // высота карточки (квадрат фото + плашки)
+      const itemSize = 200;
       const itemGap = 16;
       const padding = 36;
       const headerHeight = 280;
-      const footerHeight = 90;
+      const footerHeight = 80;
       const qrSize = 180;
+      const labelGap = 8;
+      const codeRowHeight = 42;
+      const nameRowHeight = 46;
+      const stripeHeight = 30;
 
       const TITLE_FONT_SIZE = 40;
       const TITLE_LINE_HEIGHT = 50;
-      const YEAR_FONT_SIZE = 32;
 
       // ===== ПАЛИТРА =====
       const PALETTE = {
@@ -3610,23 +3612,44 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
         text: '#1e1b4b',
         textMuted: '#64748b',
         white: '#ffffff',
-        cardBorder: '#e0e7ff'
+        cardBorder: '#c7d2fe',
+        // Название — тёплый розово-фиолетовый
+        nameBg: '#fdf2f8',
+        nameBorder: '#f9a8d4',
+        nameText: '#be185d'
       };
 
-      // ===== ЦВЕТА РАМОК ПО ТИПУ =====
+      // ===== ЦВЕТА ПО ТИПУ =====
       const typeColors = {
-        figure:  { main: '#4f46e5', light: '#eef2ff', label: 'ФИГУРКА' },
-        extra:   { main: '#10b981', light: '#ecfdf5', label: 'ДОП' },
-        variant: { main: '#f59e0b', light: '#fffbeb', label: 'ВАРИАНТ' }
+        figure: {
+          main: '#4f46e5',
+          light: '#eef2ff',
+          border: '#a5b4fc',
+          label: lang === 'en' ? 'FIGURE' : 'ФИГУРКА'
+        },
+        extra: {
+          main: '#10b981',
+          light: '#ecfdf5',
+          border: '#6ee7b7',
+          label: lang === 'en' ? 'EXTRA' : 'ДОП'
+        },
+        variant: {
+          main: '#f59e0b',
+          light: '#fffbeb',
+          border: '#fcd34d',
+          label: lang === 'en' ? 'VARIANT' : 'ВАРИАНТ'
+        }
       };
 
-      const totalWidth = padding * 2 + itemsPerRow * cardW + (itemsPerRow - 1) * itemGap;
+      const totalWidth = padding * 2 + itemsPerRow * itemSize + (itemsPerRow - 1) * itemGap;
       const totalRows = Math.ceil(allItems.length / itemsPerRow);
 
+      const cellHeight = itemSize + labelGap + codeRowHeight + labelGap + nameRowHeight + stripeHeight;
+
       let totalHeight = padding + headerHeight;
-      totalHeight += 80; // заголовок "ПОЛНАЯ КОЛЛЕКЦИЯ"
-      totalHeight += totalRows * cardH + Math.max(0, totalRows - 1) * itemGap;
-      totalHeight += 40 + footerHeight + padding;
+      totalHeight += 70; // заголовок "ПОЛНАЯ КОЛЛЕКЦИЯ"
+      totalHeight += totalRows * cellHeight + Math.max(0, totalRows - 1) * itemGap;
+      totalHeight += footerHeight + padding;
 
       // ===== CANVAS =====
       const SCALE = 1.5;
@@ -3638,23 +3661,24 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
       ctx.imageSmoothingQuality = 'high';
       ctx.scale(SCALE, SCALE);
 
-      // ===== ФОН =====
+      // ===== ФОН: розово-лавандовый градиент =====
       const bgGrad = ctx.createLinearGradient(0, 0, totalWidth, totalHeight);
-      bgGrad.addColorStop(0, '#f5f3ff');
-      bgGrad.addColorStop(0.5, '#f0f9ff');
-      bgGrad.addColorStop(1, '#f0fdfa');
+      bgGrad.addColorStop(0, '#faf5ff');   // очень светлая лаванда
+      bgGrad.addColorStop(0.4, '#fdf2f8'); // розовый оттенок
+      bgGrad.addColorStop(1, '#eef2ff');   // светло-фиолетовый
       ctx.fillStyle = bgGrad;
       ctx.fillRect(0, 0, totalWidth, totalHeight);
 
+      // Мягкие цветные пятна
       const blob1 = ctx.createRadialGradient(totalWidth - 150, 150, 0, totalWidth - 150, 150, 400);
-      blob1.addColorStop(0, 'rgba(129, 140, 248, 0.15)');
+      blob1.addColorStop(0, 'rgba(129, 140, 248, 0.18)');
       blob1.addColorStop(1, 'rgba(129, 140, 248, 0)');
       ctx.fillStyle = blob1;
       ctx.fillRect(0, 0, totalWidth, totalHeight);
 
       const blob2 = ctx.createRadialGradient(150, totalHeight - 150, 0, 150, totalHeight - 150, 400);
-      blob2.addColorStop(0, 'rgba(16, 185, 129, 0.1)');
-      blob2.addColorStop(1, 'rgba(16, 185, 129, 0)');
+      blob2.addColorStop(0, 'rgba(244, 114, 182, 0.12)');
+      blob2.addColorStop(1, 'rgba(244, 114, 182, 0)');
       ctx.fillStyle = blob2;
       ctx.fillRect(0, 0, totalWidth, totalHeight);
 
@@ -3709,28 +3733,18 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
       const titleBlockHeight = displayTitleLines.length * TITLE_LINE_HEIGHT;
       const yearY = titleRowY + titleBlockHeight + 10;
 
-      // ===== ГОД =====
+      // ===== ГОД — просто текст, без плашки =====
       if (seriesYear) {
-        const yearText = String(seriesYear);
-        ctx.font = `bold ${YEAR_FONT_SIZE}px Inter, system-ui`;
-        const yearW = ctx.measureText(yearText).width + 44;
-        const yearGrad = ctx.createLinearGradient(titleBoxX, yearY, titleBoxX + yearW, yearY + 46);
-        yearGrad.addColorStop(0, PALETTE.primary);
-        yearGrad.addColorStop(1, PALETTE.primaryLight);
-        ctx.fillStyle = yearGrad;
-        ctx.beginPath();
-        if (ctx.roundRect) ctx.roundRect(titleBoxX, yearY, yearW, 46, 23);
-        else ctx.rect(titleBoxX, yearY, yearW, 46);
-        ctx.fill();
-        ctx.fillStyle = PALETTE.white;
+        ctx.font = `bold 28px Inter, system-ui`;
+        ctx.fillStyle = PALETTE.primary;
         ctx.textAlign = 'left';
-        ctx.textBaseline = 'middle';
-        ctx.fillText(yearText, titleBoxX + 22, yearY + 24);
+        ctx.textBaseline = 'top';
+        ctx.fillText(String(seriesYear), titleBoxX, yearY);
       }
 
       // ===== "Всего: N" =====
-      const totalY = yearY + 60;
-      ctx.font = `bold 20px Inter, system-ui`;
+      const totalY = yearY + 42;
+      ctx.font = `bold 18px Inter, system-ui`;
       ctx.fillStyle = PALETTE.textMuted;
       ctx.textAlign = 'left';
       ctx.textBaseline = 'top';
@@ -3752,7 +3766,7 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
       ctx.restore();
 
       ctx.strokeStyle = PALETTE.cardBorder;
-      ctx.lineWidth = 2;
+      ctx.lineWidth = 2.5;
       ctx.beginPath();
       if (ctx.roundRect) ctx.roundRect(qrX - 14, qrY - 14, qrSize + 28, qrSize + 28, 20);
       else ctx.rect(qrX - 14, qrY - 14, qrSize + 28, qrSize + 28);
@@ -3770,193 +3784,152 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
         ctx.fillText('QR', qrX + qrSize/2, qrY + qrSize/2);
       }
 
-      // ===== ЗАГОЛОВОК "ПОЛНАЯ КОЛЛЕКЦИЯ" =====
+      // ===== ЗАГОЛОВОК "ПОЛНАЯ КОЛЛЕКЦИЯ" (без счётчика) =====
       const sectionHeaderY = padding + headerHeight;
       const sectionText = lang === 'ru' ? 'ПОЛНАЯ КОЛЛЕКЦИЯ' : 'FULL COLLECTION';
-      ctx.font = 'bold 26px Inter, system-ui';
+      ctx.font = 'bold 24px Inter, system-ui';
       const sectionTextW = ctx.measureText(sectionText).width;
-      const sectionHeaderW = sectionTextW + 100;
-      const sectionHeaderH = 52;
+      const sectionHeaderW = sectionTextW + 80;
+      const sectionHeaderH = 48;
 
       const sectionGrad = ctx.createLinearGradient(padding, sectionHeaderY, padding + sectionHeaderW, sectionHeaderY + sectionHeaderH);
       sectionGrad.addColorStop(0, PALETTE.primary);
       sectionGrad.addColorStop(1, PALETTE.primaryLight);
 
+      // Тень
       ctx.save();
       ctx.fillStyle = PALETTE.primaryDark;
       ctx.beginPath();
-      if (ctx.roundRect) ctx.roundRect(padding, sectionHeaderY + 4, sectionHeaderW, sectionHeaderH, 26);
+      if (ctx.roundRect) ctx.roundRect(padding, sectionHeaderY + 4, sectionHeaderW, sectionHeaderH, 24);
       else ctx.rect(padding, sectionHeaderY + 4, sectionHeaderW, sectionHeaderH);
       ctx.fill();
       ctx.restore();
 
+      // Плашка
       ctx.fillStyle = sectionGrad;
       ctx.beginPath();
-      if (ctx.roundRect) ctx.roundRect(padding, sectionHeaderY, sectionHeaderW, sectionHeaderH, 26);
+      if (ctx.roundRect) ctx.roundRect(padding, sectionHeaderY, sectionHeaderW, sectionHeaderH, 24);
       else ctx.rect(padding, sectionHeaderY, sectionHeaderW, sectionHeaderH);
       ctx.fill();
 
+      // Текст
       ctx.fillStyle = PALETTE.white;
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       ctx.fillText(sectionText, padding + sectionHeaderW / 2, sectionHeaderY + sectionHeaderH / 2 + 1);
 
-      // Счётчик
-      const countText = String(allItems.length);
-      ctx.font = 'bold 20px Inter, system-ui';
-      const countW = ctx.measureText(countText).width + 24;
-      const countX = padding + sectionHeaderW + 14;
-      ctx.fillStyle = '#eef2ff';
-      ctx.beginPath();
-      if (ctx.roundRect) ctx.roundRect(countX, sectionHeaderY + 10, countW, 32, 16);
-      else ctx.rect(countX, sectionHeaderY + 10, countW, 32);
-      ctx.fill();
-      ctx.fillStyle = PALETTE.primary;
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.fillText(countText, countX + countW / 2, sectionHeaderY + 26);
-
       // ============================================================
-      // КАРТОЧКА В СТИЛЕ POKÉMON TCG
+      // КАРТОЧКА
       // ============================================================
-      function drawTcgCard(x, y, item, num) {
+      function drawCell(x, y, item, num) {
         const tc = typeColors[item._type] || typeColors.figure;
 
-        // ===== ВНЕШНЯЯ РАМКА (толстая цветная) =====
-        // Тень
+        // ===== ВЕРХНЯЯ ПОЛОСКА С ТЕКСТОМ (тип) =====
+        const stripeY = y;
+        const stripeH = stripeHeight;
+
+        // Тень полоски
         ctx.save();
-        ctx.shadowColor = 'rgba(0,0,0,0.15)';
-        ctx.shadowBlur = 18;
-        ctx.shadowOffsetY = 6;
         ctx.fillStyle = tc.main;
         ctx.beginPath();
-        if (ctx.roundRect) ctx.roundRect(x, y, cardW, cardH, 18);
-        else ctx.rect(x, y, cardW, cardH);
+        if (ctx.roundRect) ctx.roundRect(x, stripeY + 2, itemSize, stripeH, [12, 12, 0, 0]);
+        else ctx.rect(x, stripeY, itemSize, stripeH);
         ctx.fill();
         ctx.restore();
 
-        // ===== ВНУТРЕННЯЯ ОБЛАСТЬ (светлая) =====
-        const innerPad = 8;
-        const innerX = x + innerPad;
-        const innerY = y + innerPad;
-        const innerW = cardW - innerPad * 2;
-        const innerH = cardH - innerPad * 2;
+        // Полоска с градиентом
+        const stripeGrad = ctx.createLinearGradient(x, stripeY, x + itemSize, stripeY + stripeH);
+        stripeGrad.addColorStop(0, tc.main);
+        stripeGrad.addColorStop(1, tc.border);
 
-        // Градиент внутри
-        const innerGrad = ctx.createLinearGradient(innerX, innerY, innerX, innerY + innerH);
-        innerGrad.addColorStop(0, tc.light);
-        innerGrad.addColorStop(1, PALETTE.white);
-
-        ctx.fillStyle = innerGrad;
+        ctx.fillStyle = stripeGrad;
         ctx.beginPath();
-        if (ctx.roundRect) ctx.roundRect(innerX, innerY, innerW, innerH, 12);
-        else ctx.rect(innerX, innerY, innerW, innerH);
+        if (ctx.roundRect) ctx.roundRect(x, stripeY, itemSize, stripeH, [12, 12, 0, 0]);
+        else ctx.rect(x, stripeY, itemSize, stripeH);
         ctx.fill();
 
-        // ===== ВЕРХНЯЯ ПЛАШКА: НАЗВАНИЕ + ТИП =====
-        const headerH = 40;
-        const headerX = innerX + 6;
-        const headerY = innerY + 6;
-        const headerW = innerW - 12;
+        // Текст на полоске
+        ctx.font = 'bold 12px Inter, system-ui';
+        ctx.fillStyle = PALETTE.white;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(tc.label, x + itemSize / 2, stripeY + stripeH / 2 + 1);
 
-        // Плашка с градиентом
-        const headGrad = ctx.createLinearGradient(headerX, headerY, headerX + headerW, headerY + headerH);
-        headGrad.addColorStop(0, tc.main);
-        headGrad.addColorStop(1, PALETTE.primaryLight);
+        // ===== КАРТОЧКА ФОТО =====
+        const photoY = stripeY + stripeH;
+        const photoH = itemSize;
 
-        ctx.fillStyle = headGrad;
-        ctx.beginPath();
-        if (ctx.roundRect) ctx.roundRect(headerX, headerY, headerW, headerH, 8);
-        else ctx.rect(headerX, headerY, headerW, headerH);
-        ctx.fill();
-
-        // Название
-        const itemName = (lang === 'en' && item.name_en) ? item.name_en : item.name;
-        const isDefault = isDefaultName(item);
-
-        if (!isDefault && itemName) {
-          ctx.font = 'bold 13px Inter, system-ui';
-          ctx.fillStyle = PALETTE.white;
-          ctx.textAlign = 'center';
-          ctx.textBaseline = 'middle';
-
-          let displayName = itemName;
-          const maxNameW = headerW - 12;
-          while (ctx.measureText(displayName).width > maxNameW && displayName.length > 3) {
-            displayName = displayName.substring(0, displayName.length - 1);
-          }
-          if (displayName !== itemName) {
-            displayName = displayName.substring(0, displayName.length - 1) + '…';
-          }
-          ctx.fillText(displayName, headerX + headerW / 2, headerY + headerH / 2 + 1);
-        } else {
-          // Если имя дефолтное — пишем тип
-          ctx.font = 'bold 14px Inter, system-ui';
-          ctx.fillStyle = PALETTE.white;
-          ctx.textAlign = 'center';
-          ctx.textBaseline = 'middle';
-          ctx.fillText(item._typeLabel, headerX + headerW / 2, headerY + headerH / 2 + 1);
-        }
-
-        // ===== ФОТО =====
-        const photoX = innerX + 6;
-        const photoY = headerY + headerH + 6;
-        const photoW = innerW - 12;
-        const photoH = 150;
-
-        // Рамка фото
+        // Тень
+        ctx.save();
+        ctx.shadowColor = 'rgba(79, 70, 229, 0.12)';
+        ctx.shadowBlur = 15;
+        ctx.shadowOffsetY = 5;
         ctx.fillStyle = PALETTE.white;
         ctx.beginPath();
-        if (ctx.roundRect) ctx.roundRect(photoX, photoY, photoW, photoH, 8);
-        else ctx.rect(photoX, photoY, photoW, photoH);
+        if (ctx.roundRect) ctx.roundRect(x, photoY, itemSize, photoH, [0, 0, 12, 12]);
+        else ctx.rect(x, photoY, itemSize, photoH);
         ctx.fill();
+        ctx.restore();
 
-        ctx.strokeStyle = tc.main;
-        ctx.lineWidth = 2;
+        // Обводка — жирнее
+        ctx.strokeStyle = tc.border;
+        ctx.lineWidth = 2.5;
         ctx.beginPath();
-        if (ctx.roundRect) ctx.roundRect(photoX, photoY, photoW, photoH, 8);
-        else ctx.rect(photoX, photoY, photoW, photoH);
+        if (ctx.roundRect) ctx.roundRect(x, photoY, itemSize, photoH, [0, 0, 12, 12]);
+        else ctx.rect(x, photoY, itemSize, photoH);
         ctx.stroke();
 
-        // Фото внутри
+        // ===== ФОТО НА ГРАДИЕНТЕ =====
+        // Внутренний градиент, чтобы белые фигурки не сливались
+        const innerPad = 4;
+        const innerW = itemSize - innerPad * 2;
+        const innerH = photoH - innerPad * 2;
+
+        const photoBgGrad = ctx.createLinearGradient(x, photoY, x + itemSize, photoY + photoH);
+        photoBgGrad.addColorStop(0, '#f8fafc');
+        photoBgGrad.addColorStop(0.5, '#f1f5f9');
+        photoBgGrad.addColorStop(1, '#e0e7ff');
+
+        ctx.fillStyle = photoBgGrad;
+        ctx.beginPath();
+        if (ctx.roundRect) ctx.roundRect(x + innerPad, photoY + innerPad, innerW, innerH, 8);
+        else ctx.rect(x + innerPad, photoY + innerPad, innerW, innerH);
+        ctx.fill();
+
+        // Фото
         const img = imageMap.get(item.id || item.name);
         if (img && img.complete && img.naturalWidth > 0) {
-          const maxImgW = photoW - 10;
-          const maxImgH = photoH - 10;
+          const maxImgW = innerW - 8;
+          const maxImgH = innerH - 8;
           const iw = img.naturalWidth;
           const ih = img.naturalHeight;
           const ratio = Math.min(maxImgW / iw, maxImgH / ih);
           const dw = iw * ratio;
           const dh = ih * ratio;
-          const imgX = photoX + (photoW - dw) / 2;
+          const imgX = x + (itemSize - dw) / 2;
           const imgY = photoY + (photoH - dh) / 2;
 
           ctx.save();
           ctx.beginPath();
-          if (ctx.roundRect) ctx.roundRect(photoX + 3, photoY + 3, photoW - 6, photoH - 6, 6);
-          else ctx.rect(photoX + 3, photoY + 3, photoW - 6, photoH - 6);
+          if (ctx.roundRect) ctx.roundRect(x + innerPad, photoY + innerPad, innerW, innerH, 8);
+          else ctx.rect(x + innerPad, photoY + innerPad, innerW, innerH);
           ctx.clip();
           ctx.drawImage(img, imgX, imgY, dw, dh);
           ctx.restore();
         } else {
-          ctx.fillStyle = '#f1f5f9';
-          ctx.beginPath();
-          if (ctx.roundRect) ctx.roundRect(photoX + 3, photoY + 3, photoW - 6, photoH - 6, 6);
-          else ctx.rect(photoX + 3, photoY + 3, photoW - 6, photoH - 6);
-          ctx.fill();
           ctx.font = '40px Inter';
           ctx.fillStyle = '#94a3b8';
           ctx.textAlign = 'center';
           ctx.textBaseline = 'middle';
-          ctx.fillText('🖼️', photoX + photoW/2, photoY + photoH/2);
+          ctx.fillText('🖼️', x + itemSize/2, photoY + photoH/2);
         }
 
-        // Водяной знак
+        // ===== ВОДЯНОЙ ЗНАК =====
         ctx.save();
         ctx.globalAlpha = 0.35;
-        ctx.translate(photoX + photoW/2, photoY + photoH/2);
+        ctx.translate(x + itemSize/2, photoY + photoH/2);
         ctx.rotate(-Math.PI / 4);
-        ctx.font = 'bold 22px Inter, system-ui';
+        ctx.font = `bold ${Math.floor(itemSize * 0.14)}px Inter, system-ui`;
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         ctx.lineWidth = 3;
@@ -3966,89 +3939,165 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
         ctx.fillText('MANSUR', 0, 0);
         ctx.restore();
 
-        // ===== НИЖНЯЯ ПЛАШКА: ТИП + КОД =====
-        const bottomY = photoY + photoH + 6;
-        const bottomH = innerH - (bottomY - innerY) - 6;
-        const bottomX = innerX + 6;
-        const bottomW = innerW - 12;
+        // ===== НОМЕР (медальон) =====
+        const labelY = photoY + photoH + labelGap;
+        const numCircleR = 19;
+        const numCX = x + numCircleR;
 
-        // Два блока: тип и код
-        const typeBlockW = 70;
-        const codeBlockW = bottomW - typeBlockW - 6;
+        const numGrad = ctx.createLinearGradient(numCX - numCircleR, labelY + numCircleR, numCX + numCircleR, labelY + numCircleR * 3);
+        numGrad.addColorStop(0, tc.main);
+        numGrad.addColorStop(1, tc.border);
 
-        // ===== Блок типа (номер + тип) =====
+        // Тень медальона
+        ctx.save();
         ctx.fillStyle = tc.main;
         ctx.beginPath();
-        if (ctx.roundRect) ctx.roundRect(bottomX, bottomY, typeBlockW, bottomH, 8);
-        else ctx.rect(bottomX, bottomY, typeBlockW, bottomH);
+        ctx.arc(numCX, labelY + numCircleR + 3, numCircleR, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+
+        // Круг
+        ctx.fillStyle = numGrad;
+        ctx.beginPath();
+        ctx.arc(numCX, labelY + numCircleR, numCircleR, 0, Math.PI * 2);
         ctx.fill();
 
-        // Номер
-        ctx.font = 'bold 22px Inter, system-ui';
+        // Цифра
         ctx.fillStyle = PALETTE.white;
+        ctx.font = 'bold 20px Inter, system-ui';
         ctx.textAlign = 'center';
-        ctx.textBaseline = 'top';
-        ctx.fillText(String(num), bottomX + typeBlockW / 2, bottomY + 4);
+        ctx.textBaseline = 'middle';
+        ctx.fillText(String(num), numCX, labelY + numCircleR + 1);
 
-        // Тип
-        ctx.font = 'bold 10px Inter, system-ui';
-        ctx.textBaseline = 'bottom';
-        ctx.fillText(item._typeLabel, bottomX + typeBlockW / 2, bottomY + bottomH - 4);
-
-        // ===== Блок кода =====
-        const codeX = bottomX + typeBlockW + 6;
-
-        ctx.fillStyle = PALETTE.white;
-        ctx.beginPath();
-        if (ctx.roundRect) ctx.roundRect(codeX, bottomY, codeBlockW, bottomH, 8);
-        else ctx.rect(codeX, bottomY, codeBlockW, bottomH);
-        ctx.fill();
-
-        ctx.strokeStyle = tc.main + '55';
-        ctx.lineWidth = 1.5;
-        ctx.beginPath();
-        if (ctx.roundRect) ctx.roundRect(codeX, bottomY, codeBlockW, bottomH, 8);
-        else ctx.rect(codeX, bottomY, codeBlockW, bottomH);
-        ctx.stroke();
-
-        // Код
+        // ===== КОД — жирная рамка =====
         const itemCode = item.code && item.code.trim() ? item.code : '';
         if (itemCode) {
+          const codeX = x + numCircleR * 2 + 8;
+          const codeW = itemSize - (numCircleR * 2) - 8;
+          const codeH = codeRowHeight;
+
+          // Тень
+          ctx.save();
+          ctx.fillStyle = tc.border;
+          ctx.beginPath();
+          if (ctx.roundRect) ctx.roundRect(codeX, labelY + 2, codeW, codeH, 10);
+          else ctx.rect(codeX, labelY + 2, codeW, codeH);
+          ctx.fill();
+          ctx.restore();
+
+          // Плашка
+          ctx.fillStyle = tc.light;
+          ctx.beginPath();
+          if (ctx.roundRect) ctx.roundRect(codeX, labelY, codeW, codeH, 10);
+          else ctx.rect(codeX, labelY, codeW, codeH);
+          ctx.fill();
+
+          // Жирная обводка
+          ctx.strokeStyle = tc.main;
+          ctx.lineWidth = 2.5;
+          ctx.beginPath();
+          if (ctx.roundRect) ctx.roundRect(codeX, labelY, codeW, codeH, 10);
+          else ctx.rect(codeX, labelY, codeW, codeH);
+          ctx.stroke();
+
+          // Текст кода
           let displayCode = itemCode;
-          ctx.font = 'bold 15px monospace';
+          ctx.font = 'bold 17px monospace';
           ctx.fillStyle = tc.main;
           ctx.textAlign = 'center';
           ctx.textBaseline = 'middle';
-          while (ctx.measureText(displayCode).width > codeBlockW - 10 && displayCode.length > 3) {
+          while (ctx.measureText(displayCode).width > codeW - 16 && displayCode.length > 3) {
             displayCode = displayCode.substring(0, displayCode.length - 1);
           }
           if (displayCode !== itemCode) {
             displayCode = displayCode.substring(0, displayCode.length - 1) + '…';
           }
-          ctx.fillText(displayCode, codeX + codeBlockW / 2, bottomY + bottomH / 2 + 1);
+          ctx.fillText(displayCode, codeX + codeW/2, labelY + codeH/2 + 1);
+        }
+
+        // ===== НАЗВАНИЕ — жирная рамка, но другие цвета =====
+        const nameY = labelY + codeRowHeight + labelGap;
+        const itemName = (lang === 'en' && item.name_en) ? item.name_en : item.name;
+        const isDefault = isDefaultName(item);
+
+        if (!isDefault && itemName) {
+          const nameX = x;
+          const nameW = itemSize;
+          const nameH = nameRowHeight;
+
+          // Тень
+          ctx.save();
+          ctx.fillStyle = PALETTE.nameBorder;
+          ctx.beginPath();
+          if (ctx.roundRect) ctx.roundRect(nameX, nameY + 2, nameW, nameH, 10);
+          else ctx.rect(nameX, nameY + 2, nameW, nameH);
+          ctx.fill();
+          ctx.restore();
+
+          // Плашка
+          ctx.fillStyle = PALETTE.nameBg;
+          ctx.beginPath();
+          if (ctx.roundRect) ctx.roundRect(nameX, nameY, nameW, nameH, 10);
+          else ctx.rect(nameX, nameY, nameW, nameH);
+          ctx.fill();
+
+          // Жирная обводка
+          ctx.strokeStyle = PALETTE.nameBorder;
+          ctx.lineWidth = 2.5;
+          ctx.beginPath();
+          if (ctx.roundRect) ctx.roundRect(nameX, nameY, nameW, nameH, 10);
+          else ctx.rect(nameX, nameY, nameW, nameH);
+          ctx.stroke();
+
+          // Текст — центрируем
+          ctx.font = 'bold 15px Inter, system-ui';
+          ctx.fillStyle = PALETTE.nameText;
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+
+          const maxW = nameW - 16;
+          const words = itemName.split(' ');
+          const lines = [];
+          let cur = '';
+          for (const w of words) {
+            const test = cur ? cur + ' ' + w : w;
+            if (ctx.measureText(test).width > maxW && cur) { lines.push(cur); cur = w; }
+            else cur = test;
+          }
+          if (cur) lines.push(cur);
+
+          const dispLines = lines.slice(0, 2);
+          const lh = 17;
+          const totalTextH = dispLines.length * lh;
+          const startY = nameY + (nameH - totalTextH) / 2 + lh / 2;
+
+          dispLines.forEach((line, k) => {
+            ctx.fillText(line, nameX + nameW / 2, startY + k * lh);
+          });
         }
       }
 
-      // ===== РИСУЕМ ВСЕ КАРТОЧКИ =====
-      let gridY = sectionHeaderY + 80;
+      // ===== РИСУЕМ КАРТОЧКИ =====
+      let gridY = sectionHeaderY + sectionHeaderH + 24;
       let col = 0;
 
       for (let i = 0; i < allItems.length; i++) {
         const item = allItems[i];
-        const x = padding + col * (cardW + itemGap);
-        drawTcgCard(x, gridY, item, i + 1);
+        const x = padding + col * (itemSize + itemGap);
+        drawCell(x, gridY, item, i + 1);
 
         col++;
         if (col >= itemsPerRow) {
           col = 0;
-          gridY += cardH + itemGap;
+          gridY += cellHeight + itemGap;
         }
       }
 
       // ===== ФУТЕР =====
       const footerY = totalHeight - footerHeight;
+
       ctx.strokeStyle = PALETTE.cardBorder;
-      ctx.lineWidth = 1;
+      ctx.lineWidth = 1.5;
       ctx.beginPath();
       ctx.moveTo(padding, footerY);
       ctx.lineTo(totalWidth - padding, footerY);
