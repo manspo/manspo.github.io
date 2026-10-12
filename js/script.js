@@ -3593,8 +3593,8 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
       const itemSize = 200;
       const itemGap = 16;
       const padding = 36;
-      const headerHeight = 280;
-      const footerHeight = 80;
+      const headerHeight = 240;       // ← было 280, убрали пустоту
+      const footerHeight = 70;
       const qrSize = 180;
       const labelGap = 8;
       const codeRowHeight = 42;
@@ -3604,7 +3604,7 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
       const TITLE_FONT_SIZE = 40;
       const TITLE_LINE_HEIGHT = 50;
 
-      // ===== ПАЛИТРА =====
+      // ===== ПАЛИТРА (без розового) =====
       const PALETTE = {
         primary: '#4f46e5',
         primaryLight: '#818cf8',
@@ -3613,13 +3613,13 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
         textMuted: '#64748b',
         white: '#ffffff',
         cardBorder: '#c7d2fe',
-        // Название — тёплый розово-фиолетовый
-        nameBg: '#fdf2f8',
-        nameBorder: '#f9a8d4',
-        nameText: '#be185d'
+        // Название — тёмно-синий + голубая рамка
+        nameBg: '#eff6ff',
+        nameBorder: '#93c5fd',
+        nameText: '#1e40af'
       };
 
-      // ===== ЦВЕТА ПО ТИПУ =====
+      // ===== ЦВЕТА ПО ТИПУ (зелёный темнее) =====
       const typeColors = {
         figure: {
           main: '#4f46e5',
@@ -3628,15 +3628,15 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
           label: lang === 'en' ? 'FIGURE' : 'ФИГУРКА'
         },
         extra: {
-          main: '#10b981',
-          light: '#ecfdf5',
-          border: '#6ee7b7',
+          main: '#047857',       // тёмно-зелёный
+          light: '#d1fae5',
+          border: '#34d399',
           label: lang === 'en' ? 'EXTRA' : 'ДОП'
         },
         variant: {
-          main: '#f59e0b',
-          light: '#fffbeb',
-          border: '#fcd34d',
+          main: '#d97706',       // тёмно-оранжевый
+          light: '#fef3c7',
+          border: '#fbbf24',
           label: lang === 'en' ? 'VARIANT' : 'ВАРИАНТ'
         }
       };
@@ -3644,12 +3644,16 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
       const totalWidth = padding * 2 + itemsPerRow * itemSize + (itemsPerRow - 1) * itemGap;
       const totalRows = Math.ceil(allItems.length / itemsPerRow);
 
-      const cellHeight = itemSize + labelGap + codeRowHeight + labelGap + nameRowHeight + stripeHeight;
+      const cellHeight = stripeHeight + itemSize + labelGap + codeRowHeight + labelGap + nameRowHeight;
 
       let totalHeight = padding + headerHeight;
-      totalHeight += 70; // заголовок "ПОЛНАЯ КОЛЛЕКЦИЯ"
+      totalHeight += sectionHeaderHeightCalc();
       totalHeight += totalRows * cellHeight + Math.max(0, totalRows - 1) * itemGap;
       totalHeight += footerHeight + padding;
+
+      function sectionHeaderHeightCalc() {
+        return 70;   // высота плашки "ПОЛНАЯ КОЛЛЕКЦИЯ" + отступ
+      }
 
       // ===== CANVAS =====
       const SCALE = 1.5;
@@ -3661,24 +3665,23 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
       ctx.imageSmoothingQuality = 'high';
       ctx.scale(SCALE, SCALE);
 
-      // ===== ФОН: розово-лавандовый градиент =====
+      // ===== ФОН: бежево-лавандово-циановый (без розового) =====
       const bgGrad = ctx.createLinearGradient(0, 0, totalWidth, totalHeight);
-      bgGrad.addColorStop(0, '#faf5ff');   // очень светлая лаванда
-      bgGrad.addColorStop(0.4, '#fdf2f8'); // розовый оттенок
-      bgGrad.addColorStop(1, '#eef2ff');   // светло-фиолетовый
+      bgGrad.addColorStop(0, '#fefce8');   // тёплый бежевый
+      bgGrad.addColorStop(0.5, '#f5f3ff'); // лаванда
+      bgGrad.addColorStop(1, '#ecfeff');   // светлый циан
       ctx.fillStyle = bgGrad;
       ctx.fillRect(0, 0, totalWidth, totalHeight);
 
-      // Мягкие цветные пятна
       const blob1 = ctx.createRadialGradient(totalWidth - 150, 150, 0, totalWidth - 150, 150, 400);
-      blob1.addColorStop(0, 'rgba(129, 140, 248, 0.18)');
+      blob1.addColorStop(0, 'rgba(129, 140, 248, 0.15)');
       blob1.addColorStop(1, 'rgba(129, 140, 248, 0)');
       ctx.fillStyle = blob1;
       ctx.fillRect(0, 0, totalWidth, totalHeight);
 
       const blob2 = ctx.createRadialGradient(150, totalHeight - 150, 0, 150, totalHeight - 150, 400);
-      blob2.addColorStop(0, 'rgba(244, 114, 182, 0.12)');
-      blob2.addColorStop(1, 'rgba(244, 114, 182, 0)');
+      blob2.addColorStop(0, 'rgba(34, 211, 238, 0.10)');
+      blob2.addColorStop(1, 'rgba(34, 211, 238, 0)');
       ctx.fillStyle = blob2;
       ctx.fillRect(0, 0, totalWidth, totalHeight);
 
@@ -3742,14 +3745,6 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
         ctx.fillText(String(seriesYear), titleBoxX, yearY);
       }
 
-      // ===== "Всего: N" =====
-      const totalY = yearY + 42;
-      ctx.font = `bold 18px Inter, system-ui`;
-      ctx.fillStyle = PALETTE.textMuted;
-      ctx.textAlign = 'left';
-      ctx.textBaseline = 'top';
-      ctx.fillText(lang === 'ru' ? `Всего: ${allItems.length}` : `Total: ${allItems.length}`, padding, totalY);
-
       // ===== QR-КОД =====
       const qrX = totalWidth - padding - qrSize;
       const qrY = padding + 10;
@@ -3784,13 +3779,16 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
         ctx.fillText('QR', qrX + qrSize/2, qrY + qrSize/2);
       }
 
-      // ===== ЗАГОЛОВОК "ПОЛНАЯ КОЛЛЕКЦИЯ" (без счётчика) =====
-      const sectionHeaderY = padding + headerHeight;
-      const sectionText = lang === 'ru' ? 'ПОЛНАЯ КОЛЛЕКЦИЯ' : 'FULL COLLECTION';
-      ctx.font = 'bold 24px Inter, system-ui';
+      // ===== ЗАГОЛОВОК "ПОЛНАЯ КОЛЛЕКЦИЯ (ВСЕГО N)" — вплотную к шапке =====
+      const sectionHeaderY = padding + headerHeight - 20;
+      const sectionText = lang === 'ru'
+        ? `ПОЛНАЯ КОЛЛЕКЦИЯ (ВСЕГО ${allItems.length})`
+        : `FULL COLLECTION (TOTAL ${allItems.length})`;
+
+      ctx.font = 'bold 22px Inter, system-ui';
       const sectionTextW = ctx.measureText(sectionText).width;
-      const sectionHeaderW = sectionTextW + 80;
-      const sectionHeaderH = 48;
+      const sectionHeaderW = sectionTextW + 70;
+      const sectionHeaderH = 46;
 
       const sectionGrad = ctx.createLinearGradient(padding, sectionHeaderY, padding + sectionHeaderW, sectionHeaderY + sectionHeaderH);
       sectionGrad.addColorStop(0, PALETTE.primary);
@@ -3800,7 +3798,7 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
       ctx.save();
       ctx.fillStyle = PALETTE.primaryDark;
       ctx.beginPath();
-      if (ctx.roundRect) ctx.roundRect(padding, sectionHeaderY + 4, sectionHeaderW, sectionHeaderH, 24);
+      if (ctx.roundRect) ctx.roundRect(padding, sectionHeaderY + 4, sectionHeaderW, sectionHeaderH, 23);
       else ctx.rect(padding, sectionHeaderY + 4, sectionHeaderW, sectionHeaderH);
       ctx.fill();
       ctx.restore();
@@ -3808,7 +3806,7 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
       // Плашка
       ctx.fillStyle = sectionGrad;
       ctx.beginPath();
-      if (ctx.roundRect) ctx.roundRect(padding, sectionHeaderY, sectionHeaderW, sectionHeaderH, 24);
+      if (ctx.roundRect) ctx.roundRect(padding, sectionHeaderY, sectionHeaderW, sectionHeaderH, 23);
       else ctx.rect(padding, sectionHeaderY, sectionHeaderW, sectionHeaderH);
       ctx.fill();
 
@@ -3819,12 +3817,12 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
       ctx.fillText(sectionText, padding + sectionHeaderW / 2, sectionHeaderY + sectionHeaderH / 2 + 1);
 
       // ============================================================
-      // КАРТОЧКА
+      // ФУНКЦИЯ ОТРИСОВКИ ОДНОЙ КАРТОЧКИ
       // ============================================================
       function drawCell(x, y, item, num) {
         const tc = typeColors[item._type] || typeColors.figure;
 
-        // ===== ВЕРХНЯЯ ПОЛОСКА С ТЕКСТОМ (тип) =====
+        // ===== ВЕРХНЯЯ ПОЛОСКА С ТЕКСТОМ =====
         const stripeY = y;
         const stripeH = stripeHeight;
 
@@ -3837,7 +3835,7 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
         ctx.fill();
         ctx.restore();
 
-        // Полоска с градиентом
+        // Градиент полоски
         const stripeGrad = ctx.createLinearGradient(x, stripeY, x + itemSize, stripeY + stripeH);
         stripeGrad.addColorStop(0, tc.main);
         stripeGrad.addColorStop(1, tc.border);
@@ -3871,7 +3869,7 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
         ctx.fill();
         ctx.restore();
 
-        // Обводка — жирнее
+        // Жирная обводка
         ctx.strokeStyle = tc.border;
         ctx.lineWidth = 2.5;
         ctx.beginPath();
@@ -3880,7 +3878,6 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
         ctx.stroke();
 
         // ===== ФОТО НА ГРАДИЕНТЕ =====
-        // Внутренний градиент, чтобы белые фигурки не сливались
         const innerPad = 4;
         const innerW = itemSize - innerPad * 2;
         const innerH = photoH - innerPad * 2;
@@ -3969,7 +3966,7 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
         ctx.textBaseline = 'middle';
         ctx.fillText(String(num), numCX, labelY + numCircleR + 1);
 
-        // ===== КОД — жирная рамка =====
+        // ===== КОД =====
         const itemCode = item.code && item.code.trim() ? item.code : '';
         if (itemCode) {
           const codeX = x + numCircleR * 2 + 8;
@@ -4000,7 +3997,7 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
           else ctx.rect(codeX, labelY, codeW, codeH);
           ctx.stroke();
 
-          // Текст кода
+          // Текст
           let displayCode = itemCode;
           ctx.font = 'bold 17px monospace';
           ctx.fillStyle = tc.main;
@@ -4015,7 +4012,7 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
           ctx.fillText(displayCode, codeX + codeW/2, labelY + codeH/2 + 1);
         }
 
-        // ===== НАЗВАНИЕ — жирная рамка, но другие цвета =====
+        // ===== НАЗВАНИЕ (тёмно-синее + голубая рамка) =====
         const nameY = labelY + codeRowHeight + labelGap;
         const itemName = (lang === 'en' && item.name_en) ? item.name_en : item.name;
         const isDefault = isDefaultName(item);
@@ -4049,7 +4046,7 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
           else ctx.rect(nameX, nameY, nameW, nameH);
           ctx.stroke();
 
-          // Текст — центрируем
+          // Текст
           ctx.font = 'bold 15px Inter, system-ui';
           ctx.fillStyle = PALETTE.nameText;
           ctx.textAlign = 'center';
@@ -4078,7 +4075,7 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
       }
 
       // ===== РИСУЕМ КАРТОЧКИ =====
-      let gridY = sectionHeaderY + sectionHeaderH + 24;
+      let gridY = sectionHeaderY + sectionHeaderH + 20;
       let col = 0;
 
       for (let i = 0; i < allItems.length; i++) {
