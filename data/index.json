@@ -1,5 +1,29 @@
 [
   {
+    "id": "the-hunchback-of-notre-dame-2-by-kinder-1996",
+    "name": "Горбун из Нотр-Дама 2 от Нестле",
+    "name_en": "The Hunchback of Notre Dame 2 by Kinder",
+    "year": 1996,
+    "manufacturer": "nestle",
+    "cover": "images/series/nestle/the-hunchback-of-notre-dame-2-by-kinder-1996/6494_0.webp",
+    "kind": "",
+    "description": "Фигурки выпущенные по одноименному мультфильму.",
+    "description_en": "Figures released based on the cartoon of the same name.",
+    "visible": true
+  },
+  {
+    "id": "101-dalmatians-usa-by-nestle-1997",
+    "name": "101 Далматинец (США) от Нестле",
+    "name_en": "101 Dalmatians (USA) by Nestle",
+    "year": 1997,
+    "manufacturer": "nestle",
+    "cover": "images/series/nestle/101-dalmatians-usa-by-nestle-1997/cover.webp",
+    "kind": "",
+    "description": "Серия по мультфильму 101 далматинец выпускаемая для США.",
+    "description_en": "A series based on the cartoon 101 Dalmatians produced for the USA.",
+    "visible": true
+  },
+  {
     "id": "unicorns-2-by-kinder-2026",
     "name": "Единороги 2 от Киндер",
     "name_en": "Unicorns 2 by Kinder",
