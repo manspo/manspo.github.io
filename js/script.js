@@ -3556,6 +3556,566 @@ function hideLoadingToast() {
 }
 
 async function generateCollage(seriesId, seriesName, figures, extras, variants, lang, seriesYear = '') {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const allItems = [...figures, ...extras, ...variants];
+
+      const imageMap = new Map();
+      for (const item of allItems) {
+        const imageUrl = item.image ? `${BASE_URL}/${item.image}` : 'images/placeholder.svg';
+        const img = await loadImage(imageUrl);
+        imageMap.set(item.id || item.name, img || createEmptyImage());
+      }
+
+      // ===== ПРОВЕРКА ДЕФОЛТНЫХ НАЗВАНИЙ =====
+      function isDefaultName(item, type) {
+        const checkName = (lang === 'en')
+          ? (item.name_en || item.name || '')
+          : (item.name || '');
+        if (!checkName || !checkName.trim()) return true;
+        const defaultPatterns = {
+          figure: [/^Фигурка\s+\d+$/i, /^Figure\s+\d+$/i],
+          extra: [/^Доп\s+\d+$/i, /^Extra\s+\d+$/i],
+          variant: [/^Вариант\s+\d+$/i, /^Variant\s+\d+$/i],
+          insert: [/^Вкладыш\s+\d+$/i, /^Insert\s+\d+$/i],
+          other: [/^Прочее\s+\d+$/i, /^Other\s+\d+$/i]
+        };
+        const patterns = defaultPatterns[type] || defaultPatterns.figure;
+        return patterns.some(p => p.test(checkName.trim()));
+      }
+
+      function hasAnyCode(items) {
+        return items.some(item => item.code && item.code.trim());
+      }
+
+      function hasAnyCustomName(items, type) {
+        return items.some(item => !isDefaultName(item, type));
+      }
+
+      // ===== РАЗМЕРЫ (Duolingo-lite) =====
+      const itemsPerRow = 6;
+      const itemSize = 200;
+      const itemGap = 16;
+      const padding = 36;
+      const headerHeight = 280;
+      const footerHeight = 90;
+      const qrSize = 180;
+      const groupHeaderHeight = 60;
+      const labelGap = 8;
+      const codeRowHeight = 40;
+      const nameRowHeight = 50;
+
+      const TITLE_FONT_SIZE = 40;
+      const TITLE_LINE_HEIGHT = 50;
+      const TITLE_MAX_LINES = 3;
+      const YEAR_FONT_SIZE = 32;
+
+      // ===== ПАЛИТРА =====
+      const PALETTE = {
+        primary: '#4f46e5',
+        primaryLight: '#818cf8',
+        primaryDark: '#4338ca',
+        text: '#1e1b4b',
+        textMuted: '#64748b',
+        white: '#ffffff',
+        cardBorder: '#e0e7ff',
+        // группы
+        figures: '#4f46e5',
+        extras: '#10b981',
+        variants: '#f59e0b'
+      };
+
+      // ===== ЦВЕТА ДЛЯ 3 ГРУПП =====
+      const groupColors = {
+        figure:  { main: PALETTE.figures,  light: '#eef2ff' },
+        extra:   { main: PALETTE.extras,   light: '#ecfdf5' },
+        variant: { main: PALETTE.variants, light: '#fffbeb' }
+      };
+
+      // ===== СЧИТАЕМ ВЫСОТУ =====
+      function calcGroupsHeight(items, cellHeight) {
+        const rows = Math.ceil(items.length / itemsPerRow);
+        return rows * cellHeight + (rows - 1) * itemGap;
+      }
+
+      const figureCellHeight = itemSize + labelGap + codeRowHeight + labelGap + nameRowHeight;
+      const extraCellHeight = itemSize + labelGap + codeRowHeight + labelGap + nameRowHeight;
+      const variantCellHeight = itemSize + labelGap + codeRowHeight + labelGap + nameRowHeight;
+
+      const totalWidth = padding * 2 + itemsPerRow * itemSize + (itemsPerRow - 1) * itemGap;
+
+      let totalHeight = padding + headerHeight;
+
+      if (figures.length > 0) {
+        totalHeight += groupHeaderHeight + calcGroupsHeight(figures, figureCellHeight);
+      }
+      if (extras.length > 0) {
+        totalHeight += groupHeaderHeight + calcGroupsHeight(extras, extraCellHeight);
+        totalHeight += 20;
+      }
+      if (variants.length > 0) {
+        totalHeight += groupHeaderHeight + calcGroupsHeight(variants, variantCellHeight);
+        totalHeight += 20;
+      }
+
+      totalHeight += 40 + footerHeight + padding;
+
+      // ===== CANVAS =====
+      const SCALE = 1.5;
+      const canvas = document.createElement('canvas');
+      canvas.width = totalWidth * SCALE;
+      canvas.height = totalHeight * SCALE;
+      const ctx = canvas.getContext('2d');
+
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
+      ctx.scale(SCALE, SCALE);
+
+      // ===== ФОН: лаванда → голубой =====
+      const bgGrad = ctx.createLinearGradient(0, 0, totalWidth, totalHeight);
+      bgGrad.addColorStop(0, '#f5f3ff');   // лаванда
+      bgGrad.addColorStop(0.5, '#f0f9ff'); // небесный
+      bgGrad.addColorStop(1, '#f0fdfa');   // мятный
+      ctx.fillStyle = bgGrad;
+      ctx.fillRect(0, 0, totalWidth, totalHeight);
+
+      // Мягкие пятна
+      const blob1 = ctx.createRadialGradient(totalWidth - 150, 150, 0, totalWidth - 150, 150, 400);
+      blob1.addColorStop(0, 'rgba(129, 140, 248, 0.15)');
+      blob1.addColorStop(1, 'rgba(129, 140, 248, 0)');
+      ctx.fillStyle = blob1;
+      ctx.fillRect(0, 0, totalWidth, totalHeight);
+
+      const blob2 = ctx.createRadialGradient(150, totalHeight - 150, 0, 150, totalHeight - 150, 400);
+      blob2.addColorStop(0, 'rgba(16, 185, 129, 0.1)');
+      blob2.addColorStop(1, 'rgba(16, 185, 129, 0)');
+      ctx.fillStyle = blob2;
+      ctx.fillRect(0, 0, totalWidth, totalHeight);
+
+      // ===== ШАПКА: ЛОГОТИП =====
+      const logoImage = await loadImage(`${BASE_URL}/images/logo.webp`);
+      const logoSize = 150;
+      const logoX = (totalWidth - logoSize) / 2 + 60;
+      const logoY = padding + 5;
+
+      if (logoImage && logoImage.complete && logoImage.naturalWidth > 0) {
+        const imgW = logoImage.naturalWidth;
+        const imgH = logoImage.naturalHeight;
+        let drawW, drawH;
+        if (imgW > imgH) {
+          drawW = logoSize;
+          drawH = (imgH / imgW) * logoSize;
+        } else {
+          drawH = logoSize;
+          drawW = (imgW / imgH) * logoSize;
+        }
+        const drawX = logoX + (logoSize - drawW) / 2;
+        const drawY = logoY + (logoSize - drawH) / 2;
+        ctx.drawImage(logoImage, drawX, drawY, drawW, drawH);
+      }
+
+      // ===== ЗАГОЛОВОК: НАЗВАНИЕ + ГОД =====
+      const titleY = padding + 20;
+      ctx.fillStyle = PALETTE.primary;
+      ctx.beginPath();
+      if (ctx.roundRect) ctx.roundRect(padding, titleY, 6, 50, 3);
+      else ctx.rect(padding, titleY, 6, 50);
+      ctx.fill();
+
+      ctx.font = `bold ${TITLE_FONT_SIZE}px Inter, system-ui`;
+      ctx.fillStyle = PALETTE.text;
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'top';
+
+      const titleBoxX = padding + 22;
+      const logoLeftEdge = logoX - 20;
+      const titleBoxWidth = logoLeftEdge - titleBoxX;
+
+      const titleWords = String(seriesName || 'Checklist').split(' ');
+      const titleLines = [];
+      let currentTitleLine = '';
+
+      for (const word of titleWords) {
+        const testLine = currentTitleLine ? currentTitleLine + ' ' + word : word;
+        const metrics = ctx.measureText(testLine);
+        if (metrics.width > titleBoxWidth && currentTitleLine) {
+          titleLines.push(currentTitleLine);
+          currentTitleLine = word;
+        } else {
+          currentTitleLine = testLine;
+        }
+      }
+      if (currentTitleLine) titleLines.push(currentTitleLine);
+
+      const displayTitleLines = titleLines.slice(0, TITLE_MAX_LINES);
+      let titleRowY = titleY - 3;
+
+      displayTitleLines.forEach((line, idx) => {
+        ctx.fillText(line, titleBoxX, titleRowY + idx * TITLE_LINE_HEIGHT);
+      });
+
+      const titleBlockHeight = displayTitleLines.length * TITLE_LINE_HEIGHT;
+      const yearY = titleRowY + titleBlockHeight + 10;
+
+      // ===== ГОД — градиентная таблетка =====
+      if (seriesYear) {
+        const yearText = String(seriesYear);
+        ctx.font = `bold ${YEAR_FONT_SIZE}px Inter, system-ui`;
+        const yearW = ctx.measureText(yearText).width + 44;
+
+        const yearGrad = ctx.createLinearGradient(titleBoxX, yearY, titleBoxX + yearW, yearY + 46);
+        yearGrad.addColorStop(0, PALETTE.primary);
+        yearGrad.addColorStop(1, PALETTE.primaryLight);
+
+        ctx.fillStyle = yearGrad;
+        ctx.beginPath();
+        if (ctx.roundRect) ctx.roundRect(titleBoxX, yearY, yearW, 46, 23);
+        else ctx.rect(titleBoxX, yearY, yearW, 46);
+        ctx.fill();
+
+        ctx.fillStyle = PALETTE.white;
+        ctx.textAlign = 'left';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(yearText, titleBoxX + 22, yearY + 24);
+      }
+
+      // ===== "Всего: N" =====
+      const totalItems = figures.length + extras.length + variants.length;
+      const totalY = yearY + 60;
+
+      ctx.font = `bold 20px Inter, system-ui`;
+      ctx.fillStyle = PALETTE.textMuted;
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'top';
+      const totalLabel = lang === 'ru' ? `Всего: ${totalItems}` : `Total: ${totalItems}`;
+      ctx.fillText(totalLabel, padding, totalY);
+
+      // ===== QR-КОД =====
+      const qrImage = await loadImage(`${BASE_URL}/images/qrcodesite.png`);
+      const qrX = totalWidth - padding - qrSize;
+      const qrY = padding + 10;
+
+      // Карточка QR
+      ctx.save();
+      ctx.shadowColor = 'rgba(79, 70, 229, 0.15)';
+      ctx.shadowBlur = 24;
+      ctx.shadowOffsetY = 6;
+      ctx.fillStyle = PALETTE.white;
+      ctx.beginPath();
+      if (ctx.roundRect) ctx.roundRect(qrX - 14, qrY - 14, qrSize + 28, qrSize + 28, 20);
+      else ctx.rect(qrX - 14, qrY - 14, qrSize + 28, qrSize + 28);
+      ctx.fill();
+      ctx.restore();
+
+      // Обводка
+      ctx.strokeStyle = PALETTE.cardBorder;
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      if (ctx.roundRect) ctx.roundRect(qrX - 14, qrY - 14, qrSize + 28, qrSize + 28, 20);
+      else ctx.rect(qrX - 14, qrY - 14, qrSize + 28, qrSize + 28);
+      ctx.stroke();
+
+      if (qrImage && qrImage.complete && qrImage.naturalWidth > 0) {
+        ctx.drawImage(qrImage, qrX, qrY, qrSize, qrSize);
+      }
+
+      // ===== ХЕЛПЕР: РИСУЕМ МЯГКУЮ ТЕНЬ =====
+      function drawSoftShadow(x, y, w, h, radius, color = 'rgba(79, 70, 229, 0.1)', offsetY = 4, blur = 12) {
+        ctx.save();
+        ctx.shadowColor = color;
+        ctx.shadowBlur = blur;
+        ctx.shadowOffsetY = offsetY;
+        ctx.fillStyle = PALETTE.white;
+        ctx.beginPath();
+        if (ctx.roundRect) ctx.roundRect(x, y, w, h, radius);
+        else ctx.rect(x, y, w, h);
+        ctx.fill();
+        ctx.restore();
+      }
+
+      // ===== ФУНКЦИЯ ОТРИСОВКИ ОДНОЙ ЯЧЕЙКИ =====
+      function drawCell(x, y, item, num, img, type) {
+        const gc = groupColors[type] || groupColors.figure;
+
+        // ===== КАРТОЧКА (фото) =====
+        drawSoftShadow(x, y, itemSize, itemSize, 20, 'rgba(79, 70, 229, 0.12)', 5, 15);
+
+        // Обводка
+        ctx.strokeStyle = PALETTE.cardBorder;
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        if (ctx.roundRect) ctx.roundRect(x, y, itemSize, itemSize, 20);
+        else ctx.rect(x, y, itemSize, itemSize);
+        ctx.stroke();
+
+        // Фото
+        if (img && img.complete && img.naturalWidth > 0) {
+          const maxImgSize = itemSize - 16;
+          const iw = img.naturalWidth;
+          const ih = img.naturalHeight;
+          let dw, dh;
+          if (iw > ih) {
+            dw = maxImgSize;
+            dh = (ih / iw) * maxImgSize;
+          } else {
+            dh = maxImgSize;
+            dw = (iw / ih) * maxImgSize;
+          }
+          const imgX = x + (itemSize - dw) / 2;
+          const imgY = y + (itemSize - dh) / 2;
+
+          ctx.save();
+          ctx.beginPath();
+          if (ctx.roundRect) ctx.roundRect(x + 4, y + 4, itemSize - 8, itemSize - 8, 16);
+          else ctx.rect(x + 4, y + 4, itemSize - 8, itemSize - 8);
+          ctx.clip();
+          ctx.drawImage(img, imgX, imgY, dw, dh);
+          ctx.restore();
+        } else {
+          ctx.fillStyle = '#f1f5f9';
+          ctx.beginPath();
+          if (ctx.roundRect) ctx.roundRect(x + 8, y + 8, itemSize - 16, itemSize - 16, 14);
+          else ctx.rect(x + 8, y + 8, itemSize - 16, itemSize - 16);
+          ctx.fill();
+          ctx.font = '44px Inter';
+          ctx.fillStyle = '#94a3b8';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText('🖼️', x + itemSize/2, y + itemSize/2);
+        }
+
+        // ===== ВОДЯНОЙ ЗНАК MANSUR =====
+        ctx.save();
+        ctx.globalAlpha = 0.4;
+        ctx.translate(x + itemSize/2, y + itemSize/2);
+        ctx.rotate(-Math.PI / 4);
+        ctx.font = `bold ${Math.floor(itemSize * 0.16)}px Inter, system-ui`;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.lineWidth = 4;
+        ctx.strokeStyle = PALETTE.white;
+        ctx.strokeText('MANSUR', 0, 0);
+        ctx.fillStyle = PALETTE.primary;
+        ctx.fillText('MANSUR', 0, 0);
+        ctx.restore();
+
+        // ===== НОМЕР (медальон) =====
+        const labelY = y + itemSize + labelGap;
+        const numCircleR = 20;
+        const numCX = x + numCircleR;
+
+        const numGrad = ctx.createLinearGradient(numCX - numCircleR, labelY + 20 - numCircleR, numCX + numCircleR, labelY + 20 + numCircleR);
+        numGrad.addColorStop(0, gc.main);
+        numGrad.addColorStop(1, PALETTE.primaryLight);
+
+        // Тень медальона
+        ctx.save();
+        ctx.fillStyle = gc.main;
+        ctx.beginPath();
+        ctx.arc(numCX, labelY + 22 + 3, numCircleR, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+
+        ctx.fillStyle = numGrad;
+        ctx.beginPath();
+        ctx.arc(numCX, labelY + 20, numCircleR, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = PALETTE.white;
+        ctx.font = 'bold 20px Inter, system-ui';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(String(num), numCX, labelY + 21);
+
+        // ===== КОД =====
+        const itemCode = item.code && item.code.trim() ? item.code : '';
+        if (itemCode) {
+          const codeX = x + numCircleR * 2 + 8;
+          const codeW = itemSize - (numCircleR * 2) - 8;
+          const codeH = 40;
+
+          // Плашка кода
+          ctx.fillStyle = gc.light;
+          ctx.beginPath();
+          if (ctx.roundRect) ctx.roundRect(codeX, labelY, codeW, codeH, 10);
+          else ctx.rect(codeX, labelY, codeW, codeH);
+          ctx.fill();
+
+          // Обводка тонкая
+          ctx.strokeStyle = gc.main + '33';
+          ctx.lineWidth = 1.5;
+          ctx.stroke();
+
+          // Текст кода
+          let displayCode = itemCode;
+          ctx.font = 'bold 18px monospace';
+          ctx.fillStyle = gc.main;
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          while (ctx.measureText(displayCode).width > codeW - 16 && displayCode.length > 3) {
+            displayCode = displayCode.substring(0, displayCode.length - 1);
+          }
+          if (displayCode !== itemCode) {
+            displayCode = displayCode.substring(0, displayCode.length - 1) + '…';
+          }
+          ctx.fillText(displayCode, codeX + codeW/2, labelY + codeH/2 + 1);
+        }
+
+        // ===== НАЗВАНИЕ =====
+        const nameY = labelY + codeRowHeight + labelGap;
+        const itemName = (lang === 'en' && item.name_en) ? item.name_en : item.name;
+        const isDefault = isDefaultName(item, type);
+
+        if (!isDefault && itemName) {
+          ctx.font = 'bold 15px Inter, system-ui';
+          ctx.fillStyle = PALETTE.text;
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+
+          const maxW = itemSize - 12;
+          const words = itemName.split(' ');
+          const lines = [];
+          let cur = '';
+          for (const w of words) {
+            const test = cur ? cur + ' ' + w : w;
+            if (ctx.measureText(test).width > maxW && cur) { lines.push(cur); cur = w; }
+            else cur = test;
+          }
+          if (cur) lines.push(cur);
+
+          const dispLines = lines.slice(0, 2);
+          const lh = 18;
+          const totalTextH = dispLines.length * lh;
+          const startY = nameY + (nameRowHeight - totalTextH) / 2 + lh / 2;
+
+          dispLines.forEach((line, k) => {
+            ctx.fillText(line, x + itemSize / 2, startY + k * lh);
+          });
+        }
+      }
+
+      // ===== ОТРИСОВКА ГРУППЫ =====
+      function drawGroup(items, labelRu, labelEn, groupColor, startY, type, cellHeight) {
+        if (items.length === 0) return startY;
+
+        const gc = groupColors[type] || groupColors.figure;
+        let y = startY;
+
+        // ===== ЗАГОЛОВОК ГРУППЫ (Duolingo-таблетка) =====
+        const labelText = lang === 'en' ? labelEn : labelRu;
+        ctx.font = 'bold 22px Inter, system-ui';
+        const textW = ctx.measureText(labelText).width;
+        const headerW = textW + 80;
+        const headerH = 46;
+
+        // Градиент
+        const headerGrad = ctx.createLinearGradient(padding, y, padding + headerW, y + headerH);
+        headerGrad.addColorStop(0, groupColor);
+        headerGrad.addColorStop(1, PALETTE.primaryLight);
+
+        // Тень вниз
+        ctx.save();
+        ctx.fillStyle = groupColor;
+        ctx.beginPath();
+        if (ctx.roundRect) ctx.roundRect(padding, y + 4, headerW, headerH, 23);
+        else ctx.rect(padding, y + 4, headerW, headerH);
+        ctx.fill();
+        ctx.restore();
+
+        // Основная плашка
+        ctx.fillStyle = headerGrad;
+        ctx.beginPath();
+        if (ctx.roundRect) ctx.roundRect(padding, y, headerW, headerH, 23);
+        else ctx.rect(padding, y, headerW, headerH);
+        ctx.fill();
+
+        // Текст
+        ctx.fillStyle = PALETTE.white;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(labelText, padding + headerW / 2, y + headerH / 2 + 1);
+
+        // Счётчик справа
+        const countText = String(items.length);
+        ctx.font = 'bold 18px Inter, system-ui';
+        const countW = ctx.measureText(countText).width + 20;
+        const countX = padding + headerW + 12;
+
+        ctx.fillStyle = gc.light;
+        ctx.beginPath();
+        if (ctx.roundRect) ctx.roundRect(countX, y + 8, countW, 30, 15);
+        else ctx.rect(countX, y + 8, countW, 30);
+        ctx.fill();
+
+        ctx.fillStyle = groupColor;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(countText, countX + countW / 2, y + 23);
+
+        y += groupHeaderHeight;
+
+        // ===== ЯЧЕЙКИ =====
+        let col = 0;
+        for (let i = 0; i < items.length; i++) {
+          const item = items[i];
+          const x = padding + col * (itemSize + itemGap);
+          const img = imageMap.get(item.id || item.name) || createEmptyImage();
+          drawCell(x, y, item, i + 1, img, type);
+
+          col++;
+          if (col >= itemsPerRow) {
+            col = 0;
+            y += cellHeight + itemGap;
+          }
+        }
+        if (col !== 0) y += cellHeight;
+
+        return y;
+      }
+
+      // ===== РИСУЕМ ВСЁ =====
+      let currentY = padding + headerHeight;
+
+      if (figures.length > 0) {
+        currentY = drawGroup(figures, '📦 ФИГУРКИ', '📦 FIGURES', PALETTE.figures, currentY, 'figure', figureCellHeight);
+        currentY += 24;
+      }
+      if (extras.length > 0) {
+        currentY = drawGroup(extras, '🎁 ДОПЫ', '🎁 EXTRAS', PALETTE.extras, currentY, 'extra', extraCellHeight);
+        currentY += 24;
+      }
+      if (variants.length > 0) {
+        currentY = drawGroup(variants, '🎲 ВАРИАНТЫ', '🎲 VARIANTS', PALETTE.variants, currentY, 'variant', variantCellHeight);
+        currentY += 24;
+      }
+
+      // ===== ФУТЕР =====
+      const footerY = totalHeight - footerHeight;
+
+      ctx.strokeStyle = PALETTE.cardBorder;
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(padding, footerY);
+      ctx.lineTo(totalWidth - padding, footerY);
+      ctx.stroke();
+
+      ctx.font = 'bold 18px Inter, system-ui';
+      ctx.fillStyle = PALETTE.textMuted;
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'middle';
+      const footerText = lang === 'ru' ? 'Скачано с manspo.github.io' : 'Downloaded from manspo.github.io';
+      ctx.fillText(footerText, padding, footerY + footerHeight / 2);
+
+      // ===== ЭКСПОРТ =====
+      const jpegData = canvas.toDataURL('image/jpeg', 0.95);
+      resolve(jpegData);
+    } catch (error) {
+      console.error('Ошибка создания коллажа:', error);
+      reject(error);
+    }
+  });
+}
+
     return new Promise(async (resolve, reject) => {
         try {
             const allItems = [...figures, ...extras, ...variants];
