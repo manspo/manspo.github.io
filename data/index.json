@@ -1,5 +1,41 @@
 [
   {
+    "id": "fantasy-by-chupa-chups-2003",
+    "name": "Фэнтези от Чупа Чупс",
+    "name_en": "Fantasy by Chupa Chups",
+    "year": 2003,
+    "manufacturer": "chupa-chups",
+    "cover": "images/series/chupa-chups/fantasy-by-chupa-chups-2003/5344.webp",
+    "kind": "",
+    "description": "Фэнтезийная серия из 8 фигурок",
+    "description_en": "Fantasy series of 8 figures",
+    "visible": true
+  },
+  {
+    "id": "dr-xray-by-chupa-chups-2000",
+    "name": "Доктор Рентген от Чупа-Чупс",
+    "name_en": "Dr. X-Ray by Chupa Chups",
+    "year": 2000,
+    "manufacturer": "chupa-chups",
+    "cover": "images/series/chupa-chups/dr-xray-by-chupa-chups-2000/2712.webp",
+    "kind": "",
+    "description": "Одна из самых необычных и крутых серий",
+    "description_en": "One of the most unusual and cool series",
+    "visible": true
+  },
+  {
+    "id": "indiana-jones-by-nestle-2008",
+    "name": "Индиана Джонс от Нестле",
+    "name_en": "Indiana Jones by Nestle",
+    "year": 2008,
+    "manufacturer": "nestle",
+    "cover": "images/series/nestle/indiana-jones-by-nestle-2008/5969.webp",
+    "kind": "",
+    "description": "Серия по одноименному фильму",
+    "description_en": "Series based on the film of the same name",
+    "visible": true
+  },
+  {
     "id": "the-hunchback-of-notre-dame-2-by-kinder-1996",
     "name": "Горбун из Нотр-Дама 2 от Нестле",
     "name_en": "The Hunchback of Notre Dame 2 by Kinder",
