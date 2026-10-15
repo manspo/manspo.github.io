@@ -1,5 +1,41 @@
 [
   {
+    "id": "changelings-by-kinder-1998",
+    "name": "Перевертыши от Киндер",
+    "name_en": "Changelings by Kinder",
+    "year": 1998,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/changelings-by-kinder-1998/976_0v2.webp",
+    "kind": "",
+    "description": "Знаменитые перевертыши из детства ",
+    "description_en": "Famous skinwalkers from childhood",
+    "visible": true
+  },
+  {
+    "id": "animals-with-babies-by-kinder-1998",
+    "name": "Животные с детенышами от Киндер",
+    "name_en": "Animals with babies by Kinder",
+    "year": 1998,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/animals-with-babies-by-kinder-1998/995_0.webp",
+    "kind": "",
+    "description": "Старая серия с животными и детенышами",
+    "description_en": "Old series with animals and babies",
+    "visible": true
+  },
+  {
+    "id": "2-flowers-by-kinder-1998",
+    "name": "2 Цветка от Киндер",
+    "name_en": "2 Flowers by Kinder",
+    "year": 1998,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/2-flowers-by-kinder-1998/1008_0.webp",
+    "kind": "",
+    "description": "Знаменитая сборка из детства с 2 цветками",
+    "description_en": "Famous assembly from childhood with 2 flowers",
+    "visible": true
+  },
+  {
     "id": "fantasy-by-chupa-chups-2003",
     "name": "Фэнтези от Чупа Чупс",
     "name_en": "Fantasy by Chupa Chups",
