@@ -1,5 +1,41 @@
 [
   {
+    "id": "pink-whale-robbie-by-kinder-1996",
+    "name": "Розовый Кит Робби от Киндер",
+    "name_en": "Pink Whale Robbie by Kinder",
+    "year": 1996,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/pink-whale-robbie-by-kinder-1996/705_0oeu.webp",
+    "kind": "",
+    "description": "Всеми известный кит",
+    "description_en": "The well-known whale",
+    "visible": true
+  },
+  {
+    "id": "asterix-by-kinder-1991",
+    "name": "Астерикс от Киндер",
+    "name_en": "Asterix by Kinder",
+    "year": 1991,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/asterix-by-kinder-1991/cover.webp",
+    "kind": "",
+    "description": "Весьма удачная и редкая серия про похождения Астерикса",
+    "description_en": "A very successful and rare series about the adventures of Asterix",
+    "visible": true
+  },
+  {
+    "id": "the-old-tree-and-his-friends-by-kinder-1997",
+    "name": "Старое дерево и его друзья от Киндер",
+    "name_en": "The old tree and his friends by Kinder",
+    "year": 1997,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/the-old-tree-and-his-friends-by-kinder-1997/cover.webp",
+    "kind": "",
+    "description": "Знаменитое старое дерево, которое в последствие успеха переиздадут с новой фигуркой",
+    "description_en": "The famous old tree, which, following its success, will be reissued with a new figure",
+    "visible": true
+  },
+  {
     "id": "changelings-by-kinder-1998",
     "name": "Перевертыши от Киндер",
     "name_en": "Changelings by Kinder",
