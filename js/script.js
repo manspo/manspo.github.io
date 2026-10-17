@@ -3177,18 +3177,17 @@ async function initSeries() {
     function createContributorsBlock(contributors) {
       if (!contributors || contributors.length === 0) return '';
 
-      const title = currentLang === 'ru' ? '🙏 Фото помогли' : '🙏 Photo contributors';
+      const title = currentLang === 'ru' ? 'Благодарность:' : 'Acknowledgment:';
 
       const chips = contributors.map(c => {
         const tag = c.url ? 'a' : 'span';
         const attrs = c.url 
           ? `href="${escapeHtml(c.url)}" target="_blank" rel="noopener noreferrer"` 
           : '';
-        const role = c.role ? `<span class="contributor-role">${escapeHtml(c.role)}</span>` : '';
+        const role = c.role ? `<span class="contributor-role">(${escapeHtml(c.role)})</span>` : '';
 
         return `<${tag} ${attrs} class="contributor-chip">
-          <span class="contributor-medal">🏅</span>
-          <span>@${escapeHtml(c.name)}</span>
+          <span>${escapeHtml(c.name)}</span>
           ${role}
         </${tag}>`;
       }).join('');
@@ -3270,7 +3269,6 @@ async function initSeries() {
             <a href="catalog.html?manufacturer=${escapeHtml(s.manufacturer)}" class="series-manufacturer-link" data-manufacturer="${escapeHtml(s.manufacturer)}">${escapeHtml(manufacturerName)}</a>
           </div>
           <p>${escapeHtml(description)}</p>
-          ${createContributorsBlock(s.contributors)}
         </div>
       </div>
       ${createItemsList(s.figures, 'figures', figuresStartIndex)}
@@ -3278,6 +3276,9 @@ async function initSeries() {
       ${createItemsList(s.variants, 'variants', variantsStartIndex)}
       ${createItemsList(s.inserts, 'inserts', insertsStartIndex)}
       ${createItemsList(s.other, 'other', otherStartIndex)}
+      
+      ${createContributorsBlock(s.contributors)}
+      
       ${hasCollage ? `
         <div class="collage-section">
           <button class="collage-download-btn" onclick="downloadCollage('${escapeHtml(s.id)}', '${escapeHtml(name).replace(/'/g, "\\'")}')">
