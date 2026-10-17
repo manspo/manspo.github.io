@@ -3135,29 +3135,29 @@ async function initSeries() {
     
     const coverUrl = s.cover ? `${BASE_URL}/${s.cover}` : 'images/placeholder.svg';
     
-const allImages = [];
-const allTitles = [];
+    const allImages = [];
+    const allTitles = [];
 
-function pushItems(arr, defaultType) {
-  (arr || []).forEach(item => {
-    allImages.push(item.image ? `${BASE_URL}/${item.image}` : 'images/placeholder.svg');
-    const n = (currentLang === 'en' && item.name_en) ? item.name_en : (item.name || '');
-    allTitles.push(isDefaultName(item, defaultType) ? '' : n);
-  });
-}
-pushItems(s.figures, 'figure');
-pushItems(s.extras, 'extra');
-pushItems(s.variants, 'variant');
-pushItems(s.inserts, 'insert');
-pushItems(s.other, 'other');
+    function pushItems(arr, defaultType) {
+      (arr || []).forEach(item => {
+        allImages.push(item.image ? `${BASE_URL}/${item.image}` : 'images/placeholder.svg');
+        const n = (currentLang === 'en' && item.name_en) ? item.name_en : (item.name || '');
+        allTitles.push(isDefaultName(item, defaultType) ? '' : n);
+      });
+    }
+    pushItems(s.figures, 'figure');
+    pushItems(s.extras, 'extra');
+    pushItems(s.variants, 'variant');
+    pushItems(s.inserts, 'insert');
+    pushItems(s.other, 'other');
 
-window.seriesGalleryImages = allImages;
-window.seriesGalleryTitles = allTitles;
+    window.seriesGalleryImages = allImages;
+    window.seriesGalleryTitles = allTitles;
     
     const hasCollage = (s.figures && s.figures.length > 0) || 
                        (s.extras && s.extras.length > 0) || 
                        (s.variants && s.variants.length > 0);
-	const hasForSale = 
+    const hasForSale = 
       (s.figures && s.figures.some(f => f.forsale === true)) ||
       (s.extras && s.extras.some(e => e.forsale === true)) ||
       (s.variants && s.variants.some(v => v.forsale === true));
@@ -3172,6 +3172,34 @@ window.seriesGalleryTitles = allTitles;
       inserts: { ru: 'Вкладыши',en: 'Inserts' },
       other:   { ru: 'Прочее',  en: 'Other' }
     };
+
+    // ===== БЛОК БЛАГОДАРНОСТЕЙ =====
+    function createContributorsBlock(contributors) {
+      if (!contributors || contributors.length === 0) return '';
+
+      const title = currentLang === 'ru' ? '🙏 Фото помогли' : '🙏 Photo contributors';
+
+      const chips = contributors.map(c => {
+        const tag = c.url ? 'a' : 'span';
+        const attrs = c.url 
+          ? `href="${escapeHtml(c.url)}" target="_blank" rel="noopener noreferrer"` 
+          : '';
+        const role = c.role ? `<span class="contributor-role">${escapeHtml(c.role)}</span>` : '';
+
+        return `<${tag} ${attrs} class="contributor-chip">
+          <span class="contributor-medal">🏅</span>
+          <span>@${escapeHtml(c.name)}</span>
+          ${role}
+        </${tag}>`;
+      }).join('');
+
+      return `
+        <div class="contributors-block">
+          <div class="contributors-title">${title}</div>
+          <div class="contributors-list">${chips}</div>
+        </div>
+      `;
+    }
 
     function createItemsList(items, type, startIndex) {
       if (!items || items.length === 0) return '';
@@ -3195,31 +3223,31 @@ window.seriesGalleryTitles = allTitles;
             const safeSeriesId = escapeHtml(s.id);
             const imageUrl = item.image ? `${BASE_URL}/${item.image}` : 'images/placeholder.svg';
 
-const hasDup = itemCode && window.__codeCounts &&
-               (window.__codeCounts[itemCode.trim().toLowerCase()] >= 2);
+            const hasDup = itemCode && window.__codeCounts &&
+                           (window.__codeCounts[itemCode.trim().toLowerCase()] >= 2);
 
-return `
-  <div class="figure-item ${type !== 'inserts' ? (item.owned ? 'owned' : '') : ''} ${item.forsale ? 'forsale' : ''}">
-    <div class="figure-number">${idx + 1}</div>
-    <img src="${imageUrl}" alt="${safeName}" loading="lazy" onerror="this.src='images/placeholder.svg'" onclick="openLightbox(${globalIndex}, window.seriesGalleryImages, window.seriesGalleryTitles)" style="cursor:pointer">
-    <div class="figure-info">
-      <div class="figure-name">${safeName}</div>
-      ${itemCode ? `<div class="figure-code copyable-code" data-code="${escapeHtml(itemCode)}" title="Нажмите, чтобы скопировать">${escapeHtml(itemCode)}</div>` : ''}
-      <div class="figure-actions">
-        <button class="qr-btn" onclick="generateQRCode('${safeId}', '${safeSeriesId}', '${safeName.replace(/'/g, "\\'")}')" title="QR-код">📱</button>
-        ${hasDup 
-          ? `<a href="same-figures.html?code=${encodeURIComponent(itemCode)}" class="same-code-link" title="${currentLang === 'ru' ? 'Найти все фигурки с этим кодом (' + window.__codeCounts[itemCode.trim().toLowerCase()] + ' шт.)' : 'Find all figures with this code (' + window.__codeCounts[itemCode.trim().toLowerCase()] + ' pcs)'}">🔗</a>` 
-          : `<span class="figure-action-placeholder"></span>`}
-        ${item.forsale && item.avito 
-          ? `<a href="${escapeHtml(item.avito)}" class="avito-link" target="_blank" rel="noopener noreferrer" title="Avito">🛒</a>` 
-          : `<span class="figure-action-placeholder"></span>`}
-      </div>
-    </div>
-  </div>
-`;
-    }).join('')}
-      </div>
-    `;
+            return `
+              <div class="figure-item ${type !== 'inserts' ? (item.owned ? 'owned' : '') : ''} ${item.forsale ? 'forsale' : ''}">
+                <div class="figure-number">${idx + 1}</div>
+                <img src="${imageUrl}" alt="${safeName}" loading="lazy" onerror="this.src='images/placeholder.svg'" onclick="openLightbox(${globalIndex}, window.seriesGalleryImages, window.seriesGalleryTitles)" style="cursor:pointer">
+                <div class="figure-info">
+                  <div class="figure-name">${safeName}</div>
+                  ${itemCode ? `<div class="figure-code copyable-code" data-code="${escapeHtml(itemCode)}" title="Нажмите, чтобы скопировать">${escapeHtml(itemCode)}</div>` : ''}
+                  <div class="figure-actions">
+                    <button class="qr-btn" onclick="generateQRCode('${safeId}', '${safeSeriesId}', '${safeName.replace(/'/g, "\\'")}')" title="QR-код">📱</button>
+                    ${hasDup 
+                      ? `<a href="same-figures.html?code=${encodeURIComponent(itemCode)}" class="same-code-link" title="${currentLang === 'ru' ? 'Найти все фигурки с этим кодом (' + window.__codeCounts[itemCode.trim().toLowerCase()] + ' шт.)' : 'Find all figures with this code (' + window.__codeCounts[itemCode.trim().toLowerCase()] + ' pcs)'}">🔗</a>` 
+                      : `<span class="figure-action-placeholder"></span>`}
+                    ${item.forsale && item.avito 
+                      ? `<a href="${escapeHtml(item.avito)}" class="avito-link" target="_blank" rel="noopener noreferrer" title="Avito">🛒</a>` 
+                      : `<span class="figure-action-placeholder"></span>`}
+                  </div>
+                </div>
+              </div>
+            `;
+          }).join('')}
+        </div>
+      `;
     }
     
     let figuresStartIndex = 0;
@@ -3242,6 +3270,7 @@ return `
             <a href="catalog.html?manufacturer=${escapeHtml(s.manufacturer)}" class="series-manufacturer-link" data-manufacturer="${escapeHtml(s.manufacturer)}">${escapeHtml(manufacturerName)}</a>
           </div>
           <p>${escapeHtml(description)}</p>
+          ${createContributorsBlock(s.contributors)}
         </div>
       </div>
       ${createItemsList(s.figures, 'figures', figuresStartIndex)}
@@ -3259,7 +3288,7 @@ return `
               💰 ${currentLang === 'ru' ? 'Скачать чек-лист (на продажу)' : 'Download checklist (for sale)'}
             </button>
           ` : ''}
-		            <button class="collage-download-btn collage-download-btn-search" onclick="openWantedList('${escapeHtml(s.id)}')">
+          <button class="collage-download-btn collage-download-btn-search" onclick="openWantedList('${escapeHtml(s.id)}')">
             🔍 ${currentLang === 'ru' ? 'Мой поиск' : 'My wanted list'}
           </button>
         </div>
