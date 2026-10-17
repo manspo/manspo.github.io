@@ -3689,13 +3689,13 @@ img {
 /* ===== БЛОК БЛАГОДАРНОСТЕЙ ===== */
 .contributors-block {
   display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 10px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
   margin: 25px 0 20px;
 }
 
-/* Плашка как у года/производителя */
+/* Плашка «Благодарность:» как у года/производителя */
 .contributors-title-badge {
   display: inline-flex;
   align-items: center;
@@ -3707,34 +3707,28 @@ img {
   font-weight: 600;
 }
 
+/* Список ников */
 .contributors-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 8px 16px; /* отступ между никами */
 }
 
-/* Ники — простые чипы */
+/* Ник с медалькой */
 .contributor-chip {
   display: inline-flex;
   align-items: center;
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  padding: 5px 14px;
+  gap: 6px;
   font-size: 14px;
   color: var(--text);
   text-decoration: none;
-  transition: all 0.2s;
-}
-
-.contributor-chip:hover {
-  background: var(--primary);
-  color: white;
-  border-color: var(--primary);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: default;
 }
 
 .contributor-role {
   font-size: 12px;
   opacity: 0.6;
-  margin-left: 6px;
 }

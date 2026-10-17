@@ -3180,16 +3180,15 @@ async function initSeries() {
       const title = currentLang === 'ru' ? 'Благодарность:' : 'Acknowledgment:';
 
       const chips = contributors.map(c => {
-        const tag = c.url ? 'a' : 'span';
-        const attrs = c.url 
-          ? `href="${escapeHtml(c.url)}" target="_blank" rel="noopener noreferrer"` 
-          : '';
         const role = c.role ? `<span class="contributor-role">(${escapeHtml(c.role)})</span>` : '';
 
-        return `<${tag} ${attrs} class="contributor-chip">
-          <span>${escapeHtml(c.name)}</span>
-          ${role}
-        </${tag}>`;
+        return `
+          <div class="contributor-chip">
+            <span>🏅</span>
+            <span>${escapeHtml(c.name)}</span>
+            ${role}
+          </div>
+        `;
       }).join('');
 
       return `
