@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Админка: Редактор имен файлов</title>
+  <style>
+    body { font-family: system-ui, sans-serif; background: #f5f7fb; padding: 20px; color: #1e1b4b; margin: 0; }
+    .container { max-width: 1200px; margin: 0 auto; padding-bottom: 100px; }
+    
+    .header { background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+    .file-input { padding: 10px; border: 2px dashed #4f46e5; border-radius: 8px; cursor: pointer; background: #eef2ff; }
+    
+    .btn { background: #4f46e5; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.2s; text-decoration: none; display: inline-block; }
+    .btn:hover { background: #4338ca; }
+    .btn-green { background: #10b981; }
+    .btn-green:hover { background: #059669; }
+    .btn-orange { background: #f59e0b; }
+    .btn-orange:hover { background: #d97706; }
+    
+    .series-header { display: flex; gap: 20px; background: #fff; padding: 20px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+    .series-cover { width: 150px; height: 150px; object-fit: contain; border-radius: 8px; background: #e2e8f0; }
+    
+    .group-title { font-size: 20px; font-weight: bold; margin: 30px 0 15px; border-bottom: 2px solid #c7d2fe; padding-bottom: 10px; }
+    .items-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 15px; }
+    
+    .item-card { background: #fff; padding: 15px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); display: flex; gap: 15px; align-items: center; }
+    .item-img { width: 60px; height: 60px; object-fit: contain; background: #f1f5f9; border-radius: 6px; }
+    .item-fields { flex: 1; display: flex; flex-direction: column; gap: 8px; }
+    .field-row { display: flex; gap: 8px; align-items: center; }
+    .field-row input { flex: 1; padding: 6px 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 13px; font-family: monospace; }
+    .btn-magic { background: #f59e0b; color: white; border: none; padding: 6px 10px; border-radius: 6px; cursor: pointer; font-size: 16px; }
+    .btn-magic:hover { background: #d97706; }
+    
+    .bottom-bar { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; padding: 15px 20px; border-top: 1px solid #e2e8f0; display: flex; justify-content: flex-end; gap: 15px; box-shadow: 0 -4px 12px rgba(0,0,0,0.05); z-index: 100; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Редактор имен файлов</h1>
+      <input type="file" id="fileInput" class="file-input" accept=".json">
+    </div>
+
+    <div id="app" style="display: none;">
+      <div class="series-header">
+        <img id="seriesCover" class="series-cover" src="" alt="Cover">
+        <div>
+          <h2 id="seriesTitle"></h2>
+          <p id="seriesId" style="color: #64748b; font-family: monospace;"></p>
+        </div>
+      </div>
+
+      <div id="groupsContainer"></div>
+    </div>
+  </div>
+
+  <div class="bottom-bar" id="bottomBar" style="display: none;">
+    <button class="btn btn-orange" onclick="downloadBat()">🦇 Скачать .bat (переименовать файлы)</button>
+    <button class="btn btn-green" onclick="downloadJSON()">💾 Скачать обновлённый JSON</button>
+  </div>
+
+  <script>
+    let currentData = null;
+    let currentFileName = '';
+    let renameLog = []; // Хранит пары { oldPath, newPath }
+
+    const GROUP_NAMES = { figures: 'Фигурки', extras: 'Допы', variants: 'Варианты', inserts: 'Вкладыши', other: 'Прочее' };
+    const TYPE_CODES = { figures: 'f', extras: 'e', variants: 'v', inserts: 'i', other: 'o' };
+
+    document.getElementById('fileInput').addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      currentFileName = file.name;
+      renameLog = [];
+
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        try {
+          currentData = JSON.parse(evt.target.result);
+          render();
+        } catch (err) {
+          alert('Ошибка при чтении JSON: ' + err.message);
+        }
+      };
+      reader.readAsText(file);
+    });
+
+    function render() {
+      document.getElementById('app').style.display = 'block';
+      document.getElementById('bottomBar').style.display = 'flex';
+
+      document.getElementById('seriesTitle').textContent = currentData.name;
+      document.getElementById('seriesId').textContent = currentData.id;
+
+      const coverImg = document.getElementById('seriesCover');
+      if (currentData.cover) {
+        coverImg.src = currentData.cover; // Относительный путь от корня
+      }
+
+      const container = document.getElementById('groupsContainer');
+      container.innerHTML = '';
+
+      Object.keys(GROUP_NAMES).forEach(groupKey => {
+        const items = currentData[groupKey];
+        if (!items || items.length === 0) return;
+
+        const groupTitle = document.createElement('div');
+        groupTitle.className = 'group-title';
+        groupTitle.textContent = GROUP_NAMES[groupKey] + ' (' + items.length + ')';
+        container.appendChild(groupTitle);
+
+        const grid = document.createElement('div');
+        grid.className = 'items-grid';
+
+        items.forEach((item, index) => {
+          const fullPath = item.image || '';
+          const pathParts = fullPath.split('/');
+          const currentName = pathParts[pathParts.length - 1] || '';
+
+          const card = document.createElement('div');
+          card.className = 'item-card';
+
+          const img = document.createElement('img');
+          img.className = 'item-img';
+          if (fullPath) img.src = fullPath;
+          card.appendChild(img);
+
+          const fields = document.createElement('div');
+          fields.className = 'item-fields';
+
+          const fileRow = document.createElement('div');
+          fileRow.className = 'field-row';
+          
+          const input = document.createElement('input');
+          input.type = 'text';
+          input.value = currentName;
+          input.placeholder = '01.webp';
+          input.onchange = (e) => updateFileName(groupKey, index, e.target.value);
+          fileRow.appendChild(input);
+          
+          const btnMagic = document.createElement('button');
+          btnMagic.className = 'btn-magic';
+          btnMagic.innerHTML = '✨';
+          btnMagic.title = 'Сгенерировать имя';
+          btnMagic.onclick = () => {
+            const newName = generateFileName(item, groupKey, index + 1);
+            input.value = newName;
+            updateFileName(groupKey, index, newName);
+          };
+          fileRow.appendChild(btnMagic);
+          fields.appendChild(fileRow);
+
+          const info = document.createElement('div');
+          info.style.fontSize = '11px';
+          info.style.color = '#64748b';
+          info.textContent = 'Код: ' + (item.code || '—') + ' | EN: ' + (item.name_en || '—');
+          fields.appendChild(info);
+
+          card.appendChild(fields);
+          grid.appendChild(card);
+        });
+
+        container.appendChild(grid);
+      });
+    }
+
+    function generateFileName(item, groupKey, num) {
+      const type = TYPE_CODES[groupKey] || 'o';
+      let parts = [num, type];
+
+      let nameEn = item.name_en || '';
+      const isDefault = /^(Figure|Extra|Variant|Insert|Other|Фигурка|Доп|Вариант|Вкладыш|Прочее)\s+\d+$/i.test(nameEn.trim());
+      
+      if (nameEn && !isDefault) {
+        const cleanName = nameEn.toLowerCase().replace(/[^a-z0-9\s-]/g, '').trim().replace(/\s+/g, '-');
+        if (cleanName) parts.push(cleanName);
+      }
+
+      if (item.code && item.code.trim()) {
+        const cleanCode = item.code.toLowerCase().replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
+        if (cleanCode) parts.push(cleanCode);
+      }
+
+      return parts.join('-') + '.webp';
+    }
+
+    function updateFileName(groupKey, index, newName) {
+      const item = currentData[groupKey][index];
+      const oldImage = item.image || '';
+      if (!oldImage) return; 
+
+      const pathParts = oldImage.split('/');
+      const oldName = pathParts[pathParts.length - 1];
+      
+      pathParts[pathParts.length - 1] = newName;
+      item.image = pathParts.join('/');
+
+      if (oldName !== newName) {
+        // Записываем в лог. Ищем, может мы уже меняли этот файл, чтобы не дублировать.
+        const existingLogIndex = renameLog.findIndex(l => l.oldPath === oldImage);
+        if (existingLogIndex !== -1) {
+          renameLog[existingLogIndex].newPath = item.image; // обновляем на новое имя
+        } else {
+          renameLog.push({ oldPath: oldImage, newPath: item.image });
+        }
+      }
+    }
+
+    function downloadJSON() {
+      if (!currentData) return;
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(currentData, null, 2));
+      const a = document.createElement('a');
+      a.href = dataStr;
+      a.download = currentFileName || 'updated.json';
+      a.click();
+    }
+
+    function downloadBat() {
+      if (renameLog.length === 0) {
+        alert('Вы не изменили ни одного имени файла.');
+        return;
+      }
+
+      // Формируем .bat скрипт для Windows
+      let batContent = '@echo off\r\nchcp 65001 >nul\r\n';
+      batContent += 'echo Starting file renaming...\r\n\r\n';
+
+      renameLog.forEach(log => {
+        // Заменяем прямые слеши на обратные для Windows
+        const oldWin = log.oldPath.replace(/\//g, '\\');
+        const newWin = log.newPath.replace(/\//g, '\\');
+        
+        // Проверяем, существует ли старый файл (чтобы не было ошибок при повторном запуске)
+        batContent += `if exist "${oldWin}" (\r\n`;
+        batContent += `  ren "${oldWin}" "${newWin.split('\\').pop()}"\r\n`;
+        batContent += `  echo Renamed: ${oldWin} -^> ${newWin}\r\n`;
+        batContent += `) else (\r\n`;
+        batContent += `  echo [SKIP] Not found: ${oldWin}\r\n`;
+        batContent += `)\r\n`;
+      });
+
+      batContent += '\r\necho Done!\r\npause\r\n';
+
+      const blob = new Blob([batContent], { type: 'application/bat' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'rename_files.bat';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+  </script>
+</body>
+</html>
