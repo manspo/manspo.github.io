@@ -850,9 +850,9 @@ function createSection(type, title, items, series) {
 
 function createItemHTML(item, idx, type) {
     const num = idx + 1;
-    const imageUrl = item.image
-        ? `https://manspo.github.io/${item.image}`
-        : 'images/placeholder.svg';
+const imageUrl = item.image
+    ? item.image  // ← теперь путь локальный, относительно admin-sort.html
+    : 'images/placeholder.svg';
 
     const forsaleDate = item.forsale_date || '';
     const dateAdded = item.date_added || '';

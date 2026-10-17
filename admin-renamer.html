@@ -20,7 +20,18 @@
     .series-header { display: flex; gap: 20px; background: #fff; padding: 20px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
     .series-cover { width: 150px; height: 150px; object-fit: contain; border-radius: 8px; background: #e2e8f0; }
     
-    .group-title { font-size: 20px; font-weight: bold; margin: 30px 0 15px; border-bottom: 2px solid #c7d2fe; padding-bottom: 10px; }
+    .group-title { 
+      font-size: 20px; font-weight: bold; margin: 30px 0 15px; 
+      border-bottom: 2px solid #c7d2fe; padding-bottom: 10px; 
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .btn-group-rename {
+      background: #8b5cf6; color: white; border: none; padding: 8px 16px;
+      border-radius: 20px; font-size: 14px; cursor: pointer; font-weight: 600;
+      transition: 0.2s; display: flex; align-items: center; gap: 6px;
+    }
+    .btn-group-rename:hover { background: #7c3aed; transform: translateY(-1px); }
+
     .items-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 15px; }
     
     .item-card { background: #fff; padding: 15px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); display: flex; gap: 15px; align-items: center; }
@@ -62,7 +73,7 @@
   <script>
     let currentData = null;
     let currentFileName = '';
-    let renameLog = []; // Хранит пары { oldPath, newPath }
+    let renameLog = []; 
 
     const GROUP_NAMES = { figures: 'Фигурки', extras: 'Допы', variants: 'Варианты', inserts: 'Вкладыши', other: 'Прочее' };
     const TYPE_CODES = { figures: 'f', extras: 'e', variants: 'v', inserts: 'i', other: 'o' };
@@ -94,7 +105,7 @@
 
       const coverImg = document.getElementById('seriesCover');
       if (currentData.cover) {
-        coverImg.src = currentData.cover; // Относительный путь от корня
+        coverImg.src = currentData.cover; 
       }
 
       const container = document.getElementById('groupsContainer');
@@ -104,13 +115,20 @@
         const items = currentData[groupKey];
         if (!items || items.length === 0) return;
 
+        // Заголовок группы с кнопкой массового переименования
         const groupTitle = document.createElement('div');
         groupTitle.className = 'group-title';
-        groupTitle.textContent = GROUP_NAMES[groupKey] + ' (' + items.length + ')';
+        groupTitle.innerHTML = `
+          <span>${GROUP_NAMES[groupKey]} (${items.length})</span>
+          <button class="btn-group-rename" onclick="renameAllInGroup('${groupKey}')">
+            ✨ Переименовать всё
+          </button>
+        `;
         container.appendChild(groupTitle);
 
         const grid = document.createElement('div');
         grid.className = 'items-grid';
+        grid.id = `grid-${groupKey}`; // Добавляем ID для быстрого доступа
 
         items.forEach((item, index) => {
           const fullPath = item.image || '';
@@ -133,6 +151,7 @@
           
           const input = document.createElement('input');
           input.type = 'text';
+          input.id = `input-${groupKey}-${index}`; // ID для обновления из общей кнопки
           input.value = currentName;
           input.placeholder = '01.webp';
           input.onchange = (e) => updateFileName(groupKey, index, e.target.value);
@@ -161,6 +180,23 @@
         });
 
         container.appendChild(grid);
+      });
+    }
+
+    // ===== МАССОВОЕ ПЕРЕИМЕНОВАНИЕ В ГРУППЕ =====
+    function renameAllInGroup(groupKey) {
+      const items = currentData[groupKey];
+      if (!items || items.length === 0) return;
+
+      items.forEach((item, index) => {
+        const newName = generateFileName(item, groupKey, index + 1);
+        
+        // Обновляем поле ввода визуально
+        const input = document.getElementById(`input-${groupKey}-${index}`);
+        if (input) input.value = newName;
+        
+        // Обновляем данные и лог
+        updateFileName(groupKey, index, newName);
       });
     }
 
@@ -196,10 +232,9 @@
       item.image = pathParts.join('/');
 
       if (oldName !== newName) {
-        // Записываем в лог. Ищем, может мы уже меняли этот файл, чтобы не дублировать.
         const existingLogIndex = renameLog.findIndex(l => l.oldPath === oldImage);
         if (existingLogIndex !== -1) {
-          renameLog[existingLogIndex].newPath = item.image; // обновляем на новое имя
+          renameLog[existingLogIndex].newPath = item.image;
         } else {
           renameLog.push({ oldPath: oldImage, newPath: item.image });
         }
@@ -221,16 +256,13 @@
         return;
       }
 
-      // Формируем .bat скрипт для Windows
       let batContent = '@echo off\r\nchcp 65001 >nul\r\n';
       batContent += 'echo Starting file renaming...\r\n\r\n';
 
       renameLog.forEach(log => {
-        // Заменяем прямые слеши на обратные для Windows
         const oldWin = log.oldPath.replace(/\//g, '\\');
         const newWin = log.newPath.replace(/\//g, '\\');
         
-        // Проверяем, существует ли старый файл (чтобы не было ошибок при повторном запуске)
         batContent += `if exist "${oldWin}" (\r\n`;
         batContent += `  ren "${oldWin}" "${newWin.split('\\').pop()}"\r\n`;
         batContent += `  echo Renamed: ${oldWin} -^> ${newWin}\r\n`;
