@@ -3194,7 +3194,7 @@ async function initSeries() {
 
       return `
         <div class="contributors-block">
-          <div class="contributors-title">${title}</div>
+          <div class="contributors-title-badge">${title}</div>
           <div class="contributors-list">${chips}</div>
         </div>
       `;

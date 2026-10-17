@@ -3688,39 +3688,41 @@ img {
 
 /* ===== БЛОК БЛАГОДАРНОСТЕЙ ===== */
 .contributors-block {
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 14px 18px;
-  margin: 20px 0;
   display: flex;
   align-items: center;
   flex-wrap: wrap;
   gap: 10px;
+  margin: 25px 0 20px;
 }
 
-.contributors-title {
+/* Плашка как у года/производителя */
+.contributors-title-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 14px;
+  background: #4f46e5;
+  color: #fff;
+  border-radius: 20px;
   font-size: 14px;
   font-weight: 600;
-  color: var(--muted);
 }
 
 .contributors-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: 8px;
 }
 
+/* Ники — простые чипы */
 .contributor-chip {
   display: inline-flex;
   align-items: center;
-  background: var(--card);
-  border: 1px solid var(--primary);
+  background: var(--bg);
+  border: 1px solid var(--border);
   border-radius: 20px;
-  padding: 4px 12px;
+  padding: 5px 14px;
   font-size: 14px;
-  font-weight: 500;
-  color: var(--primary);
+  color: var(--text);
   text-decoration: none;
   transition: all 0.2s;
 }
@@ -3728,11 +3730,11 @@ img {
 .contributor-chip:hover {
   background: var(--primary);
   color: white;
+  border-color: var(--primary);
 }
 
 .contributor-role {
-  font-size: 11px;
-  opacity: 0.7;
+  font-size: 12px;
+  opacity: 0.6;
   margin-left: 6px;
-  font-weight: 400;
 }
