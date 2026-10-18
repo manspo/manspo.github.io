@@ -947,7 +947,6 @@ window.openLightbox = function(index, images, titles) {
       img.src = lightboxImages[idx];
       if (counter) counter.textContent = `${idx + 1} / ${lightboxImages.length}`;
 
-      // Скрываем стрелки и счётчик, если картинка одна
       if (lightboxImages.length <= 1) {
         lightbox.classList.add('single-image');
         if (counter) counter.style.display = 'none';
@@ -958,11 +957,15 @@ window.openLightbox = function(index, images, titles) {
 
       updateLightboxTitle(idx);
 
-      // Показ/скрытие стрелок вверх-вниз (связка)
+      // ===== ЛОГИКА ДЛЯ СТРЕЛОК ВВЕРХ/ВНИЗ =====
       const upBtn = document.getElementById('lightboxUpBtn');
       const downBtn = document.getElementById('lightboxDownBtn');
+      
       if (upBtn && downBtn) {
-        if (window.seriesLinkedIndexes && window.seriesLinkedIndexes[idx] !== undefined) {
+        // Проверяем, есть ли связка для текущего индекса
+        const hasLink = window.seriesLinkedIndexes && window.seriesLinkedIndexes[idx] !== undefined;
+        
+        if (hasLink) {
           upBtn.style.display = 'flex';
           downBtn.style.display = 'flex';
         } else {
@@ -970,6 +973,7 @@ window.openLightbox = function(index, images, titles) {
           downBtn.style.display = 'none';
         }
       }
+      // ==========================================
 
       lightbox.style.display = 'flex';
       img.onload = function() { initZoomFeatures(); };
