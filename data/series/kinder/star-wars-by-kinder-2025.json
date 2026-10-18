@@ -31,7 +31,10 @@
       "code": "VC365",
       "date_added": "2026-09-17",
       "forsale_date": "2026-09-20",
-      "price": "149 руб. (с учетом комиссии Авито)"
+      "price": "149 руб. (с учетом комиссии Авито)",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": ""
     },
     {
       "id": "star-wars-by-kinder-2025_fig2",
@@ -44,7 +47,10 @@
       "code": "VC366",
       "date_added": "2026-09-17",
       "forsale_date": "2026-09-20",
-      "price": "149 руб. (с учетом комиссии Авито)"
+      "price": "149 руб. (с учетом комиссии Авито)",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": ""
     },
     {
       "id": "star-wars-by-kinder-2025_fig3",
@@ -57,7 +63,10 @@
       "code": "VC367",
       "date_added": "2026-09-17",
       "forsale_date": "2026-09-20",
-      "price": "149 руб. (с учетом комиссии Авито)"
+      "price": "149 руб. (с учетом комиссии Авито)",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": ""
     },
     {
       "id": "star-wars-by-kinder-2025_fig4",
@@ -68,7 +77,12 @@
       "forsale": false,
       "avito": "",
       "code": "VC368",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "star-wars-by-kinder-2025_fig5",
@@ -81,7 +95,10 @@
       "code": "VC369",
       "date_added": "2026-09-17",
       "forsale_date": "2026-09-20",
-      "price": "119 руб. (с учетом комиссии Авито)"
+      "price": "119 руб. (с учетом комиссии Авито)",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": ""
     },
     {
       "id": "star-wars-by-kinder-2025_fig6",
@@ -92,7 +109,12 @@
       "forsale": false,
       "avito": "",
       "code": "VC370",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "star-wars-by-kinder-2025_fig7",
@@ -105,7 +127,10 @@
       "code": "VC371",
       "date_added": "2026-09-17",
       "forsale_date": "2026-09-20",
-      "price": "149 руб. (с учетом комиссии Авито)"
+      "price": "149 руб. (с учетом комиссии Авито)",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": ""
     },
     {
       "id": "star-wars-by-kinder-2025_fig8",
@@ -116,7 +141,12 @@
       "forsale": false,
       "avito": "",
       "code": "VC372",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "star-wars-by-kinder-2025_fig9",
@@ -129,7 +159,10 @@
       "code": "VC373",
       "date_added": "2026-09-17",
       "forsale_date": "2026-09-20",
-      "price": "149 руб. (с учетом комиссии Авито)"
+      "price": "149 руб. (с учетом комиссии Авито)",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": ""
     },
     {
       "id": "star-wars-by-kinder-2025_fig10",
@@ -142,7 +175,10 @@
       "code": "VC374",
       "date_added": "2026-09-17",
       "forsale_date": "2026-09-20",
-      "price": "149 руб. (с учетом комиссии Авито)"
+      "price": "149 руб. (с учетом комиссии Авито)",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": ""
     }
   ],
   "extras": [],
@@ -156,8 +192,13 @@
       "owned": true,
       "forsale": false,
       "avito": "",
-      "code": "",
-      "date_added": "2026-09-17"
+      "code": "VC365",
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "star-wars-by-kinder-2025_insert2",
@@ -167,8 +208,13 @@
       "owned": true,
       "forsale": false,
       "avito": "",
-      "code": "",
-      "date_added": "2026-09-17"
+      "code": "VC366",
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "star-wars-by-kinder-2025_insert3",
@@ -178,8 +224,13 @@
       "owned": true,
       "forsale": false,
       "avito": "",
-      "code": "",
-      "date_added": "2026-09-17"
+      "code": "VC367",
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "star-wars-by-kinder-2025_insert4",
@@ -189,8 +240,13 @@
       "owned": true,
       "forsale": false,
       "avito": "",
-      "code": "",
-      "date_added": "2026-09-17"
+      "code": "VC368",
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "star-wars-by-kinder-2025_insert5",
@@ -200,8 +256,13 @@
       "owned": true,
       "forsale": false,
       "avito": "",
-      "code": "",
-      "date_added": "2026-09-17"
+      "code": "VC369",
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "star-wars-by-kinder-2025_insert6",
@@ -211,8 +272,13 @@
       "owned": true,
       "forsale": false,
       "avito": "",
-      "code": "",
-      "date_added": "2026-09-17"
+      "code": "VC370",
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "star-wars-by-kinder-2025_insert7",
@@ -222,8 +288,13 @@
       "owned": true,
       "forsale": false,
       "avito": "",
-      "code": "",
-      "date_added": "2026-09-17"
+      "code": "VC371",
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "star-wars-by-kinder-2025_insert8",
@@ -233,8 +304,13 @@
       "owned": true,
       "forsale": false,
       "avito": "",
-      "code": "",
-      "date_added": "2026-09-17"
+      "code": "VC372",
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "star-wars-by-kinder-2025_insert9",
@@ -244,8 +320,13 @@
       "owned": true,
       "forsale": false,
       "avito": "",
-      "code": "",
-      "date_added": "2026-09-17"
+      "code": "VC373",
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "star-wars-by-kinder-2025_insert10",
@@ -255,8 +336,13 @@
       "owned": true,
       "forsale": false,
       "avito": "",
-      "code": "",
-      "date_added": "2026-09-17"
+      "code": "VC374",
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     }
   ],
   "other": [],

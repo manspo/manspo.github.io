@@ -29,7 +29,12 @@
       "forsale": false,
       "avito": "",
       "code": "VT428",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "frozen-2-by-kinder-2025_fig2",
@@ -42,7 +47,10 @@
       "code": "VT429",
       "date_added": "2026-09-17",
       "forsale_date": "2026-09-20",
-      "price": "249 руб. (с учетом комиссии Авито)"
+      "price": "249 руб. (с учетом комиссии Авито)",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": ""
     },
     {
       "id": "frozen-2-by-kinder-2025_fig3",
@@ -53,7 +61,12 @@
       "forsale": false,
       "avito": "",
       "code": "VU335",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "frozen-2-by-kinder-2025_fig4",
@@ -66,7 +79,10 @@
       "code": "VU336",
       "date_added": "2026-09-17",
       "forsale_date": "2026-09-20",
-      "price": "249 руб. (с учетом комиссии Авито)"
+      "price": "249 руб. (с учетом комиссии Авито)",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": ""
     },
     {
       "id": "frozen-2-by-kinder-2025_fig5",
@@ -77,7 +93,12 @@
       "forsale": false,
       "avito": "",
       "code": "VU337",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "frozen-2-by-kinder-2025_fig6",
@@ -90,7 +111,10 @@
       "code": "VU338",
       "date_added": "2026-09-17",
       "forsale_date": "2026-09-20",
-      "price": "499 руб. (с учетом комиссии Авито)"
+      "price": "499 руб. (с учетом комиссии Авито)",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": ""
     },
     {
       "id": "frozen-2-by-kinder-2025_fig7",
@@ -103,7 +127,10 @@
       "code": "VU339",
       "date_added": "2026-09-17",
       "forsale_date": "2026-09-20",
-      "price": "119 руб. (с учетом комиссии Авито)"
+      "price": "119 руб. (с учетом комиссии Авито)",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": ""
     },
     {
       "id": "frozen-2-by-kinder-2025_fig8",
@@ -114,7 +141,12 @@
       "forsale": false,
       "avito": "",
       "code": "VU340",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     }
   ],
   "extras": [],
@@ -128,8 +160,13 @@
       "owned": false,
       "forsale": false,
       "avito": "",
-      "code": "",
-      "date_added": "2026-09-17"
+      "code": "VT428",
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "frozen-2-by-kinder-2025_insert2",
@@ -139,8 +176,13 @@
       "owned": false,
       "forsale": false,
       "avito": "",
-      "code": "",
-      "date_added": "2026-09-17"
+      "code": "VT429",
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "frozen-2-by-kinder-2025_insert3",
@@ -150,8 +192,13 @@
       "owned": false,
       "forsale": false,
       "avito": "",
-      "code": "",
-      "date_added": "2026-09-17"
+      "code": "VU335",
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "frozen-2-by-kinder-2025_insert4",
@@ -161,8 +208,13 @@
       "owned": false,
       "forsale": false,
       "avito": "",
-      "code": "",
-      "date_added": "2026-09-17"
+      "code": "VU336",
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "frozen-2-by-kinder-2025_insert5",
@@ -172,8 +224,13 @@
       "owned": false,
       "forsale": false,
       "avito": "",
-      "code": "",
-      "date_added": "2026-09-17"
+      "code": "VU337",
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "frozen-2-by-kinder-2025_insert6",
@@ -183,8 +240,13 @@
       "owned": false,
       "forsale": false,
       "avito": "",
-      "code": "",
-      "date_added": "2026-09-17"
+      "code": "VU338",
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "frozen-2-by-kinder-2025_insert7",
@@ -194,8 +256,13 @@
       "owned": false,
       "forsale": false,
       "avito": "",
-      "code": "",
-      "date_added": "2026-09-17"
+      "code": "VU339",
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "frozen-2-by-kinder-2025_insert8",
@@ -205,8 +272,13 @@
       "owned": false,
       "forsale": false,
       "avito": "",
-      "code": "",
-      "date_added": "2026-09-17"
+      "code": "VU340",
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     }
   ],
   "other": [],

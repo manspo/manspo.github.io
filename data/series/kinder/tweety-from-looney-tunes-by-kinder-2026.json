@@ -29,7 +29,12 @@
       "forsale": false,
       "avito": "",
       "code": "VC375",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "tweety-from-looney-tunes-by-kinder-2026_fig2",
@@ -41,7 +46,11 @@
       "avito": "",
       "code": "VC376",
       "date_added": "2026-09-17",
-      "forsale_date": "2026-09-20"
+      "forsale_date": "2026-09-20",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": ""
     },
     {
       "id": "tweety-from-looney-tunes-by-kinder-2026_fig3",
@@ -52,7 +61,12 @@
       "forsale": false,
       "avito": "",
       "code": "VC377",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "tweety-from-looney-tunes-by-kinder-2026_fig4",
@@ -63,7 +77,12 @@
       "forsale": false,
       "avito": "",
       "code": "VC378",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "tweety-from-looney-tunes-by-kinder-2026_fig5",
@@ -74,7 +93,12 @@
       "forsale": false,
       "avito": "",
       "code": "VC379",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "tweety-from-looney-tunes-by-kinder-2026_fig6",
@@ -85,7 +109,12 @@
       "forsale": false,
       "avito": "",
       "code": "VC380",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "tweety-from-looney-tunes-by-kinder-2026_fig7",
@@ -96,7 +125,12 @@
       "forsale": false,
       "avito": "",
       "code": "VC381",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "tweety-from-looney-tunes-by-kinder-2026_fig8",
@@ -107,7 +141,12 @@
       "forsale": false,
       "avito": "",
       "code": "VC382",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     }
   ],
   "extras": [
@@ -120,7 +159,12 @@
       "forsale": false,
       "avito": "",
       "code": "VC384",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "tweety-from-looney-tunes-by-kinder-2026_extra2",
@@ -131,7 +175,12 @@
       "forsale": false,
       "avito": "",
       "code": "VD477E",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "tweety-from-looney-tunes-by-kinder-2026_extra3",
@@ -143,7 +192,11 @@
       "avito": "",
       "code": "VQ362B",
       "date_added": "2026-09-17",
-      "forsale_date": "2026-09-20"
+      "forsale_date": "2026-09-20",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": ""
     },
     {
       "id": "tweety-from-looney-tunes-by-kinder-2026_extra4",
@@ -154,7 +207,12 @@
       "forsale": false,
       "avito": "",
       "code": "VQ409C",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     }
   ],
   "variants": [],
@@ -167,8 +225,13 @@
       "owned": false,
       "forsale": false,
       "avito": "",
-      "code": "",
-      "date_added": "2026-09-17"
+      "code": "VC375",
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "tweety-from-looney-tunes-by-kinder-2026_insert2",
@@ -178,8 +241,13 @@
       "owned": false,
       "forsale": false,
       "avito": "",
-      "code": "",
-      "date_added": "2026-09-17"
+      "code": "VC376",
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "tweety-from-looney-tunes-by-kinder-2026_insert3",
@@ -189,8 +257,13 @@
       "owned": false,
       "forsale": false,
       "avito": "",
-      "code": "",
-      "date_added": "2026-09-17"
+      "code": "VC377",
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "tweety-from-looney-tunes-by-kinder-2026_insert4",
@@ -200,8 +273,13 @@
       "owned": false,
       "forsale": false,
       "avito": "",
-      "code": "",
-      "date_added": "2026-09-17"
+      "code": "VC378",
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "tweety-from-looney-tunes-by-kinder-2026_insert5",
@@ -211,8 +289,13 @@
       "owned": false,
       "forsale": false,
       "avito": "",
-      "code": "",
-      "date_added": "2026-09-17"
+      "code": "VC379",
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "tweety-from-looney-tunes-by-kinder-2026_insert6",
@@ -222,8 +305,13 @@
       "owned": false,
       "forsale": false,
       "avito": "",
-      "code": "",
-      "date_added": "2026-09-17"
+      "code": "VC380",
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "tweety-from-looney-tunes-by-kinder-2026_insert7",
@@ -233,8 +321,13 @@
       "owned": false,
       "forsale": false,
       "avito": "",
-      "code": "",
-      "date_added": "2026-09-17"
+      "code": "VC381",
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "tweety-from-looney-tunes-by-kinder-2026_insert8",
@@ -244,8 +337,13 @@
       "owned": false,
       "forsale": false,
       "avito": "",
-      "code": "",
-      "date_added": "2026-09-17"
+      "code": "VC382",
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "tweety-from-looney-tunes-by-kinder-2026_insert9",
@@ -255,8 +353,13 @@
       "owned": false,
       "forsale": false,
       "avito": "",
-      "code": "",
-      "date_added": "2026-09-17"
+      "code": "VC384",
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "tweety-from-looney-tunes-by-kinder-2026_insert10",
@@ -266,8 +369,13 @@
       "owned": false,
       "forsale": false,
       "avito": "",
-      "code": "",
-      "date_added": "2026-09-17"
+      "code": "VD477E",
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "tweety-from-looney-tunes-by-kinder-2026_insert11",
@@ -277,8 +385,13 @@
       "owned": false,
       "forsale": false,
       "avito": "",
-      "code": "",
-      "date_added": "2026-09-17"
+      "code": "VQ362B",
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "tweety-from-looney-tunes-by-kinder-2026_insert12",
@@ -288,8 +401,13 @@
       "owned": false,
       "forsale": false,
       "avito": "",
-      "code": "",
-      "date_added": "2026-09-17"
+      "code": "VQ409C",
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     }
   ],
   "other": [],

@@ -29,7 +29,12 @@
       "forsale": false,
       "avito": "",
       "code": "VQB02",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "natoons-baby-maxi-by-kinder-2024_fig2",
@@ -40,7 +45,12 @@
       "forsale": false,
       "avito": "",
       "code": "VQB01",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "natoons-baby-maxi-by-kinder-2024_fig3",
@@ -51,7 +61,12 @@
       "forsale": false,
       "avito": "",
       "code": "VQB03",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "natoons-baby-maxi-by-kinder-2024_fig4",
@@ -62,7 +77,12 @@
       "forsale": false,
       "avito": "",
       "code": "VQB05",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "natoons-baby-maxi-by-kinder-2024_fig5",
@@ -73,7 +93,12 @@
       "forsale": false,
       "avito": "",
       "code": "VQB04",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     }
   ],
   "extras": [],
@@ -88,7 +113,12 @@
       "forsale": false,
       "avito": "",
       "code": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     }
   ],
   "other": [
@@ -101,7 +131,12 @@
       "owned": true,
       "forsale": false,
       "avito": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     }
   ],
   "videos": {

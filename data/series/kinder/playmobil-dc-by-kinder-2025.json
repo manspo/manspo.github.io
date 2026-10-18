@@ -65,7 +65,8 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-16"
+      "date_added": "2026-09-16",
+      "forsale_date": ""
     },
     {
       "id": "playmobil-dc-by-kinder-2025_fig4",
@@ -80,7 +81,8 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-16"
+      "date_added": "2026-09-16",
+      "forsale_date": ""
     },
     {
       "id": "playmobil-dc-by-kinder-2025_fig5",
@@ -111,7 +113,8 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-16"
+      "date_added": "2026-09-16",
+      "forsale_date": ""
     },
     {
       "id": "playmobil-dc-by-kinder-2025_fig7",
@@ -126,7 +129,8 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-16"
+      "date_added": "2026-09-16",
+      "forsale_date": ""
     },
     {
       "id": "playmobil-dc-by-kinder-2025_fig8",
@@ -141,7 +145,8 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-16"
+      "date_added": "2026-09-16",
+      "forsale_date": ""
     },
     {
       "id": "playmobil-dc-by-kinder-2025_fig9",
@@ -156,7 +161,8 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-16"
+      "date_added": "2026-09-16",
+      "forsale_date": ""
     },
     {
       "id": "playmobil-dc-by-kinder-2025_fig10",
@@ -251,7 +257,8 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-16"
+      "date_added": "2026-09-16",
+      "forsale_date": ""
     },
     {
       "id": "playmobil-dc-by-kinder-2025_fig16",
@@ -277,7 +284,7 @@
       "id": "playmobil-dc-by-kinder-2025_insert1",
       "name": "Вкладыш 1",
       "name_en": "Insert 1",
-      "code": "",
+      "code": "VC291",
       "image": "images/series/kinder/playmobil-dc-by-kinder-2025/01b.webp",
       "owned": true,
       "forsale": false,
@@ -286,13 +293,14 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-16"
+      "date_added": "2026-09-16",
+      "forsale_date": ""
     },
     {
       "id": "playmobil-dc-by-kinder-2025_insert2",
       "name": "Вкладыш 2",
       "name_en": "Insert 2",
-      "code": "",
+      "code": "VC292",
       "image": "images/series/kinder/playmobil-dc-by-kinder-2025/02b.webp",
       "owned": true,
       "forsale": false,
@@ -301,13 +309,14 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-16"
+      "date_added": "2026-09-16",
+      "forsale_date": ""
     },
     {
       "id": "playmobil-dc-by-kinder-2025_insert3",
       "name": "Вкладыш 3",
       "name_en": "Insert 3",
-      "code": "",
+      "code": "VC293",
       "image": "images/series/kinder/playmobil-dc-by-kinder-2025/03b.webp",
       "owned": true,
       "forsale": false,
@@ -316,13 +325,14 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-16"
+      "date_added": "2026-09-16",
+      "forsale_date": ""
     },
     {
       "id": "playmobil-dc-by-kinder-2025_insert4",
       "name": "Вкладыш 4",
       "name_en": "Insert 4",
-      "code": "",
+      "code": "VC294",
       "image": "images/series/kinder/playmobil-dc-by-kinder-2025/04b.webp",
       "owned": true,
       "forsale": false,
@@ -331,13 +341,14 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-16"
+      "date_added": "2026-09-16",
+      "forsale_date": ""
     },
     {
       "id": "playmobil-dc-by-kinder-2025_insert5",
       "name": "Вкладыш 5",
       "name_en": "Insert 5",
-      "code": "",
+      "code": "VC295",
       "image": "images/series/kinder/playmobil-dc-by-kinder-2025/05b.webp",
       "owned": true,
       "forsale": false,
@@ -346,13 +357,14 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-16"
+      "date_added": "2026-09-16",
+      "forsale_date": ""
     },
     {
       "id": "playmobil-dc-by-kinder-2025_insert6",
       "name": "Вкладыш 6",
       "name_en": "Insert 6",
-      "code": "",
+      "code": "VC296",
       "image": "images/series/kinder/playmobil-dc-by-kinder-2025/06b.webp",
       "owned": true,
       "forsale": false,
@@ -361,13 +373,14 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-16"
+      "date_added": "2026-09-16",
+      "forsale_date": ""
     },
     {
       "id": "playmobil-dc-by-kinder-2025_insert7",
       "name": "Вкладыш 7",
       "name_en": "Insert 7",
-      "code": "",
+      "code": "VC297",
       "image": "images/series/kinder/playmobil-dc-by-kinder-2025/07b.webp",
       "owned": true,
       "forsale": false,
@@ -376,13 +389,14 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-16"
+      "date_added": "2026-09-16",
+      "forsale_date": ""
     },
     {
       "id": "playmobil-dc-by-kinder-2025_insert8",
       "name": "Вкладыш 8",
       "name_en": "Insert 8",
-      "code": "",
+      "code": "VC298",
       "image": "images/series/kinder/playmobil-dc-by-kinder-2025/08b.webp",
       "owned": true,
       "forsale": false,
@@ -391,13 +405,14 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-16"
+      "date_added": "2026-09-16",
+      "forsale_date": ""
     },
     {
       "id": "playmobil-dc-by-kinder-2025_insert9",
       "name": "Вкладыш 9",
       "name_en": "Insert 9",
-      "code": "",
+      "code": "VC299",
       "image": "images/series/kinder/playmobil-dc-by-kinder-2025/09b.webp",
       "owned": true,
       "forsale": false,
@@ -406,13 +421,14 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-16"
+      "date_added": "2026-09-16",
+      "forsale_date": ""
     },
     {
       "id": "playmobil-dc-by-kinder-2025_insert10",
       "name": "Вкладыш 10",
       "name_en": "Insert 10",
-      "code": "",
+      "code": "VC300",
       "image": "images/series/kinder/playmobil-dc-by-kinder-2025/10b.webp",
       "owned": true,
       "forsale": false,
@@ -421,13 +437,14 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-16"
+      "date_added": "2026-09-16",
+      "forsale_date": ""
     },
     {
       "id": "playmobil-dc-by-kinder-2025_insert11",
       "name": "Вкладыш 11",
       "name_en": "Insert 11",
-      "code": "",
+      "code": "VC301",
       "image": "images/series/kinder/playmobil-dc-by-kinder-2025/11b.webp",
       "owned": true,
       "forsale": false,
@@ -436,13 +453,14 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-16"
+      "date_added": "2026-09-16",
+      "forsale_date": ""
     },
     {
       "id": "playmobil-dc-by-kinder-2025_insert12",
       "name": "Вкладыш 12",
       "name_en": "Insert 12",
-      "code": "",
+      "code": "VC302",
       "image": "images/series/kinder/playmobil-dc-by-kinder-2025/12b.webp",
       "owned": true,
       "forsale": false,
@@ -451,13 +469,14 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-16"
+      "date_added": "2026-09-16",
+      "forsale_date": ""
     },
     {
       "id": "playmobil-dc-by-kinder-2025_insert13",
       "name": "Вкладыш 13",
       "name_en": "Insert 13",
-      "code": "",
+      "code": "VC303",
       "image": "images/series/kinder/playmobil-dc-by-kinder-2025/13b.webp",
       "owned": true,
       "forsale": false,
@@ -466,13 +485,14 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-16"
+      "date_added": "2026-09-16",
+      "forsale_date": ""
     },
     {
       "id": "playmobil-dc-by-kinder-2025_insert14",
       "name": "Вкладыш 14",
       "name_en": "Insert 14",
-      "code": "",
+      "code": "VC304",
       "image": "images/series/kinder/playmobil-dc-by-kinder-2025/14b.webp",
       "owned": true,
       "forsale": false,
@@ -481,13 +501,14 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-16"
+      "date_added": "2026-09-16",
+      "forsale_date": ""
     },
     {
       "id": "playmobil-dc-by-kinder-2025_insert15",
       "name": "Вкладыш 15",
       "name_en": "Insert 15",
-      "code": "",
+      "code": "VC305",
       "image": "images/series/kinder/playmobil-dc-by-kinder-2025/15b.webp",
       "owned": true,
       "forsale": false,
@@ -496,13 +517,14 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-16"
+      "date_added": "2026-09-16",
+      "forsale_date": ""
     },
     {
       "id": "playmobil-dc-by-kinder-2025_insert16",
       "name": "Вкладыш 16",
       "name_en": "Insert 16",
-      "code": "",
+      "code": "VC306",
       "image": "images/series/kinder/playmobil-dc-by-kinder-2025/16b.webp",
       "owned": true,
       "forsale": false,
@@ -511,7 +533,8 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-16"
+      "date_added": "2026-09-16",
+      "forsale_date": ""
     }
   ],
   "other": [],

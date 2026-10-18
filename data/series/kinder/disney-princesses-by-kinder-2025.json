@@ -29,7 +29,12 @@
       "forsale": false,
       "avito": "",
       "code": "VQ332",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "disney-princesses-by-kinder-2025_fig2",
@@ -40,7 +45,12 @@
       "forsale": false,
       "avito": "",
       "code": "VQ333",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "disney-princesses-by-kinder-2025_fig3",
@@ -51,7 +61,12 @@
       "forsale": false,
       "avito": "",
       "code": "VQ335",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "disney-princesses-by-kinder-2025_fig4",
@@ -62,7 +77,12 @@
       "forsale": false,
       "avito": "",
       "code": "VQ336",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "disney-princesses-by-kinder-2025_fig5",
@@ -73,7 +93,12 @@
       "forsale": false,
       "avito": "",
       "code": "VQ337",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "disney-princesses-by-kinder-2025_fig6",
@@ -84,7 +109,12 @@
       "forsale": false,
       "avito": "",
       "code": "VQ338",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "disney-princesses-by-kinder-2025_fig7",
@@ -95,7 +125,12 @@
       "forsale": false,
       "avito": "",
       "code": "VQ339",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "disney-princesses-by-kinder-2025_fig8",
@@ -106,7 +141,12 @@
       "forsale": false,
       "avito": "",
       "code": "VQ340",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     }
   ],
   "extras": [],
@@ -120,8 +160,13 @@
       "owned": true,
       "forsale": false,
       "avito": "",
-      "code": "",
-      "date_added": "2026-09-17"
+      "code": "VQ332",
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "disney-princesses-by-kinder-2025_insert2",
@@ -131,8 +176,13 @@
       "owned": true,
       "forsale": false,
       "avito": "",
-      "code": "",
-      "date_added": "2026-09-17"
+      "code": "VQ333",
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "disney-princesses-by-kinder-2025_insert3",
@@ -142,8 +192,13 @@
       "owned": true,
       "forsale": false,
       "avito": "",
-      "code": "",
-      "date_added": "2026-09-17"
+      "code": "VQ335",
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "disney-princesses-by-kinder-2025_insert4",
@@ -153,8 +208,13 @@
       "owned": true,
       "forsale": false,
       "avito": "",
-      "code": "",
-      "date_added": "2026-09-17"
+      "code": "VQ336",
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "disney-princesses-by-kinder-2025_insert5",
@@ -164,8 +224,13 @@
       "owned": true,
       "forsale": false,
       "avito": "",
-      "code": "",
-      "date_added": "2026-09-17"
+      "code": "VQ337",
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "disney-princesses-by-kinder-2025_insert6",
@@ -175,8 +240,13 @@
       "owned": true,
       "forsale": false,
       "avito": "",
-      "code": "",
-      "date_added": "2026-09-17"
+      "code": "VQ338",
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "disney-princesses-by-kinder-2025_insert7",
@@ -186,8 +256,13 @@
       "owned": true,
       "forsale": false,
       "avito": "",
-      "code": "",
-      "date_added": "2026-09-17"
+      "code": "VQ339",
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "disney-princesses-by-kinder-2025_insert8",
@@ -197,8 +272,13 @@
       "owned": true,
       "forsale": false,
       "avito": "",
-      "code": "",
-      "date_added": "2026-09-17"
+      "code": "VQ340",
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     }
   ],
   "other": [],

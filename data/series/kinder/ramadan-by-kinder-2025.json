@@ -29,7 +29,12 @@
       "forsale": false,
       "avito": "",
       "code": "VD384",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "ramadan-by-kinder-2025_fig2",
@@ -40,7 +45,12 @@
       "forsale": false,
       "avito": "",
       "code": "VD400",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     }
   ],
   "extras": [
@@ -53,7 +63,12 @@
       "forsale": false,
       "avito": "",
       "code": "VD445A",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "ramadan-by-kinder-2025_extra2",
@@ -64,7 +79,12 @@
       "forsale": false,
       "avito": "",
       "code": "VD480B",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "ramadan-by-kinder-2025_extra3",
@@ -75,7 +95,12 @@
       "forsale": false,
       "avito": "",
       "code": "VQ206B",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "ramadan-by-kinder-2025_extra4",
@@ -86,7 +111,12 @@
       "forsale": false,
       "avito": "",
       "code": "VQ208D",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "ramadan-by-kinder-2025_extra5",
@@ -97,7 +127,12 @@
       "forsale": false,
       "avito": "",
       "code": "VQ362A",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "ramadan-by-kinder-2025_extra6",
@@ -108,7 +143,12 @@
       "forsale": false,
       "avito": "",
       "code": "VQ409A",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "ramadan-by-kinder-2025_extra7",
@@ -119,7 +159,12 @@
       "forsale": false,
       "avito": "",
       "code": "VQ409B",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "ramadan-by-kinder-2025_extra8",
@@ -130,7 +175,12 @@
       "forsale": false,
       "avito": "",
       "code": "VU044A",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "ramadan-by-kinder-2025_extra9",
@@ -141,7 +191,12 @@
       "forsale": false,
       "avito": "",
       "code": "VU492O",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "ramadan-by-kinder-2025_extra10",
@@ -152,7 +207,12 @@
       "forsale": false,
       "avito": "",
       "code": "VD180A",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     }
   ],
   "variants": [],
@@ -165,8 +225,13 @@
       "owned": false,
       "forsale": false,
       "avito": "",
-      "code": "",
-      "date_added": "2026-09-17"
+      "code": "VD384",
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "ramadan-by-kinder-2025_insert2",
@@ -176,8 +241,13 @@
       "owned": false,
       "forsale": false,
       "avito": "",
-      "code": "",
-      "date_added": "2026-09-17"
+      "code": "VD400",
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "ramadan-by-kinder-2025_insert3",
@@ -187,8 +257,13 @@
       "owned": false,
       "forsale": false,
       "avito": "",
-      "code": "",
-      "date_added": "2026-09-17"
+      "code": "VD445A",
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "ramadan-by-kinder-2025_insert4",
@@ -198,8 +273,13 @@
       "owned": false,
       "forsale": false,
       "avito": "",
-      "code": "",
-      "date_added": "2026-09-17"
+      "code": "VD480B",
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "ramadan-by-kinder-2025_insert5",
@@ -209,8 +289,13 @@
       "owned": false,
       "forsale": false,
       "avito": "",
-      "code": "",
-      "date_added": "2026-09-17"
+      "code": "VQ206B",
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "ramadan-by-kinder-2025_insert6",
@@ -220,8 +305,13 @@
       "owned": false,
       "forsale": false,
       "avito": "",
-      "code": "",
-      "date_added": "2026-09-17"
+      "code": "VQ208D",
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "ramadan-by-kinder-2025_insert7",
@@ -231,8 +321,13 @@
       "owned": false,
       "forsale": false,
       "avito": "",
-      "code": "",
-      "date_added": "2026-09-17"
+      "code": "VQ362A",
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "ramadan-by-kinder-2025_insert8",
@@ -242,8 +337,13 @@
       "owned": false,
       "forsale": false,
       "avito": "",
-      "code": "",
-      "date_added": "2026-09-17"
+      "code": "VQ409A",
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "ramadan-by-kinder-2025_insert9",
@@ -253,8 +353,13 @@
       "owned": false,
       "forsale": false,
       "avito": "",
-      "code": "",
-      "date_added": "2026-09-17"
+      "code": "VQ409B",
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "ramadan-by-kinder-2025_insert10",
@@ -264,8 +369,13 @@
       "owned": false,
       "forsale": false,
       "avito": "",
-      "code": "",
-      "date_added": "2026-09-17"
+      "code": "VU044A",
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "ramadan-by-kinder-2025_insert11",
@@ -275,8 +385,13 @@
       "owned": false,
       "forsale": false,
       "avito": "",
-      "code": "",
-      "date_added": "2026-09-17"
+      "code": "VU492O",
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "ramadan-by-kinder-2025_insert12",
@@ -286,8 +401,13 @@
       "owned": false,
       "forsale": false,
       "avito": "",
-      "code": "",
-      "date_added": "2026-09-17"
+      "code": "VD180A",
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     }
   ],
   "other": [],

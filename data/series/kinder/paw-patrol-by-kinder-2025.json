@@ -33,7 +33,8 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": ""
     },
     {
       "id": "paw-patrol-by-kinder-2025_fig2",
@@ -48,7 +49,8 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": ""
     },
     {
       "id": "paw-patrol-by-kinder-2025_fig3",
@@ -63,7 +65,8 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": ""
     },
     {
       "id": "paw-patrol-by-kinder-2025_fig4",
@@ -94,7 +97,8 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": ""
     },
     {
       "id": "paw-patrol-by-kinder-2025_fig6",
@@ -109,7 +113,8 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": ""
     },
     {
       "id": "paw-patrol-by-kinder-2025_fig7",
@@ -124,7 +129,8 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": ""
     },
     {
       "id": "paw-patrol-by-kinder-2025_fig8",
@@ -139,7 +145,8 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": ""
     }
   ],
   "extras": [],
@@ -149,7 +156,7 @@
       "id": "paw-patrol-by-kinder-2025_insert1",
       "name": "Вкладыш 1",
       "name_en": "Insert 1",
-      "code": "",
+      "code": "VD348",
       "image": "images/series/kinder/paw-patrol-by-kinder-2025/01b.webp",
       "owned": true,
       "forsale": false,
@@ -158,13 +165,14 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": ""
     },
     {
       "id": "paw-patrol-by-kinder-2025_insert2",
       "name": "Вкладыш 2",
       "name_en": "Insert 2",
-      "code": "",
+      "code": "VD349",
       "image": "images/series/kinder/paw-patrol-by-kinder-2025/02b.webp",
       "owned": true,
       "forsale": false,
@@ -173,13 +181,14 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": ""
     },
     {
       "id": "paw-patrol-by-kinder-2025_insert3",
       "name": "Вкладыш 3",
       "name_en": "Insert 3",
-      "code": "",
+      "code": "VD354",
       "image": "images/series/kinder/paw-patrol-by-kinder-2025/03b.webp",
       "owned": true,
       "forsale": false,
@@ -188,13 +197,14 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": ""
     },
     {
       "id": "paw-patrol-by-kinder-2025_insert4",
       "name": "Вкладыш 4",
       "name_en": "Insert 4",
-      "code": "",
+      "code": "VD355",
       "image": "images/series/kinder/paw-patrol-by-kinder-2025/04b.webp",
       "owned": true,
       "forsale": false,
@@ -203,13 +213,14 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": ""
     },
     {
       "id": "paw-patrol-by-kinder-2025_insert5",
       "name": "Вкладыш 5",
       "name_en": "Insert 5",
-      "code": "",
+      "code": "VD358",
       "image": "images/series/kinder/paw-patrol-by-kinder-2025/05b.webp",
       "owned": true,
       "forsale": false,
@@ -218,13 +229,14 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": ""
     },
     {
       "id": "paw-patrol-by-kinder-2025_insert6",
       "name": "Вкладыш 6",
       "name_en": "Insert 6",
-      "code": "",
+      "code": "VD361",
       "image": "images/series/kinder/paw-patrol-by-kinder-2025/06b.webp",
       "owned": true,
       "forsale": false,
@@ -233,13 +245,14 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": ""
     },
     {
       "id": "paw-patrol-by-kinder-2025_insert7",
       "name": "Вкладыш 7",
       "name_en": "Insert 7",
-      "code": "",
+      "code": "VD362",
       "image": "images/series/kinder/paw-patrol-by-kinder-2025/07b.webp",
       "owned": true,
       "forsale": false,
@@ -248,13 +261,14 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": ""
     },
     {
       "id": "paw-patrol-by-kinder-2025_insert8",
       "name": "Вкладыш 8",
       "name_en": "Insert 8",
-      "code": "",
+      "code": "VQ331",
       "image": "images/series/kinder/paw-patrol-by-kinder-2025/08b.webp",
       "owned": true,
       "forsale": false,
@@ -263,7 +277,8 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "forsale_date": ""
     }
   ],
   "other": [],

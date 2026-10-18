@@ -29,7 +29,12 @@
       "forsale": false,
       "avito": "",
       "code": "VT260B",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "hot-wheels-by-kinder-2025_fig2",
@@ -40,7 +45,12 @@
       "forsale": false,
       "avito": "",
       "code": "VT261B",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "hot-wheels-by-kinder-2025_fig3",
@@ -51,7 +61,12 @@
       "forsale": false,
       "avito": "",
       "code": "VT262A",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "hot-wheels-by-kinder-2025_fig4",
@@ -62,7 +77,12 @@
       "forsale": false,
       "avito": "",
       "code": "VT263A",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "hot-wheels-by-kinder-2025_fig5",
@@ -73,7 +93,12 @@
       "forsale": false,
       "avito": "",
       "code": "VT264A",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "hot-wheels-by-kinder-2025_fig6",
@@ -84,7 +109,12 @@
       "forsale": false,
       "avito": "",
       "code": "VT265A",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "hot-wheels-by-kinder-2025_fig7",
@@ -95,7 +125,12 @@
       "forsale": false,
       "avito": "",
       "code": "VT266A",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "hot-wheels-by-kinder-2025_fig8",
@@ -106,7 +141,12 @@
       "forsale": false,
       "avito": "",
       "code": "VT268A",
-      "date_added": "2026-09-17"
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     }
   ],
   "extras": [],
@@ -120,8 +160,13 @@
       "owned": false,
       "forsale": false,
       "avito": "",
-      "code": "",
-      "date_added": "2026-09-17"
+      "code": "VT260B",
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "hot-wheels-by-kinder-2025_insert2",
@@ -131,8 +176,13 @@
       "owned": false,
       "forsale": false,
       "avito": "",
-      "code": "",
-      "date_added": "2026-09-17"
+      "code": "VT261B",
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "hot-wheels-by-kinder-2025_insert3",
@@ -142,8 +192,13 @@
       "owned": false,
       "forsale": false,
       "avito": "",
-      "code": "",
-      "date_added": "2026-09-17"
+      "code": "VT262A",
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "hot-wheels-by-kinder-2025_insert4",
@@ -153,8 +208,13 @@
       "owned": false,
       "forsale": false,
       "avito": "",
-      "code": "",
-      "date_added": "2026-09-17"
+      "code": "VT263A",
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "hot-wheels-by-kinder-2025_insert5",
@@ -164,8 +224,13 @@
       "owned": false,
       "forsale": false,
       "avito": "",
-      "code": "",
-      "date_added": "2026-09-17"
+      "code": "VT264A",
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "hot-wheels-by-kinder-2025_insert6",
@@ -175,8 +240,13 @@
       "owned": false,
       "forsale": false,
       "avito": "",
-      "code": "",
-      "date_added": "2026-09-17"
+      "code": "VT265A",
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "hot-wheels-by-kinder-2025_insert7",
@@ -186,8 +256,13 @@
       "owned": false,
       "forsale": false,
       "avito": "",
-      "code": "",
-      "date_added": "2026-09-17"
+      "code": "VT266A",
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     },
     {
       "id": "hot-wheels-by-kinder-2025_insert8",
@@ -197,8 +272,13 @@
       "owned": false,
       "forsale": false,
       "avito": "",
-      "code": "",
-      "date_added": "2026-09-17"
+      "code": "VT268A",
+      "date_added": "2026-09-17",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "forsale_date": ""
     }
   ],
   "other": [],

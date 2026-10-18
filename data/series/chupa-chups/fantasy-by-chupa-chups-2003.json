@@ -7,9 +7,6 @@
   "cover": "images/series/chupa-chups/fantasy-by-chupa-chups-2003/cover.webp",
   "description": "Фэнтезийная серия из 8 фигурок",
   "description_en": "Fantasy series of 8 figures",
-  "contributors": [
-  { "name": "Обычный Куприн", "url": "", "role": "" }
-  ],
   "kind": "",
   "visible": true,
   "fullSeriesForSale": false,
