@@ -1075,11 +1075,12 @@ function initZoomFeatures() {
   let touchStartDistance = 0, touchStartZoom = 1;
   let isTouching = false, isPanningTouch = false;
   let panStartX = 0, panStartY = 0;
-  let swipeStartX = 0, swipeStartTime = 0, isSwiping = false;
+  let swipeStartX = 0, swipeStartY = 0, swipeStartTime = 0, isSwiping = false; // Добавлен swipeStartY
 
   function handleTouchStart(e) {
     e.preventDefault();
     swipeStartX = e.touches[0].clientX;
+    swipeStartY = e.touches[0].clientY; // Запоминаем Y
     swipeStartTime = Date.now();
     isSwiping = true;
     if (e.touches.length === 2) {
@@ -1135,14 +1136,30 @@ function initZoomFeatures() {
 
   function handleTouchEnd(e) {
     e.preventDefault();
-    if (isSwiping && currentZoom <= 1 && lightboxImages.length > 1) {
+    // Если был свайп и мы не приближали картинку
+    if (isSwiping && currentZoom <= 1) {
       const deltaX = e.changedTouches[0].clientX - swipeStartX;
+      const deltaY = e.changedTouches[0].clientY - swipeStartY;
       const deltaTime = Date.now() - swipeStartTime;
-      if (Math.abs(deltaX) > 50 && deltaTime < 300) {
-        if (deltaX > 0) prevLightboxImage();
-        else nextLightboxImage();
+
+      if (deltaTime < 300) {
+        // 1. Горизонтальный свайп (листание фото)
+        if (Math.abs(deltaX) > 50 && Math.abs(deltaX) > Math.abs(deltaY)) {
+          if (lightboxImages.length > 1) {
+            if (deltaX > 0) prevLightboxImage();
+            else nextLightboxImage();
+          }
+        } 
+        // 2. Вертикальный свайп (связка фигурка-вкладыш)
+        else if (Math.abs(deltaY) > 50 && Math.abs(deltaY) > Math.abs(deltaX)) {
+          if (window.seriesLinkedIndexes && window.seriesLinkedIndexes[currentLightboxIndex] !== undefined) {
+            // Открываем связанный элемент
+            openLightbox(window.seriesLinkedIndexes[currentLightboxIndex], lightboxImages, lightboxTitles);
+          }
+        }
       }
     }
+    
     isPanningTouch = false;
     isTouching = false;
     isSwiping = false;
@@ -3153,6 +3170,31 @@ async function initSeries() {
 
     window.seriesGalleryImages = allImages;
     window.seriesGalleryTitles = allTitles;
+
+    // ===== СВЯЗКА ФИГУРКА ↔ ВКЛАДЫШ =====
+    const linkedIndexes = {};
+    let figIndex = 0;
+    
+    // Ищем пары по коду среди фигурок и вкладышей
+    (s.figures || []).forEach(fig => {
+      if (fig.code && fig.code.trim()) {
+        const codeClean = fig.code.trim().toLowerCase();
+        const insertIdx = (s.inserts || []).findIndex(ins => 
+          ins.code && ins.code.trim().toLowerCase() === codeClean
+        );
+        
+        if (insertIdx !== -1) {
+          // Вычисляем общий индекс вкладыша в галерее
+          const insertGalleryIdx = (s.figures || []).length + (s.extras || []).length + (s.variants || []).length + insertIdx;
+          
+          linkedIndexes[figIndex] = insertGalleryIdx;       // фигурка -> вкладыш
+          linkedIndexes[insertGalleryIdx] = figIndex;       // вкладыш -> фигурка
+        }
+      }
+      figIndex++;
+    });
+    window.seriesLinkedIndexes = linkedIndexes;
+    // =====================================
     
     const hasCollage = (s.figures && s.figures.length > 0) || 
                        (s.extras && s.extras.length > 0) || 
@@ -3180,15 +3222,17 @@ async function initSeries() {
       const title = currentLang === 'ru' ? 'Благодарность:' : 'Acknowledgment:';
 
       const chips = contributors.map(c => {
+        const tag = c.url ? 'a' : 'span';
+        const attrs = c.url 
+          ? `href="${escapeHtml(c.url)}" target="_blank" rel="noopener noreferrer"` 
+          : '';
         const role = c.role ? `<span class="contributor-role">(${escapeHtml(c.role)})</span>` : '';
 
-        return `
-          <div class="contributor-chip">
-            <span>🏅</span>
-            <span>${escapeHtml(c.name)}</span>
-            ${role}
-          </div>
-        `;
+        return `<${tag} ${attrs} class="contributor-chip">
+          <span>🏅</span>
+          <span>${escapeHtml(c.name)}</span>
+          ${role}
+        </${tag}>`;
       }).join('');
 
       return `
@@ -3230,7 +3274,7 @@ async function initSeries() {
                 <img src="${imageUrl}" alt="${safeName}" loading="lazy" onerror="this.src='images/placeholder.svg'" onclick="openLightbox(${globalIndex}, window.seriesGalleryImages, window.seriesGalleryTitles)" style="cursor:pointer">
                 <div class="figure-info">
                   <div class="figure-name">${safeName}</div>
-                  ${itemCode ? `<div class="figure-code copyable-code" data-code="${escapeHtml(itemCode)}" title="Нажмите, чтобы скопировать">${escapeHtml(itemCode)}</div>` : ''}
+                  ${itemCode ? `<div class="figure-code copyable-code" data-code="${escapeHtml(itemCode)}" title="Нажмите, чтобы скопировать" style="margin-top: 4px; font-size: 13px; color: var(--muted); background: transparent; padding: 0;">${escapeHtml(itemCode)}</div>` : ''}
                   <div class="figure-actions">
                     <button class="qr-btn" onclick="generateQRCode('${safeId}', '${safeSeriesId}', '${safeName.replace(/'/g, "\\'")}')" title="QR-код">📱</button>
                     ${hasDup 
