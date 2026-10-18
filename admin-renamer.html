@@ -32,58 +32,10 @@
     }
     .btn-group-rename:hover { background: #7c3aed; transform: translateY(-1px); }
 
-    .items-grid { 
-      display: flex; 
-      flex-direction: column; 
-      gap: 12px; 
-    }
+    .items-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 15px; }
     
-    .item-card { 
-      background: #fff; 
-      padding: 15px; 
-      border-radius: 12px; 
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05); 
-      display: flex; 
-      gap: 15px; 
-      align-items: center; 
-      cursor: grab;
-      border: 2px solid transparent;
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
-    .item-card:active { cursor: grabbing; }
-    .item-card.dragging {
-      opacity: 0.5;
-      border-color: #4f46e5;
-      background: #f8fafc;
-    }
-    .item-card.drag-over {
-      border-color: #4f46e5;
-      border-style: dashed;
-      background: #eef2ff;
-    }
-
-    .drag-handle {
-      font-size: 20px;
-      color: #94a3b8;
-      cursor: grab;
-      user-select: none;
-      padding: 0 5px;
-    }
-    .item-number {
-      background: #4f46e5;
-      color: white;
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-      font-weight: bold;
-      flex-shrink: 0;
-    }
-
-    .item-img { width: 60px; height: 60px; object-fit: contain; background: #f1f5f9; border-radius: 6px; flex-shrink: 0; }
+    .item-card { background: #fff; padding: 15px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); display: flex; gap: 15px; align-items: center; }
+    .item-img { width: 60px; height: 60px; object-fit: contain; background: #f1f5f9; border-radius: 6px; }
     .item-fields { flex: 1; display: flex; flex-direction: column; gap: 8px; }
     .field-row { display: flex; gap: 8px; align-items: center; }
     .field-row input { flex: 1; padding: 6px 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 13px; font-family: monospace; }
@@ -152,7 +104,9 @@
       document.getElementById('seriesId').textContent = currentData.id;
 
       const coverImg = document.getElementById('seriesCover');
-      if (currentData.cover) coverImg.src = currentData.cover;
+      if (currentData.cover) {
+        coverImg.src = currentData.cover; 
+      }
 
       const container = document.getElementById('groupsContainer');
       container.innerHTML = '';
@@ -161,6 +115,7 @@
         const items = currentData[groupKey];
         if (!items || items.length === 0) return;
 
+        // Заголовок группы с кнопкой массового переименования
         const groupTitle = document.createElement('div');
         groupTitle.className = 'group-title';
         groupTitle.innerHTML = `
@@ -173,8 +128,7 @@
 
         const grid = document.createElement('div');
         grid.className = 'items-grid';
-        grid.id = `grid-${groupKey}`;
-        grid.dataset.groupKey = groupKey; // Привязываем группу к контейнеру
+        grid.id = `grid-${groupKey}`; // Добавляем ID для быстрого доступа
 
         items.forEach((item, index) => {
           const fullPath = item.image || '';
@@ -183,128 +137,65 @@
 
           const card = document.createElement('div');
           card.className = 'item-card';
-          card.draggable = true;
-          card.dataset.index = index; // Запоминаем изначальный индекс
 
-          card.innerHTML = `
-            <div class="drag-handle">⠿</div>
-            <div class="item-number">${index + 1}</div>
-            <img class="item-img" src="${fullPath || ''}">
-            <div class="item-fields">
-              <div class="field-row">
-                <input type="text" id="input-${groupKey}-${index}" value="${currentName}" placeholder="01.webp">
-                <button class="btn-magic" title="Сгенерировать имя">✨</button>
-              </div>
-              <div class="info" style="font-size: 11px; color: #64748b;">
-                Код: ${item.code || '—'} | EN: ${item.name_en || '—'}
-              </div>
-            </div>
-          `;
+          const img = document.createElement('img');
+          img.className = 'item-img';
+          if (fullPath) img.src = fullPath;
+          card.appendChild(img);
 
-          // Обработчик кнопки ✨
-          card.querySelector('.btn-magic').onclick = () => {
+          const fields = document.createElement('div');
+          fields.className = 'item-fields';
+
+          const fileRow = document.createElement('div');
+          fileRow.className = 'field-row';
+          
+          const input = document.createElement('input');
+          input.type = 'text';
+          input.id = `input-${groupKey}-${index}`; // ID для обновления из общей кнопки
+          input.value = currentName;
+          input.placeholder = '01.webp';
+          input.onchange = (e) => updateFileName(groupKey, index, e.target.value);
+          fileRow.appendChild(input);
+          
+          const btnMagic = document.createElement('button');
+          btnMagic.className = 'btn-magic';
+          btnMagic.innerHTML = '✨';
+          btnMagic.title = 'Сгенерировать имя';
+          btnMagic.onclick = () => {
             const newName = generateFileName(item, groupKey, index + 1);
-            card.querySelector('input').value = newName;
+            input.value = newName;
             updateFileName(groupKey, index, newName);
           };
+          fileRow.appendChild(btnMagic);
+          fields.appendChild(fileRow);
 
-          // Обработчик ручного ввода
-          card.querySelector('input').onchange = (e) => {
-            updateFileName(groupKey, index, e.target.value);
-          };
+          const info = document.createElement('div');
+          info.style.fontSize = '11px';
+          info.style.color = '#64748b';
+          info.textContent = 'Код: ' + (item.code || '—') + ' | EN: ' + (item.name_en || '—');
+          fields.appendChild(info);
 
+          card.appendChild(fields);
           grid.appendChild(card);
         });
 
         container.appendChild(grid);
-        initDragAndDrop(grid); // Инициализируем Drag&Drop для этой группы
       });
     }
 
-    // ===== DRAG & DROP =====
-    function initDragAndDrop(container) {
-      let draggedItem = null;
-
-      container.addEventListener('dragstart', e => {
-        const item = e.target.closest('.item-card');
-        if (!item) return;
-        draggedItem = item;
-        e.dataTransfer.effectAllowed = 'move';
-        setTimeout(() => item.classList.add('dragging'), 0);
-      });
-
-      container.addEventListener('dragend', e => {
-        if (draggedItem) {
-          draggedItem.classList.remove('dragging');
-          draggedItem = null;
-          updateDataFromDOM(container); // Сохраняем новый порядок
-        }
-        container.querySelectorAll('.item-card').forEach(el => el.classList.remove('drag-over'));
-      });
-
-      container.addEventListener('dragover', e => {
-        e.preventDefault();
-        const target = e.target.closest('.item-card');
-        if (!target || target === draggedItem) return;
-
-        const rect = target.getBoundingClientRect();
-        const isAfter = (e.clientY - rect.top) > (rect.height / 2);
-
-        if (isAfter) {
-          target.parentNode.insertBefore(draggedItem, target.nextSibling);
-        } else {
-          target.parentNode.insertBefore(draggedItem, target);
-        }
-
-        container.querySelectorAll('.item-card').forEach(el => el.classList.remove('drag-over'));
-        target.classList.add('drag-over');
-      });
-
-      container.addEventListener('dragleave', e => {
-        const target = e.target.closest('.item-card');
-        if (target) target.classList.remove('drag-over');
-      });
-
-      container.addEventListener('drop', e => {
-        e.preventDefault();
-        container.querySelectorAll('.item-card').forEach(el => el.classList.remove('drag-over'));
-      });
-    }
-
-    // Пересборка массива данных после изменения порядка
-    function updateDataFromDOM(container) {
-      const groupKey = container.dataset.groupKey;
-      const cards = Array.from(container.querySelectorAll('.item-card'));
-      
-      // Берем старый массив
-      const oldItems = currentData[groupKey];
-      
-      // Формируем новый массив на основе DOM
-      const newItems = cards.map((card, newIndex) => {
-        const oldIndex = parseInt(card.dataset.index, 10);
-        const item = oldItems[oldIndex];
-        
-        // Обновляем индексы в DOM и ID полей ввода
-        card.dataset.index = newIndex;
-        card.querySelector('.item-number').textContent = newIndex + 1;
-        card.querySelector('input').id = `input-${groupKey}-${newIndex}`;
-        
-        return item;
-      });
-
-      // Перезаписываем данные
-      currentData[groupKey] = newItems;
-    }
-
-    // ===== МАССОВОЕ ПЕРЕИМЕНОВАНИЕ =====
+    // ===== МАССОВОЕ ПЕРЕИМЕНОВАНИЕ В ГРУППЕ =====
     function renameAllInGroup(groupKey) {
       const items = currentData[groupKey];
       if (!items || items.length === 0) return;
 
       items.forEach((item, index) => {
         const newName = generateFileName(item, groupKey, index + 1);
+        
+        // Обновляем поле ввода визуально
         const input = document.getElementById(`input-${groupKey}-${index}`);
         if (input) input.value = newName;
+        
+        // Обновляем данные и лог
         updateFileName(groupKey, index, newName);
       });
     }
@@ -366,23 +257,26 @@
       }
 
       let batContent = '@echo off\r\nchcp 65001 >nul\r\n';
-      batContent += 'echo Starting file renaming...\r\n\r\n';
+      batContent += 'echo Starting file renaming...\r\n';
+      batContent += 'echo.\r\n';
 
       renameLog.forEach(log => {
         const oldWin = log.oldPath.replace(/\//g, '\\');
         const newWin = log.newPath.replace(/\//g, '\\');
         
-        batContent += `if exist "${oldWin}" (\r\n`;
-        batContent += `  ren "${oldWin}" "${newWin.split('\\').pop()}"\r\n`;
-        batContent += `  echo Renamed: ${oldWin} -^> ${newWin}\r\n`;
-        batContent += `) else (\r\n`;
-        batContent += `  echo [SKIP] Not found: ${oldWin}\r\n`;
-        batContent += `)\r\n`;
+        // Прямая команда ren. Без "if exist (...) { }", чтобы скобки (1) в путях не ломали скрипт.
+        batContent += `ren "${oldWin}" "${newWin.split('\\').pop()}"\r\n`;
+        batContent += `echo [OK] Renamed: ${oldWin}\r\n`;
       });
 
-      batContent += '\r\necho Done!\r\npause\r\n';
+      batContent += '\r\necho Done!\r\n';
+      batContent += 'echo.\r\n';
+      batContent += 'pause\r\n'; // Теперь пауза гарантированно сработает
 
-      const blob = new Blob([batContent], { type: 'application/bat' });
+      // Добавляем BOM (EF BB BF), чтобы кириллица в путях читалась правильно
+      const bom = new Uint8Array([0xEF, 0xBB, 0xBF]);
+      const blob = new Blob([bom, batContent], { type: 'application/bat' });
+      
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
