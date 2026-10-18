@@ -1,5 +1,53 @@
 [
   {
+    "id": "space-pets-by-chupa-chups-2003",
+    "name": "Космические питомцы от Чупа-Чупс",
+    "name_en": "Space Pets by Chupa Chups",
+    "year": 2003,
+    "manufacturer": "chupa-chups",
+    "cover": "images/series/chupa-chups/space-pets-by-chupa-chups-2003/cover.webp",
+    "kind": "",
+    "description": "Серия про космических питомцев",
+    "description_en": "Series about space pets",
+    "visible": true
+  },
+  {
+    "id": "robots-by-chupa-chups-2003",
+    "name": "Роботы от Чупа-Чупс",
+    "name_en": "Robots by Chupa Chups",
+    "year": 2003,
+    "manufacturer": "chupa-chups",
+    "cover": "images/series/chupa-chups/robots-by-chupa-chups-2003/cover.webp",
+    "kind": "",
+    "description": "Серия посвященная роботам",
+    "description_en": "Series dedicated to robots",
+    "visible": true
+  },
+  {
+    "id": "trolls-by-chupa-chups-2003",
+    "name": "Тролли от Чупа-Чупс",
+    "name_en": "Trolls by Chupa Chups",
+    "year": 2003,
+    "manufacturer": "chupa-chups",
+    "cover": "images/series/chupa-chups/trolls-by-chupa-chups-2003/cover.webp",
+    "kind": "",
+    "description": "Серия посвященная Троллям",
+    "description_en": "Series dedicated to Trolls",
+    "visible": true
+  },
+  {
+    "id": "circus-by-chupa-chups-2003",
+    "name": "Цирк от Чупа-Чупс",
+    "name_en": "Circus by Chupa Chups",
+    "year": 2003,
+    "manufacturer": "chupa-chups",
+    "cover": "images/series/chupa-chups/circus-by-chupa-chups-2003/cover.webp",
+    "kind": "",
+    "description": "Версия посвященная цирку",
+    "description_en": "Circus version",
+    "visible": true
+  },
+  {
     "id": "pink-whale-robbie-by-kinder-1996",
     "name": "Розовый Кит Робби от Киндер",
     "name_en": "Pink Whale Robbie by Kinder",
