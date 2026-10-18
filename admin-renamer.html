@@ -115,7 +115,6 @@
         const items = currentData[groupKey];
         if (!items || items.length === 0) return;
 
-        // Заголовок группы с кнопкой массового переименования
         const groupTitle = document.createElement('div');
         groupTitle.className = 'group-title';
         groupTitle.innerHTML = `
@@ -128,7 +127,7 @@
 
         const grid = document.createElement('div');
         grid.className = 'items-grid';
-        grid.id = `grid-${groupKey}`; // Добавляем ID для быстрого доступа
+        grid.id = `grid-${groupKey}`;
 
         items.forEach((item, index) => {
           const fullPath = item.image || '';
@@ -151,7 +150,7 @@
           
           const input = document.createElement('input');
           input.type = 'text';
-          input.id = `input-${groupKey}-${index}`; // ID для обновления из общей кнопки
+          input.id = `input-${groupKey}-${index}`;
           input.value = currentName;
           input.placeholder = '01.webp';
           input.onchange = (e) => updateFileName(groupKey, index, e.target.value);
@@ -191,11 +190,9 @@
       items.forEach((item, index) => {
         const newName = generateFileName(item, groupKey, index + 1);
         
-        // Обновляем поле ввода визуально
         const input = document.getElementById(`input-${groupKey}-${index}`);
         if (input) input.value = newName;
         
-        // Обновляем данные и лог
         updateFileName(groupKey, index, newName);
       });
     }
@@ -231,6 +228,11 @@
       pathParts[pathParts.length - 1] = newName;
       item.image = pathParts.join('/');
 
+      // Проверка: если обложка совпадает с этим файлом - обновляем и её
+      if (currentData.cover === oldImage) {
+        currentData.cover = item.image;
+      }
+
       if (oldName !== newName) {
         const existingLogIndex = renameLog.findIndex(l => l.oldPath === oldImage);
         if (existingLogIndex !== -1) {
@@ -264,16 +266,14 @@
         const oldWin = log.oldPath.replace(/\//g, '\\');
         const newWin = log.newPath.replace(/\//g, '\\');
         
-        // Прямая команда ren. Без "if exist (...) { }", чтобы скобки (1) в путях не ломали скрипт.
         batContent += `ren "${oldWin}" "${newWin.split('\\').pop()}"\r\n`;
         batContent += `echo [OK] Renamed: ${oldWin}\r\n`;
       });
 
       batContent += '\r\necho Done!\r\n';
       batContent += 'echo.\r\n';
-      batContent += 'pause\r\n'; // Теперь пауза гарантированно сработает
+      batContent += 'pause\r\n';
 
-      // Добавляем BOM (EF BB BF), чтобы кириллица в путях читалась правильно
       const bom = new Uint8Array([0xEF, 0xBB, 0xBF]);
       const blob = new Blob([bom, batContent], { type: 'application/bat' });
       
