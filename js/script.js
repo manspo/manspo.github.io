@@ -947,7 +947,7 @@ window.openLightbox = function(index, images, titles) {
       img.src = lightboxImages[idx];
       if (counter) counter.textContent = `${idx + 1} / ${lightboxImages.length}`;
 
-      // Скрываем стрелки и счётчик, если картинка одна (для lot.html)
+      // Скрываем стрелки и счётчик, если картинка одна
       if (lightboxImages.length <= 1) {
         lightbox.classList.add('single-image');
         if (counter) counter.style.display = 'none';
@@ -956,14 +956,20 @@ window.openLightbox = function(index, images, titles) {
         if (counter) counter.style.display = '';
       }
 
-      // Название над картинкой
-      let titleEl = lightbox.querySelector('.lightbox-title');
-      if (!titleEl) {
-        titleEl = document.createElement('div');
-        titleEl.className = 'lightbox-title';
-        lightbox.appendChild(titleEl);
-      }
       updateLightboxTitle(idx);
+
+      // Показ/скрытие стрелок вверх-вниз (связка)
+      const upBtn = document.getElementById('lightboxUpBtn');
+      const downBtn = document.getElementById('lightboxDownBtn');
+      if (upBtn && downBtn) {
+        if (window.seriesLinkedIndexes && window.seriesLinkedIndexes[idx] !== undefined) {
+          upBtn.style.display = 'flex';
+          downBtn.style.display = 'flex';
+        } else {
+          upBtn.style.display = 'none';
+          downBtn.style.display = 'none';
+        }
+      }
 
       lightbox.style.display = 'flex';
       img.onload = function() { initZoomFeatures(); };
@@ -977,19 +983,30 @@ window.openLightbox = function(index, images, titles) {
 function updateLightboxTitle(idx) {
   const lightbox = document.getElementById('lightbox');
   if (!lightbox) return;
-  const titleEl = lightbox.querySelector('.lightbox-title');
-  if (!titleEl) return;
+  
+  let titleEl = lightbox.querySelector('.lightbox-title');
+  if (!titleEl) {
+    titleEl = document.createElement('div');
+    titleEl.className = 'lightbox-title';
+    lightbox.appendChild(titleEl);
+  }
 
-  const title = lightboxTitles[idx] || '';
-  if (!title || isDefaultName({ name: title, name_en: title }, 'figure')) {
+  const data = lightboxTitles[idx] || {};
+  // Если data - строка (для обратной совместимости), оборачиваем в объект
+  const title = (typeof data === 'string') ? data : (data.title || '');
+  const code = (typeof data === 'string') ? '' : (data.code || '');
+
+  if (!title && !code) {
     titleEl.classList.add('hidden');
     titleEl.textContent = '';
   } else {
     titleEl.classList.remove('hidden');
-    titleEl.textContent = title;
+    titleEl.innerHTML = `
+      <div style="font-size: 16px; font-weight: 700;">${escapeHtml(title)}</div>
+      ${code ? `<div style="font-size: 13px; color: #6b7280; font-weight: 400; margin-top: 4px;">${escapeHtml(code)}</div>` : ''}
+    `;
   }
 }
-
 function resetZoom() {
   const img = document.getElementById('lightboxImg');
   if (!img) return;
@@ -1075,12 +1092,12 @@ function initZoomFeatures() {
   let touchStartDistance = 0, touchStartZoom = 1;
   let isTouching = false, isPanningTouch = false;
   let panStartX = 0, panStartY = 0;
-  let swipeStartX = 0, swipeStartY = 0, swipeStartTime = 0, isSwiping = false; // Добавлен swipeStartY
+  let swipeStartX = 0, swipeStartY = 0, swipeStartTime = 0, isSwiping = false;
 
   function handleTouchStart(e) {
     e.preventDefault();
     swipeStartX = e.touches[0].clientX;
-    swipeStartY = e.touches[0].clientY; // Запоминаем Y
+    swipeStartY = e.touches[0].clientY;
     swipeStartTime = Date.now();
     isSwiping = true;
     if (e.touches.length === 2) {
@@ -1136,14 +1153,13 @@ function initZoomFeatures() {
 
   function handleTouchEnd(e) {
     e.preventDefault();
-    // Если был свайп и мы не приближали картинку
     if (isSwiping && currentZoom <= 1) {
       const deltaX = e.changedTouches[0].clientX - swipeStartX;
       const deltaY = e.changedTouches[0].clientY - swipeStartY;
       const deltaTime = Date.now() - swipeStartTime;
 
       if (deltaTime < 300) {
-        // 1. Горизонтальный свайп (листание фото)
+        // 1. Горизонтальный свайп (листание)
         if (Math.abs(deltaX) > 50 && Math.abs(deltaX) > Math.abs(deltaY)) {
           if (lightboxImages.length > 1) {
             if (deltaX > 0) prevLightboxImage();
@@ -1153,7 +1169,6 @@ function initZoomFeatures() {
         // 2. Вертикальный свайп (связка фигурка-вкладыш)
         else if (Math.abs(deltaY) > 50 && Math.abs(deltaY) > Math.abs(deltaX)) {
           if (window.seriesLinkedIndexes && window.seriesLinkedIndexes[currentLightboxIndex] !== undefined) {
-            // Открываем связанный элемент
             openLightbox(window.seriesLinkedIndexes[currentLightboxIndex], lightboxImages, lightboxTitles);
           }
         }
@@ -1174,6 +1189,35 @@ function initZoomFeatures() {
   img.addEventListener('touchmove', handleTouchMove, { passive: false });
   img.addEventListener('touchend', handleTouchEnd);
   img.addEventListener('touchcancel', handleTouchEnd);
+
+  // ===== УПРАВЛЕНИЕ С КЛАВИАТУРЫ ДЛЯ ПК =====
+  window.onkeydown = function(e) {
+    const lightbox = document.getElementById('lightbox');
+    // Работает только если лайтбокс открыт
+    if (!lightbox || lightbox.style.display !== 'flex') return;
+
+    if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+      e.preventDefault();
+      if (window.seriesLinkedIndexes && window.seriesLinkedIndexes[currentLightboxIndex] !== undefined) {
+        openLightbox(window.seriesLinkedIndexes[currentLightboxIndex], lightboxImages, lightboxTitles);
+      }
+    } else if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+      e.preventDefault();
+      if (window.seriesLinkedIndexes && window.seriesLinkedIndexes[currentLightboxIndex] !== undefined) {
+        openLightbox(window.seriesLinkedIndexes[currentLightboxIndex], lightboxImages, lightboxTitles);
+      }
+    } else if (e.key === 'ArrowLeft') {
+      e.preventDefault();
+      prevLightboxImage();
+    } else if (e.key === 'ArrowRight') {
+      e.preventDefault();
+      nextLightboxImage();
+    } else if (e.key === 'Escape') {
+      e.preventDefault();
+      closeLightbox();
+    }
+  };
+  // ==========================================
 }
 
 window.closeLightbox = function() {
@@ -3159,7 +3203,14 @@ async function initSeries() {
       (arr || []).forEach(item => {
         allImages.push(item.image ? `${BASE_URL}/${item.image}` : 'images/placeholder.svg');
         const n = (currentLang === 'en' && item.name_en) ? item.name_en : (item.name || '');
-        allTitles.push(isDefaultName(item, defaultType) ? '' : n);
+        const code = item.code || '';
+        
+        // Передаем объект с названием и кодом
+        if (isDefaultName(item, defaultType)) {
+          allTitles.push({ title: '', code: code });
+        } else {
+          allTitles.push({ title: n, code: code });
+        }
       });
     }
     pushItems(s.figures, 'figure');
@@ -3175,7 +3226,6 @@ async function initSeries() {
     const linkedIndexes = {};
     let figIndex = 0;
     
-    // Ищем пары по коду среди фигурок и вкладышей
     (s.figures || []).forEach(fig => {
       if (fig.code && fig.code.trim()) {
         const codeClean = fig.code.trim().toLowerCase();
@@ -3184,11 +3234,9 @@ async function initSeries() {
         );
         
         if (insertIdx !== -1) {
-          // Вычисляем общий индекс вкладыша в галерее
           const insertGalleryIdx = (s.figures || []).length + (s.extras || []).length + (s.variants || []).length + insertIdx;
-          
-          linkedIndexes[figIndex] = insertGalleryIdx;       // фигурка -> вкладыш
-          linkedIndexes[insertGalleryIdx] = figIndex;       // вкладыш -> фигурка
+          linkedIndexes[figIndex] = insertGalleryIdx;
+          linkedIndexes[insertGalleryIdx] = figIndex;
         }
       }
       figIndex++;
@@ -3215,26 +3263,19 @@ async function initSeries() {
       other:   { ru: 'Прочее',  en: 'Other' }
     };
 
-    // ===== БЛОК БЛАГОДАРНОСТЕЙ =====
     function createContributorsBlock(contributors) {
       if (!contributors || contributors.length === 0) return '';
-
       const title = currentLang === 'ru' ? 'Благодарность:' : 'Acknowledgment:';
-
       const chips = contributors.map(c => {
         const tag = c.url ? 'a' : 'span';
-        const attrs = c.url 
-          ? `href="${escapeHtml(c.url)}" target="_blank" rel="noopener noreferrer"` 
-          : '';
+        const attrs = c.url ? `href="${escapeHtml(c.url)}" target="_blank" rel="noopener noreferrer"` : '';
         const role = c.role ? `<span class="contributor-role">(${escapeHtml(c.role)})</span>` : '';
-
         return `<${tag} ${attrs} class="contributor-chip">
           <span>🏅</span>
           <span>${escapeHtml(c.name)}</span>
           ${role}
         </${tag}>`;
       }).join('');
-
       return `
         <div class="contributors-block">
           <div class="contributors-title-badge">${title}</div>
@@ -3278,7 +3319,7 @@ async function initSeries() {
                   <div class="figure-actions">
                     <button class="qr-btn" onclick="generateQRCode('${safeId}', '${safeSeriesId}', '${safeName.replace(/'/g, "\\'")}')" title="QR-код">📱</button>
                     ${hasDup 
-                      ? `<a href="same-figures.html?code=${encodeURIComponent(itemCode)}" class="same-code-link" title="${currentLang === 'ru' ? 'Найти все фигурки с этим кодом (' + window.__codeCounts[itemCode.trim().toLowerCase()] + ' шт.)' : 'Find all figures with this code (' + window.__codeCounts[itemCode.trim().toLowerCase()] + ' pcs)'}">🔗</a>` 
+                      ? `<a href="same-figures.html?code=${encodeURIComponent(itemCode)}" class="same-code-link" title="Найти все фигурки с этим кодом">🔗</a>` 
                       : `<span class="figure-action-placeholder"></span>`}
                     ${item.forsale && item.avito 
                       ? `<a href="${escapeHtml(item.avito)}" class="avito-link" target="_blank" rel="noopener noreferrer" title="Avito">🛒</a>` 
@@ -6259,6 +6300,19 @@ async function generateWantedListImage(seriesId, items, statuses, lang, userName
     showError(lang === 'ru' ? 'Не удалось создать список' : 'Failed to create list');
   }
 }
+
+// ===== СВЯЗКА ФИГУРКА ↔ ВКЛАДЫШ (Кнопки вверх/вниз) =====
+window.lightboxSwipeUp = function() {
+  if (window.seriesLinkedIndexes && window.seriesLinkedIndexes[currentLightboxIndex] !== undefined) {
+    openLightbox(window.seriesLinkedIndexes[currentLightboxIndex], lightboxImages, lightboxTitles);
+  }
+};
+
+window.lightboxSwipeDown = function() {
+  if (window.seriesLinkedIndexes && window.seriesLinkedIndexes[currentLightboxIndex] !== undefined) {
+    openLightbox(window.seriesLinkedIndexes[currentLightboxIndex], lightboxImages, lightboxTitles);
+  }
+};
 
 // ============================================================
 // ГЛОБАЛЬНЫЙ ОБРАБОТЧИК КНОПОК «МОЙ ПОИСК»

@@ -3732,3 +3732,81 @@ img {
   font-size: 12px;
   opacity: 0.6;
 }
+
+/* Кнопки вверх/вниз в лайтбоксе */
+.lightbox-up,
+.lightbox-down {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 2001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+.lightbox-up { top: 60px; }
+.lightbox-down { bottom: 80px; }
+.lightbox-up:hover, .lightbox-down:hover { background: rgba(79, 70, 229, 0.8); }
+
+/* Мобильные правки */
+@media (max-width: 768px) {
+  /* Стрелки влево-вправо */
+  .lightbox-prev, .lightbox-next {
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+  }
+  .lightbox-prev { left: 10px; }
+  .lightbox-next { right: 10px; }
+
+  /* Кнопки зума и счётчик */
+  .lightbox-zoom-controls {
+    bottom: 15px;
+    right: 10px;
+    gap: 6px;
+  }
+  .zoom-btn {
+    width: 36px;
+    height: 36px;
+    font-size: 16px;
+  }
+  .lightbox-counter {
+    bottom: 15px;
+    left: 15px; /* Сдвигаем влево, чтобы не перекрывалось с зумом */
+    transform: none;
+    font-size: 13px;
+    padding: 4px 12px;
+  }
+  
+  /* Кнопки вверх-вниз */
+  .lightbox-up, .lightbox-down {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+  }
+  .lightbox-up { top: 50px; }
+  .lightbox-down { bottom: 60px; }
+
+  /* Заголовок (название + код) */
+  .lightbox-title {
+    top: 10px;
+    font-size: 15px;
+    max-width: 90%;
+    padding: 0 10px;
+  }
+  .lightbox-title > div:first-child {
+    font-size: 14px !important;
+  }
+  .lightbox-title > div:last-child {
+    font-size: 12px !important;
+  }
+}
