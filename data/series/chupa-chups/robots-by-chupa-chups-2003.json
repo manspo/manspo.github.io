@@ -22,7 +22,7 @@
   "figures": [
     {
       "id": "robots-by-chupa-chups-2003_fig1",
-      "name": "Фигурка 1",
+      "name": "Робот-исследователь",
       "name_en": "Robot Explorer",
       "code": "CC03/09",
       "image": "images/series/chupa-chups/robots-by-chupa-chups-2003/1-f-robot-explorer-cc03-09.webp",
@@ -38,7 +38,7 @@
     },
     {
       "id": "robots-by-chupa-chups-2003_fig2",
-      "name": "Фигурка 2",
+      "name": "Разрушитель",
       "name_en": "Destroyer",
       "code": "CC03/14",
       "image": "images/series/chupa-chups/robots-by-chupa-chups-2003/2-f-destroyer-cc03-14.webp",
@@ -54,7 +54,7 @@
     },
     {
       "id": "robots-by-chupa-chups-2003_fig3",
-      "name": "Фигурка 3",
+      "name": "Рыба Горк",
       "name_en": "Fish Gork",
       "code": "CC03/16",
       "image": "images/series/chupa-chups/robots-by-chupa-chups-2003/3-f-fish-gork-cc03-16.webp",
@@ -70,7 +70,7 @@
     },
     {
       "id": "robots-by-chupa-chups-2003_fig4",
-      "name": "Фигурка 4",
+      "name": "Точилка для карандашей",
       "name_en": "Pencil Sharpener",
       "code": "CC03/10",
       "image": "images/series/chupa-chups/robots-by-chupa-chups-2003/4-f-pencil-sharpener-cc03-10.webp",
@@ -86,7 +86,7 @@
     },
     {
       "id": "robots-by-chupa-chups-2003_fig5",
-      "name": "Фигурка 5",
+      "name": "Робот-паук",
       "name_en": "Spider Robot",
       "code": "CC03/13",
       "image": "images/series/chupa-chups/robots-by-chupa-chups-2003/5-f-spider-robot-cc03-13.webp",
@@ -102,7 +102,7 @@
     },
     {
       "id": "robots-by-chupa-chups-2003_fig6",
-      "name": "Фигурка 6",
+      "name": "Крышка зубной пасты",
       "name_en": "Tooth Paste Cap",
       "code": "CC03/11",
       "image": "images/series/chupa-chups/robots-by-chupa-chups-2003/6-f-tooth-paste-cap-cc03-11.webp",
@@ -118,7 +118,7 @@
     },
     {
       "id": "robots-by-chupa-chups-2003_fig7",
-      "name": "Фигурка 7",
+      "name": "Робот-глаз",
       "name_en": "Robot Eye",
       "code": "CC03/12",
       "image": "images/series/chupa-chups/robots-by-chupa-chups-2003/7-f-robot-eye-cc03-12.webp",
@@ -134,7 +134,7 @@
     },
     {
       "id": "robots-by-chupa-chups-2003_fig8",
-      "name": "Фигурка 8",
+      "name": "Робот-птица",
       "name_en": "Robot Bird",
       "code": "CC03/15",
       "image": "images/series/chupa-chups/robots-by-chupa-chups-2003/8-f-robot-bird-cc03-15.webp",
