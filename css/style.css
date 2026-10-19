@@ -3810,3 +3810,14 @@ img {
     font-size: 12px !important;
   }
 }
+
+/* Стиль для кнопки Telegram-бота */
+.tg-bot-btn {
+  background: #0088cc; /* Фирменный цвет Telegram */
+  color: white;
+  border: none;
+}
+.tg-bot-btn:hover {
+  background: #006699; /* Цвет при наведении */
+  transform: translateY(-2px); /* Легкий эффект поднятия */
+}

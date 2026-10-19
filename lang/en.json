@@ -129,5 +129,6 @@
 "wanted_hint": "Set a status for each figure. You can combine \"Have\" and \"Trade\".",
 "status_have": "Have",
 "status_need": "Looking",
-"status_trade": "Trade"
+"status_trade": "Trade",
+"tg_bot": "Telegram Bot"
 }
