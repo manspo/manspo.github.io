@@ -1,5 +1,65 @@
 [
   {
+    "id": "astronauts-2-by-kinder-2024",
+    "name": "Астронавты 2 от Киндер ",
+    "name_en": "Astronauts 2 by Kinder",
+    "year": 2024,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/astronauts-2-by-kinder-2024/cover.webp",
+    "kind": "giant",
+    "description": "Серия посвященная астронавтам",
+    "description_en": "Series dedicated to astronauts",
+    "visible": true
+  },
+  {
+    "id": "astronautas-by-kinder-2024",
+    "name": "Астронавты от Киндер",
+    "name_en": "Astronautas by Kinder",
+    "year": 2024,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/astronautas-by-kinder-2024/cover.webp",
+    "kind": "maxi",
+    "description": "Серия посвященная космонавтам",
+    "description_en": "Series dedicated to astronauts",
+    "visible": true
+  },
+  {
+    "id": "girls-travelers-2-by-kinder-2024",
+    "name": "Девочки-путешественницы 2 от Киндер",
+    "name_en": "Girls Travelers 2 by Kinder",
+    "year": 2024,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/girls-travelers-2-by-kinder-2024/cover.webp",
+    "kind": "giant",
+    "description": "Более крупная серия с теми же фигурками из Макси",
+    "description_en": "Larger series with the same figures from Maxi",
+    "visible": true
+  },
+  {
+    "id": "girls-travelers-by-kinder-2024",
+    "name": "Девочки-путешественницы от Киндер",
+    "name_en": "Girls travelers by Kinder",
+    "year": 2024,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/girls-travelers-by-kinder-2024/cover.webp",
+    "kind": "maxi",
+    "description": "Серия про девочек-путешественниц",
+    "description_en": "Series about girl travelers",
+    "visible": true
+  },
+  {
+    "id": "disney-princesses-by-kinder-2024",
+    "name": "Принцессы Дисней от Киндер",
+    "name_en": "Disney princesses by Kinder",
+    "year": 2024,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/disney-princesses-by-kinder-2024/cover.webp",
+    "kind": "giant",
+    "description": "Гигантская серия посвященная 3 принцессам Дисней",
+    "description_en": "A giant series dedicated to 3 Disney princesses",
+    "visible": true
+  },
+  {
     "id": "despicable-me-4-by-kinder-2024",
     "name": "Гадкий Я 4 от Киндер",
     "name_en": "Despicable Me 4 by Kinder",
