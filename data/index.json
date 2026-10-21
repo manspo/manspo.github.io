@@ -12,12 +12,12 @@
     "visible": true
   },
   {
-    "id": "astronautas-by-kinder-2024",
+    "id": "astronauts-by-kinder-2024",
     "name": "Астронавты от Киндер",
-    "name_en": "Astronautas by Kinder",
+    "name_en": "Astronauts by Kinder",
     "year": 2024,
     "manufacturer": "kinder",
-    "cover": "images/series/kinder/astronautas-by-kinder-2024/cover.webp",
+    "cover": "images/series/kinder/astronauts-by-kinder-2024/cover.webp",
     "kind": "maxi",
     "description": "Серия посвященная космонавтам",
     "description_en": "Series dedicated to astronauts",
