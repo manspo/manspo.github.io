@@ -329,7 +329,7 @@
     "name_en": "Natoons Asia 3 by Kinder",
     "year": 2025,
     "manufacturer": "kinder",
-    "cover": "images/series/kinder/natoons-asia-3-by-kinder-2025/cover.webp",
+    "cover": "images/series/kinder/natoons-asia-3-by-kinder-2025/1-i.webp",
     "kind": "joy",
     "description": "Серия с животными Азии",
     "description_en": "Series with Asian animals",
@@ -540,7 +540,7 @@
     "visible": true
   },
   {
-    "id": "easter-by-kinder-2027",
+    "id": "easter-2027-by-kinder-2027",
     "name": "Пасха 2027 от Киндер",
     "name_en": "Easter 2027 by Kinder",
     "year": 2027,
