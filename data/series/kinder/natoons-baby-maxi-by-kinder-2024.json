@@ -22,7 +22,7 @@
   "figures": [
     {
       "id": "natoons-baby-maxi-by-kinder-2024_fig1",
-      "image": "images/series/kinder/natoons-baby-maxi-by-kinder-2024/01.webp",
+      "image": "images/series/kinder/natoons-baby-maxi-by-kinder-2024/1-f-cheetah-ricko-vqb02.webp",
       "name": "Гепард Рико",
       "name_en": "Cheetah Ricko",
       "owned": true,
@@ -38,7 +38,7 @@
     },
     {
       "id": "natoons-baby-maxi-by-kinder-2024_fig2",
-      "image": "images/series/kinder/natoons-baby-maxi-by-kinder-2024/02.webp",
+      "image": "images/series/kinder/natoons-baby-maxi-by-kinder-2024/2-f-dolphin-oliver-vqb01.webp",
       "name": "Дельфин Оливер",
       "name_en": "Dolphin Oliver",
       "owned": true,
@@ -54,7 +54,7 @@
     },
     {
       "id": "natoons-baby-maxi-by-kinder-2024_fig3",
-      "image": "images/series/kinder/natoons-baby-maxi-by-kinder-2024/03.webp",
+      "image": "images/series/kinder/natoons-baby-maxi-by-kinder-2024/3-f-panda-lola-vqb03.webp",
       "name": "Панда Лола",
       "name_en": "Panda Lola",
       "owned": true,
@@ -70,7 +70,7 @@
     },
     {
       "id": "natoons-baby-maxi-by-kinder-2024_fig4",
-      "image": "images/series/kinder/natoons-baby-maxi-by-kinder-2024/04.webp",
+      "image": "images/series/kinder/natoons-baby-maxi-by-kinder-2024/4-f-sloth-marty-vqb05.webp",
       "name": "Ленивец Марти",
       "name_en": "Sloth Marty",
       "owned": true,
@@ -86,7 +86,7 @@
     },
     {
       "id": "natoons-baby-maxi-by-kinder-2024_fig5",
-      "image": "images/series/kinder/natoons-baby-maxi-by-kinder-2024/05.webp",
+      "image": "images/series/kinder/natoons-baby-maxi-by-kinder-2024/5-f-turtle-emma-vqb04.webp",
       "name": "Черепаха Эмма",
       "name_en": "Turtle Emma",
       "owned": false,
@@ -106,7 +106,7 @@
   "inserts": [
     {
       "id": "natoons-baby-maxi-by-kinder-2024_insert1",
-      "image": "images/series/kinder/natoons-baby-maxi-by-kinder-2024/BPZ.avif",
+      "image": "images/series/kinder/natoons-baby-maxi-by-kinder-2024/1-i.webp",
       "name": "Вкладыш 1",
       "name_en": "Insert 1",
       "owned": false,
@@ -127,7 +127,7 @@
       "name": "Фольга",
       "name_en": "Foil",
       "code": "",
-      "image": "images/series/kinder/natoons-baby-maxi-by-kinder-2024/foil.webp",
+      "image": "images/series/kinder/natoons-baby-maxi-by-kinder-2024/1-o-foil.webp",
       "owned": true,
       "forsale": false,
       "avito": "",

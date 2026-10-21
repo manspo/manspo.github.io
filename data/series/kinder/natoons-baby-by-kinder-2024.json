@@ -22,7 +22,7 @@
   "figures": [
     {
       "id": "natoons-baby-by-kinder-2024_fig1",
-      "image": "images/series/kinder/natoons-baby-by-kinder-2024/01.webp",
+      "image": "images/series/kinder/natoons-baby-by-kinder-2024/1-f-ostrich-vq117.webp",
       "name": "Страус",
       "name_en": "Ostrich",
       "owned": true,
@@ -38,7 +38,7 @@
     },
     {
       "id": "natoons-baby-by-kinder-2024_fig2",
-      "image": "images/series/kinder/natoons-baby-by-kinder-2024/02.webp",
+      "image": "images/series/kinder/natoons-baby-by-kinder-2024/2-f-skunk-vq118.webp",
       "name": "Скунс",
       "name_en": "Skunk",
       "owned": true,
@@ -54,7 +54,7 @@
     },
     {
       "id": "natoons-baby-by-kinder-2024_fig3",
-      "image": "images/series/kinder/natoons-baby-by-kinder-2024/03.webp",
+      "image": "images/series/kinder/natoons-baby-by-kinder-2024/3-f-hare-rabbit-vq119.webp",
       "name": "Заяц / Кролик",
       "name_en": "Hare / Rabbit",
       "owned": true,
@@ -70,7 +70,7 @@
     },
     {
       "id": "natoons-baby-by-kinder-2024_fig4",
-      "image": "images/series/kinder/natoons-baby-by-kinder-2024/04.webp",
+      "image": "images/series/kinder/natoons-baby-by-kinder-2024/4-f-cheetah-tiger-vq120.webp",
       "name": "Гепард / Тигр",
       "name_en": "Cheetah / Tiger",
       "owned": true,
@@ -86,7 +86,7 @@
     },
     {
       "id": "natoons-baby-by-kinder-2024_fig5",
-      "image": "images/series/kinder/natoons-baby-by-kinder-2024/05.webp",
+      "image": "images/series/kinder/natoons-baby-by-kinder-2024/5-f-penguin-vq121.webp",
       "name": "Пингвин",
       "name_en": "Penguin",
       "owned": true,
@@ -102,7 +102,7 @@
     },
     {
       "id": "natoons-baby-by-kinder-2024_fig6",
-      "image": "images/series/kinder/natoons-baby-by-kinder-2024/06.webp",
+      "image": "images/series/kinder/natoons-baby-by-kinder-2024/6-f-crocodile-vq123.webp",
       "name": "Крокодил",
       "name_en": "Crocodile",
       "owned": true,
@@ -118,7 +118,7 @@
     },
     {
       "id": "natoons-baby-by-kinder-2024_fig7",
-      "image": "images/series/kinder/natoons-baby-by-kinder-2024/07.webp",
+      "image": "images/series/kinder/natoons-baby-by-kinder-2024/7-f-turtle-vq124.webp",
       "name": "Черепаха",
       "name_en": "Turtle",
       "owned": true,
@@ -134,7 +134,7 @@
     },
     {
       "id": "natoons-baby-by-kinder-2024_fig8",
-      "image": "images/series/kinder/natoons-baby-by-kinder-2024/08.webp",
+      "image": "images/series/kinder/natoons-baby-by-kinder-2024/8-f-deer-vq125.webp",
       "name": "Олень",
       "name_en": "Deer",
       "owned": true,
@@ -150,7 +150,7 @@
     },
     {
       "id": "natoons-baby-by-kinder-2024_fig9",
-      "image": "images/series/kinder/natoons-baby-by-kinder-2024/09.webp",
+      "image": "images/series/kinder/natoons-baby-by-kinder-2024/9-f-suricate-meerkat-vq127.webp",
       "name": "Сурикат",
       "name_en": "Suricate / Meerkat ",
       "owned": true,
@@ -166,7 +166,7 @@
     },
     {
       "id": "natoons-baby-by-kinder-2024_fig10",
-      "image": "images/series/kinder/natoons-baby-by-kinder-2024/10.webp",
+      "image": "images/series/kinder/natoons-baby-by-kinder-2024/10-f-swan-goose-vq128.webp",
       "name": "Лебедь / Гусь",
       "name_en": "Swan / Goose",
       "owned": true,
@@ -182,7 +182,7 @@
     },
     {
       "id": "natoons-baby-by-kinder-2024_fig11",
-      "image": "images/series/kinder/natoons-baby-by-kinder-2024/11.webp",
+      "image": "images/series/kinder/natoons-baby-by-kinder-2024/11-f-squirrel-vq129.webp",
       "name": "Белка",
       "name_en": "Squirrel",
       "owned": true,
@@ -198,7 +198,7 @@
     },
     {
       "id": "natoons-baby-by-kinder-2024_fig12",
-      "image": "images/series/kinder/natoons-baby-by-kinder-2024/12.webp",
+      "image": "images/series/kinder/natoons-baby-by-kinder-2024/12-f-tapir-vq130.webp",
       "name": "Тапир",
       "name_en": "Tapir",
       "owned": true,
@@ -214,7 +214,7 @@
     },
     {
       "id": "natoons-baby-by-kinder-2024_fig13",
-      "image": "images/series/kinder/natoons-baby-by-kinder-2024/13.webp",
+      "image": "images/series/kinder/natoons-baby-by-kinder-2024/13-f-polar-bear-vq131.webp",
       "name": "Белый медведь",
       "name_en": "Polar bear",
       "owned": true,
@@ -230,7 +230,7 @@
     },
     {
       "id": "natoons-baby-by-kinder-2024_fig14",
-      "image": "images/series/kinder/natoons-baby-by-kinder-2024/14.webp",
+      "image": "images/series/kinder/natoons-baby-by-kinder-2024/14-f-elephant-vq172.webp",
       "name": "Слон",
       "name_en": "Elephant",
       "owned": true,
@@ -246,7 +246,7 @@
     },
     {
       "id": "natoons-baby-by-kinder-2024_fig15",
-      "image": "images/series/kinder/natoons-baby-by-kinder-2024/15.webp",
+      "image": "images/series/kinder/natoons-baby-by-kinder-2024/15-f-hippopotamus-vq174.webp",
       "name": "Бегемот",
       "name_en": "Hippopotamus",
       "owned": true,
@@ -262,7 +262,7 @@
     },
     {
       "id": "natoons-baby-by-kinder-2024_fig16",
-      "image": "images/series/kinder/natoons-baby-by-kinder-2024/16.webp",
+      "image": "images/series/kinder/natoons-baby-by-kinder-2024/16-f-koala-vq175.webp",
       "name": "Коала",
       "name_en": "Koala",
       "owned": true,
@@ -282,7 +282,7 @@
   "inserts": [
     {
       "id": "natoons-baby-by-kinder-2024_insert1",
-      "image": "images/series/kinder/natoons-baby-by-kinder-2024/01b.webp",
+      "image": "images/series/kinder/natoons-baby-by-kinder-2024/1-i-vq117.webp",
       "name": "Вкладыш 1",
       "name_en": "Insert 1",
       "owned": true,
@@ -298,7 +298,7 @@
     },
     {
       "id": "natoons-baby-by-kinder-2024_insert2",
-      "image": "images/series/kinder/natoons-baby-by-kinder-2024/02b.webp",
+      "image": "images/series/kinder/natoons-baby-by-kinder-2024/2-i-vq118.webp",
       "name": "Вкладыш 2",
       "name_en": "Insert 2",
       "owned": true,
@@ -314,7 +314,7 @@
     },
     {
       "id": "natoons-baby-by-kinder-2024_insert3",
-      "image": "images/series/kinder/natoons-baby-by-kinder-2024/03b.webp",
+      "image": "images/series/kinder/natoons-baby-by-kinder-2024/3-i-vq119.webp",
       "name": "Вкладыш 3",
       "name_en": "Insert 3",
       "owned": true,
@@ -330,7 +330,7 @@
     },
     {
       "id": "natoons-baby-by-kinder-2024_insert4",
-      "image": "images/series/kinder/natoons-baby-by-kinder-2024/04b.webp",
+      "image": "images/series/kinder/natoons-baby-by-kinder-2024/4-i-vq120.webp",
       "name": "Вкладыш 4",
       "name_en": "Insert 4",
       "owned": true,
@@ -346,7 +346,7 @@
     },
     {
       "id": "natoons-baby-by-kinder-2024_insert5",
-      "image": "images/series/kinder/natoons-baby-by-kinder-2024/05b.webp",
+      "image": "images/series/kinder/natoons-baby-by-kinder-2024/5-i-vq121.webp",
       "name": "Вкладыш 5",
       "name_en": "Insert 5",
       "owned": true,
@@ -362,7 +362,7 @@
     },
     {
       "id": "natoons-baby-by-kinder-2024_insert6",
-      "image": "images/series/kinder/natoons-baby-by-kinder-2024/06b.webp",
+      "image": "images/series/kinder/natoons-baby-by-kinder-2024/6-i-vq123.webp",
       "name": "Вкладыш 6",
       "name_en": "Insert 6",
       "owned": true,
@@ -378,7 +378,7 @@
     },
     {
       "id": "natoons-baby-by-kinder-2024_insert7",
-      "image": "images/series/kinder/natoons-baby-by-kinder-2024/07b.webp",
+      "image": "images/series/kinder/natoons-baby-by-kinder-2024/7-i-vq124.webp",
       "name": "Вкладыш 7",
       "name_en": "Insert 7",
       "owned": true,
@@ -394,7 +394,7 @@
     },
     {
       "id": "natoons-baby-by-kinder-2024_insert8",
-      "image": "images/series/kinder/natoons-baby-by-kinder-2024/08b.webp",
+      "image": "images/series/kinder/natoons-baby-by-kinder-2024/8-i-vq125.webp",
       "name": "Вкладыш 8",
       "name_en": "Insert 8",
       "owned": true,
@@ -410,7 +410,7 @@
     },
     {
       "id": "natoons-baby-by-kinder-2024_insert9",
-      "image": "images/series/kinder/natoons-baby-by-kinder-2024/09b.webp",
+      "image": "images/series/kinder/natoons-baby-by-kinder-2024/9-i-vq127.webp",
       "name": "Вкладыш 9",
       "name_en": "Insert 9",
       "owned": true,
@@ -426,7 +426,7 @@
     },
     {
       "id": "natoons-baby-by-kinder-2024_insert10",
-      "image": "images/series/kinder/natoons-baby-by-kinder-2024/10b.webp",
+      "image": "images/series/kinder/natoons-baby-by-kinder-2024/10-i-vq128.webp",
       "name": "Вкладыш 10",
       "name_en": "Insert 10",
       "owned": true,
@@ -442,7 +442,7 @@
     },
     {
       "id": "natoons-baby-by-kinder-2024_insert11",
-      "image": "images/series/kinder/natoons-baby-by-kinder-2024/11b.webp",
+      "image": "images/series/kinder/natoons-baby-by-kinder-2024/11-i-vq129.webp",
       "name": "Вкладыш 11",
       "name_en": "Insert 11",
       "owned": true,
@@ -458,7 +458,7 @@
     },
     {
       "id": "natoons-baby-by-kinder-2024_insert12",
-      "image": "images/series/kinder/natoons-baby-by-kinder-2024/12b.webp",
+      "image": "images/series/kinder/natoons-baby-by-kinder-2024/12-i-vq130.webp",
       "name": "Вкладыш 12",
       "name_en": "Insert 12",
       "owned": true,
@@ -474,7 +474,7 @@
     },
     {
       "id": "natoons-baby-by-kinder-2024_insert13",
-      "image": "images/series/kinder/natoons-baby-by-kinder-2024/13b.webp",
+      "image": "images/series/kinder/natoons-baby-by-kinder-2024/13-i-vq131.webp",
       "name": "Вкладыш 13",
       "name_en": "Insert 13",
       "owned": true,
@@ -490,7 +490,7 @@
     },
     {
       "id": "natoons-baby-by-kinder-2024_insert14",
-      "image": "images/series/kinder/natoons-baby-by-kinder-2024/14b.webp",
+      "image": "images/series/kinder/natoons-baby-by-kinder-2024/14-i-vq172.webp",
       "name": "Вкладыш 14",
       "name_en": "Insert 14",
       "owned": true,
@@ -506,7 +506,7 @@
     },
     {
       "id": "natoons-baby-by-kinder-2024_insert15",
-      "image": "images/series/kinder/natoons-baby-by-kinder-2024/15b.webp",
+      "image": "images/series/kinder/natoons-baby-by-kinder-2024/15-i-vq174.webp",
       "name": "Вкладыш 15",
       "name_en": "Insert 15",
       "owned": true,
@@ -522,7 +522,7 @@
     },
     {
       "id": "natoons-baby-by-kinder-2024_insert16",
-      "image": "images/series/kinder/natoons-baby-by-kinder-2024/16b.webp",
+      "image": "images/series/kinder/natoons-baby-by-kinder-2024/16-i-vq175.webp",
       "name": "Вкладыш 16",
       "name_en": "Insert 16",
       "owned": true,

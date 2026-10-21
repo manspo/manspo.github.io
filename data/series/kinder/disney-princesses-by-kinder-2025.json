@@ -22,7 +22,7 @@
   "figures": [
     {
       "id": "disney-princesses-by-kinder-2025_fig1",
-      "image": "images/series/kinder/disney-princesses-by-kinder-2025/01.webp",
+      "image": "images/series/kinder/disney-princesses-by-kinder-2025/1-f-tiana-vq332.webp",
       "name": "Тиана",
       "name_en": "Tiana",
       "owned": true,
@@ -38,7 +38,7 @@
     },
     {
       "id": "disney-princesses-by-kinder-2025_fig2",
-      "image": "images/series/kinder/disney-princesses-by-kinder-2025/02.webp",
+      "image": "images/series/kinder/disney-princesses-by-kinder-2025/2-f-rapunzel-vq333.webp",
       "name": "Рапунцель",
       "name_en": "Rapunzel",
       "owned": true,
@@ -54,7 +54,7 @@
     },
     {
       "id": "disney-princesses-by-kinder-2025_fig3",
-      "image": "images/series/kinder/disney-princesses-by-kinder-2025/03.webp",
+      "image": "images/series/kinder/disney-princesses-by-kinder-2025/3-f-raya-vq335.webp",
       "name": "Райя",
       "name_en": "Raya",
       "owned": true,
@@ -70,7 +70,7 @@
     },
     {
       "id": "disney-princesses-by-kinder-2025_fig4",
-      "image": "images/series/kinder/disney-princesses-by-kinder-2025/04.webp",
+      "image": "images/series/kinder/disney-princesses-by-kinder-2025/4-f-jasmine-vq336.webp",
       "name": "Жасмин",
       "name_en": "Jasmine",
       "owned": true,
@@ -86,7 +86,7 @@
     },
     {
       "id": "disney-princesses-by-kinder-2025_fig5",
-      "image": "images/series/kinder/disney-princesses-by-kinder-2025/05.webp",
+      "image": "images/series/kinder/disney-princesses-by-kinder-2025/5-f-belle-vq337.webp",
       "name": "Белль",
       "name_en": "Belle",
       "owned": true,
@@ -102,7 +102,7 @@
     },
     {
       "id": "disney-princesses-by-kinder-2025_fig6",
-      "image": "images/series/kinder/disney-princesses-by-kinder-2025/06.webp",
+      "image": "images/series/kinder/disney-princesses-by-kinder-2025/6-f-merida-vq338.webp",
       "name": "Мерида",
       "name_en": "Merida",
       "owned": true,
@@ -118,7 +118,7 @@
     },
     {
       "id": "disney-princesses-by-kinder-2025_fig7",
-      "image": "images/series/kinder/disney-princesses-by-kinder-2025/07.webp",
+      "image": "images/series/kinder/disney-princesses-by-kinder-2025/7-f-vaiana-moana-vq339.webp",
       "name": "Моана / Ваиана",
       "name_en": "Vaiana / Moana",
       "owned": true,
@@ -134,7 +134,7 @@
     },
     {
       "id": "disney-princesses-by-kinder-2025_fig8",
-      "image": "images/series/kinder/disney-princesses-by-kinder-2025/08.webp",
+      "image": "images/series/kinder/disney-princesses-by-kinder-2025/8-f-cinderella-cenerentola-vq340.webp",
       "name": "Золушка",
       "name_en": "Cinderella / Cenerentola",
       "owned": true,
@@ -154,7 +154,7 @@
   "inserts": [
     {
       "id": "disney-princesses-by-kinder-2025_insert1",
-      "image": "images/series/kinder/disney-princesses-by-kinder-2025/01b.webp",
+      "image": "images/series/kinder/disney-princesses-by-kinder-2025/1-i-vq332.webp",
       "name": "Вкладыш 1",
       "name_en": "Insert 1",
       "owned": true,
@@ -170,7 +170,7 @@
     },
     {
       "id": "disney-princesses-by-kinder-2025_insert2",
-      "image": "images/series/kinder/disney-princesses-by-kinder-2025/02b.webp",
+      "image": "images/series/kinder/disney-princesses-by-kinder-2025/2-i-vq333.webp",
       "name": "Вкладыш 2",
       "name_en": "Insert 2",
       "owned": true,
@@ -186,7 +186,7 @@
     },
     {
       "id": "disney-princesses-by-kinder-2025_insert3",
-      "image": "images/series/kinder/disney-princesses-by-kinder-2025/03b.webp",
+      "image": "images/series/kinder/disney-princesses-by-kinder-2025/3-i-vq335.webp",
       "name": "Вкладыш 3",
       "name_en": "Insert 3",
       "owned": true,
@@ -202,7 +202,7 @@
     },
     {
       "id": "disney-princesses-by-kinder-2025_insert4",
-      "image": "images/series/kinder/disney-princesses-by-kinder-2025/04b.webp",
+      "image": "images/series/kinder/disney-princesses-by-kinder-2025/4-i-vq336.webp",
       "name": "Вкладыш 4",
       "name_en": "Insert 4",
       "owned": true,
@@ -218,7 +218,7 @@
     },
     {
       "id": "disney-princesses-by-kinder-2025_insert5",
-      "image": "images/series/kinder/disney-princesses-by-kinder-2025/05b.webp",
+      "image": "images/series/kinder/disney-princesses-by-kinder-2025/5-i-vq337.webp",
       "name": "Вкладыш 5",
       "name_en": "Insert 5",
       "owned": true,
@@ -234,7 +234,7 @@
     },
     {
       "id": "disney-princesses-by-kinder-2025_insert6",
-      "image": "images/series/kinder/disney-princesses-by-kinder-2025/06b.webp",
+      "image": "images/series/kinder/disney-princesses-by-kinder-2025/6-i-vq338.webp",
       "name": "Вкладыш 6",
       "name_en": "Insert 6",
       "owned": true,
@@ -250,7 +250,7 @@
     },
     {
       "id": "disney-princesses-by-kinder-2025_insert7",
-      "image": "images/series/kinder/disney-princesses-by-kinder-2025/07b.webp",
+      "image": "images/series/kinder/disney-princesses-by-kinder-2025/7-i-vq339.webp",
       "name": "Вкладыш 7",
       "name_en": "Insert 7",
       "owned": true,
@@ -266,7 +266,7 @@
     },
     {
       "id": "disney-princesses-by-kinder-2025_insert8",
-      "image": "images/series/kinder/disney-princesses-by-kinder-2025/08b.webp",
+      "image": "images/series/kinder/disney-princesses-by-kinder-2025/8-i-vq340.webp",
       "name": "Вкладыш 8",
       "name_en": "Insert 8",
       "owned": true,
