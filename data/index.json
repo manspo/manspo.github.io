@@ -1,5 +1,17 @@
 [
   {
+    "id": "harry-potter-quidditch-x-funko-pop-by-kinder-2024",
+    "name": "Гарри Поттер Квиддич x Фанко ПОП от Kinder",
+    "name_en": "Harry Potter Quidditch x Funko POP by Kinder",
+    "year": 2024,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/harry-potter-quidditch-x-funko-pop-by-kinder-2024/cover.webp",
+    "kind": "",
+    "description": "Серия из 26 фигурок по Гарри Поттеру",
+    "description_en": "Series of 26 Harry Potter figures",
+    "visible": true
+  },
+  {
     "id": "nba-mascots-by-kinder-2023",
     "name": "Талисманы НБА от Kinder",
     "name_en": "NBA Mascots by Kinder",
