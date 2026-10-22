@@ -320,10 +320,11 @@
     "vk": [],
     "tiktok": [],
     "instagram": [],
-  "contributors": [
-    {
-      "name": "Обычный Куприн"
-    }
-  ]
-  }
+    "contributors": [
+      {
+        "name": "Обычный Куприн"
+      }
+    ]
+  },
+  "contributors": []
 }
