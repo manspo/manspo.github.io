@@ -2457,7 +2457,8 @@ console.log('✅ forsale.json:', forsaleData.length, 'товаров (серии
             variants: s.variants || [],
             inserts: s.inserts || [],
             other: s.other || [],
-            videos: s.videos || { youtube: [], vk: [], tiktok: [], instagram: [] }
+            videos: s.videos || { youtube: [], vk: [], tiktok: [], instagram: [] },
+			contributors: s.contributors || []
         };
         seriesFolder.file(`${s.id}.json`, JSON.stringify(data, null, 2));
     });
