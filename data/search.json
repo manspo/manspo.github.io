@@ -2312,6 +2312,23 @@
     "type": "figures"
   },
   {
+    "id": "buggy-bugs-by-chupa-chups-2003_insert3",
+    "code": "CC04/01",
+    "name": "Вкладыш 3",
+    "name_en": "Insert 3",
+    "image": "images/series/chupa-chups/buggy-bugs-by-chupa-chups-2003/5341_2.webp",
+    "seriesId": "buggy-bugs-by-chupa-chups-2003",
+    "seriesName": "Жуки-непоседы от Чупа-Чупс",
+    "seriesName_en": "Buggy Bugs by Chupa Chups",
+    "seriesYear": 2003,
+    "manufacturer": "chupa-chups",
+    "owned": false,
+    "forsale": false,
+    "avito": "",
+    "price": "",
+    "type": "inserts"
+  },
+  {
     "id": "buggy-bugs-by-chupa-chups-2003_fig7",
     "code": "CC04/02",
     "name": "Кузнечик",
@@ -2327,6 +2344,23 @@
     "avito": "",
     "price": "",
     "type": "figures"
+  },
+  {
+    "id": "buggy-bugs-by-chupa-chups-2003_insert7",
+    "code": "CC04/02",
+    "name": "Вкладыш 7",
+    "name_en": "Insert 7",
+    "image": "images/series/chupa-chups/buggy-bugs-by-chupa-chups-2003/5341_6.webp",
+    "seriesId": "buggy-bugs-by-chupa-chups-2003",
+    "seriesName": "Жуки-непоседы от Чупа-Чупс",
+    "seriesName_en": "Buggy Bugs by Chupa Chups",
+    "seriesYear": 2003,
+    "manufacturer": "chupa-chups",
+    "owned": false,
+    "forsale": false,
+    "avito": "",
+    "price": "",
+    "type": "inserts"
   },
   {
     "id": "buggy-bugs-by-chupa-chups-2003_fig4",
@@ -2346,6 +2380,23 @@
     "type": "figures"
   },
   {
+    "id": "buggy-bugs-by-chupa-chups-2003_insert8",
+    "code": "CC04/03",
+    "name": "Вкладыш 8",
+    "name_en": "Insert 8",
+    "image": "images/series/chupa-chups/buggy-bugs-by-chupa-chups-2003/5341_7.webp",
+    "seriesId": "buggy-bugs-by-chupa-chups-2003",
+    "seriesName": "Жуки-непоседы от Чупа-Чупс",
+    "seriesName_en": "Buggy Bugs by Chupa Chups",
+    "seriesYear": 2003,
+    "manufacturer": "chupa-chups",
+    "owned": false,
+    "forsale": false,
+    "avito": "",
+    "price": "",
+    "type": "inserts"
+  },
+  {
     "id": "buggy-bugs-by-chupa-chups-2003_fig8",
     "code": "CC04/04",
     "name": "Роботизированная точилка для карандашей в виде мухи",
@@ -2361,6 +2412,23 @@
     "avito": "",
     "price": "",
     "type": "figures"
+  },
+  {
+    "id": "buggy-bugs-by-chupa-chups-2003_insert2",
+    "code": "CC04/04",
+    "name": "Вкладыш 2",
+    "name_en": "Insert 2",
+    "image": "images/series/chupa-chups/buggy-bugs-by-chupa-chups-2003/5341_1.webp",
+    "seriesId": "buggy-bugs-by-chupa-chups-2003",
+    "seriesName": "Жуки-непоседы от Чупа-Чупс",
+    "seriesName_en": "Buggy Bugs by Chupa Chups",
+    "seriesYear": 2003,
+    "manufacturer": "chupa-chups",
+    "owned": false,
+    "forsale": false,
+    "avito": "",
+    "price": "",
+    "type": "inserts"
   },
   {
     "id": "buggy-bugs-by-chupa-chups-2003_fig5",
@@ -2380,6 +2448,23 @@
     "type": "figures"
   },
   {
+    "id": "buggy-bugs-by-chupa-chups-2003_insert4",
+    "code": "CC04/05",
+    "name": "Вкладыш 4",
+    "name_en": "Insert 4",
+    "image": "images/series/chupa-chups/buggy-bugs-by-chupa-chups-2003/5341_3.webp",
+    "seriesId": "buggy-bugs-by-chupa-chups-2003",
+    "seriesName": "Жуки-непоседы от Чупа-Чупс",
+    "seriesName_en": "Buggy Bugs by Chupa Chups",
+    "seriesYear": 2003,
+    "manufacturer": "chupa-chups",
+    "owned": false,
+    "forsale": false,
+    "avito": "",
+    "price": "",
+    "type": "inserts"
+  },
+  {
     "id": "buggy-bugs-by-chupa-chups-2003_fig3",
     "code": "CC04/06",
     "name": "Сжимающийся жук",
@@ -2395,6 +2480,23 @@
     "avito": "",
     "price": "",
     "type": "figures"
+  },
+  {
+    "id": "buggy-bugs-by-chupa-chups-2003_insert5",
+    "code": "CC04/06",
+    "name": "Вкладыш 5",
+    "name_en": "Insert 5",
+    "image": "images/series/chupa-chups/buggy-bugs-by-chupa-chups-2003/5341_4.webp",
+    "seriesId": "buggy-bugs-by-chupa-chups-2003",
+    "seriesName": "Жуки-непоседы от Чупа-Чупс",
+    "seriesName_en": "Buggy Bugs by Chupa Chups",
+    "seriesYear": 2003,
+    "manufacturer": "chupa-chups",
+    "owned": false,
+    "forsale": false,
+    "avito": "",
+    "price": "",
+    "type": "inserts"
   },
   {
     "id": "buggy-bugs-by-chupa-chups-2003_fig1",
@@ -2414,6 +2516,23 @@
     "type": "figures"
   },
   {
+    "id": "buggy-bugs-by-chupa-chups-2003_insert6",
+    "code": "CC04/07",
+    "name": "Вкладыш 6",
+    "name_en": "Insert 6",
+    "image": "images/series/chupa-chups/buggy-bugs-by-chupa-chups-2003/5341_5.webp",
+    "seriesId": "buggy-bugs-by-chupa-chups-2003",
+    "seriesName": "Жуки-непоседы от Чупа-Чупс",
+    "seriesName_en": "Buggy Bugs by Chupa Chups",
+    "seriesYear": 2003,
+    "manufacturer": "chupa-chups",
+    "owned": false,
+    "forsale": false,
+    "avito": "",
+    "price": "",
+    "type": "inserts"
+  },
+  {
     "id": "buggy-bugs-by-chupa-chups-2003_fig2",
     "code": "CC04/08",
     "name": "Старушка которая бьет муху",
@@ -2429,6 +2548,23 @@
     "avito": "",
     "price": "",
     "type": "figures"
+  },
+  {
+    "id": "buggy-bugs-by-chupa-chups-2003_insert9",
+    "code": "CC04/08",
+    "name": "Вкладыш 9",
+    "name_en": "Insert 9",
+    "image": "images/series/chupa-chups/buggy-bugs-by-chupa-chups-2003/5341_8.webp",
+    "seriesId": "buggy-bugs-by-chupa-chups-2003",
+    "seriesName": "Жуки-непоседы от Чупа-Чупс",
+    "seriesName_en": "Buggy Bugs by Chupa Chups",
+    "seriesYear": 2003,
+    "manufacturer": "chupa-chups",
+    "owned": false,
+    "forsale": false,
+    "avito": "",
+    "price": "",
+    "type": "inserts"
   },
   {
     "id": "pink-whale-robbie-by-kinder-1996_variant1",
@@ -33575,23 +33711,6 @@
     "type": "inserts"
   },
   {
-    "id": "buggy-bugs-by-chupa-chups-2003_insert2",
-    "code": "",
-    "name": "Вкладыш 2",
-    "name_en": "Insert 2",
-    "image": "images/series/chupa-chups/buggy-bugs-by-chupa-chups-2003/5341_1.webp",
-    "seriesId": "buggy-bugs-by-chupa-chups-2003",
-    "seriesName": "Жуки-непоседы от Чупа-Чупс",
-    "seriesName_en": "Buggy Bugs by Chupa Chups",
-    "seriesYear": 2003,
-    "manufacturer": "chupa-chups",
-    "owned": false,
-    "forsale": false,
-    "avito": "",
-    "price": "",
-    "type": "inserts"
-  },
-  {
     "id": "asterix-by-kinder-1991_insert2",
     "code": "",
     "name": "Вкладыш 2",
@@ -34782,23 +34901,6 @@
     "type": "inserts"
   },
   {
-    "id": "buggy-bugs-by-chupa-chups-2003_insert3",
-    "code": "",
-    "name": "Вкладыш 3",
-    "name_en": "Insert 3",
-    "image": "images/series/chupa-chups/buggy-bugs-by-chupa-chups-2003/5341_2.webp",
-    "seriesId": "buggy-bugs-by-chupa-chups-2003",
-    "seriesName": "Жуки-непоседы от Чупа-Чупс",
-    "seriesName_en": "Buggy Bugs by Chupa Chups",
-    "seriesYear": 2003,
-    "manufacturer": "chupa-chups",
-    "owned": false,
-    "forsale": false,
-    "avito": "",
-    "price": "",
-    "type": "inserts"
-  },
-  {
     "id": "pocahontas-by-nestle-1996_insert3",
     "code": "",
     "name": "Вкладыш 3",
@@ -35462,23 +35564,6 @@
     "type": "inserts"
   },
   {
-    "id": "buggy-bugs-by-chupa-chups-2003_insert4",
-    "code": "",
-    "name": "Вкладыш 4",
-    "name_en": "Insert 4",
-    "image": "images/series/chupa-chups/buggy-bugs-by-chupa-chups-2003/5341_3.webp",
-    "seriesId": "buggy-bugs-by-chupa-chups-2003",
-    "seriesName": "Жуки-непоседы от Чупа-Чупс",
-    "seriesName_en": "Buggy Bugs by Chupa Chups",
-    "seriesYear": 2003,
-    "manufacturer": "chupa-chups",
-    "owned": false,
-    "forsale": false,
-    "avito": "",
-    "price": "",
-    "type": "inserts"
-  },
-  {
     "id": "pocahontas-by-nestle-1996_insert4",
     "code": "",
     "name": "Вкладыш 4",
@@ -35921,23 +36006,6 @@
     "type": "inserts"
   },
   {
-    "id": "buggy-bugs-by-chupa-chups-2003_insert5",
-    "code": "",
-    "name": "Вкладыш 5",
-    "name_en": "Insert 5",
-    "image": "images/series/chupa-chups/buggy-bugs-by-chupa-chups-2003/5341_4.webp",
-    "seriesId": "buggy-bugs-by-chupa-chups-2003",
-    "seriesName": "Жуки-непоседы от Чупа-Чупс",
-    "seriesName_en": "Buggy Bugs by Chupa Chups",
-    "seriesYear": 2003,
-    "manufacturer": "chupa-chups",
-    "owned": false,
-    "forsale": false,
-    "avito": "",
-    "price": "",
-    "type": "inserts"
-  },
-  {
     "id": "pocahontas-by-nestle-1996_insert5",
     "code": "",
     "name": "Вкладыш 5",
@@ -36363,23 +36431,6 @@
     "type": "inserts"
   },
   {
-    "id": "buggy-bugs-by-chupa-chups-2003_insert6",
-    "code": "",
-    "name": "Вкладыш 6",
-    "name_en": "Insert 6",
-    "image": "images/series/chupa-chups/buggy-bugs-by-chupa-chups-2003/5341_5.webp",
-    "seriesId": "buggy-bugs-by-chupa-chups-2003",
-    "seriesName": "Жуки-непоседы от Чупа-Чупс",
-    "seriesName_en": "Buggy Bugs by Chupa Chups",
-    "seriesYear": 2003,
-    "manufacturer": "chupa-chups",
-    "owned": false,
-    "forsale": false,
-    "avito": "",
-    "price": "",
-    "type": "inserts"
-  },
-  {
     "id": "pocahontas-by-nestle-1996_insert6",
     "code": "",
     "name": "Вкладыш 6",
@@ -36747,23 +36798,6 @@
     "seriesName_en": "Unisex by Kinder",
     "seriesYear": 2026,
     "manufacturer": "kinder",
-    "owned": false,
-    "forsale": false,
-    "avito": "",
-    "price": "",
-    "type": "inserts"
-  },
-  {
-    "id": "buggy-bugs-by-chupa-chups-2003_insert7",
-    "code": "",
-    "name": "Вкладыш 7",
-    "name_en": "Insert 7",
-    "image": "images/series/chupa-chups/buggy-bugs-by-chupa-chups-2003/5341_6.webp",
-    "seriesId": "buggy-bugs-by-chupa-chups-2003",
-    "seriesName": "Жуки-непоседы от Чупа-Чупс",
-    "seriesName_en": "Buggy Bugs by Chupa Chups",
-    "seriesYear": 2003,
-    "manufacturer": "chupa-chups",
     "owned": false,
     "forsale": false,
     "avito": "",
@@ -37162,23 +37196,6 @@
     "type": "inserts"
   },
   {
-    "id": "buggy-bugs-by-chupa-chups-2003_insert8",
-    "code": "",
-    "name": "Вкладыш 8",
-    "name_en": "Insert 8",
-    "image": "images/series/chupa-chups/buggy-bugs-by-chupa-chups-2003/5341_7.webp",
-    "seriesId": "buggy-bugs-by-chupa-chups-2003",
-    "seriesName": "Жуки-непоседы от Чупа-Чупс",
-    "seriesName_en": "Buggy Bugs by Chupa Chups",
-    "seriesYear": 2003,
-    "manufacturer": "chupa-chups",
-    "owned": false,
-    "forsale": false,
-    "avito": "",
-    "price": "",
-    "type": "inserts"
-  },
-  {
     "id": "pocahontas-by-nestle-1996_insert8",
     "code": "",
     "name": "Вкладыш 8",
@@ -37478,23 +37495,6 @@
     "seriesName_en": "Unisex by Kinder",
     "seriesYear": 2026,
     "manufacturer": "kinder",
-    "owned": false,
-    "forsale": false,
-    "avito": "",
-    "price": "",
-    "type": "inserts"
-  },
-  {
-    "id": "buggy-bugs-by-chupa-chups-2003_insert9",
-    "code": "",
-    "name": "Вкладыш 9",
-    "name_en": "Insert 9",
-    "image": "images/series/chupa-chups/buggy-bugs-by-chupa-chups-2003/5341_8.webp",
-    "seriesId": "buggy-bugs-by-chupa-chups-2003",
-    "seriesName": "Жуки-непоседы от Чупа-Чупс",
-    "seriesName_en": "Buggy Bugs by Chupa Chups",
-    "seriesYear": 2003,
-    "manufacturer": "chupa-chups",
     "owned": false,
     "forsale": false,
     "avito": "",
