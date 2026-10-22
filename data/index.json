@@ -1,5 +1,17 @@
 [
   {
+    "id": "frozen-by-kinder-2023",
+    "name": "Холодное сердце от Киндер",
+    "name_en": "Frozen by Kinder",
+    "year": 2023,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/frozen-by-kinder-2023/cover.webp",
+    "kind": "",
+    "description": "Серия по 1 части мультфильма Холодное сердце от Дисней",
+    "description_en": "Series based on 1 part of the cartoon Frozen from Disney",
+    "visible": true
+  },
+  {
     "id": "doctors-zoo-by-chupa-chups-2007",
     "name": "Зоо-доктора от Чупа-Чупс",
     "name_en": "Doctors Zoo by Chupa Chups",
