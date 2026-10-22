@@ -1,5 +1,17 @@
 [
   {
+    "id": "harry-potter-x-funko-pop-by-kinder-2023",
+    "name": "Гарри Поттер x Фанко ПОП от Киндер",
+    "name_en": "Harry Potter x Funko POP by Kinder",
+    "year": 2023,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/harry-potter-x-funko-pop-by-kinder-2023/cover.webp",
+    "kind": "joy",
+    "description": "Очередная серия по Гарри Поттеру",
+    "description_en": "Another Harry Potter series",
+    "visible": true
+  },
+  {
     "id": "frozen-by-kinder-2023",
     "name": "Холодное сердце от Киндер",
     "name_en": "Frozen by Kinder",
