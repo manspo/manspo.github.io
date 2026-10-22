@@ -1473,6 +1473,9 @@ async function loadDataFromFiles(files) {
             if (!content.videos || typeof content.videos !== 'object') {
                 content.videos = { youtube: [], vk: [], tiktok: [], instagram: [] };
             }
+			if (!Array.isArray(content.contributors)) {
+    content.contributors = [];
+}
 
             existingSeries.push(content);
         }

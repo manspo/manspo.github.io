@@ -447,12 +447,11 @@
     "youtube": [],
     "vk": [],
     "tiktok": [],
-    "instagram": [],
-    "contributors": [
-      {
-        "name": "Обычный Куприн"
-      }
-    ]
+    "instagram": []
   },
-  "contributors": []
+  "contributors": [
+    {
+      "name": "Обычный Куприн"
+    }
+  ]
 }

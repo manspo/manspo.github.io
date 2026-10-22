@@ -309,5 +309,9 @@
       }
     ]
   },
-  "contributors": []
+  "contributors": [
+    {
+      "name": "Обычный Куприн"
+    }
+  ]
 }
