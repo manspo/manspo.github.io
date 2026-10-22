@@ -1,5 +1,17 @@
 [
   {
+    "id": "nba-mascots-by-kinder-2023",
+    "name": "Талисманы НБА от Kinder",
+    "name_en": "NBA Mascots by Kinder",
+    "year": 2023,
+    "manufacturer": "kinder",
+    "cover": "images/series/danone/series-2023/cover.webp",
+    "kind": "joy",
+    "description": "Серия посвященная талисманам баскетбольных команд",
+    "description_en": "Series dedicated to basketball team mascots",
+    "visible": true
+  },
+  {
     "id": "astronauts-2-by-kinder-2024",
     "name": "Астронавты 2 от Киндер ",
     "name_en": "Astronauts 2 by Kinder",
