@@ -72,12 +72,12 @@
     "visible": true
   },
   {
-    "id": "harry-potter-x-funko-pop-by-kinder-2023",
-    "name": "Гарри Поттер x Фанко ПОП от Киндер",
+    "id": "harry-potter-funko-pop-by-kinder-2023",
+    "name": "Гарри Поттер Фанко ПОП от Киндер",
     "name_en": "Harry Potter x Funko POP by Kinder",
     "year": 2023,
     "manufacturer": "kinder",
-    "cover": "images/series/kinder/harry-potter-x-funko-pop-by-kinder-2023/cover.webp",
+    "cover": "images/series/kinder/harry-potter-funko-pop-by-kinder-2023/cover.webp",
     "kind": "joy",
     "description": "Очередная серия по Гарри Поттеру",
     "description_en": "Another Harry Potter series",
@@ -109,7 +109,7 @@
   },
   {
     "id": "funtastic-world-by-chupa-chups-2010",
-    "name": "Фантастический мир от Чупа Чупс",
+    "name": "Фантастический мир от Чупа-Чупс",
     "name_en": "Funtastic World by Chupa Chups",
     "year": 2010,
     "manufacturer": "chupa-chups",
@@ -156,9 +156,9 @@
     "visible": true
   },
   {
-    "id": "astronauts-2-by-kinder-2024",
-    "name": "Астронавты 2 от Киндер ",
-    "name_en": "Astronauts 2 by Kinder",
+    "id": "astronauts-2-giant-by-kinder-2024",
+    "name": "Астронавты 2 (Гигант) от Киндер ",
+    "name_en": "Astronauts 2 (Giant) by Kinder",
     "year": 2024,
     "manufacturer": "kinder",
     "cover": "images/series/kinder/astronauts-2-by-kinder-2024/cover.webp",
@@ -180,9 +180,9 @@
     "visible": true
   },
   {
-    "id": "girls-travelers-2-by-kinder-2024",
-    "name": "Девочки-путешественницы 2 от Киндер",
-    "name_en": "Girls Travelers 2 by Kinder",
+    "id": "girls-travelers-2-giant-by-kinder-2024",
+    "name": "Девочки-путешественницы 2 (Гигант) от Киндер",
+    "name_en": "Girls Travelers 2 (Giant) by Kinder",
     "year": 2024,
     "manufacturer": "kinder",
     "cover": "images/series/kinder/girls-travelers-2-by-kinder-2024/cover.webp",
@@ -349,7 +349,7 @@
   },
   {
     "id": "fantasy-by-chupa-chups-2003",
-    "name": "Фэнтези от Чупа Чупс",
+    "name": "Фантазия от Чупа-Чупс",
     "name_en": "Fantasy by Chupa Chups",
     "year": 2003,
     "manufacturer": "chupa-chups",

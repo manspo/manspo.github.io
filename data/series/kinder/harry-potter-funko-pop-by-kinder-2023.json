@@ -1,10 +1,10 @@
 {
-  "id": "harry-potter-x-funko-pop-by-kinder-2023",
-  "name": "Гарри Поттер x Фанко ПОП от Киндер",
+  "id": "harry-potter-funko-pop-by-kinder-2023",
+  "name": "Гарри Поттер Фанко ПОП от Киндер",
   "name_en": "Harry Potter x Funko POP by Kinder",
   "year": 2023,
   "manufacturer": "kinder",
-  "cover": "images/series/kinder/harry-potter-x-funko-pop-by-kinder-2023/cover.webp",
+  "cover": "images/series/kinder/harry-potter-funko-pop-by-kinder-2023/cover.webp",
   "description": "Очередная серия по Гарри Поттеру",
   "description_en": "Another Harry Potter series",
   "kind": "joy",
@@ -21,11 +21,11 @@
   "fullSeriesDescription_en": "",
   "figures": [
     {
-      "id": "harry-potter-x-funko-pop-by-kinder-2023_fig1",
+      "id": "harry-potter-funko-pop-by-kinder-2023_fig1",
       "name": "Чжоу Чан",
       "name_en": "Cho Chang",
       "code": "VD427",
-      "image": "images/series/kinder/harry-potter-x-funko-pop-by-kinder-2023/FF_VD427.webp",
+      "image": "images/series/kinder/harry-potter-funko-pop-by-kinder-2023/FF_VD427.webp",
       "owned": false,
       "forsale": false,
       "forsale_date": "",
@@ -37,11 +37,11 @@
       "date_added": "2026-10-22"
     },
     {
-      "id": "harry-potter-x-funko-pop-by-kinder-2023_fig2",
+      "id": "harry-potter-funko-pop-by-kinder-2023_fig2",
       "name": "Профессор Сивилла Трелони",
       "name_en": "Professor Sybill Trelawney",
       "code": "VD426",
-      "image": "images/series/kinder/harry-potter-x-funko-pop-by-kinder-2023/FF_VD426.webp",
+      "image": "images/series/kinder/harry-potter-funko-pop-by-kinder-2023/FF_VD426.webp",
       "owned": false,
       "forsale": false,
       "forsale_date": "",
@@ -53,11 +53,11 @@
       "date_added": "2026-10-22"
     },
     {
-      "id": "harry-potter-x-funko-pop-by-kinder-2023_fig3",
+      "id": "harry-potter-funko-pop-by-kinder-2023_fig3",
       "name": "Грозный Глаз Грюм / Аластор Грюм",
       "name_en": "Mad-Eye Moody / Alastor Moody",
       "code": "VD425",
-      "image": "images/series/kinder/harry-potter-x-funko-pop-by-kinder-2023/FF_VD425.webp",
+      "image": "images/series/kinder/harry-potter-funko-pop-by-kinder-2023/FF_VD425.webp",
       "owned": false,
       "forsale": false,
       "forsale_date": "",
@@ -69,11 +69,11 @@
       "date_added": "2026-10-22"
     },
     {
-      "id": "harry-potter-x-funko-pop-by-kinder-2023_fig4",
+      "id": "harry-potter-funko-pop-by-kinder-2023_fig4",
       "name": "Драко Малфой",
       "name_en": "Draco Malfoy",
       "code": "VD424",
-      "image": "images/series/kinder/harry-potter-x-funko-pop-by-kinder-2023/FF_VD424.webp",
+      "image": "images/series/kinder/harry-potter-funko-pop-by-kinder-2023/FF_VD424.webp",
       "owned": false,
       "forsale": false,
       "forsale_date": "",
@@ -85,11 +85,11 @@
       "date_added": "2026-10-22"
     },
     {
-      "id": "harry-potter-x-funko-pop-by-kinder-2023_fig5",
+      "id": "harry-potter-funko-pop-by-kinder-2023_fig5",
       "name": "Полумна Лавгуд",
       "name_en": "Luna Lovegood",
       "code": "VD392",
-      "image": "images/series/kinder/harry-potter-x-funko-pop-by-kinder-2023/FF_VD392.webp",
+      "image": "images/series/kinder/harry-potter-funko-pop-by-kinder-2023/FF_VD392.webp",
       "owned": false,
       "forsale": false,
       "forsale_date": "",
@@ -101,11 +101,11 @@
       "date_added": "2026-10-22"
     },
     {
-      "id": "harry-potter-x-funko-pop-by-kinder-2023_fig6",
+      "id": "harry-potter-funko-pop-by-kinder-2023_fig6",
       "name": "Профессор Альбус Дамблдор",
       "name_en": "Professor Albus Dumbledor",
       "code": "VD391",
-      "image": "images/series/kinder/harry-potter-x-funko-pop-by-kinder-2023/FF_VD391.webp",
+      "image": "images/series/kinder/harry-potter-funko-pop-by-kinder-2023/FF_VD391.webp",
       "owned": false,
       "forsale": false,
       "forsale_date": "",
@@ -117,11 +117,11 @@
       "date_added": "2026-10-22"
     },
     {
-      "id": "harry-potter-x-funko-pop-by-kinder-2023_fig7",
+      "id": "harry-potter-funko-pop-by-kinder-2023_fig7",
       "name": "Профессор Северус Снейп",
       "name_en": "Professor Severus Snape",
       "code": "VD390",
-      "image": "images/series/kinder/harry-potter-x-funko-pop-by-kinder-2023/FF_VD390.webp",
+      "image": "images/series/kinder/harry-potter-funko-pop-by-kinder-2023/FF_VD390.webp",
       "owned": false,
       "forsale": false,
       "forsale_date": "",
@@ -133,11 +133,11 @@
       "date_added": "2026-10-22"
     },
     {
-      "id": "harry-potter-x-funko-pop-by-kinder-2023_fig8",
+      "id": "harry-potter-funko-pop-by-kinder-2023_fig8",
       "name": "Рон Уизли",
       "name_en": "Ron Weasley",
       "code": "VD389",
-      "image": "images/series/kinder/harry-potter-x-funko-pop-by-kinder-2023/FF_VD389.webp",
+      "image": "images/series/kinder/harry-potter-funko-pop-by-kinder-2023/FF_VD389.webp",
       "owned": false,
       "forsale": false,
       "forsale_date": "",
@@ -149,11 +149,11 @@
       "date_added": "2026-10-22"
     },
     {
-      "id": "harry-potter-x-funko-pop-by-kinder-2023_fig9",
+      "id": "harry-potter-funko-pop-by-kinder-2023_fig9",
       "name": "Профессор Минерва Макгонагалл",
       "name_en": "Professor Minerva McGonagall",
       "code": "VD388",
-      "image": "images/series/kinder/harry-potter-x-funko-pop-by-kinder-2023/FF_VD388.webp",
+      "image": "images/series/kinder/harry-potter-funko-pop-by-kinder-2023/FF_VD388.webp",
       "owned": false,
       "forsale": false,
       "forsale_date": "",
@@ -165,11 +165,11 @@
       "date_added": "2026-10-22"
     },
     {
-      "id": "harry-potter-x-funko-pop-by-kinder-2023_fig10",
+      "id": "harry-potter-funko-pop-by-kinder-2023_fig10",
       "name": "Гермиона Грейнджер",
       "name_en": "Hermione Granger",
       "code": "VD387",
-      "image": "images/series/kinder/harry-potter-x-funko-pop-by-kinder-2023/FF_VD387.webp",
+      "image": "images/series/kinder/harry-potter-funko-pop-by-kinder-2023/FF_VD387.webp",
       "owned": false,
       "forsale": false,
       "forsale_date": "",
@@ -181,11 +181,11 @@
       "date_added": "2026-10-22"
     },
     {
-      "id": "harry-potter-x-funko-pop-by-kinder-2023_fig11",
+      "id": "harry-potter-funko-pop-by-kinder-2023_fig11",
       "name": "Рубеус Хагрид",
       "name_en": "Rubeus Hagrid",
       "code": "VD386",
-      "image": "images/series/kinder/harry-potter-x-funko-pop-by-kinder-2023/FF_VD386.webp",
+      "image": "images/series/kinder/harry-potter-funko-pop-by-kinder-2023/FF_VD386.webp",
       "owned": false,
       "forsale": false,
       "forsale_date": "",
@@ -197,11 +197,11 @@
       "date_added": "2026-10-22"
     },
     {
-      "id": "harry-potter-x-funko-pop-by-kinder-2023_fig12",
+      "id": "harry-potter-funko-pop-by-kinder-2023_fig12",
       "name": "Гарри Поттер",
       "name_en": "Harry Potter",
       "code": "VD385",
-      "image": "images/series/kinder/harry-potter-x-funko-pop-by-kinder-2023/FF_VD385.webp",
+      "image": "images/series/kinder/harry-potter-funko-pop-by-kinder-2023/FF_VD385.webp",
       "owned": false,
       "forsale": false,
       "forsale_date": "",
@@ -215,11 +215,11 @@
   ],
   "extras": [
     {
-      "id": "harry-potter-x-funko-pop-by-kinder-2023_extra1",
+      "id": "harry-potter-funko-pop-by-kinder-2023_extra1",
       "name": "Букля / Насадка на карандаш",
       "name_en": "Hedwig Pencil Topper",
       "code": "VD394",
-      "image": "images/series/kinder/harry-potter-x-funko-pop-by-kinder-2023/FF_VD394.webp",
+      "image": "images/series/kinder/harry-potter-funko-pop-by-kinder-2023/FF_VD394.webp",
       "owned": false,
       "forsale": false,
       "forsale_date": "",
@@ -231,11 +231,11 @@
       "date_added": "2026-10-22"
     },
     {
-      "id": "harry-potter-x-funko-pop-by-kinder-2023_extra2",
+      "id": "harry-potter-funko-pop-by-kinder-2023_extra2",
       "name": "Гарри Поттер / Насадка на карандаш",
       "name_en": "Harry Potter Pencil Topper",
       "code": "VD395",
-      "image": "images/series/kinder/harry-potter-x-funko-pop-by-kinder-2023/FF_VD395.webp",
+      "image": "images/series/kinder/harry-potter-funko-pop-by-kinder-2023/FF_VD395.webp",
       "owned": false,
       "forsale": false,
       "forsale_date": "",
@@ -247,11 +247,11 @@
       "date_added": "2026-10-22"
     },
     {
-      "id": "harry-potter-x-funko-pop-by-kinder-2023_extra3",
+      "id": "harry-potter-funko-pop-by-kinder-2023_extra3",
       "name": "Закладка «Рейвенкло» / «Когтевран» с Полумной Лавгуд",
       "name_en": "Ravenclaw Bookmark",
       "code": "VD437",
-      "image": "images/series/kinder/harry-potter-x-funko-pop-by-kinder-2023/FF_VD437.webp",
+      "image": "images/series/kinder/harry-potter-funko-pop-by-kinder-2023/FF_VD437.webp",
       "owned": false,
       "forsale": false,
       "forsale_date": "",
@@ -263,11 +263,11 @@
       "date_added": "2026-10-22"
     },
     {
-      "id": "harry-potter-x-funko-pop-by-kinder-2023_extra4",
+      "id": "harry-potter-funko-pop-by-kinder-2023_extra4",
       "name": "Закладка «Слизерин» с Драко Малфоем",
       "name_en": "Slytherin Bookmar",
       "code": "VD438",
-      "image": "images/series/kinder/harry-potter-x-funko-pop-by-kinder-2023/FF_VD438.webp",
+      "image": "images/series/kinder/harry-potter-funko-pop-by-kinder-2023/FF_VD438.webp",
       "owned": false,
       "forsale": false,
       "forsale_date": "",
@@ -279,11 +279,11 @@
       "date_added": "2026-10-22"
     },
     {
-      "id": "harry-potter-x-funko-pop-by-kinder-2023_extra5",
+      "id": "harry-potter-funko-pop-by-kinder-2023_extra5",
       "name": "Браслет «Гарри Поттер»",
       "name_en": "Harry Potter Bracelet",
       "code": "VD439",
-      "image": "images/series/kinder/harry-potter-x-funko-pop-by-kinder-2023/FF_VD439.webp",
+      "image": "images/series/kinder/harry-potter-funko-pop-by-kinder-2023/FF_VD439.webp",
       "owned": false,
       "forsale": false,
       "forsale_date": "",
@@ -295,11 +295,11 @@
       "date_added": "2026-10-22"
     },
     {
-      "id": "harry-potter-x-funko-pop-by-kinder-2023_extra6",
+      "id": "harry-potter-funko-pop-by-kinder-2023_extra6",
       "name": "Браслет «Гермиона Грейнджер»",
       "name_en": "Hermione Granger Bracelet",
       "code": "VD440",
-      "image": "images/series/kinder/harry-potter-x-funko-pop-by-kinder-2023/FF_VD440.webp",
+      "image": "images/series/kinder/harry-potter-funko-pop-by-kinder-2023/FF_VD440.webp",
       "owned": false,
       "forsale": false,
       "forsale_date": "",
@@ -311,11 +311,11 @@
       "date_added": "2026-10-22"
     },
     {
-      "id": "harry-potter-x-funko-pop-by-kinder-2023_extra7",
+      "id": "harry-potter-funko-pop-by-kinder-2023_extra7",
       "name": "Замок Хогвартс / Сборная подставка",
       "name_en": "Hogwarts Castle",
       "code": "VD423",
-      "image": "images/series/kinder/harry-potter-x-funko-pop-by-kinder-2023/FF_VD423.webp",
+      "image": "images/series/kinder/harry-potter-funko-pop-by-kinder-2023/FF_VD423.webp",
       "owned": false,
       "forsale": false,
       "forsale_date": "",
@@ -327,11 +327,11 @@
       "date_added": "2026-10-22"
     },
     {
-      "id": "harry-potter-x-funko-pop-by-kinder-2023_extra8",
+      "id": "harry-potter-funko-pop-by-kinder-2023_extra8",
       "name": "Хогвартс-экспресс / Сборная игрушка",
       "name_en": "Hogwarts Express",
       "code": "VD422",
-      "image": "images/series/kinder/harry-potter-x-funko-pop-by-kinder-2023/FF_VD422.webp",
+      "image": "images/series/kinder/harry-potter-funko-pop-by-kinder-2023/FF_VD422.webp",
       "owned": false,
       "forsale": false,
       "forsale_date": "",
@@ -343,11 +343,11 @@
       "date_added": "2026-10-22"
     },
     {
-      "id": "harry-potter-x-funko-pop-by-kinder-2023_extra9",
+      "id": "harry-potter-funko-pop-by-kinder-2023_extra9",
       "name": "Закладка «Гриффиндор»",
       "name_en": "Gryffindor Bookmark",
       "code": "VD413",
-      "image": "images/series/kinder/harry-potter-x-funko-pop-by-kinder-2023/FF_VD413.webp",
+      "image": "images/series/kinder/harry-potter-funko-pop-by-kinder-2023/FF_VD413.webp",
       "owned": false,
       "forsale": false,
       "forsale_date": "",
@@ -359,11 +359,11 @@
       "date_added": "2026-10-22"
     },
     {
-      "id": "harry-potter-x-funko-pop-by-kinder-2023_extra10",
+      "id": "harry-potter-funko-pop-by-kinder-2023_extra10",
       "name": "Закладка «Хаффлпафф» / «Пуффендуй»",
       "name_en": "Hufflepuff Bookmark",
       "code": "VD412",
-      "image": "images/series/kinder/harry-potter-x-funko-pop-by-kinder-2023/FF_VD412.webp",
+      "image": "images/series/kinder/harry-potter-funko-pop-by-kinder-2023/FF_VD412.webp",
       "owned": false,
       "forsale": false,
       "forsale_date": "",
@@ -375,11 +375,11 @@
       "date_added": "2026-10-22"
     },
     {
-      "id": "harry-potter-x-funko-pop-by-kinder-2023_extra11",
+      "id": "harry-potter-funko-pop-by-kinder-2023_extra11",
       "name": "Полумна Лавгуд / Насадка на карандаш",
       "name_en": "Luna Lovegood Pencil Topper",
       "code": "VD396",
-      "image": "images/series/kinder/harry-potter-x-funko-pop-by-kinder-2023/FF_VD396.webp",
+      "image": "images/series/kinder/harry-potter-funko-pop-by-kinder-2023/FF_VD396.webp",
       "owned": false,
       "forsale": false,
       "forsale_date": "",
@@ -391,11 +391,11 @@
       "date_added": "2026-10-22"
     },
     {
-      "id": "harry-potter-x-funko-pop-by-kinder-2023_extra12",
+      "id": "harry-potter-funko-pop-by-kinder-2023_extra12",
       "name": "Добби / Насадка на карандаш",
       "name_en": "Dobby Pencil Topper",
       "code": "VD393",
-      "image": "images/series/kinder/harry-potter-x-funko-pop-by-kinder-2023/FF_VD393.webp",
+      "image": "images/series/kinder/harry-potter-funko-pop-by-kinder-2023/FF_VD393.webp",
       "owned": false,
       "forsale": false,
       "forsale_date": "",
