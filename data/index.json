@@ -1,5 +1,77 @@
 [
   {
+    "id": "harry-potter-maxi-by-kinder-2025",
+    "name": "Гарри Поттер Макси от Киндер",
+    "name_en": "Harry Potter Maxi by Kinder",
+    "year": 2025,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/harry-potter-maxi-by-kinder-2025/cover.webp",
+    "kind": "maxi",
+    "description": "Макси версия по Гарри Поттеру 2025 года",
+    "description_en": "Maxi version of Harry Potter 2025",
+    "visible": true
+  },
+  {
+    "id": "pokemon-maxi-by-kinder-2025",
+    "name": "Покемонт Макси от Киндер",
+    "name_en": "Pokemon Maxi by Kinder",
+    "year": 2025,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/pokemon-maxi-by-kinder-2025/cover.webp",
+    "kind": "maxi",
+    "description": "Макси версия 2025 года ",
+    "description_en": "Maxi version from 2025",
+    "visible": true
+  },
+  {
+    "id": "pokemon-maxi-by-kinder-2026",
+    "name": "Покемон Макси от Киндер",
+    "name_en": "Pokemon Maxi by Kinder",
+    "year": 2026,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/pokemon-maxi-by-kinder-2026/cover.webp",
+    "kind": "maxi",
+    "description": "Макси версия покемонов",
+    "description_en": "Maxi version Pokemon",
+    "visible": true
+  },
+  {
+    "id": "one-piece-maxi-by-kinder-2026",
+    "name": "Ван-Пис Макси от Киндер",
+    "name_en": "One Piece Maxi by Kinder",
+    "year": 2026,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/one-piece-maxi-by-kinder-2026/cover.webp",
+    "kind": "maxi",
+    "description": "Макси версия серии Ван-Пис",
+    "description_en": "Maxi version of One Piece",
+    "visible": true
+  },
+  {
+    "id": "playmobil-dc-maxi-by-kinder-2025",
+    "name": "Плеймобил ДС Макси от Киндер",
+    "name_en": "Playmobil DC Maxi by Kinder",
+    "year": 2025,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/playmobil-dc-maxi-by-kinder-2025/cover.webp",
+    "kind": "maxi",
+    "description": "Макси версия с героями из комиксов ДС",
+    "description_en": "Maxi version with DC characters",
+    "visible": true
+  },
+  {
+    "id": "playmobil-disney-maxi-by-kinder-2026",
+    "name": "Плеймобил Дисней Макси от Киндер",
+    "name_en": "Playmobil Disney Maxi by Kinder",
+    "year": 2026,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/playmobil-disney-maxi-by-kinder-2026/cover.webp",
+    "kind": "maxi",
+    "description": "Макси версия Плеймобил Дисней",
+    "description_en": "Playmobil Disney Maxi version",
+    "visible": true
+  },
+  {
     "id": "harry-potter-x-funko-pop-by-kinder-2023",
     "name": "Гарри Поттер x Фанко ПОП от Киндер",
     "name_en": "Harry Potter x Funko POP by Kinder",
