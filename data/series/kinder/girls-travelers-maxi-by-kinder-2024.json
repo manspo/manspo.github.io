@@ -1,10 +1,10 @@
 {
-  "id": "girls-travelers-by-kinder-2024",
+  "id": "girls-travelers-maxi-by-kinder-2024",
   "name": "Девочки-путешественницы Макси от Киндер",
   "name_en": "Girls travelers Maxi by Kinder",
   "year": 2024,
   "manufacturer": "kinder",
-  "cover": "images/series/kinder/girls-travelers-by-kinder-2024/cover.webp",
+  "cover": "images/series/kinder/girls-travelers-maxi-by-kinder-2024/cover.webp",
   "description": "Серия про девочек-путешественниц",
   "description_en": "Series about girl travelers",
   "kind": "maxi",
@@ -21,11 +21,11 @@
   "fullSeriesDescription_en": "",
   "figures": [
     {
-      "id": "girls-travelers-by-kinder-2024_fig1",
+      "id": "girls-travelers-maxi-by-kinder-2024_fig1",
       "name": "Девочка с каштановыми волосами",
       "name_en": "Girl with brown hair",
       "code": "VTD02A",
-      "image": "images/series/kinder/girls-travelers-by-kinder-2024/1-f-girl-with-brown-hair-vtd02a.webp",
+      "image": "images/series/kinder/girls-travelers-maxi-by-kinder-2024/1-f-girl-with-brown-hair-vtd02a.webp",
       "owned": false,
       "forsale": false,
       "forsale_date": "",
@@ -37,11 +37,11 @@
       "date_added": "2026-10-21"
     },
     {
-      "id": "girls-travelers-by-kinder-2024_fig2",
+      "id": "girls-travelers-maxi-by-kinder-2024_fig2",
       "name": "Девочка со светлыми волосами (блондинка)",
       "name_en": "Girl with blond hair",
       "code": "VTD01A",
-      "image": "images/series/kinder/girls-travelers-by-kinder-2024/2-f-girl-with-blond-hair-vtd01a.webp",
+      "image": "images/series/kinder/girls-travelers-maxi-by-kinder-2024/2-f-girl-with-blond-hair-vtd01a.webp",
       "owned": false,
       "forsale": false,
       "forsale_date": "",
@@ -53,11 +53,11 @@
       "date_added": "2026-10-21"
     },
     {
-      "id": "girls-travelers-by-kinder-2024_fig3",
+      "id": "girls-travelers-maxi-by-kinder-2024_fig3",
       "name": "Девочка с рыжими волосами",
       "name_en": "Girl with red hair",
       "code": "VTD02B",
-      "image": "images/series/kinder/girls-travelers-by-kinder-2024/3-f-girl-with-red-hair-vtd02b.webp",
+      "image": "images/series/kinder/girls-travelers-maxi-by-kinder-2024/3-f-girl-with-red-hair-vtd02b.webp",
       "owned": false,
       "forsale": false,
       "forsale_date": "",
@@ -73,11 +73,11 @@
   "variants": [],
   "inserts": [
     {
-      "id": "girls-travelers-by-kinder-2024_insert1",
+      "id": "girls-travelers-maxi-by-kinder-2024_insert1",
       "name": "Вкладыш 1",
       "name_en": "Insert 1",
       "code": "VTD02B",
-      "image": "images/series/kinder/girls-travelers-by-kinder-2024/1-i-vtd02b.webp",
+      "image": "images/series/kinder/girls-travelers-maxi-by-kinder-2024/1-i-vtd02b.webp",
       "owned": false,
       "forsale": false,
       "forsale_date": "",
@@ -89,11 +89,11 @@
       "date_added": "2026-10-21"
     },
     {
-      "id": "girls-travelers-by-kinder-2024_insert2",
+      "id": "girls-travelers-maxi-by-kinder-2024_insert2",
       "name": "Вкладыш 2",
       "name_en": "Insert 2",
       "code": "VTD01A",
-      "image": "images/series/kinder/girls-travelers-by-kinder-2024/2-i-vtd01a.webp",
+      "image": "images/series/kinder/girls-travelers-maxi-by-kinder-2024/2-i-vtd01a.webp",
       "owned": false,
       "forsale": false,
       "forsale_date": "",
@@ -107,11 +107,11 @@
   ],
   "other": [
     {
-      "id": "girls-travelers-by-kinder-2024_other1",
+      "id": "girls-travelers-maxi-by-kinder-2024_other1",
       "name": "Фольга",
       "name_en": "Foil",
       "code": "",
-      "image": "images/series/kinder/girls-travelers-by-kinder-2024/1-o-foil.webp",
+      "image": "images/series/kinder/girls-travelers-maxi-by-kinder-2024/1-o-foil.webp",
       "owned": false,
       "forsale": false,
       "forsale_date": "",
