@@ -22,7 +22,7 @@
   "figures": [
     {
       "id": "barbie-professions-by-kinder-2025_fig1",
-      "image": "images/series/kinder/barbie-professions-by-kinder-2025/01.webp",
+      "image": "images/series/kinder/barbie-professions-by-kinder-2025/1-f-film-director-en399c.webp",
       "name": "Кинорежиссёр",
       "name_en": "Film Director",
       "owned": false,
@@ -38,7 +38,7 @@
     },
     {
       "id": "barbie-professions-by-kinder-2025_fig2",
-      "image": "images/series/kinder/barbie-professions-by-kinder-2025/02.webp",
+      "image": "images/series/kinder/barbie-professions-by-kinder-2025/2-f-veterinarian-vd401a.webp",
       "name": "Ветеринар",
       "name_en": "Veterinarian",
       "owned": false,
@@ -54,7 +54,7 @@
     },
     {
       "id": "barbie-professions-by-kinder-2025_fig3",
-      "image": "images/series/kinder/barbie-professions-by-kinder-2025/03.webp",
+      "image": "images/series/kinder/barbie-professions-by-kinder-2025/3-f-ballerina-vd402a.webp",
       "name": "Балерина",
       "name_en": "Ballerina",
       "owned": false,
@@ -70,7 +70,7 @@
     },
     {
       "id": "barbie-professions-by-kinder-2025_fig4",
-      "image": "images/series/kinder/barbie-professions-by-kinder-2025/04.webp",
+      "image": "images/series/kinder/barbie-professions-by-kinder-2025/4-f-scientist-vd403a.webp",
       "name": "Учёная",
       "name_en": "Scientist",
       "owned": false,
@@ -86,7 +86,7 @@
     },
     {
       "id": "barbie-professions-by-kinder-2025_fig5",
-      "image": "images/series/kinder/barbie-professions-by-kinder-2025/05.webp",
+      "image": "images/series/kinder/barbie-professions-by-kinder-2025/5-f-pilot-vd404a.webp",
       "name": "Пилот",
       "name_en": "Pilot",
       "owned": false,
@@ -102,7 +102,7 @@
     },
     {
       "id": "barbie-professions-by-kinder-2025_fig6",
-      "image": "images/series/kinder/barbie-professions-by-kinder-2025/06.webp",
+      "image": "images/series/kinder/barbie-professions-by-kinder-2025/6-f-builder-vd405a.webp",
       "name": "Инженер",
       "name_en": "Builder",
       "owned": false,
@@ -118,7 +118,7 @@
     },
     {
       "id": "barbie-professions-by-kinder-2025_fig7",
-      "image": "images/series/kinder/barbie-professions-by-kinder-2025/07.webp",
+      "image": "images/series/kinder/barbie-professions-by-kinder-2025/7-f-firefighter-vd406a.webp",
       "name": "Пожарная",
       "name_en": "Firefighter",
       "owned": false,
@@ -134,7 +134,7 @@
     },
     {
       "id": "barbie-professions-by-kinder-2025_fig8",
-      "image": "images/series/kinder/barbie-professions-by-kinder-2025/08.webp",
+      "image": "images/series/kinder/barbie-professions-by-kinder-2025/8-f-astronaut-vd415b.webp",
       "name": "Астронавт",
       "name_en": "Astronaut",
       "owned": false,
@@ -154,7 +154,7 @@
   "inserts": [
     {
       "id": "barbie-professions-by-kinder-2025_insert1",
-      "image": "images/series/kinder/barbie-professions-by-kinder-2025/01b.webp",
+      "image": "images/series/kinder/barbie-professions-by-kinder-2025/1-i-en399c.webp",
       "name": "Вкладыш 1",
       "name_en": "Insert 1",
       "owned": false,
@@ -170,7 +170,7 @@
     },
     {
       "id": "barbie-professions-by-kinder-2025_insert2",
-      "image": "images/series/kinder/barbie-professions-by-kinder-2025/02b.webp",
+      "image": "images/series/kinder/barbie-professions-by-kinder-2025/2-i-vd401a.webp",
       "name": "Вкладыш 2",
       "name_en": "Insert 2",
       "owned": false,
@@ -186,7 +186,7 @@
     },
     {
       "id": "barbie-professions-by-kinder-2025_insert3",
-      "image": "images/series/kinder/barbie-professions-by-kinder-2025/03b.webp",
+      "image": "images/series/kinder/barbie-professions-by-kinder-2025/3-i-vd402a.webp",
       "name": "Вкладыш 3",
       "name_en": "Insert 3",
       "owned": false,
@@ -202,7 +202,7 @@
     },
     {
       "id": "barbie-professions-by-kinder-2025_insert4",
-      "image": "images/series/kinder/barbie-professions-by-kinder-2025/04b.webp",
+      "image": "images/series/kinder/barbie-professions-by-kinder-2025/4-i-vd403a.webp",
       "name": "Вкладыш 4",
       "name_en": "Insert 4",
       "owned": false,
@@ -218,7 +218,7 @@
     },
     {
       "id": "barbie-professions-by-kinder-2025_insert5",
-      "image": "images/series/kinder/barbie-professions-by-kinder-2025/05b.webp",
+      "image": "images/series/kinder/barbie-professions-by-kinder-2025/5-i-vd404a.webp",
       "name": "Вкладыш 5",
       "name_en": "Insert 5",
       "owned": false,
@@ -234,7 +234,7 @@
     },
     {
       "id": "barbie-professions-by-kinder-2025_insert6",
-      "image": "images/series/kinder/barbie-professions-by-kinder-2025/06b.webp",
+      "image": "images/series/kinder/barbie-professions-by-kinder-2025/6-i-vd405a.webp",
       "name": "Вкладыш 6",
       "name_en": "Insert 6",
       "owned": false,
@@ -250,7 +250,7 @@
     },
     {
       "id": "barbie-professions-by-kinder-2025_insert7",
-      "image": "images/series/kinder/barbie-professions-by-kinder-2025/07b.webp",
+      "image": "images/series/kinder/barbie-professions-by-kinder-2025/7-i-vd406a.webp",
       "name": "Вкладыш 7",
       "name_en": "Insert 7",
       "owned": false,
@@ -266,7 +266,7 @@
     },
     {
       "id": "barbie-professions-by-kinder-2025_insert8",
-      "image": "images/series/kinder/barbie-professions-by-kinder-2025/08b.webp",
+      "image": "images/series/kinder/barbie-professions-by-kinder-2025/8-i-vd415b.webp",
       "name": "Вкладыш 8",
       "name_en": "Insert 8",
       "owned": false,

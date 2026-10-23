@@ -22,7 +22,7 @@
   "figures": [
     {
       "id": "gabbys-dollhouse-by-kinder-2025_fig1",
-      "image": "images/series/kinder/gabbys-dollhouse-by-kinder-2025/01.webp",
+      "image": "images/series/kinder/gabbys-dollhouse-by-kinder-2025/1-f-vc338.webp",
       "name": "Фигурка 1",
       "name_en": "Figure 1",
       "owned": false,
@@ -38,7 +38,7 @@
     },
     {
       "id": "gabbys-dollhouse-by-kinder-2025_fig2",
-      "image": "images/series/kinder/gabbys-dollhouse-by-kinder-2025/02.webp",
+      "image": "images/series/kinder/gabbys-dollhouse-by-kinder-2025/2-f-vc339.webp",
       "name": "Фигурка 2",
       "name_en": "Figure 2",
       "code": "VC339",
@@ -54,7 +54,7 @@
     },
     {
       "id": "gabbys-dollhouse-by-kinder-2025_fig3",
-      "image": "images/series/kinder/gabbys-dollhouse-by-kinder-2025/03.webp",
+      "image": "images/series/kinder/gabbys-dollhouse-by-kinder-2025/3-f-vc340.webp",
       "name": "Фигурка 3",
       "name_en": "Figure 3",
       "owned": true,
@@ -70,7 +70,7 @@
     },
     {
       "id": "gabbys-dollhouse-by-kinder-2025_fig4",
-      "image": "images/series/kinder/gabbys-dollhouse-by-kinder-2025/04.webp",
+      "image": "images/series/kinder/gabbys-dollhouse-by-kinder-2025/4-f-vc341.webp",
       "name": "Фигурка 4",
       "name_en": "Figure 4",
       "owned": true,
@@ -86,7 +86,7 @@
     },
     {
       "id": "gabbys-dollhouse-by-kinder-2025_fig5",
-      "image": "images/series/kinder/gabbys-dollhouse-by-kinder-2025/05.webp",
+      "image": "images/series/kinder/gabbys-dollhouse-by-kinder-2025/5-f-vc342.webp",
       "name": "Фигурка 5",
       "name_en": "Figure 5",
       "owned": true,
@@ -102,7 +102,7 @@
     },
     {
       "id": "gabbys-dollhouse-by-kinder-2025_fig6",
-      "image": "images/series/kinder/gabbys-dollhouse-by-kinder-2025/06.webp",
+      "image": "images/series/kinder/gabbys-dollhouse-by-kinder-2025/6-f-vc343.webp",
       "name": "Фигурка 6",
       "name_en": "Figure 6",
       "owned": true,
@@ -124,7 +124,7 @@
       "name": "Габби с фиолетовыми волосами",
       "name_en": "Gabby with a purple hair",
       "code": "VC339A",
-      "image": "images/series/kinder/gabbys-dollhouse-by-kinder-2025/07.webp",
+      "image": "images/series/kinder/gabbys-dollhouse-by-kinder-2025/1-v-gabby-with-a-purple-hair-vc339a.webp",
       "owned": true,
       "forsale": false,
       "avito": "",
@@ -139,7 +139,7 @@
   "inserts": [
     {
       "id": "gabbys-dollhouse-by-kinder-2025_insert1",
-      "image": "images/series/kinder/gabbys-dollhouse-by-kinder-2025/01b.webp",
+      "image": "images/series/kinder/gabbys-dollhouse-by-kinder-2025/1-i-vc338.webp",
       "name": "Вкладыш 1",
       "name_en": "Insert 1",
       "owned": false,
@@ -155,7 +155,7 @@
     },
     {
       "id": "gabbys-dollhouse-by-kinder-2025_insert2",
-      "image": "images/series/kinder/gabbys-dollhouse-by-kinder-2025/02b.webp",
+      "image": "images/series/kinder/gabbys-dollhouse-by-kinder-2025/2-i-vc339.webp",
       "name": "Вкладыш 2",
       "name_en": "Insert 2",
       "owned": false,
@@ -171,7 +171,7 @@
     },
     {
       "id": "gabbys-dollhouse-by-kinder-2025_insert3",
-      "image": "images/series/kinder/gabbys-dollhouse-by-kinder-2025/03b.webp",
+      "image": "images/series/kinder/gabbys-dollhouse-by-kinder-2025/3-i-vc340.webp",
       "name": "Вкладыш 3",
       "name_en": "Insert 3",
       "owned": false,
@@ -187,7 +187,7 @@
     },
     {
       "id": "gabbys-dollhouse-by-kinder-2025_insert4",
-      "image": "images/series/kinder/gabbys-dollhouse-by-kinder-2025/04b.webp",
+      "image": "images/series/kinder/gabbys-dollhouse-by-kinder-2025/4-i-vc341.webp",
       "name": "Вкладыш 4",
       "name_en": "Insert 4",
       "owned": false,
@@ -203,7 +203,7 @@
     },
     {
       "id": "gabbys-dollhouse-by-kinder-2025_insert5",
-      "image": "images/series/kinder/gabbys-dollhouse-by-kinder-2025/05b.webp",
+      "image": "images/series/kinder/gabbys-dollhouse-by-kinder-2025/5-i-vc342.webp",
       "name": "Вкладыш 5",
       "name_en": "Insert 5",
       "owned": false,
@@ -219,7 +219,7 @@
     },
     {
       "id": "gabbys-dollhouse-by-kinder-2025_insert6",
-      "image": "images/series/kinder/gabbys-dollhouse-by-kinder-2025/06b.webp",
+      "image": "images/series/kinder/gabbys-dollhouse-by-kinder-2025/6-i-vc343.webp",
       "name": "Вкладыш 6",
       "name_en": "Insert 6",
       "owned": false,
@@ -235,7 +235,7 @@
     },
     {
       "id": "gabbys-dollhouse-by-kinder-2025_insert7",
-      "image": "images/series/kinder/gabbys-dollhouse-by-kinder-2025/07b.webp",
+      "image": "images/series/kinder/gabbys-dollhouse-by-kinder-2025/7-i-vc339a.webp",
       "name": "Вкладыш 7",
       "name_en": "Insert 7",
       "owned": false,

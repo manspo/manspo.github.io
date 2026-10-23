@@ -22,7 +22,7 @@
   "figures": [
     {
       "id": "tweety-from-looney-tunes-by-kinder-2026_fig1",
-      "image": "images/series/kinder/tweety-from-looney-tunes-by-kinder-2026/01.webp",
+      "image": "images/series/kinder/tweety-from-looney-tunes-by-kinder-2026/1-f-tweety-at-the-mirror-vc375.webp",
       "name": "Твити у зеркала",
       "name_en": "Tweety at the mirror",
       "owned": false,
@@ -38,7 +38,7 @@
     },
     {
       "id": "tweety-from-looney-tunes-by-kinder-2026_fig2",
-      "image": "images/series/kinder/tweety-from-looney-tunes-by-kinder-2026/02.webp",
+      "image": "images/series/kinder/tweety-from-looney-tunes-by-kinder-2026/2-f-tweety-with-a-tennis-racket-vc376.webp",
       "name": "Твити с теннисной ракеткой",
       "name_en": "Tweety with a tennis racket",
       "owned": false,
@@ -54,7 +54,7 @@
     },
     {
       "id": "tweety-from-looney-tunes-by-kinder-2026_fig3",
-      "image": "images/series/kinder/tweety-from-looney-tunes-by-kinder-2026/03.webp",
+      "image": "images/series/kinder/tweety-from-looney-tunes-by-kinder-2026/3-f-tweety-with-a-backpack-vc377.webp",
       "name": "Твити с рюкзаком",
       "name_en": "Tweety with a backpack",
       "owned": false,
@@ -70,7 +70,7 @@
     },
     {
       "id": "tweety-from-looney-tunes-by-kinder-2026_fig4",
-      "image": "images/series/kinder/tweety-from-looney-tunes-by-kinder-2026/04.webp",
+      "image": "images/series/kinder/tweety-from-looney-tunes-by-kinder-2026/4-f-tweety-with-guitar-vc378.webp",
       "name": "Твити с гитарой",
       "name_en": "Tweety with guitar",
       "owned": false,
@@ -86,7 +86,7 @@
     },
     {
       "id": "tweety-from-looney-tunes-by-kinder-2026_fig5",
-      "image": "images/series/kinder/tweety-from-looney-tunes-by-kinder-2026/05.webp",
+      "image": "images/series/kinder/tweety-from-looney-tunes-by-kinder-2026/5-f-tweety-with-a-book-vc379.webp",
       "name": "Твити с книжкой",
       "name_en": "Tweety with a book",
       "owned": false,
@@ -102,7 +102,7 @@
     },
     {
       "id": "tweety-from-looney-tunes-by-kinder-2026_fig6",
-      "image": "images/series/kinder/tweety-from-looney-tunes-by-kinder-2026/06.webp",
+      "image": "images/series/kinder/tweety-from-looney-tunes-by-kinder-2026/6-f-tweety-artist-with-paint-brush-vc380.webp",
       "name": "Твити-художник с кисточкой для рисования",
       "name_en": "Tweety artist with paint brush",
       "owned": false,
@@ -118,7 +118,7 @@
     },
     {
       "id": "tweety-from-looney-tunes-by-kinder-2026_fig7",
-      "image": "images/series/kinder/tweety-from-looney-tunes-by-kinder-2026/07.webp",
+      "image": "images/series/kinder/tweety-from-looney-tunes-by-kinder-2026/7-f-tweety-in-the-shower-vc381.webp",
       "name": "Твити в душе",
       "name_en": "Tweety in the shower",
       "owned": false,
@@ -134,7 +134,7 @@
     },
     {
       "id": "tweety-from-looney-tunes-by-kinder-2026_fig8",
-      "image": "images/series/kinder/tweety-from-looney-tunes-by-kinder-2026/08.webp",
+      "image": "images/series/kinder/tweety-from-looney-tunes-by-kinder-2026/8-f-tweety-with-a-spoon-vc382.webp",
       "name": "Твити с ложкой",
       "name_en": "Tweety with a spoon",
       "owned": false,
@@ -152,7 +152,7 @@
   "extras": [
     {
       "id": "tweety-from-looney-tunes-by-kinder-2026_extra1",
-      "image": "images/series/kinder/tweety-from-looney-tunes-by-kinder-2026/09.webp",
+      "image": "images/series/kinder/tweety-from-looney-tunes-by-kinder-2026/1-e-tweetys-comb-vc384.webp",
       "name": "Расческа Твити",
       "name_en": "Tweety's comb",
       "owned": false,
@@ -168,7 +168,7 @@
     },
     {
       "id": "tweety-from-looney-tunes-by-kinder-2026_extra2",
-      "image": "images/series/kinder/tweety-from-looney-tunes-by-kinder-2026/10.webp",
+      "image": "images/series/kinder/tweety-from-looney-tunes-by-kinder-2026/2-e-tweetys-heart-box-vd477e.webp",
       "name": "Шкатулка-сердечко Твити",
       "name_en": "Tweety's Heart Box",
       "owned": false,
@@ -184,7 +184,7 @@
     },
     {
       "id": "tweety-from-looney-tunes-by-kinder-2026_extra3",
-      "image": "images/series/kinder/tweety-from-looney-tunes-by-kinder-2026/11.webp",
+      "image": "images/series/kinder/tweety-from-looney-tunes-by-kinder-2026/3-e-tweetys-earrings-vq362b.webp",
       "name": "Сережки Твити",
       "name_en": "Tweety's earrings",
       "owned": false,
@@ -200,7 +200,7 @@
     },
     {
       "id": "tweety-from-looney-tunes-by-kinder-2026_extra4",
-      "image": "images/series/kinder/tweety-from-looney-tunes-by-kinder-2026/12.webp",
+      "image": "images/series/kinder/tweety-from-looney-tunes-by-kinder-2026/4-e-tweetys-braceletpendant-vq409c.webp",
       "name": "Браслет / Кулон Твити",
       "name_en": "Tweety's Bracelet/Pendant",
       "owned": false,
@@ -219,7 +219,7 @@
   "inserts": [
     {
       "id": "tweety-from-looney-tunes-by-kinder-2026_insert1",
-      "image": "images/series/kinder/tweety-from-looney-tunes-by-kinder-2026/01b.webp",
+      "image": "images/series/kinder/tweety-from-looney-tunes-by-kinder-2026/1-i-vc375.webp",
       "name": "Вкладыш 1",
       "name_en": "Insert 1",
       "owned": false,
@@ -235,7 +235,7 @@
     },
     {
       "id": "tweety-from-looney-tunes-by-kinder-2026_insert2",
-      "image": "images/series/kinder/tweety-from-looney-tunes-by-kinder-2026/02b.webp",
+      "image": "images/series/kinder/tweety-from-looney-tunes-by-kinder-2026/2-i-vc376.webp",
       "name": "Вкладыш 2",
       "name_en": "Insert 2",
       "owned": false,
@@ -251,7 +251,7 @@
     },
     {
       "id": "tweety-from-looney-tunes-by-kinder-2026_insert3",
-      "image": "images/series/kinder/tweety-from-looney-tunes-by-kinder-2026/03b.webp",
+      "image": "images/series/kinder/tweety-from-looney-tunes-by-kinder-2026/3-i-vc377.webp",
       "name": "Вкладыш 3",
       "name_en": "Insert 3",
       "owned": false,
@@ -267,7 +267,7 @@
     },
     {
       "id": "tweety-from-looney-tunes-by-kinder-2026_insert4",
-      "image": "images/series/kinder/tweety-from-looney-tunes-by-kinder-2026/04b.webp",
+      "image": "images/series/kinder/tweety-from-looney-tunes-by-kinder-2026/4-i-vc378.webp",
       "name": "Вкладыш 4",
       "name_en": "Insert 4",
       "owned": false,
@@ -283,7 +283,7 @@
     },
     {
       "id": "tweety-from-looney-tunes-by-kinder-2026_insert5",
-      "image": "images/series/kinder/tweety-from-looney-tunes-by-kinder-2026/05b.webp",
+      "image": "images/series/kinder/tweety-from-looney-tunes-by-kinder-2026/5-i-vc379.webp",
       "name": "Вкладыш 5",
       "name_en": "Insert 5",
       "owned": false,
@@ -299,7 +299,7 @@
     },
     {
       "id": "tweety-from-looney-tunes-by-kinder-2026_insert6",
-      "image": "images/series/kinder/tweety-from-looney-tunes-by-kinder-2026/06b.webp",
+      "image": "images/series/kinder/tweety-from-looney-tunes-by-kinder-2026/6-i-vc380.webp",
       "name": "Вкладыш 6",
       "name_en": "Insert 6",
       "owned": false,
@@ -315,7 +315,7 @@
     },
     {
       "id": "tweety-from-looney-tunes-by-kinder-2026_insert7",
-      "image": "images/series/kinder/tweety-from-looney-tunes-by-kinder-2026/07b.webp",
+      "image": "images/series/kinder/tweety-from-looney-tunes-by-kinder-2026/7-i-vc381.webp",
       "name": "Вкладыш 7",
       "name_en": "Insert 7",
       "owned": false,
@@ -331,7 +331,7 @@
     },
     {
       "id": "tweety-from-looney-tunes-by-kinder-2026_insert8",
-      "image": "images/series/kinder/tweety-from-looney-tunes-by-kinder-2026/08b.webp",
+      "image": "images/series/kinder/tweety-from-looney-tunes-by-kinder-2026/8-i-vc382.webp",
       "name": "Вкладыш 8",
       "name_en": "Insert 8",
       "owned": false,
@@ -347,7 +347,7 @@
     },
     {
       "id": "tweety-from-looney-tunes-by-kinder-2026_insert9",
-      "image": "images/series/kinder/tweety-from-looney-tunes-by-kinder-2026/09b.webp",
+      "image": "images/series/kinder/tweety-from-looney-tunes-by-kinder-2026/9-i-vc384.webp",
       "name": "Вкладыш 9",
       "name_en": "Insert 9",
       "owned": false,
@@ -363,7 +363,7 @@
     },
     {
       "id": "tweety-from-looney-tunes-by-kinder-2026_insert10",
-      "image": "images/series/kinder/tweety-from-looney-tunes-by-kinder-2026/10b.webp",
+      "image": "images/series/kinder/tweety-from-looney-tunes-by-kinder-2026/10-i-vd477e.webp",
       "name": "Вкладыш 10",
       "name_en": "Insert 10",
       "owned": false,
@@ -379,7 +379,7 @@
     },
     {
       "id": "tweety-from-looney-tunes-by-kinder-2026_insert11",
-      "image": "images/series/kinder/tweety-from-looney-tunes-by-kinder-2026/11b.webp",
+      "image": "images/series/kinder/tweety-from-looney-tunes-by-kinder-2026/11-i-vq362b.webp",
       "name": "Вкладыш 11",
       "name_en": "Insert 11",
       "owned": false,
@@ -395,7 +395,7 @@
     },
     {
       "id": "tweety-from-looney-tunes-by-kinder-2026_insert12",
-      "image": "images/series/kinder/tweety-from-looney-tunes-by-kinder-2026/12b.webp",
+      "image": "images/series/kinder/tweety-from-looney-tunes-by-kinder-2026/12-i-vq409c.webp",
       "name": "Вкладыш 12",
       "name_en": "Insert 12",
       "owned": false,

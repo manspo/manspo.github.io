@@ -22,7 +22,7 @@
   "figures": [
     {
       "id": "star-wars-by-kinder-2025_fig1",
-      "image": "images/series/kinder/star-wars-by-kinder-2025/01.webp",
+      "image": "images/series/kinder/star-wars-by-kinder-2025/1-f-obi-wan-kenobi-vc365.webp",
       "name": "Оби-Ван Кеноби",
       "name_en": "Obi-Wan Kenobi",
       "owned": true,
@@ -38,7 +38,7 @@
     },
     {
       "id": "star-wars-by-kinder-2025_fig2",
-      "image": "images/series/kinder/star-wars-by-kinder-2025/02.webp",
+      "image": "images/series/kinder/star-wars-by-kinder-2025/2-f-luke-skywalker-vc366.webp",
       "name": "Люк Скайуокер",
       "name_en": "Luke Skywalker",
       "owned": true,
@@ -54,7 +54,7 @@
     },
     {
       "id": "star-wars-by-kinder-2025_fig3",
-      "image": "images/series/kinder/star-wars-by-kinder-2025/03.webp",
+      "image": "images/series/kinder/star-wars-by-kinder-2025/3-f-chewbacca-vc367.webp",
       "name": "Чубакка",
       "name_en": "Chewbacca",
       "owned": true,
@@ -70,7 +70,7 @@
     },
     {
       "id": "star-wars-by-kinder-2025_fig4",
-      "image": "images/series/kinder/star-wars-by-kinder-2025/04.webp",
+      "image": "images/series/kinder/star-wars-by-kinder-2025/4-f-stormtroopers-vc368.webp",
       "name": "Штурмовик",
       "name_en": "Stormtroopers",
       "owned": true,
@@ -86,7 +86,7 @@
     },
     {
       "id": "star-wars-by-kinder-2025_fig5",
-      "image": "images/series/kinder/star-wars-by-kinder-2025/05.webp",
+      "image": "images/series/kinder/star-wars-by-kinder-2025/5-f-darth-vader-vc369.webp",
       "name": "Дарт Вейдер",
       "name_en": "Darth Vader",
       "owned": true,
@@ -102,7 +102,7 @@
     },
     {
       "id": "star-wars-by-kinder-2025_fig6",
-      "image": "images/series/kinder/star-wars-by-kinder-2025/06.webp",
+      "image": "images/series/kinder/star-wars-by-kinder-2025/6-f-yoda-vc370.webp",
       "name": "Йода",
       "name_en": "Yoda",
       "owned": true,
@@ -118,7 +118,7 @@
     },
     {
       "id": "star-wars-by-kinder-2025_fig7",
-      "image": "images/series/kinder/star-wars-by-kinder-2025/07.webp",
+      "image": "images/series/kinder/star-wars-by-kinder-2025/7-f-rey-vc371.webp",
       "name": "Рей",
       "name_en": "Rey",
       "owned": true,
@@ -134,7 +134,7 @@
     },
     {
       "id": "star-wars-by-kinder-2025_fig8",
-      "image": "images/series/kinder/star-wars-by-kinder-2025/08.webp",
+      "image": "images/series/kinder/star-wars-by-kinder-2025/8-f-kylo-ren-vc372.webp",
       "name": "Кайло Рен",
       "name_en": "Kylo Ren",
       "owned": true,
@@ -150,7 +150,7 @@
     },
     {
       "id": "star-wars-by-kinder-2025_fig9",
-      "image": "images/series/kinder/star-wars-by-kinder-2025/09.webp",
+      "image": "images/series/kinder/star-wars-by-kinder-2025/9-f-boba-fett-vc373.webp",
       "name": "Боба Фетт",
       "name_en": "Boba Fett",
       "owned": true,
@@ -166,7 +166,7 @@
     },
     {
       "id": "star-wars-by-kinder-2025_fig10",
-      "image": "images/series/kinder/star-wars-by-kinder-2025/10.webp",
+      "image": "images/series/kinder/star-wars-by-kinder-2025/10-f-leia-organa-vc374.webp",
       "name": "Лея Органа",
       "name_en": "Leia Organa",
       "owned": true,
@@ -186,7 +186,7 @@
   "inserts": [
     {
       "id": "star-wars-by-kinder-2025_insert1",
-      "image": "images/series/kinder/star-wars-by-kinder-2025/01b.webp",
+      "image": "images/series/kinder/star-wars-by-kinder-2025/1-i-vc365.webp",
       "name": "Вкладыш 1",
       "name_en": "Insert 1",
       "owned": true,
@@ -202,7 +202,7 @@
     },
     {
       "id": "star-wars-by-kinder-2025_insert2",
-      "image": "images/series/kinder/star-wars-by-kinder-2025/02b.webp",
+      "image": "images/series/kinder/star-wars-by-kinder-2025/2-i-vc366.webp",
       "name": "Вкладыш 2",
       "name_en": "Insert 2",
       "owned": true,
@@ -218,7 +218,7 @@
     },
     {
       "id": "star-wars-by-kinder-2025_insert3",
-      "image": "images/series/kinder/star-wars-by-kinder-2025/03b.webp",
+      "image": "images/series/kinder/star-wars-by-kinder-2025/3-i-vc367.webp",
       "name": "Вкладыш 3",
       "name_en": "Insert 3",
       "owned": true,
@@ -234,7 +234,7 @@
     },
     {
       "id": "star-wars-by-kinder-2025_insert4",
-      "image": "images/series/kinder/star-wars-by-kinder-2025/04b.webp",
+      "image": "images/series/kinder/star-wars-by-kinder-2025/4-i-vc368.webp",
       "name": "Вкладыш 4",
       "name_en": "Insert 4",
       "owned": true,
@@ -250,7 +250,7 @@
     },
     {
       "id": "star-wars-by-kinder-2025_insert5",
-      "image": "images/series/kinder/star-wars-by-kinder-2025/05b.webp",
+      "image": "images/series/kinder/star-wars-by-kinder-2025/5-i-vc369.webp",
       "name": "Вкладыш 5",
       "name_en": "Insert 5",
       "owned": true,
@@ -266,7 +266,7 @@
     },
     {
       "id": "star-wars-by-kinder-2025_insert6",
-      "image": "images/series/kinder/star-wars-by-kinder-2025/06b.webp",
+      "image": "images/series/kinder/star-wars-by-kinder-2025/6-i-vc370.webp",
       "name": "Вкладыш 6",
       "name_en": "Insert 6",
       "owned": true,
@@ -282,7 +282,7 @@
     },
     {
       "id": "star-wars-by-kinder-2025_insert7",
-      "image": "images/series/kinder/star-wars-by-kinder-2025/07b.webp",
+      "image": "images/series/kinder/star-wars-by-kinder-2025/7-i-vc371.webp",
       "name": "Вкладыш 7",
       "name_en": "Insert 7",
       "owned": true,
@@ -298,7 +298,7 @@
     },
     {
       "id": "star-wars-by-kinder-2025_insert8",
-      "image": "images/series/kinder/star-wars-by-kinder-2025/08b.webp",
+      "image": "images/series/kinder/star-wars-by-kinder-2025/8-i-vc372.webp",
       "name": "Вкладыш 8",
       "name_en": "Insert 8",
       "owned": true,
@@ -314,7 +314,7 @@
     },
     {
       "id": "star-wars-by-kinder-2025_insert9",
-      "image": "images/series/kinder/star-wars-by-kinder-2025/09b.webp",
+      "image": "images/series/kinder/star-wars-by-kinder-2025/9-i-vc373.webp",
       "name": "Вкладыш 9",
       "name_en": "Insert 9",
       "owned": true,
@@ -330,7 +330,7 @@
     },
     {
       "id": "star-wars-by-kinder-2025_insert10",
-      "image": "images/series/kinder/star-wars-by-kinder-2025/10b.webp",
+      "image": "images/series/kinder/star-wars-by-kinder-2025/10-i-vc374.webp",
       "name": "Вкладыш 10",
       "name_en": "Insert 10",
       "owned": true,
