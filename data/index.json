@@ -168,9 +168,9 @@
     "visible": true
   },
   {
-    "id": "astronauts-by-kinder-2024",
-    "name": "Астронавты от Киндер",
-    "name_en": "Astronauts by Kinder",
+    "id": "astronauts-maxi-by-kinder-2024",
+    "name": "Астронавты Макси от Киндер",
+    "name_en": "Astronauts Maxi by Kinder",
     "year": 2024,
     "manufacturer": "kinder",
     "cover": "images/series/kinder/astronauts-by-kinder-2024/cover.webp",
@@ -193,8 +193,8 @@
   },
   {
     "id": "girls-travelers-by-kinder-2024",
-    "name": "Девочки-путешественницы от Киндер",
-    "name_en": "Girls travelers by Kinder",
+    "name": "Девочки-путешественницы Макси от Киндер",
+    "name_en": "Girls travelers Maxi by Kinder",
     "year": 2024,
     "manufacturer": "kinder",
     "cover": "images/series/kinder/girls-travelers-by-kinder-2024/cover.webp",
