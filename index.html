@@ -4,191 +4,52 @@
   <meta charset="UTF-8" />
   <link rel="preconnect" href="https://manspo.github.io">
   <link rel="dns-prefetch" href="https://manspo.github.io">
-  
+
   <script>
   (function() {
     const savedTheme = localStorage.getItem('theme') || 'light';
     document.documentElement.setAttribute('data-theme', savedTheme);
   })();
   </script>
-  
-  <!-- ===== ПАРАЛЛЕЛЬНАЯ ЗАГРУЗКА ДАННЫХ ===== -->
+
+  <!-- Параллельная загрузка данных -->
   <script>
     window.dataPromise = fetch('https://manspo.github.io/data/index.json').then(r => r.json());
   </script>
-  
-  <meta property="og:image:secure_url" content="https://manspo.github.io/images/hero/collection.webp">
-<meta property="og:image:alt" content="Капсула — каталог коллекций игрушек">
-  
-    <!-- ===== OPEN GRAPH ДЛЯ СОЦСЕТЕЙ ===== -->
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="Капсула">
-<meta property="og:title" content="Капсула — каталог коллекций игрушек">
-<meta property="og:description" content="Kinder, Nestle, Landrin и другие производители. Каталог серий, фигурок, вкладышей и коллекций.">
-<meta property="og:url" content="https://manspo.github.io/">
-<meta property="og:image" content="https://manspo.github.io/images/og-preview.jpg">
-<meta property="og:image:secure_url" content="https://manspo.github.io/images/og-preview.jpg">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:type" content="image/jpeg">
-<meta property="og:locale" content="ru_RU">
-<meta property="og:locale:alternate" content="en_US">
 
-<!-- ===== TWITTER CARD ===== -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Капсула — каталог коллекций игрушек">
-<meta name="twitter:description" content="Kinder, Nestle, Landrin и другие производители.">
-<meta name="twitter:image" content="https://manspo.github.io/images/og-preview.jpg">
+  <!-- ===== OPEN GRAPH ===== -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Капсула">
+  <meta property="og:title" content="Капсула — каталог коллекций игрушек">
+  <meta property="og:description" content="Kinder, Nestle, Landrin и другие производители. Каталог серий, фигурок, вкладышей и коллекций.">
+  <meta property="og:url" content="https://manspo.github.io/">
+  <meta property="og:image" content="https://manspo.github.io/images/og-preview.jpg">
+  <meta property="og:image:secure_url" content="https://manspo.github.io/images/og-preview.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:locale:alternate" content="en_US">
+
+  <!-- ===== TWITTER CARD ===== -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Капсула — каталог коллекций игрушек">
+  <meta name="twitter:description" content="Kinder, Nestle, Landrin и другие производители.">
+  <meta name="twitter:image" content="https://manspo.github.io/images/og-preview.jpg">
 
   <title data-i18n="title_home">Капсула — каталог коллекций</title>
   <link rel="stylesheet" href="css/style.css" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#4f46e5">
+  <meta name="theme-color" content="#8b5cf6">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Капсула">
   <link rel="apple-touch-icon" href="images/icon-192x192.webp">
   <meta name="mobile-web-app-capable" content="yes">
-
-  <style>
-    /* ===== СТИЛИ ДЛЯ ЗАГРУЗКИ ===== */
-    #loadingOverlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 1000;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 20px;
-        background: rgba(0, 0, 0, 0.15);
-        backdrop-filter: blur(2px);
-        -webkit-backdrop-filter: blur(2px);
-        transition: opacity 0.6s ease, visibility 0.6s ease;
-    }
-    #loadingOverlay.hidden {
-        opacity: 0;
-        visibility: hidden;
-        pointer-events: none;
-    }
-    [data-theme="dark"] #loadingOverlay {
-        background: rgba(0, 0, 0, 0.3);
-        backdrop-filter: blur(4px);
-        -webkit-backdrop-filter: blur(4px);
-    }
-    [data-theme="dark"] #loadingOverlay .loader {
-        border-color: rgba(255,255,255,0.2);
-        border-top-color: var(--primary);
-    }
-    [data-theme="dark"] #loadingOverlay #loadingStatus {
-        background: rgba(30, 30, 46, 0.9);
-        color: var(--text);
-    }
-    [data-theme="dark"] #loadingOverlay #progressText {
-        background: rgba(0,0,0,0.5);
-        color: rgba(255,255,255,0.7);
-    }
-    .loader {
-        width: 48px;
-        height: 48px;
-        border: 4px solid rgba(255,255,255,0.3);
-        border-top: 4px solid var(--primary);
-        border-radius: 50%;
-        animation: spin 0.8s linear infinite;
-    }
-    [data-theme="dark"] .loader {
-        border-color: rgba(255,255,255,0.15);
-        border-top-color: var(--primary);
-    }
-    @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-    }
-    #loadingStatus {
-        font-size: 18px;
-        font-weight: 600;
-        color: var(--text);
-        background: rgba(255, 255, 255, 0.85);
-        padding: 8px 24px;
-        border-radius: 30px;
-        backdrop-filter: blur(4px);
-        -webkit-backdrop-filter: blur(4px);
-        transition: all 0.3s ease;
-        text-align: center;
-    }
-    .progress-container {
-        width: 200px;
-        height: 4px;
-        background: rgba(255, 255, 255, 0.3);
-        border-radius: 4px;
-        overflow: hidden;
-    }
-    [data-theme="dark"] .progress-container {
-        background: rgba(255, 255, 255, 0.1);
-    }
-    .progress-container .bar {
-        width: 0%;
-        height: 100%;
-        background: var(--primary);
-        border-radius: 4px;
-        transition: width 0.3s ease;
-    }
-    #progressText {
-        font-size: 13px;
-        color: rgba(255, 255, 255, 0.8);
-        background: rgba(0, 0, 0, 0.3);
-        padding: 4px 16px;
-        border-radius: 20px;
-        transition: all 0.3s ease;
-    }
-    [data-theme="dark"] #progressText {
-        background: rgba(0, 0, 0, 0.5);
-        color: rgba(255, 255, 255, 0.7);
-    }
-    .retry-btn {
-        padding: 12px 32px;
-        background: var(--primary);
-        color: white;
-        border: none;
-        border-radius: 30px;
-        font-size: 16px;
-        font-weight: 600;
-        cursor: pointer;
-        pointer-events: all;
-        transition: transform 0.2s;
-        margin-top: 10px;
-    }
-    .retry-btn:hover {
-        transform: scale(1.05);
-    }
-    #mainContent.loading {
-        filter: blur(4px);
-        transition: filter 0.6s ease;
-    }
-    #mainContent.loaded {
-        filter: blur(0px);
-        transition: filter 0.6s ease;
-    }
-    @media (max-width: 768px) {
-        #loadingStatus {
-            font-size: 15px;
-            padding: 6px 18px;
-        }
-        .loader {
-            width: 36px;
-            height: 36px;
-        }
-        .progress-container {
-            width: 150px;
-        }
-    }
-  </style>
 </head>
 <body>
+
 <script>
   if (window.Capacitor && window.Capacitor.isNativePlatform()) {
     document.documentElement.classList.add('capacitor-app');
@@ -197,7 +58,7 @@
 </script>
 
 <!-- ===== ОСНОВНОЙ КОНТЕНТ ===== -->
-<div id="mainContent" class="loading">
+<div id="mainContent">
 
   <header class="header">
     <div class="header-left">
@@ -212,79 +73,99 @@
     </div>
   </header>
 
-  <main class="home">
-    <section class="hero-image">
-      <img src="images/hero/collection.webp" alt="Collection" class="hero-img" loading="lazy" decoding="async">
+  <main class="clay-home">
+
+    <!-- ===== ВЕРХНИЙ БЛОК: ТЕКСТ + ФИГУРКИ + 4 МИНИ-КАРТОЧКИ ===== -->
+    <section class="clay-hero">
+      <div class="clay-hero-left">
+        <div class="clay-hero-text">
+          <h1 class="clay-title">
+            <span class="line1">Каталог</span>
+            <span class="line2">коллекций —</span>
+            <span class="line3">КАПСУЛА</span>
+          </h1>
+          <a href="catalog.html" class="clay-btn clay-btn-large">
+            <span>Перейти в каталог</span>
+            <span class="clay-btn-arrow">→</span>
+          </a>
+        </div>
+        <div class="clay-hero-figures" id="heroFigures"></div>
+      </div>
+
+      <div class="clay-hero-right">
+        <div class="clay-mini-grid">
+          <a href="figures.html" class="clay-mini-card card-green">
+            <span class="clay-mini-icon">🎎</span>
+            <span class="clay-mini-label" data-i18n="figures_title">Фигурки</span>
+          </a>
+          <a href="mycollection.html" class="clay-mini-card card-blue">
+            <span class="clay-mini-icon">🏷️</span>
+            <span class="clay-mini-label" data-i18n="my_collections">Мои коллекции</span>
+          </a>
+          <a href="forsale.html" class="clay-mini-card card-yellow">
+            <span class="clay-mini-icon">💰</span>
+            <span class="clay-mini-label" data-i18n="forsale">На продажу</span>
+          </a>
+          <a href="videos.html" class="clay-mini-card card-purple">
+            <span class="clay-mini-icon">📺</span>
+            <span class="clay-mini-label" data-i18n="nav_videos">Видеоархив</span>
+          </a>
+        </div>
+      </div>
     </section>
 
-    <!-- ===== 8 КАРТОЧЕК: 2 РЯДА ПО 4 ===== -->
-    <section class="main-grid">
-      <a href="catalog.html" class="home-card" data-page="catalog">
-        <div class="icon">📦</div>
-        <div class="home-title" data-i18n="nav_catalog">Каталог серий</div>
-      </a>
-      <a href="figures.html" class="home-card" data-page="figures">
-        <div class="icon">🎎</div>
-        <div class="home-title" data-i18n="figures_title">Каталог фигурок</div>
-      </a>
-      <a href="forsale.html" class="home-card" data-page="forsale">
-        <div class="icon">💰</div>
-        <div class="home-title" data-i18n="forsale">На продажу</div>
-      </a>
-      <a href="timeline.html" class="home-card" data-page="timeline">
-        <div class="icon">📅</div>
-        <div class="home-title" data-i18n="timeline_btn">Хронология</div>
-      </a>
-      <a href="mycollection.html" class="home-card" data-page="mycollection">
-        <div class="icon">🏷️</div>
-        <div class="home-title" data-i18n="my_collections">Мои коллекции</div>
-      </a>
-      <a href="videos.html" class="home-card" data-page="videos">
-        <div class="icon">📺</div>
-        <div class="home-title" data-i18n="nav_videos">Видеоархив</div>
-      </a>
-      <a href="all-duplicates.html" class="home-card" data-page="duplicates">
-        <div class="icon">🔗</div>
-        <div class="home-title" data-i18n="all_duplicates">Дубликаты</div>
-      </a>
-      <a href="about.html" class="home-card" data-page="about">
-        <div class="icon">📖</div>
-        <div class="home-title" data-i18n="nav_about">О сайте</div>
-      </a>
+    <!-- ===== НИЖНИЙ БЛОК: 2 БОЛЬШИЕ КАРТОЧКИ ===== -->
+    <section class="clay-bottom-cards">
+      <div class="clay-big-card card-purple-bg">
+        <div class="clay-big-icon" id="randomFigureIcon1">🎎</div>
+        <h3>Каталог фигурок</h3>
+        <p>Все фигурки из серий и одиночные</p>
+        <a href="figures.html" class="clay-btn clay-btn-small">Смотреть</a>
+      </div>
+      <div class="clay-big-card card-green-bg">
+        <div class="clay-big-icon" id="randomFigureIcon2">📅</div>
+        <h3>Хронология</h3>
+        <p>История серий по годам</p>
+        <a href="timeline.html" class="clay-btn clay-btn-small">Открыть</a>
+      </div>
     </section>
 
-    <section class="social-grid">
-      <h2 data-i18n="social_title" class="section-title">Мы в соцсетях</h2>
-      <div class="home-grid" id="socialGrid">
+    <!-- ===== СТАТИСТИКА ===== -->
+    <section class="clay-stats">
+      <div class="clay-stat">
+        <span class="clay-stat-num" id="totalSeries">0</span>
+        <span class="clay-stat-label" data-i18n="total_series">Серий</span>
+      </div>
+      <div class="clay-stat">
+        <span class="clay-stat-num" id="totalFigures">0</span>
+        <span class="clay-stat-label" data-i18n="total_figures">Фигурок</span>
+      </div>
+      <div class="clay-stat">
+        <span class="clay-stat-num" id="totalInserts">0</span>
+        <span class="clay-stat-label" data-i18n="total_inserts">Вкладышей</span>
+      </div>
+      <div class="clay-stat">
+        <span class="clay-stat-num" id="totalForSaleItems">0</span>
+        <span class="clay-stat-label" data-i18n="total_forsale">В продаже</span>
+      </div>
+    </section>
+
+    <!-- ===== ПОСЛЕДНИЕ ДОБАВЛЕННЫЕ ===== -->
+    <section class="clay-latest">
+      <h2 class="clay-section-title" data-i18n="latest_series">Последние добавленные</h2>
+      <div class="clay-latest-grid" id="featuredGrid">
         <div class="loading-spinner">⏳ Загрузка...</div>
       </div>
     </section>
 
-    <section class="stats">
-      <div class="stat-item">
-        <div class="stat-number" id="totalSeries">0</div>
-        <div class="stat-label" data-i18n="total_series">серий</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-number" id="totalFigures">0</div>
-        <div class="stat-label" data-i18n="total_figures">фигурок</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-number" id="totalInserts">0</div>
-        <div class="stat-label" data-i18n="total_inserts">вкладышей</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-number" id="totalForSaleItems">0</div>
-        <div class="stat-label" data-i18n="total_forsale">в продаже</div>
-      </div>
-    </section>
-
-    <section class="featured-series">
-      <h2 data-i18n="latest_series">Последние добавленные</h2>
-      <div class="featured-grid" id="featuredGrid">
+    <!-- ===== МЫ В СОЦСЕТЯХ ===== -->
+    <section class="clay-social">
+      <h2 class="clay-section-title" data-i18n="social_title">Мы в соцсетях</h2>
+      <div class="clay-social-grid" id="socialGrid">
         <div class="loading-spinner">⏳ Загрузка...</div>
       </div>
     </section>
+
   </main>
 
   <footer class="footer">
@@ -295,28 +176,73 @@
       </div>
       <div class="theme-switch">🌙</div>
     </div>
-<div class="support-buttons">
-  <a href="https://dalink.to/mansurdm" class="support-btn" data-i18n="support_project">Поддержать проект</a>
-  <a href="AndroidCapsule.apk" class="support-btn apk-btn" download data-i18n="download_android">Скачать APK</a>
-  <!-- НОВАЯ КНОПКА ТЕЛЕГРАМ-БОТА -->
-  <a href="https://t.me/kinder_search_bot" class="support-btn tg-bot-btn" target="_blank" rel="noopener noreferrer" data-i18n="tg_bot">Telegram-бот</a>
-</div>
+    <div class="support-buttons">
+      <a href="https://dalink.to/mansurdm" class="support-btn" data-i18n="support_project">Поддержать проект</a>
+      <a href="AndroidCapsule.apk" class="support-btn apk-btn" download data-i18n="download_android">Скачать APK</a>
+      <a href="https://t.me/kinder_search_bot" class="support-btn tg-bot-btn" target="_blank" rel="noopener noreferrer" data-i18n="tg_bot">Telegram-бот</a>
+    </div>
     <div class="copyright" data-i18n="footer_copyright">© 2026 Капсула</div>
   </footer>
 </div>
 
-<!-- ===== ОВЕРЛЕЙ ЗАГРУЗКИ ===== -->
-<div id="loadingOverlay">
-    <div class="loader"></div>
-    <div id="loadingStatus">Загрузка данных...</div>
-    <div class="progress-container">
-        <div class="bar" id="progressBar" style="width: 0%;"></div>
-    </div>
-    <div id="progressText">Подготовка...</div>
-</div>
-
 <script src="js/script.js"></script>
 
+<!-- ===== СЛУЧАЙНЫЕ ФИГУРКИ НА ГЛАВНОЙ ===== -->
+<script>
+(function() {
+  const BASE = 'https://manspo.github.io';
+
+  async function loadRandomHeroFigures() {
+    const heroContainer = document.getElementById('heroFigures');
+    if (!heroContainer) return;
+
+    try {
+      const res = await fetch(`${BASE}/data/search.json`);
+      if (!res.ok) return;
+      const all = await res.json();
+
+      // Только фигурки (не вкладыши, не прочее), с картинкой
+      const figures = all.filter(item =>
+        (item.type === 'figures' || item.type === 'extras' || item.type === 'variants') &&
+        item.image
+      );
+
+      if (figures.length === 0) return;
+
+      // Перемешиваем и берём 4
+      const shuffled = [...figures].sort(() => Math.random() - 0.5);
+      const picked = shuffled.slice(0, 4);
+
+      // В левый блок — 3-4 фигурки
+      heroContainer.innerHTML = picked.map(f =>
+        `<img src="${BASE}/${f.image}" alt="" loading="lazy" onerror="this.style.display='none'">`
+      ).join('');
+
+      // В большую карточку "Каталог фигурок" — первая
+      const icon1 = document.getElementById('randomFigureIcon1');
+      if (icon1 && picked[0]) {
+        icon1.innerHTML = `<img src="${BASE}/${picked[0].image}" alt="" onerror="this.style.display='none'">`;
+      }
+
+      // В большую карточку "Хронология" — вторая
+      const icon2 = document.getElementById('randomFigureIcon2');
+      if (icon2 && picked[1]) {
+        icon2.innerHTML = `<img src="${BASE}/${picked[1].image}" alt="" onerror="this.style.display='none'">`;
+      }
+    } catch (e) {
+      console.warn('Не удалось загрузить случайные фигурки:', e);
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', loadRandomHeroFigures);
+  } else {
+    loadRandomHeroFigures();
+  }
+})();
+</script>
+
+<!-- ===== SERVICE WORKER ===== -->
 <script>
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
@@ -337,10 +263,8 @@ navigator.serviceWorker.addEventListener('controllerchange', () => {
 });
 </script>
 
+<!-- ===== НАВИГАЦИЯ (кнопка "Назад" на Android) ===== -->
 <script>
-// ============================================================
-// НАВИГАЦИЯ
-// ============================================================
 (function() {
   let exitTimer = null;
 
@@ -365,7 +289,7 @@ navigator.serviceWorker.addEventListener('controllerchange', () => {
         background: rgba(0,0,0,0.85); color: white; padding: 12px 24px;
         border-radius: 30px; z-index: 999999; font-size: 16px;
         box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-        font-family: system-ui, sans-serif; transition: opacity 0.3s;
+        font-family: 'Nunito', system-ui, sans-serif; transition: opacity 0.3s;
         opacity: 0; pointer-events: none;
       `;
       document.body.appendChild(toast);
@@ -378,7 +302,6 @@ navigator.serviceWorker.addEventListener('controllerchange', () => {
 
   function handleBack() {
     const current = getCurrentPage();
-    const referrer = document.referrer || '';
 
     const lightbox = document.getElementById('lightbox');
     if (lightbox && lightbox.style.display === 'flex') {
@@ -420,8 +343,8 @@ navigator.serviceWorker.addEventListener('controllerchange', () => {
     }
 
     if (current === 'series') {
-      if (referrer.includes('mycollection.html')) window.location.href = 'mycollection.html';
-      else if (referrer.includes('forsale.html')) window.location.href = 'forsale.html';
+      if (document.referrer.includes('mycollection.html')) window.location.href = 'mycollection.html';
+      else if (document.referrer.includes('forsale.html')) window.location.href = 'forsale.html';
       else window.location.href = 'catalog.html';
       return;
     }
@@ -447,7 +370,7 @@ navigator.serviceWorker.addEventListener('controllerchange', () => {
 })();
 </script>
 
-<!-- Проверка Capacitor плагинов -->
+<!-- ===== Capacitor проверки ===== -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   if (window.Capacitor && window.Capacitor.isNativePlatform()) {
@@ -462,7 +385,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
-<!-- Запрос разрешений на Android -->
+<!-- ===== Разрешения Android ===== -->
 <script>
 if (window.Capacitor && window.Capacitor.Plugins) {
   const Permissions = window.Capacitor.Plugins.Permissions;
@@ -481,7 +404,7 @@ if (window.Capacitor && window.Capacitor.Plugins) {
 }
 </script>
 
-<!-- Обработка глубоких ссылок -->
+<!-- ===== Глубокие ссылки ===== -->
 <script>
 (function() {
   function handleDeepLink() {
