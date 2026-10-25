@@ -464,13 +464,6 @@ body {
   margin: 0;
 }
 
-.clay-wide-desc {
-  font-size: 15px;
-  color: rgba(45, 42, 69, 0.8);
-  margin: -10px 0 15px 0;
-  text-align: center;
-  max-width: 400px;
-}
 
 .clay-btn-small {
   display: inline-flex;
@@ -739,7 +732,6 @@ body {
   
   .clay-wide-panel { padding: 28px 20px 180px; }
   .clay-wide-title { font-size: 24px; }
-  .clay-wide-desc { font-size: 14px; }
   
   .footer-controls { justify-content: center; flex-wrap: wrap; gap: 16px; }
   .lang-switch-footer { position: static; transform: none; }
