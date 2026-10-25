@@ -12,10 +12,6 @@
   })();
   </script>
 
-  <script>
-    window.dataPromise = fetch('https://manspo.github.io/data/index.json').then(r => r.json());
-  </script>
-
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Капсула">
   <meta property="og:title" content="Капсула — каталог коллекций игрушек">
@@ -51,27 +47,20 @@
   }
 </script>
 
-<!-- SVG-фильтр для пластилиновой текстуры кнопок -->
-<svg width="0" height="0" style="position:absolute;">
-  <filter id="clay-texture">
-    <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" result="noise" />
-    <feColorMatrix in="noise" type="saturate" values="0" result="mono" />
-    <feComponentTransfer in="mono" result="soft">
-      <feFuncA type="linear" slope="0.08" />
-    </feComponentTransfer>
-    <feComposite in="SourceGraphic" in2="soft" operator="over" />
-  </filter>
-</svg>
-
 <div id="mainContent">
 
   <header class="header">
-    <div class="header-left">
-      <a href="index.html" class="brand">
-        <img src="images/logo.webp" class="logo-img" alt="Logo">
-        <span class="logo" data-i18n="site_name">Капсула</span>
-      </a>
+    <a href="index.html" class="brand">
+      <img src="images/logo.webp" class="logo-img" alt="Logo">
+      <span class="logo" data-i18n="site_name">Капсула</span>
+    </a>
+
+    <!-- ЦЕНТРАЛЬНЫЙ ТЕКСТ -->
+    <div class="header-center">
+      <span class="header-main-text" data-i18n="wide_panel_text">Каталог коллекций игрушек Kinder, Nestle, Landrin и другие производители</span>
     </div>
+
+    <!-- КНОПКА О САЙТЕ -->
     <div class="header-right">
       <a href="about.html" class="clay-btn clay-btn-about-header" data-i18n="nav_about">О сайте</a>
     </div>
@@ -131,13 +120,11 @@
       </a>
     </section>
 
-    <!-- ===== 4. ШИРОКАЯ ПАНЕЛЬ: ЦЕНТРАЛЬНЫЙ ТЕКСТ + ХРОНОЛОГИЯ ===== -->
+    <!-- ===== 4. ШИРОКАЯ ПАНЕЛЬ: ХРОНОЛОГИЯ (БЕЗ ТЕКСТА) ===== -->
     <section class="clay-wide-panel">
       <div class="clay-wide-center">
-        <p class="clay-wide-main-text" data-i18n="wide_panel_text">Каталог коллекций игрушек<br>Kinder, Nestle, Landrin и другие производители</p>
-        <div class="clay-wide-actions">
-          <a href="timeline.html" class="clay-btn clay-btn-small" data-i18n="timeline_btn">Хронология</a>
-        </div>
+        <h2 class="clay-wide-title" data-i18n="timeline_title">Хронология серий</h2>
+        <a href="timeline.html" class="clay-btn clay-btn-small" data-i18n="timeline_btn">Открыть</a>
       </div>
       <div class="clay-wide-figure">
         <img src="images/hero/3d-figure-2.webp" alt="3D figure 2" onerror="this.style.display='none'">
@@ -203,7 +190,7 @@
 
 <script src="js/script.js"></script>
 
-<!-- ===== СЛУЧАЙНЫЕ ФИГУРКИ ===== -->
+<!-- ===== СЛУЧАЙНЫЕ ФИГУРКИ (ГАРАНТИРОВАННЫЙ ВЫВОД) ===== -->
 <script>
 (function() {
   const BASE = 'https://manspo.github.io';
@@ -212,19 +199,37 @@
     let all = [];
     try {
       const res = await fetch(`${BASE}/data/search.json`);
-      if (!res.ok) return;
+      if (!res.ok) throw new Error('Network error');
       all = await res.json();
     } catch (e) {
-      console.warn('Не удалось загрузить search.json:', e);
-      return;
+      console.warn('Не удалось загрузить search.json, пробуем index.json:', e);
+      // Если search.json упал, попробуем вытащить хоть что-то из index.json
+      try {
+        const res2 = await fetch(`${BASE}/data/index.json`);
+        if (res2.ok) all = await res2.json();
+      } catch(e2) {}
     }
 
-    const figures = all.filter(item =>
-      (item.type === 'figures' || item.type === 'extras' || item.type === 'variants') &&
-      item.image
-    );
+    // Фильтруем фигурки (ищем картинку в разных полях)
+    let figures = all.filter(item => {
+      const img = item.image || item.cover || item.img;
+      const isFigure = item.type === 'figures' || item.type === 'extras' || item.type === 'variants' || item.type === 'figure' || !item.type;
+      return isFigure && img;
+    });
 
-    if (figures.length === 0) return;
+    // Если фигурок нет — берем вообще всё, где есть картинка
+    if (figures.length === 0) {
+      figures = all.filter(item => item.image || item.cover || item.img);
+    }
+
+    // Если вообще ничего нет — ставим заглушки
+    if (figures.length === 0) {
+      const placeholder = 'images/placeholder.svg';
+      document.getElementById('panelSeriesFigures').innerHTML = 
+        `<img src="${placeholder}"><img src="${placeholder}"><img src="${placeholder}"><img src="${placeholder}">`;
+      document.getElementById('panelFiguresFigure').innerHTML = `<img src="${placeholder}">`;
+      return;
+    }
 
     function shuffle(arr) {
       return [...arr].sort(() => Math.random() - 0.5);
@@ -232,18 +237,21 @@
 
     const panelSeries = document.getElementById('panelSeriesFigures');
     if (panelSeries) {
-      const picked4 = shuffle(figures).slice(0, 4);
-      panelSeries.innerHTML = picked4.map(f =>
-        `<img src="${BASE}/${f.image}" alt="" loading="lazy" onerror="this.style.display='none'">`
-      ).join('');
+      const picked4 = [];
+      for (let i = 0; i < 4; i++) picked4.push(figures[i % figures.length]); // гарантируем 4
+      const shuffled4 = shuffle(picked4);
+      
+      panelSeries.innerHTML = shuffled4.map(f => {
+        const src = f.image || f.cover || f.img;
+        return `<img src="${BASE}/${src}" alt="" loading="lazy" onerror="this.src='images/placeholder.svg'">`;
+      }).join('');
     }
 
     const panelFigures = document.getElementById('panelFiguresFigure');
     if (panelFigures) {
-      const picked1 = shuffle(figures)[0];
-      if (picked1) {
-        panelFigures.innerHTML = `<img src="${BASE}/${picked1.image}" alt="" loading="lazy" onerror="this.style.display='none'">`;
-      }
+      const picked1 = figures[Math.floor(Math.random() * figures.length)];
+      const src = picked1.image || picked1.cover || picked1.img;
+      panelFigures.innerHTML = `<img src="${BASE}/${src}" alt="" loading="lazy" onerror="this.src='images/placeholder.svg'">`;
     }
   }
 
@@ -255,32 +263,22 @@
 })();
 </script>
 
-<!-- ===== SERVICE WORKER ===== -->
+<!-- ===== SERVICE WORKER & CAPACITOR ===== -->
 <script>
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js')
-      .then(registration => console.log('SW registered:', registration))
-      .catch(error => console.log('SW error:', error));
+    navigator.serviceWorker.register('/sw.js').catch(err => console.log('SW error:', err));
   });
 }
-</script>
-
-<script>
 let refreshing = false;
 navigator.serviceWorker.addEventListener('controllerchange', () => {
-  if (!refreshing) {
-    refreshing = true;
-    window.location.reload();
-  }
+  if (!refreshing) { refreshing = true; window.location.reload(); }
 });
 </script>
 
-<!-- ===== НАВИГАЦИЯ (кнопка "Назад" на Android) ===== -->
 <script>
+// Навигация назад для Android
 (function() {
-  let exitTimer = null;
-
   function getCurrentPage() {
     const path = window.location.pathname.toLowerCase();
     if (path.includes('series.html')) return 'series';
@@ -291,132 +289,54 @@ navigator.serviceWorker.addEventListener('controllerchange', () => {
     if (path.includes('about.html')) return 'about';
     return 'home';
   }
-
   function showExitToast() {
     let toast = document.getElementById('exitToast');
     if (!toast) {
       toast = document.createElement('div');
       toast.id = 'exitToast';
-      toast.style.cssText = `
-        position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%);
-        background: rgba(0,0,0,0.85); color: white; padding: 12px 24px;
-        border-radius: 30px; z-index: 999999; font-size: 16px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-        font-family: 'Nunito', system-ui, sans-serif; transition: opacity 0.3s;
-        opacity: 0; pointer-events: none;
-      `;
+      toast.style.cssText = `position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,0.85);color:white;padding:12px 24px;border-radius:30px;z-index:999999;font-size:16px;box-shadow:0 4px 12px rgba(0,0,0,0.3);font-family:'Nunito',sans-serif;transition:opacity 0.3s;opacity:0;pointer-events:none;`;
       document.body.appendChild(toast);
     }
     toast.textContent = 'Нажмите ещё раз, чтобы выйти';
     toast.style.opacity = '1';
-    clearTimeout(exitTimer);
-    exitTimer = setTimeout(() => { toast.style.opacity = '0'; }, 2000);
+    setTimeout(() => { toast.style.opacity = '0'; }, 2000);
   }
-
   function handleBack() {
     const current = getCurrentPage();
-
     const lightbox = document.getElementById('lightbox');
     if (lightbox && lightbox.style.display === 'flex') {
       if (typeof window.closeLightbox === 'function') window.closeLightbox();
       else { lightbox.style.display = 'none'; document.body.style.overflow = ''; }
       return;
     }
-
-    const qrModal = document.querySelector('.qr-modal');
-    if (qrModal) { qrModal.remove(); return; }
-
     if (current === 'home') {
       showExitToast();
       if (window._backPressCount && Date.now() - window._backPressTime < 2000) {
-        if (window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.App) {
-          window.Capacitor.Plugins.App.exitApp();
-        } else if (navigator.app) {
-          navigator.app.exitApp();
-        }
+        if (window.Capacitor?.Plugins?.App) window.Capacitor.Plugins.App.exitApp();
+        else if (navigator.app) navigator.app.exitApp();
         window._backPressCount = 0;
       } else {
-        window._backPressCount = 1;
-        window._backPressTime = Date.now();
+        window._backPressCount = 1; window._backPressTime = Date.now();
         setTimeout(() => { window._backPressCount = 0; }, 2000);
       }
       return;
     }
-
     if (current === 'figure') {
       const params = new URLSearchParams(window.location.search);
       const seriesId = params.get('series');
-      if (seriesId) window.location.href = `series.html?id=${encodeURIComponent(seriesId)}`;
-      else window.location.href = 'catalog.html';
+      window.location.href = seriesId ? `series.html?id=${seriesId}` : 'catalog.html';
       return;
     }
-
     if (current === 'series') {
-      if (document.referrer.includes('mycollection.html')) window.location.href = 'mycollection.html';
-      else if (document.referrer.includes('forsale.html')) window.location.href = 'forsale.html';
-      else window.location.href = 'catalog.html';
+      window.location.href = document.referrer.includes('mycollection.html') ? 'mycollection.html' : 'catalog.html';
       return;
     }
-
-    if (['catalog', 'collection', 'forsale', 'about'].includes(current)) {
-      window.location.href = 'index.html';
-      return;
-    }
-
     window.location.href = 'index.html';
   }
-
-  document.addEventListener('DOMContentLoaded', function() {
-    if (window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.App) {
-      window.Capacitor.Plugins.App.addListener('backButton', handleBack);
-    } else {
-      window.addEventListener('popstate', handleBack);
-      window.history.pushState(null, '', window.location.href);
-    }
+  document.addEventListener('DOMContentLoaded', () => {
+    if (window.Capacitor?.Plugins?.App) window.Capacitor.Plugins.App.addListener('backButton', handleBack);
+    else { window.addEventListener('popstate', handleBack); window.history.pushState(null, '', window.location.href); }
   });
-})();
-</script>
-
-<!-- ===== Capacitor проверки ===== -->
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  if (window.Capacitor && window.Capacitor.isNativePlatform()) {
-    if (window.Capacitor.Plugins && window.Capacitor.Plugins.Filesystem) {
-      console.log('Filesystem плагин доступен');
-    }
-  }
-});
-</script>
-
-<!-- ===== Разрешения Android ===== -->
-<script>
-if (window.Capacitor && window.Capacitor.Plugins) {
-  const Permissions = window.Capacitor.Plugins.Permissions;
-  if (Permissions) {
-    Permissions.requestPermissions({
-      permissions: [
-        'android.permission.WRITE_EXTERNAL_STORAGE',
-        'android.permission.READ_EXTERNAL_STORAGE'
-      ]
-    }).catch(() => {});
-  }
-}
-</script>
-
-<!-- ===== Глубокие ссылки ===== -->
-<script>
-(function() {
-  function handleDeepLink() {
-    const params = new URLSearchParams(window.location.search);
-    const id = params.get('id');
-    if (id) {
-      setTimeout(() => { window.location.href = `series.html?id=${id}`; }, 100);
-      return true;
-    }
-    return false;
-  }
-  if (document.readyState === 'complete') handleDeepLink();
-  else document.addEventListener('DOMContentLoaded', handleDeepLink);
 })();
 </script>
 
