@@ -2841,7 +2841,10 @@ if (currentSearch) {
         <div class="forsale-item-body">
           <div class="forsale-item-header">
             <span class="forsale-item-name">${escapeHtml(item.name || '')}</span>
-            ${item.price ? `<span class="forsale-item-price">${escapeHtml(item.price)}</span>` : ''}
+            // СТАЛО:
+<span class="forsale-item-price" style="${!item.price ? 'opacity: 0;' : ''}">
+  ${escapeHtml(item.price || '0')}
+</span>
           </div>
           <div class="forsale-item-tags">
             <span class="tag tag-primary">${escapeHtml(typeLabels[item.type] || item.type)}</span>
