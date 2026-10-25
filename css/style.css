@@ -143,26 +143,34 @@ main {
 }
 
 /* Центральный текст в шапке (абсолютное центрирование) */
-.header-center {
+.header-center, .header-tagline {
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
   display: flex;
+  flex-direction: column;
   justify-content: center;
   text-align: center;
   width: 100%;
   max-width: 600px;
   pointer-events: none;
   z-index: 1;
+  margin: 0;
 }
 
-.header-main-text {
+.header-main-text, .tagline-main {
   font-size: 15px;
   font-weight: 700;
   color: var(--clay-muted);
   line-height: 1.3;
   margin: 0;
+}
+
+.tagline-sub {
+  font-size: 12px;
+  color: var(--clay-muted);
+  line-height: 1.2;
 }
 
 .header-right { 
@@ -693,7 +701,7 @@ main {
 .error-message { color: #ef4444; }
 
 /* Кнопки под серией */
-.qr-btn-series { background: var(--clay-purple); color: white; border: none; padding: 12px 24px; border-radius: 30px; font-size: 15px; font-weight: 700; cursor: pointer; transition: all 0.2s; box-shadow: 0 5px 0 var(--clay-purple-dark), 0 6px 12px rgba(139, 92, 246, 0.3); width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 10px; }
+.qr-btn-series { background: var(--clay-purple); color: white; border: none; padding: 12px 24px; border-radius: 30px; font-size: 15px; font-weight: 700; cursor: pointer; transition: all 0.2s; box-shadow: 0 5px 0 var(--clay-purple-dark), 0 6px 12px rgba(139, 92, 246, 0.3); width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 10px; position: relative; z-index: 20; }
 .qr-btn-series:active { transform: translateY(4px); box-shadow: 0 1px 0 var(--clay-purple-dark); }
 .collage-section { position: relative; z-index: 10; text-align: center; margin: 40px 0 20px; padding: 30px; background: var(--clay-card); border-radius: var(--radius-lg); box-shadow: var(--clay-shadow); border: 3px solid rgba(255,255,255,0.7); display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; }
 .collage-download-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: var(--clay-purple); color: white; border: none; padding: 14px 28px; border-radius: 30px; font-size: 15px; font-weight: 700; cursor: pointer; transition: all 0.15s; box-shadow: 0 6px 0 var(--clay-purple-dark), 0 8px 16px rgba(139, 92, 246, 0.3); font-family: 'Nunito', sans-serif; min-width: 200px; }
@@ -722,29 +730,60 @@ main {
   display: flex !important;
 }
 
-.lightbox-zoom-container {
+.lightbox .lightbox-zoom-container {
   width: 100vw;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
   position: relative;
+  overflow: hidden;
 }
 
-.lightbox-content {
-  max-width: 80vw !important;
-  max-height: 80vh !important;
-  width: auto !important;
-  height: auto !important;
+.lightbox .lightbox-content {
+  max-width: 80vw;
+  max-height: 80vh;
+  width: auto;
+  height: auto;
   object-fit: contain;
-  border-radius: 12px;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  left: auto;
+  top: auto;
+  transform: none;
   box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-  transition: transform 0.1s ease;
-  position: relative !important; 
-  margin: 0 !important;
-  padding: 0 !important;
-  transform: scale(1) !important;
+  border-radius: 12px;
+}
+
+.lightbox .lightbox-title {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 80vw;
+  text-align: center;
+  color: #ffffff;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+  z-index: 10002;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.lightbox .lightbox-title > div {
+  background: rgba(0,0,0,0.6);
+  padding: 6px 18px;
+  border-radius: 20px;
+  backdrop-filter: blur(4px);
+  display: inline-block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .lightbox-prev, .lightbox-next {
@@ -819,36 +858,36 @@ main {
 .zoom-btn:hover { background: var(--clay-purple); }
 
 /* Стрелки связки фигурка-вкладыш */
-.lightbox-up,
-.lightbox-down {
+.lightbox .lightbox-up,
+.lightbox .lightbox-down {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  width: 56px;
-  height: 56px;
+  width: 50px;
+  height: 50px;
+  background: rgba(255,255,255,0.2);
+  border: 2px solid rgba(255,255,255,0.5);
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
-  border: 2px solid rgba(255, 255, 255, 0.4);
-  font-size: 24px;
-  cursor: pointer;
-  z-index: 10001;
+  color: #ffffff;
+  font-size: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s;
+  z-index: 10003;
+  cursor: pointer;
   backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  transition: background 0.2s;
 }
-.lightbox-up { top: 20px; }
-.lightbox-down { bottom: 20px; }
-.lightbox-up:hover, .lightbox-down:hover {
+.lightbox .lightbox-up { top: 80px; }
+.lightbox .lightbox-down { bottom: 20px; }
+.lightbox .lightbox-up:hover,
+.lightbox .lightbox-down:hover {
   background: var(--clay-purple);
   border-color: var(--clay-purple);
-  transform: translateX(-50%) scale(1.1);
 }
-.lightbox-up[style*="display: none"], .lightbox-down[style*="display: none"] {
-  display: none !important;
+.lightbox .lightbox-up[style*="display: none"],
+.lightbox .lightbox-down[style*="display: none"] {
+  display: none;
 }
 
 /* ===== МОДАЛЬНОЕ ОКНО "МОЙ ПОИСК" ===== */
@@ -866,7 +905,6 @@ main {
   z-index: 99999 !important;
   padding: 20px !important;
 }
-
 .wanted-modal-content {
   background: var(--clay-card) !important;
   border-radius: var(--radius-xl) !important;
@@ -881,7 +919,6 @@ main {
   display: flex !important;
   flex-direction: column !important;
 }
-
 .wanted-modal-close {
   position: absolute !important;
   top: 15px !important;
@@ -906,7 +943,6 @@ main {
   color: white !important;
   transform: rotate(90deg) !important;
 }
-
 .wanted-modal h2 {
   font-family: 'Fredoka', sans-serif !important;
   font-size: 28px !important;
@@ -1124,7 +1160,7 @@ main {
 
 @media (max-width: 768px) {
   .header { padding: 12px 16px; flex-wrap: wrap; gap: 10px; }
-  .header-center { display: none; } 
+  .header-center, .header-tagline { display: none; } 
   .clay-btn-about-header { padding: 8px 18px; font-size: 13px; }
   
   .clay-home { padding: 16px 12px 40px; }
