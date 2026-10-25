@@ -134,8 +134,11 @@
 "random_figures_title": "Каталог фигурок",
 "random_figures_desc": "Все фигурки из серий и одиночные",
 "hero_catalog_btn": "Перейти в каталог",
+"panel_timeline_desc": "История серий по годам",
+"nav_figures_short": "Фигурки",
 "panel_catalog_desc": "Все серии с фото и описанием",
 "panel_figures_desc": "Все фигурки из серий и одиночные",
-"panel_timeline_desc": "История серий по годам",
-"nav_figures_short": "Фигурки"
+"wide_panel_text": "Каталог коллекций игрушек Kinder, Nestle, Landrin и другие производители",
+"nav_about": "О сайте",
+"timeline_btn": "Хронология"
 }

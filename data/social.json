@@ -2,35 +2,35 @@
   {
     "name": "Telegram",
     "url": "https://t.me/kindersurprisejoymaxi",
-    "icon": "images/social/telegram.svg",
+    "icon": "images/social/telegram.webp",
     "icon_emoji": "📨",
     "color": "#0088cc"
   },
   {
     "name": "Instagram",
     "url": "https://www.instagram.com/kindersurprisejoymaxi/",
-    "icon": "images/social/instagram.svg",
+    "icon": "images/social/instagram.webp",
     "icon_emoji": "📸",
     "color": "#e4405f"
   },
   {
     "name": "VK",
     "url": "https://vk.com/kindersurprisejoymaxi",
-    "icon": "images/social/vk.svg",
+    "icon": "images/social/vk.webp",
     "icon_emoji": "🇻🇰",
     "color": "#4c75a3"
   },
   {
     "name": "TikTok",
     "url": "https://www.tiktok.com/@kindersurprisejoymaxi",
-    "icon": "images/social/tiktok.svg",
+    "icon": "images/social/tiktok.webp",
     "icon_emoji": "🎵",
     "color": "#000000"
   },
   {
     "name": "YouTube",
     "url": "https://www.youtube.com/@kindersurprisejoymaxi",
-    "icon": "images/social/youtube.svg",
+    "icon": "images/social/youtube.webp",
     "icon_emoji": "▶️",
     "color": "#ff0000"
   }

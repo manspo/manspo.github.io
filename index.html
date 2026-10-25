@@ -89,13 +89,9 @@
             <span class="line2">коллекций —</span>
             <span class="line3">КАПСУЛА</span>
           </h1>
-          <a href="catalog.html" class="clay-btn clay-btn-large" data-i18n="hero_catalog_btn">
-            Перейти в каталог
-            <span class="clay-btn-arrow">→</span>
-          </a>
         </div>
         <div class="clay-hero-figure">
-          <img src="images/hero/3d-figure.png" alt="3D figure" onerror="this.style.display='none'">
+          <img src="images/hero/3d-figure-3.webp" alt="3D figure" onerror="this.style.display='none'">
         </div>
       </div>
     </section>
@@ -103,11 +99,13 @@
     <!-- ===== 2. ДВЕ БОЛЬШИЕ ПАНЕЛИ ===== -->
     <section class="clay-two-panels">
       <a href="catalog.html" class="clay-panel panel-purple">
+        <div class="clay-panel-figures" id="panelSeriesFigures"></div>
         <img src="images/icons/catalog-series.webp" class="clay-panel-icon-img" alt="" onerror="this.style.display='none'">
         <h3 data-i18n="nav_catalog">Каталог серий</h3>
         <p data-i18n="panel_catalog_desc">Все серии с фото и описанием</p>
       </a>
       <a href="figures.html" class="clay-panel panel-green">
+        <div class="clay-panel-figures" id="panelFiguresFigure"></div>
         <img src="images/icons/catalog-figures.webp" class="clay-panel-icon-img" alt="" onerror="this.style.display='none'">
         <h3 data-i18n="figures_title">Каталог фигурок</h3>
         <p data-i18n="panel_figures_desc">Все фигурки из серий и одиночные</p>
@@ -134,18 +132,17 @@
       </a>
     </section>
 
-    <!-- ===== 4. ШИРОКАЯ ПАНЕЛЬ: ХРОНОЛОГИЯ + О САЙТЕ ===== -->
+    <!-- ===== 4. ШИРОКАЯ ПАНЕЛЬ: ЦЕНТРАЛЬНЫЙ ТЕКСТ + О САЙТЕ + ХРОНОЛОГИЯ ===== -->
     <section class="clay-wide-panel">
-      <div class="clay-wide-text">
-        <h2 data-i18n="timeline_title">Хронология</h2>
-        <p data-i18n="panel_timeline_desc">История серий по годам</p>
+      <div class="clay-wide-center">
+        <p class="clay-wide-main-text" data-i18n="wide_panel_text">Каталог коллекций игрушек Kinder, Nestle, Landrin и другие производители</p>
         <div class="clay-wide-actions">
-          <a href="timeline.html" class="clay-btn clay-btn-small" data-i18n="timeline_btn">Открыть</a>
+          <a href="timeline.html" class="clay-btn clay-btn-small" data-i18n="timeline_btn">Хронология</a>
           <a href="about.html" class="clay-btn clay-btn-about" data-i18n="nav_about">О сайте</a>
         </div>
       </div>
       <div class="clay-wide-figure">
-        <img src="images/hero/3d-figure-2.png" alt="3D figure 2" onerror="this.style.display='none'">
+        <img src="images/hero/3d-figure-2.webp" alt="3D figure 2" onerror="this.style.display='none'">
       </div>
     </section>
 
@@ -208,45 +205,56 @@
 
 <script src="js/script.js"></script>
 
-<!-- ===== СЛУЧАЙНЫЕ ФИГУРКИ (4 шт, без затемнения) ===== -->
+<!-- ===== СЛУЧАЙНЫЕ ФИГУРКИ ===== -->
 <script>
 (function() {
   const BASE = 'https://manspo.github.io';
 
-  async function loadRandomHeroFigures() {
-    const container = document.getElementById('heroFigures');
-    if (!container) return;
-
+  async function loadRandomFigures() {
+    let all = [];
     try {
       const res = await fetch(`${BASE}/data/search.json`);
       if (!res.ok) return;
-      const all = await res.json();
+      all = await res.json();
+    } catch (e) {
+      console.warn('Не удалось загрузить search.json:', e);
+      return;
+    }
 
-      const figures = all.filter(item =>
-        (item.type === 'figures' || item.type === 'extras' || item.type === 'variants') &&
-        item.image
-      );
+    const figures = all.filter(item =>
+      (item.type === 'figures' || item.type === 'extras' || item.type === 'variants') &&
+      item.image
+    );
 
-      if (figures.length === 0) return;
+    if (figures.length === 0) return;
 
-      const shuffled = [...figures].sort(() => Math.random() - 0.5);
-      const picked = [];
-      for (let i = 0; i < 4; i++) {
-        picked.push(shuffled[i % shuffled.length]);
-      }
+    function shuffle(arr) {
+      return [...arr].sort(() => Math.random() - 0.5);
+    }
 
-      container.innerHTML = picked.map(f =>
+    // === 1. 4 фигурки для панели "Каталог серий" ===
+    const panelSeries = document.getElementById('panelSeriesFigures');
+    if (panelSeries) {
+      const picked4 = shuffle(figures).slice(0, 4);
+      panelSeries.innerHTML = picked4.map(f =>
         `<img src="${BASE}/${f.image}" alt="" loading="lazy" onerror="this.style.display='none'">`
       ).join('');
-    } catch (e) {
-      console.warn('Не удалось загрузить случайные фигурки:', e);
+    }
+
+    // === 2. 1 фигурка для панели "Каталог фигурок" ===
+    const panelFigures = document.getElementById('panelFiguresFigure');
+    if (panelFigures) {
+      const picked1 = shuffle(figures)[0];
+      if (picked1) {
+        panelFigures.innerHTML = `<img src="${BASE}/${picked1.image}" alt="" loading="lazy" onerror="this.style.display='none'">`;
+      }
     }
   }
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', loadRandomHeroFigures);
+    document.addEventListener('DOMContentLoaded', loadRandomFigures);
   } else {
-    loadRandomHeroFigures();
+    loadRandomFigures();
   }
 })();
 </script>
