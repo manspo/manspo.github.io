@@ -644,3 +644,49 @@ body {
   text-align: center;
   max-width: 400px;
 }
+
+/* ===== ИСПРАВЛЕНИЕ ДЛЯ МОБИЛЬНОЙ ВЕРСИИ (ГЕРОЙ-БЛОК) ===== */
+@media (max-width: 768px) {
+  .clay-hero-left {
+    flex-direction: column !important; /* Текст и фигурка друг под другом */
+    align-items: center !important;    /* Центрируем всё */
+    text-align: center !important;
+    padding: 24px 16px !important;
+    min-height: auto !important;       /* Убираем жесткую высоту */
+    gap: 20px !important;              /* Отступ между текстом и фигуркой */
+  }
+
+  .clay-hero-text {
+    max-width: 100% !important;
+    width: 100% !important;
+    position: relative !important;
+    z-index: 2 !important;
+  }
+
+  .clay-title {
+    font-size: 32px !important;
+    line-height: 1.1 !important;
+    margin-bottom: 10px !important;
+    align-items: center !important; /* Центрируем строки заголовка */
+  }
+
+  .clay-title .line3 {
+    font-size: 38px !important;
+  }
+
+  .clay-hero-figure {
+    position: relative !important; /* Убираем абсолютное позиционирование, если было */
+    max-width: 100% !important;
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+    margin-top: 10px !important;
+    z-index: 1 !important;
+  }
+
+  .clay-hero-figure img {
+    max-height: 200px !important; /* Ограничиваем высоту фигурки на телефоне */
+    width: auto !important;
+    object-fit: contain !important;
+  }
+}
