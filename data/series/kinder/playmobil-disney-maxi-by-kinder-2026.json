@@ -88,7 +88,24 @@
   "extras": [],
   "variants": [],
   "inserts": [],
-  "other": [],
+  "other": [
+    {
+      "id": "playmobil-disney-maxi-by-kinder-2026_other1",
+      "name": "Фольга",
+      "name_en": "Foil",
+      "code": "",
+      "image": "images/series/danone/playmobil-disney-maxi-by-kinder-2026/1-o-foil.webp",
+      "owned": false,
+      "forsale": false,
+      "forsale_date": "",
+      "avito": "",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "date_added": "2026-10-25"
+    }
+  ],
   "videos": {
     "youtube": [],
     "vk": [],
