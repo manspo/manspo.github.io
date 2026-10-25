@@ -72,9 +72,8 @@
         <span class="logo" data-i18n="site_name">Капсула</span>
       </a>
     </div>
-    <div class="header-tagline">
-      <span class="tagline-main" data-i18n="home_title">Каталог коллекций игрушек</span>
-      <span class="tagline-sub" data-i18n="home_sub">Kinder, Nestle, Landrin и другие производители</span>
+    <div class="header-right">
+      <a href="about.html" class="clay-btn clay-btn-about-header" data-i18n="nav_about">О сайте</a>
     </div>
   </header>
 
@@ -122,7 +121,7 @@
         <img src="images/icons/collection.webp" class="clay-mini-icon-img" alt="" onerror="this.style.display='none'">
         <span class="clay-mini-label" data-i18n="my_collections">Мои коллекции</span>
       </a>
-      <a href="all-duplicates.html" class="clay-mini-card card-pink">
+      <a href="all-duplicates.html" class="clay-mini-card card-mint">
         <img src="images/icons/duplicates.webp" class="clay-mini-icon-img" alt="" onerror="this.style.display='none'">
         <span class="clay-mini-label" data-i18n="all_duplicates">Дубликаты</span>
       </a>
@@ -132,13 +131,12 @@
       </a>
     </section>
 
-    <!-- ===== 4. ШИРОКАЯ ПАНЕЛЬ: ЦЕНТРАЛЬНЫЙ ТЕКСТ + О САЙТЕ + ХРОНОЛОГИЯ ===== -->
+    <!-- ===== 4. ШИРОКАЯ ПАНЕЛЬ: ЦЕНТРАЛЬНЫЙ ТЕКСТ + ХРОНОЛОГИЯ ===== -->
     <section class="clay-wide-panel">
       <div class="clay-wide-center">
-        <p class="clay-wide-main-text" data-i18n="wide_panel_text">Каталог коллекций игрушек Kinder, Nestle, Landrin и другие производители</p>
+        <p class="clay-wide-main-text" data-i18n="wide_panel_text">Каталог коллекций игрушек<br>Kinder, Nestle, Landrin и другие производители</p>
         <div class="clay-wide-actions">
           <a href="timeline.html" class="clay-btn clay-btn-small" data-i18n="timeline_btn">Хронология</a>
-          <a href="about.html" class="clay-btn clay-btn-about" data-i18n="nav_about">О сайте</a>
         </div>
       </div>
       <div class="clay-wide-figure">
@@ -232,7 +230,6 @@
       return [...arr].sort(() => Math.random() - 0.5);
     }
 
-    // === 1. 4 фигурки для панели "Каталог серий" ===
     const panelSeries = document.getElementById('panelSeriesFigures');
     if (panelSeries) {
       const picked4 = shuffle(figures).slice(0, 4);
@@ -241,7 +238,6 @@
       ).join('');
     }
 
-    // === 2. 1 фигурка для панели "Каталог фигурок" ===
     const panelFigures = document.getElementById('panelFiguresFigure');
     if (panelFigures) {
       const picked1 = shuffle(figures)[0];
