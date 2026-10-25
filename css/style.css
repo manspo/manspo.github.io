@@ -636,3 +636,11 @@ body {
   .clay-four-buttons, .clay-stats { grid-template-columns: 1fr; }
   .clay-social-grid { grid-template-columns: 1fr; }
 }
+
+.clay-wide-desc {
+  font-size: 15px;
+  color: rgba(45, 42, 69, 0.8);
+  margin: -10px 0 15px 0;
+  text-align: center;
+  max-width: 400px;
+}
