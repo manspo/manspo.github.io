@@ -1,33 +1,40 @@
 /* ============================================================
-   КАПСУЛА — CLAYMORPHISM (ФИНАЛЬНЫЙ)
+   КАПСУЛА — CLAYMORPHISM (ФИНАЛЬНАЯ ВЕРСИЯ)
    ============================================================ */
 
 @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800;900&display=swap');
 
 :root {
+  /* Палитра (кремовая, без розового) */
   --clay-bg: #fdf6ec;
   --clay-card: #fffbf4;
   --clay-card-warm: #f7ecd8;
+  
   --clay-blue: #7bb6f0;
   --clay-blue-dark: #4a8fd4;
   --clay-blue-bg: #d6e9fb;
   --clay-blue-bg2: #b8d9f7;
+  
   --clay-mint: #8fdcc8;
   --clay-mint-dark: #4fb89e;
   --clay-mint-bg: #d4f2e8;
   --clay-mint-bg2: #b0e6d6;
+  
   --clay-green: #a8dc8a;
   --clay-green-dark: #6bb050;
   --clay-green-bg: #e2f5d4;
   --clay-green-bg2: #c8eab0;
+  
   --clay-yellow: #f7d774;
   --clay-yellow-dark: #d4a83a;
   --clay-yellow-bg: #fdf0c8;
   --clay-yellow-bg2: #f8e19a;
+  
   --clay-purple: #b8a4e8;
   --clay-purple-dark: #7c5fd3;
   --clay-purple-bg: #e8e0f8;
   --clay-purple-bg2: #d4c7f0;
+  
   --clay-text: #3d2f24;
   --clay-muted: #8a7a6a;
   --clay-white: #ffffff;
@@ -37,9 +44,22 @@
   --radius-lg: 32px;
   --radius-xl: 44px;
 
-  --clay-shadow: 0 12px 28px -6px rgba(61,47,36,0.10), 0 8px 10px -6px rgba(61,47,36,0.05), inset 0 -4px 8px rgba(61,47,36,0.06), inset 0 4px 8px rgba(255,255,255,0.9);
-  --clay-shadow-hover: 0 22px 38px -6px rgba(61,47,36,0.15), 0 10px 15px -6px rgba(61,47,36,0.08), inset 0 -4px 8px rgba(61,47,36,0.08), inset 0 4px 8px rgba(255,255,255,0.95);
-  --clay-shadow-pressed: inset 0 4px 10px rgba(61,47,36,0.15), inset 0 -2px 4px rgba(255,255,255,0.6);
+  /* Глиняные тени */
+  --clay-shadow: 
+    0 12px 28px -6px rgba(61,47,36,0.10),
+    0 8px 10px -6px rgba(61,47,36,0.05),
+    inset 0 -4px 8px rgba(61,47,36,0.06),
+    inset 0 4px 8px rgba(255,255,255,0.9);
+
+  --clay-shadow-hover:
+    0 22px 38px -6px rgba(61,47,36,0.15),
+    0 10px 15px -6px rgba(61,47,36,0.08),
+    inset 0 -4px 8px rgba(61,47,36,0.08),
+    inset 0 4px 8px rgba(255,255,255,0.95);
+
+  --clay-shadow-pressed:
+    inset 0 4px 10px rgba(61,47,36,0.15),
+    inset 0 -2px 4px rgba(255,255,255,0.6);
 }
 
 [data-theme="dark"] {
@@ -48,7 +68,10 @@
   --clay-card-warm: #2f2838;
   --clay-text: #f1ece6;
   --clay-muted: #a89c90;
-  --clay-shadow: 0 12px 28px -6px rgba(0,0,0,0.5), inset 0 -4px 8px rgba(0,0,0,0.3), inset 0 4px 8px rgba(255,255,255,0.05);
+  --clay-shadow: 
+    0 12px 28px -6px rgba(0,0,0,0.5),
+    inset 0 -4px 8px rgba(0,0,0,0.3),
+    inset 0 4px 8px rgba(255,255,255,0.05);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -61,6 +84,7 @@ body {
   display: flex;
   flex-direction: column;
   transition: background 0.3s, color 0.3s;
+  -webkit-font-smoothing: antialiased;
 }
 
 /* ===== ШАПКА ===== */
@@ -155,15 +179,15 @@ body {
   width: 100%;
 }
 
-/* ===== 1. ВЕРХНИЙ БЛОК ===== */
+/* ===== 1. ВЕРХНИЙ БЛОК (HERO) ===== */
 .clay-hero { margin-bottom: 24px; }
 
 .clay-hero-left {
+  position: relative;
+  overflow: hidden;
   background: linear-gradient(135deg, #fdf0dc 0%, #f7e4c4 100%);
   border-radius: var(--radius-xl);
   padding: 40px 36px;
-  position: relative;
-  overflow: hidden;
   min-height: 360px;
   box-shadow: var(--clay-shadow);
   display: flex;
@@ -173,7 +197,36 @@ body {
   border: 3px solid rgba(255,255,255,0.7);
 }
 
-.clay-hero-text { position: relative; z-index: 2; max-width: 55%; }
+/* Фоновые пузыри для "живости" */
+.clay-hero-left::before {
+  content: '';
+  position: absolute;
+  top: -50px;
+  right: -50px;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(196, 181, 253, 0.6) 0%, transparent 70%);
+  filter: blur(30px);
+  z-index: 0;
+}
+
+.clay-hero-left::after {
+  content: '';
+  position: absolute;
+  bottom: -50px;
+  left: -50px;
+  width: 250px;
+  height: 250px;
+  background: radial-gradient(circle, rgba(110, 231, 183, 0.5) 0%, transparent 70%);
+  filter: blur(30px);
+  z-index: 0;
+}
+
+.clay-hero-text {
+  position: relative;
+  z-index: 2;
+  max-width: 55%;
+}
 
 .clay-title {
   font-family: 'Fredoka', sans-serif;
@@ -186,9 +239,22 @@ body {
   gap: 4px;
 }
 
-.clay-title .line1 { color: var(--clay-blue-dark); }
-.clay-title .line2 { color: var(--clay-purple-dark); }
-.clay-title .line3 { color: var(--clay-mint-dark); font-size: 56px; letter-spacing: 2px; }
+.clay-title .line1 { 
+  color: var(--clay-blue-dark); 
+  text-shadow: 0 2px 0 rgba(255,255,255,0.5);
+}
+.clay-title .line2 { 
+  color: var(--clay-purple-dark); 
+  text-shadow: 0 2px 0 rgba(255,255,255,0.5);
+  transform: rotate(-2deg);
+  display: inline-block;
+}
+.clay-title .line3 { 
+  color: var(--clay-mint-dark); 
+  font-size: 56px; 
+  letter-spacing: 2px;
+  text-shadow: 0 4px 0 rgba(255,255,255,0.4), 0 6px 12px rgba(16, 185, 129, 0.2);
+}
 
 .clay-hero-figure {
   position: relative;
@@ -198,6 +264,21 @@ body {
   display: flex;
   align-items: flex-end;
   justify-content: flex-end;
+}
+
+/* Тень под фигуркой */
+.clay-hero-figure::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 20px;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  filter: blur(8px);
+  z-index: -1;
 }
 
 .clay-hero-figure img {
@@ -220,7 +301,7 @@ body {
   padding: 32px 28px;
   position: relative;
   overflow: hidden;
-  min-height: 240px;
+  min-height: 260px; /* Чуть увеличили высоту под большие иконки */
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -236,31 +317,33 @@ body {
 .panel-purple { background: linear-gradient(135deg, var(--clay-purple-bg) 0%, var(--clay-purple-bg2) 100%); }
 .panel-green { background: linear-gradient(135deg, var(--clay-mint-bg) 0%, var(--clay-mint-bg2) 100%); }
 
+/* Случайные фигурки в панелях */
 .clay-panel-figures {
   position: absolute;
   top: 20px;
-  left: 24px;
-  right: 90px;
+  left: 20px;
+  right: 150px; /* Освобождаем место справа под иконку */
+  bottom: 80px;
   display: flex;
-  gap: 6px;
-  align-items: flex-end;
-  justify-content: flex-start;
   flex-wrap: wrap;
-  z-index: 0;
+  gap: 8px;
+  align-content: flex-start;
+  justify-content: flex-start;
+  z-index: 1;
   pointer-events: none;
 }
 
 .clay-panel-figures img {
-  width: 72px;
-  height: 72px;
+  width: 80px !important; /* Увеличены */
+  height: 80px !important;
   object-fit: contain;
-  filter: drop-shadow(0 8px 14px rgba(61,47,36,0.15));
+  filter: drop-shadow(0 6px 12px rgba(61,47,36,0.15));
   animation: floatIn 0.4s ease;
 }
 
 #panelFiguresFigure img {
-  width: 130px;
-  height: 130px;
+  width: 140px !important;
+  height: 140px !important;
 }
 
 @keyframes floatIn {
@@ -268,15 +351,16 @@ body {
   to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
+/* Иконки панелей (максимально большие) */
 .clay-panel-icon-img {
   position: absolute;
   top: 20px;
   right: 20px;
-  width: 72px;
-  height: 72px;
+  width: 110px !important;
+  height: 110px !important;
   object-fit: contain;
-  filter: drop-shadow(0 8px 14px rgba(61,47,36,0.18));
-  z-index: 1;
+  filter: drop-shadow(0 8px 16px rgba(61,47,36,0.18));
+  z-index: 5;
 }
 
 .clay-panel h3 {
@@ -321,17 +405,18 @@ body {
   box-shadow: var(--clay-shadow);
   position: relative;
   top: 0;
-  min-height: 160px;
+  min-height: 180px; /* Чуть выше под увеличенные иконки */
 }
 
 .clay-mini-card:active { top: 4px; box-shadow: var(--clay-shadow-pressed); }
 .clay-mini-card:hover { transform: translateY(-4px) scale(1.02); box-shadow: var(--clay-shadow-hover); }
 
 .clay-mini-icon-img {
-  width: 72px;
-  height: 72px;
+  width: 90px !important; /* Увеличены */
+  height: 90px !important;
   object-fit: contain;
   filter: drop-shadow(0 6px 12px rgba(61,47,36,0.18));
+  margin-bottom: 8px;
 }
 
 .clay-mini-label { font-family: 'Nunito', sans-serif; font-weight: 800; text-align: center; line-height: 1.2; }
@@ -377,6 +462,14 @@ body {
   font-weight: 700;
   color: var(--clay-text);
   margin: 0;
+}
+
+.clay-wide-desc {
+  font-size: 15px;
+  color: rgba(45, 42, 69, 0.8);
+  margin: -10px 0 15px 0;
+  text-align: center;
+  max-width: 400px;
 }
 
 .clay-btn-small {
@@ -584,7 +677,7 @@ body {
 
 .copyright { font-size: 14px; color: var(--clay-muted); font-weight: 600; margin-top: 8px; }
 
-/* ===== МОБИЛЬНАЯ ВЕРСИЯ ===== */
+/* ===== АДАПТИВ ===== */
 @media (max-width: 992px) {
   .header-main-text { font-size: 13px; }
   .clay-hero-left { flex-direction: column; align-items: flex-start; min-height: 320px; }
@@ -602,91 +695,59 @@ body {
   .clay-wide-figure { max-width: 50%; max-height: 180px; right: 50%; transform: translateX(50%); }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
+  /* Мобильная шапка */
   .header { padding: 12px 16px; flex-wrap: wrap; gap: 10px; }
-  .header-center { display: none; } /* Скрываем центральный текст на телефоне, чтобы не мешал */
+  .header-center { display: none; } /* Скрываем центральный текст на телефоне */
   .clay-btn-about-header { padding: 8px 18px; font-size: 13px; }
+  
   .clay-home { padding: 16px 12px 40px; }
-  .clay-title { font-size: 32px; }
-  .clay-title .line3 { font-size: 36px; }
-  .clay-hero-left { padding: 24px 20px; }
+  
+  /* Исправление Hero-блока на мобильных */
+  .clay-hero-left {
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    padding: 24px 16px !important;
+    min-height: auto !important;
+    gap: 20px !important;
+  }
+  .clay-hero-text { max-width: 100% !important; width: 100% !important; position: relative !important; z-index: 2 !important; }
+  .clay-title { font-size: 32px !important; line-height: 1.1 !important; margin-bottom: 10px !important; align-items: center !important; }
+  .clay-title .line3 { font-size: 38px !important; }
+  .clay-hero-figure { position: relative !important; max-width: 100% !important; width: 100% !important; display: flex !important; justify-content: center !important; margin-top: 10px !important; z-index: 1 !important; }
+  .clay-hero-figure img { max-height: 200px !important; width: auto !important; object-fit: contain !important; }
+  
+  /* Остальные мобильные стили */
   .clay-four-buttons { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-  .clay-mini-card { padding: 20px 10px; min-height: 130px; }
-  .clay-mini-icon-img { width: 56px; height: 56px; }
+  .clay-mini-card { padding: 20px 10px; min-height: 160px; }
+  .clay-mini-icon-img { width: 64px !important; height: 64px !important; }
   .clay-mini-label { font-size: 13px; }
+  
+  .clay-panel { padding: 24px 20px; min-height: 240px; }
+  .clay-panel h3 { font-size: 22px; }
+  .clay-panel-icon-img { width: 80px !important; height: 80px !important; top: 12px; right: 12px; }
+  .clay-panel-figures { right: 100px; bottom: 70px; gap: 6px; }
+  .clay-panel-figures img { width: 56px !important; height: 56px !important; }
+  #panelFiguresFigure img { width: 90px !important; height: 90px !important; }
+  
   .clay-stats { grid-template-columns: repeat(2, 1fr); gap: 12px; }
   .clay-stat-num { font-size: 32px; }
   .clay-latest-grid { grid-template-columns: 1fr; }
   .clay-social-grid { grid-template-columns: repeat(2, 1fr); }
   .clay-section-title { font-size: 24px; }
-  .clay-panel { padding: 24px 20px; min-height: 200px; }
-  .clay-panel h3 { font-size: 22px; }
-  .clay-panel-icon-img { width: 56px; height: 56px; }
-  .clay-panel-figures img { width: 52px; height: 52px; }
-  #panelFiguresFigure img { width: 90px; height: 90px; }
+  
   .clay-wide-panel { padding: 28px 20px 180px; }
   .clay-wide-title { font-size: 24px; }
+  .clay-wide-desc { font-size: 14px; }
+  
   .footer-controls { justify-content: center; flex-wrap: wrap; gap: 16px; }
   .lang-switch-footer { position: static; transform: none; }
   .support-buttons { flex-direction: column; width: 100%; }
   .support-btn { width: 100%; justify-content: center; }
 }
 
-@media (max-width: 380px) {
+@media (max-width: 480px) {
   .clay-four-buttons, .clay-stats { grid-template-columns: 1fr; }
   .clay-social-grid { grid-template-columns: 1fr; }
-}
-
-.clay-wide-desc {
-  font-size: 15px;
-  color: rgba(45, 42, 69, 0.8);
-  margin: -10px 0 15px 0;
-  text-align: center;
-  max-width: 400px;
-}
-
-/* ===== ИСПРАВЛЕНИЕ ДЛЯ МОБИЛЬНОЙ ВЕРСИИ (ГЕРОЙ-БЛОК) ===== */
-@media (max-width: 768px) {
-  .clay-hero-left {
-    flex-direction: column !important; /* Текст и фигурка друг под другом */
-    align-items: center !important;    /* Центрируем всё */
-    text-align: center !important;
-    padding: 24px 16px !important;
-    min-height: auto !important;       /* Убираем жесткую высоту */
-    gap: 20px !important;              /* Отступ между текстом и фигуркой */
-  }
-
-  .clay-hero-text {
-    max-width: 100% !important;
-    width: 100% !important;
-    position: relative !important;
-    z-index: 2 !important;
-  }
-
-  .clay-title {
-    font-size: 32px !important;
-    line-height: 1.1 !important;
-    margin-bottom: 10px !important;
-    align-items: center !important; /* Центрируем строки заголовка */
-  }
-
-  .clay-title .line3 {
-    font-size: 38px !important;
-  }
-
-  .clay-hero-figure {
-    position: relative !important; /* Убираем абсолютное позиционирование, если было */
-    max-width: 100% !important;
-    width: 100% !important;
-    display: flex !important;
-    justify-content: center !important;
-    margin-top: 10px !important;
-    z-index: 1 !important;
-  }
-
-  .clay-hero-figure img {
-    max-height: 200px !important; /* Ограничиваем высоту фигурки на телефоне */
-    width: auto !important;
-    object-fit: contain !important;
-  }
 }
