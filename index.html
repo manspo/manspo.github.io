@@ -71,6 +71,10 @@
     <!-- ===== 1. ВЕРХНИЙ БЛОК: ТЕКСТ + 3D ФИГУРКА ===== -->
     <section class="clay-hero">
       <div class="clay-hero-left">
+        
+        <!-- НОВЫЙ БЛОК: Фоновые производители -->
+        <div class="hero-bg-manufacturers" id="heroBgManufacturers"></div>
+
         <div class="clay-hero-text">
           <h1 class="clay-title">
             <span class="line1">Каталог</span>
@@ -267,6 +271,52 @@ document.addEventListener('DOMContentLoaded', () => {
     container.appendChild(span);
   });
 });
+</script>
+
+<!-- ===== ФОНОВЫЕ ПРОИЗВОДИТЕЛИ В HERO ===== -->
+<script>
+(function() {
+  const BASE = 'https://manspo.github.io';
+
+  async function renderHeroBgManufacturers() {
+    const container = document.getElementById('heroBgManufacturers');
+    if (!container) return;
+
+    try {
+      // 1. Загружаем производителей
+      const res = await fetch(`${BASE}/data/manufacturers.json`);
+      if (!res.ok) throw new Error('Network error');
+      const data = await res.json();
+
+      // 2. Перемешиваем ключи
+      const keys = Object.keys(data);
+      for (let i = keys.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [keys[i], keys[j]] = [keys[j], keys[i]];
+      }
+
+      // 3. Берем 6 случайных (как 6 дат в хронологии)
+      const randomKeys = keys.slice(0, 6);
+      const lang = localStorage.getItem('lang') || 'ru';
+
+      // 4. Рендерим
+      container.innerHTML = randomKeys.map(key => {
+        const m = data[key];
+        const name = lang === 'en' ? m.en : m.ru;
+        return `<span class="hero-bg-mfr-text">${name}</span>`;
+      }).join('');
+
+    } catch (e) {
+      console.warn('Не удалось загрузить производителей:', e);
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', renderHeroBgManufacturers);
+  } else {
+    renderHeroBgManufacturers();
+  }
+})();
 </script>
 
 <!-- ===== SERVICE WORKER ===== -->

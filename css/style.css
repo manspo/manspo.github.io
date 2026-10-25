@@ -602,21 +602,56 @@ main {
 .figure-catalog-series-link:hover { color: var(--clay-purple-dark); text-decoration: underline; }
 .figure-catalog-meta { font-size: 11px; color: var(--clay-muted); font-weight: 600; }
 
-/* Продажа */
+/* ===== ПРОДАЖА (ИСПРАВЛЕННЫЕ КАРТОЧКИ) ===== */
 .forsale-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 24px; padding: 10px 0; justify-content: center; }
-.forsale-item-card { background: var(--clay-card); border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--clay-shadow); transition: transform 0.2s, box-shadow 0.2s; position: relative; display: flex; flex-direction: column; border: 3px solid rgba(255,255,255,0.7); height: 100%; }
-.forsale-item-card:hover { transform: translateY(-4px); box-shadow: var(--clay-shadow-hover); border-color: var(--clay-purple); }
-.forsale-item-card > a { text-decoration: none; color: inherit; display: block; }
-.forsale-item-card img { width: 100%; aspect-ratio: 1; object-fit: contain; background: var(--clay-bg); padding: 12px; display: block; }
-.forsale-item-body { padding: 16px; display: flex; flex-direction: column; gap: 8px; flex: 1; justify-content: flex-start; }
+.forsale-item-card { 
+  background: var(--clay-card); 
+  border-radius: var(--radius-md); 
+  overflow: hidden; 
+  box-shadow: var(--clay-shadow); 
+  transition: transform 0.2s, box-shadow 0.2s; 
+  position: relative; 
+  display: flex; 
+  flex-direction: column; 
+  border: 3px solid rgba(255,255,255,0.7); 
+  height: 100%; 
+}
+.forsale-item-card:hover { 
+  transform: translateY(-4px); 
+  box-shadow: var(--clay-shadow-hover); 
+  border-color: var(--clay-purple); 
+}
+.forsale-item-card > a { 
+  text-decoration: none; 
+  color: inherit; 
+  display: block; 
+}
+.forsale-item-card img { 
+  width: 100%; 
+  aspect-ratio: 1; 
+  object-fit: contain; 
+  background: var(--clay-bg); 
+  padding: 12px; 
+  display: block; 
+}
 
-/* ФИКС ЗАГОЛОВКА И ЦЕНЫ В ПРОДАЖЕ (Колонка, без перекрытия) */
+/* Тело карточки - делаем его flex-контейнером, чтобы прижать низ */
+.forsale-item-body { 
+  padding: 16px; 
+  display: flex; 
+  flex-direction: column; 
+  gap: 8px; 
+  flex: 1; /* Растягиваем на всю доступную высоту */
+  justify-content: space-between; /* Распределяем контент: верх и низ */
+}
+
+/* Заголовок и цена */
 .forsale-item-header { 
   display: flex; 
   flex-direction: column; 
   align-items: flex-start; 
   gap: 6px; 
-  min-height: 60px; 
+  /* Убираем min-height: 60px, он и создавал пустоту */
 }
 
 .forsale-item-name { 
@@ -629,6 +664,9 @@ main {
   -webkit-box-orient: vertical; 
   overflow: hidden; 
   width: 100%;
+  /* Добавляем min-height, чтобы цена всегда была на одном уровне, 
+     даже если название в одну строку (15px * 1.3 * 2 строки ≈ 39px) */
+  min-height: 39px; 
 }
 
 .forsale-item-price { 
@@ -650,8 +688,10 @@ main {
   display: flex; 
   flex-wrap: wrap; 
   gap: 6px; 
-  min-height: 24px; 
   align-items: center; 
+  /* Прижимаем блок с тегами вниз */
+  margin-top: auto; 
+  padding-top: 8px; 
 }
 
 .tag { 
@@ -1463,4 +1503,41 @@ main {
   .clay-social-grid { grid-template-columns: 1fr; }
   .figures-catalog-grid, .forsale-grid, .videos-page-grid { grid-template-columns: repeat(2, 1fr); }
   .duplicates-grid { grid-template-columns: 1fr; }
+}
+
+/* ===== ФОНОВЫЕ ПРОИЗВОДИТЕЛИ В ГЛАВНОМ БЛОКЕ ===== */
+.hero-bg-manufacturers {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none; /* Чтобы не мешали кликать по тексту */
+  z-index: 0;
+  overflow: hidden;
+}
+
+.hero-bg-mfr-text {
+  position: absolute;
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 700;
+  color: var(--clay-mint-dark); /* Такой же цвет, как у годов */
+  opacity: 0.12; /* Такая же прозрачность, как у годов */
+  user-select: none;
+  white-space: nowrap;
+  animation: floatMfr 6s ease-in-out infinite;
+}
+
+/* Позиции для 6 элементов (как у годов) */
+.hero-bg-mfr-text:nth-child(1) { font-size: 80px; top: 10%; left: 5%; animation-delay: 0s; }
+.hero-bg-mfr-text:nth-child(2) { font-size: 60px; top: 65%; left: 10%; animation-delay: 1s; }
+.hero-bg-mfr-text:nth-child(3) { font-size: 100px; top: 40%; left: 25%; animation-delay: 2s; }
+.hero-bg-mfr-text:nth-child(4) { font-size: 50px; top: 15%; left: 40%; animation-delay: 3s; }
+.hero-bg-mfr-text:nth-child(5) { font-size: 70px; top: 75%; left: 35%; animation-delay: 4s; }
+.hero-bg-mfr-text:nth-child(6) { font-size: 90px; top: 20%; left: 55%; animation-delay: 5s; }
+
+@keyframes floatMfr {
+  0% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-15px) rotate(3deg); }
+  100% { transform: translateY(0px) rotate(0deg); }
 }
