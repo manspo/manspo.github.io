@@ -122,6 +122,9 @@
 
     <!-- ===== 4. ШИРОКАЯ ПАНЕЛЬ: ХРОНОЛОГИЯ ===== -->
     <section class="clay-wide-panel">
+      <!-- Контейнер для фоновых годов -->
+      <div class="timeline-bg-years" id="bgYears"></div>
+      
       <div class="clay-wide-center">
         <h2 class="clay-wide-title" data-i18n="timeline_title">Хронология серий</h2>
         <a href="timeline.html" class="clay-btn clay-btn-small" data-i18n="timeline_btn">Открыть</a>
@@ -190,7 +193,7 @@
 
 <script src="js/script.js"></script>
 
-<!-- ===== СЛУЧАЙНЫЕ ФИГУРКИ (ИСПРАВЛЕННЫЙ) ===== -->
+<!-- ===== СЛУЧАЙНЫЕ ФИГУРКИ ===== -->
 <script>
 (function() {
   const BASE = 'https://manspo.github.io';
@@ -206,7 +209,6 @@
       return;
     }
 
-    // Фильтруем ТОЛЬКО те элементы, у которых есть картинка и это фигурка/доп/вариант
     const figures = all.filter(item => {
       const hasImage = item.image && item.image.trim() !== '';
       const isFigureType = item.type === 'figures' || item.type === 'extras' || item.type === 'variants';
@@ -222,7 +224,6 @@
       return [...arr].sort(() => Math.random() - 0.5);
     }
 
-    // === 1. 4 фигурки для панели "Каталог серий" ===
     const panelSeries = document.getElementById('panelSeriesFigures');
     if (panelSeries) {
       const picked4 = shuffle(figures).slice(0, 4);
@@ -231,7 +232,6 @@
       ).join('');
     }
 
-    // === 2. 1 фигурка для панели "Каталог фигурок" ===
     const panelFigures = document.getElementById('panelFiguresFigure');
     if (panelFigures) {
       const picked1 = shuffle(figures)[0];
@@ -247,6 +247,26 @@
     loadRandomFigures();
   }
 })();
+</script>
+
+<!-- ===== ФОНОВЫЕ ГОДЫ В ХРОНОЛОГИИ ===== -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const container = document.getElementById('bgYears');
+  if (!container) return;
+
+  const years = ['1991', '1996', '1998', '2003', '2007', '2014', '2020', '2025', '2026'];
+  const shuffled = years.sort(() => 0.5 - Math.random()).slice(0, 6);
+  
+  container.innerHTML = '';
+  
+  shuffled.forEach(year => {
+    const span = document.createElement('span');
+    span.className = 'timeline-bg-year';
+    span.textContent = year;
+    container.appendChild(span);
+  });
+});
 </script>
 
 <!-- ===== SERVICE WORKER ===== -->
