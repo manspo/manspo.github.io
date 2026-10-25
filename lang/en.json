@@ -130,5 +130,13 @@
 "status_have": "Have",
 "status_need": "Looking",
 "status_trade": "Trade",
-"tg_bot": "Telegram Bot"
+"tg_bot": "Telegram Bot",
+"hero_catalog_btn": "Go to catalog",
+"random_figures_title": "Figures catalog",
+"random_figures_desc": "All figures from series and singles",
+"hero_catalog_btn": "Go to catalog",
+"panel_catalog_desc": "All series with photos and descriptions",
+"panel_figures_desc": "All figures from series and singles",
+"panel_timeline_desc": "History of series by year",
+"nav_figures_short": "Figures"
 }

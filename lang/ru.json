@@ -129,5 +129,13 @@
 "status_have": "Имеется",
 "status_need": "Ищу",
 "status_trade": "На обмен",
-"tg_bot": "Telegram-бот"
+"tg_bot": "Telegram-бот",
+"hero_catalog_btn": "Перейти в каталог",
+"random_figures_title": "Каталог фигурок",
+"random_figures_desc": "Все фигурки из серий и одиночные",
+"hero_catalog_btn": "Перейти в каталог",
+"panel_catalog_desc": "Все серии с фото и описанием",
+"panel_figures_desc": "Все фигурки из серий и одиночные",
+"panel_timeline_desc": "История серий по годам",
+"nav_figures_short": "Фигурки"
 }

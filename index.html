@@ -12,26 +12,20 @@
   })();
   </script>
 
-  <!-- Параллельная загрузка данных -->
   <script>
     window.dataPromise = fetch('https://manspo.github.io/data/index.json').then(r => r.json());
   </script>
 
-  <!-- ===== OPEN GRAPH ===== -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Капсула">
   <meta property="og:title" content="Капсула — каталог коллекций игрушек">
   <meta property="og:description" content="Kinder, Nestle, Landrin и другие производители. Каталог серий, фигурок, вкладышей и коллекций.">
   <meta property="og:url" content="https://manspo.github.io/">
   <meta property="og:image" content="https://manspo.github.io/images/og-preview.jpg">
-  <meta property="og:image:secure_url" content="https://manspo.github.io/images/og-preview.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:type" content="image/jpeg">
   <meta property="og:locale" content="ru_RU">
   <meta property="og:locale:alternate" content="en_US">
-
-  <!-- ===== TWITTER CARD ===== -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Капсула — каталог коллекций игрушек">
   <meta name="twitter:description" content="Kinder, Nestle, Landrin и другие производители.">
@@ -57,7 +51,18 @@
   }
 </script>
 
-<!-- ===== ОСНОВНОЙ КОНТЕНТ ===== -->
+<!-- SVG-фильтр для пластилиновой текстуры кнопок -->
+<svg width="0" height="0" style="position:absolute;">
+  <filter id="clay-texture">
+    <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" result="noise" />
+    <feColorMatrix in="noise" type="saturate" values="0" result="mono" />
+    <feComponentTransfer in="mono" result="soft">
+      <feFuncA type="linear" slope="0.08" />
+    </feComponentTransfer>
+    <feComposite in="SourceGraphic" in2="soft" operator="over" />
+  </filter>
+</svg>
+
 <div id="mainContent">
 
   <header class="header">
@@ -75,7 +80,7 @@
 
   <main class="clay-home">
 
-    <!-- ===== ВЕРХНИЙ БЛОК: ТЕКСТ + ФИГУРКИ + 4 МИНИ-КАРТОЧКИ ===== -->
+    <!-- ===== 1. ВЕРХНИЙ БЛОК: ТЕКСТ + 3D ФИГУРКА ===== -->
     <section class="clay-hero">
       <div class="clay-hero-left">
         <div class="clay-hero-text">
@@ -84,53 +89,67 @@
             <span class="line2">коллекций —</span>
             <span class="line3">КАПСУЛА</span>
           </h1>
-          <a href="catalog.html" class="clay-btn clay-btn-large">
-            <span>Перейти в каталог</span>
+          <a href="catalog.html" class="clay-btn clay-btn-large" data-i18n="hero_catalog_btn">
+            Перейти в каталог
             <span class="clay-btn-arrow">→</span>
           </a>
         </div>
-        <div class="clay-hero-figures" id="heroFigures"></div>
-      </div>
-
-      <div class="clay-hero-right">
-        <div class="clay-mini-grid">
-          <a href="figures.html" class="clay-mini-card card-green">
-            <span class="clay-mini-icon">🎎</span>
-            <span class="clay-mini-label" data-i18n="figures_title">Фигурки</span>
-          </a>
-          <a href="mycollection.html" class="clay-mini-card card-blue">
-            <span class="clay-mini-icon">🏷️</span>
-            <span class="clay-mini-label" data-i18n="my_collections">Мои коллекции</span>
-          </a>
-          <a href="forsale.html" class="clay-mini-card card-yellow">
-            <span class="clay-mini-icon">💰</span>
-            <span class="clay-mini-label" data-i18n="forsale">На продажу</span>
-          </a>
-          <a href="videos.html" class="clay-mini-card card-purple">
-            <span class="clay-mini-icon">📺</span>
-            <span class="clay-mini-label" data-i18n="nav_videos">Видеоархив</span>
-          </a>
+        <div class="clay-hero-figure">
+          <img src="images/hero/3d-figure.png" alt="3D figure" onerror="this.style.display='none'">
         </div>
       </div>
     </section>
 
-    <!-- ===== НИЖНИЙ БЛОК: 2 БОЛЬШИЕ КАРТОЧКИ ===== -->
-    <section class="clay-bottom-cards">
-      <div class="clay-big-card card-purple-bg">
-        <div class="clay-big-icon" id="randomFigureIcon1">🎎</div>
-        <h3>Каталог фигурок</h3>
-        <p>Все фигурки из серий и одиночные</p>
-        <a href="figures.html" class="clay-btn clay-btn-small">Смотреть</a>
+    <!-- ===== 2. ДВЕ БОЛЬШИЕ ПАНЕЛИ ===== -->
+    <section class="clay-two-panels">
+      <a href="catalog.html" class="clay-panel panel-purple">
+        <img src="images/icons/catalog-series.webp" class="clay-panel-icon-img" alt="" onerror="this.style.display='none'">
+        <h3 data-i18n="nav_catalog">Каталог серий</h3>
+        <p data-i18n="panel_catalog_desc">Все серии с фото и описанием</p>
+      </a>
+      <a href="figures.html" class="clay-panel panel-green">
+        <img src="images/icons/catalog-figures.webp" class="clay-panel-icon-img" alt="" onerror="this.style.display='none'">
+        <h3 data-i18n="figures_title">Каталог фигурок</h3>
+        <p data-i18n="panel_figures_desc">Все фигурки из серий и одиночные</p>
+      </a>
+    </section>
+
+    <!-- ===== 3. РЯД ИЗ 4 КНОПОК ===== -->
+    <section class="clay-four-buttons">
+      <a href="forsale.html" class="clay-mini-card card-yellow">
+        <img src="images/icons/forsale.webp" class="clay-mini-icon-img" alt="" onerror="this.style.display='none'">
+        <span class="clay-mini-label" data-i18n="forsale">На продажу</span>
+      </a>
+      <a href="mycollection.html" class="clay-mini-card card-blue">
+        <img src="images/icons/collection.webp" class="clay-mini-icon-img" alt="" onerror="this.style.display='none'">
+        <span class="clay-mini-label" data-i18n="my_collections">Мои коллекции</span>
+      </a>
+      <a href="all-duplicates.html" class="clay-mini-card card-pink">
+        <img src="images/icons/duplicates.webp" class="clay-mini-icon-img" alt="" onerror="this.style.display='none'">
+        <span class="clay-mini-label" data-i18n="all_duplicates">Дубликаты</span>
+      </a>
+      <a href="videos.html" class="clay-mini-card card-purple">
+        <img src="images/icons/videos.webp" class="clay-mini-icon-img" alt="" onerror="this.style.display='none'">
+        <span class="clay-mini-label" data-i18n="nav_videos">Видеоархив</span>
+      </a>
+    </section>
+
+    <!-- ===== 4. ШИРОКАЯ ПАНЕЛЬ: ХРОНОЛОГИЯ + О САЙТЕ ===== -->
+    <section class="clay-wide-panel">
+      <div class="clay-wide-text">
+        <h2 data-i18n="timeline_title">Хронология</h2>
+        <p data-i18n="panel_timeline_desc">История серий по годам</p>
+        <div class="clay-wide-actions">
+          <a href="timeline.html" class="clay-btn clay-btn-small" data-i18n="timeline_btn">Открыть</a>
+          <a href="about.html" class="clay-btn clay-btn-about" data-i18n="nav_about">О сайте</a>
+        </div>
       </div>
-      <div class="clay-big-card card-green-bg">
-        <div class="clay-big-icon" id="randomFigureIcon2">📅</div>
-        <h3>Хронология</h3>
-        <p>История серий по годам</p>
-        <a href="timeline.html" class="clay-btn clay-btn-small">Открыть</a>
+      <div class="clay-wide-figure">
+        <img src="images/hero/3d-figure-2.png" alt="3D figure 2" onerror="this.style.display='none'">
       </div>
     </section>
 
-    <!-- ===== СТАТИСТИКА ===== -->
+    <!-- ===== 5. СТАТИСТИКА ===== -->
     <section class="clay-stats">
       <div class="clay-stat">
         <span class="clay-stat-num" id="totalSeries">0</span>
@@ -150,19 +169,19 @@
       </div>
     </section>
 
-    <!-- ===== ПОСЛЕДНИЕ ДОБАВЛЕННЫЕ ===== -->
+    <!-- ===== 6. ПОСЛЕДНИЕ ДОБАВЛЕННЫЕ ===== -->
     <section class="clay-latest">
       <h2 class="clay-section-title" data-i18n="latest_series">Последние добавленные</h2>
       <div class="clay-latest-grid" id="featuredGrid">
-        <div class="loading-spinner">⏳ Загрузка...</div>
+        <div class="loading-spinner">Загрузка...</div>
       </div>
     </section>
 
-    <!-- ===== МЫ В СОЦСЕТЯХ ===== -->
+    <!-- ===== 7. МЫ В СОЦСЕТЯХ ===== -->
     <section class="clay-social">
       <h2 class="clay-section-title" data-i18n="social_title">Мы в соцсетях</h2>
       <div class="clay-social-grid" id="socialGrid">
-        <div class="loading-spinner">⏳ Загрузка...</div>
+        <div class="loading-spinner">Загрузка...</div>
       </div>
     </section>
 
@@ -174,7 +193,9 @@
         <img src="images/flags/ru.png" data-lang="ru" class="flag" onclick="setLang('ru')" style="cursor: pointer;">
         <img src="images/flags/en.png" data-lang="en" class="flag" onclick="setLang('en')" style="cursor: pointer;">
       </div>
-      <div class="theme-switch">🌙</div>
+      <div class="theme-switch">
+        <img src="images/icons/theme-dark.webp" alt="Тема" class="theme-icon" onerror="this.style.display='none'">
+      </div>
     </div>
     <div class="support-buttons">
       <a href="https://dalink.to/mansurdm" class="support-btn" data-i18n="support_project">Поддержать проект</a>
@@ -187,21 +208,20 @@
 
 <script src="js/script.js"></script>
 
-<!-- ===== СЛУЧАЙНЫЕ ФИГУРКИ НА ГЛАВНОЙ ===== -->
+<!-- ===== СЛУЧАЙНЫЕ ФИГУРКИ (4 шт, без затемнения) ===== -->
 <script>
 (function() {
   const BASE = 'https://manspo.github.io';
 
   async function loadRandomHeroFigures() {
-    const heroContainer = document.getElementById('heroFigures');
-    if (!heroContainer) return;
+    const container = document.getElementById('heroFigures');
+    if (!container) return;
 
     try {
       const res = await fetch(`${BASE}/data/search.json`);
       if (!res.ok) return;
       const all = await res.json();
 
-      // Только фигурки (не вкладыши, не прочее), с картинкой
       const figures = all.filter(item =>
         (item.type === 'figures' || item.type === 'extras' || item.type === 'variants') &&
         item.image
@@ -209,26 +229,15 @@
 
       if (figures.length === 0) return;
 
-      // Перемешиваем и берём 4
       const shuffled = [...figures].sort(() => Math.random() - 0.5);
-      const picked = shuffled.slice(0, 4);
+      const picked = [];
+      for (let i = 0; i < 4; i++) {
+        picked.push(shuffled[i % shuffled.length]);
+      }
 
-      // В левый блок — 3-4 фигурки
-      heroContainer.innerHTML = picked.map(f =>
+      container.innerHTML = picked.map(f =>
         `<img src="${BASE}/${f.image}" alt="" loading="lazy" onerror="this.style.display='none'">`
       ).join('');
-
-      // В большую карточку "Каталог фигурок" — первая
-      const icon1 = document.getElementById('randomFigureIcon1');
-      if (icon1 && picked[0]) {
-        icon1.innerHTML = `<img src="${BASE}/${picked[0].image}" alt="" onerror="this.style.display='none'">`;
-      }
-
-      // В большую карточку "Хронология" — вторая
-      const icon2 = document.getElementById('randomFigureIcon2');
-      if (icon2 && picked[1]) {
-        icon2.innerHTML = `<img src="${BASE}/${picked[1].image}" alt="" onerror="this.style.display='none'">`;
-      }
     } catch (e) {
       console.warn('Не удалось загрузить случайные фигурки:', e);
     }
@@ -247,8 +256,8 @@
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('/sw.js')
-      .then(registration => console.log('✅ SW registered:', registration))
-      .catch(error => console.log('❌ SW error:', error));
+      .then(registration => console.log('SW registered:', registration))
+      .catch(error => console.log('SW error:', error));
   });
 }
 </script>
@@ -305,12 +314,8 @@ navigator.serviceWorker.addEventListener('controllerchange', () => {
 
     const lightbox = document.getElementById('lightbox');
     if (lightbox && lightbox.style.display === 'flex') {
-      if (typeof window.closeLightbox === 'function') {
-        window.closeLightbox();
-      } else {
-        lightbox.style.display = 'none';
-        document.body.style.overflow = '';
-      }
+      if (typeof window.closeLightbox === 'function') window.closeLightbox();
+      else { lightbox.style.display = 'none'; document.body.style.overflow = ''; }
       return;
     }
 
@@ -360,11 +365,9 @@ navigator.serviceWorker.addEventListener('controllerchange', () => {
   document.addEventListener('DOMContentLoaded', function() {
     if (window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.App) {
       window.Capacitor.Plugins.App.addListener('backButton', handleBack);
-      console.log('✅ Capacitor backButton подключен');
     } else {
       window.addEventListener('popstate', handleBack);
       window.history.pushState(null, '', window.location.href);
-      console.log('⚠️ Используется fallback для браузера');
     }
   });
 })();
@@ -374,12 +377,8 @@ navigator.serviceWorker.addEventListener('controllerchange', () => {
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   if (window.Capacitor && window.Capacitor.isNativePlatform()) {
-    console.log('✅ Capacitor приложение запущено');
     if (window.Capacitor.Plugins && window.Capacitor.Plugins.Filesystem) {
-      console.log('✅ Filesystem плагин доступен');
-    }
-    if (window.Capacitor.Plugins && window.Capacitor.Plugins.Share) {
-      console.log('✅ Share плагин доступен');
+      console.log('Filesystem плагин доступен');
     }
   }
 });
@@ -395,11 +394,7 @@ if (window.Capacitor && window.Capacitor.Plugins) {
         'android.permission.WRITE_EXTERNAL_STORAGE',
         'android.permission.READ_EXTERNAL_STORAGE'
       ]
-    }).then(result => {
-      console.log('Разрешения:', result);
-    }).catch(err => {
-      console.warn('Ошибка запроса разрешений:', err);
-    });
+    }).catch(() => {});
   }
 }
 </script>
@@ -411,19 +406,13 @@ if (window.Capacitor && window.Capacitor.Plugins) {
     const params = new URLSearchParams(window.location.search);
     const id = params.get('id');
     if (id) {
-      console.log('📱 Открыто через глубокую ссылку, серия:', id);
-      setTimeout(() => {
-        window.location.href = `series.html?id=${id}`;
-      }, 100);
+      setTimeout(() => { window.location.href = `series.html?id=${id}`; }, 100);
       return true;
     }
     return false;
   }
-  if (document.readyState === 'complete') {
-    handleDeepLink();
-  } else {
-    document.addEventListener('DOMContentLoaded', handleDeepLink);
-  }
+  if (document.readyState === 'complete') handleDeepLink();
+  else document.addEventListener('DOMContentLoaded', handleDeepLink);
 })();
 </script>
 
