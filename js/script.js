@@ -3329,34 +3329,45 @@ window.seriesLinkedIndexes = linkedIndexes;
             const hasDup = itemCode && window.__codeCounts &&
                            (window.__codeCounts[itemCode.trim().toLowerCase()] >= 2);
 
-// Ищем индекс парного вкладыша в общей галерее
-const linkedInsertIndex = window.seriesLinkedIndexes ? window.seriesLinkedIndexes[globalIndex] : undefined;
-const hasLinkedInsert = linkedInsertIndex !== undefined && linkedInsertIndex !== null;
-// Кнопка "Вкладыш" — только для фигурок/допов/вариантов (не для вкладышей и прочего)
-const showInsertBtn = hasLinkedInsert && type !== 'inserts' && type !== 'other';
+            // ===== СВЯЗКА С ВКЛАДЫШЕМ =====
+            const linkedInsertIndex = window.seriesLinkedIndexes
+              ? window.seriesLinkedIndexes[globalIndex]
+              : undefined;
+            const hasLinkedInsert = linkedInsertIndex !== undefined && linkedInsertIndex !== null;
+            // Кнопка "Вкладыш" — только для фигурок/допов/вариантов
+            const showInsertBtn = type !== 'inserts' && type !== 'other';
+            const insertBtnLabel = currentLang === 'ru' ? 'Вкладыш' : 'BPZ';
 
-return `
-  <div class="figure-item ${type !== 'inserts' ? (item.owned ? 'owned' : '') : ''} ${item.forsale ? 'forsale' : ''}">
-    <div class="figure-number">${idx + 1}</div>
-    <img src="${imageUrl}" alt="${safeName}" loading="lazy" onerror="this.src='images/placeholder.svg'" onclick="openLightbox(${globalIndex}, window.seriesGalleryImages, window.seriesGalleryTitles)" style="cursor:pointer">
-    <div class="figure-info">
-      <div class="figure-name">${safeName}</div>
-      ${itemCode ? `<div class="figure-code copyable-code" data-code="${escapeHtml(itemCode)}" title="Нажмите, чтобы скопировать" style="margin-top: 4px; font-size: 13px; color: var(--muted); background: transparent; padding: 0;">${escapeHtml(itemCode)}</div>` : ''}
-      <div class="figure-actions">
-        <button class="qr-btn" onclick="generateQRCode('${safeId}', '${safeSeriesId}', '${safeName.replace(/'/g, "\\'")}')" title="QR-код">📱</button>
-        ${showInsertBtn 
-          ? `<button class="insert-btn" onclick="openLightbox(${linkedInsertIndex}, window.seriesGalleryImages, window.seriesGalleryTitles)">${currentLang === 'ru' ? 'Вкладыш' : 'BPZ'}</button>` 
-          : `<span class="figure-action-placeholder"></span>`}
-        ${hasDup 
-          ? `<a href="same-figures.html?code=${encodeURIComponent(itemCode)}" class="same-code-link" title="Найти все фигурки с этим кодом">🔗</a>` 
-          : `<span class="figure-action-placeholder"></span>`}
-        ${item.forsale && item.avito 
-          ? `<a href="${escapeHtml(item.avito)}" class="avito-link" target="_blank" rel="noopener noreferrer" title="Avito">🛒</a>` 
-          : `<span class="figure-action-placeholder"></span>`}
-      </div>
-    </div>
-  </div>
-`;
+            const insertBtnHtml = showInsertBtn
+              ? (hasLinkedInsert
+                  ? `<button class="insert-btn"
+                             onclick="openLightbox(${linkedInsertIndex}, window.seriesGalleryImages, window.seriesGalleryTitles)"
+                             title="${insertBtnLabel}">${insertBtnLabel}</button>`
+                  : `<button class="insert-btn insert-btn-disabled"
+                             disabled
+                             title="${currentLang === 'ru' ? 'Вкладыш отсутствует' : 'No insert'}">${insertBtnLabel}</button>`)
+              : `<span class="figure-action-placeholder"></span>`;
+
+            return `
+              <div class="figure-item ${type !== 'inserts' ? (item.owned ? 'owned' : '') : ''} ${item.forsale ? 'forsale' : ''}">
+                <div class="figure-number">${idx + 1}</div>
+                <img src="${imageUrl}" alt="${safeName}" loading="lazy" onerror="this.src='images/placeholder.svg'" onclick="openLightbox(${globalIndex}, window.seriesGalleryImages, window.seriesGalleryTitles)" style="cursor:pointer">
+                <div class="figure-info">
+                  <div class="figure-name">${safeName}</div>
+                  ${itemCode ? `<div class="figure-code copyable-code" data-code="${escapeHtml(itemCode)}" title="Нажмите, чтобы скопировать" style="margin-top: 4px; font-size: 13px; color: var(--muted); background: transparent; padding: 0;">${escapeHtml(itemCode)}</div>` : ''}
+                  <div class="figure-actions">
+                    <button class="qr-btn" onclick="generateQRCode('${safeId}', '${safeSeriesId}', '${safeName.replace(/'/g, "\\'")}')" title="QR-код">📱</button>
+                    ${insertBtnHtml}
+                    ${hasDup
+                      ? `<a href="same-figures.html?code=${encodeURIComponent(itemCode)}" class="same-code-link" title="Найти все фигурки с этим кодом">🔗</a>`
+                      : `<span class="figure-action-placeholder"></span>`}
+                    ${item.forsale && item.avito
+                      ? `<a href="${escapeHtml(item.avito)}" class="avito-link" target="_blank" rel="noopener noreferrer" title="Avito">🛒</a>`
+                      : `<span class="figure-action-placeholder"></span>`}
+                  </div>
+                </div>
+              </div>
+            `;
           }).join('')}
         </div>
       `;

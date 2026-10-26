@@ -1660,3 +1660,21 @@ main {
   transform: translateY(2px);
   box-shadow: 0 1px 0 var(--clay-mint-dark);
 }
+
+.insert-btn.insert-btn-disabled,
+.insert-btn:disabled {
+  background: var(--clay-bg);
+  color: var(--clay-muted);
+  box-shadow: none;
+  border: 2px dashed var(--clay-border);
+  cursor: not-allowed;
+  opacity: 0.6;
+  transform: none;
+}
+.insert-btn.insert-btn-disabled:hover,
+.insert-btn:disabled:hover {
+  background: var(--clay-bg);
+  color: var(--clay-muted);
+  transform: none;
+  box-shadow: none;
+}
