@@ -1630,3 +1630,33 @@ main {
     font-size: 16px;
   }
 }
+
+/* Кнопка "Вкладыш" / "BPZ" */
+.insert-btn {
+  width: auto;
+  min-width: 36px;
+  height: 36px;
+  padding: 0 10px;
+  border-radius: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+  transition: all 0.2s;
+  background: var(--clay-mint);
+  color: #fff;
+  box-shadow: 0 3px 0 var(--clay-mint-dark), 0 4px 8px rgba(79, 184, 158, 0.3);
+}
+.insert-btn:hover {
+  background: var(--clay-mint-dark);
+  transform: translateY(-2px) scale(1.05);
+}
+.insert-btn:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 var(--clay-mint-dark);
+}

@@ -3229,27 +3229,40 @@ async function initSeries() {
     window.seriesGalleryImages = allImages;
     window.seriesGalleryTitles = allTitles;
 
-    // ===== СВЯЗКА ФИГУРКА ↔ ВКЛАДЫШ =====
-    const linkedIndexes = {};
-    let figIndex = 0;
-    
-    (s.figures || []).forEach(fig => {
-      if (fig.code && fig.code.trim()) {
-        const codeClean = fig.code.trim().toLowerCase();
-        const insertIdx = (s.inserts || []).findIndex(ins => 
-          ins.code && ins.code.trim().toLowerCase() === codeClean
-        );
-        
-        if (insertIdx !== -1) {
-          const insertGalleryIdx = (s.figures || []).length + (s.extras || []).length + (s.variants || []).length + insertIdx;
-          linkedIndexes[figIndex] = insertGalleryIdx;
-          linkedIndexes[insertGalleryIdx] = figIndex;
-        }
-      }
-      figIndex++;
-    });
-    window.seriesLinkedIndexes = linkedIndexes;
-    // =====================================
+// ===== СВЯЗКА ФИГУРКА/ДОП/ВАРИАНТ ↔ ВКЛАДЫШ =====
+const linkedIndexes = {};
+
+// Порядок в общей галерее: figures → extras → variants → inserts
+// Собираем «источники» в том же порядке, что и pushItems()
+const sourceGroups = [
+  { items: s.figures  || [], offset: 0 },
+  { items: s.extras   || [], offset: (s.figures  || []).length },
+  { items: s.variants || [], offset: (s.figures  || []).length + (s.extras || []).length }
+];
+
+// Вкладыши всегда идут после figures + extras + variants
+const insertsOffset = (s.figures || []).length + (s.extras || []).length + (s.variants || []).length;
+
+sourceGroups.forEach(group => {
+  group.items.forEach((item, idx) => {
+    if (!item.code || !item.code.trim()) return;
+
+    const codeClean = item.code.trim().toLowerCase();
+    const insertIdx = (s.inserts || []).findIndex(ins =>
+      ins.code && ins.code.trim().toLowerCase() === codeClean
+    );
+
+    if (insertIdx !== -1) {
+      const itemGalleryIdx = group.offset + idx;
+      const insertGalleryIdx = insertsOffset + insertIdx;
+
+      linkedIndexes[itemGalleryIdx] = insertGalleryIdx;
+      linkedIndexes[insertGalleryIdx] = itemGalleryIdx;
+    }
+  });
+});
+window.seriesLinkedIndexes = linkedIndexes;
+// =====================================
     
     const hasCollage = (s.figures && s.figures.length > 0) || 
                        (s.extras && s.extras.length > 0) || 
@@ -3316,25 +3329,34 @@ async function initSeries() {
             const hasDup = itemCode && window.__codeCounts &&
                            (window.__codeCounts[itemCode.trim().toLowerCase()] >= 2);
 
-            return `
-              <div class="figure-item ${type !== 'inserts' ? (item.owned ? 'owned' : '') : ''} ${item.forsale ? 'forsale' : ''}">
-                <div class="figure-number">${idx + 1}</div>
-                <img src="${imageUrl}" alt="${safeName}" loading="lazy" onerror="this.src='images/placeholder.svg'" onclick="openLightbox(${globalIndex}, window.seriesGalleryImages, window.seriesGalleryTitles)" style="cursor:pointer">
-                <div class="figure-info">
-                  <div class="figure-name">${safeName}</div>
-                  ${itemCode ? `<div class="figure-code copyable-code" data-code="${escapeHtml(itemCode)}" title="Нажмите, чтобы скопировать" style="margin-top: 4px; font-size: 13px; color: var(--muted); background: transparent; padding: 0;">${escapeHtml(itemCode)}</div>` : ''}
-                  <div class="figure-actions">
-                    <button class="qr-btn" onclick="generateQRCode('${safeId}', '${safeSeriesId}', '${safeName.replace(/'/g, "\\'")}')" title="QR-код">📱</button>
-                    ${hasDup 
-                      ? `<a href="same-figures.html?code=${encodeURIComponent(itemCode)}" class="same-code-link" title="Найти все фигурки с этим кодом">🔗</a>` 
-                      : `<span class="figure-action-placeholder"></span>`}
-                    ${item.forsale && item.avito 
-                      ? `<a href="${escapeHtml(item.avito)}" class="avito-link" target="_blank" rel="noopener noreferrer" title="Avito">🛒</a>` 
-                      : `<span class="figure-action-placeholder"></span>`}
-                  </div>
-                </div>
-              </div>
-            `;
+// Ищем индекс парного вкладыша в общей галерее
+const linkedInsertIndex = window.seriesLinkedIndexes ? window.seriesLinkedIndexes[globalIndex] : undefined;
+const hasLinkedInsert = linkedInsertIndex !== undefined && linkedInsertIndex !== null;
+// Кнопка "Вкладыш" — только для фигурок/допов/вариантов (не для вкладышей и прочего)
+const showInsertBtn = hasLinkedInsert && type !== 'inserts' && type !== 'other';
+
+return `
+  <div class="figure-item ${type !== 'inserts' ? (item.owned ? 'owned' : '') : ''} ${item.forsale ? 'forsale' : ''}">
+    <div class="figure-number">${idx + 1}</div>
+    <img src="${imageUrl}" alt="${safeName}" loading="lazy" onerror="this.src='images/placeholder.svg'" onclick="openLightbox(${globalIndex}, window.seriesGalleryImages, window.seriesGalleryTitles)" style="cursor:pointer">
+    <div class="figure-info">
+      <div class="figure-name">${safeName}</div>
+      ${itemCode ? `<div class="figure-code copyable-code" data-code="${escapeHtml(itemCode)}" title="Нажмите, чтобы скопировать" style="margin-top: 4px; font-size: 13px; color: var(--muted); background: transparent; padding: 0;">${escapeHtml(itemCode)}</div>` : ''}
+      <div class="figure-actions">
+        <button class="qr-btn" onclick="generateQRCode('${safeId}', '${safeSeriesId}', '${safeName.replace(/'/g, "\\'")}')" title="QR-код">📱</button>
+        ${showInsertBtn 
+          ? `<button class="insert-btn" onclick="openLightbox(${linkedInsertIndex}, window.seriesGalleryImages, window.seriesGalleryTitles)">${currentLang === 'ru' ? 'Вкладыш' : 'BPZ'}</button>` 
+          : `<span class="figure-action-placeholder"></span>`}
+        ${hasDup 
+          ? `<a href="same-figures.html?code=${encodeURIComponent(itemCode)}" class="same-code-link" title="Найти все фигурки с этим кодом">🔗</a>` 
+          : `<span class="figure-action-placeholder"></span>`}
+        ${item.forsale && item.avito 
+          ? `<a href="${escapeHtml(item.avito)}" class="avito-link" target="_blank" rel="noopener noreferrer" title="Avito">🛒</a>` 
+          : `<span class="figure-action-placeholder"></span>`}
+      </div>
+    </div>
+  </div>
+`;
           }).join('')}
         </div>
       `;
