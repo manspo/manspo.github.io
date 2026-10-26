@@ -90,5 +90,13 @@
   "sweet": {
     "ru": "Свит",
     "en": "Sweet"
+  },
+  "mcdonalds": {
+    "ru": "Макдоналдс",
+    "en": "McDonald's"
+  },
+  "burgerking": {
+    "ru": "Бургер Кинг",
+    "en": "Burger King"
   }
  }
