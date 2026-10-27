@@ -876,34 +876,37 @@ main {
   display: none;
   position: fixed;
   z-index: 9999;
-  left: 0; top: 0;
-  width: 100vw; height: 100vh;
+  top: 0; left: 0; right: 0; bottom: 0; /* Заменили width/height на привязку по краям */
+  width: 100%;
+  height: 100%;
   background-color: rgba(0, 0, 0, 0.85);
   backdrop-filter: blur(5px);
   justify-content: center;
   align-items: center;
+  overflow: hidden; /* Запрещаем скролл внутри лайтбокса */
 }
 .lightbox[style*="display: flex"] {
   display: flex !important;
 }
 
 .lightbox .lightbox-zoom-container {
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
   overflow: hidden;
+  touch-action: none; /* Отключаем нативный скролл браузера, чтобы не мешал свайпам */
 }
 
 .lightbox .lightbox-content {
-  max-width: 80vw;
+  max-width: 90vw;
   max-height: 80vh;
   width: auto;
   height: auto;
   object-fit: contain;
-  margin: 0;
+  margin: 0 auto; /* Жесткое центрирование */
   padding: 0;
   position: relative;
   left: auto;
@@ -911,6 +914,7 @@ main {
   transform: none;
   box-shadow: 0 10px 40px rgba(0,0,0,0.5);
   border-radius: 12px;
+  touch-action: none;
 }
 
 .lightbox .lightbox-title {
@@ -1544,7 +1548,7 @@ main {
   
   .lightbox .lightbox-content {
     margin: auto;
-    max-width: 90vw;
+    max-width: 95vw;
     max-height: 70vh;
     object-fit: contain;
   }
@@ -1677,4 +1681,4 @@ main {
   color: var(--clay-muted);
   transform: none;
   box-shadow: none;
-}
+}lightbox 
