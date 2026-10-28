@@ -85,6 +85,8 @@ body {
   flex-direction: column;
   transition: background 0.3s, color 0.3s;
   -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  width: 100%;
 }
 
 main {
@@ -1548,7 +1550,7 @@ main {
   
   .lightbox .lightbox-content {
     margin: auto;
-    max-width: 95vw;
+    max-width: 100%; /* Заменили 95vw на 100% */
     max-height: 70vh;
     object-fit: contain;
   }
@@ -1681,4 +1683,4 @@ main {
   color: var(--clay-muted);
   transform: none;
   box-shadow: none;
-}lightbox 
+}
