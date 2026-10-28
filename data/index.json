@@ -1,5 +1,17 @@
 [
   {
+    "id": "christmas-snowmen-maxi-by-kinder-surprise-2026",
+    "name": "Рождественские Снеговики Макси от Киндер Сюрприз",
+    "name_en": "Christmas Snowmen Maxi by Kinder Surprise",
+    "year": 2026,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/christmas-snowmen-maxi-by-kinder-surprise-2026/cover.webp",
+    "kind": "",
+    "description": "Макси версия рождественской серии",
+    "description_en": "Maxi version of the Christmas series",
+    "visible": true
+  },
+  {
     "id": "stranger-things-tales-from-85-by-mcdonalds-happy-meal-2026",
     "name": "Очень Странные Дела Байки из 85-го от Макдоналдс / Хэппи Мил",
     "name_en": "Stranger Things Tales From '85 by McDonald’s / Happy Meal",
