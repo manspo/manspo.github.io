@@ -1687,20 +1687,21 @@ main {
 
 .lightbox-counter {
   position: absolute;
-  top: 20px;
+  bottom: 30px; /* Прижимаем к низу */
   left: 50%;
   transform: translateX(-50%);
   z-index: 10002;
   
   /* Красивый внешний вид */
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.8); /* Чуть темнее фон для контраста */
   color: #ffffff;
   font-family: 'Nunito', sans-serif;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 700;
   padding: 6px 16px;
   border-radius: 20px;
   backdrop-filter: blur(4px);
+  border: 1px solid rgba(255,255,255,0.1); /* Легкая окантовка */
   
   /* Отключаем клики, чтобы не мешал */
   pointer-events: none;
