@@ -1,5 +1,17 @@
 [
   {
+    "id": "paw-patrol-the-dino-movie-by-burger-king-2026",
+    "name": "Щенячий Патруль Динофильм от Бургер Кинг",
+    "name_en": "PAW Patrol The Dino Movie by Burger King",
+    "year": 2026,
+    "manufacturer": "burger-king",
+    "cover": "images/series/burger-king/paw-patrol-by-burger-king-2026/cover.webp",
+    "kind": "",
+    "description": "Щенячий Патруль от Бургер Кинга",
+    "description_en": "PAW Patrol from Burger King",
+    "visible": true
+  },
+  {
     "id": "christmas-snowmen-maxi-by-kinder-surprise-2026",
     "name": "Рождественские Снеговики Макси от Киндер Сюрприз",
     "name_en": "Christmas Snowmen Maxi by Kinder Surprise",
