@@ -1706,27 +1706,3 @@ main {
   pointer-events: none;
   user-select: none;
 }
-
-/* ЖЕСТКИЙ ФИКС ДЛЯ СЧЕТЧИКА */
-#imageCounter.lightbox-counter {
-  position: absolute !important;
-  bottom: 30px !important; /* Прижимаем к низу, там точно ничего нет */
-  left: 50% !important;
-  transform: translateX(-50%) !important;
-  z-index: 99999 !important; /* Максимальный приоритет, чтобы точно был поверх всего */
-  
-  /* Внешний вид */
-  background: rgba(0, 0, 0, 0.8) !important;
-  color: #ffffff !important;
-  font-family: 'Nunito', sans-serif !important;
-  font-size: 16px !important;
-  font-weight: 800 !important;
-  padding: 8px 20px !important;
-  border-radius: 20px !important;
-  border: 1px solid rgba(255,255,255,0.2) !important;
-  backdrop-filter: blur(5px) !important;
-  
-  /* Чтобы не мешал кликам */
-  pointer-events: none !important;
-  display: block;
-}
