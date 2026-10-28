@@ -1684,3 +1684,25 @@ main {
   transform: none;
   box-shadow: none;
 }
+
+.lightbox-counter {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10002;
+  
+  /* Красивый внешний вид */
+  background: rgba(0, 0, 0, 0.6);
+  color: #ffffff;
+  font-family: 'Nunito', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  padding: 6px 16px;
+  border-radius: 20px;
+  backdrop-filter: blur(4px);
+  
+  /* Отключаем клики, чтобы не мешал */
+  pointer-events: none;
+  user-select: none;
+}
