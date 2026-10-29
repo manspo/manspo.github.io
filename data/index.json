@@ -1,8 +1,44 @@
 [
   {
-    "id": "avengers-maxi-by-kinder-surprise-2026",
-    "name": "Мстители Макси от Киндер Сюрприз",
-    "name_en": "Avengers Maxi by Kinder Surprise",
+    "id": "frozen-giant-by-kinder-2026",
+    "name": "Холодное Сердце (Гигант) от Киндер",
+    "name_en": "Frozen Giant by Kinder",
+    "year": 2026,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/frozen-maxi-by-kinder-2026/cover.webp",
+    "kind": "giant",
+    "description": "Макси версия Холодного сердца",
+    "description_en": "Maxi version of Frozen by Disney",
+    "visible": true
+  },
+  {
+    "id": "christmas-by-kinder-2025",
+    "name": "Рождество от Киндер",
+    "name_en": "Christmas by Kinder",
+    "year": 2025,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/christmas-by-kinder-2025/cover.webp",
+    "kind": "",
+    "description": "Рождественская серия 2025 года",
+    "description_en": "2025 Christmas Series",
+    "visible": true
+  },
+  {
+    "id": "fifa-world-cup-2026-by-kinder-2026",
+    "name": "Чемпионат Мира по Футболу 2026 от Киндер",
+    "name_en": "FIFA World Cup 2026 by Kinder",
+    "year": 2026,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/fifa-world-cup-2026-by-kinder-2026/cover.webp",
+    "kind": "joy",
+    "description": "Серия посвященная чемпионату мира 2026 года",
+    "description_en": "\nA series dedicated to the 2026 World Cup",
+    "visible": true
+  },
+  {
+    "id": "avengers-maxi-by-kinder-2026",
+    "name": "Мстители Макси от Киндер",
+    "name_en": "Avengers Maxi by Kinder",
     "year": 2026,
     "manufacturer": "kinder",
     "cover": "images/series/kinder/avengers-maxi-by-kinder-surprise-2026/cover.webp",
@@ -24,9 +60,9 @@
     "visible": true
   },
   {
-    "id": "christmas-snowmen-maxi-by-kinder-surprise-2026",
-    "name": "Рождественские Снеговики Макси от Киндер Сюрприз",
-    "name_en": "Christmas Snowmen Maxi by Kinder Surprise",
+    "id": "christmas-snowmen-maxi-by-kinder-2026",
+    "name": "Рождественские Снеговики Макси от Киндер",
+    "name_en": "Christmas Snowmen Maxi by Kinder",
     "year": 2026,
     "manufacturer": "kinder",
     "cover": "images/series/kinder/christmas-snowmen-maxi-by-kinder-surprise-2026/cover.webp",
@@ -193,7 +229,7 @@
   },
   {
     "id": "harry-potter-quidditch-x-funko-pop-by-kinder-2024",
-    "name": "Гарри Поттер Квиддич Фанко ПОП от Kinder",
+    "name": "Гарри Поттер Квиддич Фанко ПОП от Киндер",
     "name_en": "Harry Potter Quidditch x Funko POP by Kinder",
     "year": 2024,
     "manufacturer": "kinder",
@@ -205,7 +241,7 @@
   },
   {
     "id": "nba-mascots-by-kinder-2023",
-    "name": "Талисманы НБА от Kinder",
+    "name": "Талисманы НБА от Киндер",
     "name_en": "NBA Mascots by Kinder",
     "year": 2023,
     "manufacturer": "kinder",
