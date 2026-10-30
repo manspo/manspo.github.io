@@ -1,5 +1,17 @@
 [
   {
+    "id": "101-dalmatians-by-nestle-1997",
+    "name": "101 Далматинец от Нестле",
+    "name_en": "101 Dalmatians by Nestle",
+    "year": 1997,
+    "manufacturer": "nestle",
+    "cover": "images/series/nestle/101-dalmatians-by-nestle-1997/cover.webp",
+    "kind": "",
+    "description": "Шикарная серия по мультфильму 101 Далматинец",
+    "description_en": "A fantastic episode based on the 101 Dalmatians cartoon",
+    "visible": true
+  },
+  {
     "id": "friends-by-mcdonalds-2025",
     "name": "Друзья от Макдоналдс",
     "name_en": "Friends by McDonald's",

@@ -1,5 +1,25 @@
 [
   {
+    "id": "101-dalmatians-by-nestle-1997",
+    "name": "101 Далматинец от Нестле",
+    "name_en": "101 Dalmatians by Nestle",
+    "year": 1997,
+    "manufacturer": "nestle",
+    "cover": "images/series/nestle/101-dalmatians-by-nestle-1997/cover.webp",
+    "kind": "",
+    "ownedFigures": 14,
+    "ownedExtras": 3,
+    "ownedVariants": 0,
+    "ownedInserts": 2,
+    "totalOwned": 19,
+    "totalFigures": 14,
+    "totalExtras": 15,
+    "totalVariants": 0,
+    "totalInserts": 14,
+    "totalItems": 43,
+    "forSaleCount": 0
+  },
+  {
     "id": "the-land-before-time-by-sweet-2007",
     "name": "Земля До Начала Времен от Свит",
     "name_en": "The Land Before Time by Sweet",
