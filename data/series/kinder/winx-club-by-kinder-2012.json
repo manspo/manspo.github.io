@@ -152,7 +152,7 @@
   "extras": [],
   "variants": [],
   "inserts": [
-        {
+    {
       "id": "winx-club-by-kinder-2012_insert2",
       "name": "Европейский Вкладыш",
       "name_en": "European BPZ",
@@ -168,7 +168,7 @@
       "parentFigureId": "",
       "date_added": "2026-10-30"
     },
-	{
+    {
       "id": "winx-club-by-kinder-2012_insert1",
       "name": "Немецкий Вкладыш",
       "name_en": "German BPZ",
@@ -312,7 +312,7 @@
       "parentFigureId": "",
       "date_added": "2026-10-30"
     },
-	{
+    {
       "id": "winx-club-by-kinder-2012_insert3",
       "name": "Немецкий Вкладыш 1",
       "name_en": "German BPZ 1",

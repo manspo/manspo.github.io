@@ -1,11 +1,23 @@
 [
   {
+    "id": "friends-by-mcdonalds-2025",
+    "name": "Друзья от Макдоналдс",
+    "name_en": "Friends by McDonald's",
+    "year": 2025,
+    "manufacturer": "mcdonalds",
+    "cover": "images/series/mcdonalds/friends-by-mcdonalds-2025/cover.webp",
+    "kind": "",
+    "description": "Фигурки были выпущены в честь знаменитого сериала 90-х - Друзья",
+    "description_en": "The figures were released in honor of the famous 90s TV series - Friends",
+    "visible": true
+  },
+  {
     "id": "winx-club-by-kinder-2012",
     "name": "Клуб Винкс от Киндер",
     "name_en": "Winx Club by Kinder",
     "year": 2012,
     "manufacturer": "kinder",
-    "cover": "images/series/kinder/winx-club-by-kinder-2012/cover.webp",
+    "cover": "images/series/kinder/winx-club-by-kinder-2012/2-i-european-bpz.webp",
     "kind": "",
     "description": "Обновления версия про Винкс ",
     "description_en": "Updates version about Winx",
