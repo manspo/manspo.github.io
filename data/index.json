@@ -1,5 +1,17 @@
 [
   {
+    "id": "winx-club-by-kinder-2012",
+    "name": "Клуб Винкс от Киндер",
+    "name_en": "Winx Club by Kinder",
+    "year": 2012,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/winx-club-by-kinder-2012/cover.webp",
+    "kind": "",
+    "description": "Обновления версия про Винкс ",
+    "description_en": "Updates version about Winx",
+    "visible": true
+  },
+  {
     "id": "winx-club-by-kinder-2005",
     "name": "Клуб Винкс от Киндер",
     "name_en": "Winx Club by Kinder",
