@@ -153,11 +153,11 @@
   "variants": [],
   "inserts": [
     {
-      "id": "winx-club-by-kinder-2012_insert2",
+      "id": "winx-club-by-kinder-2012_insert1",
       "name": "Европейский Вкладыш",
       "name_en": "European BPZ",
       "code": "",
-      "image": "images/series/kinder/winx-club-by-kinder-2012/2-i-european-bpz.webp",
+      "image": "images/series/kinder/winx-club-by-kinder-2012/cover.webp",
       "owned": false,
       "forsale": false,
       "forsale_date": "",
@@ -169,7 +169,7 @@
       "date_added": "2026-10-30"
     },
     {
-      "id": "winx-club-by-kinder-2012_insert1",
+      "id": "winx-club-by-kinder-2012_insert2",
       "name": "Немецкий Вкладыш",
       "name_en": "German BPZ",
       "code": "",
