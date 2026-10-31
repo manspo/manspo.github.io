@@ -34,7 +34,7 @@
         .figure-item.drag-over { border-color: #4f46e5; background: #dbeafe; border-width: 2px; }
         .figure-item .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
         .figure-item .row input { flex: 1; min-width: 80px; }
-        .figure-item .row img { width: 50px; height: 50px; object-fit: contain; border-radius: 6px; border: 1px solid #e5e7eb; background: white; }
+        .figure-item .row img { width: 160px; height: 160px; object-fit: contain; border-radius: 6px; border: 1px solid #e5e7eb; background: white; }
         .figure-number { display: inline-block; width: 28px; height: 28px; background: #4f46e5; color: white; border-radius: 50%; text-align: center; line-height: 28px; font-size: 13px; font-weight: bold; flex-shrink: 0; }
         .stats { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; margin-bottom: 20px; }
         .stat-card { background: white; padding: 12px; border-radius: 10px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
@@ -52,9 +52,9 @@
         .batch-upload-row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin: 8px 0; }
         .batch-upload-row .file-upload-box { flex: 1; margin: 0; padding: 8px; }
         .cover-preview { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
-        .cover-preview .img-item { width: 70px; height: 70px; border: 1px solid #e5e7eb; border-radius: 6px; overflow: hidden; position: relative; }
+        .cover-preview .img-item { width: 140px; height: 140px; border: 1px solid #e5e7eb; border-radius: 6px; overflow: hidden; position: relative; }
         .cover-preview .img-item img { width: 100%; height: 100%; object-fit: cover; }
-        .cover-preview .img-item .del { position: absolute; top: 2px; right: 2px; background: #ef4444; color: white; border-radius: 50%; width: 18px; height: 18px; font-size: 10px; cursor: pointer; border: none; display: flex; align-items: center; justify-content: center; }
+        .cover-preview .img-item .del { position: absolute; top: 2px; right: 2px; background: #ef4444; color: white; border-radius: 50%; width: 24px; height: 24px; font-size: 12px; cursor: pointer; border: none; display: flex; align-items: center; justify-content: center; }
         .edit-section { border: 2px solid #f59e0b; }
         .label-hint { font-weight: normal; font-size: 12px; color: #6b7280; }
         @media (max-width: 768px) { .stats { grid-template-columns: repeat(3, 1fr); } .figure-item .row { flex-direction: column; } }
@@ -212,7 +212,6 @@
                 <div class="card">
                     <h2>📋 Существующие серии</h2>
                     <div style="margin-bottom:12px; display:flex; gap:8px; flex-wrap:wrap;">
-                        <button class="danger" onclick="cleanInsertCodes()">🧹 Очистить коды вкладышей</button>
                         <button class="secondary" onclick="fillEmptyDates()">🩹 Заполнить пустые даты</button>
                     </div>
                     <div class="series-list" id="existingSeriesList"><p>Сначала загрузите данные</p></div>
@@ -534,6 +533,18 @@ function loadSingleManufacturersToSelect() {
 }
 
 function clearSingleForm() {
+    // Отзываем objectURL у превью фигурки и вкладыша
+    ['singleImagePreview', 'singleInsertImagePreview'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+            el.querySelectorAll('img').forEach(img => {
+                if (img.src && img.src.startsWith('blob:')) {
+                    try { URL.revokeObjectURL(img.src); } catch (e) {}
+                }
+            });
+        }
+    });
+
     document.getElementById('singleNameRu').value = '';
     document.getElementById('singleNameEn').value = '';
     document.getElementById('singleCode').value = '';
@@ -872,7 +883,13 @@ function downloadSinglesZip() {
 }
 
 function removeSingleInsertCover() {
-    document.getElementById('singleInsertImagePreview').innerHTML = '';
+    const preview = document.getElementById('singleInsertImagePreview');
+    preview.querySelectorAll('img').forEach(img => {
+        if (img.src && img.src.startsWith('blob:')) {
+            try { URL.revokeObjectURL(img.src); } catch (e) {}
+        }
+    });
+    preview.innerHTML = '';
     document.getElementById('singleInsertImageFile').value = '';
     document.getElementById('singleInsertImage').value = '';
 }
@@ -949,7 +966,7 @@ function escapeHtml(str) {
 
 function generateSeriesId(nameEn, year) {
     let clean = nameEn.toLowerCase()
-        .replace(/[^a-zа-яё0-9\s]/g, '')
+        .replace(/[^a-zа-яё0-9\s-]/g, '')
         .trim()
         .replace(/\s+/g, '-');
     
@@ -965,6 +982,34 @@ function generateSeriesId(nameEn, year) {
     
     if (year) clean = `${clean}-${year}`;
     return clean || 'unknown';
+}
+
+// Заменяет старый ID серии на новый в путях картинок и parentFigureId
+function migrateSeriesIdPaths(series, oldId, newId) {
+    if (!oldId || !newId || oldId === newId) return;
+
+    function fixPath(str) {
+        if (!str || typeof str !== 'string') return str;
+        return str.split(`/${oldId}/`).join(`/${newId}/`);
+    }
+
+    function fixItem(item) {
+        if (!item) return;
+        if (item.image) item.image = fixPath(item.image);
+        if (item.parentFigureId && item.parentFigureId.startsWith(oldId + '_')) {
+            item.parentFigureId = newId + item.parentFigureId.slice(oldId.length);
+        }
+        // вкладыш внутри отдельной фигурки не относится к сериям, но на всякий случай
+        if (item.insert && item.insert.image) {
+            item.insert.image = fixPath(item.insert.image);
+        }
+    }
+
+    if (series.cover) series.cover = fixPath(series.cover);
+
+    ['figures', 'extras', 'variants', 'inserts', 'other'].forEach(cat => {
+        if (Array.isArray(series[cat])) series[cat].forEach(fixItem);
+    });
 }
 
 // ============================================================
@@ -1038,6 +1083,7 @@ function createItemElement(data, idx, type, seriesId) {
     div.className = 'figure-item';
     div.setAttribute('draggable', 'true');
     div.dataset.type = type;
+    div.dataset.seriesId = seriesId;
     
 div.dataset.dateAdded = data?.date_added || todayISO();
     
@@ -1057,7 +1103,7 @@ div.dataset.dateAdded = data?.date_added || todayISO();
             <button type="button" class="small secondary item-pick-file" data-input-id="${fileInputId}">📁 Выбрать</button>
             <input type="file" id="${fileInputId}" accept="image/*" style="display:none;">
             <input type="text" class="item-image" placeholder="Путь к картинке" value="${escapeHtml(imagePath)}" style="flex:1;min-width:100px;">
-            <img class="item-preview" src="${previewUrl}" onerror="this.style.display='none'" style="width:50px;height:50px;object-fit:contain;${previewUrl ? '' : 'display:none;'}">
+            <img class="item-preview" src="${previewUrl}" onerror="this.style.display='none'" style="${previewUrl ? '' : 'display:none;'}">
         </div>
         <div class="row" style="margin-top:5px;">
             <label style="font-weight:normal;font-size:13px;"><input type="checkbox" class="item-owned" ${owned ? 'checked' : ''}> В коллекции</label>
@@ -1139,6 +1185,13 @@ div.dataset.dateAdded = data?.date_added || todayISO();
 function removeItem(btn) {
     let item = btn.closest('.figure-item');
     let container = item.parentElement;
+
+    // Отзываем objectURL у превью, если это blob:
+    const img = item.querySelector('.item-preview');
+    if (img && img.src && img.src.startsWith('blob:')) {
+        try { URL.revokeObjectURL(img.src); } catch (e) {}
+    }
+
     item.remove();
     renumberAll(container);
 }
@@ -1157,7 +1210,7 @@ function renumberAll(container) {
                          type === 'extra' ? 'extra' : 
                          type === 'variant' ? 'variant' : 
                          type === 'insert' ? 'insert' : 'other';
-            let seriesId = idField.value.split('_')[0] || 'series';
+            let seriesId = item.dataset.seriesId || 'series';
             idField.value = `${seriesId}_${prefix}${num}`;
         }
         
@@ -1593,6 +1646,12 @@ function addSeries() {
     reassignIds(newInserts,  'insert');
     reassignIds(newOther,    'other');
     
+    // Авто-дата добавления полной серии, если пусто
+    const fullSeriesDateAddedEl = document.getElementById('fullSeriesDateAdded');
+    if (!fullSeriesDateAddedEl.value.trim()) {
+        fullSeriesDateAddedEl.value = todayISO();
+    }
+
     let series = {
         id: sid,
         name: document.getElementById('nameRu').value,
@@ -1635,6 +1694,19 @@ function addSeries() {
 }
 
 function clearAddForm() {
+    // Отзываем objectURL у обложки
+    document.querySelectorAll('#coverPreview img').forEach(img => {
+        if (img.src && img.src.startsWith('blob:')) {
+            try { URL.revokeObjectURL(img.src); } catch (e) {}
+        }
+    });
+    // Отзываем objectURL у превью элементов
+    document.querySelectorAll('#addFiguresList .item-preview, #addExtrasList .item-preview, #addVariantsList .item-preview, #addInsertsList .item-preview, #addOtherList .item-preview').forEach(img => {
+        if (img.src && img.src.startsWith('blob:')) {
+            try { URL.revokeObjectURL(img.src); } catch (e) {}
+        }
+    });
+
     document.getElementById('nameRu').value = '';
     document.getElementById('nameEn').value = '';
     document.getElementById('year').value = '2024';
@@ -1748,6 +1820,8 @@ function saveEdit() {
     let year = document.getElementById('editYear').value || '2024';
     let sid = generateSeriesId(seriesId, year);
 
+    const oldId = existingSeries[idx]?.id || '';
+
     const newFigures  = collectItems(document.getElementById('editFiguresList'));
     const newExtras   = collectItems(document.getElementById('editExtrasList'));
     const newVariants = collectItems(document.getElementById('editVariantsList'));
@@ -1767,7 +1841,7 @@ function saveEdit() {
     reassignIds(newInserts,  'insert');
     reassignIds(newOther,    'other');
 
-    existingSeries[idx] = {
+    const rebuilt = {
         ...existingSeries[idx],
         id: sid,
         name: document.getElementById('editNameRu').value,
@@ -1800,6 +1874,13 @@ function saveEdit() {
             instagram: document.getElementById('editVideoInstagram').value ? [document.getElementById('editVideoInstagram').value] : []
         }
     };
+
+    // Мигрируем пути картинок и parentFigureId со старого ID на новый
+    if (oldId && oldId !== sid) {
+        migrateSeriesIdPaths(rebuilt, oldId, sid);
+    }
+
+    existingSeries[idx] = rebuilt;
     downloadAsZip(existingSeries);
 }
 
@@ -1817,51 +1898,6 @@ function deleteCurrentSeries() {
     cancelEdit();
 }
 
-// ============================================================
-// ОЧИСТКА КОДОВ У ВКЛАДЫШЕЙ И "ПРОЧЕГО"
-// ============================================================
-
-function cleanInsertCodes() {
-    if (!existingSeries.length) {
-        alert('Сначала загрузите данные');
-        return;
-    }
-    
-    if (!confirm('Очистить поле "Код" у ВСЕХ вкладышей и элементов "Прочее" во всех сериях?')) return;
-    
-    let insertCount = 0;
-    let otherCount = 0;
-    
-    existingSeries.forEach(s => {
-        if (Array.isArray(s.inserts)) {
-            s.inserts.forEach(item => {
-                if (item.code && item.code.trim()) {
-                    item.code = '';
-                    insertCount++;
-                }
-            });
-        }
-        if (Array.isArray(s.other)) {
-            s.other.forEach(item => {
-                if (item.code && item.code.trim()) {
-                    item.code = '';
-                    otherCount++;
-                }
-            });
-        }
-    });
-    
-    alert(`✅ Очищено:\n• Вкладыши: ${insertCount}\n• Прочее: ${otherCount}\n\nТеперь нажмите "💾 Сохранить" в любой серии.`);
-    
-    const editIdx = document.getElementById('editIndex').value;
-    if (editIdx !== '' && editIdx !== null && editIdx !== undefined) {
-        editSeries(parseInt(editIdx));
-    }
-    
-    updateStats();
-}
-
-window.cleanInsertCodes = cleanInsertCodes;
 
 // ============================================================
 // ЗАПОЛНЕНИЕ ПУСТЫХ ДАТ ДОБАВЛЕНИЯ
@@ -2048,8 +2084,19 @@ function mergeWithMain() {
     let newIds = tempSeries.map(s => s.id);
     let dup = existingSeries.filter(s => newIds.includes(s.id));
     if (dup.length && !confirm(`Дубликаты: ${dup.map(d => d.id).join(', ')}. Заменить?`)) return;
-    let merged = [...tempSeries, ...existingSeries.filter(s => !newIds.includes(s.id))];
+
+    const merged = [...tempSeries, ...existingSeries.filter(s => !newIds.includes(s.id))];
+
+    // Обновляем данные в памяти
+    existingSeries = merged;
+
+    // Обновляем интерфейс
+    updateStats();
+    refreshExistingSeriesList();
+
+    // Скачиваем ZIP
     downloadAsZip(merged);
+
     if (confirm('Очистить временные?')) clearAllTemp();
 }
 
@@ -2328,11 +2375,6 @@ function generateSearchData(seriesList) {
             if (!s[cat]) return;
             
             s[cat].forEach(item => {
-                const hasCode = item.code && item.code.trim();
-                const hasName = item.name && item.name.trim() && 
-                               !/^(Фигурка|Доп|Вариант|Вкладыш|Прочее)\s+\d+$/i.test(item.name.trim()) &&
-                               !/^(Figure|Extra|Variant|Insert|Other)\s+\d+$/i.test(item.name.trim());
-                
                 items.push({
                     id: item.id,
                     code: item.code || '',
@@ -2542,6 +2584,22 @@ document.addEventListener('DOMContentLoaded', async function() {
         batchUpload('other', 'otherBatchInput');
     });
     
+	    // Авто-дата fullSeriesForsaleDate при добавлении
+    (function() {
+        const cb = document.getElementById('fullSeriesForSale');
+        const dt = document.getElementById('fullSeriesForsaleDate');
+        if (cb && dt) {
+            cb.addEventListener('change', function() {
+                if (this.checked) {
+                    if (!dt.value) dt.value = todayISO();
+                } else {
+                    dt.value = '';
+                }
+            });
+        }
+    })();
+
+	
     document.getElementById('coverFile').addEventListener('change', function(e) {
         let file = e.target.files[0];
         if (!file) return;
@@ -2624,6 +2682,22 @@ document.addEventListener('DOMContentLoaded', async function() {
             document.getElementById('singleInsertImage').value = `images/singles/${manufFolder}/${file.name}`;
         });
     }
+	
+	    // Авто-дата fullSeriesForsaleDate при редактировании
+    (function() {
+        const cb = document.getElementById('editFullSeriesForSale');
+        const dt = document.getElementById('editFullSeriesForsaleDate');
+        if (cb && dt) {
+            cb.addEventListener('change', function() {
+                if (this.checked) {
+                    if (!dt.value) dt.value = todayISO();
+                } else {
+                    dt.value = '';
+                }
+            });
+        }
+    })();
+
 	
     // ===== АВТООЧИСТКА ДАТЫ У ОТДЕЛЬНОЙ ФИГУРКИ (ДОБАВЛЕНИЕ) =====
     const singleForsaleCheckbox = document.getElementById('singleForsale');
@@ -2717,7 +2791,13 @@ document.addEventListener('DOMContentLoaded', async function() {
 });
 
 function removeSingleCover() {
-    document.getElementById('singleImagePreview').innerHTML = '';
+    const preview = document.getElementById('singleImagePreview');
+    preview.querySelectorAll('img').forEach(img => {
+        if (img.src && img.src.startsWith('blob:')) {
+            try { URL.revokeObjectURL(img.src); } catch (e) {}
+        }
+    });
+    preview.innerHTML = '';
     document.getElementById('singleImageFile').value = '';
     document.getElementById('singleImage').value = '';
 }
@@ -2740,7 +2820,13 @@ window.saveTempToFile = saveTempToFile;
 window.mergeWithMain = mergeWithMain;
 window.selectSeries = selectSeries;
 window.removeCover = function() {
-    document.getElementById('coverPreview').innerHTML = '';
+    const preview = document.getElementById('coverPreview');
+    preview.querySelectorAll('img').forEach(img => {
+        if (img.src && img.src.startsWith('blob:')) {
+            try { URL.revokeObjectURL(img.src); } catch (e) {}
+        }
+    });
+    preview.innerHTML = '';
     document.getElementById('coverFile').value = '';
     document.getElementById('cover').value = '';
 };

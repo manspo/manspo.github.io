@@ -1,5 +1,17 @@
 [
   {
+    "id": "tokyo-disneyland-by-coca-cola-2007",
+    "name": "Токийский Диснейленд от Кока-Кола",
+    "name_en": "Tokyo Disneyland by Coca-Cola",
+    "year": 2007,
+    "manufacturer": "coca-cola",
+    "cover": "images/series/coca-cola/tokyo-disneyland-by-coca-cola-2007/cover.webp",
+    "kind": "",
+    "description": "Серия посвященная Токийскому Диснейленду",
+    "description_en": "Series dedicated to Tokyo Disneyland",
+    "visible": true
+  },
+  {
     "id": "pocahontas-by-coca-cola-1995",
     "name": "Покахонтас от Кока-Кола",
     "name_en": "Pocahontas by Coca-Cola",
