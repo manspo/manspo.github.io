@@ -1,5 +1,17 @@
 [
   {
+    "id": "pocahontas-by-cocacola-1995",
+    "name": "Покахонтас от Кока-Кола",
+    "name_en": "Pocahontas by Coca-Cola",
+    "year": 1995,
+    "manufacturer": "coca-cola",
+    "cover": "images/series/coca-cola/pocahontas-2024/2054.webp",
+    "kind": "",
+    "description": "Серия посвященная одноименному мультфильму",
+    "description_en": "This series is dedicated to the animated film of the same name.",
+    "visible": true
+  },
+  {
     "id": "101-dalmatians-by-nestle-1997",
     "name": "101 Далматинец от Нестле",
     "name_en": "101 Dalmatians by Nestle",

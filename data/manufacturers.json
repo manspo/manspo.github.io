@@ -98,5 +98,9 @@
   "burger-king": {
     "ru": "Бургер Кинг",
     "en": "Burger King"
+  },
+  "coca-cola": {
+    "ru": "Кока-Кола",
+    "en": "Coca-Cola"
   }
  }
