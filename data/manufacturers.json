@@ -102,5 +102,13 @@
   "coca-cola": {
     "ru": "Кока-Кола",
     "en": "Coca-Cola"
+  },
+  "erdal": {
+    "ru": "Эрдал",
+    "en": "Erdal"
+  },
+  "bulgari": {
+    "ru": "Булгари",
+    "en": "Bulgari"
   }
  }

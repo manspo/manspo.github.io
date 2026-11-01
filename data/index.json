@@ -1,5 +1,29 @@
 [
   {
+    "id": "nesnaika-na-lune-funny-tinies-by-bulgari-1998",
+    "name": "Незнайка на Луне от Булгари",
+    "name_en": "Nesnaika na lune / Funny Tinies by Bulgari",
+    "year": 1998,
+    "manufacturer": "bulgari",
+    "cover": "images/series/bulgari/nesnaika-na-lune-funny-tinies-by-bulgari-1998/cover.webp",
+    "kind": "",
+    "description": "Одна из красивых серий в целом в коллекционировании. ",
+    "description_en": "One of the most beautiful series in collecting in general.",
+    "visible": true
+  },
+  {
+    "id": "frogs-on-the-beach-by-erdal-1995",
+    "name": "Лягушки на Пляже от Эрдал",
+    "name_en": "Frogs on the Beach by Erdal",
+    "year": 1995,
+    "manufacturer": "erdal",
+    "cover": "images/series/erdal/frogs-on-the-beach-by-erdal-1995/cover.webp",
+    "kind": "",
+    "description": "Лягушки отдыхающие на пляже",
+    "description_en": "Frogs resting on the beach",
+    "visible": true
+  },
+  {
     "id": "unicorns-maxi-by-kinder-2026",
     "name": "Единороги Макси от Киндер",
     "name_en": "Unicorns Maxi by Kinder",
