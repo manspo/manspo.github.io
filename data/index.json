@@ -1,5 +1,17 @@
 [
   {
+    "id": "disneys-atlantis-the-lost-empire-by-tomy-2001",
+    "name": "Атлантида: Затерянная империя от Томи",
+    "name_en": "Disney’s Atlantis: The Lost Empire by Tomy",
+    "year": 2001,
+    "manufacturer": "tomy",
+    "cover": "images/series/tomy/disneys-atlantis-the-lost-empire-by-tomy-2001/cover.webp",
+    "kind": "",
+    "description": "Серия по одноименному мультфильму",
+    "description_en": "Series based on the cartoon of the same name",
+    "visible": true
+  },
+  {
     "id": "nesnaika-na-lune-funny-tinies-by-bulgari-1998",
     "name": "Незнайка на Луне от Булгари",
     "name_en": "Nesnaika na lune / Funny Tinies by Bulgari",

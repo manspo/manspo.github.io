@@ -22,7 +22,7 @@
   "figures": [
     {
       "id": "frogs-on-the-beach-by-erdal-1995_fig1",
-      "name": "Лягушонок и цветок",
+      "name": "Лягушонок / Лягушка и цветок",
       "name_en": "Frog and flower",
       "code": "",
       "image": "images/series/erdal/frogs-on-the-beach-by-erdal-1995/1-f-frog-and-flower.webp",
@@ -38,7 +38,7 @@
     },
     {
       "id": "frogs-on-the-beach-by-erdal-1995_fig2",
-      "name": "Лягушонок и книга",
+      "name": "Лягушонок / Лягушка и книга",
       "name_en": "Frog and book",
       "code": "",
       "image": "images/series/erdal/frogs-on-the-beach-by-erdal-1995/2-f-frog-and-book.webp",
@@ -54,7 +54,7 @@
     },
     {
       "id": "frogs-on-the-beach-by-erdal-1995_fig3",
-      "name": "Лягушонок и краб с морской звездой",
+      "name": "Лягушонок / Лягушка и краб с морской звездой",
       "name_en": "Frog and crab with starfish",
       "code": "",
       "image": "images/series/erdal/frogs-on-the-beach-by-erdal-1995/3-f-frog-and-crab-with-starfish.webp",
@@ -73,8 +73,8 @@
   "variants": [
     {
       "id": "frogs-on-the-beach-by-erdal-1995_variant1",
-      "name": "Вариант 1",
-      "name_en": "Variant 1",
+      "name": "Лягушонок / Лягушка и краб с морской звездой (красное полотенце)",
+      "name_en": "Little Frog / Frog and crab with starfish (red towel)",
       "code": "",
       "image": "images/series/erdal/frogs-on-the-beach-by-erdal-1995/1-v.webp",
       "owned": false,
