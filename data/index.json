@@ -1,5 +1,41 @@
 [
   {
+    "id": "spider-man-by-tomy-2004",
+    "name": "Человек-Паук от Томи",
+    "name_en": "Spider-Man by Tomy",
+    "year": 2004,
+    "manufacturer": "tomy",
+    "cover": "images/series/tomy/spider-man-by-tomy-2004/5747.webp",
+    "kind": "",
+    "description": "Серия посвященная персонажам из Человека-Паука",
+    "description_en": "A series dedicated to characters from Spider-Man",
+    "visible": true
+  },
+  {
+    "id": "simsala-grimm-by-zweifel-1999",
+    "name": "Симсала Гримм от Цвайфал",
+    "name_en": "Simsala Grimm by Zweifel",
+    "year": 1999,
+    "manufacturer": "zweifal",
+    "cover": "images/series/zweifal/simsala-grimm-by-zweifel-1999/cover.webp",
+    "kind": "",
+    "description": "Волшебная и очень красивая серия от Цвайфал по одноименному мульфильму",
+    "description_en": "A magical and very beautiful series from Zweifal based on the cartoon of the same name",
+    "visible": true
+  },
+  {
+    "id": "nu-pogodi-just-you-wait-by-k-artel-2007",
+    "name": "Ну Погоди от К-Артель",
+    "name_en": "Nu Pogodi / Just You Wait by K-Artel",
+    "year": 2007,
+    "manufacturer": "k-artel",
+    "cover": "images/series/k-artel/nu-pogodi-just-you-wait-by-k-artel-2007/1-i-insert-1-improved.webp",
+    "kind": "",
+    "description": "Серия посвященная персонажам мультсериала Ну погоди",
+    "description_en": "A series dedicated to the characters of the animated series Well You Wait",
+    "visible": true
+  },
+  {
     "id": "disneys-atlantis-the-lost-empire-by-tomy-2001",
     "name": "Атлантида: Затерянная империя от Томи",
     "name_en": "Disney’s Atlantis: The Lost Empire by Tomy",
