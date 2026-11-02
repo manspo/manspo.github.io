@@ -32640,7 +32640,24 @@
     "type": "extras"
   },
   {
-    "id": "girls-travelers-maxi-by-kinder-2024_fig2",
+    "id": "girls-travelers-maxi-by-kinder-2024_fig1",
+    "code": "VTD01",
+    "name": "Девочка с черными волосами",
+    "name_en": "Girl with black hair",
+    "image": "images/series/kinder/girls-travelers-maxi-by-kinder-2024/image-Photoroom (1).webp",
+    "seriesId": "girls-travelers-maxi-by-kinder-2024",
+    "seriesName": "Девочки-путешественницы Макси от Киндер",
+    "seriesName_en": "Girls travelers Maxi by Kinder",
+    "seriesYear": 2024,
+    "manufacturer": "kinder",
+    "owned": false,
+    "forsale": false,
+    "avito": "",
+    "price": "",
+    "type": "figures"
+  },
+  {
+    "id": "girls-travelers-maxi-by-kinder-2024_fig3",
     "code": "VTD01A",
     "name": "Девочка со светлыми волосами (блондинка)",
     "name_en": "Girl with blond hair",
@@ -32674,7 +32691,24 @@
     "type": "inserts"
   },
   {
-    "id": "girls-travelers-maxi-by-kinder-2024_fig1",
+    "id": "girls-travelers-maxi-by-kinder-2024_fig2",
+    "code": "VTD02",
+    "name": "Девочка с каштановыми волосами",
+    "name_en": "Girl with brown hair",
+    "image": "images/series/kinder/girls-travelers-maxi-by-kinder-2024/image-Photoroom.webp",
+    "seriesId": "girls-travelers-maxi-by-kinder-2024",
+    "seriesName": "Девочки-путешественницы Макси от Киндер",
+    "seriesName_en": "Girls travelers Maxi by Kinder",
+    "seriesYear": 2024,
+    "manufacturer": "kinder",
+    "owned": false,
+    "forsale": false,
+    "avito": "",
+    "price": "",
+    "type": "figures"
+  },
+  {
+    "id": "girls-travelers-maxi-by-kinder-2024_fig4",
     "code": "VTD02A",
     "name": "Девочка с каштановыми волосами",
     "name_en": "Girl with brown hair",
@@ -32691,7 +32725,7 @@
     "type": "figures"
   },
   {
-    "id": "girls-travelers-maxi-by-kinder-2024_fig3",
+    "id": "girls-travelers-maxi-by-kinder-2024_fig5",
     "code": "VTD02B",
     "name": "Девочка с рыжими волосами",
     "name_en": "Girl with red hair",

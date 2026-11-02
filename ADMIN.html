@@ -1144,14 +1144,16 @@ div.dataset.dateAdded = data?.date_added || todayISO();
         const file = e.target.files[0];
         if (!file) return;
         
-        const manufacturerSelect = document.getElementById('manufacturer');
-        const editManufacturerSelect = document.getElementById('editManufacturer');
-        let manufacturer = 'other';
+        // Определяем, в каком контейнере находится фигурка (добавление или редактирование)
+        const isEditMode = !!div.closest('#editFiguresList, #editExtrasList, #editVariantsList, #editInsertsList, #editOtherList');
         
-        if (manufacturerSelect && manufacturerSelect.value) {
-            manufacturer = manufacturerSelect.value;
-        } else if (editManufacturerSelect && editManufacturerSelect.value) {
-            manufacturer = editManufacturerSelect.value;
+        let manufacturer = 'other';
+        if (isEditMode) {
+            const editSel = document.getElementById('editManufacturer');
+            if (editSel && editSel.value) manufacturer = editSel.value;
+        } else {
+            const addSel = document.getElementById('manufacturer');
+            if (addSel && addSel.value) manufacturer = addSel.value;
         }
         
         const manufFolder = getManufacturerFolder(manufacturer);
@@ -1331,7 +1333,12 @@ function batchUpload(type, inputId) {
     let sid = document.getElementById('nameEn').value.trim() || 'series';
     let year = document.getElementById('year').value || '2024';
     let seriesId = generateSeriesId(sid, year);
-    let manufacturer = document.getElementById('manufacturer').value;
+    
+    // Определяем, откуда вызвана загрузка
+    const isEditMode = container.closest('#tabEdit') !== null;
+    let manufacturer = isEditMode 
+        ? document.getElementById('editManufacturer').value 
+        : document.getElementById('manufacturer').value;
     let manufFolder = getManufacturerFolder(manufacturer);
     let startIdx = container.children.length;
     
