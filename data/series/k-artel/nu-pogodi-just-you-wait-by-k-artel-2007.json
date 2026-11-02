@@ -4,7 +4,7 @@
   "name_en": "Nu Pogodi / Just You Wait by K-Artel",
   "year": 2007,
   "manufacturer": "k-artel",
-  "cover": "images/series/k-artel/nu-pogodi-just-you-wait-by-k-artel-2007/1-i-insert-1-improved.webp",
+  "cover": "images/series/k-artel/nu-pogodi-just-you-wait-by-k-artel-2007/cover.webp",
   "description": "Серия посвященная персонажам мультсериала Ну погоди",
   "description_en": "A series dedicated to the characters of the animated series Well You Wait",
   "kind": "",
@@ -250,10 +250,10 @@
   "inserts": [
     {
       "id": "nu-pogodi-just-you-wait-by-k-artel-2007_insert1",
-      "name": "Вкладыш 1 (улучшенный)",
-      "name_en": "Insert 1 (improved)",
+      "name": "Вкладыш 1",
+      "name_en": "Insert 1",
       "code": "",
-      "image": "images/series/k-artel/nu-pogodi-just-you-wait-by-k-artel-2007/1-i-insert-1-improved.webp",
+      "image": "images/series/k-artel/nu-pogodi-just-you-wait-by-k-artel-2007/1-i.webp",
       "owned": false,
       "forsale": false,
       "forsale_date": "",
@@ -282,8 +282,8 @@
     },
     {
       "id": "nu-pogodi-just-you-wait-by-k-artel-2007_insert3",
-      "name": "Вкладыш 3",
-      "name_en": "Insert 3",
+      "name": "Вкладыш 3 (улучшенный)",
+      "name_en": "Insert 3 (improved)",
       "code": "",
       "image": "images/series/k-artel/nu-pogodi-just-you-wait-by-k-artel-2007/cover.webp",
       "owned": false,

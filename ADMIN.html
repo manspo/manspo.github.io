@@ -279,6 +279,7 @@
                     
                     <div style="margin-top:15px;">
                         <button onclick="saveEdit()">💾 Сохранить</button>
+                        <button class="secondary" onclick="saveEdit(true)">💾 Сохранить ТИ</button>
                         <button class="danger" onclick="cancelEdit()">Отмена</button>
                         <button class="danger" onclick="deleteCurrentSeries()">🗑️ Удалить</button>
                     </div>
@@ -297,6 +298,7 @@
                     <div style="margin-top:15px;">
                         <button class="secondary" onclick="saveTempToFile()">💾 Сохранить в ZIP</button>
                         <button onclick="mergeWithMain()">🔗 Объединить</button>
+                        <button class="secondary" onclick="mergeWithMain(true)">🔗 Объединить ТИ</button>
                         <button class="danger" onclick="clearAllTemp()">🗑️ Очистить</button>
                     </div>
                 </div>
@@ -510,6 +512,10 @@ let tempSeries = JSON.parse(localStorage.getItem('tempSeries') || '[]');
 let currentEditIndex = -1;
 let manufacturersData = {};
 let singlesData = {};
+
+// === BASELINE: снимок серий на момент загрузки/последнего полного сохранения ===
+let baselineSeries = {};   // id -> JSON.stringify(series)
+let baselineSingles = {}; // manufacturer -> JSON.stringify(singlesData[manufacturer])
 
 function showStatus() {
     let s = document.getElementById('saveStatus');
@@ -1553,6 +1559,7 @@ async function loadDataFromFiles(files) {
 }
 
             existingSeries.push(content);
+            baselineSeries[content.id] = JSON.stringify(content);   // ← baseline
         }
 
         updateStats();
@@ -1836,7 +1843,7 @@ function addEditItem(type) {
     renumberAll(container);
 }
 
-function saveEdit() {
+function saveEdit(onlyChanged = false) {
     let idx = parseInt(document.getElementById('editIndex').value);
     let seriesId = document.getElementById('editNameEn').value.trim() || 'series';
     let year = document.getElementById('editYear').value || '2024';
@@ -1903,7 +1910,12 @@ function saveEdit() {
     }
 
     existingSeries[idx] = rebuilt;
-    downloadAsZip(existingSeries);
+
+    if (onlyChanged) {
+        downloadAsZip(existingSeries, { onlyChanged: true });
+    } else {
+        downloadAsZip(existingSeries);
+    }
 }
 
 function cancelEdit() {
@@ -1915,7 +1927,9 @@ function cancelEdit() {
 function deleteCurrentSeries() {
     if (!confirm('Удалить серию?')) return;
     let idx = parseInt(document.getElementById('editIndex').value);
+    const removed = existingSeries[idx];
     existingSeries.splice(idx, 1);
+    if (removed) delete baselineSeries[removed.id];
     downloadAsZip(existingSeries);
     cancelEdit();
 }
@@ -2097,10 +2111,10 @@ function clearAllTemp() {
 
 function saveTempToFile() {
     if (!tempSeries.length) { alert('Нет временных серий'); return; }
-    downloadAsZip(tempSeries);
+    downloadAsZip(tempSeries, { skipBaselineUpdate: true });
 }
 
-function mergeWithMain() {
+function mergeWithMain(onlyChanged = false) {
     if (!existingSeries.length) { alert('Сначала загрузите основные данные'); return; }
     if (!tempSeries.length) { alert('Нет временных серий'); return; }
     let newIds = tempSeries.map(s => s.id);
@@ -2117,7 +2131,11 @@ function mergeWithMain() {
     refreshExistingSeriesList();
 
     // Скачиваем ZIP
-    downloadAsZip(merged);
+    if (onlyChanged) {
+        downloadAsZip(merged, { onlyChanged: true });
+    } else {
+        downloadAsZip(merged);
+    }
 
     if (confirm('Очистить временные?')) clearAllTemp();
 }
@@ -2450,11 +2468,28 @@ function generateCodeCountsData(seriesList) {
     return counts;
 }
 
+// Возвращает серии, реально изменённые относительно baseline (или новые)
+function getChangedSeries(seriesList) {
+    return seriesList.filter(s => {
+        const snap = baselineSeries[s.id];
+        if (!snap) return true;               // новая серия
+        return JSON.stringify(s) !== snap;    // изменённая
+    });
+}
+
+// Обновляет baseline после успешного сохранения
+function refreshSeriesBaseline(seriesList) {
+    baselineSeries = {};
+    seriesList.forEach(s => baselineSeries[s.id] = JSON.stringify(s));
+}
+
+
 // ============================================================
 // СКАЧИВАНИЕ ZIP
 // ============================================================
 
-function downloadAsZip(seriesList) {
+function downloadAsZip(seriesList, options = {}) {
+    const onlyChanged = options.onlyChanged === true;
     let zip = new JSZip();
     
     let indexData = seriesList.map(s => ({
@@ -2495,7 +2530,11 @@ console.log('✅ forsale.json:', forsaleData.length, 'товаров (серии
     zip.file("code-counts.json", JSON.stringify(codeCountsData, null, 2));
     console.log('✅ code-counts.json:', Object.keys(codeCountsData).length, 'уникальных кодов');
     
-    seriesList.forEach(s => {
+    // === ФАЙЛЫ СЕРИЙ: в режиме onlyChanged — только изменённые/новые ===
+    const seriesToWrite = onlyChanged ? getChangedSeries(seriesList) : seriesList;
+    console.log('📦 Серий в архиве:', seriesToWrite.length, onlyChanged ? '(режим ТИ)' : '(полный)');
+    
+    seriesToWrite.forEach(s => {
         let manufFolder = getManufacturerFolder(s.manufacturer);
         let seriesFolder = zip.folder(`series/${manufFolder}`);
         let data = {
@@ -2530,13 +2569,20 @@ console.log('✅ forsale.json:', forsaleData.length, 'товаров (серии
         seriesFolder.file(`${s.id}.json`, JSON.stringify(data, null, 2));
     });
     
+    const suffix = onlyChanged ? 'patch' : 'full';
     zip.generateAsync({ type: "blob" }).then(blob => {
         let a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = `capsule_data_${new Date().toISOString().slice(0,19).replace(/:/g,'-')}.zip`;
+        a.download = `capsule_${suffix}_${new Date().toISOString().slice(0,19).replace(/:/g,'-')}.zip`;
         a.click();
         URL.revokeObjectURL(blob);
         showStatus();
+        
+        // Обновляем baseline после успешного сохранения,
+        // но только если это не «сохранение временных» (skipBaselineUpdate)
+        if (!options.skipBaselineUpdate) {
+            refreshSeriesBaseline(seriesList);
+        }
     });
 }
 
@@ -2658,6 +2704,7 @@ document.addEventListener('DOMContentLoaded', async function() {
                     const m = file.name.replace('.json', '');
                     if (Array.isArray(data)) {
                         singlesData[m] = data;
+                        baselineSingles[m] = JSON.stringify(data);   // ← baseline
                     }
                 } catch (err) {
                     console.error('Ошибка чтения', file.name, err);
@@ -2763,6 +2810,7 @@ document.addEventListener('DOMContentLoaded', async function() {
                     const m = file.name.replace('.json', '');
                     if (Array.isArray(data)) {
                         singlesData[m] = data;
+                        baselineSingles[m] = JSON.stringify(data);   // ← baseline
                     }
                 } catch (err) {
                     console.error('Ошибка чтения', file.name, err);
