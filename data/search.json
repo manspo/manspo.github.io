@@ -29444,7 +29444,7 @@
     "type": "figures"
   },
   {
-    "id": "playmobil-disney-by-kinder-2026_fig1",
+    "id": "playmobil-disney-by-kinder-2026_fig3",
     "code": "VS401",
     "name": "Динь-Динь",
     "name_en": "Tinker Bell",
@@ -29461,7 +29461,7 @@
     "type": "figures"
   },
   {
-    "id": "playmobil-disney-by-kinder-2026_fig2",
+    "id": "playmobil-disney-by-kinder-2026_fig1",
     "code": "VS406",
     "name": "Аладдин",
     "name_en": "Aladdin",
@@ -29478,7 +29478,7 @@
     "type": "figures"
   },
   {
-    "id": "playmobil-disney-by-kinder-2026_fig3",
+    "id": "playmobil-disney-by-kinder-2026_fig8",
     "code": "VS407",
     "name": "Шериф Вуди",
     "name_en": "Sheriff Woody",
@@ -29512,7 +29512,7 @@
     "type": "figures"
   },
   {
-    "id": "playmobil-disney-by-kinder-2026_fig5",
+    "id": "playmobil-disney-by-kinder-2026_fig2",
     "code": "VS418",
     "name": "Джинни",
     "name_en": "Genie",
@@ -29529,7 +29529,7 @@
     "type": "figures"
   },
   {
-    "id": "playmobil-disney-by-kinder-2026_fig6",
+    "id": "playmobil-disney-by-kinder-2026_fig5",
     "code": "VS420",
     "name": "Мегара",
     "name_en": "Megara",
@@ -29546,7 +29546,7 @@
     "type": "figures"
   },
   {
-    "id": "playmobil-disney-by-kinder-2026_fig7",
+    "id": "playmobil-disney-by-kinder-2026_fig6",
     "code": "VS421",
     "name": "Геркулес",
     "name_en": "Hercules",
@@ -29563,7 +29563,7 @@
     "type": "figures"
   },
   {
-    "id": "playmobil-disney-by-kinder-2026_fig8",
+    "id": "playmobil-disney-by-kinder-2026_fig7",
     "code": "VS422",
     "name": "Джесси",
     "name_en": "Jessie",
@@ -29597,7 +29597,7 @@
     "type": "figures"
   },
   {
-    "id": "playmobil-disney-by-kinder-2026_fig10",
+    "id": "playmobil-disney-by-kinder-2026_fig12",
     "code": "VS424",
     "name": "Джеппетто",
     "name_en": "Geppetto",
@@ -29608,9 +29608,9 @@
     "seriesYear": 2026,
     "manufacturer": "kinder",
     "owned": false,
-    "forsale": false,
-    "avito": "",
-    "price": "",
+    "forsale": true,
+    "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/kinder_syurpriz_pleymobil_disney_8422658956",
+    "price": "149",
     "type": "figures"
   },
   {
@@ -29631,7 +29631,7 @@
     "type": "figures"
   },
   {
-    "id": "playmobil-disney-by-kinder-2026_fig12",
+    "id": "playmobil-disney-by-kinder-2026_fig13",
     "code": "VS429",
     "name": "Хелен Парр (Эластика)",
     "name_en": "Helen Parr (Elastigirl)",
@@ -29648,7 +29648,7 @@
     "type": "figures"
   },
   {
-    "id": "playmobil-disney-by-kinder-2026_fig13",
+    "id": "playmobil-disney-by-kinder-2026_fig15",
     "code": "VS430",
     "name": "Моана",
     "name_en": "Moana",
@@ -29665,7 +29665,7 @@
     "type": "figures"
   },
   {
-    "id": "playmobil-disney-by-kinder-2026_fig14",
+    "id": "playmobil-disney-by-kinder-2026_fig18",
     "code": "VS431",
     "name": "Микки Маус",
     "name_en": "Mickey Mouse",
@@ -29682,7 +29682,7 @@
     "type": "figures"
   },
   {
-    "id": "playmobil-disney-by-kinder-2026_fig15",
+    "id": "playmobil-disney-by-kinder-2026_fig17",
     "code": "VS432",
     "name": "Дональд Дак",
     "name_en": "Donald Duck",
@@ -29693,13 +29693,13 @@
     "seriesYear": 2026,
     "manufacturer": "kinder",
     "owned": false,
-    "forsale": false,
-    "avito": "",
-    "price": "",
+    "forsale": true,
+    "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/kinder_syurpriz_pleymobil_disney_8422658956",
+    "price": "149",
     "type": "figures"
   },
   {
-    "id": "playmobil-disney-by-kinder-2026_fig16",
+    "id": "playmobil-disney-by-kinder-2026_fig10",
     "code": "VS435",
     "name": "Гектор Ривера",
     "name_en": "Hector Rivera",
@@ -29716,7 +29716,7 @@
     "type": "figures"
   },
   {
-    "id": "playmobil-disney-by-kinder-2026_fig17",
+    "id": "playmobil-disney-by-kinder-2026_fig14",
     "code": "VS436",
     "name": "Боб Парр (Мистер Исключительный)",
     "name_en": "Bob Parr (Mr. Incredible)",
@@ -29733,7 +29733,7 @@
     "type": "figures"
   },
   {
-    "id": "playmobil-disney-by-kinder-2026_fig18",
+    "id": "playmobil-disney-by-kinder-2026_fig16",
     "code": "VS437",
     "name": "Мауи",
     "name_en": "Maui",
@@ -32644,7 +32644,7 @@
     "code": "VTD01",
     "name": "Девочка с черными волосами",
     "name_en": "Girl with black hair",
-    "image": "images/series/kinder/girls-travelers-maxi-by-kinder-2024/image-Photoroom (1).webp",
+    "image": "images/series/kinder/girls-travelers-maxi-by-kinder-2024/1-f-girl-with-black-hair-vtd01.webp",
     "seriesId": "girls-travelers-maxi-by-kinder-2024",
     "seriesName": "Девочки-путешественницы Макси от Киндер",
     "seriesName_en": "Girls travelers Maxi by Kinder",
@@ -32661,7 +32661,7 @@
     "code": "VTD01A",
     "name": "Девочка со светлыми волосами (блондинка)",
     "name_en": "Girl with blond hair",
-    "image": "images/series/kinder/girls-travelers-maxi-by-kinder-2024/2-f-girl-with-blond-hair-vtd01a.webp",
+    "image": "images/series/kinder/girls-travelers-maxi-by-kinder-2024/3-f-girl-with-blond-hair-vtd01a.webp",
     "seriesId": "girls-travelers-maxi-by-kinder-2024",
     "seriesName": "Девочки-путешественницы Макси от Киндер",
     "seriesName_en": "Girls travelers Maxi by Kinder",
@@ -32693,9 +32693,9 @@
   {
     "id": "girls-travelers-maxi-by-kinder-2024_fig2",
     "code": "VTD02",
-    "name": "Девочка с каштановыми волосами",
+    "name": "Девочка со светло-каштановыми волосами",
     "name_en": "Girl with brown hair",
-    "image": "images/series/kinder/girls-travelers-maxi-by-kinder-2024/image-Photoroom.webp",
+    "image": "images/series/kinder/girls-travelers-maxi-by-kinder-2024/2-f-girl-with-brown-hair-vtd02.webp",
     "seriesId": "girls-travelers-maxi-by-kinder-2024",
     "seriesName": "Девочки-путешественницы Макси от Киндер",
     "seriesName_en": "Girls travelers Maxi by Kinder",
@@ -32712,7 +32712,7 @@
     "code": "VTD02A",
     "name": "Девочка с каштановыми волосами",
     "name_en": "Girl with brown hair",
-    "image": "images/series/kinder/girls-travelers-maxi-by-kinder-2024/1-f-girl-with-brown-hair-vtd02a.webp",
+    "image": "images/series/kinder/girls-travelers-maxi-by-kinder-2024/4-f-girl-with-brown-hair-vtd02a.webp",
     "seriesId": "girls-travelers-maxi-by-kinder-2024",
     "seriesName": "Девочки-путешественницы Макси от Киндер",
     "seriesName_en": "Girls travelers Maxi by Kinder",
@@ -32729,7 +32729,7 @@
     "code": "VTD02B",
     "name": "Девочка с рыжими волосами",
     "name_en": "Girl with red hair",
-    "image": "images/series/kinder/girls-travelers-maxi-by-kinder-2024/3-f-girl-with-red-hair-vtd02b.webp",
+    "image": "images/series/kinder/girls-travelers-maxi-by-kinder-2024/5-f-girl-with-red-hair-vtd02b.webp",
     "seriesId": "girls-travelers-maxi-by-kinder-2024",
     "seriesName": "Девочки-путешественницы Макси от Киндер",
     "seriesName_en": "Girls travelers Maxi by Kinder",
