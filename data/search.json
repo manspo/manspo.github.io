@@ -8885,7 +8885,7 @@
     "seriesYear": 2026,
     "manufacturer": "kinder",
     "owned": false,
-    "forsale": false,
+    "forsale": true,
     "avito": "",
     "price": "",
     "type": "inserts"

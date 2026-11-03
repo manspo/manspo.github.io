@@ -1,5 +1,24 @@
 [
   {
+    "type": "insert",
+    "id": "unisex-by-kinder-2026_insert86",
+    "seriesId": "unisex-by-kinder-2026",
+    "seriesName": "Сборка ЮНИ от Киндер",
+    "seriesName_en": "Unisex by Kinder",
+    "seriesYear": 2026,
+    "manufacturer": "kinder",
+    "name": "Вкладыш 86",
+    "name_en": "Insert 86",
+    "image": "images/series/kinder/unisex-by-kinder-2026/VC002.webp",
+    "avito": "",
+    "price": "",
+    "condition": "",
+    "condition_en": "",
+    "code": "VC002",
+    "date_added": "2026-09-17",
+    "forsale_date": "2026-11-03"
+  },
+  {
     "type": "figure",
     "id": "playmobil-disney-by-kinder-2026_fig12",
     "seriesId": "playmobil-disney-by-kinder-2026",
