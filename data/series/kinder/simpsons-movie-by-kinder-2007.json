@@ -1,7 +1,7 @@
 {
   "id": "simpsons-movie-by-kinder-2007",
   "name": "Симпсоны в Кино от Киндер",
-  "name_en": "The Simpsons Movie by Kinder",
+  "name_en": "Simpsons Movie by Kinder",
   "year": 2007,
   "manufacturer": "kinder",
   "cover": "images/series/kinder/simpsons-movie-by-kinder-2007/1-i.webp",
@@ -28,13 +28,13 @@
       "image": "images/series/kinder/simpsons-movie-by-kinder-2007/1-f-bart-tt134.webp",
       "owned": true,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-movie-by-kinder-2007_fig2",
@@ -44,13 +44,13 @@
       "image": "images/series/kinder/simpsons-movie-by-kinder-2007/2-f-homer-tt135.webp",
       "owned": true,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-movie-by-kinder-2007_fig3",
@@ -60,13 +60,13 @@
       "image": "images/series/kinder/simpsons-movie-by-kinder-2007/3-f-marge-tt136.webp",
       "owned": true,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-movie-by-kinder-2007_fig4",
@@ -76,13 +76,13 @@
       "image": "images/series/kinder/simpsons-movie-by-kinder-2007/4-f-lisa-tt137.webp",
       "owned": true,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-movie-by-kinder-2007_fig5",
@@ -92,13 +92,13 @@
       "image": "images/series/kinder/simpsons-movie-by-kinder-2007/5-f-otto-tt138.webp",
       "owned": true,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-movie-by-kinder-2007_fig6",
@@ -108,13 +108,13 @@
       "image": "images/series/kinder/simpsons-movie-by-kinder-2007/6-f-krusty-the-clown-tt139.webp",
       "owned": true,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-movie-by-kinder-2007_fig7",
@@ -124,13 +124,13 @@
       "image": "images/series/kinder/simpsons-movie-by-kinder-2007/7-f-mr-burns-tt140.webp",
       "owned": true,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-movie-by-kinder-2007_fig8",
@@ -140,13 +140,13 @@
       "image": "images/series/kinder/simpsons-movie-by-kinder-2007/8-f-nelson-tt141.webp",
       "owned": true,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-movie-by-kinder-2007_fig9",
@@ -156,13 +156,13 @@
       "image": "images/series/kinder/simpsons-movie-by-kinder-2007/9-f-sideshow-bob-tt142.webp",
       "owned": true,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-movie-by-kinder-2007_fig10",
@@ -172,13 +172,13 @@
       "image": "images/series/kinder/simpsons-movie-by-kinder-2007/10-f-milhouse-tt143.webp",
       "owned": true,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     }
   ],
   "extras": [],
@@ -187,209 +187,209 @@
       "id": "simpsons-movie-by-kinder-2007_variant1",
       "name": "Длинная шея",
       "name_en": "Long neck",
-      "code": "",
+      "code": "TT134",
       "image": "images/series/kinder/simpsons-movie-by-kinder-2007/1-v-long-neck.webp",
       "owned": false,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-movie-by-kinder-2007_variant2",
       "name": "Не окрашен рот",
       "name_en": "The mouth is unpainted",
-      "code": "",
+      "code": "TT134",
       "image": "images/series/kinder/simpsons-movie-by-kinder-2007/2-v-the-mouth-is-unpainted.webp",
       "owned": false,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-movie-by-kinder-2007_variant3",
       "name": "Цвет надписи",
       "name_en": "Text color",
-      "code": "",
+      "code": "TT135",
       "image": "images/series/kinder/simpsons-movie-by-kinder-2007/3-v-text-color.webp",
       "owned": false,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-movie-by-kinder-2007_variant4",
       "name": "Цвет Мэгги",
       "name_en": "Maggie's Color",
-      "code": "",
+      "code": "TT136",
       "image": "images/series/kinder/simpsons-movie-by-kinder-2007/4-v-maggies-color.webp",
       "owned": false,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-movie-by-kinder-2007_variant5",
       "name": "Матовое и глянцевое покрытие горшка",
       "name_en": "Matte and glossy pot finish",
-      "code": "",
+      "code": "TT136",
       "image": "images/series/kinder/simpsons-movie-by-kinder-2007/5-v-matte-and-glossy-pot-finish.webp",
       "owned": false,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-movie-by-kinder-2007_variant6",
       "name": "Не окрашены глаза",
       "name_en": "The eyes are not colored",
-      "code": "",
+      "code": "TT137",
       "image": "images/series/kinder/simpsons-movie-by-kinder-2007/6-v-the-eyes-are-not-colored.webp",
       "owned": false,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-movie-by-kinder-2007_variant7",
       "name": "Не окрашены зубы",
       "name_en": "The teeth are not stained",
-      "code": "",
+      "code": "TT138",
       "image": "images/series/kinder/simpsons-movie-by-kinder-2007/7-v-the-teeth-are-not-stained.webp",
       "owned": false,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-movie-by-kinder-2007_variant8",
       "name": "Неокрашенный галстук-бабочка",
       "name_en": "Unpainted bow tie",
-      "code": "",
+      "code": "TT139",
       "image": "images/series/kinder/simpsons-movie-by-kinder-2007/8-v-unpainted-bow-tie.webp",
       "owned": false,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-movie-by-kinder-2007_variant9",
       "name": "Жирный шрифт текста",
       "name_en": "Bold text",
-      "code": "",
+      "code": "TT140",
       "image": "images/series/kinder/simpsons-movie-by-kinder-2007/9-v-bold-text.webp",
       "owned": false,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-movie-by-kinder-2007_variant10",
       "name": "Галстук не окрашен",
       "name_en": "The tie is undyed",
-      "code": "",
+      "code": "TT140",
       "image": "images/series/kinder/simpsons-movie-by-kinder-2007/10-v-the-tie-is-undyed.webp",
       "owned": false,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-movie-by-kinder-2007_variant11",
       "name": "Окрашивание шнурков на мешке с деньгами",
       "name_en": "Painting of the cords on the money bag",
-      "code": "",
+      "code": "TT140",
       "image": "images/series/kinder/simpsons-movie-by-kinder-2007/11-v-painting-of-the-cords-on-the-money-bag.webp",
       "owned": false,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-movie-by-kinder-2007_variant12",
       "name": "Глянцевая и матовая футболка",
       "name_en": "Glossy and matte T-shirt",
-      "code": "",
+      "code": "TT141",
       "image": "images/series/kinder/simpsons-movie-by-kinder-2007/12-v-glossy-and-matte-t-shirt.webp",
       "owned": false,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-movie-by-kinder-2007_variant13",
       "name": "Светлый и темный цвета молота",
       "name_en": "Light and dark hammer colors",
-      "code": "",
+      "code": "TT142",
       "image": "images/series/kinder/simpsons-movie-by-kinder-2007/13-v-light-and-dark-hammer-colors.webp",
       "owned": false,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     }
   ],
   "inserts": [
@@ -401,13 +401,13 @@
       "image": "images/series/kinder/simpsons-movie-by-kinder-2007/1-i.webp",
       "owned": false,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-movie-by-kinder-2007_insert2",
@@ -417,13 +417,13 @@
       "image": "images/series/kinder/simpsons-movie-by-kinder-2007/2-i-tt134.webp",
       "owned": false,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-movie-by-kinder-2007_insert3",
@@ -433,13 +433,13 @@
       "image": "images/series/kinder/simpsons-movie-by-kinder-2007/3-i-tt135.webp",
       "owned": false,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-movie-by-kinder-2007_insert4",
@@ -449,13 +449,13 @@
       "image": "images/series/kinder/simpsons-movie-by-kinder-2007/4-i-tt136.webp",
       "owned": false,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-movie-by-kinder-2007_insert5",
@@ -465,13 +465,13 @@
       "image": "images/series/kinder/simpsons-movie-by-kinder-2007/5-i-tt137.webp",
       "owned": false,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-movie-by-kinder-2007_insert6",
@@ -481,13 +481,13 @@
       "image": "images/series/kinder/simpsons-movie-by-kinder-2007/6-i-tt138.webp",
       "owned": false,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-movie-by-kinder-2007_insert7",
@@ -497,13 +497,13 @@
       "image": "images/series/kinder/simpsons-movie-by-kinder-2007/7-i-tt139.webp",
       "owned": false,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-movie-by-kinder-2007_insert8",
@@ -513,13 +513,13 @@
       "image": "images/series/kinder/simpsons-movie-by-kinder-2007/8-i-tt140.webp",
       "owned": false,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-movie-by-kinder-2007_insert9",
@@ -529,13 +529,13 @@
       "image": "images/series/kinder/simpsons-movie-by-kinder-2007/9-i-tt141.webp",
       "owned": false,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-movie-by-kinder-2007_insert10",
@@ -545,13 +545,13 @@
       "image": "images/series/kinder/simpsons-movie-by-kinder-2007/10-i-tt142.webp",
       "owned": false,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-movie-by-kinder-2007_insert11",
@@ -561,13 +561,13 @@
       "image": "images/series/kinder/simpsons-movie-by-kinder-2007/11-i-tt143.webp",
       "owned": false,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-movie-by-kinder-2007_insert12",
@@ -577,173 +577,173 @@
       "image": "images/series/kinder/simpsons-movie-by-kinder-2007/12-i.webp",
       "owned": false,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-movie-by-kinder-2007_insert13",
       "name": "Нейтральный Вкладыш 2",
       "name_en": "Insert 13",
-      "code": "",
+      "code": "TT134",
       "image": "images/series/kinder/simpsons-movie-by-kinder-2007/13-i.webp",
       "owned": false,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-movie-by-kinder-2007_insert14",
       "name": "Нейтральный Вкладыш 3",
       "name_en": "Insert 14",
-      "code": "",
+      "code": "TT135",
       "image": "images/series/kinder/simpsons-movie-by-kinder-2007/14-i.webp",
       "owned": false,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-movie-by-kinder-2007_insert15",
       "name": "Нейтральный Вкладыш 4",
       "name_en": "Insert 15",
-      "code": "",
+      "code": "TT136",
       "image": "images/series/kinder/simpsons-movie-by-kinder-2007/15-i.webp",
       "owned": false,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-movie-by-kinder-2007_insert16",
       "name": "Нейтральный Вкладыш 5",
       "name_en": "Insert 16",
-      "code": "",
+      "code": "TT137",
       "image": "images/series/kinder/simpsons-movie-by-kinder-2007/16-i.webp",
       "owned": false,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-movie-by-kinder-2007_insert17",
       "name": "Нейтральный Вкладыш 6",
       "name_en": "Insert 17",
-      "code": "",
+      "code": "TT138",
       "image": "images/series/kinder/simpsons-movie-by-kinder-2007/17-i.webp",
       "owned": false,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-movie-by-kinder-2007_insert18",
       "name": "Нейтральный Вкладыш 7",
       "name_en": "Insert 18",
-      "code": "",
+      "code": "TT139",
       "image": "images/series/kinder/simpsons-movie-by-kinder-2007/18-i.webp",
       "owned": false,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-movie-by-kinder-2007_insert19",
       "name": "Нейтральный Вкладыш 8",
       "name_en": "Insert 19",
-      "code": "",
+      "code": "TT140",
       "image": "images/series/kinder/simpsons-movie-by-kinder-2007/19-i.webp",
       "owned": false,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-movie-by-kinder-2007_insert20",
       "name": "Нейтральный Вкладыш 9",
       "name_en": "Insert 20",
-      "code": "",
+      "code": "TT141",
       "image": "images/series/kinder/simpsons-movie-by-kinder-2007/20-i.webp",
       "owned": false,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-movie-by-kinder-2007_insert21",
       "name": "Нейтральный Вкладыш 10",
       "name_en": "Insert 21",
-      "code": "",
+      "code": "TT142",
       "image": "images/series/kinder/simpsons-movie-by-kinder-2007/21-i.webp",
       "owned": false,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-movie-by-kinder-2007_insert22",
       "name": "Нейтральный Вкладыш 11",
       "name_en": "Insert 22",
-      "code": "",
+      "code": "TT143",
       "image": "images/series/kinder/simpsons-movie-by-kinder-2007/22-i.webp",
       "owned": false,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-movie-by-kinder-2007_insert23",
@@ -753,13 +753,13 @@
       "image": "images/series/kinder/simpsons-movie-by-kinder-2007/23-i.webp",
       "owned": false,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-movie-by-kinder-2007_insert24",
@@ -769,13 +769,13 @@
       "image": "images/series/kinder/simpsons-movie-by-kinder-2007/24-i-tt134.webp",
       "owned": false,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-movie-by-kinder-2007_insert25",
@@ -785,13 +785,13 @@
       "image": "images/series/kinder/simpsons-movie-by-kinder-2007/25-i-tt135.webp",
       "owned": false,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-movie-by-kinder-2007_insert26",
@@ -801,13 +801,13 @@
       "image": "images/series/kinder/simpsons-movie-by-kinder-2007/26-i-tt136.webp",
       "owned": false,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-movie-by-kinder-2007_insert27",
@@ -817,13 +817,13 @@
       "image": "images/series/kinder/simpsons-movie-by-kinder-2007/27-i-tt137.webp",
       "owned": false,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-movie-by-kinder-2007_insert28",
@@ -833,13 +833,13 @@
       "image": "images/series/kinder/simpsons-movie-by-kinder-2007/28-i-tt138.webp",
       "owned": false,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-movie-by-kinder-2007_insert29",
@@ -849,13 +849,13 @@
       "image": "images/series/kinder/simpsons-movie-by-kinder-2007/29-i-tt139.webp",
       "owned": false,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-movie-by-kinder-2007_insert30",
@@ -865,13 +865,13 @@
       "image": "images/series/kinder/simpsons-movie-by-kinder-2007/30-i-tt140.webp",
       "owned": false,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-movie-by-kinder-2007_insert31",
@@ -881,13 +881,13 @@
       "image": "images/series/kinder/simpsons-movie-by-kinder-2007/31-i-tt141.webp",
       "owned": false,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-movie-by-kinder-2007_insert32",
@@ -897,13 +897,13 @@
       "image": "images/series/kinder/simpsons-movie-by-kinder-2007/32-i-tt142.webp",
       "owned": false,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-movie-by-kinder-2007_insert33",
@@ -913,13 +913,13 @@
       "image": "images/series/kinder/simpsons-movie-by-kinder-2007/33-i-tt143.webp",
       "owned": false,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-movie-by-kinder-2007_insert34",
@@ -929,13 +929,13 @@
       "image": "images/series/kinder/simpsons-movie-by-kinder-2007/34-i.webp",
       "owned": false,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-movie-by-kinder-2007_insert35",
@@ -945,13 +945,13 @@
       "image": "images/series/kinder/simpsons-movie-by-kinder-2007/35-i-tt134.webp",
       "owned": false,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-movie-by-kinder-2007_insert36",
@@ -961,13 +961,13 @@
       "image": "images/series/kinder/simpsons-movie-by-kinder-2007/36-i-tt135.webp",
       "owned": false,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-movie-by-kinder-2007_insert37",
@@ -977,13 +977,13 @@
       "image": "images/series/kinder/simpsons-movie-by-kinder-2007/37-i-tt136.webp",
       "owned": false,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-movie-by-kinder-2007_insert38",
@@ -993,13 +993,13 @@
       "image": "images/series/kinder/simpsons-movie-by-kinder-2007/38-i-tt137.webp",
       "owned": false,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-movie-by-kinder-2007_insert39",
@@ -1009,13 +1009,13 @@
       "image": "images/series/kinder/simpsons-movie-by-kinder-2007/39-i-tt138.webp",
       "owned": false,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-movie-by-kinder-2007_insert40",
@@ -1025,13 +1025,13 @@
       "image": "images/series/kinder/simpsons-movie-by-kinder-2007/40-i-tt139.webp",
       "owned": false,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-movie-by-kinder-2007_insert41",
@@ -1041,13 +1041,13 @@
       "image": "images/series/kinder/simpsons-movie-by-kinder-2007/41-i-tt1340.webp",
       "owned": false,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-movie-by-kinder-2007_insert42",
@@ -1057,13 +1057,13 @@
       "image": "images/series/kinder/simpsons-movie-by-kinder-2007/42-i-tt141.webp",
       "owned": false,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-movie-by-kinder-2007_insert43",
@@ -1073,13 +1073,13 @@
       "image": "images/series/kinder/simpsons-movie-by-kinder-2007/43-i-tt142.webp",
       "owned": false,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-movie-by-kinder-2007_insert44",
@@ -1089,20 +1089,21 @@
       "image": "images/series/kinder/simpsons-movie-by-kinder-2007/44-i-tt143.webp",
       "owned": false,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     }
   ],
   "other": [],
   "videos": {
     "youtube": [],
     "vk": [],
-    "tiktok": []
+    "tiktok": [],
+    "instagram": []
   },
   "contributors": []
 }

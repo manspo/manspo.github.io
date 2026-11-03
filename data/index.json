@@ -1,5 +1,17 @@
 [
   {
+    "id": "aristocats-by-kinder-1989",
+    "name": "Коты-Аристократы от Киндер",
+    "name_en": "Aristocats by Kinder",
+    "year": 1989,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/aristocats-by-kinder-1989/cover.webp",
+    "kind": "",
+    "description": "Знаменитая и редкая серия по одноименному мультфильму",
+    "description_en": "Famous and rare series based on the cartoon of the same name",
+    "visible": true
+  },
+  {
     "id": "spider-man-by-tomy-2004",
     "name": "Человек-Паук от Томи",
     "name_en": "Spider-Man by Tomy",
@@ -1212,12 +1224,12 @@
     "visible": true
   },
   {
-    "id": "the-simpsons-movie-by-kinder-2007",
+    "id": "simpsons-movie-by-kinder-2007",
     "name": "Симпсоны в Кино от Киндер",
-    "name_en": "The Simpsons Movie by Kinder",
+    "name_en": "Simpsons Movie by Kinder",
     "year": 2007,
     "manufacturer": "kinder",
-    "cover": "images/series/kinder/the-simpsons-movie-by-kinder-2007/1-i.webp",
+    "cover": "images/series/kinder/simpsons-movie-by-kinder-2007/1-i.webp",
     "kind": "",
     "description": "Серия приуроченная к полнометражному мультфильму по знаменитым Симпсонам.",
     "description_en": "A series tied to the feature-length animated film based on the famous Simpsons.",

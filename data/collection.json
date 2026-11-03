@@ -120,12 +120,12 @@
     "forSaleCount": 0
   },
   {
-    "id": "the-simpsons-movie-by-kinder-2007",
+    "id": "simpsons-movie-by-kinder-2007",
     "name": "Симпсоны в Кино от Киндер",
-    "name_en": "The Simpsons Movie by Kinder",
+    "name_en": "Simpsons Movie by Kinder",
     "year": 2007,
     "manufacturer": "kinder",
-    "cover": "images/series/kinder/the-simpsons-movie-by-kinder-2007/1-i.webp",
+    "cover": "images/series/kinder/simpsons-movie-by-kinder-2007/1-i.webp",
     "kind": "",
     "ownedFigures": 10,
     "ownedExtras": 0,
