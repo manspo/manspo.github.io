@@ -1,5 +1,24 @@
 [
   {
+    "type": "figure",
+    "id": "penguins-by-kinder-2026_fig7",
+    "seriesId": "penguins-by-kinder-2026",
+    "seriesName": "Пингвины от Киндер",
+    "seriesName_en": "Penguins by Kinder",
+    "seriesYear": 2026,
+    "manufacturer": "kinder",
+    "name": "Световик Энди",
+    "name_en": "Lightman Andy",
+    "image": "images/series/kinder/penguins-by-kinder-2026/7-f-vs358.webp",
+    "avito": "",
+    "price": "",
+    "condition": "",
+    "condition_en": "",
+    "code": "VS358",
+    "date_added": "2026-09-17",
+    "forsale_date": "2026-11-04"
+  },
+  {
     "type": "insert",
     "id": "unisex-by-kinder-2026_insert86",
     "seriesId": "unisex-by-kinder-2026",
