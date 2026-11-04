@@ -1,5 +1,17 @@
 [
   {
+    "id": "pink-panther-by-kinder-1989",
+    "name": "Розовая Пантера от Киндер",
+    "name_en": "Pink Panther by Kinder",
+    "year": 1989,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/pink-panther-by-kinder-1989/cover.webp",
+    "kind": "",
+    "description": "Очень редкая и дорогая серия выпущенная в 1989",
+    "description_en": "Very rare and expensive series released in 1989",
+    "visible": true
+  },
+  {
     "id": "aristocats-by-kinder-1989",
     "name": "Коты-Аристократы от Киндер",
     "name_en": "Aristocats by Kinder",
@@ -684,12 +696,12 @@
     "visible": true
   },
   {
-    "id": "the-old-tree-and-his-friends-by-kinder-1997",
+    "id": "old-tree-and-his-friends-by-kinder-1997",
     "name": "Старое дерево и его друзья от Киндер",
-    "name_en": "The old tree and his friends by Kinder",
+    "name_en": "Old tree and his friends by Kinder",
     "year": 1997,
     "manufacturer": "kinder",
-    "cover": "images/series/kinder/the-old-tree-and-his-friends-by-kinder-1997/cover.webp",
+    "cover": "images/series/kinder/old-tree-and-his-friends-by-kinder-1997/cover.webp",
     "kind": "",
     "description": "Знаменитое старое дерево, которое в последствие успеха переиздадут с новой фигуркой",
     "description_en": "The famous old tree, which, following its success, will be reissued with a new figure",
@@ -1188,12 +1200,12 @@
     "visible": true
   },
   {
-    "id": "the-fixies-by-kinder-2026",
+    "id": "fixies-by-kinder-2026",
     "name": "Фиксики от Киндер",
-    "name_en": "The Fixies by Kinder",
+    "name_en": "Fixies by Kinder",
     "year": 2026,
     "manufacturer": "kinder",
-    "cover": "images/series/kinder/the-fixies-by-kinder-2026/cover.webp",
+    "cover": "images/series/kinder/fixies-by-kinder-2026/cover.webp",
     "kind": "",
     "description": "Серия по одноименному мультсериалу.",
     "description_en": "A series based on the animated series of the same name.",
@@ -1620,12 +1632,12 @@
     "visible": true
   },
   {
-    "id": "the-little-mermaid-by-nestle-1998",
+    "id": "little-mermaid-by-nestle-1998",
     "name": "Русалочка от Нестле",
-    "name_en": "The Little Mermaid by Nestle",
+    "name_en": "Little Mermaid by Nestle",
     "year": 1998,
     "manufacturer": "nestle",
-    "cover": "images/series/nestle/the-little-mermaid-by-nestle-1998/01b.webp",
+    "cover": "images/series/nestle/little-mermaid-by-nestle-1998/01b.webp",
     "kind": "",
     "description": "Фигурки по мотивам мультфильма «Русалочка»",
     "description_en": "Figures based on the cartoon \"The Little Mermaid\"",
