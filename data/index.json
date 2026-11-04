@@ -1,5 +1,17 @@
 [
   {
+    "id": "petrushka-by-landrin-2000",
+    "name": "Петрушка от Ландрин",
+    "name_en": "Petrushka by Landrin",
+    "year": 2000,
+    "manufacturer": "landrin",
+    "cover": "images/series/landrin/petrushka-by-landrin-2000/cover.webp",
+    "kind": "",
+    "description": "Серия из одних Петрушек",
+    "description_en": "A series of just Petrushka's",
+    "visible": true
+  },
+  {
     "id": "pink-panther-by-kinder-1989",
     "name": "Розовая Пантера от Киндер",
     "name_en": "Pink Panther by Kinder",
