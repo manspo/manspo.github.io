@@ -98,6 +98,7 @@
             <div class="col">
                 <div class="card">
                     <h2>➕ Новая серия</h2>
+                    <input type="hidden" id="addOldSid">
                     <div class="form-group"><label>Название (рус) *</label><input type="text" id="nameRu" placeholder="Моя новая серия"></div>
                     <div class="form-group"><label>Название (англ) *</label><input type="text" id="nameEn" placeholder="My New Series"></div>
                     <div class="form-group"><label>Год</label><input type="number" id="year" value="2024"></div>
@@ -107,17 +108,19 @@
                     <div class="form-group"><label>Тип (Kinder)</label><select id="kind"><option value="">Обычная</option><option value="joy">Джой</option><option value="maxi">Макси</option><option value="giant">Гигант</option></select></div>
                     
                     <hr style="margin:15px 0;border-color:#e5e7eb;">
-                    <h3>📦 Полная серия на продажу</h3>
-                    <div class="form-group"><label><input type="checkbox" id="fullSeriesForSale"> Полная серия в продаже</label></div>
-					<div class="form-group"><input type="date" id="fullSeriesForsaleDate" placeholder="Дата выставления на продажу"></div>
-                    <div class="form-group"><input type="text" id="fullSeriesAvito" placeholder="Ссылка на продажу всей серии"></div>
-                    <div class="form-group"><input type="text" id="fullSeriesPrice" placeholder="Цена всей серии (рус)"></div>
-                    <div class="form-group"><input type="text" id="fullSeriesPriceEn" placeholder="Price (en)"></div>
-                    <div class="form-group"><input type="text" id="fullSeriesCondition" placeholder="Состояние (рус)"></div>
-                    <div class="form-group"><input type="text" id="fullSeriesConditionEn" placeholder="Condition (en)"></div>
-                    <div class="form-group"><input type="text" id="fullSeriesDateAdded" placeholder="Дата добавления (2026-09-10)"></div>
-                    <div class="form-group"><label>Описание лота (рус)</label><textarea id="fullSeriesDescription" rows="3" placeholder="Подробное описание лота..."></textarea></div>
-                    <div class="form-group"><label>Описание лота (англ)</label><textarea id="fullSeriesDescriptionEn" rows="3" placeholder="Lot description..."></textarea></div>
+                    <details>
+                        <summary style="cursor:pointer;font-weight:600;color:#4f46e5;font-size:16px;margin:10px 0;">📦 Полная серия на продажу</summary>
+                        <div class="form-group"><label><input type="checkbox" id="fullSeriesForSale"> Полная серия в продаже</label></div>
+                        <div class="form-group"><input type="date" id="fullSeriesForsaleDate" placeholder="Дата выставления на продажу"></div>
+                        <div class="form-group"><input type="text" id="fullSeriesAvito" placeholder="Ссылка на продажу всей серии"></div>
+                        <div class="form-group"><input type="text" id="fullSeriesPrice" placeholder="Цена всей серии (рус)"></div>
+                        <div class="form-group"><input type="text" id="fullSeriesPriceEn" placeholder="Price (en)"></div>
+                        <div class="form-group"><input type="text" id="fullSeriesCondition" placeholder="Состояние (рус)"></div>
+                        <div class="form-group"><input type="text" id="fullSeriesConditionEn" placeholder="Condition (en)"></div>
+                        <div class="form-group"><input type="text" id="fullSeriesDateAdded" placeholder="Дата добавления (2026-09-10)"></div>
+                        <div class="form-group"><label>Описание лота (рус)</label><textarea id="fullSeriesDescription" rows="3" placeholder="Подробное описание лота..."></textarea></div>
+                        <div class="form-group"><label>Описание лота (англ)</label><textarea id="fullSeriesDescriptionEn" rows="3" placeholder="Lot description..."></textarea></div>
+                    </details>
                     
                     <hr style="margin:15px 0;border-color:#e5e7eb;">
                     
@@ -224,6 +227,7 @@
                 <div class="card edit-section" id="editForm" style="display:none;">
                     <h2>✏️ Редактирование</h2>
                     <input type="hidden" id="editIndex">
+                    <input type="hidden" id="editOldSid">
                     <div class="form-group"><label>Название (рус)</label><input type="text" id="editNameRu"></div>
                     <div class="form-group"><label>Название (англ)</label><input type="text" id="editNameEn"></div>
                     <div class="form-group"><label>Год</label><input type="number" id="editYear"></div>
@@ -233,17 +237,19 @@
                     <div class="form-group"><label>Тип</label><select id="editKind"><option value="">Обычная</option><option value="joy">Джой</option><option value="maxi">Макси</option><option value="giant">Гигант</option></select></div>
                     
                     <hr style="margin:15px 0;border-color:#e5e7eb;">
-                    <h3>📦 Полная серия на продажу</h3>
-                    <div class="form-group"><label><input type="checkbox" id="editFullSeriesForSale"> Полная серия в продаже</label></div>
-					<div class="form-group"><input type="date" id="editFullSeriesForsaleDate" placeholder="Дата выставления"></div>
-                    <div class="form-group"><input type="text" id="editFullSeriesAvito" placeholder="Ссылка на продажу"></div>
-                    <div class="form-group"><input type="text" id="editFullSeriesPrice" placeholder="Цена (рус)"></div>
-                    <div class="form-group"><input type="text" id="editFullSeriesPriceEn" placeholder="Price (en)"></div>
-                    <div class="form-group"><input type="text" id="editFullSeriesCondition" placeholder="Состояние (рус)"></div>
-                    <div class="form-group"><input type="text" id="editFullSeriesConditionEn" placeholder="Condition (en)"></div>
-                    <div class="form-group"><input type="text" id="editFullSeriesDateAdded" placeholder="Дата добавления"></div>
-                    <div class="form-group"><label>Описание лота (рус)</label><textarea id="editFullSeriesDescription" rows="3"></textarea></div>
-                    <div class="form-group"><label>Описание лота (англ)</label><textarea id="editFullSeriesDescriptionEn" rows="3"></textarea></div>
+                    <details>
+                        <summary style="cursor:pointer;font-weight:600;color:#4f46e5;font-size:16px;margin:10px 0;">📦 Полная серия на продажу</summary>
+                        <div class="form-group"><label><input type="checkbox" id="editFullSeriesForSale"> Полная серия в продаже</label></div>
+                        <div class="form-group"><input type="date" id="editFullSeriesForsaleDate" placeholder="Дата выставления"></div>
+                        <div class="form-group"><input type="text" id="editFullSeriesAvito" placeholder="Ссылка на продажу"></div>
+                        <div class="form-group"><input type="text" id="editFullSeriesPrice" placeholder="Цена (рус)"></div>
+                        <div class="form-group"><input type="text" id="editFullSeriesPriceEn" placeholder="Price (en)"></div>
+                        <div class="form-group"><input type="text" id="editFullSeriesCondition" placeholder="Состояние (рус)"></div>
+                        <div class="form-group"><input type="text" id="editFullSeriesConditionEn" placeholder="Condition (en)"></div>
+                        <div class="form-group"><input type="text" id="editFullSeriesDateAdded" placeholder="Дата добавления"></div>
+                        <div class="form-group"><label>Описание лота (рус)</label><textarea id="editFullSeriesDescription" rows="3"></textarea></div>
+                        <div class="form-group"><label>Описание лота (англ)</label><textarea id="editFullSeriesDescriptionEn" rows="3"></textarea></div>
+                    </details>
                     
                     <hr style="margin:15px 0;border-color:#e5e7eb;">
                     
@@ -517,6 +523,24 @@ let singlesData = {};
 let baselineSeries = {};   // id -> JSON.stringify(series)
 let baselineSingles = {}; // manufacturer -> JSON.stringify(singlesData[manufacturer])
 
+// === Флаг несохранённых изменений (для beforeunload) ===
+let hasUnsavedChanges = false;
+
+function markUnsaved() {
+    hasUnsavedChanges = true;
+}
+
+function markSaved() {
+    hasUnsavedChanges = false;
+}
+
+window.addEventListener('beforeunload', function(e) {
+    if (!hasUnsavedChanges) return;
+    e.preventDefault();
+    e.returnValue = '';
+    return '';
+});
+
 function showStatus() {
     let s = document.getElementById('saveStatus');
     s.classList.add('show');
@@ -626,6 +650,7 @@ function addSingle() {
     if (!singlesData[manufacturer]) singlesData[manufacturer] = [];
     singlesData[manufacturer].push(item);
     
+    markUnsaved();
     refreshSinglesList();
     clearSingleForm();
     alert('✅ Фигурка добавлена в ' + manufacturer + '.json');
@@ -666,6 +691,7 @@ function deleteSingle(manufacturer, idx) {
     if (!confirm('Удалить?')) return;
     singlesData[manufacturer].splice(idx, 1);
     if (singlesData[manufacturer].length === 0) delete singlesData[manufacturer];
+    markUnsaved();
     refreshSinglesList();
 }
 
@@ -827,6 +853,7 @@ function saveSingleEdit() {
         singlesData[oldManufacturer][idx] = updated;
     }
 
+    markUnsaved();
     cancelSingleEdit();
     refreshSinglesEditList();
     refreshSinglesList();
@@ -844,6 +871,7 @@ function deleteSingleFromEdit() {
         if (singlesData[manufacturer].length === 0) delete singlesData[manufacturer];
     }
 
+    markUnsaved();
     cancelSingleEdit();
     refreshSinglesEditList();
     refreshSinglesList();
@@ -888,6 +916,7 @@ function downloadSinglesZip() {
         a.click();
         URL.revokeObjectURL(blob);
         showStatus();
+        markSaved();
     });
 }
 
@@ -1021,6 +1050,101 @@ function migrateSeriesIdPaths(series, oldId, newId) {
     });
 }
 
+// Обновляет пути прямо в форме редактирования (DOM) при смене ID серии
+function migratePathsInEditForm(oldId, newId) {
+    if (!oldId || !newId || oldId === newId) return;
+
+    const containers = [
+        'editFiguresList',
+        'editExtrasList',
+        'editVariantsList',
+        'editInsertsList',
+        'editOtherList'
+    ];
+
+    containers.forEach(cid => {
+        const container = document.getElementById(cid);
+        if (!container) return;
+        container.querySelectorAll('.figure-item').forEach(item => {
+            // обновляем data-series-id и item-id
+            if (item.dataset.seriesId === oldId) item.dataset.seriesId = newId;
+            const idField = item.querySelector('.item-id');
+            if (idField && idField.value.startsWith(oldId + '_')) {
+                idField.value = newId + idField.value.slice(oldId.length);
+            }
+
+            // путь к картинке
+            const imgInput = item.querySelector('.item-image');
+            if (imgInput && imgInput.value) {
+                imgInput.value = imgInput.value.split(`/${oldId}/`).join(`/${newId}/`);
+            }
+            // превью — только если это не blob:
+            const previewImg = item.querySelector('.item-preview');
+            if (previewImg && previewImg.src && !previewImg.src.startsWith('blob:')) {
+                const attr = previewImg.getAttribute('src') || '';
+                if (attr) previewImg.setAttribute('src', attr.split(`/${oldId}/`).join(`/${newId}/`));
+            }
+            // parentFigureId
+            const parentInput = item.querySelector('.item-parent-id');
+            if (parentInput && parentInput.value && parentInput.value.startsWith(oldId + '_')) {
+                parentInput.value = newId + parentInput.value.slice(oldId.length);
+            }
+        });
+    });
+
+    // обложка серии
+    const coverInput = document.getElementById('editCover');
+    if (coverInput && coverInput.value) {
+        coverInput.value = coverInput.value.split(`/${oldId}/`).join(`/${newId}/`);
+    }
+}
+
+
+// Обновляет пути прямо в форме ДОБАВЛЕНИЯ (DOM) при смене ID серии
+function migratePathsInAddForm(oldId, newId) {
+    if (!oldId || !newId || oldId === newId) return;
+
+    const containers = [
+        'addFiguresList',
+        'addExtrasList',
+        'addVariantsList',
+        'addInsertsList',
+        'addOtherList'
+    ];
+
+    containers.forEach(cid => {
+        const container = document.getElementById(cid);
+        if (!container) return;
+        container.querySelectorAll('.figure-item').forEach(item => {
+            // обновляем data-series-id и item-id
+            if (item.dataset.seriesId === oldId) item.dataset.seriesId = newId;
+            const idField = item.querySelector('.item-id');
+            if (idField && idField.value.startsWith(oldId + '_')) {
+                idField.value = newId + idField.value.slice(oldId.length);
+            }
+
+            const imgInput = item.querySelector('.item-image');
+            if (imgInput && imgInput.value) {
+                imgInput.value = imgInput.value.split(`/${oldId}/`).join(`/${newId}/`);
+            }
+            const previewImg = item.querySelector('.item-preview');
+            if (previewImg && previewImg.src && !previewImg.src.startsWith('blob:')) {
+                const attr = previewImg.getAttribute('src') || '';
+                if (attr) previewImg.setAttribute('src', attr.split(`/${oldId}/`).join(`/${newId}/`));
+            }
+            const parentInput = item.querySelector('.item-parent-id');
+            if (parentInput && parentInput.value && parentInput.value.startsWith(oldId + '_')) {
+                parentInput.value = newId + parentInput.value.slice(oldId.length);
+            }
+        });
+    });
+
+    const coverInput = document.getElementById('cover');
+    if (coverInput && coverInput.value) {
+        coverInput.value = coverInput.value.split(`/${oldId}/`).join(`/${newId}/`);
+    }
+}
+
 // ============================================================
 // ИЗВЛЕЧЕНИЕ КОДА ИЗ ИМЕНИ ФАЙЛА
 // ============================================================
@@ -1105,9 +1229,15 @@ div.dataset.dateAdded = data?.date_added || todayISO();
             <span class="drag-handle" draggable="true" title="Перетащить">≡</span>
             <span class="figure-number">${num}</span>
             <input type="hidden" class="item-id" value="${seriesId}_${prefix}${num}">
-            <input type="text" class="item-name" placeholder="Название" value="${escapeHtml(nameRu)}" style="flex:1;min-width:80px;">
-            <input type="text" class="item-name-en" placeholder="Name (en)" value="${escapeHtml(nameEn)}" style="flex:1;min-width:80px;">
-            <input type="text" class="item-code" placeholder="Код" value="${escapeHtml(code)}" style="width:100px;">
+        </div>
+        <div class="row" style="margin-top:5px;">
+            <input type="text" class="item-name" placeholder="Название (рус)" value="${escapeHtml(nameRu)}" style="flex:1;width:100%;">
+        </div>
+        <div class="row" style="margin-top:5px;">
+            <input type="text" class="item-name-en" placeholder="Name (en)" value="${escapeHtml(nameEn)}" style="flex:1;width:100%;">
+        </div>
+        <div class="row" style="margin-top:5px;justify-content:flex-end;">
+            <input type="text" class="item-code" placeholder="Код" value="${escapeHtml(code)}" style="width:180px;flex:0 0 180px;">
         </div>
         <div class="row" style="margin-top:5px;">
             <button type="button" class="small secondary item-pick-file" data-input-id="${fileInputId}">📁 Выбрать</button>
@@ -1210,26 +1340,55 @@ function removeItem(btn) {
 
 function renumberAll(container) {
     let items = container.querySelectorAll('.figure-item');
+
+    // Первый проход: собрать map старый item-id → новый item-id
+    const idMap = {};
+    items.forEach((item, idx) => {
+        let num = idx + 1;
+        let type = item.dataset.type || 'item';
+        let prefix = type === 'figure' ? 'fig' :
+                     type === 'extra' ? 'extra' :
+                     type === 'variant' ? 'variant' :
+                     type === 'insert' ? 'insert' : 'other';
+        let seriesId = item.dataset.seriesId || 'series';
+        let newId = `${seriesId}_${prefix}${num}`;
+
+        let idField = item.querySelector('.item-id');
+        if (idField) {
+            if (idField.value && idField.value !== newId) {
+                idMap[idField.value] = newId;
+            }
+            idField.value = newId;
+        }
+    });
+
+    // Обновляем parentFigureId по map во ВСЕХ контейнерах формы
+    if (Object.keys(idMap).length > 0) {
+        const allContainers = [
+            'addFiguresList', 'addExtrasList', 'addVariantsList', 'addInsertsList', 'addOtherList',
+            'editFiguresList', 'editExtrasList', 'editVariantsList', 'editInsertsList', 'editOtherList'
+        ];
+        allContainers.forEach(cid => {
+            const c = document.getElementById(cid);
+            if (!c) return;
+            c.querySelectorAll('.item-parent-id').forEach(parentInput => {
+                if (parentInput.value && idMap[parentInput.value]) {
+                    parentInput.value = idMap[parentInput.value];
+                }
+            });
+        });
+    }
+
+    // Номерки и названия по умолчанию
     items.forEach((item, idx) => {
         let num = idx + 1;
         let badge = item.querySelector('.figure-number');
         if (badge) badge.textContent = num;
-        
-        let idField = item.querySelector('.item-id');
-        if (idField) {
-            let type = item.dataset.type || 'item';
-            let prefix = type === 'figure' ? 'fig' : 
-                         type === 'extra' ? 'extra' : 
-                         type === 'variant' ? 'variant' : 
-                         type === 'insert' ? 'insert' : 'other';
-            let seriesId = item.dataset.seriesId || 'series';
-            idField.value = `${seriesId}_${prefix}${num}`;
-        }
-        
+
         let nameRuField = item.querySelector('.item-name');
         let nameEnField = item.querySelector('.item-name-en');
         let type = item.dataset.type || 'item';
-        
+
         const defaultPatterns = {
             figure: { ru: /^Фигурка\s+\d+$/i, en: /^Figure\s+\d+$/i },
             extra: { ru: /^Доп\s+\d+$/i, en: /^Extra\s+\d+$/i },
@@ -1237,9 +1396,9 @@ function renumberAll(container) {
             insert: { ru: /^Вкладыш\s+\d+$/i, en: /^Insert\s+\d+$/i },
             other: { ru: /^Прочее\s+\d+$/i, en: /^Other\s+\d+$/i }
         };
-        
+
         const patterns = defaultPatterns[type] || defaultPatterns.figure;
-        
+
         if (nameRuField) {
             const val = nameRuField.value.trim();
             if (!val || patterns.ru.test(val)) {
@@ -1250,7 +1409,7 @@ function renumberAll(container) {
                                     `Прочее ${num}`;
             }
         }
-        
+
         if (nameEnField) {
             const val = nameEnField.value.trim();
             if (!val || patterns.en.test(val)) {
@@ -1571,6 +1730,7 @@ async function loadDataFromFiles(files) {
 
         updateStats();
         refreshExistingSeriesList();
+        markUnsaved();
 
         if (problems.length === 0) {
             alert(`✅ Загружено ${existingSeries.length} серий`);
@@ -1681,6 +1841,22 @@ function addSeries() {
     reassignIds(newVariants, 'variant');
     reassignIds(newInserts,  'insert');
     reassignIds(newOther,    'other');
+
+    // Если пользователь менял nameEn/year, пока элементы были в форме — пути
+    // к фото всё ещё указывают на старый sid. Прогоняем миграцию по данным.
+    const addOldSid = document.getElementById('addOldSid')?.value || '';
+    if (addOldSid && addOldSid !== sid) {
+        const tmpSeries = {
+            cover: document.getElementById('cover').value,
+            figures: newFigures,
+            extras: newExtras,
+            variants: newVariants,
+            inserts: newInserts,
+            other: newOther
+        };
+        migrateSeriesIdPaths(tmpSeries, addOldSid, sid);
+        document.getElementById('cover').value = tmpSeries.cover;
+    }
     
     // Авто-дата добавления полной серии, если пусто
     const fullSeriesDateAddedEl = document.getElementById('fullSeriesDateAdded');
@@ -1726,6 +1902,7 @@ function addSeries() {
     localStorage.setItem('tempSeries', JSON.stringify(tempSeries));
     refreshTempSeriesList();
     clearAddForm();
+    markUnsaved();
     alert(`✅ Серия добавлена во временные (ID: ${sid})`);
 }
 
@@ -1770,6 +1947,8 @@ function clearAddForm() {
     document.getElementById('addVariantsList').innerHTML = '';
     document.getElementById('addInsertsList').innerHTML = '';
     document.getElementById('addOtherList').innerHTML = '';
+    const addOldSidEl = document.getElementById('addOldSid');
+    if (addOldSidEl) addOldSidEl.value = '';
 }
 
 // ============================================================
@@ -1780,6 +1959,7 @@ function editSeries(idx) {
     let s = existingSeries[idx];
     currentEditIndex = idx;
     document.getElementById('editIndex').value = idx;
+    document.getElementById('editOldSid').value = s.id || '';
     document.getElementById('editNameRu').value = s.name || '';
     document.getElementById('editNameEn').value = s.name_en || '';
     document.getElementById('editYear').value = s.year || 2024;
@@ -1829,7 +2009,8 @@ function editSeries(idx) {
     document.getElementById('editVideoVK').value = s.videos?.vk?.[0] || '';
     document.getElementById('editVideoTikTok').value = s.videos?.tiktok?.[0] || '';
     document.getElementById('editVideoInstagram').value = s.videos?.instagram?.[0] || '';
-    
+    const editDetails = document.querySelector('#editForm details');
+    if (editDetails) editDetails.open = !!s.fullSeriesForSale;
     document.getElementById('editForm').style.display = 'block';
     document.querySelector('.tab[data-tab="edit"]').click();
 }
@@ -1937,6 +2118,7 @@ function deleteCurrentSeries() {
     const removed = existingSeries[idx];
     existingSeries.splice(idx, 1);
     if (removed) delete baselineSeries[removed.id];
+    markUnsaved();
     downloadAsZip(existingSeries);
     cancelEdit();
 }
@@ -2095,6 +2277,9 @@ document.getElementById('fullSeriesDescription').value = s.fullSeriesDescription
     document.getElementById('addVideoTikTok').value = s.videos?.tiktok?.[0] || '';
     document.getElementById('addVideoInstagram').value = s.videos?.instagram?.[0] || '';
     
+    // Запоминаем ID серии ДО редактирования — от него будет считаться миграция
+    document.getElementById('addOldSid').value = s.id || '';
+
     tempSeries.splice(idx, 1);
     localStorage.setItem('tempSeries', JSON.stringify(tempSeries));
     refreshTempSeriesList();
@@ -2113,6 +2298,7 @@ function clearAllTemp() {
     if (!confirm('Очистить все временные серии?')) return;
     tempSeries = [];
     localStorage.removeItem('tempSeries');
+    markUnsaved();
     refreshTempSeriesList();
 }
 
@@ -2590,6 +2776,7 @@ console.log('✅ forsale.json:', forsaleData.length, 'товаров (серии
         if (!options.skipBaselineUpdate) {
             refreshSeriesBaseline(seriesList);
         }
+        markSaved();
     });
 }
 
@@ -2865,7 +3052,60 @@ document.addEventListener('DOMContentLoaded', async function() {
             document.getElementById('singleEditInsertFields').style.display = this.checked ? 'block' : 'none';
         });
     }
+
+    // ===== АВТОМИГРАЦИЯ ПУТЕЙ ПРИ СМЕНЕ ID СЕРИИ В РЕДАКТИРОВАНИИ =====
+    (function() {
+        const nameEn = document.getElementById('editNameEn');
+        const yearEl = document.getElementById('editYear');
+        const oldSidEl = document.getElementById('editOldSid');
+
+        function recalcSid() {
+            if (!oldSidEl) return;
+            const oldSid = oldSidEl.value;
+            if (!oldSid) return;
+
+            const newSid = generateSeriesId(nameEn.value.trim() || 'series', yearEl.value || '2024');
+            if (newSid && newSid !== oldSid) {
+                migratePathsInEditForm(oldSid, newSid);
+                oldSidEl.value = newSid;
+            }
+        }
+
+        if (nameEn) nameEn.addEventListener('input', recalcSid);
+        if (yearEl) yearEl.addEventListener('change', recalcSid);
+    })();
+
+    // ===== АВТОМИГРАЦИЯ ПУТЕЙ ПРИ СМЕНЕ ID СЕРИИ В ДОБАВЛЕНИИ =====
+    (function() {
+        const nameEn = document.getElementById('nameEn');
+        const yearEl = document.getElementById('year');
+        const oldSidEl = document.getElementById('addOldSid');
+
+        function recalcSid() {
+            if (!oldSidEl) return;
+
+            // Первый ввод — фиксируем стартовый sid, мигрировать ещё нечего
+            if (!oldSidEl.value && nameEn.value.trim()) {
+                oldSidEl.value = generateSeriesId(nameEn.value.trim(), yearEl.value || '2024');
+                return;
+            }
+
+            const oldSid = oldSidEl.value;
+            if (!oldSid) return;
+
+            const newSid = generateSeriesId(nameEn.value.trim() || 'series', yearEl.value || '2024');
+            if (newSid && newSid !== oldSid) {
+                migratePathsInAddForm(oldSid, newSid);
+                oldSidEl.value = newSid;
+            }
+        }
+
+        if (nameEn) nameEn.addEventListener('input', recalcSid);
+        if (yearEl) yearEl.addEventListener('change', recalcSid);
+    })();
 });
+
+
 
 function removeSingleCover() {
     const preview = document.getElementById('singleImagePreview');
