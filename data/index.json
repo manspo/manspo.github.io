@@ -1,5 +1,53 @@
 [
   {
+    "id": "return-of-the-prodigal-parrot-by-landrin-2003",
+    "name": "Возвращение Блудного Попугая от Ландрин",
+    "name_en": "Return of the Prodigal Parrot by Landrin",
+    "year": 2003,
+    "manufacturer": "landrin",
+    "cover": "images/series/landrin/return-of-the-prodigal-parrot-by-landrin-2003/cover.webp",
+    "kind": "",
+    "description": "Знаменитая серия от Ландрин",
+    "description_en": "Famous series from Landrin",
+    "visible": true
+  },
+  {
+    "id": "monsters-inc-by-tomy-2001",
+    "name": "Корпорация Монстров от Томи",
+    "name_en": "Monsters, Inc. by Tomy",
+    "year": 2001,
+    "manufacturer": "tomy",
+    "cover": "images/series/tomy/monsters-inc-by-tomy-2001/cover.webp",
+    "kind": "",
+    "description": "Серия по мультфильму Корпорация Монстров",
+    "description_en": "Series based on the cartoon Monsters Inc.",
+    "visible": true
+  },
+  {
+    "id": "jungle-book-2-by-zweifal-2003",
+    "name": "Книга Джунглей 2 от Цвайфал",
+    "name_en": "Jungle Book 2 by Zweifal",
+    "year": 2003,
+    "manufacturer": "zweifal",
+    "cover": "images/series/zweifal/jungle-book-2-by-zweifal-2003/cover.webp",
+    "kind": "",
+    "description": "Серия по 2 части одноименного мультфильма",
+    "description_en": "Series based on part 2 of the cartoon of the same name",
+    "visible": true
+  },
+  {
+    "id": "froggy-friends-by-kinder-1993",
+    "name": "Лягушки Зимние от Киндер",
+    "name_en": "Froggy Friends by Kinder",
+    "year": 1993,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/froggy-friends-by-kinder-1993/cover.webp",
+    "kind": "",
+    "description": "Знаменитые лягушки из 90-х",
+    "description_en": "Famous frogs from the 90s",
+    "visible": true
+  },
+  {
     "id": "petrushka-by-landrin-2000",
     "name": "Петрушка от Ландрин",
     "name_en": "Petrushka by Landrin",
