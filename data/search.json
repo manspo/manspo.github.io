@@ -23239,6 +23239,23 @@
     "type": "figures"
   },
   {
+    "id": "veterinary-by-kinder-2024_insert28",
+    "code": "VQ042",
+    "name": "Вкладыш 28",
+    "name_en": "Insert 28",
+    "image": "images/series/kinder/veterinary-by-kinder-2024/28-i-vq042.webp",
+    "seriesId": "veterinary-by-kinder-2024",
+    "seriesName": "Ветеринары от Киндер",
+    "seriesName_en": "Veterinary by Kinder",
+    "seriesYear": 2024,
+    "manufacturer": "kinder",
+    "owned": false,
+    "forsale": false,
+    "avito": "",
+    "price": "",
+    "type": "inserts"
+  },
+  {
     "id": "unisex-by-kinder-2026_fig28",
     "code": "VQ047",
     "name": "Фигурка 28",

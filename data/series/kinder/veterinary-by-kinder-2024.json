@@ -1128,6 +1128,22 @@
       "condition_en": "",
       "parentFigureId": "",
       "date_added": "2026-09-17"
+    },
+    {
+      "id": "veterinary-by-kinder-2024_insert28",
+      "name": "Вкладыш 28",
+      "name_en": "Insert 28",
+      "code": "VQ042",
+      "image": "images/series/kinder/veterinary-by-kinder-2024/28-i-vq042.webp",
+      "owned": false,
+      "forsale": false,
+      "forsale_date": "",
+      "avito": "",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "date_added": "2026-11-06"
     }
   ],
   "other": [],

@@ -336,7 +336,36 @@
                     <p style="color:#6b7280;font-size:13px;margin-bottom:12px;">
                         Используйте для фигурок без серии. Год обязателен. Файл сохраняется в <code>singles/{manufacturer}.json</code>.
                     </p>
-                    
+
+                    <details open style="margin-bottom:15px;border:2px solid #10b981;border-radius:8px;padding:12px;background:#f0fdf4;">
+                        <summary style="cursor:pointer;font-weight:600;color:#059669;font-size:16px;margin-bottom:10px;">⚡ Массовое добавление (по коду из имени файла)</summary>
+                        <p style="color:#6b7280;font-size:13px;margin-bottom:10px;">
+                            Выберите все фото фигурок и вкладышей. Вкладыш — файл с префиксом <code>B_</code> перед кодом (например, <code>B_VQ123.webp</code>). Код = имя файла без расширения. Фигурки добавляются с производителем <strong>Kinder</strong> и годом <strong>2024</strong>.
+                        </p>
+                        <div class="file-upload-box" onclick="document.getElementById('singleBatchFilesInput').click()" style="margin-bottom:10px;">
+                            <input type="file" id="singleBatchFilesInput" multiple accept="image/*">
+                            <span>📁 Выбрать файлы фигурок и вкладышей</span>
+                        </div>
+
+                        <div class="flex" style="gap:8px;margin-bottom:10px;">
+                            <div style="flex:1;">
+                                <label style="font-size:13px;">Год</label>
+                                <input type="number" id="singleBatchYear" value="2024">
+                            </div>
+                            <div style="flex:1;">
+                                <label style="font-size:13px;">Производитель</label>
+                                <select id="singleBatchManufacturer"></select>
+                            </div>
+                        </div>
+
+                        <div id="singleBatchList"></div>
+
+                        <div id="singleBatchActions" style="display:none;margin-top:10px;">
+                            <button onclick="commitSingleBatch()">✅ Добавить все</button>
+                            <button class="danger" onclick="clearSingleBatch()">🗑️ Очистить</button>
+                        </div>
+                    </details>
+
                     <h3 style="margin-top:0;">🎎 Фигурка</h3>
                     <div class="form-group"><label>Название (рус) *</label><input type="text" id="singleNameRu" placeholder="Неизвестная фигурка"></div>
                     <div class="form-group"><label>Название (англ)</label><input type="text" id="singleNameEn" placeholder="Unknown figure"></div>
@@ -694,6 +723,260 @@ function deleteSingle(manufacturer, idx) {
     markUnsaved();
     refreshSinglesList();
 }
+
+// ============================================================
+// МАССОВОЕ ДОБАВЛЕНИЕ ОТДЕЛЬНЫХ ФИГУРОК
+// ============================================================
+
+let singleBatchItems = [];   // массив { code, imageFile, imagePreviewUrl, insertFile, insertPreviewUrl, nameRu, nameEn, forsale }
+
+function parseSingleBatchFiles(files) {
+    const groups = {};   // code -> { figure, insert }
+    Array.from(files).forEach(file => {
+        const base = file.name.replace(/\.[^.]+$/, '');
+        let code, isInsert = false;
+        if (/^B_/i.test(base)) {
+            code = base.replace(/^B_/i, '');
+            isInsert = true;
+        } else {
+            code = base;
+        }
+        code = code.trim().toUpperCase();
+        if (!code) return;
+        if (!groups[code]) groups[code] = { figure: null, insert: null };
+        if (isInsert) groups[code].insert = file;
+        else groups[code].figure = file;
+    });
+
+    // Коды, у которых есть только вкладыш — тоже включаем (картинка фигурки будет пустой)
+    const result = [];
+    Object.keys(groups).forEach(code => {
+        const g = groups[code];
+        result.push({
+            code: code,
+            figureFile: g.figure,
+            insertFile: g.insert,
+            figurePreviewUrl: g.figure ? URL.createObjectURL(g.figure) : '',
+            insertPreviewUrl: g.insert ? URL.createObjectURL(g.insert) : '',
+            nameRu: '',
+            nameEn: '',
+            forsale: false
+        });
+    });
+    // Сортировка по коду
+    result.sort((a, b) => a.code.localeCompare(b.code));
+    return result;
+}
+
+function renderSingleBatchList() {
+    const container = document.getElementById('singleBatchList');
+    const actions = document.getElementById('singleBatchActions');
+    if (!container) return;
+
+    if (singleBatchItems.length === 0) {
+        container.innerHTML = '';
+        if (actions) actions.style.display = 'none';
+        return;
+    }
+
+    // Производитель из селекта (для проверки id)
+    const manufacturer = (document.getElementById('singleBatchManufacturer')?.value) || 'kinder';
+
+    // Карта занятых id: уже в базе
+    const existingIds = new Set(
+        (singlesData[manufacturer] || []).map(x => x.id)
+    );
+
+    // Карта id → первая строка в текущем списке (для ловли дубликатов внутри списка)
+    const seenInBatch = {};
+    const conflictFlags = [];  // true/false по индексу
+
+    singleBatchItems.forEach((item, idx) => {
+        const code = (item.code || '').trim();
+        const id = `${manufacturer}-single-${code.toLowerCase().replace(/[^a-z0-9]/g, '')}`;
+        let conflictType = '';
+        if (!code) {
+            conflictType = 'Пустой код';
+        } else if (existingIds.has(id)) {
+            conflictType = 'Уже есть в базе';
+        } else if (seenInBatch[id] !== undefined) {
+            conflictType = `Дубликат в списке (строка ${seenInBatch[id] + 1})`;
+        } else {
+            seenInBatch[id] = idx;
+        }
+        conflictFlags.push(conflictType);
+    });
+
+    let html = '';
+    singleBatchItems.forEach((item, idx) => {
+        const figureImg = item.figurePreviewUrl
+            ? `<img src="${item.figurePreviewUrl}" style="width:60px;height:60px;object-fit:contain;border-radius:6px;border:1px solid #e5e7eb;background:white;">`
+            : `<div style="width:60px;height:60px;border:1px dashed #ef4444;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:10px;color:#ef4444;text-align:center;">нет фото</div>`;
+        const insertImg = item.insertPreviewUrl
+            ? `<img src="${item.insertPreviewUrl}" style="width:60px;height:60px;object-fit:contain;border-radius:6px;border:1px solid #e5e7eb;background:white;">`
+            : '';
+        const insertBlock = insertImg
+            ? `<div style="display:flex;flex-direction:column;align-items:center;">${insertImg}<span style="font-size:10px;color:#6b7280;">вкладыш</span></div>`
+            : '';
+
+        const conflict = conflictFlags[idx];
+        const borderStyle = conflict ? 'border:2px solid #ef4444;background:#fef2f2;' : '';
+        const conflictLabel = conflict
+            ? `<div style="font-size:12px;color:#ef4444;font-weight:600;">⚠️ ${escapeHtml(conflict)} — не будет добавлена</div>`
+            : '';
+
+        html += `
+            <div class="figure-item" style="padding:10px;${borderStyle}">
+                ${conflictLabel}
+                <div class="row" style="align-items:center;">
+                    <strong style="min-width:70px;">${escapeHtml(item.code)}</strong>
+                    ${figureImg}
+                    ${insertBlock}
+                    <input type="text" class="batch-name-ru" data-idx="${idx}" placeholder="Название (рус)" value="${escapeHtml(item.nameRu)}" style="flex:1;min-width:120px;">
+                    <input type="text" class="batch-name-en" data-idx="${idx}" placeholder="Name (en)" value="${escapeHtml(item.nameEn)}" style="flex:1;min-width:120px;">
+                    <label style="font-weight:normal;font-size:13px;display:flex;align-items:center;gap:4px;">
+                        <input type="checkbox" class="batch-forsale" data-idx="${idx}" ${item.forsale ? 'checked' : ''}> В продаже
+                    </label>
+                    <button class="danger small" onclick="removeSingleBatchItem(${idx})">✖</button>
+                </div>
+            </div>
+        `;
+    });
+    container.innerHTML = html;
+    if (actions) actions.style.display = 'block';
+
+    // Навешиваем обработчики на поля, чтобы не потерять введённое при перерисовке
+    container.querySelectorAll('.batch-name-ru').forEach(inp => {
+        inp.addEventListener('input', function() {
+            singleBatchItems[parseInt(this.dataset.idx)].nameRu = this.value;
+        });
+    });
+    container.querySelectorAll('.batch-name-en').forEach(inp => {
+        inp.addEventListener('input', function() {
+            singleBatchItems[parseInt(this.dataset.idx)].nameEn = this.value;
+        });
+    });
+    container.querySelectorAll('.batch-forsale').forEach(inp => {
+        inp.addEventListener('change', function() {
+            singleBatchItems[parseInt(this.dataset.idx)].forsale = this.checked;
+        });
+    });
+}
+
+function removeSingleBatchItem(idx) {
+    const item = singleBatchItems[idx];
+    if (item) {
+        if (item.figurePreviewUrl) { try { URL.revokeObjectURL(item.figurePreviewUrl); } catch (e) {} }
+        if (item.insertPreviewUrl) { try { URL.revokeObjectURL(item.insertPreviewUrl); } catch (e) {} }
+    }
+    singleBatchItems.splice(idx, 1);
+    renderSingleBatchList();
+}
+
+function clearSingleBatch() {
+    if (singleBatchItems.length && !confirm('Очистить список массового добавления?')) return;
+    singleBatchItems.forEach(item => {
+        if (item.figurePreviewUrl) { try { URL.revokeObjectURL(item.figurePreviewUrl); } catch (e) {} }
+        if (item.insertPreviewUrl) { try { URL.revokeObjectURL(item.insertPreviewUrl); } catch (e) {} }
+    });
+    singleBatchItems = [];
+    renderSingleBatchList();
+    const inp = document.getElementById('singleBatchFilesInput');
+    if (inp) inp.value = '';
+}
+
+function commitSingleBatch() {
+    if (singleBatchItems.length === 0) { alert('Список пуст'); return; }
+
+    const year = parseInt(document.getElementById('singleBatchYear').value) || 2024;
+    const manufacturer = document.getElementById('singleBatchManufacturer').value || 'kinder';
+    const manufFolder = getManufacturerFolder(manufacturer);
+
+    // Проверка: код обязателен, названий может не быть — поставим код по умолчанию
+    let added = 0;
+    let errors = [];
+    singleBatchItems.forEach(item => {
+        if (!item.code) { errors.push('Пустой код'); return; }
+
+        const code = item.code.trim();
+        const id = `${manufacturer}-single-${code.toLowerCase().replace(/[^a-z0-9]/g, '')}`;
+
+        // Проверка на дубликат ID в существующих
+        const exists = (singlesData[manufacturer] || []).some(x => x.id === id);
+        if (exists) {
+            errors.push(`Дубликат: ${code}`);
+            return;
+        }
+
+        // Пути к файлам
+        let imagePath = '';
+        if (item.figureFile) {
+            imagePath = `images/singles/${manufFolder}/${item.figureFile.name}`;
+        }
+        let insertImagePath = '';
+        if (item.insertFile) {
+            insertImagePath = `images/singles/${manufFolder}/${item.insertFile.name}`;
+        }
+
+        const nameRu = (item.nameRu || '').trim() || code;
+        const nameEn = (item.nameEn || '').trim() || code;
+
+        const newItem = {
+            id: id,
+            code: code,
+            name: nameRu,
+            name_en: nameEn,
+            year: year,
+            manufacturer: manufacturer,
+            image: imagePath,
+            description: '',
+            description_en: '',
+            owned: false,
+            forsale: item.forsale === true,
+            forsale_date: item.forsale === true ? todayISO() : '',
+            avito: '',
+            price: '',
+            condition: '',
+            condition_en: '',
+            date_added: todayISO()
+        };
+
+        if (item.insertFile) {
+            newItem.insert = {
+                name: 'Вкладыш ' + code,
+                name_en: 'Insert ' + code,
+                code: code,
+                image: insertImagePath
+            };
+        }
+
+        if (!singlesData[manufacturer]) singlesData[manufacturer] = [];
+        singlesData[manufacturer].push(newItem);
+        added++;
+    });
+
+    if (added > 0) markUnsaved();
+    refreshSinglesList();
+    refreshSinglesEditList();
+
+    // Освобождаем blob-url (файлы уже не нужны)
+    singleBatchItems.forEach(item => {
+        if (item.figurePreviewUrl) { try { URL.revokeObjectURL(item.figurePreviewUrl); } catch (e) {} }
+        if (item.insertPreviewUrl) { try { URL.revokeObjectURL(item.insertPreviewUrl); } catch (e) {} }
+    });
+    singleBatchItems = [];
+    renderSingleBatchList();
+    const inp = document.getElementById('singleBatchFilesInput');
+    if (inp) inp.value = '';
+
+    let msg = `✅ Добавлено: ${added}`;
+    if (errors.length) msg += `\n⚠️ Пропущено: ${errors.length}\n` + errors.slice(0, 10).join('\n');
+    alert(msg);
+}
+
+window.removeSingleBatchItem = removeSingleBatchItem;
+window.clearSingleBatch = clearSingleBatch;
+window.commitSingleBatch = commitSingleBatch;
 
 // ============================================================
 // РЕДАКТИРОВАНИЕ ОТДЕЛЬНЫХ ФИГУРОК (отдельная вкладка)
@@ -2898,6 +3181,48 @@ document.addEventListener('DOMContentLoaded', async function() {
     refreshTempSeriesList();
     updateStats();
     
+    // ===== МАССОВОЕ ДОБАВЛЕНИЕ ОТДЕЛЬНЫХ ФИГУРОК =====
+    (function initSingleBatch() {
+        const batchInput = document.getElementById('singleBatchFilesInput');
+        const batchManufacturerSel = document.getElementById('singleBatchManufacturer');
+        if (batchManufacturerSel) {
+            // Заполняем производителей
+            batchManufacturerSel.innerHTML = '';
+            const sorted = Object.entries(manufacturersData).sort((a, b) => a[1].ru.localeCompare(b[1].ru));
+            sorted.forEach(([key, value]) => {
+                const opt = document.createElement('option');
+                opt.value = key;
+                opt.textContent = value.ru;
+                batchManufacturerSel.appendChild(opt);
+            });
+            // По умолчанию — kinder, если есть
+            if (manufacturersData['kinder']) batchManufacturerSel.value = 'kinder';
+        }
+
+        if (batchManufacturerSel) {
+            batchManufacturerSel.addEventListener('change', function() {
+                renderSingleBatchList();
+            });
+        }
+
+        if (batchInput) {
+            batchInput.addEventListener('change', function(e) {
+                const files = e.target.files;
+                if (!files || files.length === 0) return;
+
+                // Освобождаем старые blob-url
+                singleBatchItems.forEach(item => {
+                    if (item.figurePreviewUrl) { try { URL.revokeObjectURL(item.figurePreviewUrl); } catch (e) {} }
+                    if (item.insertPreviewUrl) { try { URL.revokeObjectURL(item.insertPreviewUrl); } catch (e) {} }
+                });
+
+                singleBatchItems = parseSingleBatchFiles(files);
+                renderSingleBatchList();
+                e.target.value = '';
+            });
+        }
+    })();
+
     // ===== ОТДЕЛЬНЫЕ ФИГУРКИ =====
     const singleInput = document.getElementById('singleFileInput');
     if (singleInput) {
