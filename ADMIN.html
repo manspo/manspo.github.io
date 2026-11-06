@@ -784,10 +784,14 @@ function editSingle(manufacturer, idx) {
     }
 
     const imgPreview = document.getElementById('singleEditImagePreview');
-    imgPreview.innerHTML = item.image ? `<div class="img-item"><img src="${item.image}" onerror="this.style.display='none'"></div>` : '';
+    imgPreview.innerHTML = item.image
+        ? `<div class="img-item"><img src="${item.image}" onerror="this.style.display='none'"><button class="del" onclick="removeSingleEditCover()">✖</button></div>`
+        : '';
 
     const insertPreview = document.getElementById('singleEditInsertImagePreview');
-    insertPreview.innerHTML = item.insert?.image ? `<div class="img-item"><img src="${item.insert.image}" onerror="this.style.display='none'"></div>` : '';
+    insertPreview.innerHTML = item.insert?.image
+        ? `<div class="img-item"><img src="${item.insert.image}" onerror="this.style.display='none'"><button class="del" onclick="removeSingleEditInsertCover()">✖</button></div>`
+        : '';
 
     document.getElementById('singleEditForm').style.display = 'block';
     document.getElementById('singleEditForm').scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -893,6 +897,14 @@ function downloadSinglesZip() {
     if (Object.keys(singlesData).length === 0) {
         alert('Нет данных');
         return;
+    }
+    if (existingSeries.length === 0) {
+        const ok = confirm(
+            '⚠️ Серии не загружены (папка data).\n\n' +
+            'forsale.json соберётся ТОЛЬКО из отдельных фигурок — товары из серий в него не попадут.\n\n' +
+            'Продолжить?'
+        );
+        if (!ok) return;
     }
     const zip = new JSZip();
     const folder = zip.folder('singles');
@@ -3023,7 +3035,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             if (!file) return;
             const url = URL.createObjectURL(file);
             document.getElementById('singleEditImagePreview').innerHTML = 
-                `<div class="img-item"><img src="${url}"></div>`;
+                `<div class="img-item"><img src="${url}"><button class="del" onclick="removeSingleEditCover()">✖</button></div>`;
             const manufacturer = document.getElementById('singleEditManufacturerSelect').value;
             const manufFolder = getManufacturerFolder(manufacturer);
             document.getElementById('singleEditImage').value = `images/singles/${manufFolder}/${file.name}`;
@@ -3038,7 +3050,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             if (!file) return;
             const url = URL.createObjectURL(file);
             document.getElementById('singleEditInsertImagePreview').innerHTML = 
-                `<div class="img-item"><img src="${url}"></div>`;
+                `<div class="img-item"><img src="${url}"><button class="del" onclick="removeSingleEditInsertCover()">✖</button></div>`;
             const manufacturer = document.getElementById('singleEditManufacturerSelect').value;
             const manufFolder = getManufacturerFolder(manufacturer);
             document.getElementById('singleEditInsertImage').value = `images/singles/${manufFolder}/${file.name}`;
@@ -3119,6 +3131,32 @@ function removeSingleCover() {
     document.getElementById('singleImage').value = '';
 }
 window.removeSingleCover = removeSingleCover;
+
+function removeSingleEditCover() {
+    const preview = document.getElementById('singleEditImagePreview');
+    preview.querySelectorAll('img').forEach(img => {
+        if (img.src && img.src.startsWith('blob:')) {
+            try { URL.revokeObjectURL(img.src); } catch (e) {}
+        }
+    });
+    preview.innerHTML = '';
+    document.getElementById('singleEditImageFile').value = '';
+    document.getElementById('singleEditImage').value = '';
+}
+window.removeSingleEditCover = removeSingleEditCover;
+
+function removeSingleEditInsertCover() {
+    const preview = document.getElementById('singleEditInsertImagePreview');
+    preview.querySelectorAll('img').forEach(img => {
+        if (img.src && img.src.startsWith('blob:')) {
+            try { URL.revokeObjectURL(img.src); } catch (e) {}
+        }
+    });
+    preview.innerHTML = '';
+    document.getElementById('singleEditInsertImageFile').value = '';
+    document.getElementById('singleEditInsertImage').value = '';
+}
+window.removeSingleEditInsertCover = removeSingleEditInsertCover;
 
 // Экспорт в глобальный объект для onclick
 window.addSeries = addSeries;

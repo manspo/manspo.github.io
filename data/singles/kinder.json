@@ -36,18 +36,12 @@
     "description_en": "",
     "owned": false,
     "forsale": true,
+    "forsale_date": "2026-09-20",
     "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/edinichki_kinder_sborka_7838764043",
     "price": "99 руб. (с учетом комиссии Авито)",
     "condition": "",
     "condition_en": "",
-    "date_added": "2026-09-20",
-    "insert": {
-      "name": "",
-      "name_en": "VD057",
-      "code": "",
-      "image": ""
-    },
-    "forsale_date": "2026-09-20"
+    "date_added": "2026-09-20"
   },
   {
     "id": "kinder-single-vq063",
