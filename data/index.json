@@ -1,5 +1,17 @@
 [
   {
+    "id": "cartoon-network-by-dolci-preziosi-2005",
+    "name": "Картун Нетворк от Дольчи Прециози",
+    "name_en": "Cartoon Network by Dolci Preziosi",
+    "year": 2005,
+    "manufacturer": "dolci-preziosi",
+    "cover": "images/series/dolci-preziosi/cartoon-network-by-dolci-preziosi-2005/cover.webp",
+    "kind": "",
+    "description": "Серия по мотивам мультсериалов Cartoon Network 2004–2005 годов",
+    "description_en": "Series based on the 2004–2005 Cartoon Network animated series",
+    "visible": true
+  },
+  {
     "id": "return-of-the-prodigal-parrot-by-landrin-2003",
     "name": "Возвращение Блудного Попугая от Ландрин",
     "name_en": "Return of the Prodigal Parrot by Landrin",

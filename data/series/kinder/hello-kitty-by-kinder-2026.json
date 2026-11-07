@@ -28,13 +28,13 @@
       "image": "images/series/kinder/hello-kitty-by-kinder-2026/1-f-vs399.webp",
       "owned": false,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-15",
-      "forsale_date": ""
+      "date_added": "2026-09-15"
     },
     {
       "id": "hello-kitty-by-kinder-2026_fig2",
@@ -44,13 +44,13 @@
       "image": "images/series/kinder/hello-kitty-by-kinder-2026/2-f-vs394.webp",
       "owned": false,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-15",
-      "forsale_date": ""
+      "date_added": "2026-09-15"
     },
     {
       "id": "hello-kitty-by-kinder-2026_fig3",
@@ -60,13 +60,13 @@
       "image": "images/series/kinder/hello-kitty-by-kinder-2026/3-f-vs396.webp",
       "owned": false,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-15",
-      "forsale_date": ""
+      "date_added": "2026-09-15"
     },
     {
       "id": "hello-kitty-by-kinder-2026_fig4",
@@ -76,13 +76,13 @@
       "image": "images/series/kinder/hello-kitty-by-kinder-2026/4-f-vs395.webp",
       "owned": false,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-15",
-      "forsale_date": ""
+      "date_added": "2026-09-15"
     },
     {
       "id": "hello-kitty-by-kinder-2026_fig5",
@@ -92,13 +92,13 @@
       "image": "images/series/kinder/hello-kitty-by-kinder-2026/5-f-vs398.webp",
       "owned": false,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-15",
-      "forsale_date": ""
+      "date_added": "2026-09-15"
     },
     {
       "id": "hello-kitty-by-kinder-2026_fig6",
@@ -108,13 +108,13 @@
       "image": "images/series/kinder/hello-kitty-by-kinder-2026/6-f-vs400.webp",
       "owned": false,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-15",
-      "forsale_date": ""
+      "date_added": "2026-09-15"
     },
     {
       "id": "hello-kitty-by-kinder-2026_fig7",
@@ -123,14 +123,14 @@
       "code": "VS397",
       "image": "images/series/kinder/hello-kitty-by-kinder-2026/7-f-vs397.webp",
       "owned": false,
-      "forsale": false,
-      "avito": "",
-      "price": "",
+      "forsale": true,
+      "forsale_date": "2026-11-06",
+      "avito": "https://www.avito.ru/groznyy/tovary_dlya_detey_i_igrushki/dlya_dostavki_7550846191",
+      "price": "199",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-15",
-      "forsale_date": ""
+      "date_added": "2026-09-15"
     },
     {
       "id": "hello-kitty-by-kinder-2026_fig8",
@@ -140,13 +140,13 @@
       "image": "images/series/kinder/hello-kitty-by-kinder-2026/8-f-vs393.webp",
       "owned": false,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-15",
-      "forsale_date": ""
+      "date_added": "2026-09-15"
     }
   ],
   "extras": [],
@@ -160,13 +160,13 @@
       "image": "images/series/kinder/hello-kitty-by-kinder-2026/1-i.webp",
       "owned": false,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-15",
-      "forsale_date": ""
+      "date_added": "2026-09-15"
     }
   ],
   "other": [
@@ -178,13 +178,13 @@
       "image": "images/series/kinder/hello-kitty-by-kinder-2026/1-o.webp",
       "owned": false,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-15",
-      "forsale_date": ""
+      "date_added": "2026-09-15"
     },
     {
       "id": "hello-kitty-by-kinder-2026_other2",
@@ -194,13 +194,13 @@
       "image": "images/series/kinder/hello-kitty-by-kinder-2026/2-o.webp",
       "owned": false,
       "forsale": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-15",
-      "forsale_date": ""
+      "date_added": "2026-09-15"
     }
   ],
   "videos": {
