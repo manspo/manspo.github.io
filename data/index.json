@@ -1,5 +1,77 @@
 [
   {
+    "id": "kikoriki-by-k-artel-2007",
+    "name": "Смешарики от К-Артель",
+    "name_en": "Kikoriki by K-Artel",
+    "year": 2007,
+    "manufacturer": "k-artel",
+    "cover": "images/series/k-artel/kikoriki-by-k-artel-2007/cover.webp",
+    "kind": "",
+    "description": "Серия «Смешарики», 2007 год.",
+    "description_en": "\"Kikoriki\" series, 2007.",
+    "visible": true
+  },
+  {
+    "id": "tom-and-jerry-by-k-artel-2008",
+    "name": "Том и Джерри от К-Артель",
+    "name_en": "Tom and Jerry by K-Artel",
+    "year": 2008,
+    "manufacturer": "k-artel",
+    "cover": "images/series/k-artel/tom-and-jerry-by-k-artel-2008/cover.webp",
+    "kind": "",
+    "description": "Серия «Том и Джерри», 2008 год.",
+    "description_en": "\"Tom and Jerry\" series, 2008.",
+    "visible": true
+  },
+  {
+    "id": "the-hunchback-of-nortre-dame-by-nestle-1996",
+    "name": "Горбун из Нотр Дама от Нестле",
+    "name_en": "The Hunchback of Nortre Dame by Nestle",
+    "year": 1996,
+    "manufacturer": "nestle",
+    "cover": "images/series/nestle/the-hunchback-of-nortre-dame-by-nestle-1996/cover.webp",
+    "kind": "",
+    "description": "Серия «Горбун из Нотр Дама», 1996 год.",
+    "description_en": "\"The Hunchback of Nortre Dame\" series, 1996.",
+    "visible": true
+  },
+  {
+    "id": "beauty-and-the-beast-by-panini-2002",
+    "name": "Красавица и чудовище от Панини",
+    "name_en": "Beauty and the Beast by Panini",
+    "year": 2002,
+    "manufacturer": "panini",
+    "cover": "images/series/panini/beauty-and-the-beast-by-panini-2002/cover.webp",
+    "kind": "",
+    "description": "Серия «Красавица и чудовище», 2002 год.",
+    "description_en": "\"Beauty and the Beast\" series, 2002.",
+    "visible": true
+  },
+  {
+    "id": "monsters-inc-by-panini-2001",
+    "name": "Корпорация монстров от Панини",
+    "name_en": "Monsters, Inc. by Panini",
+    "year": 2001,
+    "manufacturer": "panini",
+    "cover": "images/series/panini/monsters-inc-by-panini-2001/cover.webp",
+    "kind": "",
+    "description": "Серия «Корпорация монстров», 2001 год.",
+    "description_en": "\"Monsters, Inc.\" series, 2001.",
+    "visible": true
+  },
+  {
+    "id": "shark-tale-by-r-trade-2005",
+    "name": "Подводная Братва от Р-Трейд",
+    "name_en": "Shark Tale by R-Trade",
+    "year": 2005,
+    "manufacturer": "r-trade",
+    "cover": "images/series/r-trade/shark-tale-by-r-trade-2005/cover.webp",
+    "kind": "",
+    "description": "Серия «Подводная Братва», 2005 год.",
+    "description_en": "\"Shark Tale\" series, 2005.",
+    "visible": true
+  },
+  {
     "id": "wizard-of-the-emerald-city-by-landrin-2009",
     "name": "Волшебник Изумрудного города от Ландрин",
     "name_en": "Wizard of the Emerald City by Landrin",

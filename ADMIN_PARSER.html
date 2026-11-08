@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PARSER — генератор JSON серий</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Inter, system-ui, sans-serif; background:#f5f7fb; color:#1f2937; padding:20px; }
+  .container { max-width:1400px; margin:0 auto; }
+  h1 { margin-bottom:20px; color:#4f46e5; }
+  h2 { margin:18px 0 10px; color:#4f46e5; font-size:18px; }
+  h3 { margin:12px 0 6px; color:#4f46e5; font-size:15px; }
+  .drop { border:2px dashed #c7d2fe; background:#eef2ff; padding:30px; text-align:center; border-radius:12px; cursor:pointer; margin-bottom:20px; transition: all .2s; }
+  .drop.hover { border-color:#4f46e5; background:#e0e7ff; }
+  .drop input { display:none; }
+  .card { background:white; padding:16px; border-radius:12px; box-shadow:0 2px 10px rgba(0,0,0,.05); margin-bottom:16px; }
+  .card.error-card { border:2px solid #ef4444; background:#fef2f2; }
+  .series-head { display:flex; gap:10px; flex-wrap:wrap; align-items:flex-start; margin-bottom:10px; }
+  .series-head input, .series-head select, .series-head textarea { padding:6px 10px; border:2px solid #e5e7eb; border-radius:8px; font-size:13px; width:100%; }
+  .series-head input:focus, .series-head select:focus { outline:none; border-color:#4f46e5; }
+  .series-head label { font-size:12px; color:#6b7280; display:block; margin-bottom:2px; }
+  .field { display:flex; flex-direction:column; }
+  .field.grow { flex:1; min-width:180px; }
+  .field.readonly input { background:#f3f4f6; color:#374151; }
+  .warn { color:#b45309; background:#fef3c7; border:1px solid #fcd34d; padding:6px 10px; border-radius:6px; font-size:12px; margin-bottom:8px; }
+  .err { color:#b91c1c; background:#fee2e2; border:1px solid #fca5a5; padding:6px 10px; border-radius:6px; font-size:12px; margin-bottom:8px; font-weight:600; }
+  .ok { color:#065f46; background:#d1fae5; border:1px solid #6ee7b7; padding:6px 10px; border-radius:6px; font-size:12px; margin-bottom:8px; }
+  .summary { background:#fee2e2; border:2px solid #ef4444; color:#b91c1c; padding:12px 16px; border-radius:10px; margin-bottom:16px; font-weight:600; }
+  .summary.ok { background:#d1fae5; border-color:#10b981; color:#065f46; }
+  .items { display:grid; grid-template-columns:repeat(auto-fill, minmax(320px, 1fr)); gap:10px; }
+  .item { border:1px solid #e5e7eb; border-radius:8px; padding:8px; background:#f9fafb; display:flex; gap:8px; }
+  .item img { width:80px; height:80px; object-fit:contain; border-radius:6px; background:white; border:1px solid #e5e7eb; flex-shrink:0; }
+  .item .fields { flex:1; display:flex; flex-direction:column; gap:4px; }
+  .item .fields input { padding:4px 8px; border:1px solid #e5e7eb; border-radius:6px; font-size:12px; }
+  .item .num { font-size:11px; color:#6b7280; }
+  button { padding:8px 16px; background:#4f46e5; color:white; border:none; border-radius:8px; font-size:13px; font-weight:600; cursor:pointer; }
+  button:hover { background:#6366f1; }
+  button.secondary { background:#10b981; }
+  button.danger { background:#ef4444; }
+  button.small { padding:4px 10px; font-size:12px; }
+  button:disabled { opacity:.5; cursor:not-allowed; }
+  .actions { display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
+  .status { position:fixed; bottom:20px; right:20px; background:#10b981; color:white; padding:10px 20px; border-radius:30px; opacity:0; transition:opacity .3s; z-index:999; }
+  .status.show { opacity:1; }
+  details summary { cursor:pointer; color:#4f46e5; font-weight:600; margin-bottom:8px; }
+  .cover-badge { font-size:11px; color:#6b7280; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>🧩 PARSER — серии из папок</h1>
+
+  <div class="drop" id="dropZone">
+    <input type="file" id="folderInput" webkitdirectory directory multiple>
+    <p>📁 Перетащите сюда <strong>одну или несколько папок серий</strong></p>
+    <p style="font-size:12px;color:#6b7280;margin-top:6px;">Формат имени папки: <code>Том и Джерри @ Tom and Jerry @ K-Artel @ 2008</code></p>
+  </div>
+
+  <div id="globalSummary"></div>
+  <div id="seriesList"></div>
+
+  <div class="card" id="globalActions" style="display:none;">
+    <div class="actions">
+      <button id="btnZip" onclick="downloadZip()">💾 Скачать ZIP (валидные серии)</button>
+      <button id="btnIndex" class="secondary" onclick="downloadIndexFragment()">📄 Скачать index-фрагмент</button>
+      <button class="secondary" onclick="reparseAllNames()">🔁 Перепарсить имена из файлов</button>
+      <button class="danger" onclick="clearAll()">🗑️ Очистить всё</button>
+    </div>
+  </div>
+</div>
+
+<div class="status" id="status">✅ Готово</div>
+
+<script>
+// ============================================================
+// КОНСТАНТЫ И УТИЛИТЫ
+// ============================================================
+
+const PREPOSITIONS = new Set(['in','of','the','and','or','a','an','on','at','for','to','by','with','from','as']);
+
+let manufacturersData = {};
+let seriesList = [];
+
+function todayISO() { return new Date().toISOString().slice(0,10); }
+
+function slugify(text) {
+  let s = String(text||'').toLowerCase()
+    .replace(/[^a-z0-9\s-]/g,'')
+    .trim()
+    .replace(/\s+/g,'-')
+    .replace(/-+/g,'-')
+    .replace(/^-|-$/g,'');
+  return s || 'unknown';
+}
+
+const TR = { 'а':'a','б':'b','в':'v','г':'g','д':'d','е':'e','ё':'e','ж':'zh','з':'z','и':'i','й':'y','к':'k','л':'l','м':'m','н':'n','о':'o','п':'p','р':'r','с':'s','т':'t','у':'u','ф':'f','х':'h','ц':'ts','ч':'ch','ш':'sh','щ':'sch','ъ':'','ы':'y','ь':'','э':'e','ю':'yu','я':'ya' };
+function translit(s){ return String(s||'').split('').map(ch => TR[ch] || ch).join(''); }
+
+function generateSeriesId(nameEnClean, manufacturerKey, year) {
+  const en = translit(nameEnClean);
+  const slug = slugify(en);
+  const m = slugify(manufacturerKey);
+  return `${slug}-by-${m}-${year}`;
+}
+
+function titleCasePreservePrepositions(text) {
+  const words = String(text||'').trim().split(/\s+/);
+  return words.map((w, i) => {
+    const low = w.toLowerCase();
+    if (i > 0 && PREPOSITIONS.has(low)) return low;
+    return w.split('-').map((part, j) => {
+      if (j > 0 && PREPOSITIONS.has(part.toLowerCase())) return part.toLowerCase();
+      return part.charAt(0).toUpperCase() + part.slice(1).toLowerCase();
+    }).join('-');
+  }).join(' ');
+}
+
+function normalizeManufacturerMatch(s) {
+  return String(s||'').toLowerCase().replace(/[\s_-]+/g,'').replace(/[^a-z0-9]/g,'');
+}
+
+function findManufacturerByEn(en) {
+  const target = normalizeManufacturerMatch(en);
+  for (const [key, val] of Object.entries(manufacturersData)) {
+    if (normalizeManufacturerMatch(val.en) === target) return key;
+    if (normalizeManufacturerMatch(key) === target) return key;
+  }
+  return null;
+}
+
+// Убирает хвост "by X" / "от X" из базового имени, чтобы не дублировать
+function stripManufacturerSuffix(name, manufText, kind) {
+  if (!name || !manufText) return name;
+  const patterns = kind === 'ru'
+    ? [new RegExp(`\\s+от\\s+${escapeRegExp(manufText)}\\s*$`, 'i')]
+    : [new RegExp(`\\s+by\\s+${escapeRegExp(manufText)}\\s*$`, 'i')];
+  let out = name;
+  patterns.forEach(p => { out = out.replace(p, '').trim(); });
+  return out;
+}
+
+function escapeRegExp(s) { return String(s).replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+
+// ============================================================
+// ПАРСИНГ ИМЕНИ ПАПКИ
+// ============================================================
+
+function parseFolderName(folderName) {
+  const parts = folderName.split('@').map(p => p.trim());
+  if (parts.length !== 4) {
+    return { ok:false, parts, reason:`ожидалось 4 части через "@", найдено ${parts.length}` };
+  }
+  const [nameRu, nameEn, manufEn, yearStr] = parts;
+  const year = parseInt(yearStr, 10);
+  if (!year || year < 1900 || year > 2100) {
+    return { ok:false, parts, reason:`год не распознан: "${yearStr}"` };
+  }
+  return { ok:true, nameRu, nameEn, manufEn, year };
+}
+
+// ============================================================
+// ПАРСИНГ ИМЕНИ ФАЙЛА
+// ============================================================
+
+function parseFigureFilename(filename) {
+  let base = filename.replace(/\.[^.]+$/,'');
+  base = base.replace(/^\d+-[a-zа-я]-/i, '');
+
+  // НОРМАЛИЗАЦИЯ РАЗДЕЛИТЕЛЕЙ: — (em), – (en), - (hyphen) с пробелами → " - "
+  base = base.replace(/\s+[—–-]\s+/g, ' - ');
+
+  if (base.includes(' - ')) {
+    const parts = base.split(' - ');
+    const ru = parts[0].trim();
+    const en = parts.slice(1).join(' - ').trim();
+    return { ru, en: titleCasePreservePrepositions(en) };
+  }
+
+  // Нет разделителя: если есть кириллица — это RU-часть, EN пустой
+  if (/[а-яё]/i.test(base)) {
+    return { ru: base.trim(), en: '' };
+  }
+  return { ru: '', en: titleCasePreservePrepositions(base.trim()) };
+}
+
+// ============================================================
+// ПЕРЕПАРС ИМЁН ИЗ ФАЙЛОВ (для уже загруженных серий)
+// ============================================================
+function reparseAllNames() {
+  if (seriesList.length === 0) { alert('Список пуст — сначала загрузите папки.'); return; }
+  if (!confirm('Перепарсить имена фигурок и вкладышей из имён файлов?\n\nТекущие name/name_en у элементов будут заменены.')) return;
+
+  let changed = 0;
+  seriesList.forEach(s => {
+    [...s.figures, ...s.inserts].forEach(item => {
+      const names = parseFigureFilename(item._filename);
+      const newRu = names.ru || item.name;
+      const newEn = names.en || item.name_en;
+      if (newRu !== item.name || newEn !== item.name_en) {
+        item.name = newRu;
+        item.name_en = newEn;
+        changed++;
+      }
+    });
+    recalcSeries(s);
+  });
+
+  renderAll();
+  alert(`✅ Перепарсено. Обновлено имён: ${changed}.`);
+}
+window.reparseAllNames = reparseAllNames;
+
+function isInsertFile(filename) {
+  return /BPZ/i.test(filename);
+}
+
+// ============================================================
+// ЧТЕНИЕ ПАПОК
+// ============================================================
+
+async function handleFiles(fileList) {
+  const files = Array.from(fileList).filter(f => /\.(webp|jpe?g|png)$/i.test(f.name));
+
+  const groups = {};
+  files.forEach(f => {
+    const rel = (f.webkitRelativePath || f.name).replace(/\\/g,'/');
+    const segments = rel.split('/');
+    if (segments.length < 2) return;
+    const folderName = segments[0];
+    if (!groups[folderName]) groups[folderName] = [];
+    groups[folderName].push(f);
+  });
+
+  for (const [folderName, groupFiles] of Object.entries(groups)) {
+    const parsed = parseFolderName(folderName);
+    const manufacturerKey = parsed.ok ? findManufacturerByEn(parsed.manufEn) : null;
+
+    const series = {
+      _folderName: folderName,
+      _files: groupFiles,
+      _parse: parsed,
+      _manufacturerFound: !!manufacturerKey,
+      _manufEnFromFolder: parsed.ok ? parsed.manufEn : '',
+      id: '',
+      name_base: parsed.ok ? parsed.nameRu : '',
+      name_en_base: parsed.ok ? titleCasePreservePrepositions(parsed.nameEn) : '',
+      name: '',
+      name_en: '',
+      year: parsed.ok ? parsed.year : new Date().getFullYear(),
+      manufacturer: manufacturerKey || '',
+      cover: '',
+      description: '',
+      description_en: '',
+      figures: [],
+      inserts: [],
+      _coverFile: null,
+      _coverPreviewUrl: ''
+    };
+
+    for (const f of groupFiles) {
+      if (f.name.toLowerCase() === 'cover.webp') {
+        series._coverFile = f;
+        series._coverPreviewUrl = URL.createObjectURL(f);
+        continue;
+      }
+      const names = parseFigureFilename(f.name);
+      const item = {
+        _file: f,
+        _previewUrl: URL.createObjectURL(f),
+        name: names.ru || '',
+        name_en: names.en || '',
+        _filename: f.name
+      };
+      if (isInsertFile(f.name)) series.inserts.push(item);
+      else series.figures.push(item);
+    }
+
+    series.figures.sort((a,b) => a._filename.localeCompare(b._filename));
+    series.inserts.sort((a,b) => a._filename.localeCompare(b._filename));
+
+    recalcSeries(series);
+    seriesList.push(series);
+  }
+
+  renderAll();
+}
+
+// ============================================================
+// ПЕРЕСЧЁТ ПОЛЕЙ СЕРИИ
+// ============================================================
+
+function recalcSeries(series) {
+  const manufKey = series.manufacturer || '';
+  const manufRu = manufacturersData[manufKey]?.ru || '';
+  const manufEn = manufacturersData[manufKey]?.en || '';
+
+  // === ID: из ЧИСТОГО name_en_base (без "by …") ===
+  series.id = generateSeriesId(series.name_en_base || series._folderName, manufKey || 'other', series.year);
+
+  // === Полные названия (с производителем, без дублей) ===
+  const baseRuClean = stripManufacturerSuffix(series.name_base, manufRu, 'ru');
+  const baseEnClean = stripManufacturerSuffix(series.name_en_base, manufEn, 'en');
+
+  series.name = baseRuClean
+    ? (manufRu ? `${baseRuClean} от ${manufRu}` : baseRuClean)
+    : '';
+  series.name_en = baseEnClean
+    ? (manufEn ? `${baseEnClean} by ${manufEn}` : baseEnClean)
+    : '';
+
+  // === Description: простое ===
+  series.description = baseRuClean
+    ? `Серия «${baseRuClean}», ${series.year} год.`
+    : '';
+  series.description_en = baseEnClean
+    ? `"${baseEnClean}" series, ${series.year}.`
+    : '';
+
+  // === Пути и ID элементов ===
+  const manufFolder = manufKey || 'other';
+  series.cover = series._coverFile
+    ? `images/series/${manufFolder}/${series.id}/cover.webp`
+    : '';
+
+  series.figures.forEach((item, idx) => {
+    item.id = `${series.id}_fig${idx+1}`;
+    item.name = item.name || `Фигурка ${idx+1}`;
+    item.name_en = item.name_en || `Figure ${idx+1}`;
+    item.image = `images/series/${manufFolder}/${series.id}/${item._filename}`;
+  });
+  series.inserts.forEach((item, idx) => {
+    item.id = `${series.id}_insert${idx+1}`;
+    item.name = item.name || `Вкладыш ${idx+1}`;
+    item.name_en = item.name_en || `Insert ${idx+1}`;
+    item.image = `images/series/${manufFolder}/${series.id}/${item._filename}`;
+  });
+}
+
+// ============================================================
+// ВАЛИДАЦИЯ
+// ============================================================
+
+function getSeriesErrors(series) {
+  const errs = [];
+  if (!series._parse.ok) errs.push(`Имя папки: ${series._parse.reason}`);
+  if (!series.name_base) errs.push('Пустое название (рус)');
+  if (!series.name_en_base) errs.push('Пустое название (англ)');
+  if (!series.year) errs.push('Пустой год');
+  if (!series.manufacturer) errs.push(`Производитель не выбран${series._manufEnFromFolder ? ` (в папке: «${series._manufEnFromFolder}»)`:''}`);
+  if (!series._coverFile) errs.push('cover.webp не найден');
+  return errs;
+}
+
+function isValidSeries(series) {
+  return getSeriesErrors(series).length === 0;
+}
+
+// ============================================================
+// СБОРКА JSON
+// ============================================================
+
+function buildSeriesJSON(series) {
+  const today = todayISO();
+  function baseItem(item) {
+    return {
+      id: item.id,
+      name: item.name,
+      name_en: item.name_en,
+      code: '',
+      image: item.image,
+      owned: false,
+      forsale: false,
+      forsale_date: '',
+      avito: '',
+      price: '',
+      condition: '',
+      condition_en: '',
+      parentFigureId: '',
+      date_added: today
+    };
+  }
+  return {
+    id: series.id,
+    name: series.name,
+    name_en: series.name_en,
+    year: series.year,
+    manufacturer: series.manufacturer,
+    cover: series.cover,
+    description: series.description || '',
+    description_en: series.description_en || '',
+    kind: '',
+    visible: true,
+    fullSeriesForSale: false,
+    fullSeriesAvito: '',
+    fullSeriesPrice: '',
+    fullSeriesPrice_en: '',
+    fullSeriesCondition: '',
+    fullSeriesCondition_en: '',
+    fullSeriesDateAdded: today,
+    fullSeriesForsaleDate: '',
+    fullSeriesDescription: '',
+    fullSeriesDescription_en: '',
+    figures: series.figures.map(baseItem),
+    extras: [],
+    variants: [],
+    inserts: series.inserts.map(baseItem),
+    other: [],
+    videos: { youtube: [], vk: [], tiktok: [], instagram: [] },
+    contributors: []
+  };
+}
+
+// ============================================================
+// РЕНДЕР
+// ============================================================
+
+function renderAll() {
+  const list = document.getElementById('seriesList');
+  const globalActions = document.getElementById('globalActions');
+  const summary = document.getElementById('globalSummary');
+
+  if (seriesList.length === 0) {
+    list.innerHTML = '';
+    summary.innerHTML = '';
+    globalActions.style.display = 'none';
+    return;
+  }
+
+  const validCount = seriesList.filter(isValidSeries).length;
+  const invalidCount = seriesList.length - validCount;
+
+  if (invalidCount > 0) {
+    summary.innerHTML = `<div class="summary">⚠️ ${invalidCount} ${plural(invalidCount,'серия','серии','серий')} с ошибками — ${plural(invalidCount,'она','они','они')} не ${plural(invalidCount,'попадёт','попадут','попадут')} в экспорт. Всего валидных: ${validCount}.</div>`;
+  } else {
+    summary.innerHTML = `<div class="summary ok">✅ Все ${validCount} ${plural(validCount,'серия','серии','серий')} валидны — можно экспортировать.</div>`;
+  }
+
+  globalActions.style.display = 'block';
+  document.getElementById('btnZip').disabled = validCount === 0;
+  document.getElementById('btnIndex').disabled = validCount === 0;
+
+  list.innerHTML = seriesList.map((s, si) => renderSeriesCard(s, si)).join('');
+  bindSeriesHandlers();
+}
+
+function renderSeriesCard(s, si) {
+  const errors = getSeriesErrors(s);
+  const isError = errors.length > 0;
+  const parse = s._parse;
+
+  const folderWarn = !parse.ok
+    ? `<div class="warn">⚠️ Папка «${escapeHtml(s._folderName)}»: ${escapeHtml(parse.reason)}</div>`
+    : '';
+
+  const errBlock = isError
+    ? `<div class="err">❌ ${errors.map(escapeHtml).join('<br>❌ ')}</div>`
+    : '';
+
+  const manufOptions = Object.entries(manufacturersData)
+    .sort((a,b) => a[1].ru.localeCompare(b[1].ru))
+    .map(([key, val]) => `<option value="${key}" ${s.manufacturer===key?'selected':''}>${escapeHtml(val.ru)} (${escapeHtml(val.en)})</option>`)
+    .join('');
+
+  return `
+    <div class="card ${isError?'error-card':''}" data-si="${si}">
+      ${folderWarn}${errBlock}
+
+      <h3>${isError ? '❌' : '✅'} ${escapeHtml(s.name || s._folderName)}</h3>
+
+      <div class="series-head">
+        <div class="field grow"><label>Название (рус, база)</label>
+          <input type="text" class="s-name" data-si="${si}" value="${escapeHtml(s.name_base)}"></div>
+        <div class="field grow"><label>Название (англ, база)</label>
+          <input type="text" class="s-name-en" data-si="${si}" value="${escapeHtml(s.name_en_base)}"></div>
+        <div class="field" style="max-width:90px;"><label>Год</label>
+          <input type="number" class="s-year" data-si="${si}" value="${s.year}"></div>
+        <div class="field" style="min-width:200px;"><label>Производитель ${s.manufacturer?'':'<span style="color:#ef4444">*</span>'}</label>
+          <select class="s-manufacturer" data-si="${si}">
+            <option value="">— выберите —</option>
+            ${manufOptions}
+          </select></div>
+      </div>
+
+      <div class="series-head">
+        <div class="field grow readonly"><label>Итоговое название (рус)</label>
+          <input type="text" value="${escapeHtml(s.name)}" readonly></div>
+        <div class="field grow readonly"><label>Итоговое название (англ)</label>
+          <input type="text" value="${escapeHtml(s.name_en)}" readonly></div>
+      </div>
+
+      <div class="series-head">
+        <div class="field grow readonly"><label>ID серии</label>
+          <input type="text" value="${escapeHtml(s.id)}" readonly></div>
+        <div class="field grow"><label>Описание (рус)</label>
+          <input type="text" class="s-desc" data-si="${si}" value="${escapeHtml(s.description)}"></div>
+        <div class="field grow"><label>Описание (англ)</label>
+          <input type="text" class="s-desc-en" data-si="${si}" value="${escapeHtml(s.description_en)}"></div>
+      </div>
+
+      ${s._coverPreviewUrl
+        ? `<div style="margin:8px 0;"><span class="cover-badge">Обложка:</span> <img src="${s._coverPreviewUrl}" style="height:60px;object-fit:contain;border:1px solid #e5e7eb;border-radius:6px;vertical-align:middle;"></div>`
+        : '<div class="warn">⚠️ cover.webp не найден</div>'}
+
+      <details open>
+        <summary>Фигурки (${s.figures.length})</summary>
+        <div class="items">
+          ${s.figures.map((f, fi) => renderItem(f, si, fi, 'fig')).join('') || '<p style="color:#6b7280;font-size:13px;">Нет фигурок</p>'}
+        </div>
+      </details>
+
+      <details ${s.inserts.length?'open':''}>
+        <summary>Вкладыши (${s.inserts.length})</summary>
+        <div class="items">
+          ${s.inserts.map((f, fi) => renderItem(f, si, fi, 'ins')).join('') || '<p style="color:#6b7280;font-size:13px;">Нет вкладышей</p>'}
+        </div>
+      </details>
+
+      <div class="actions">
+        <button class="small secondary" onclick="downloadOne(${si})" ${isError?'disabled':''}>💾 Скачать JSON этой серии</button>
+        <button class="small danger" onclick="removeSeries(${si})">🗑️ Удалить серию</button>
+      </div>
+    </div>
+  `;
+}
+
+function renderItem(item, si, fi, kind) {
+  return `
+    <div class="item">
+      <img src="${item._previewUrl}" alt="">
+      <div class="fields">
+        <div class="num">${escapeHtml(item._filename)}</div>
+        <input type="text" class="item-name" data-si="${si}" data-fi="${fi}" data-kind="${kind}" value="${escapeHtml(item.name)}" placeholder="Название (рус)">
+        <input type="text" class="item-name-en" data-si="${si}" data-fi="${fi}" data-kind="${kind}" value="${escapeHtml(item.name_en)}" placeholder="Name (en)">
+      </div>
+    </div>
+  `;
+}
+
+function bindSeriesHandlers() {
+  const list = document.getElementById('seriesList');
+
+  list.querySelectorAll('.s-name').forEach(inp => inp.addEventListener('input', function(){
+    const si = +this.dataset.si;
+    seriesList[si].name_base = this.value;
+    recalcSeries(seriesList[si]); renderAll();
+  }));
+  list.querySelectorAll('.s-name-en').forEach(inp => inp.addEventListener('input', function(){
+    const si = +this.dataset.si;
+    seriesList[si].name_en_base = this.value;
+    recalcSeries(seriesList[si]); renderAll();
+  }));
+  list.querySelectorAll('.s-year').forEach(inp => inp.addEventListener('input', function(){
+    const si = +this.dataset.si;
+    seriesList[si].year = parseInt(this.value)||0;
+    recalcSeries(seriesList[si]); renderAll();
+  }));
+  list.querySelectorAll('.s-manufacturer').forEach(inp => inp.addEventListener('change', function(){
+    const si = +this.dataset.si;
+    seriesList[si].manufacturer = this.value;
+    recalcSeries(seriesList[si]); renderAll();
+  }));
+  list.querySelectorAll('.s-desc').forEach(inp => inp.addEventListener('input', function(){
+    seriesList[+this.dataset.si].description = this.value;
+  }));
+  list.querySelectorAll('.s-desc-en').forEach(inp => inp.addEventListener('input', function(){
+    seriesList[+this.dataset.si].description_en = this.value;
+  }));
+
+  list.querySelectorAll('.item-name').forEach(inp => inp.addEventListener('input', function(){
+    const {si, fi, kind} = this.dataset;
+    const arr = kind === 'fig' ? seriesList[+si].figures : seriesList[+si].inserts;
+    arr[+fi].name = this.value;
+  }));
+  list.querySelectorAll('.item-name-en').forEach(inp => inp.addEventListener('input', function(){
+    const {si, fi, kind} = this.dataset;
+    const arr = kind === 'fig' ? seriesList[+si].figures : seriesList[+si].inserts;
+    arr[+fi].name_en = this.value;
+  }));
+}
+
+function plural(n, one, few, many) {
+  const m10 = n % 10, m100 = n % 100;
+  if (m10 === 1 && m100 !== 11) return one;
+  if (m10 >= 2 && m10 <= 4 && (m100 < 10 || m100 >= 20)) return few;
+  return many;
+}
+
+function removeSeries(si) {
+  if (!confirm('Удалить серию из списка?')) return;
+  const s = seriesList[si];
+  if (s._coverPreviewUrl) try { URL.revokeObjectURL(s._coverPreviewUrl); } catch(e){}
+  [...s.figures, ...s.inserts].forEach(i => { try { URL.revokeObjectURL(i._previewUrl); } catch(e){} });
+  seriesList.splice(si, 1);
+  renderAll();
+}
+
+function clearAll() {
+  if (!confirm('Очистить всё?')) return;
+  seriesList.forEach(s => {
+    if (s._coverPreviewUrl) try { URL.revokeObjectURL(s._coverPreviewUrl); } catch(e){}
+    [...s.figures, ...s.inserts].forEach(i => { try { URL.revokeObjectURL(i._previewUrl); } catch(e){} });
+  });
+  seriesList = [];
+  renderAll();
+}
+
+// ============================================================
+// ЭКСПОРТ (только валидные)
+// ============================================================
+
+async function downloadOne(si) {
+  const s = seriesList[si];
+  if (!isValidSeries(s)) { alert('Серия содержит ошибки и не может быть выгружена.'); return; }
+  const json = buildSeriesJSON(s);
+  const blob = new Blob([JSON.stringify(json, null, 2)], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `${s.id}.json`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+  showStatus();
+}
+
+async function downloadZip() {
+  const valid = seriesList.filter(isValidSeries);
+  if (valid.length === 0) { alert('Нет валидных серий для экспорта.'); return; }
+  const skipped = seriesList.length - valid.length;
+  if (skipped > 0 && !confirm(`Будет выгружено ${valid.length} валидных серий.\nПропущено с ошибками: ${skipped}.\n\nПродолжить?`)) return;
+
+  const zip = new JSZip();
+  valid.forEach(s => {
+    zip.folder(`series/${s.manufacturer}`).file(`${s.id}.json`, JSON.stringify(buildSeriesJSON(s), null, 2));
+  });
+  const blob = await zip.generateAsync({type:'blob'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `series_parsed_${new Date().toISOString().slice(0,19).replace(/:/g,'-')}.zip`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+  showStatus();
+}
+
+function downloadIndexFragment() {
+  const valid = seriesList.filter(isValidSeries);
+  if (valid.length === 0) { alert('Нет валидных серий.'); return; }
+  const fragment = valid.map(s => ({
+    id: s.id,
+    name: s.name,
+    name_en: s.name_en,
+    year: s.year,
+    manufacturer: s.manufacturer,
+    cover: s.cover,
+    kind: '',
+    description: s.description || '',
+    description_en: s.description_en || '',
+    visible: true
+  }));
+  const blob = new Blob([JSON.stringify(fragment, null, 2)], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `index_fragment_${new Date().toISOString().slice(0,19).replace(/:/g,'-')}.json`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+  showStatus();
+}
+
+function showStatus() {
+  const s = document.getElementById('status');
+  s.classList.add('show');
+  setTimeout(() => s.classList.remove('show'), 2000);
+}
+
+function escapeHtml(str) {
+  if (!str) return '';
+  return String(str).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+}
+
+// ============================================================
+// DRAG & DROP + ИНИЦИАЛИЗАЦИЯ
+// ============================================================
+
+const drop = document.getElementById('dropZone');
+const input = document.getElementById('folderInput');
+
+drop.addEventListener('click', () => input.click());
+input.addEventListener('change', e => { if (e.target.files.length) handleFiles(e.target.files); input.value=''; });
+
+['dragenter','dragover'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.add('hover'); }));
+['dragleave','drop'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.remove('hover'); }));
+drop.addEventListener('drop', async e => {
+  e.preventDefault();
+  const items = e.dataTransfer.items;
+  if (!items) return;
+  const files = [];
+  const entries = [];
+  for (const item of items) {
+    const entry = item.webkitGetAsEntry && item.webkitGetAsEntry();
+    if (entry) entries.push(entry);
+  }
+  async function readEntry(entry, path) {
+    if (entry.isFile) {
+      return new Promise(res => entry.file(f => {
+        Object.defineProperty(f, 'webkitRelativePath', { value: path + f.name });
+        files.push(f);
+        res();
+      }));
+    } else if (entry.isDirectory) {
+      const reader = entry.createReader();
+      const all = [];
+      await new Promise(res => {
+        function readBatch() {
+          reader.readEntries(batch => {
+            if (!batch.length) return res();
+            all.push(...batch);
+            readBatch();
+          });
+        }
+        readBatch();
+      });
+      for (const child of all) {
+        await readEntry(child, path + entry.name + '/');
+      }
+    }
+  }
+  for (const entry of entries) await readEntry(entry, '');
+  if (files.length) handleFiles(files);
+});
+
+async function loadManufacturers() {
+  try {
+    const res = await fetch('data/manufacturers.json');
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    manufacturersData = await res.json();
+    console.log('✅ manufacturers.json:', Object.keys(manufacturersData).length);
+  } catch (err) {
+    console.error('❌ Не удалось загрузить data/manufacturers.json:', err);
+    alert('⚠️ Не удалось загрузить data/manufacturers.json.\n\n' +
+      'Проверьте, что PARSER.html лежит в корне проекта (рядом с папкой data),\n' +
+      'и что вы открываете его через локальный сервер или GitHub Pages (не file://).');
+    manufacturersData = {};
+  }
+}
+
+(async () => { await loadManufacturers(); })();
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+</body>
+</html>

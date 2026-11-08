@@ -1,5 +1,25 @@
 [
   {
+    "type": "full",
+    "id": "nu-pogodi-just-you-wait-by-k-artel-2007",
+    "seriesId": "nu-pogodi-just-you-wait-by-k-artel-2007",
+    "seriesName": "Ну Погоди от К-Артель",
+    "seriesName_en": "Nu Pogodi / Just You Wait by K-Artel",
+    "seriesYear": 2007,
+    "manufacturer": "k-artel",
+    "name": "Ну Погоди от К-Артель",
+    "name_en": "Nu Pogodi / Just You Wait by K-Artel",
+    "image": "images/series/k-artel/nu-pogodi-just-you-wait-by-k-artel-2007/cover.webp",
+    "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/nu_pogodi_k-artel_kinder_polnaya_seriya_vkladysh_8369868756",
+    "price": "6500",
+    "price_en": "",
+    "condition": "",
+    "condition_en": "",
+    "code": "",
+    "date_added": "2026-11-02",
+    "forsale_date": "2026-11-08"
+  },
+  {
     "type": "single",
     "id": "kinder-single-vq059",
     "seriesId": null,
