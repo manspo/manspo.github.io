@@ -1944,9 +1944,12 @@ document.getElementById('fileInput').onchange = function(e) {
 };
 
 async function loadDataFromFiles(files) {
-    let jsonFiles = Array.from(files).filter(f => f.name.endsWith('.json'));
-    let indexFile = jsonFiles.find(f => f.name === 'index.json');
-    if (!indexFile) { alert('Не найден index.json'); return; }
+    const allFiles = Array.from(files);
+    const jsonFiles = allFiles.filter(f => f.name.endsWith('.json'));
+
+    function relPath(f) {
+        return (f.webkitRelativePath || f.name).replace(/\\/g, '/');
+    }
 
     function readText(file) {
         return new Promise((resolve, reject) => {
@@ -1967,6 +1970,27 @@ async function loadDataFromFiles(files) {
         }
     }
 
+    const seriesFiles = [];
+    const singlesFiles = [];
+    const rootIndexCandidates = [];
+
+    for (const f of jsonFiles) {
+        const p = relPath(f);
+        if (p.includes('/series/')) {
+            seriesFiles.push(f);
+        } else if (p.includes('/singles/')) {
+            if (f.name.toLowerCase() !== 'index.json') singlesFiles.push(f);
+        } else if (f.name.toLowerCase() === 'index.json') {
+            rootIndexCandidates.push(f);
+        }
+    }
+
+    let indexFile = rootIndexCandidates[0];
+    if (!indexFile) {
+        indexFile = jsonFiles.find(f => f.name.toLowerCase() === 'index.json');
+    }
+    if (!indexFile) { alert('Не найден index.json'); return; }
+
     try {
         const indexData = await safeParse(indexFile);
         if (!Array.isArray(indexData)) {
@@ -1983,7 +2007,10 @@ async function loadDataFromFiles(files) {
                 continue;
             }
 
-            const candidates = jsonFiles.filter(f => f.name === `${series.id}.json`);
+            let candidates = seriesFiles.filter(f => f.name === `${series.id}.json`);
+            if (candidates.length === 0) {
+                candidates = jsonFiles.filter(f => f.name === `${series.id}.json`);
+            }
 
             if (candidates.length === 0) {
                 problems.push(`Нет файла ${series.id}.json — серия загружена пустой`);
@@ -2015,22 +2042,60 @@ async function loadDataFromFiles(files) {
             if (!content.videos || typeof content.videos !== 'object') {
                 content.videos = { youtube: [], vk: [], tiktok: [], instagram: [] };
             }
-			if (!Array.isArray(content.contributors)) {
-    content.contributors = [];
-}
+            if (!Array.isArray(content.contributors)) {
+                content.contributors = [];
+            }
 
             existingSeries.push(content);
-            baselineSeries[content.id] = JSON.stringify(content);   // ← baseline
+            baselineSeries[content.id] = JSON.stringify(content);
+        }
+
+        // ===== АВТОПОДГРУЗКА singles/*.json =====
+        let loadedSinglesCount = 0;
+        let loadedSinglesManufacturers = 0;
+        for (const sf of singlesFiles) {
+            try {
+                const text = await readText(sf);
+                const data = JSON.parse(text);
+                if (!Array.isArray(data)) continue;
+                const m = sf.name.replace(/\.json$/i, '');
+                if (!m) continue;
+
+                if (singlesData[m] && singlesData[m].length > 0) {
+                    const existingIds = new Set(singlesData[m].map(x => x.id));
+                    data.forEach(x => {
+                        if (x && x.id && !existingIds.has(x.id)) {
+                            singlesData[m].push(x);
+                            loadedSinglesCount++;
+                        }
+                    });
+                } else {
+                    singlesData[m] = data;
+                    loadedSinglesCount += data.length;
+                }
+                baselineSingles[m] = JSON.stringify(singlesData[m]);
+                loadedSinglesManufacturers++;
+            } catch (err) {
+                console.error(`❌ Битый singles JSON: ${sf.name} — ${err.message}`);
+            }
+        }
+        if (loadedSinglesCount > 0 || loadedSinglesManufacturers > 0) {
+            refreshSinglesList();
+            refreshSinglesEditList();
         }
 
         updateStats();
         refreshExistingSeriesList();
         markUnsaved();
 
+        const singlesSuffix = loadedSinglesCount > 0
+            ? `\n🧩 Отдельные фигурки: ${loadedSinglesCount} (${loadedSinglesManufacturers} файлов)`
+            : '';
+
         if (problems.length === 0) {
-            alert(`✅ Загружено ${existingSeries.length} серий`);
+            alert(`✅ Загружено ${existingSeries.length} серий${singlesSuffix}`);
         } else {
-            alert(`⚠️ Загружено ${existingSeries.length} серий, но есть проблемы (${problems.length}). Смотри консоль (F12).`);
+            alert(`⚠️ Загружено ${existingSeries.length} серий${singlesSuffix}, но есть проблемы (${problems.length}). Смотри консоль (F12).`);
             console.warn('⚠️ ПРОБЛЕМЫ ПРИ ЗАГРУЗКЕ:\n' + problems.join('\n'));
         }
 
@@ -2625,7 +2690,11 @@ function mergeWithMain(onlyChanged = false) {
         downloadAsZip(merged);
     }
 
-    if (confirm('Очистить временные?')) clearAllTemp();
+    if (confirm('Очистить временные?')) {
+        clearAllTemp();
+        // ZIP уже скачан в downloadAsZip → восстанавливаем «сохранено»
+        markSaved();
+    }
 }
 
 // ============================================================
