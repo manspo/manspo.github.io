@@ -1,5 +1,17 @@
 [
   {
+    "id": "wizard-of-the-emerald-city-by-landrin-2009",
+    "name": "Волшебник Изумрудного города от Ландрин",
+    "name_en": "Wizard of the Emerald City by Landrin",
+    "year": 2009,
+    "manufacturer": "landrin",
+    "cover": "images/series/landrin/wizard-of-the-emerald-city-by-landrin-2009/119705692.webp",
+    "kind": "",
+    "description": "Серия по одноименной сказке",
+    "description_en": "Series based on the fairy tale of the same name",
+    "visible": true
+  },
+  {
     "id": "spongebob-x-one-piece-by-mcdonalds-happy-meal-2026",
     "name": "Губка Боб и Ван Пис от Макдоналдс / Хэппи Мил",
     "name_en": "SpongeBob x One Piece by McDonald’s / Happy Meal",
