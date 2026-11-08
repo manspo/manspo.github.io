@@ -83,11 +83,44 @@
       "condition_en": "",
       "parentFigureId": "",
       "date_added": "2026-11-07"
+    },
+    {
+      "id": "looney-tunes-active-by-k-artel-2009_fig5",
+      "name": "Таз",
+      "name_en": "Taz",
+      "code": "",
+      "image": "images/series/k-artel/looney-tunes-active-by-k-artel-2009/5-f-taz.webp",
+      "owned": false,
+      "forsale": false,
+      "forsale_date": "",
+      "avito": "",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "date_added": "2026-11-08"
     }
   ],
   "extras": [],
   "variants": [],
-  "inserts": [],
+  "inserts": [
+    {
+      "id": "looney-tunes-active-by-k-artel-2009_insert1",
+      "name": "Вкладыш 1",
+      "name_en": "Insert 1",
+      "code": "",
+      "image": "images/series/k-artel/looney-tunes-active-by-k-artel-2009/1-i.webp",
+      "owned": false,
+      "forsale": false,
+      "forsale_date": "",
+      "avito": "",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "date_added": "2026-11-08"
+    }
+  ],
   "other": [],
   "videos": {
     "youtube": [],
