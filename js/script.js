@@ -562,8 +562,6 @@ function extractTikTokId(url) {
 
 // ===== СОЗДАНИЕ БЛОКА ВИДЕО =====
 
-// ===== СОЗДАНИЕ БЛОКА ВИДЕО (click-to-load) =====
-
 function createVideosBlock(videos, currentLang) {
   if (!videos) return '';
 
@@ -576,14 +574,8 @@ function createVideosBlock(videos, currentLang) {
       const videoId = extractYouTubeId(url);
       if (videoId) {
         embeds.push(`
-          <div class="video-embed video-lazy"
-               data-provider="youtube"
-               data-video-id="${videoId}">
-            <img class="video-lazy-thumb"
-                 src="https://i.ytimg.com/vi/${videoId}/hqdefault.jpg"
-                 alt="YouTube video"
-                 loading="lazy"
-                 onerror="this.style.display='none'">
+          <div class="video-embed video-lazy" data-provider="youtube" data-video-id="${videoId}">
+            <img class="video-lazy-thumb" src="https://i.ytimg.com/vi/${videoId}/hqdefault.jpg" alt="YouTube video" loading="lazy" onerror="this.style.display='none'">
             <button type="button" class="video-lazy-play" aria-label="Play">▶</button>
             <div class="video-lazy-label">YouTube</div>
           </div>
@@ -607,13 +599,8 @@ function createVideosBlock(videos, currentLang) {
     videos.vk.forEach(url => {
       const vkData = extractVKId(url);
       if (vkData) {
-        // VK не отдаёт публичный thumbnail по ID без API,
-        // поэтому превью — заглушка с логотипом VK
         embeds.push(`
-          <div class="video-embed video-lazy video-lazy-vk"
-               data-provider="vk"
-               data-oid="${vkData.oid}"
-               data-id="${vkData.id}">
+          <div class="video-embed video-lazy video-lazy-vk" data-provider="vk" data-oid="${vkData.oid}" data-id="${vkData.id}">
             <div class="video-lazy-thumb video-lazy-thumb-vk">VK</div>
             <button type="button" class="video-lazy-play" aria-label="Play">▶</button>
             <div class="video-lazy-label">VK Видео</div>
@@ -633,7 +620,7 @@ function createVideosBlock(videos, currentLang) {
     });
   }
 
-  // ===== TikTok / Instagram — только ссылки (как было) =====
+  // ===== TikTok =====
   if (videos.tiktok && videos.tiktok.length > 0) {
     videos.tiktok.forEach(url => {
       links.push(`
@@ -648,6 +635,7 @@ function createVideosBlock(videos, currentLang) {
     });
   }
 
+  // ===== Instagram =====
   if (videos.instagram && videos.instagram.length > 0) {
     videos.instagram.forEach(url => {
       links.push(`
@@ -2334,15 +2322,10 @@ if (host === 'youtube') {
   const videoId = extractYouTubeId(url);
   if (videoId) {
     return `
-      <div class="video-embed">
-        <div class="video-click-overlay"></div>
-        <iframe 
-          src="https://www.youtube.com/embed/${videoId}" 
-          frameborder="0" 
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen
-          loading="lazy">
-        </iframe>
+      <div class="video-embed video-lazy" data-provider="youtube" data-video-id="${videoId}">
+        <img class="video-lazy-thumb" src="https://i.ytimg.com/vi/${videoId}/hqdefault.jpg" alt="YouTube video" loading="lazy" onerror="this.style.display='none'">
+        <button type="button" class="video-lazy-play" aria-label="Play">▶</button>
+        <div class="video-lazy-label">YouTube</div>
       </div>
     `;
   }
@@ -2352,15 +2335,10 @@ if (host === 'vk') {
   const vkData = extractVKId(url);
   if (vkData) {
     return `
-      <div class="video-embed">
-        <div class="video-click-overlay"></div>
-        <iframe 
-          src="https://vk.com/video_ext.php?oid=${vkData.oid}&id=${vkData.id}&hd=2"
-          frameborder="0" 
-          allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
-          allowfullscreen
-          loading="lazy">
-        </iframe>
+      <div class="video-embed video-lazy video-lazy-vk" data-provider="vk" data-oid="${vkData.oid}" data-id="${vkData.id}">
+        <div class="video-lazy-thumb video-lazy-thumb-vk">VK</div>
+        <button type="button" class="video-lazy-play" aria-label="Play">▶</button>
+        <div class="video-lazy-label">VK Видео</div>
       </div>
     `;
   }
@@ -5307,46 +5285,41 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // ============================================================
-// КООРДИНАЦИЯ ВИДЕО: одновременно играет только одно
+// LAZY VIDEO: iframe создаётся только после клика
 // ============================================================
-
-function pauseAllVideosExcept(activeIframe) {
-  if (!activeIframe) return;
-  const allIframes = document.querySelectorAll('.video-embed iframe, .video-card-player iframe');
-  allIframes.forEach(iframe => {
-    if (iframe === activeIframe) return;
-    reloadIframe(iframe);
-  });
-}
-
-function reloadIframe(iframe) {
-  const src = iframe.src;
-  if (!src || src === 'about:blank') return;
-  iframe.src = 'about:blank';
-  setTimeout(() => { iframe.src = src; }, 30);
-}
-
 document.addEventListener('click', function(e) {
-  const overlay = e.target.closest('.video-click-overlay');
-  if (!overlay) return;
-  
-  const wrapper = overlay.closest('.video-embed, .video-card-player');
-  if (!wrapper) return;
-  
-  const iframe = wrapper.querySelector('iframe');
-  if (!iframe) return;
-  
-  // Останавливаем все остальные видео
-  pauseAllVideosExcept(iframe);
-  
-  // Скрываем оверлей, чтобы клик прошёл в YouTube
-  overlay.classList.add('hidden');
-  
-  // Возвращаем оверлей через 3 секунды
-  setTimeout(() => {
-    overlay.classList.remove('hidden');
-  }, 3000);
-}, true);
+  const playBtn = e.target.closest('.video-lazy-play');
+  const lazyBox = e.target.closest('.video-lazy');
+  if (!lazyBox) return;
+  if (!playBtn && !e.target.classList.contains('video-lazy-thumb') && !e.target.classList.contains('video-lazy-thumb-vk')) return;
+  if (lazyBox.dataset.loaded === '1') return;
+
+  const provider = lazyBox.dataset.provider;
+  let iframeSrc = '';
+
+  if (provider === 'youtube') {
+    const id = lazyBox.dataset.videoId;
+    if (!id) return;
+    iframeSrc = `https://www.youtube.com/embed/${id}?autoplay=1&rel=0`;
+  } else if (provider === 'vk') {
+    const oid = lazyBox.dataset.oid;
+    const id = lazyBox.dataset.id;
+    if (!oid || !id) return;
+    iframeSrc = `https://vk.com/video_ext.php?oid=${oid}&id=${id}&hd=2&autoplay=1`;
+  } else {
+    return;
+  }
+
+  lazyBox.dataset.loaded = '1';
+  lazyBox.innerHTML = `
+    <iframe src="${iframeSrc}"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+            allowfullscreen
+            loading="lazy">
+    </iframe>
+  `;
+});
 
 // ===== INIT =====
 async function runInit() {
