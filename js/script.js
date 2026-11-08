@@ -562,33 +562,35 @@ function extractTikTokId(url) {
 
 // ===== СОЗДАНИЕ БЛОКА ВИДЕО =====
 
+// ===== СОЗДАНИЕ БЛОКА ВИДЕО (click-to-load) =====
+
 function createVideosBlock(videos, currentLang) {
   if (!videos) return '';
-  
+
   const embeds = [];
   const links = [];
-  
-  // ===== YouTube — встроенное =====
+
+  // ===== YouTube — click-to-load =====
   if (videos.youtube && videos.youtube.length > 0) {
     videos.youtube.forEach(url => {
       const videoId = extractYouTubeId(url);
       if (videoId) {
         embeds.push(`
-          <div class="video-embed">
-		      <div class="video-click-overlay"></div>
-            <iframe 
-        src="https://www.youtube.com/embed/${videoId}"
-              frameborder="0" 
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen
-              loading="lazy">
-            </iframe>
+          <div class="video-embed video-lazy"
+               data-provider="youtube"
+               data-video-id="${videoId}">
+            <img class="video-lazy-thumb"
+                 src="https://i.ytimg.com/vi/${videoId}/hqdefault.jpg"
+                 alt="YouTube video"
+                 loading="lazy"
+                 onerror="this.style.display='none'">
+            <button type="button" class="video-lazy-play" aria-label="Play">▶</button>
+            <div class="video-lazy-label">YouTube</div>
           </div>
         `);
       } else {
         links.push(`
-          <a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer" 
-             class="video-link youtube-link">
+          <a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer" class="video-link youtube-link">
             <span class="video-link-icon">▶️</span>
             <span class="video-link-text">
               <span class="video-link-name">YouTube</span>
@@ -599,28 +601,27 @@ function createVideosBlock(videos, currentLang) {
       }
     });
   }
-  
-  // ===== VK — встроенное =====
+
+  // ===== VK — click-to-load =====
   if (videos.vk && videos.vk.length > 0) {
     videos.vk.forEach(url => {
       const vkData = extractVKId(url);
       if (vkData) {
+        // VK не отдаёт публичный thumbnail по ID без API,
+        // поэтому превью — заглушка с логотипом VK
         embeds.push(`
-          <div class="video-embed">
-		      <div class="video-click-overlay"></div>
-            <iframe 
-              src="https://vk.com/video_ext.php?oid=${vkData.oid}&id=${vkData.id}&hd=2"
-              frameborder="0" 
-              allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
-              allowfullscreen
-              loading="lazy">
-            </iframe>
+          <div class="video-embed video-lazy video-lazy-vk"
+               data-provider="vk"
+               data-oid="${vkData.oid}"
+               data-id="${vkData.id}">
+            <div class="video-lazy-thumb video-lazy-thumb-vk">VK</div>
+            <button type="button" class="video-lazy-play" aria-label="Play">▶</button>
+            <div class="video-lazy-label">VK Видео</div>
           </div>
         `);
       } else {
         links.push(`
-          <a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer" 
-             class="video-link vk-link">
+          <a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer" class="video-link vk-link">
             <span class="video-link-icon">🔵</span>
             <span class="video-link-text">
               <span class="video-link-name">VK Видео</span>
@@ -631,13 +632,12 @@ function createVideosBlock(videos, currentLang) {
       }
     });
   }
-  
-  // ===== TikTok — фолбэк-ссылка =====
+
+  // ===== TikTok / Instagram — только ссылки (как было) =====
   if (videos.tiktok && videos.tiktok.length > 0) {
     videos.tiktok.forEach(url => {
       links.push(`
-        <a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer" 
-           class="video-link tiktok">
+        <a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer" class="video-link tiktok">
           <span class="video-link-icon">🎵</span>
           <span class="video-link-text">
             <span class="video-link-name">TikTok</span>
@@ -647,13 +647,11 @@ function createVideosBlock(videos, currentLang) {
       `);
     });
   }
-  
-  // ===== Instagram — фолбэк-ссылка =====
+
   if (videos.instagram && videos.instagram.length > 0) {
     videos.instagram.forEach(url => {
       links.push(`
-        <a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer" 
-           class="video-link instagram">
+        <a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer" class="video-link instagram">
           <span class="video-link-icon">📸</span>
           <span class="video-link-text">
             <span class="video-link-name">Instagram</span>
@@ -663,24 +661,16 @@ function createVideosBlock(videos, currentLang) {
       `);
     });
   }
-  
+
   if (embeds.length === 0 && links.length === 0) return '';
-  
+
   let html = `<div class="videos-section">
     <h2 data-i18n="videos">${currentLang === 'ru' ? 'Видео' : 'Videos'}</h2>`;
-  
-  // Встроенные видео — 2 в ряд
-  if (embeds.length > 0) {
-    html += `<div class="videos-embeds">${embeds.join('')}</div>`;
-  }
-  
-  // Ссылки-фолбэки — 2 в ряд
-  if (links.length > 0) {
-    html += `<div class="videos-links">${links.join('')}</div>`;
-  }
-  
+
+  if (embeds.length > 0) html += `<div class="videos-embeds">${embeds.join('')}</div>`;
+  if (links.length > 0)  html += `<div class="videos-links">${links.join('')}</div>`;
+
   html += `</div>`;
-  
   return html;
 }
 

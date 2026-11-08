@@ -137,5 +137,11 @@
   "nav_figures_short": "Figures",
   "hero_line1": "Toy",
   "hero_line2": "collection —",
-  "hero_line3": "CAPSULE"
+  "hero_line3": "CAPSULE",
+  "title_legal": "Legal Information — Capsule",
+"legal_title": "Legal Information",
+"legal_updated": "Last updated: November 2026",
+"legal_tab_license": "License & Rights",
+"legal_tab_privacy": "Privacy",
+"legal_link": "Legal Information"
 }

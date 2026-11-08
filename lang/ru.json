@@ -137,5 +137,11 @@
   "nav_figures_short": "Фигурки",
   "hero_line1": "Каталог",
   "hero_line2": "коллекций —",
-  "hero_line3": "КАПСУЛА"
+  "hero_line3": "КАПСУЛА",
+  "title_legal": "Правовая информация — Капсула",
+"legal_title": "Правовая информация",
+"legal_updated": "Последнее обновление: ноябрь 2026",
+"legal_tab_license": "Лицензия и права",
+"legal_tab_privacy": "Конфиденциальность",
+"legal_link": "Правовая информация"
 }

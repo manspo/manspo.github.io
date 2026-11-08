@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <script>
+  (function() {
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+  })();
+  </script>
+
+  <title data-i18n="title_legal">Правовая информация — Капсула</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#8b5cf6">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Капсула">
+  <link rel="apple-touch-icon" href="images/icon-192x192.webp">
+</head>
+<body>
+
+<header class="header">
+  <a href="index.html" class="brand">
+    <img src="images/logo.webp" class="logo-img" alt="Logo">
+    <span class="logo" data-i18n="site_name">Капсула</span>
+  </a>
+  <div class="header-center">
+    <span class="header-main-text" data-i18n="wide_panel_text">Каталог коллекций игрушек Kinder, Nestle, Landrin и другие производители</span>
+  </div>
+  <div class="header-right">
+    <a href="about.html" class="clay-btn clay-btn-about-header" data-i18n="nav_about">О сайте</a>
+  </div>
+</header>
+
+<main>
+  <button class="back-button" onclick="history.back()">
+    <span class="back-arrow">←</span> <span data-i18n="back">Назад</span>
+  </button>
+
+  <div class="page-header">
+    <h1 data-i18n="legal_title">Правовая информация</h1>
+    <p class="timeline-subtitle" data-i18n="legal_updated">Последнее обновление: ноябрь 2026</p>
+  </div>
+
+  <!-- Переключатель разделов -->
+  <div class="kind-filters-wrapper">
+    <div class="kind-filters" id="legalTabs">
+      <button class="kind-btn active" data-tab="license" data-i18n="legal_tab_license">Лицензия и права</button>
+      <button class="kind-btn" data-tab="privacy" data-i18n="legal_tab_privacy">Конфиденциальность</button>
+    </div>
+  </div>
+
+  <!-- ================= РАЗДЕЛ 1: ЛИЦЕНЗИЯ ================= -->
+  <section id="tab-license" class="legal-section about-text">
+    <h2>1. Общие положения</h2>
+    <p>1.1. Настоящее соглашение регулирует условия использования сайта «Капсула» (далее — «Сайт»).</p>
+    <p>1.2. Сайт представляет собой <strong>неофициальный информационный каталог</strong> коллекционных игрушек, вкладышей и серий, созданный в целях каталогизации, описания и популяризации коллекционирования.</p>
+    <p>1.3. Сайт <strong>не является</strong> официальным представительством, дистрибьютором, партнёром или аффилированным лицом каких-либо производителей игрушек.</p>
+    <p>1.4. Использование Сайта означает согласие с настоящим Соглашением.</p>
+
+    <h2>2. Права на товарные знаки и интеллектуальную собственность</h2>
+    <p>2.1. Все товарные знаки, логотипы, названия брендов, персонажи, изображения игрушек, упаковок, вкладышей и иные объекты интеллектуальной собственности, упомянутые или отображённые на Сайте, <strong>принадлежат их законным правообладателям</strong> — производителям игрушек и их лицензиарам, включая, но не ограничиваясь:</p>
+    <ul style="margin: 10px 0 16px 24px; line-height: 1.9;">
+      <li>Kinder (Ferrero);</li>
+      <li>Nestlé;</li>
+      <li>Landrin;</li>
+      <li>McDonald's;</li>
+      <li>Panini;</li>
+      <li>«Забавный сюрприз»;</li>
+      <li>«Булгари»;</li>
+      <li>«Марайа»;</li>
+      <li>иные производители, упомянутые на Сайте.</li>
+    </ul>
+    <p>2.2. Упоминание товарных знаков и брендов на Сайте носит <strong>исключительно информационный и описательный характер</strong> и не означает наличия партнёрства, спонсорства, одобрения или иной связи между Сайтом и правообладателями.</p>
+    <p>2.3. Изображения игрушек и коллекций размещаются <strong>исключительно в целях каталогизации, идентификации и описания товаров</strong> для коллекционеров, без цели извлечения прибыли от использования самих объектов авторского права.</p>
+    <p>2.4. Сайт <strong>не претендует</strong> на какие-либо права на объекты интеллектуальной собственности, перечисленные в п. 2.1.</p>
+
+    <h2>3. Ограничение ответственности</h2>
+    <p>3.1. Сайт предоставляется «как есть» (as is) и не даёт гарантий точности, полноты или актуальности информации.</p>
+    <p>3.2. Администрация Сайта не несёт ответственности за возможные претензии третьих лиц, связанные с использованием размещённых материалов.</p>
+    <p>3.3. Раздел «На продажу» содержит <strong>ссылки на внешние площадки</strong> (в частности, Avito). Сайт не является стороной сделок купли-продажи, не принимает оплату и не несёт ответственности за действия продавцов и покупателей на внешних площадках. Все сделки совершаются на условиях и по правилам соответствующей внешней площадки.</p>
+
+    <h2>4. Порядок урегулирования претензий правообладателей</h2>
+    <p>4.1. Если вы являетесь правообладателем и считаете, что размещение материала на Сайте нарушает ваши права, свяжитесь с администрацией по адресу: <strong>[ваш email]</strong>.</p>
+    <p>4.2. В обращении необходимо указать:</p>
+    <ul style="margin: 10px 0 16px 24px; line-height: 1.9;">
+      <li>сведения о правообладателе;</li>
+      <li>конкретный материал (URL страницы);</li>
+      <li>подтверждение прав;</li>
+      <li>требование (удалить, скорректировать, добавить указание на правообладателя).</li>
+    </ul>
+    <p>4.3. Администрация обязуется рассмотреть обращение в разумный срок и удалить или скорректировать спорный материал при наличии обоснованных оснований.</p>
+
+    <h2>5. Заключительные положения</h2>
+    <p>5.1. Соглашение может быть изменено администрацией Сайта без предварительного уведомления. Актуальная версия всегда размещается на данной странице.</p>
+  </section>
+
+  <!-- ================= РАЗДЕЛ 2: КОНФИДЕНЦИАЛЬНОСТЬ ================= -->
+  <section id="tab-privacy" class="legal-section about-text" style="display:none;">
+    <h2>1. Общие сведения</h2>
+    <p>1.1. Настоящая Политика описывает, как обрабатываются данные посетителей сайта «Капсула» (далее — «Сайт»).</p>
+    <p>1.2. Сайт является <strong>статическим информационным ресурсом</strong>, размещённым на платформе <strong>GitHub Pages</strong> (GitHub, Inc., США).</p>
+    <p>1.3. Администрация Сайта <strong>не собирает и не хранит на сервере</strong> персональные данные посетителей: нет регистрации, аккаунтов, форм обратной связи, подписок, комментариев, собственной аналитики и рекламы.</p>
+
+    <h2>2. Локальное хранилище (localStorage)</h2>
+    <p>2.1. Сайт использует <strong>localStorage браузера</strong> — данные сохраняются <strong>только на вашем устройстве</strong> и не передаются на сервер. Это нужно для работы функций:</p>
+    <ul style="margin: 10px 0 16px 24px; line-height: 1.9;">
+      <li>выбранная тема оформления (светлая/тёмная);</li>
+      <li>выбранный язык интерфейса;</li>
+      <li>сохранённые фильтры каталога;</li>
+      <li>список «Мой поиск» (отметки фигурок);</li>
+      <li>локальный кеш данных каталога для ускорения загрузки.</li>
+    </ul>
+    <p>2.2. Эти данные можно удалить в любой момент через настройки браузера («Очистить данные сайтов»). Сайт продолжит работать, но настройки и список поиска сбросятся.</p>
+
+    <h2>3. Файлы cookie</h2>
+    <p>3.1. Сайт <strong>не устанавливает собственные cookie</strong> и не использует счётчики аналитики или рекламные пиксели.</p>
+    <p>3.2. GitHub Pages как хостинг-платформа может устанавливать технические cookie, необходимые для работы сервиса. Это регулируется политикой GitHub: <a href="https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement" target="_blank" rel="noopener noreferrer">GitHub Privacy Statement</a>.</p>
+
+    <h2>4. Внешние сервисы и сторонние запросы</h2>
+    <p>4.1. <strong>Встроенные видео (YouTube, VK).</strong> В разделе «Видеоархив» и на страницах серий видео встроены через iframe. При загрузке такого видео YouTube и VK могут устанавливать свои cookie и обрабатывать данные (IP-адрес, данные браузера) согласно своим политикам:</p>
+    <ul style="margin: 10px 0 16px 24px; line-height: 1.9;">
+      <li>YouTube / Google: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">policies.google.com/privacy</a>;</li>
+      <li>VK: <a href="https://vk.com/privacy" target="_blank" rel="noopener noreferrer">vk.com/privacy</a>.</li>
+    </ul>
+    <p>4.2. <strong>Ссылки на Avito.</strong> Раздел «На продажу» ведёт на внешнюю площадку Avito. Переход происходит только по вашему клику. Политика Avito: <a href="https://support.avito.ru/articles/2000000000001" target="_blank" rel="noopener noreferrer">support.avito.ru</a>.</p>
+    <p>4.3. <strong>Google Fonts.</strong> Для отображения шрифтов Сайт загружает их с серверов Google. При этом Google получает техническую информацию о запросе (IP-адрес, тип браузера). Политика Google: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">policies.google.com/privacy</a>.</p>
+    <p>4.4. Администрация Сайта <strong>не получает и не хранит</strong> данные, которые собирают перечисленные внешние сервисы.</p>
+
+    <h2>5. Service Worker и офлайн-режим</h2>
+    <p>5.1. Сайт использует Service Worker — технологию, которая кеширует файлы Сайта на вашем устройстве, чтобы он быстрее открывался и работал офлайн.</p>
+    <p>5.2. Кеш хранится только на вашем устройстве и может быть очищен через настройки браузера.</p>
+
+    <h2>6. Передача данных третьим лицам</h2>
+    <p>6.1. Администрация Сайта <strong>не передаёт</strong> никакие данные третьим лицам, поскольку не собирает их.</p>
+    <p>6.2. Взаимодействие с третьими сторонами ограничено технической работой хостинга (GitHub Pages), встроенных видео (YouTube, VK), шрифтов (Google Fonts) и внешних ссылок (Avito) — согласно их собственным политикам (см. п. 4).</p>
+
+    <h2>7. Права посетителей</h2>
+    <p>7.1. Поскольку Администрация Сайта не собирает и не хранит персональные данные на сервере, запросить их удаление или исправление невозможно — таких данных нет.</p>
+    <p>7.2. Данные в localStorage и кеше Service Worker вы можете удалить самостоятельно через настройки браузера.</p>
+    <p>7.3. По вопросам обработки данных на стороне внешних сервисов обращайтесь к их политикам (см. п. 4).</p>
+
+    <h2>8. Дети</h2>
+    <p>8.1. Сайт не предназначен для целенаправленного сбора данных о детях и не собирает такие данные.</p>
+
+    <h2>9. Изменения Политики</h2>
+    <p>9.1. Политика может быть изменена. Актуальная версия всегда размещается на данной странице.</p>
+    <p>9.2. При появлении новых форм сбора данных Политика будет обновлена до введения таких функций.</p>
+
+    <h2>10. Контакты</h2>
+    <p>По вопросам, связанным с настоящей Политикой: <strong>[ваш email]</strong></p>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="footer-controls">
+    <div class="lang-switch-footer">
+      <img src="images/flags/ru.png" data-lang="ru" class="flag" onclick="setLang('ru')" style="cursor: pointer;">
+      <img src="images/flags/en.png" data-lang="en" class="flag" onclick="setLang('en')" style="cursor: pointer;">
+    </div>
+    <div class="theme-switch">
+      <img src="images/icons/theme-dark.webp" alt="Тема" class="theme-icon" onerror="this.style.display='none'">
+    </div>
+  </div>
+
+  <div class="legal-links" style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin:8px 0;">
+    <a href="legal.html" data-i18n="legal_link" style="color:var(--clay-muted); font-size:13px; font-weight:700; text-decoration:none;">Правовая информация</a>
+  </div>
+
+  <div class="support-buttons">
+    <a href="https://dalink.to/mansurdm" class="support-btn" data-i18n="support_project">Поддержать проект</a>
+    <a href="AndroidCapsule.apk" class="support-btn apk-btn" download data-i18n="download_android">Скачать APK</a>
+    <a href="https://t.me/kinder_search_bot" class="support-btn tg-bot-btn" target="_blank" rel="noopener noreferrer" data-i18n="tg_bot">Telegram-бот</a>
+  </div>
+  <div class="copyright" data-i18n="footer_copyright">© 2026 Капсула</div>
+</footer>
+
+<script src="js/script.js"></script>
+<script>
+// Переключение вкладок
+document.addEventListener('DOMContentLoaded', function() {
+  const tabs = document.querySelectorAll('#legalTabs .kind-btn');
+  const sections = {
+    license: document.getElementById('tab-license'),
+    privacy: document.getElementById('tab-privacy')
+  };
+  tabs.forEach(btn => {
+    btn.addEventListener('click', function() {
+      tabs.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const target = btn.dataset.tab;
+      Object.keys(sections).forEach(k => {
+        sections[k].style.display = (k === target) ? 'block' : 'none';
+      });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+});
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js')
+      .then(reg => console.log('✅ SW registered:', reg))
+      .catch(err => console.log('❌ SW error:', err));
+  });
+}
+let refreshing = false;
+navigator.serviceWorker.addEventListener('controllerchange', () => {
+  if (!refreshing) { refreshing = true; window.location.reload(); }
+});
+</script>
+</body>
+</html>
