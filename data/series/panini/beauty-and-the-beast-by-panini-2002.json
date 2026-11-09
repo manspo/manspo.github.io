@@ -151,7 +151,7 @@
     {
       "id": "beauty-and-the-beast-by-panini-2002_fig9",
       "name": "Чудовище",
-      "name_en": "Beast 2",
+      "name_en": "Beast",
       "code": "",
       "image": "images/series/panini/beauty-and-the-beast-by-panini-2002/Чудовище - Beast 2.webp",
       "owned": false,
@@ -166,8 +166,8 @@
     },
     {
       "id": "beauty-and-the-beast-by-panini-2002_fig10",
-      "name": "Чудовище",
-      "name_en": "Beast",
+      "name": "Чудовище 2",
+      "name_en": "Beast 2",
       "code": "",
       "image": "images/series/panini/beauty-and-the-beast-by-panini-2002/Чудовище - Beast.webp",
       "owned": false,

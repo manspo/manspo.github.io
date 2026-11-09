@@ -45,6 +45,9 @@
   .status.show { opacity:1; }
   details summary { cursor:pointer; color:#4f46e5; font-weight:600; margin-bottom:8px; }
   .cover-badge { font-size:11px; color:#6b7280; }
+  .index-status { font-size:12px; color:#6b7280; margin-top:6px; }
+  .index-status.ok { color:#065f46; }
+  .index-status.err { color:#b91c1c; }
 </style>
 </head>
 <body>
@@ -62,11 +65,11 @@
 
   <div class="card" id="globalActions" style="display:none;">
     <div class="actions">
-      <button id="btnZip" onclick="downloadZip()">💾 Скачать ZIP (валидные серии)</button>
-      <button id="btnIndex" class="secondary" onclick="downloadIndexFragment()">📄 Скачать index-фрагмент</button>
-      <button class="secondary" onclick="reparseAllNames()">🔁 Перепарсить имена из файлов</button>
+      <button id="btnZip" onclick="downloadZip()">💾 Скачать ZIP (валидные серии + index.json)</button>
+      <button id="btnIndex" class="secondary" onclick="downloadIndexFragment()">📄 Скачать index-фрагмент (только новые)</button>
       <button class="danger" onclick="clearAll()">🗑️ Очистить всё</button>
     </div>
+    <div id="indexStatus" class="index-status"></div>
   </div>
 </div>
 
@@ -80,6 +83,7 @@
 const PREPOSITIONS = new Set(['in','of','the','and','or','a','an','on','at','for','to','by','with','from','as']);
 
 let manufacturersData = {};
+let existingIndex = [];   // сюда грузим data/index.json
 let seriesList = [];
 
 function todayISO() { return new Date().toISOString().slice(0,10); }
@@ -97,10 +101,26 @@ function slugify(text) {
 const TR = { 'а':'a','б':'b','в':'v','г':'g','д':'d','е':'e','ё':'e','ж':'zh','з':'z','и':'i','й':'y','к':'k','л':'l','м':'m','н':'n','о':'o','п':'p','р':'r','с':'s','т':'t','у':'u','ф':'f','х':'h','ц':'ts','ч':'ch','ш':'sh','щ':'sch','ъ':'','ы':'y','ь':'','э':'e','ю':'yu','я':'ya' };
 function translit(s){ return String(s||'').split('').map(ch => TR[ch] || ch).join(''); }
 
+// Убирает хвост "by X" / "от X" из базового имени, чтобы не дублировать
+function stripManufacturerSuffix(name, manufText, kind) {
+  if (!name || !manufText) return name;
+  const patterns = kind === 'ru'
+    ? [new RegExp(`\\s+от\\s+${escapeRegExp(manufText)}\\s*$`, 'i')]
+    : [new RegExp(`\\s+by\\s+${escapeRegExp(manufText)}\\s*$`, 'i')];
+  let out = name;
+  patterns.forEach(p => { out = out.replace(p, '').trim(); });
+  return out;
+}
+
+function escapeRegExp(s) { return String(s).replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+
 function generateSeriesId(nameEnClean, manufacturerKey, year) {
-  const en = translit(nameEnClean);
+  // срезаем возможный хвост "by <manufacturer>" из базы, чтобы не было "...-by-x-by-x-..."
+  const manufEn = manufacturersData[manufacturerKey]?.en || '';
+  let base = stripManufacturerSuffix(nameEnClean || '', manufEn, 'en');
+  const en = translit(base);
   const slug = slugify(en);
-  const m = slugify(manufacturerKey);
+  const m = slugify(manufacturerKey || 'other');
   return `${slug}-by-${m}-${year}`;
 }
 
@@ -129,18 +149,17 @@ function findManufacturerByEn(en) {
   return null;
 }
 
-// Убирает хвост "by X" / "от X" из базового имени, чтобы не дублировать
-function stripManufacturerSuffix(name, manufText, kind) {
-  if (!name || !manufText) return name;
-  const patterns = kind === 'ru'
-    ? [new RegExp(`\\s+от\\s+${escapeRegExp(manufText)}\\s*$`, 'i')]
-    : [new RegExp(`\\s+by\\s+${escapeRegExp(manufText)}\\s*$`, 'i')];
-  let out = name;
-  patterns.forEach(p => { out = out.replace(p, '').trim(); });
-  return out;
+function escapeHtml(str) {
+  if (!str) return '';
+  return String(str).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 }
 
-function escapeRegExp(s) { return String(s).replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+function plural(n, one, few, many) {
+  const m10 = n % 10, m100 = n % 100;
+  if (m10 === 1 && m100 !== 11) return one;
+  if (m10 >= 2 && m10 <= 4 && (m100 < 10 || m100 >= 20)) return few;
+  return many;
+}
 
 // ============================================================
 // ПАРСИНГ ИМЕНИ ПАПКИ
@@ -160,11 +179,13 @@ function parseFolderName(folderName) {
 }
 
 // ============================================================
-// ПАРСИНГ ИМЕНИ ФАЙЛА
+// ПАРСИНГ ИМЕНИ ФАЙЛА (—, –, - → " - "; кириллица не попадает в name_en)
 // ============================================================
 
 function parseFigureFilename(filename) {
   let base = filename.replace(/\.[^.]+$/,'');
+
+  // отрезаем числовой префикс "1-f-", "2-i-"
   base = base.replace(/^\d+-[a-zа-я]-/i, '');
 
   // НОРМАЛИЗАЦИЯ РАЗДЕЛИТЕЛЕЙ: — (em), – (en), - (hyphen) с пробелами → " - "
@@ -183,33 +204,6 @@ function parseFigureFilename(filename) {
   }
   return { ru: '', en: titleCasePreservePrepositions(base.trim()) };
 }
-
-// ============================================================
-// ПЕРЕПАРС ИМЁН ИЗ ФАЙЛОВ (для уже загруженных серий)
-// ============================================================
-function reparseAllNames() {
-  if (seriesList.length === 0) { alert('Список пуст — сначала загрузите папки.'); return; }
-  if (!confirm('Перепарсить имена фигурок и вкладышей из имён файлов?\n\nТекущие name/name_en у элементов будут заменены.')) return;
-
-  let changed = 0;
-  seriesList.forEach(s => {
-    [...s.figures, ...s.inserts].forEach(item => {
-      const names = parseFigureFilename(item._filename);
-      const newRu = names.ru || item.name;
-      const newEn = names.en || item.name_en;
-      if (newRu !== item.name || newEn !== item.name_en) {
-        item.name = newRu;
-        item.name_en = newEn;
-        changed++;
-      }
-    });
-    recalcSeries(s);
-  });
-
-  renderAll();
-  alert(`✅ Перепарсено. Обновлено имён: ${changed}.`);
-}
-window.reparseAllNames = reparseAllNames;
 
 function isInsertFile(filename) {
   return /BPZ/i.test(filename);
@@ -287,6 +281,33 @@ async function handleFiles(fileList) {
 }
 
 // ============================================================
+// ПЕРЕПАРС ИМЁН ИЗ ФАЙЛОВ (для уже загруженных серий)
+// ============================================================
+
+function reparseAllNames() {
+  if (seriesList.length === 0) { alert('Список пуст — сначала загрузите папки.'); return; }
+  if (!confirm('Перепарсить имена фигурок и вкладышей из имён файлов?\n\nТекущие name/name_en у элементов будут заменены.')) return;
+
+  let changed = 0;
+  seriesList.forEach(s => {
+    [...s.figures, ...s.inserts].forEach(item => {
+      const names = parseFigureFilename(item._filename);
+      const newRu = names.ru || item.name;
+      const newEn = names.en || item.name_en;
+      if (newRu !== item.name || newEn !== item.name_en) {
+        item.name = newRu;
+        item.name_en = newEn;
+        changed++;
+      }
+    });
+    recalcSeries(s);
+  });
+
+  renderAll();
+  alert(`✅ Перепарсено. Обновлено имён: ${changed}.`);
+}
+
+// ============================================================
 // ПЕРЕСЧЁТ ПОЛЕЙ СЕРИИ
 // ============================================================
 
@@ -357,7 +378,7 @@ function isValidSeries(series) {
 }
 
 // ============================================================
-// СБОРКА JSON
+// СБОРКА JSON СЕРИИ
 // ============================================================
 
 function buildSeriesJSON(series) {
@@ -411,6 +432,21 @@ function buildSeriesJSON(series) {
   };
 }
 
+function buildIndexEntry(series) {
+  return {
+    id: series.id,
+    name: series.name,
+    name_en: series.name_en,
+    year: series.year,
+    manufacturer: series.manufacturer,
+    cover: series.cover,
+    kind: '',
+    description: series.description || '',
+    description_en: series.description_en || '',
+    visible: true
+  };
+}
+
 // ============================================================
 // РЕНДЕР
 // ============================================================
@@ -419,6 +455,7 @@ function renderAll() {
   const list = document.getElementById('seriesList');
   const globalActions = document.getElementById('globalActions');
   const summary = document.getElementById('globalSummary');
+  const indexStatus = document.getElementById('indexStatus');
 
   if (seriesList.length === 0) {
     list.innerHTML = '';
@@ -439,6 +476,16 @@ function renderAll() {
   globalActions.style.display = 'block';
   document.getElementById('btnZip').disabled = validCount === 0;
   document.getElementById('btnIndex').disabled = validCount === 0;
+
+  if (indexStatus) {
+    if (existingIndex.length > 0) {
+      indexStatus.className = 'index-status ok';
+      indexStatus.textContent = `✅ data/index.json загружен: ${existingIndex.length} серий. Новые пойдут в начало.`;
+    } else {
+      indexStatus.className = 'index-status err';
+      indexStatus.textContent = `⚠️ data/index.json не загружен (открыто через file:// или файл недоступен). В ZIP попадут ТОЛЬКО новые записи.`;
+    }
+  }
 
   list.innerHTML = seriesList.map((s, si) => renderSeriesCard(s, si)).join('');
   bindSeriesHandlers();
@@ -579,13 +626,6 @@ function bindSeriesHandlers() {
   }));
 }
 
-function plural(n, one, few, many) {
-  const m10 = n % 10, m100 = n % 100;
-  if (m10 === 1 && m100 !== 11) return one;
-  if (m10 >= 2 && m10 <= 4 && (m100 < 10 || m100 >= 20)) return few;
-  return many;
-}
-
 function removeSeries(si) {
   if (!confirm('Удалить серию из списка?')) return;
   const s = seriesList[si];
@@ -629,33 +669,46 @@ async function downloadZip() {
   if (skipped > 0 && !confirm(`Будет выгружено ${valid.length} валидных серий.\nПропущено с ошибками: ${skipped}.\n\nПродолжить?`)) return;
 
   const zip = new JSZip();
+
+  // === Серии ===
   valid.forEach(s => {
     zip.folder(`series/${s.manufacturer}`).file(`${s.id}.json`, JSON.stringify(buildSeriesJSON(s), null, 2));
   });
+
+  // === index.json: новые — в начало, дубли пропускаем ===
+  let indexMsg = '';
+  if (existingIndex.length > 0) {
+    const existingIds = new Set(existingIndex.map(s => s && s.id).filter(Boolean));
+    const newEntries = [];
+    let skippedIds = 0;
+    valid.forEach(s => {
+      if (existingIds.has(s.id)) { skippedIds++; return; }
+      newEntries.push(buildIndexEntry(s));
+    });
+    const merged = [...newEntries, ...existingIndex];
+    zip.file('index.json', JSON.stringify(merged, null, 2));
+    indexMsg = `\nindex.json: добавлено в начало ${newEntries.length}, пропущено (id уже есть) ${skippedIds}, всего ${merged.length}.`;
+  } else {
+    const fragment = valid.map(buildIndexEntry);
+    zip.file('index.json', JSON.stringify(fragment, null, 2));
+    indexMsg = `\n⚠️ data/index.json не загрузился — в ZIP положены ТОЛЬКО новые серии: ${fragment.length}. Старые записи НЕ включены.`;
+  }
+
   const blob = await zip.generateAsync({type:'blob'});
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
   a.download = `series_parsed_${new Date().toISOString().slice(0,19).replace(/:/g,'-')}.zip`;
   a.click();
   URL.revokeObjectURL(a.href);
+
   showStatus();
+  setTimeout(() => alert('✅ ZIP готов.' + indexMsg), 100);
 }
 
 function downloadIndexFragment() {
   const valid = seriesList.filter(isValidSeries);
   if (valid.length === 0) { alert('Нет валидных серий.'); return; }
-  const fragment = valid.map(s => ({
-    id: s.id,
-    name: s.name,
-    name_en: s.name_en,
-    year: s.year,
-    manufacturer: s.manufacturer,
-    cover: s.cover,
-    kind: '',
-    description: s.description || '',
-    description_en: s.description_en || '',
-    visible: true
-  }));
+  const fragment = valid.map(buildIndexEntry);
   const blob = new Blob([JSON.stringify(fragment, null, 2)], {type:'application/json'});
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
@@ -669,11 +722,6 @@ function showStatus() {
   const s = document.getElementById('status');
   s.classList.add('show');
   setTimeout(() => s.classList.remove('show'), 2000);
-}
-
-function escapeHtml(str) {
-  if (!str) return '';
-  return String(str).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 }
 
 // ============================================================
@@ -729,7 +777,7 @@ drop.addEventListener('drop', async e => {
 
 async function loadManufacturers() {
   try {
-    const res = await fetch('data/manufacturers.json');
+    const res = await fetch('data/manufacturers.json', { cache: 'no-store' });
     if (!res.ok) throw new Error('HTTP ' + res.status);
     manufacturersData = await res.json();
     console.log('✅ manufacturers.json:', Object.keys(manufacturersData).length);
@@ -742,7 +790,32 @@ async function loadManufacturers() {
   }
 }
 
-(async () => { await loadManufacturers(); })();
+async function loadExistingIndex() {
+  try {
+    const res = await fetch('data/index.json', { cache: 'no-store' });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+    if (!Array.isArray(data)) throw new Error('index.json должен быть массивом');
+    existingIndex = data;
+    console.log('✅ index.json загружен:', data.length, 'серий');
+  } catch (err) {
+    console.warn('⚠️ Не удалось загрузить data/index.json:', err);
+    existingIndex = [];
+  }
+}
+
+// Экспорт в глобальный объект
+window.downloadOne = downloadOne;
+window.downloadZip = downloadZip;
+window.downloadIndexFragment = downloadIndexFragment;
+window.removeSeries = removeSeries;
+window.clearAll = clearAll;
+window.reparseAllNames = reparseAllNames;
+
+(async () => {
+  await loadManufacturers();
+  await loadExistingIndex();
+})();
 </script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>

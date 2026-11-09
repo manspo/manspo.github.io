@@ -17334,7 +17334,7 @@
     "seriesYear": 2026,
     "manufacturer": "kinder",
     "owned": false,
-    "forsale": false,
+    "forsale": true,
     "avito": "",
     "price": "",
     "type": "figures"
@@ -18152,7 +18152,7 @@
     "owned": false,
     "forsale": true,
     "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/chelovek-pauk_kinder_dzhoy_syurpriz_2026_8318728222",
-    "price": "149 руб. (с учетом комиссии Авито)",
+    "price": "499 руб. (с учетом комиссии Авито)",
     "type": "figures"
   },
   {
@@ -18184,9 +18184,9 @@
     "seriesYear": 2026,
     "manufacturer": "kinder",
     "owned": false,
-    "forsale": false,
-    "avito": "",
-    "price": "",
+    "forsale": true,
+    "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/chelovek-pauk_kinder_dzhoy_syurpriz_2026_8318728222",
+    "price": "149",
     "type": "figures"
   },
   {
@@ -18288,7 +18288,7 @@
     "owned": false,
     "forsale": true,
     "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/chelovek-pauk_kinder_dzhoy_syurpriz_2026_8318728222",
-    "price": "149 руб. (с учетом комиссии Авито)",
+    "price": "199 руб. (с учетом комиссии Авито)",
     "type": "figures"
   },
   {
@@ -18405,7 +18405,7 @@
     "seriesYear": 2026,
     "manufacturer": "kinder",
     "owned": false,
-    "forsale": false,
+    "forsale": true,
     "avito": "",
     "price": "",
     "type": "figures"
@@ -18422,9 +18422,9 @@
     "seriesYear": 2026,
     "manufacturer": "kinder",
     "owned": false,
-    "forsale": false,
+    "forsale": true,
     "avito": "",
-    "price": "",
+    "price": "99",
     "type": "extras"
   },
   {
@@ -32719,9 +32719,9 @@
     "seriesYear": 2026,
     "manufacturer": "kinder",
     "owned": false,
-    "forsale": false,
-    "avito": "",
-    "price": "",
+    "forsale": true,
+    "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/van_pis_one_piece_-_kinder_dzhoy_8328177890",
+    "price": "299",
     "type": "figures"
   },
   {
@@ -32754,8 +32754,8 @@
     "manufacturer": "kinder",
     "owned": false,
     "forsale": true,
-    "avito": "",
-    "price": "",
+    "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/van_pis_one_piece_-_kinder_dzhoy_8328177890",
+    "price": "199",
     "type": "figures"
   },
   {
@@ -32771,8 +32771,8 @@
     "manufacturer": "kinder",
     "owned": false,
     "forsale": true,
-    "avito": "",
-    "price": "",
+    "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/van_pis_one_piece_-_kinder_dzhoy_8328177890",
+    "price": "149",
     "type": "figures"
   },
   {
@@ -32992,8 +32992,8 @@
     "manufacturer": "kinder",
     "owned": false,
     "forsale": true,
-    "avito": "",
-    "price": "",
+    "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/van_pis_one_piece_-_kinder_dzhoy_8328177890",
+    "price": "199",
     "type": "figures"
   },
   {
@@ -55304,7 +55304,7 @@
     "id": "beauty-and-the-beast-by-panini-2002_fig9",
     "code": "",
     "name": "Чудовище",
-    "name_en": "Beast 2",
+    "name_en": "Beast",
     "image": "images/series/panini/beauty-and-the-beast-by-panini-2002/Чудовище - Beast 2.webp",
     "seriesId": "beauty-and-the-beast-by-panini-2002",
     "seriesName": "Красавица и чудовище от Панини",
@@ -55320,8 +55320,8 @@
   {
     "id": "beauty-and-the-beast-by-panini-2002_fig10",
     "code": "",
-    "name": "Чудовище",
-    "name_en": "Beast",
+    "name": "Чудовище 2",
+    "name_en": "Beast 2",
     "image": "images/series/panini/beauty-and-the-beast-by-panini-2002/Чудовище - Beast.webp",
     "seriesId": "beauty-and-the-beast-by-panini-2002",
     "seriesName": "Красавица и чудовище от Панини",
