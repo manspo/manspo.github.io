@@ -188,6 +188,9 @@ function parseFigureFilename(filename) {
   // отрезаем числовой префикс "1-f-", "2-i-"
   base = base.replace(/^\d+-[a-zа-я]-/i, '');
 
+  // срезаем служебный маркер "= other"
+  base = base.replace(/\s*=\s*other\s*$/i, '').trim();
+
   // НОРМАЛИЗАЦИЯ РАЗДЕЛИТЕЛЕЙ: — (em), – (en), - (hyphen) с пробелами → " - "
   base = base.replace(/\s+[—–-]\s+/g, ' - ');
 
@@ -207,6 +210,10 @@ function parseFigureFilename(filename) {
 
 function isInsertFile(filename) {
   return /BPZ/i.test(filename);
+}
+
+function isOtherFile(filename) {
+  return /=\s*other\s*$/i.test(filename.replace(/\.[^.]+$/,''));
 }
 
 // ============================================================
@@ -248,6 +255,7 @@ async function handleFiles(fileList) {
       description_en: '',
       figures: [],
       inserts: [],
+      other: [],
       _coverFile: null,
       _coverPreviewUrl: ''
     };
@@ -266,12 +274,14 @@ async function handleFiles(fileList) {
         name_en: names.en || '',
         _filename: f.name
       };
-      if (isInsertFile(f.name)) series.inserts.push(item);
+      if (isOtherFile(f.name)) series.other.push(item);
+      else if (isInsertFile(f.name)) series.inserts.push(item);
       else series.figures.push(item);
     }
 
     series.figures.sort((a,b) => a._filename.localeCompare(b._filename));
     series.inserts.sort((a,b) => a._filename.localeCompare(b._filename));
+    series.other.sort((a,b) => a._filename.localeCompare(b._filename));
 
     recalcSeries(series);
     seriesList.push(series);
@@ -290,7 +300,7 @@ function reparseAllNames() {
 
   let changed = 0;
   seriesList.forEach(s => {
-    [...s.figures, ...s.inserts].forEach(item => {
+    [...s.figures, ...s.inserts, ...s.other].forEach(item => {
       const names = parseFigureFilename(item._filename);
       const newRu = names.ru || item.name;
       const newEn = names.en || item.name_en;
@@ -354,6 +364,12 @@ function recalcSeries(series) {
     item.id = `${series.id}_insert${idx+1}`;
     item.name = item.name || `Вкладыш ${idx+1}`;
     item.name_en = item.name_en || `Insert ${idx+1}`;
+    item.image = `images/series/${manufFolder}/${series.id}/${item._filename}`;
+  });
+  series.other.forEach((item, idx) => {
+    item.id = `${series.id}_other${idx+1}`;
+    item.name = item.name || `Прочее ${idx+1}`;
+    item.name_en = item.name_en || `Other ${idx+1}`;
     item.image = `images/series/${manufFolder}/${series.id}/${item._filename}`;
   });
 }
@@ -426,7 +442,7 @@ function buildSeriesJSON(series) {
     extras: [],
     variants: [],
     inserts: series.inserts.map(baseItem),
-    other: [],
+    other: series.other.map(baseItem),
     videos: { youtube: [], vk: [], tiktok: [], instagram: [] },
     contributors: []
   };
@@ -563,6 +579,13 @@ function renderSeriesCard(s, si) {
         </div>
       </details>
 
+      <details ${s.other.length?'open':''}>
+        <summary>Прочее (${s.other.length})</summary>
+        <div class="items">
+          ${s.other.map((f, fi) => renderItem(f, si, fi, 'oth')).join('') || '<p style="color:#6b7280;font-size:13px;">Нет прочего</p>'}
+        </div>
+      </details>
+
       <div class="actions">
         <button class="small secondary" onclick="downloadOne(${si})" ${isError?'disabled':''}>💾 Скачать JSON этой серии</button>
         <button class="small danger" onclick="removeSeries(${si})">🗑️ Удалить серию</button>
@@ -614,15 +637,23 @@ function bindSeriesHandlers() {
     seriesList[+this.dataset.si].description_en = this.value;
   }));
 
+  function getItemsArr(si, kind) {
+    const s = seriesList[+si];
+    if (kind === 'fig') return s.figures;
+    if (kind === 'ins') return s.inserts;
+    if (kind === 'oth') return s.other;
+    return [];
+  }
+
   list.querySelectorAll('.item-name').forEach(inp => inp.addEventListener('input', function(){
     const {si, fi, kind} = this.dataset;
-    const arr = kind === 'fig' ? seriesList[+si].figures : seriesList[+si].inserts;
-    arr[+fi].name = this.value;
+    const arr = getItemsArr(si, kind);
+    if (arr[+fi]) arr[+fi].name = this.value;
   }));
   list.querySelectorAll('.item-name-en').forEach(inp => inp.addEventListener('input', function(){
     const {si, fi, kind} = this.dataset;
-    const arr = kind === 'fig' ? seriesList[+si].figures : seriesList[+si].inserts;
-    arr[+fi].name_en = this.value;
+    const arr = getItemsArr(si, kind);
+    if (arr[+fi]) arr[+fi].name_en = this.value;
   }));
 }
 
@@ -630,7 +661,7 @@ function removeSeries(si) {
   if (!confirm('Удалить серию из списка?')) return;
   const s = seriesList[si];
   if (s._coverPreviewUrl) try { URL.revokeObjectURL(s._coverPreviewUrl); } catch(e){}
-  [...s.figures, ...s.inserts].forEach(i => { try { URL.revokeObjectURL(i._previewUrl); } catch(e){} });
+  [...s.figures, ...s.inserts, ...s.other].forEach(i => { try { URL.revokeObjectURL(i._previewUrl); } catch(e){} });
   seriesList.splice(si, 1);
   renderAll();
 }
@@ -639,7 +670,7 @@ function clearAll() {
   if (!confirm('Очистить всё?')) return;
   seriesList.forEach(s => {
     if (s._coverPreviewUrl) try { URL.revokeObjectURL(s._coverPreviewUrl); } catch(e){}
-    [...s.figures, ...s.inserts].forEach(i => { try { URL.revokeObjectURL(i._previewUrl); } catch(e){} });
+    [...s.figures, ...s.inserts, ...s.other].forEach(i => { try { URL.revokeObjectURL(i._previewUrl); } catch(e){} });
   });
   seriesList = [];
   renderAll();

@@ -18490,7 +18490,7 @@
     "seriesYear": 2026,
     "manufacturer": "kinder",
     "owned": false,
-    "forsale": true,
+    "forsale": false,
     "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/chelovek-pauk_kinder_dzhoy_syurpriz_2026_8318728222",
     "price": "149 руб. (с учетом комиссии Авито)",
     "type": "extras"
@@ -18524,7 +18524,7 @@
     "seriesYear": 2026,
     "manufacturer": "kinder",
     "owned": false,
-    "forsale": true,
+    "forsale": false,
     "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/chelovek-pauk_kinder_dzhoy_syurpriz_2026_8318728222",
     "price": "149 руб. (с учетом комиссии Авито)",
     "type": "extras"
