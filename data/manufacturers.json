@@ -1,7 +1,7 @@
 {
   "kinder": {
-    "ru": "Киндер Сюрприз",
-    "en": "Kinder Surprise"
+    "ru": "Киндер",
+    "en": "Kinder"
   },
   "nestle": {
     "ru": "Нестле",
@@ -122,5 +122,9 @@
   "danli": {
     "ru": "Данли",
     "en": "Danli"
+  },
+  "ricard": {
+    "ru": "Рикард",
+    "en": "Ricard"
   }
  } 

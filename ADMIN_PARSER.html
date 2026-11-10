@@ -216,6 +216,11 @@ function isOtherFile(filename) {
   return /=\s*other\s*$/i.test(filename.replace(/\.[^.]+$/,''));
 }
 
+function isVariantFile(filename) {
+  // 1-v.webp, 2-v.webp, 3-v.webp …
+  return /^\d+-v\.(webp|jpe?g|png)$/i.test(filename);
+}
+
 // ============================================================
 // ЧТЕНИЕ ПАПОК
 // ============================================================
@@ -255,6 +260,7 @@ async function handleFiles(fileList) {
       description_en: '',
       figures: [],
       inserts: [],
+      variants: [],
       other: [],
       _coverFile: null,
       _coverPreviewUrl: ''
@@ -275,13 +281,30 @@ async function handleFiles(fileList) {
         _filename: f.name
       };
       if (isOtherFile(f.name)) series.other.push(item);
-      else if (isInsertFile(f.name)) series.inserts.push(item);
+      else if (isVariantFile(f.name)) {
+        item.name = '';
+        item.name_en = '';
+        series.variants.push(item);
+      }
+      else if (isInsertFile(f.name)) {
+        item.name = '';
+        item.name_en = '';
+        series.inserts.push(item);
+      }
       else series.figures.push(item);
     }
 
-    series.figures.sort((a,b) => a._filename.localeCompare(b._filename));
-    series.inserts.sort((a,b) => a._filename.localeCompare(b._filename));
-    series.other.sort((a,b) => a._filename.localeCompare(b._filename));
+    const byNumericPrefix = (a, b) => {
+      const na = parseInt((a._filename.match(/^(\d+)/) || [])[1] || '999999', 10);
+      const nb = parseInt((b._filename.match(/^(\d+)/) || [])[1] || '999999', 10);
+      if (na !== nb) return na - nb;
+      return a._filename.localeCompare(b._filename);
+    };
+
+    series.figures.sort(byNumericPrefix);
+    series.inserts.sort(byNumericPrefix);
+    series.variants.sort(byNumericPrefix);
+    series.other.sort(byNumericPrefix);
 
     recalcSeries(series);
     seriesList.push(series);
@@ -300,7 +323,7 @@ function reparseAllNames() {
 
   let changed = 0;
   seriesList.forEach(s => {
-    [...s.figures, ...s.inserts, ...s.other].forEach(item => {
+    [...s.figures, ...s.other].forEach(item => {
       const names = parseFigureFilename(item._filename);
       const newRu = names.ru || item.name;
       const newEn = names.en || item.name_en;
@@ -364,6 +387,12 @@ function recalcSeries(series) {
     item.id = `${series.id}_insert${idx+1}`;
     item.name = item.name || `Вкладыш ${idx+1}`;
     item.name_en = item.name_en || `Insert ${idx+1}`;
+    item.image = `images/series/${manufFolder}/${series.id}/${item._filename}`;
+  });
+  series.variants.forEach((item, idx) => {
+    item.id = `${series.id}_variant${idx+1}`;
+    item.name = item.name || `Вариант ${idx+1}`;
+    item.name_en = item.name_en || `Variant ${idx+1}`;
     item.image = `images/series/${manufFolder}/${series.id}/${item._filename}`;
   });
   series.other.forEach((item, idx) => {
@@ -440,7 +469,7 @@ function buildSeriesJSON(series) {
     fullSeriesDescription_en: '',
     figures: series.figures.map(baseItem),
     extras: [],
-    variants: [],
+    variants: series.variants.map(baseItem),
     inserts: series.inserts.map(baseItem),
     other: series.other.map(baseItem),
     videos: { youtube: [], vk: [], tiktok: [], instagram: [] },
@@ -579,6 +608,13 @@ function renderSeriesCard(s, si) {
         </div>
       </details>
 
+      <details ${s.variants.length?'open':''}>
+        <summary>Варианты (${s.variants.length})</summary>
+        <div class="items">
+          ${s.variants.map((f, fi) => renderItem(f, si, fi, 'var')).join('') || '<p style="color:#6b7280;font-size:13px;">Нет вариантов</p>'}
+        </div>
+      </details>
+
       <details ${s.other.length?'open':''}>
         <summary>Прочее (${s.other.length})</summary>
         <div class="items">
@@ -641,6 +677,7 @@ function bindSeriesHandlers() {
     const s = seriesList[+si];
     if (kind === 'fig') return s.figures;
     if (kind === 'ins') return s.inserts;
+    if (kind === 'var') return s.variants;
     if (kind === 'oth') return s.other;
     return [];
   }
@@ -661,7 +698,7 @@ function removeSeries(si) {
   if (!confirm('Удалить серию из списка?')) return;
   const s = seriesList[si];
   if (s._coverPreviewUrl) try { URL.revokeObjectURL(s._coverPreviewUrl); } catch(e){}
-  [...s.figures, ...s.inserts, ...s.other].forEach(i => { try { URL.revokeObjectURL(i._previewUrl); } catch(e){} });
+  [...s.figures, ...s.inserts, ...s.variants, ...s.other].forEach(i => { try { URL.revokeObjectURL(i._previewUrl); } catch(e){} });
   seriesList.splice(si, 1);
   renderAll();
 }
@@ -670,7 +707,7 @@ function clearAll() {
   if (!confirm('Очистить всё?')) return;
   seriesList.forEach(s => {
     if (s._coverPreviewUrl) try { URL.revokeObjectURL(s._coverPreviewUrl); } catch(e){}
-    [...s.figures, ...s.inserts, ...s.other].forEach(i => { try { URL.revokeObjectURL(i._previewUrl); } catch(e){} });
+    [...s.figures, ...s.inserts, ...s.variants, ...s.other].forEach(i => { try { URL.revokeObjectURL(i._previewUrl); } catch(e){} });
   });
   seriesList = [];
   renderAll();
