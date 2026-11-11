@@ -1,5 +1,41 @@
 [
   {
+    "id": "little-people-professions-new-master-of-disguise-by-kinder-1998",
+    "name": "Человечки Профессии / Новые Мастер Перевоплощений от Киндер",
+    "name_en": "Little People Professions / New Master of Disguise by Kinder",
+    "year": 1998,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/little-people-professions-new-master-of-disguise-by-kinder-1998/cover.webp",
+    "kind": "",
+    "description": "Серия «Человечки Профессии / Новые Мастер Перевоплощений», 1998 год.",
+    "description_en": "\"Little People Professions / New Master of Disguise\" series, 1998.",
+    "visible": true
+  },
+  {
+    "id": "presepe-by-kinder-1998",
+    "name": "Рождество от Киндер",
+    "name_en": "Presepe by Kinder",
+    "year": 1998,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/presepe-by-kinder-1998/cover.webp",
+    "kind": "",
+    "description": "Серия «Рождество», 1998 год.",
+    "description_en": "\"Presepe\" series, 1998.",
+    "visible": true
+  },
+  {
+    "id": "elephants-in-the-circus-by-kinder-1998",
+    "name": "Слоны в цирке от Киндер",
+    "name_en": "Elephants in the Circus by Kinder",
+    "year": 1998,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/elephants-in-the-circus-by-kinder-1998/cover.webp",
+    "kind": "",
+    "description": "Серия «Слоны в цирке», 1998 год.",
+    "description_en": "\"Elephants in the Circus\" series, 1998.",
+    "visible": true
+  },
+  {
     "id": "paw-patrol-by-kinder-2026",
     "name": "Щенячий Патруль от Киндер",
     "name_en": "Paw Patrol by Kinder",
