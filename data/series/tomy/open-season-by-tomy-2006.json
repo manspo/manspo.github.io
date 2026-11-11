@@ -150,9 +150,11 @@
     }
   ],
   "extras": [],
-  "variants": [
+  "variants": [],
+  "inserts": [],
+  "other": [
     {
-      "id": "open-season-by-tomy-2006_variant1",
+      "id": "open-season-by-tomy-2006_other1",
       "name": "Вариант в сборе",
       "name_en": "Assembled option",
       "code": "",
@@ -165,11 +167,9 @@
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-11-10"
+      "date_added": "2026-11-11"
     }
   ],
-  "inserts": [],
-  "other": [],
   "videos": {
     "youtube": [],
     "vk": [],

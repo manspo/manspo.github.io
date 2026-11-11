@@ -105,10 +105,10 @@
   "variants": [
     {
       "id": "simpsons-movie-by-tomy-2007_variant1",
-      "name": "Вариант 1",
-      "name_en": "Variant 1",
+      "name": "",
+      "name_en": "",
       "code": "",
-      "image": "images/series/tomy/simpsons-movie-by-tomy-2007/1-v.webp",
+      "image": "",
       "owned": false,
       "forsale": false,
       "forsale_date": "",
@@ -138,7 +138,24 @@
       "date_added": "2026-11-10"
     }
   ],
-  "other": [],
+  "other": [
+    {
+      "id": "simpsons-movie-by-tomy-2007_other1",
+      "name": "Вариант в сборе",
+      "name_en": "Assembled option",
+      "code": "",
+      "image": "images/series/tomy/simpsons-movie-by-tomy-2007/1-v.webp",
+      "owned": false,
+      "forsale": false,
+      "forsale_date": "",
+      "avito": "",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "date_added": "2026-11-11"
+    }
+  ],
   "videos": {
     "youtube": [],
     "vk": [],

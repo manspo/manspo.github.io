@@ -150,24 +150,7 @@
     }
   ],
   "extras": [],
-  "variants": [
-    {
-      "id": "open-season-2-by-tomy-2006_variant1",
-      "name": "Вариант в сборе",
-      "name_en": "Assembled option",
-      "code": "",
-      "image": "images/series/tomy/open-season-2-by-tomy-2006/1-v-assembled-option.webp",
-      "owned": false,
-      "forsale": false,
-      "forsale_date": "",
-      "avito": "",
-      "price": "",
-      "condition": "",
-      "condition_en": "",
-      "parentFigureId": "",
-      "date_added": "2026-11-10"
-    }
-  ],
+  "variants": [],
   "inserts": [
     {
       "id": "open-season-2-by-tomy-2006_insert1",
@@ -186,7 +169,24 @@
       "date_added": "2026-11-10"
     }
   ],
-  "other": [],
+  "other": [
+    {
+      "id": "open-season-2-by-tomy-2006_other1",
+      "name": "Вариант в сборе",
+      "name_en": "Assembled option",
+      "code": "",
+      "image": "images/series/tomy/open-season-2-by-tomy-2006/1-v-assembled-option.webp",
+      "owned": false,
+      "forsale": false,
+      "forsale_date": "",
+      "avito": "",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "date_added": "2026-11-11"
+    }
+  ],
   "videos": {
     "youtube": [],
     "vk": [],
