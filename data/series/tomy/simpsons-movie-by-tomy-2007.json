@@ -102,24 +102,7 @@
     }
   ],
   "extras": [],
-  "variants": [
-    {
-      "id": "simpsons-movie-by-tomy-2007_variant1",
-      "name": "",
-      "name_en": "",
-      "code": "",
-      "image": "",
-      "owned": false,
-      "forsale": false,
-      "forsale_date": "",
-      "avito": "",
-      "price": "",
-      "condition": "",
-      "condition_en": "",
-      "parentFigureId": "",
-      "date_added": "2026-11-10"
-    }
-  ],
+  "variants": [],
   "inserts": [
     {
       "id": "simpsons-movie-by-tomy-2007_insert1",

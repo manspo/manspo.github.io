@@ -40018,23 +40018,6 @@
     "type": "inserts"
   },
   {
-    "id": "simpsons-movie-by-tomy-2007_variant1",
-    "code": "",
-    "name": "",
-    "name_en": "",
-    "image": "",
-    "seriesId": "simpsons-movie-by-tomy-2007",
-    "seriesName": "Симпсоны в кино от Томи",
-    "seriesName_en": "Simpsons: Movie by Tomy",
-    "seriesYear": 2007,
-    "manufacturer": "tomy",
-    "owned": false,
-    "forsale": false,
-    "avito": "",
-    "price": "",
-    "type": "variants"
-  },
-  {
     "id": "simpsons-2-by-panini-1999_fig4",
     "code": "",
     "name": "Абрахам Симпсон",
