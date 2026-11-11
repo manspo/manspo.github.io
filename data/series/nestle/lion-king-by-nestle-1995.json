@@ -1,10 +1,10 @@
 {
-  "id": "the-lion-king-by-nestle-1995",
+  "id": "lion-king-by-nestle-1995",
   "name": "Король Лев от Нестле",
   "name_en": "The Lion King by Nestle",
   "year": 1995,
   "manufacturer": "nestle",
-  "cover": "images/series/nestle/the-lion-king-by-nestle-1995/cover.webp",
+  "cover": "images/series/nestle/lion-king-by-nestle-1995/cover.webp",
   "description": "Серия по знаменитому мультфильму Король Лев от Дисней",
   "description_en": "A series based on the famous Disney cartoon - The Lion King",
   "kind": "",
@@ -21,11 +21,11 @@
   "fullSeriesDescription_en": "",
   "figures": [
     {
-      "id": "the-lion-king-by-nestle-1995_fig1",
+      "id": "lion-king-by-nestle-1995_fig1",
       "name": "Пумба",
       "name_en": "Figure 1",
       "code": "",
-      "image": "images/series/nestle/the-lion-king-by-nestle-1995/01.webp",
+      "image": "images/series/nestle/lion-king-by-nestle-1995/01.webp",
       "owned": true,
       "forsale": false,
       "forsale_date": "",
@@ -37,11 +37,11 @@
       "date_added": "2026-09-17"
     },
     {
-      "id": "the-lion-king-by-nestle-1995_fig2",
+      "id": "lion-king-by-nestle-1995_fig2",
       "name": "Нала",
       "name_en": "Figure 2",
       "code": "",
-      "image": "images/series/nestle/the-lion-king-by-nestle-1995/02.webp",
+      "image": "images/series/nestle/lion-king-by-nestle-1995/02.webp",
       "owned": true,
       "forsale": false,
       "forsale_date": "",
@@ -53,11 +53,11 @@
       "date_added": "2026-09-17"
     },
     {
-      "id": "the-lion-king-by-nestle-1995_fig3",
+      "id": "lion-king-by-nestle-1995_fig3",
       "name": "Симба",
       "name_en": "Figure 3",
       "code": "",
-      "image": "images/series/nestle/the-lion-king-by-nestle-1995/03.webp",
+      "image": "images/series/nestle/lion-king-by-nestle-1995/03.webp",
       "owned": true,
       "forsale": false,
       "forsale_date": "",
@@ -69,11 +69,11 @@
       "date_added": "2026-09-17"
     },
     {
-      "id": "the-lion-king-by-nestle-1995_fig4",
+      "id": "lion-king-by-nestle-1995_fig4",
       "name": "Рафики",
       "name_en": "Figure 4",
       "code": "",
-      "image": "images/series/nestle/the-lion-king-by-nestle-1995/04.webp",
+      "image": "images/series/nestle/lion-king-by-nestle-1995/04.webp",
       "owned": true,
       "forsale": true,
       "forsale_date": "2026-09-20",
@@ -85,11 +85,11 @@
       "date_added": "2026-09-17"
     },
     {
-      "id": "the-lion-king-by-nestle-1995_fig5",
+      "id": "lion-king-by-nestle-1995_fig5",
       "name": "Зазу",
       "name_en": "Figure 5",
       "code": "",
-      "image": "images/series/nestle/the-lion-king-by-nestle-1995/05.webp",
+      "image": "images/series/nestle/lion-king-by-nestle-1995/05.webp",
       "owned": true,
       "forsale": false,
       "forsale_date": "",
@@ -101,11 +101,11 @@
       "date_added": "2026-09-17"
     },
     {
-      "id": "the-lion-king-by-nestle-1995_fig6",
+      "id": "lion-king-by-nestle-1995_fig6",
       "name": "Шрам",
       "name_en": "Figure 6",
       "code": "",
-      "image": "images/series/nestle/the-lion-king-by-nestle-1995/06.webp",
+      "image": "images/series/nestle/lion-king-by-nestle-1995/06.webp",
       "owned": true,
       "forsale": false,
       "forsale_date": "",
@@ -117,11 +117,11 @@
       "date_added": "2026-09-17"
     },
     {
-      "id": "the-lion-king-by-nestle-1995_fig7",
+      "id": "lion-king-by-nestle-1995_fig7",
       "name": "Сараби",
       "name_en": "Figure 7",
       "code": "",
-      "image": "images/series/nestle/the-lion-king-by-nestle-1995/07.webp",
+      "image": "images/series/nestle/lion-king-by-nestle-1995/07.webp",
       "owned": true,
       "forsale": false,
       "forsale_date": "",
@@ -133,11 +133,11 @@
       "date_added": "2026-09-17"
     },
     {
-      "id": "the-lion-king-by-nestle-1995_fig8",
+      "id": "lion-king-by-nestle-1995_fig8",
       "name": "Тимон",
       "name_en": "Figure 8",
       "code": "",
-      "image": "images/series/nestle/the-lion-king-by-nestle-1995/08.webp",
+      "image": "images/series/nestle/lion-king-by-nestle-1995/08.webp",
       "owned": true,
       "forsale": true,
       "forsale_date": "2026-09-20",
@@ -149,11 +149,11 @@
       "date_added": "2026-09-17"
     },
     {
-      "id": "the-lion-king-by-nestle-1995_fig9",
+      "id": "lion-king-by-nestle-1995_fig9",
       "name": "Муфаса",
       "name_en": "Figure 9",
       "code": "",
-      "image": "images/series/nestle/the-lion-king-by-nestle-1995/09.webp",
+      "image": "images/series/nestle/lion-king-by-nestle-1995/09.webp",
       "owned": true,
       "forsale": false,
       "forsale_date": "",
@@ -165,11 +165,11 @@
       "date_added": "2026-09-17"
     },
     {
-      "id": "the-lion-king-by-nestle-1995_fig10",
+      "id": "lion-king-by-nestle-1995_fig10",
       "name": "Банзай",
       "name_en": "Figure 10",
       "code": "",
-      "image": "images/series/nestle/the-lion-king-by-nestle-1995/10.webp",
+      "image": "images/series/nestle/lion-king-by-nestle-1995/10.webp",
       "owned": true,
       "forsale": false,
       "forsale_date": "",
@@ -185,11 +185,11 @@
   "variants": [],
   "inserts": [
     {
-      "id": "the-lion-king-by-nestle-1995_insert1",
+      "id": "lion-king-by-nestle-1995_insert1",
       "name": "Вкладыш",
       "name_en": "BPZ",
       "code": "",
-      "image": "images/series/nestle/the-lion-king-by-nestle-1995/01b.webp",
+      "image": "images/series/nestle/lion-king-by-nestle-1995/01b.webp",
       "owned": true,
       "forsale": false,
       "forsale_date": "",
