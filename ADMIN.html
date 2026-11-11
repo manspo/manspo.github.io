@@ -1493,7 +1493,9 @@ function createItemElement(data, idx, type, seriesId) {
     
     let imagePath = data?.image || '';
     let code = data?.code || '';
-    if (!code && imagePath) {
+    // Код из имени файла подставляем ТОЛЬКО для новых элементов (data === null).
+    // Для существующих берём data.code как есть — даже если это пустая строка.
+    if (!data && !code && imagePath) {
         const filename = imagePath.split('/').pop();
         code = extractCodeFromFilename(filename);
     }

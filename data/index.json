@@ -1,5 +1,41 @@
 [
   {
+    "id": "paw-patrol-by-kinder-2026",
+    "name": "Щенячий Патруль от Киндер",
+    "name_en": "Paw Patrol by Kinder",
+    "year": 2026,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/paw-patrol-by-kinder-2026/cover.webp",
+    "kind": "",
+    "description": "Переиздание серии 2025 года с 3 новыми фиугрками",
+    "description_en": "Re-release of the 2025 series with 3 new figures",
+    "visible": true
+  },
+  {
+    "id": "little-masters-of-reinvintion-by-kinder-1997",
+    "name": "Человечки / Маленькие мастера перевоплощения от Киндер",
+    "name_en": "Little Masters of Reinvintion by Kinder",
+    "year": 1997,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/little-masters-of-reinvintion-by-kinder-1997/cover.webp",
+    "kind": "",
+    "description": "Серия «Человечки / Маленькие мастера перевоплощения», 1997 год.",
+    "description_en": "\"Little Masters of Reinvintion\" series, 1997.",
+    "visible": true
+  },
+  {
+    "id": "bears-at-the-fair-by-kinder-1996",
+    "name": "Медведи на ярмарке от Киндер",
+    "name_en": "Bears at the Fair by Kinder",
+    "year": 1996,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/bears-at-the-fair-by-kinder-1996/cover.webp",
+    "kind": "",
+    "description": "Серия «Медведи на ярмарке», 1996 год.",
+    "description_en": "\"Bears at the Fair\" series, 1996.",
+    "visible": true
+  },
+  {
     "id": "open-season-2-by-tomy-2006",
     "name": "Сезон Охоты 2 от Томи",
     "name_en": "Open Season 2 by Tomy",
