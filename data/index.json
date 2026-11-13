@@ -1,5 +1,17 @@
 [
   {
+    "id": "desk-gang-2-neues-von-der-verrckten-schreibtischbande-2003",
+    "name": "Банда письменного стола 2 от Киндер",
+    "name_en": "Desk Gang 2 / Neues von der verrückten Schreibtischbande",
+    "year": 2003,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/desk-gang-2-neues-von-der-verrckten-schreibtischbande-2003/cover.webp",
+    "kind": "",
+    "description": "Вторая часть серии с аксессуарами ",
+    "description_en": "The second part of the series with accessories",
+    "visible": true
+  },
+  {
     "id": "pinky-piggys-by-kinder-2000",
     "name": "Свинки от Киндер",
     "name_en": "Pinky Piggys by Kinder",
