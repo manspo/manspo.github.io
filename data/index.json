@@ -1,5 +1,17 @@
 [
   {
+    "id": "sharks-squalibaba-by-kinder-1995",
+    "name": "Акулы - Шалибаба от Киндер",
+    "name_en": "Sharks - Squalibaba by Kinder",
+    "year": 1995,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/sharks-squalibaba-by-kinder-1995/cover.webp",
+    "kind": "",
+    "description": "Знаменитая серия из 90-х",
+    "description_en": "Famous series from the 90s",
+    "visible": true
+  },
+  {
     "id": "little-people-professions-new-master-of-disguise-by-kinder-1998",
     "name": "Человечки Профессии / Новые Мастер Перевоплощений от Киндер",
     "name_en": "Little People Professions / New Master of Disguise by Kinder",
