@@ -1,5 +1,41 @@
 [
   {
+    "id": "marvel-heroes-by-landrin-2008",
+    "name": "Герои Марвел от Ландрин",
+    "name_en": "Marvel Heroes by Landrin",
+    "year": 2008,
+    "manufacturer": "landrin",
+    "cover": "images/series/landrin/marvel-heroes-by-landrin-2008/cover.webp",
+    "kind": "",
+    "description": "Серия «Герои Марвел», 2008 год.",
+    "description_en": "\"Marvel Heroes\" series, 2008.",
+    "visible": true
+  },
+  {
+    "id": "spider-man-spider-sense-by-k-artel-2009",
+    "name": "Человек-Паук: Паучье Чутье от К-Артель",
+    "name_en": "Spider-Man: Spider-Sense by K-Artel",
+    "year": 2009,
+    "manufacturer": "k-artel",
+    "cover": "images/series/k-artel/spider-man-spider-sense-by-k-artel-2009/cover.webp",
+    "kind": "",
+    "description": "Серия «Человек-Паук: Паучье Чутье», 2009 год.",
+    "description_en": "\"Spider-Man: Spider-Sense\" series, 2009.",
+    "visible": true
+  },
+  {
+    "id": "marvel-heroes-by-k-artel-2008",
+    "name": "Герои Марвел от К-Артель",
+    "name_en": "Marvel Heroes by K-Artel",
+    "year": 2008,
+    "manufacturer": "k-artel",
+    "cover": "images/series/k-artel/marvel-heroes-by-k-artel-2008/cover.webp",
+    "kind": "",
+    "description": "Серия «Герои Марвел», 2008 год.",
+    "description_en": "\"Marvel Heroes\" series, 2008.",
+    "visible": true
+  },
+  {
     "id": "cristmas-weihnachtskalender-by-kinder-1998",
     "name": "Рождество от Киндер",
     "name_en": "Cristmas / Weihnachtskalender by Kinder",
