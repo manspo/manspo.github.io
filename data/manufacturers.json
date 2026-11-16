@@ -91,9 +91,9 @@
     "ru": "Свит",
     "en": "Sweet"
   },
-  "mcdonalds": {
-    "ru": "Макдоналдс",
-    "en": "McDonald's"
+  "mcdonalds-happy-meal": {
+    "ru": "Макдоналдс / Хэппи Мил",
+    "en": "McDonald's / Happy Meal"
   },
   "burger-king": {
     "ru": "Бургер Кинг",

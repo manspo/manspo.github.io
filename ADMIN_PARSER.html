@@ -646,25 +646,69 @@ function renderItem(item, si, fi, kind) {
 function bindSeriesHandlers() {
   const list = document.getElementById('seriesList');
 
+  // Точечное обновление карточки без полной перерисовки списка
+  function refreshSeriesCardFields(si) {
+    const s = seriesList[si];
+    const card = list.querySelector(`.card[data-si="${si}"]`);
+    if (!card) return;
+
+    // Итоговые названия (readonly)
+    const readonlyInputs = card.querySelectorAll('.series-head .field.readonly input');
+    if (readonlyInputs[0]) readonlyInputs[0].value = s.name || '';
+    if (readonlyInputs[1]) readonlyInputs[1].value = s.name_en || '';
+
+    // ID серии (readonly, третий readonly-инпут в блоке с описанием)
+    const idInput = card.querySelector('.series-head .field.readonly input[readonly]');
+    // Надёжнее — найти по порядку: в блоке с описанием первый readonly = ID
+    const descBlock = card.querySelector('.s-desc')?.closest('.series-head');
+    if (descBlock) {
+      const idField = descBlock.querySelector('.field.readonly input');
+      if (idField) idField.value = s.id;
+    }
+
+    // Заголовок карточки (h3)
+    const h3 = card.querySelector('h3');
+    if (h3) {
+      const isError = getSeriesErrors(s).length > 0;
+      h3.textContent = `${isError ? '❌' : '✅'} ${s.name || s._folderName}`;
+    }
+
+    // Обновить статус-баннер (валидные/ошибки) — без перерисовки карточек
+    const validCount = seriesList.filter(isValidSeries).length;
+    const invalidCount = seriesList.length - validCount;
+    const summary = document.getElementById('globalSummary');
+    if (invalidCount > 0) {
+      summary.innerHTML = `<div class="summary">⚠️ ${invalidCount} ${plural(invalidCount,'серия','серии','серий')} с ошибками — ${plural(invalidCount,'она','они','они')} не ${plural(invalidCount,'попадёт','попадут','попадут')} в экспорт. Всего валидных: ${validCount}.</div>`;
+    } else {
+      summary.innerHTML = `<div class="summary ok">✅ Все ${validCount} ${plural(validCount,'серия','серии','серий')} валидны — можно экспортировать.</div>`;
+    }
+    document.getElementById('btnZip').disabled = validCount === 0;
+    document.getElementById('btnIndex').disabled = validCount === 0;
+  }
+
   list.querySelectorAll('.s-name').forEach(inp => inp.addEventListener('input', function(){
     const si = +this.dataset.si;
     seriesList[si].name_base = this.value;
-    recalcSeries(seriesList[si]); renderAll();
+    recalcSeries(seriesList[si]);
+    refreshSeriesCardFields(si);
   }));
   list.querySelectorAll('.s-name-en').forEach(inp => inp.addEventListener('input', function(){
     const si = +this.dataset.si;
     seriesList[si].name_en_base = this.value;
-    recalcSeries(seriesList[si]); renderAll();
+    recalcSeries(seriesList[si]);
+    refreshSeriesCardFields(si);
   }));
   list.querySelectorAll('.s-year').forEach(inp => inp.addEventListener('input', function(){
     const si = +this.dataset.si;
     seriesList[si].year = parseInt(this.value)||0;
-    recalcSeries(seriesList[si]); renderAll();
+    recalcSeries(seriesList[si]);
+    refreshSeriesCardFields(si);
   }));
   list.querySelectorAll('.s-manufacturer').forEach(inp => inp.addEventListener('change', function(){
     const si = +this.dataset.si;
     seriesList[si].manufacturer = this.value;
-    recalcSeries(seriesList[si]); renderAll();
+    recalcSeries(seriesList[si]);
+    refreshSeriesCardFields(si);
   }));
   list.querySelectorAll('.s-desc').forEach(inp => inp.addEventListener('input', function(){
     seriesList[+this.dataset.si].description = this.value;
