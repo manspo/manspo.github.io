@@ -408,7 +408,24 @@
   "extras": [],
   "variants": [],
   "inserts": [],
-  "other": [],
+  "other": [
+    {
+      "id": "one-piece-by-kinder-2026_other1",
+      "name": "Скорлупа",
+      "name_en": "Shell",
+      "code": "",
+      "image": "images/series/kinder/one-piece-by-kinder-2026/site_2x_g7v6pr6c7_928ff4cc.webp",
+      "owned": false,
+      "forsale": false,
+      "forsale_date": "",
+      "avito": "",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "date_added": "2026-11-16"
+    }
+  ],
   "videos": {
     "youtube": [],
     "vk": [],
