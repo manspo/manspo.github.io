@@ -1,5 +1,65 @@
 [
   {
+    "id": "spider-man-by-mcdonalds-happy-meal-1994",
+    "name": "Человек-Паук от Макдоналдс / Хэппи Мил",
+    "name_en": "Spider-Man by McDonald's / Happy Meal",
+    "year": 1994,
+    "manufacturer": "mcdonalds",
+    "cover": "images/series/mcdonalds/spider-man-by-mcdonalds-happy-meal-1994/cover.webp",
+    "kind": "",
+    "description": "Серия «Человек-Паук», 1994 год.",
+    "description_en": "\"Spider-Man\" series, 1994.",
+    "visible": true
+  },
+  {
+    "id": "spider-man-spider-sense-by-deagostini-2011",
+    "name": "Человек-Паук: Паучье Чутье от ДеАгостини",
+    "name_en": "Spider-Man: Spider-Sense by DeAgostini",
+    "year": 2011,
+    "manufacturer": "deagostini",
+    "cover": "images/series/deagostini/spider-man-spider-sense-by-deagostini-2011/cover.webp",
+    "kind": "",
+    "description": "Серия «Человек-Паук: Паучье Чутье», 2011 год.",
+    "description_en": "\"Spider-Man: Spider-Sense\" series, 2011.",
+    "visible": true
+  },
+  {
+    "id": "peter-pan-by-rubezahl-koch-2002",
+    "name": "Питер Пэн от Рюбецаль Кох",
+    "name_en": "Peter Pan by Rubezahl Koch",
+    "year": 2002,
+    "manufacturer": "rubezahl-koch",
+    "cover": "images/series/rubezahl-koch/peter-pan-by-rubezahl-koch-2002/cover.webp",
+    "kind": "",
+    "description": "Серия «Питер Пэн», 2002 год.",
+    "description_en": "\"Peter Pan\" series, 2002.",
+    "visible": true
+  },
+  {
+    "id": "shrek-fairytale-characters-tipi-da-favola-by-barilla-2002",
+    "name": "Шрек Сказочные персонажи от Барилла",
+    "name_en": "Shrek Fairytale Characters - Tipi Da Favola by Barilla",
+    "year": 2002,
+    "manufacturer": "barilla",
+    "cover": "images/series/barilla/shrek-fairytale-characters-tipi-da-favola-by-barilla-2002/cover.webp",
+    "kind": "",
+    "description": "Серия «Шрек Сказочные персонажи», 2002 год.",
+    "description_en": "\"Shrek Fairytale Characters - Tipi Da Favola\" series, 2002.",
+    "visible": true
+  },
+  {
+    "id": "spectacular-spider-man-by-mcdonalds-happy-meal-2009",
+    "name": "Новые приключения Человека-паука от Макдоналдс / Хэппи Мил",
+    "name_en": "Spectacular Spider-Man by McDonald's / Happy Meal",
+    "year": 2009,
+    "manufacturer": "mcdonalds",
+    "cover": "images/series/mcdonalds/spectacular-spider-man-by-mcdonalds-happy-meal-2009/cover.webp",
+    "kind": "",
+    "description": "Серия «Новые приключения Человека-паука», 2009 год.",
+    "description_en": "\"The Spectacular Spider-Man\" series, 2009.",
+    "visible": true
+  },
+  {
     "id": "marvel-heroes-by-landrin-2008",
     "name": "Герои Марвел от Ландрин",
     "name_en": "Marvel Heroes by Landrin",
