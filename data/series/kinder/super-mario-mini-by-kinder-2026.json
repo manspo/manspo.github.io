@@ -378,7 +378,24 @@
       "date_added": "2026-09-16"
     }
   ],
-  "other": [],
+  "other": [
+    {
+      "id": "super-mario-mini-by-kinder-2026_other1",
+      "name": "Скорлупа",
+      "name_en": "Shell",
+      "code": "",
+      "image": "images/series/kinder/super-mario-mini-by-kinder-2026/1-o-shell.webp",
+      "owned": false,
+      "forsale": false,
+      "forsale_date": "",
+      "avito": "",
+      "price": "",
+      "condition": "",
+      "condition_en": "",
+      "parentFigureId": "",
+      "date_added": "2026-11-16"
+    }
+  ],
   "videos": {
     "youtube": [],
     "vk": [],
