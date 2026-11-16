@@ -1,5 +1,17 @@
 [
   {
+    "id": "disney-princesses-by-kinder-2013",
+    "name": "Принцессы Дисней от Киндер",
+    "name_en": "Disney Princesses by Kinder",
+    "year": 2013,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/disney-princesses-by-kinder-2013/cover.webp",
+    "kind": "",
+    "description": "Принцессы 2013 года",
+    "description_en": "Princesses 2013",
+    "visible": true
+  },
+  {
     "id": "spider-man-by-mcdonalds-happy-meal-1994",
     "name": "Человек-Паук от Макдоналдс / Хэппи Мил",
     "name_en": "Spider-Man by McDonald's / Happy Meal",
