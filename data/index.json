@@ -1,5 +1,17 @@
 [
   {
+    "id": "winx-enchantix-by-dodo-pizza-2026",
+    "name": "Винкс Энчантикс от Додо Пицца",
+    "name_en": "Winx Enchantix by Dodo Pizza",
+    "year": 2026,
+    "manufacturer": "dodo-pizza",
+    "cover": "images/series/dodo-pizza/winx-enchantix-by-dodo-pizza-2026/cover.webp",
+    "kind": "",
+    "description": "Серия посвященная Винкс. В комплекте шли еще карточки ",
+    "description_en": "A series dedicated to Winx. There were also cards included",
+    "visible": true
+  },
+  {
     "id": "booba-by-dodo-pizza-2026",
     "name": "Буба от Додо Пицца",
     "name_en": "Booba by Dodo Pizza",
