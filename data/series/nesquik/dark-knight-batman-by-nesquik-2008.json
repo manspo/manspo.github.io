@@ -22,7 +22,7 @@
   "figures": [
     {
       "id": "dark-knight-batman-by-nesquik-2008_fig1",
-      "image": "images/series/nesquik/dark-knight-batman-by-nesquik-2008/01.webp",
+      "image": "images/series/nesquik/dark-knight-batman-by-nesquik-2008/1-f-joker.webp",
       "name": "Джокер",
       "name_en": "Joker",
       "owned": true,
@@ -33,7 +33,7 @@
     },
     {
       "id": "dark-knight-batman-by-nesquik-2008_fig2",
-      "image": "images/series/nesquik/dark-knight-batman-by-nesquik-2008/02.webp",
+      "image": "images/series/nesquik/dark-knight-batman-by-nesquik-2008/2-f-batman.webp",
       "name": "Бэтмен",
       "name_en": "Batman",
       "owned": true,
@@ -44,7 +44,7 @@
     },
     {
       "id": "dark-knight-batman-by-nesquik-2008_fig3",
-      "image": "images/series/nesquik/dark-knight-batman-by-nesquik-2008/03.webp",
+      "image": "images/series/nesquik/dark-knight-batman-by-nesquik-2008/3-f-batman-2.webp",
       "name": "Бэтмен 2",
       "name_en": "Batman 2",
       "owned": true,
@@ -55,7 +55,7 @@
     },
     {
       "id": "dark-knight-batman-by-nesquik-2008_fig4",
-      "image": "images/series/nesquik/dark-knight-batman-by-nesquik-2008/04.webp",
+      "image": "images/series/nesquik/dark-knight-batman-by-nesquik-2008/4-f-scarecrow.webp",
       "name": "Пугало",
       "name_en": "Scarecrow",
       "owned": true,
@@ -66,7 +66,7 @@
     },
     {
       "id": "dark-knight-batman-by-nesquik-2008_fig5",
-      "image": "images/series/nesquik/dark-knight-batman-by-nesquik-2008/05.webp",
+      "image": "images/series/nesquik/dark-knight-batman-by-nesquik-2008/5-f-joker-2.webp",
       "name": "Джокер 2",
       "name_en": "Joker 2",
       "owned": true,
@@ -79,7 +79,7 @@
   "extras": [
     {
       "id": "dark-knight-batman-by-nesquik-2008_extra1",
-      "image": "images/series/nesquik/dark-knight-batman-by-nesquik-2008/001.webp",
+      "image": "images/series/nesquik/dark-knight-batman-by-nesquik-2008/1-e.webp",
       "name": "Доп 1",
       "name_en": "Extra 1",
       "owned": true,
@@ -90,7 +90,7 @@
     },
     {
       "id": "dark-knight-batman-by-nesquik-2008_extra2",
-      "image": "images/series/nesquik/dark-knight-batman-by-nesquik-2008/002.webp",
+      "image": "images/series/nesquik/dark-knight-batman-by-nesquik-2008/2-e.webp",
       "name": "Доп 2",
       "name_en": "Extra 2",
       "owned": true,
@@ -101,7 +101,7 @@
     },
     {
       "id": "dark-knight-batman-by-nesquik-2008_extra3",
-      "image": "images/series/nesquik/dark-knight-batman-by-nesquik-2008/003.webp",
+      "image": "images/series/nesquik/dark-knight-batman-by-nesquik-2008/3-e.webp",
       "name": "Доп 3",
       "name_en": "Extra 3",
       "owned": true,
@@ -116,7 +116,7 @@
   "other": [
     {
       "id": "dark-knight-batman-by-nesquik-2008_other1",
-      "image": "images/series/nesquik/dark-knight-batman-by-nesquik-2008/BPZ.webp",
+      "image": "images/series/nesquik/dark-knight-batman-by-nesquik-2008/1-o-box-1.webp",
       "name": "Коробка 1",
       "name_en": "Box 1",
       "owned": true,
@@ -127,7 +127,7 @@
     },
     {
       "id": "dark-knight-batman-by-nesquik-2008_other2",
-      "image": "images/series/nesquik/dark-knight-batman-by-nesquik-2008/BPZBIG.webp",
+      "image": "images/series/nesquik/dark-knight-batman-by-nesquik-2008/2-o-box-2.webp",
       "name": "Коробка 2",
       "name_en": "Box 2",
       "owned": true,

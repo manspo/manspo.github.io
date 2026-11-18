@@ -22,7 +22,7 @@
   "figures": [
     {
       "id": "world-of-narnia-by-nesquik-2005_fig1",
-      "image": "images/series/nesquik/world-of-narnia-by-nesquik-2005/6.webp",
+      "image": "images/series/nesquik/world-of-narnia-by-nesquik-2005/1-f-centaur-oreius.webp",
       "name": "Кентавр Орейус",
       "name_en": "Centaur Oreius",
       "owned": true,
@@ -33,7 +33,7 @@
     },
     {
       "id": "world-of-narnia-by-nesquik-2005_fig2",
-      "image": "images/series/nesquik/world-of-narnia-by-nesquik-2005/5.webp",
+      "image": "images/series/nesquik/world-of-narnia-by-nesquik-2005/2-f-grifon.webp",
       "name": "Грифон",
       "name_en": "Grifon",
       "owned": true,
@@ -44,7 +44,7 @@
     },
     {
       "id": "world-of-narnia-by-nesquik-2005_fig3",
-      "image": "images/series/nesquik/world-of-narnia-by-nesquik-2005/4.webp",
+      "image": "images/series/nesquik/world-of-narnia-by-nesquik-2005/3-f-lion-aslan.webp",
       "name": "Лев Аслан",
       "name_en": "Lion Aslan",
       "owned": true,
@@ -55,7 +55,7 @@
     },
     {
       "id": "world-of-narnia-by-nesquik-2005_fig4",
-      "image": "images/series/nesquik/world-of-narnia-by-nesquik-2005/3.webp",
+      "image": "images/series/nesquik/world-of-narnia-by-nesquik-2005/4-f-satyr.webp",
       "name": "Сатир",
       "name_en": "Satyr",
       "owned": true,
@@ -66,7 +66,7 @@
     },
     {
       "id": "world-of-narnia-by-nesquik-2005_fig5",
-      "image": "images/series/nesquik/world-of-narnia-by-nesquik-2005/2.webp",
+      "image": "images/series/nesquik/world-of-narnia-by-nesquik-2005/5-f-white-witch-jadis.webp",
       "name": "Белая Колдунья Джадис",
       "name_en": "White Witch Jadis",
       "owned": true,
@@ -77,7 +77,7 @@
     },
     {
       "id": "world-of-narnia-by-nesquik-2005_fig6",
-      "image": "images/series/nesquik/world-of-narnia-by-nesquik-2005/1.webp",
+      "image": "images/series/nesquik/world-of-narnia-by-nesquik-2005/6-f-satyr-mister-tumnus.webp",
       "name": "Сатир Мистер Тумнус",
       "name_en": "Satyr Mister Tumnus",
       "owned": true,
@@ -93,7 +93,7 @@
   "other": [
     {
       "id": "world-of-narnia-by-nesquik-2005_other1",
-      "image": "images/series/nesquik/world-of-narnia-by-nesquik-2005/BPZ.webp",
+      "image": "images/series/nesquik/world-of-narnia-by-nesquik-2005/1-o-box-1.webp",
       "name": "Коробка 1",
       "name_en": "Box 1",
       "owned": true,
@@ -104,7 +104,7 @@
     },
     {
       "id": "world-of-narnia-by-nesquik-2005_other2",
-      "image": "images/series/nesquik/world-of-narnia-by-nesquik-2005/Narnia.webp",
+      "image": "images/series/nesquik/world-of-narnia-by-nesquik-2005/2-o-box-2.webp",
       "name": "Коробка 2",
       "name_en": "Box 2",
       "owned": true,
