@@ -1,5 +1,17 @@
 [
   {
+    "id": "booba-by-dodo-pizza-2026",
+    "name": "Буба от Додо Пицца",
+    "name_en": "Booba by Dodo Pizza",
+    "year": 2026,
+    "manufacturer": "dodo-pizza",
+    "cover": "images/series/dodo-pizza/booba-by-dodo-pizza-2026/cover.webp",
+    "kind": "",
+    "description": "Парные фигурки от Додо",
+    "description_en": "Paired figures from Dodo",
+    "visible": true
+  },
+  {
     "id": "squishmallows-fifa-world-cup-by-mcdonalds-happy-meal-2026",
     "name": "Сквишмэллоус: Чемпионат мира по футболу от Макдоналдс / Хэппи Мил",
     "name_en": "Squishmallows: Fifa World Cup by McDonald's / Happy Meal",
