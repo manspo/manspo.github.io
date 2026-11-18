@@ -1,5 +1,17 @@
 [
   {
+    "id": "robin-hood-by-kinder-1978",
+    "name": "Родин Гуд от Киндер",
+    "name_en": "Robin Hood by Kinder",
+    "year": 1978,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/robin-hood-by-kinder-1978/cover.webp",
+    "kind": "",
+    "description": "Вторая серия по Робину Гуду",
+    "description_en": "Second Robin Hood series",
+    "visible": true
+  },
+  {
     "id": "madagascar-escape-2-africa-wacky-sliders-by-nesquik-2008",
     "name": "Мадагаскар 2: Весёлые слайдеры (каталки) от Несквик",
     "name_en": "Madagascar Escape 2: Africa Wacky Sliders by Nesquik",
