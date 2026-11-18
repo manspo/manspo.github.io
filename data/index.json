@@ -1,5 +1,17 @@
 [
   {
+    "id": "angels-friends-by-kinder-2010",
+    "name": "Друзья Ангелов от Киндер",
+    "name_en": "Angel´s Friends by Kinder",
+    "year": 2010,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/angels-friends-by-kinder-2010/cover.webp",
+    "kind": "",
+    "description": "Редкая серия вышедшая в Италии",
+    "description_en": "Rare series published in Italy",
+    "visible": true
+  },
+  {
     "id": "winx-enchantix-by-dodo-pizza-2026",
     "name": "Винкс Энчантикс от Додо Пицца",
     "name_en": "Winx Enchantix by Dodo Pizza",

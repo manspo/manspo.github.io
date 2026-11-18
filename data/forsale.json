@@ -38,6 +38,26 @@
     "forsale_date": "2026-11-18"
   },
   {
+    "type": "full",
+    "id": "angels-friends-by-kinder-2010",
+    "seriesId": "angels-friends-by-kinder-2010",
+    "seriesName": "Друзья Ангелов от Киндер",
+    "seriesName_en": "Angel´s Friends by Kinder",
+    "seriesYear": 2010,
+    "manufacturer": "kinder",
+    "name": "Друзья Ангелов от Киндер",
+    "name_en": "Angel´s Friends by Kinder",
+    "image": "images/series/kinder/angels-friends-by-kinder-2010/cover.webp",
+    "avito": "",
+    "price": "",
+    "price_en": "",
+    "condition": "",
+    "condition_en": "",
+    "code": "",
+    "date_added": "2026-11-18",
+    "forsale_date": "2026-11-18"
+  },
+  {
     "type": "figure",
     "id": "booba-by-dodo-pizza-2026_fig2",
     "seriesId": "booba-by-dodo-pizza-2026",
