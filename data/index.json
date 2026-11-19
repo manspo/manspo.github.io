@@ -1,5 +1,77 @@
 [
   {
+    "id": "jungle-book-by-nesquik-1967",
+    "name": "Книга Джунглей от Несквик",
+    "name_en": "Jungle Book by Nesquik",
+    "year": 1967,
+    "manufacturer": "nesquik",
+    "cover": "images/series/nesquik/jungle-book-by-nesquik-1967/cover.webp",
+    "kind": "",
+    "description": "Серия «Книга Джунглей», 1967 год.",
+    "description_en": "\"Jungle Book\" series, 1967.",
+    "visible": true
+  },
+  {
+    "id": "jungle-book-by-nesquik-1969",
+    "name": "Книга Джунглей от Несквик",
+    "name_en": "Jungle Book by Nesquik",
+    "year": 1969,
+    "manufacturer": "nesquik",
+    "cover": "images/series/nesquik/jungle-book-by-nesquik-1969/cover.webp",
+    "kind": "",
+    "description": "Серия «Книга Джунглей», 1969 год.",
+    "description_en": "\"Jungle Book\" series, 1969.",
+    "visible": true
+  },
+  {
+    "id": "minions-by-nesquik-2015",
+    "name": "Миньоны от Несквик",
+    "name_en": "Minions by Nesquik",
+    "year": 2015,
+    "manufacturer": "nesquik",
+    "cover": "images/series/nesquik/minions-by-nesquik-2015/cover.webp",
+    "kind": "",
+    "description": "Серия «Миньоны», 2015 год.",
+    "description_en": "\"Minions\" series, 2015.",
+    "visible": true
+  },
+  {
+    "id": "peter-pan-by-nestle-1998",
+    "name": "Питер Пэн от Нестле",
+    "name_en": "Peter Pan by Nestle",
+    "year": 1998,
+    "manufacturer": "nestle",
+    "cover": "images/series/nestle/peter-pan-by-nestle-1998/cover.webp",
+    "kind": "",
+    "description": "Серия «Питер Пэн», 1998 год.",
+    "description_en": "\"Peter Pan\" series, 1998.",
+    "visible": true
+  },
+  {
+    "id": "ratatouille-by-zaini-2007",
+    "name": "Рататуй от Заини",
+    "name_en": "Ratatouille by Zaini",
+    "year": 2007,
+    "manufacturer": "zaini",
+    "cover": "images/series/zaini/ratatouille-by-zaini-2007/cover.webp",
+    "kind": "",
+    "description": "Серия «Рататуй», 2007 год.",
+    "description_en": "\"Ratatouille\" series, 2007.",
+    "visible": true
+  },
+  {
+    "id": "jungle-book-2-by-nesquik-2003",
+    "name": "Книга джунглей 2 от Несквик",
+    "name_en": "Jungle Book 2 by Nesquik",
+    "year": 2003,
+    "manufacturer": "nesquik",
+    "cover": "images/series/nesquik/jungle-book-2-by-nesquik-2003/cover.webp",
+    "kind": "",
+    "description": "Серия «Книга джунглей 2», 2003 год.",
+    "description_en": "\"Jungle Book 2\" series, 2003.",
+    "visible": true
+  },
+  {
     "id": "robin-hood-by-kinder-1978",
     "name": "Родин Гуд от Киндер",
     "name_en": "Robin Hood by Kinder",

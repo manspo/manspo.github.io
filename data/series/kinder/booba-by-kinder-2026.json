@@ -28,13 +28,14 @@
       "image": "images/series/kinder/booba-by-kinder-2026/1-f-vc360.webp",
       "owned": false,
       "forsale": true,
+      "wanted": false,
+      "forsale_date": "2026-09-20",
       "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/kinder_syurpriz_buba_2025_7870199113",
       "price": "149 руб. (с учетом комиссии Авито)",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": "2026-09-20"
+      "date_added": "2026-09-17"
     },
     {
       "id": "booba-by-kinder-2026_fig2",
@@ -44,13 +45,14 @@
       "image": "images/series/kinder/booba-by-kinder-2026/2-f-vc359.webp",
       "owned": false,
       "forsale": true,
+      "wanted": false,
+      "forsale_date": "2026-09-20",
       "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/kinder_syurpriz_buba_2025_7870199113",
       "price": "119 руб. (с учетом комиссии Авито)",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": "2026-09-20"
+      "date_added": "2026-09-17"
     },
     {
       "id": "booba-by-kinder-2026_fig3",
@@ -60,13 +62,14 @@
       "image": "images/series/kinder/booba-by-kinder-2026/3-f-vc362.webp",
       "owned": false,
       "forsale": false,
+      "wanted": true,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "booba-by-kinder-2026_fig4",
@@ -76,13 +79,14 @@
       "image": "images/series/kinder/booba-by-kinder-2026/4-f-vc357.webp",
       "owned": false,
       "forsale": true,
+      "wanted": false,
+      "forsale_date": "2026-09-20",
       "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/kinder_syurpriz_buba_2025_7870199113",
       "price": "99 руб. (с учетом комиссии Авито)",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": "2026-09-20"
+      "date_added": "2026-09-17"
     },
     {
       "id": "booba-by-kinder-2026_fig5",
@@ -92,13 +96,14 @@
       "image": "images/series/kinder/booba-by-kinder-2026/5-f-vc363.webp",
       "owned": false,
       "forsale": true,
+      "wanted": false,
+      "forsale_date": "2026-09-20",
       "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/kinder_syurpriz_buba_2025_7870199113",
       "price": "99 руб. (с учетом комиссии Авито)",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": "2026-09-20"
+      "date_added": "2026-09-17"
     },
     {
       "id": "booba-by-kinder-2026_fig6",
@@ -108,13 +113,14 @@
       "image": "images/series/kinder/booba-by-kinder-2026/6-f-vc364.webp",
       "owned": false,
       "forsale": true,
+      "wanted": false,
+      "forsale_date": "2026-09-20",
       "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/kinder_syurpriz_buba_2025_7870199113",
       "price": "149 руб. (с учетом комиссии Авито)",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": "2026-09-20"
+      "date_added": "2026-09-17"
     },
     {
       "id": "booba-by-kinder-2026_fig7",
@@ -124,13 +130,14 @@
       "image": "images/series/kinder/booba-by-kinder-2026/7-f-vc361.webp",
       "owned": false,
       "forsale": true,
+      "wanted": false,
+      "forsale_date": "2026-09-20",
       "avito": "https://www.avito.ru/groznyy/kollektsionirovanie/kinder_syurpriz_buba_2025_7870199113",
       "price": "249 руб. (с учетом комиссии Авито)",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": "2026-09-20"
+      "date_added": "2026-09-17"
     },
     {
       "id": "booba-by-kinder-2026_fig8",
@@ -140,13 +147,14 @@
       "image": "images/series/kinder/booba-by-kinder-2026/8-f-vc358.webp",
       "owned": false,
       "forsale": false,
+      "wanted": true,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     }
   ],
   "extras": [],
@@ -161,13 +169,14 @@
       "image": "images/series/kinder/booba-by-kinder-2026/1-o-foil.webp",
       "owned": false,
       "forsale": false,
+      "wanted": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "booba-by-kinder-2026_other2",
@@ -177,19 +186,21 @@
       "image": "images/series/kinder/booba-by-kinder-2026/2-o-foil-2.webp",
       "owned": false,
       "forsale": false,
+      "wanted": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     }
   ],
   "videos": {
     "youtube": [],
     "vk": [],
-    "tiktok": []
+    "tiktok": [],
+    "instagram": []
   },
   "contributors": []
 }

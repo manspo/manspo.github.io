@@ -123,7 +123,7 @@ function applyFilters(rawItems) {
   const type = document.getElementById('filterType').value;
   const search = document.getElementById('filterSearch').value.trim().toLowerCase();
 
-  return rawItems.filter(item => {
+  const filtered = rawItems.filter(item => {
     // Исключаем full
     if (item.type === 'full') return false;
     // Только известные типы
@@ -145,6 +145,38 @@ function applyFilters(rawItems) {
     }
     return true;
   });
+
+  // ===== СОРТИРОВКА: по сериям, внутри серии — по типу и имени =====
+  filtered.sort((a, b) => {
+    // 1. Серия: элементы без серии (single) — в конец
+    const aSeries = a.seriesName || a.seriesName_en || '';
+    const bSeries = b.seriesName || b.seriesName_en || '';
+    const aHasSeries = aSeries ? 0 : 1;
+    const bHasSeries = bSeries ? 0 : 1;
+
+    if (aHasSeries !== bHasSeries) return aHasSeries - bHasSeries;
+
+    if (aHasSeries === 0) {
+      // Обе с серией — сначала по имени серии
+      const seriesCmp = aSeries.localeCompare(bSeries, 'ru');
+      if (seriesCmp !== 0) return seriesCmp;
+      // Внутри одной серии — по году (если серии-тёзки)
+      const yearCmp = String(a.seriesYear || '').localeCompare(String(b.seriesYear || ''));
+      if (yearCmp !== 0) return yearCmp;
+    }
+
+    // 2. Внутри серии (или среди singles) — по типу
+    const aTypeIdx = TYPE_ORDER.indexOf(a.type);
+    const bTypeIdx = TYPE_ORDER.indexOf(b.type);
+    if (aTypeIdx !== bTypeIdx) return aTypeIdx - bTypeIdx;
+
+    // 3. Внутри типа — по имени
+    const aName = a.name || a.name_en || '';
+    const bName = b.name || b.name_en || '';
+    return aName.localeCompare(bName, 'ru');
+  });
+
+  return filtered;
 }
 
 // ============================================================
@@ -194,19 +226,23 @@ function drawBackground(ctx, w, h) {
 // ============================================================
 function drawMansurOverlay(ctx, w, h) {
   ctx.save();
-  ctx.globalAlpha = 0.6;                        // было 0.08 — стало заметно
-  ctx.translate(w / 2, h / 2);
+  ctx.globalAlpha = 0.6;
+  
+  // Центр фото фигурки: photoTop (80) + photoMaxH/2 (240) = 320
+  ctx.translate(w / 2, 320); 
   ctx.rotate(-Math.PI / 4);
-  ctx.font = 'bold 200px Inter, system-ui';
+  
+  // Уменьшаем шрифт с 280 до 160, чтобы надпись не вылезала за пределы фото
+  ctx.font = 'bold 160px Inter, system-ui';
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
 
-  // Обводка для контраста на любом фоне
   ctx.lineWidth = 6;
   ctx.strokeStyle = 'rgba(255,255,255,0.6)';
+
+  // Одна надпись по центру фото
   ctx.strokeText('MANSUR', 0, 0);
 
-  // Заливка
   ctx.fillStyle = '#4f46e5';
   ctx.fillText('MANSUR', 0, 0);
 
@@ -229,9 +265,9 @@ async function generateOneImage(item, index, total) {
   // ===== ФОТО ФИГУРКИ (сверху) =====
   const img = item.image ? await loadImageBitmap(`${BASE_URL}/${item.image}`) : null;
 
-  const photoTop = 100;
-  const photoMaxH = 500;
-  const photoMaxW = 800;
+  const photoTop = 80;
+  const photoMaxH = 480;   // было 560 — освободили 80px
+  const photoMaxW = 860;
   const photoCenterX = CANVAS_SIZE / 2;
 
   if (img) {
@@ -272,21 +308,57 @@ async function generateOneImage(item, index, total) {
   drawMansurOverlay(ctx, CANVAS_SIZE, CANVAS_SIZE);
 
   // ===== НАЗВАНИЕ (под фото) =====
-  const nameY = photoTop + photoMaxH + 80;
+  const nameY = photoTop + photoMaxH + 30;
   const name = item.name || '';
   const typeLabel = TYPE_LABELS[item.type] || '';
+  const code = item.code && item.code.trim() ? item.code.trim() : '';
 
-  // Тип
-  if (typeLabel) {
-    ctx.font = 'bold 28px Inter, system-ui';
-    ctx.fillStyle = '#4f46e5';
+  // ===== СЕРИЯ + ГОД (теперь сверху и крупнее) =====
+  const seriesName = item.seriesName || item.seriesName_en || '';
+  const seriesYear = item.seriesYear || item.year || '';
+  const seriesLine = [seriesName, seriesYear].filter(Boolean).join(' · ');
+
+  if (seriesLine) {
+    ctx.save();
+    ctx.font = 'bold 28px Inter, system-ui'; // Увеличили и сделали жирным
+    ctx.fillStyle = '#4f46e5';             // Цвет как у типа
     ctx.textAlign = 'center';
     ctx.textBaseline = 'top';
-    ctx.fillText(typeLabel.toUpperCase(), CANVAS_SIZE / 2, nameY);
+
+    // Плавный авто-подбор (если название серии очень длинное, оно чуть уменьшится)
+    const maxSeriesW = CANVAS_SIZE - 160;
+    const seriesMin = 16;
+    const seriesMax = 28;
+
+    let lo = seriesMin;
+    let hi = seriesMax;
+    while (hi - lo > 1) {
+      const mid = Math.floor((lo + hi) / 2);
+      ctx.font = `bold ${mid}px Inter, system-ui`;
+      if (ctx.measureText(seriesLine).width <= maxSeriesW) {
+        lo = mid;
+      } else {
+        hi = mid;
+      }
+    }
+    ctx.font = `bold ${lo}px Inter, system-ui`;
+
+    ctx.fillText(seriesLine, CANVAS_SIZE / 2, nameY);
+    ctx.restore();
   }
 
-  // Название (с переносом)
-  if (name) {
+  // Тип (теперь снизу и мельче)
+  if (typeLabel) {
+    ctx.font = '600 24px Inter, system-ui'; // Уменьшили и сделали чуть легче
+    ctx.fillStyle = '#6b7280';              // Цвет как у серии
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'top';
+    ctx.fillText(typeLabel.toUpperCase(), CANVAS_SIZE / 2, nameY + 38); // Сдвинули вниз под серию
+  }
+
+  // Название (с переносом) — рисуем ТОЛЬКО если есть код
+  // (если кода нет, название будет огромным внизу, дублировать не нужно)
+  if (name && code) {
     ctx.font = 'bold 48px Inter, system-ui';
     ctx.fillStyle = '#1e1b4b';
     ctx.textAlign = 'center';
@@ -309,7 +381,7 @@ async function generateOneImage(item, index, total) {
 
     const displayLines = lines.slice(0, 2);
     const lineHeight = 56;
-    const startY = nameY + 50;
+    const startY = nameY + (seriesLine ? 74 : 50);
     displayLines.forEach((line, i) => {
       ctx.fillText(line, CANVAS_SIZE / 2, startY + i * lineHeight);
     });
@@ -341,7 +413,7 @@ async function generateOneImage(item, index, total) {
 
     const displayCondLines = lines.slice(0, 2);
     const condLineHeight = 40;
-    const condStartY = 800;
+    const condStartY = seriesLine ? 740 : 720;
     displayCondLines.forEach((line, i) => {
       ctx.fillText('⚠️ ' + line, CANVAS_SIZE / 2, condStartY + i * condLineHeight);
     });
@@ -349,7 +421,6 @@ async function generateOneImage(item, index, total) {
   }
 
   // ===== НИЖНИЙ БЛОК: код, а если кода нет — название =====
-  const code = item.code && item.code.trim() ? item.code.trim() : '';
   const bottomText = code || (item.name || '').trim();
 
   if (bottomText) {
@@ -366,7 +437,7 @@ async function generateOneImage(item, index, total) {
     // Плавный авто-подбор размера под ширину холста.
     const maxTextWidth = CANVAS_SIZE - 120;
     const minFontSize = 40;
-    const maxFontSize = 200;
+    const maxFontSize = 240;
 
     let lo = minFontSize;
     let hi = maxFontSize;
@@ -382,8 +453,70 @@ async function generateOneImage(item, index, total) {
     const fontSize = lo;
     ctx.font = `bold ${fontSize}px Inter, system-ui`;
 
-    ctx.fillText(bottomText, CANVAS_SIZE / 2, CANVAS_SIZE - 160);
+    // Поднимаем код выше, чтобы заполнить пустоту между названием и QR
+    ctx.fillText(bottomText, CANVAS_SIZE / 2, CANVAS_SIZE - 260);
     ctx.restore();
+  }
+
+  // ===== QR + ССЫЛКА НА САЙТ (в самом низу) =====
+  try {
+    const qrImage = await getSiteQRImage();
+    const qrSize = 90;
+    const qrX = 60;
+    const qrY = CANVAS_SIZE - qrSize - 10;
+
+    if (qrImage) {
+      // Белая подложка под QR
+      ctx.save();
+      ctx.fillStyle = '#ffffff';
+      ctx.beginPath();
+      if (ctx.roundRect) ctx.roundRect(qrX - 6, qrY - 6, qrSize + 12, qrSize + 12, 8);
+      else ctx.rect(qrX - 6, qrY - 6, qrSize + 12, qrSize + 12);
+      ctx.fill();
+
+      ctx.strokeStyle = '#c7d2fe';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      if (ctx.roundRect) ctx.roundRect(qrX - 6, qrY - 6, qrSize + 12, qrSize + 12, 8);
+      else ctx.rect(qrX - 6, qrY - 6, qrSize + 12, qrSize + 12);
+      ctx.stroke();
+      ctx.restore();
+
+      // Сам QR
+      ctx.drawImage(qrImage, qrX, qrY, qrSize, qrSize);
+    }
+
+    // ===== ТЕКСТОВАЯ ССЫЛКА (по центру оставшегося места) =====
+    const linkText = 'https://manspo.github.io';
+    const linkAreaLeft = qrImage ? (qrX + qrSize + 30) : 60;
+    const linkAreaRight = CANVAS_SIZE - 60;
+    const linkAreaCenterX = (linkAreaLeft + linkAreaRight) / 2;
+    const linkAreaWidth = linkAreaRight - linkAreaLeft;
+
+    // Авто-подбор: стараемся вписать в оставшуюся ширину,
+    // максимум 40px, минимум 20px
+    const linkMax = 40;
+    const linkMin = 20;
+
+    let lo = linkMin;
+    let hi = linkMax;
+    while (hi - lo > 1) {
+      const mid = Math.floor((lo + hi) / 2);
+      ctx.font = `bold ${mid}px Inter, system-ui`;
+      if (ctx.measureText(linkText).width <= linkAreaWidth) {
+        lo = mid;
+      } else {
+        hi = mid;
+      }
+    }
+    const linkFontSize = lo;
+    ctx.font = `bold ${linkFontSize}px Inter, system-ui`;
+    ctx.fillStyle = '#4f46e5';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(linkText, linkAreaCenterX, qrY + qrSize / 2);
+  } catch (e) {
+    console.warn('QR/ссылка не добавлены:', e);
   }
 
   // ===== ЭКСПОРТ =====
@@ -522,6 +655,16 @@ async function downloadZip() {
   } finally {
     downloadBtn.disabled = false;
   }
+}
+
+// ============================================================
+// QR С САЙТА (кэш)
+// ============================================================
+let __qrPromise = null;
+function getSiteQRImage() {
+  if (__qrPromise) return __qrPromise;
+  __qrPromise = loadImageBitmap(`${BASE_URL}/images/qrcodesite.png`);
+  return __qrPromise;
 }
 
 // ============================================================

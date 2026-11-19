@@ -100,6 +100,9 @@ const TYPE_LABELS = {
   single:  'Фигурка'
 };
 
+// Порядок типов для сортировки
+const TYPE_ORDER = ['figure', 'single', 'variant', 'extra', 'insert'];
+
 // ============================================================
 // СОСТОЯНИЕ
 // ============================================================
@@ -143,7 +146,7 @@ function applyFilters(rawItems) {
   const type = document.getElementById('filterType').value;
   const search = document.getElementById('filterSearch').value.trim().toLowerCase();
 
-  return rawItems.filter(item => {
+  const filtered = rawItems.filter(item => {
     if (!TYPE_LABELS[item.type]) return false;
     if (manufacturer !== 'all' && item.manufacturer !== manufacturer) return false;
     if (type !== 'all' && item.type !== type) return false;
@@ -159,6 +162,36 @@ function applyFilters(rawItems) {
     }
     return true;
   });
+
+  // ===== СОРТИРОВКА: по сериям, внутри серии — по типу и имени =====
+  filtered.sort((a, b) => {
+    // 1. Серия: элементы без серии (single) — в конец
+    const aSeries = a.seriesName || a.seriesName_en || '';
+    const bSeries = b.seriesName || b.seriesName_en || '';
+    const aHasSeries = aSeries ? 0 : 1;
+    const bHasSeries = bSeries ? 0 : 1;
+
+    if (aHasSeries !== bHasSeries) return aHasSeries - bHasSeries;
+
+    if (aHasSeries === 0) {
+      const seriesCmp = aSeries.localeCompare(bSeries, 'ru');
+      if (seriesCmp !== 0) return seriesCmp;
+      const yearCmp = String(a.year || '').localeCompare(String(b.year || ''));
+      if (yearCmp !== 0) return yearCmp;
+    }
+
+    // 2. Внутри серии — по типу
+    const aTypeIdx = TYPE_ORDER.indexOf(a.type);
+    const bTypeIdx = TYPE_ORDER.indexOf(b.type);
+    if (aTypeIdx !== bTypeIdx) return aTypeIdx - bTypeIdx;
+
+    // 3. Внутри типа — по имени
+    const aName = a.name || a.name_en || '';
+    const bName = b.name || b.name_en || '';
+    return aName.localeCompare(bName, 'ru');
+  });
+
+  return filtered;
 }
 
 // ============================================================
@@ -202,7 +235,7 @@ function drawBackground(ctx, w, h) {
 
 function drawMansurOverlay(ctx, w, h) {
   ctx.save();
-  ctx.globalAlpha = 0.30;
+  ctx.globalAlpha = 0.6;
   ctx.translate(w / 2, h / 2);
   ctx.rotate(-Math.PI / 4);
   ctx.font = 'bold 260px Inter, system-ui';
@@ -309,6 +342,7 @@ async function generateOneSheet(items) {
     }
 
     const name = item.name || item.name_en || '';
+    let nameLinesCount = 0;
     if (name) {
       ctx.save();
       ctx.font = 'bold 15px Inter, system-ui';
@@ -334,6 +368,41 @@ async function generateOneSheet(items) {
       displayLines.forEach((line, li) => {
         ctx.fillText(line, x + cellW / 2, nameY + li * 18);
       });
+      nameLinesCount = displayLines.length;
+      ctx.restore();
+    }
+
+    // ===== СЕРИЯ + ГОД (под названием) =====
+    const seriesName = item.seriesName || item.seriesName_en || '';
+    const seriesYear = item.year || item.seriesYear || '';
+    const seriesLine = [seriesName, seriesYear].filter(Boolean).join(' · ');
+
+    if (seriesLine) {
+      ctx.save();
+      ctx.fillStyle = '#6b7280';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'top';
+
+      const seriesY = textY + (code ? 24 : 0) + (nameLinesCount > 0 ? nameLinesCount * 18 + 4 : 0);
+
+      // Плавный авто-подбор размера под ширину ячейки
+      const seriesMin = 9;
+      const seriesMax = 12;
+
+      let lo = seriesMin;
+      let hi = seriesMax;
+      while (hi - lo > 1) {
+        const mid = Math.floor((lo + hi) / 2);
+        ctx.font = `600 ${mid}px Inter, system-ui`;
+        if (ctx.measureText(seriesLine).width <= textMaxW) {
+          lo = mid;
+        } else {
+          hi = mid;
+        }
+      }
+      ctx.font = `600 ${lo}px Inter, system-ui`;
+
+      ctx.fillText(seriesLine, x + cellW / 2, seriesY);
       ctx.restore();
     }
   }
@@ -388,11 +457,43 @@ async function generateAll() {
 
     for (const m of manufacturers) {
       const mItems = byManufacturer[m];
-      const sheetCount = Math.ceil(mItems.length / ITEMS_PER_SHEET);
+
+      // ===== РАЗБИВАЕМ НА ЛИСТЫ С РАЗРЫВОМ ПРИ СМЕНЕ СЕРИИ =====
+      // Внутри одного листа — только элементы одной серии.
+      // Элементы без серии (single) идут в конце, своей «псевдосерией».
+      const chunks = [];
+      let currentChunk = [];
+      let currentSeries = null;
+
+      for (const item of mItems) {
+        const itemSeries = item.seriesName || item.seriesName_en || '__single__';
+
+        if (currentSeries === null) {
+          // Первый элемент
+          currentSeries = itemSeries;
+          currentChunk.push(item);
+        } else if (itemSeries === currentSeries) {
+          // Та же серия — добавляем, если есть место
+          if (currentChunk.length >= ITEMS_PER_SHEET) {
+            chunks.push(currentChunk);
+            currentChunk = [item];
+          } else {
+            currentChunk.push(item);
+          }
+        } else {
+          // Новая серия — закрываем текущий лист, начинаем новый
+          if (currentChunk.length > 0) chunks.push(currentChunk);
+          currentSeries = itemSeries;
+          currentChunk = [item];
+        }
+      }
+      if (currentChunk.length > 0) chunks.push(currentChunk);
+
+      const sheetCount = chunks.length;
 
       for (let s = 0; s < sheetCount; s++) {
         sheetNumber++;
-        const chunk = mItems.slice(s * ITEMS_PER_SHEET, (s + 1) * ITEMS_PER_SHEET);
+        const chunk = chunks[s];
 
         const percent = Math.round(((sheetNumber - 1) / totalSheets) * 100);
         progressBar.style.width = percent + '%';

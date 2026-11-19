@@ -3723,6 +3723,9 @@ window.seriesLinkedIndexes = linkedIndexes;
                     ${hasDup
                       ? `<a href="same-figures.html?code=${encodeURIComponent(itemCode)}" class="same-code-link" title="Найти все фигурки с этим кодом">🔗</a>`
                       : `<span class="figure-action-placeholder"></span>`}
+                    ${item.wanted === true
+                      ? `<span class="wanted-icon" title="${currentLang === 'ru' ? 'Ищу' : 'Wanted'}">🔍</span>`
+                      : `<span class="figure-action-placeholder"></span>`}
                     ${item.forsale && item.avito
                       ? `<a href="${escapeHtml(item.avito)}" class="avito-link" target="_blank" rel="noopener noreferrer" title="Avito">🛒</a>`
                       : `<span class="figure-action-placeholder"></span>`}
