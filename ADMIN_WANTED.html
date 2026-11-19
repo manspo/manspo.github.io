@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Генератор картинок для поиска — Капсула</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Inter, system-ui, sans-serif; background: #f5f7fb; color: #1f2937; padding: 20px; }
+  .container { max-width: 1200px; margin: 0 auto; }
+  h1 { margin-bottom: 10px; color: #4f46e5; font-size: 24px; }
+  .hint { color: #6b7280; font-size: 14px; margin-bottom: 20px; line-height: 1.5; }
+  .hint code { background: #eef2ff; padding: 2px 6px; border-radius: 4px; font-size: 13px; }
+  .card { background: white; padding: 20px; border-radius: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 20px; }
+  .row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+  button { padding: 10px 20px; background: #4f46e5; color: white; border: none; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+  button:hover { background: #6366f1; }
+  button:disabled { background: #c7d2fe; cursor: not-allowed; }
+  button.secondary { background: #10b981; }
+  button.secondary:hover { background: #34d399; }
+  .progress-wrap { width: 100%; height: 14px; background: #e5e7eb; border-radius: 10px; overflow: hidden; margin: 12px 0; }
+  .progress-bar { height: 100%; width: 0%; background: linear-gradient(90deg, #4f46e5, #818cf8); transition: width 0.2s; }
+  .progress-text { font-size: 13px; color: #6b7280; }
+  .preview-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; margin-top: 16px; }
+  .preview-item { background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 10px; padding: 8px; text-align: center; }
+  .preview-item img { width: 100%; height: auto; border-radius: 6px; display: block; }
+  .preview-item .label { font-size: 12px; color: #6b7280; margin-top: 6px; word-break: break-all; }
+  .preview-item .status { font-size: 11px; margin-top: 2px; }
+  .status-ok { color: #10b981; }
+  .status-err { color: #ef4444; }
+  .status-wait { color: #f59e0b; }
+  .stats { display: flex; gap: 20px; flex-wrap: wrap; font-size: 14px; color: #6b7280; margin-bottom: 12px; }
+  .stats b { color: #1f2937; }
+  .filter-row { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 12px; }
+  .filter-row label { font-size: 13px; font-weight: 600; color: #4f46e5; display: flex; align-items: center; gap: 6px; }
+  select, input[type="text"] { padding: 8px 12px; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 14px; }
+  select:focus, input:focus { outline: none; border-color: #4f46e5; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>🔍 Генератор картинок для поиска</h1>
+  <p class="hint">
+    Источник: <code>data/wanted.json</code>. Сетка <b>4×3 = 12 фигурок</b> на лист <b>1080×1080</b> JPEG q≈0.9.
+    Под каждой — <b>код + название</b>. Пустые ячейки остаются.
+    Имя файла: <code>wanted_001.jpg</code>, <code>wanted_002.jpg</code>… (сквозной).
+    Группировка: <b>по производителям</b> (листы и папки в ZIP).
+  </p>
+
+  <div class="card">
+    <div class="row" style="margin-bottom:12px;">
+      <button id="loadBtn">📥 Загрузить data/wanted.json</button>
+      <button id="downloadBtn" class="secondary" disabled>📦 Скачать ZIP</button>
+    </div>
+    <div class="stats" id="stats"></div>
+    <div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
+    <div class="progress-text" id="progressText">Ожидание загрузки…</div>
+  </div>
+
+  <div class="card">
+    <div class="filter-row">
+      <label>Производитель:
+        <select id="filterManufacturer"><option value="all">Все</option></select>
+      </label>
+      <label>Тип:
+        <select id="filterType">
+          <option value="all">Все</option>
+          <option value="figure">Фигурка</option>
+          <option value="extra">Доп</option>
+          <option value="variant">Вариант</option>
+          <option value="insert">Вкладыш</option>
+          <option value="single">Без серии</option>
+        </select>
+      </label>
+      <label>Поиск:
+        <input type="text" id="filterSearch" placeholder="код или название…" style="min-width:200px;">
+      </label>
+    </div>
+    <div class="preview-grid" id="previewGrid"></div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script>
+// ============================================================
+// КОНСТАНТЫ
+// ============================================================
+const BASE_URL = 'https://manspo.github.io';
+const CANVAS_SIZE = 1080;
+const JPEG_QUALITY = 0.9;
+const COLS = 4;
+const ROWS = 3;
+const ITEMS_PER_SHEET = COLS * ROWS; // 12
+
+const TYPE_LABELS = {
+  figure:  'Фигурка',
+  extra:   'Доп',
+  variant: 'Вариант',
+  insert:  'Вкладыш',
+  single:  'Фигурка'
+};
+
+// ============================================================
+// СОСТОЯНИЕ
+// ============================================================
+let allItems = [];
+let sheets = []; // { filename, blob, manufacturer, items }
+let isGenerating = false;
+
+// ============================================================
+// ЗАГРУЗКА
+// ============================================================
+async function loadWantedData() {
+  const res = await fetch(`${BASE_URL}/data/wanted.json`);
+  if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+  return await res.json();
+}
+
+// ============================================================
+// НОРМАЛИЗАЦИЯ ЭЛЕМЕНТА wanted.json
+// ============================================================
+function normalizeWantedItem(item) {
+  return {
+    id: item.figure_id || item.id || '',
+    code: item.code || '',
+    name: item.name_ru || item.name || '',
+    name_en: item.name_en || '',
+    image: item.image || '',
+    type: item.type || 'figure',
+    year: item.year || '',
+    manufacturer: item.manufacturer || 'other',
+    seriesId: item.series_id || null,
+    seriesName: item.series_name_ru || '',
+    seriesName_en: item.series_name_en || ''
+  };
+}
+
+// ============================================================
+// ФИЛЬТРАЦИЯ
+// ============================================================
+function applyFilters(rawItems) {
+  const manufacturer = document.getElementById('filterManufacturer').value;
+  const type = document.getElementById('filterType').value;
+  const search = document.getElementById('filterSearch').value.trim().toLowerCase();
+
+  return rawItems.filter(item => {
+    if (!TYPE_LABELS[item.type]) return false;
+    if (manufacturer !== 'all' && item.manufacturer !== manufacturer) return false;
+    if (type !== 'all' && item.type !== type) return false;
+    if (search) {
+      const hay = [
+        item.code || '',
+        item.name || '',
+        item.name_en || '',
+        item.seriesName || '',
+        item.seriesName_en || ''
+      ].join(' ').toLowerCase();
+      if (!hay.includes(search)) return false;
+    }
+    return true;
+  });
+}
+
+// ============================================================
+// ЗАГРУЗКА КАРТИНКИ (CORS)
+// ============================================================
+async function loadImageBitmap(url) {
+  try {
+    const res = await fetch(url, { mode: 'cors' });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const blob = await res.blob();
+    return await createImageBitmap(blob);
+  } catch (e) {
+    console.warn('Не удалось загрузить:', url, e);
+    return null;
+  }
+}
+
+// ============================================================
+// ФОН + MANSUR ПОВЕРХ
+// ============================================================
+function drawBackground(ctx, w, h) {
+  const bgGrad = ctx.createLinearGradient(0, 0, w, h);
+  bgGrad.addColorStop(0, '#fefce8');
+  bgGrad.addColorStop(0.5, '#f5f3ff');
+  bgGrad.addColorStop(1, '#ecfeff');
+  ctx.fillStyle = bgGrad;
+  ctx.fillRect(0, 0, w, h);
+
+  const blob1 = ctx.createRadialGradient(w - 150, 150, 0, w - 150, 150, 400);
+  blob1.addColorStop(0, 'rgba(129, 140, 248, 0.15)');
+  blob1.addColorStop(1, 'rgba(129, 140, 248, 0)');
+  ctx.fillStyle = blob1;
+  ctx.fillRect(0, 0, w, h);
+
+  const blob2 = ctx.createRadialGradient(150, h - 150, 0, 150, h - 150, 400);
+  blob2.addColorStop(0, 'rgba(34, 211, 238, 0.10)');
+  blob2.addColorStop(1, 'rgba(34, 211, 238, 0)');
+  ctx.fillStyle = blob2;
+  ctx.fillRect(0, 0, w, h);
+}
+
+function drawMansurOverlay(ctx, w, h) {
+  ctx.save();
+  ctx.globalAlpha = 0.30;
+  ctx.translate(w / 2, h / 2);
+  ctx.rotate(-Math.PI / 4);
+  ctx.font = 'bold 260px Inter, system-ui';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.lineWidth = 6;
+  ctx.strokeStyle = 'rgba(255,255,255,0.6)';
+  ctx.strokeText('MANSUR', 0, 0);
+  ctx.fillStyle = '#4f46e5';
+  ctx.fillText('MANSUR', 0, 0);
+  ctx.restore();
+}
+
+// ============================================================
+// ГЕНЕРАЦИЯ ОДНОГО ЛИСТА (до 12 фигурок)
+// ============================================================
+async function generateOneSheet(items) {
+  const canvas = document.createElement('canvas');
+  canvas.width = CANVAS_SIZE;
+  canvas.height = CANVAS_SIZE;
+  const ctx = canvas.getContext('2d');
+  ctx.imageSmoothingEnabled = true;
+  ctx.imageSmoothingQuality = 'high';
+
+  drawBackground(ctx, CANVAS_SIZE, CANVAS_SIZE);
+
+  const pad = 30;
+  const gap = 12;
+  const cellW = (CANVAS_SIZE - pad * 2 - gap * (COLS - 1)) / COLS;
+  const cellH = (CANVAS_SIZE - pad * 2 - gap * (ROWS - 1)) / ROWS;
+
+  // Загружаем все картинки параллельно
+  const images = await Promise.all(
+    items.map(it => it.image ? loadImageBitmap(`${BASE_URL}/${it.image}`) : Promise.resolve(null))
+  );
+
+  for (let i = 0; i < ITEMS_PER_SHEET; i++) {
+    const col = i % COLS;
+    const row = Math.floor(i / COLS);
+    const x = pad + col * (cellW + gap);
+    const y = pad + row * (cellH + gap);
+
+    const item = items[i] || null;
+    const img = images[i] || null;
+
+    // ===== ЯЧЕЙКА =====
+    ctx.save();
+    ctx.fillStyle = '#ffffff';
+    ctx.strokeStyle = '#e5e7eb';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    if (ctx.roundRect) ctx.roundRect(x, y, cellW, cellH, 14);
+    else ctx.rect(x, y, cellW, cellH);
+    ctx.fill();
+    ctx.stroke();
+    ctx.restore();
+
+    if (!item) continue; // пустая ячейка
+
+    // ===== ФОТО (верхние 60% ячейки) =====
+    const photoPad = 8;
+    const photoW = cellW - photoPad * 2;
+    const photoH = cellH * 0.6;
+    const photoX = x + photoPad;
+    const photoY = y + photoPad;
+
+    if (img) {
+      const ratio = Math.min(photoW / img.width, photoH / img.height);
+      const dw = img.width * ratio;
+      const dh = img.height * ratio;
+      const dx = photoX + (photoW - dw) / 2;
+      const dy = photoY + (photoH - dh) / 2;
+      ctx.drawImage(img, dx, dy, dw, dh);
+    } else {
+      ctx.fillStyle = '#f3f4f6';
+      ctx.fillRect(photoX, photoY, photoW, photoH);
+      ctx.fillStyle = '#9ca3af';
+      ctx.font = 'bold 16px Inter, system-ui';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('Нет фото', photoX + photoW / 2, photoY + photoH / 2);
+    }
+
+    // ===== КОД + НАЗВАНИЕ ПОД ФОТО =====
+    const textY = photoY + photoH + 6;
+    const textMaxW = cellW - photoPad * 2;
+
+    const code = item.code || '';
+    if (code) {
+      ctx.save();
+      ctx.font = 'bold 18px Inter, system-ui';
+      ctx.fillStyle = '#4f46e5';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'top';
+
+      let displayCode = code;
+      while (ctx.measureText(displayCode).width > textMaxW && displayCode.length > 3) {
+        displayCode = displayCode.slice(0, -1);
+      }
+      if (displayCode !== code) displayCode = displayCode.slice(0, -1) + '…';
+
+      ctx.fillText(displayCode, x + cellW / 2, textY);
+      ctx.restore();
+    }
+
+    const name = item.name || item.name_en || '';
+    if (name) {
+      ctx.save();
+      ctx.font = 'bold 15px Inter, system-ui';
+      ctx.fillStyle = '#1e1b4b';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'top';
+
+      const nameY = textY + (code ? 24 : 0);
+      const words = name.split(' ');
+      const lines = [];
+      let cur = '';
+      for (const w of words) {
+        const test = cur ? cur + ' ' + w : w;
+        if (ctx.measureText(test).width > textMaxW && cur) {
+          lines.push(cur);
+          cur = w;
+        } else {
+          cur = test;
+        }
+      }
+      if (cur) lines.push(cur);
+      const displayLines = lines.slice(0, 2);
+      displayLines.forEach((line, li) => {
+        ctx.fillText(line, x + cellW / 2, nameY + li * 18);
+      });
+      ctx.restore();
+    }
+  }
+
+  // MANSUR поверх всего листа
+  drawMansurOverlay(ctx, CANVAS_SIZE, CANVAS_SIZE);
+
+  // Экспорт
+  return new Promise(resolve => {
+    canvas.toBlob(blob => resolve(blob), 'image/jpeg', JPEG_QUALITY);
+  });
+}
+
+// ============================================================
+// ГЕНЕРАЦИЯ ВСЕХ ЛИСТОВ (Вариант B: по производителям)
+// ============================================================
+async function generateAll() {
+  if (isGenerating) return;
+  if (allItems.length === 0) {
+    alert('Нет элементов для генерации. Загрузите data/wanted.json.');
+    return;
+  }
+
+  isGenerating = true;
+  sheets = [];
+  const progressBar = document.getElementById('progressBar');
+  const progressText = document.getElementById('progressText');
+  const downloadBtn = document.getElementById('downloadBtn');
+  const loadBtn = document.getElementById('loadBtn');
+  downloadBtn.disabled = true;
+  loadBtn.disabled = true;
+
+  const grid = document.getElementById('previewGrid');
+  grid.innerHTML = '';
+
+  try {
+    // Группируем по производителю
+    const byManufacturer = {};
+    allItems.forEach(item => {
+      const m = item.manufacturer || 'other';
+      if (!byManufacturer[m]) byManufacturer[m] = [];
+      byManufacturer[m].push(item);
+    });
+
+    const manufacturers = Object.keys(byManufacturer).sort();
+
+    // Общее число листов — для прогресса
+    const totalSheets = Object.values(byManufacturer)
+      .reduce((sum, arr) => sum + Math.ceil(arr.length / ITEMS_PER_SHEET), 0);
+
+    let sheetNumber = 0;
+
+    for (const m of manufacturers) {
+      const mItems = byManufacturer[m];
+      const sheetCount = Math.ceil(mItems.length / ITEMS_PER_SHEET);
+
+      for (let s = 0; s < sheetCount; s++) {
+        sheetNumber++;
+        const chunk = mItems.slice(s * ITEMS_PER_SHEET, (s + 1) * ITEMS_PER_SHEET);
+
+        const percent = Math.round(((sheetNumber - 1) / totalSheets) * 100);
+        progressBar.style.width = percent + '%';
+        progressText.textContent = `Лист ${sheetNumber}/${totalSheets}: ${m} (${chunk.length}/${ITEMS_PER_SHEET})…`;
+
+        const previewItem = document.createElement('div');
+        previewItem.className = 'preview-item';
+        previewItem.innerHTML = `
+          <img src="" alt="">
+          <div class="label">${escapeHtml(m)} — лист ${s + 1}</div>
+          <div class="status status-wait">⏳ Генерация…</div>
+        `;
+        grid.appendChild(previewItem);
+        const previewImg = previewItem.querySelector('img');
+        const statusEl = previewItem.querySelector('.status');
+
+        try {
+          const blob = await generateOneSheet(chunk);
+          if (!blob) throw new Error('Blob не создан');
+
+          const filename = `wanted_${String(sheetNumber).padStart(3, '0')}.jpg`;
+          sheets.push({ filename, blob, manufacturer: m, items: chunk });
+
+          const url = URL.createObjectURL(blob);
+          previewImg.src = url;
+          previewImg.onload = () => URL.revokeObjectURL(url);
+          statusEl.className = 'status status-ok';
+          statusEl.textContent = '✅ ' + filename;
+        } catch (e) {
+          console.error('Ошибка генерации листа:', m, s, e);
+          statusEl.className = 'status status-err';
+          statusEl.textContent = '❌ ' + e.message;
+        }
+
+        await new Promise(r => setTimeout(r, 0));
+      }
+    }
+
+    progressBar.style.width = '100%';
+    progressText.textContent = `Готово: ${sheets.length} листов`;
+    if (sheets.length > 0) downloadBtn.disabled = false;
+  } catch (e) {
+    progressText.textContent = '❌ Ошибка: ' + e.message;
+  } finally {
+    isGenerating = false;
+    loadBtn.disabled = false;
+  }
+}
+
+// ============================================================
+// ZIP (папки по производителям)
+// ============================================================
+async function downloadZip() {
+  if (sheets.length === 0) return;
+
+  const downloadBtn = document.getElementById('downloadBtn');
+  const progressBar = document.getElementById('progressBar');
+  const progressText = document.getElementById('progressText');
+  downloadBtn.disabled = true;
+
+  try {
+    const zip = new JSZip();
+    sheets.forEach(({ filename, blob, manufacturer }) => {
+      const folder = (manufacturer || 'other').toLowerCase().replace(/[^a-z0-9_-]/g, '') || 'other';
+      zip.file(`${folder}/${filename}`, blob);
+    });
+
+    progressText.textContent = 'Упаковка ZIP…';
+    progressBar.style.width = '0%';
+
+    const zipBlob = await zip.generateAsync(
+      { type: 'blob', compression: 'STORE' },
+      (meta) => {
+        progressBar.style.width = meta.percent + '%';
+        progressText.textContent = `Упаковка: ${Math.round(meta.percent)}%`;
+      }
+    );
+
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(zipBlob);
+    a.download = `wanted_images_${new Date().toISOString().slice(0, 19).replace(/:/g, '-')}.zip`;
+    a.click();
+    URL.revokeObjectURL(a.href);
+
+    progressText.textContent = `✅ ZIP скачан (${sheets.length} листов)`;
+  } catch (e) {
+    progressText.textContent = '❌ Ошибка ZIP: ' + e.message;
+  } finally {
+    downloadBtn.disabled = false;
+  }
+}
+
+// ============================================================
+// УТИЛИТЫ
+// ============================================================
+function escapeHtml(str) {
+  if (!str) return '';
+  return String(str).replace(/[&<>"']/g, m => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  }[m]));
+}
+
+function renderStats() {
+  const stats = document.getElementById('stats');
+  if (!stats) return;
+  const byType = {};
+  allItems.forEach(i => {
+    byType[i.type] = (byType[i.type] || 0) + 1;
+  });
+  const parts = Object.entries(byType)
+    .sort()
+    .map(([type, count]) => `<span><b>${TYPE_LABELS[type] || type}</b>: ${count}</span>`);
+
+  // Листов с учётом группировки по производителям
+  const byManuf = {};
+  allItems.forEach(i => {
+    const m = i.manufacturer || 'other';
+    byManuf[m] = (byManuf[m] || 0) + 1;
+  });
+  const totalSheets = Object.values(byManuf)
+    .reduce((sum, n) => sum + Math.ceil(n / ITEMS_PER_SHEET), 0);
+
+  stats.innerHTML =
+    `<span><b>Всего:</b> ${allItems.length}</span>` +
+    `<span><b>Листов:</b> ${totalSheets}</span>` +
+    `<span><b>Производителей:</b> ${Object.keys(byManuf).length}</span>` +
+    parts.join('');
+}
+
+// ============================================================
+// ИНИЦИАЛИЗАЦИЯ
+// ============================================================
+async function init() {
+  const loadBtn = document.getElementById('loadBtn');
+  const downloadBtn = document.getElementById('downloadBtn');
+  const filterManufacturer = document.getElementById('filterManufacturer');
+  const filterType = document.getElementById('filterType');
+  const filterSearch = document.getElementById('filterSearch');
+
+  let rawItems = [];
+
+  loadBtn.onclick = async () => {
+    loadBtn.disabled = true;
+    document.getElementById('progressText').textContent = 'Загрузка data/wanted.json…';
+    try {
+      const raw = await loadWantedData();
+      console.log('Загружено элементов:', raw.length);
+      rawItems = raw.map(normalizeWantedItem);
+
+      const manufacturers = [...new Set(rawItems.map(i => i.manufacturer).filter(Boolean))].sort();
+      filterManufacturer.innerHTML = '<option value="all">Все</option>' +
+        manufacturers.map(m => `<option value="${escapeHtml(m)}">${escapeHtml(m)}</option>`).join('');
+
+      allItems = applyFilters(rawItems);
+      renderStats();
+
+      document.getElementById('progressText').textContent =
+        `Загружено: ${allItems.length} элементов`;
+
+      await generateAll();
+    } catch (e) {
+      console.error(e);
+      document.getElementById('progressText').textContent = '❌ Ошибка загрузки: ' + e.message;
+    } finally {
+      loadBtn.disabled = false;
+    }
+  };
+
+  downloadBtn.onclick = downloadZip;
+
+  function onFilterChange() {
+    if (rawItems.length === 0) return;
+    allItems = applyFilters(rawItems);
+    renderStats();
+    if (allItems.length === 0) {
+      document.getElementById('previewGrid').innerHTML = '';
+      document.getElementById('progressText').textContent = 'Нет элементов по фильтру';
+      downloadBtn.disabled = true;
+      return;
+    }
+    sheets = [];
+    downloadBtn.disabled = true;
+    document.getElementById('progressText').textContent = 'Фильтр изменён — нажмите «Загрузить» заново';
+  }
+
+  filterManufacturer.onchange = onFilterChange;
+  filterType.onchange = onFilterChange;
+  let searchTimer = null;
+  filterSearch.oninput = () => {
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(onFilterChange, 300);
+  };
+}
+
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>

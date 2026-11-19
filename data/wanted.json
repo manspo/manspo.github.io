@@ -1,0 +1,93 @@
+[
+  {
+    "series_id": "robin-hood-by-kinder-1978",
+    "series_name_ru": "Родин Гуд от Киндер",
+    "series_name_en": "Robin Hood by Kinder",
+    "figure_id": "robin-hood-by-kinder-1978_fig2",
+    "type": "figure",
+    "name_ru": "Братец Тук",
+    "name_en": "Friar Tuck",
+    "code": "",
+    "image": "images/series/kinder/robin-hood-by-kinder-1978/2-f-friar-tuck.webp",
+    "year": 1978,
+    "manufacturer": "kinder"
+  },
+  {
+    "series_id": "robin-hood-by-kinder-1978",
+    "series_name_ru": "Родин Гуд от Киндер",
+    "series_name_en": "Robin Hood by Kinder",
+    "figure_id": "robin-hood-by-kinder-1978_fig3",
+    "type": "figure",
+    "name_ru": "Дева Мэриан",
+    "name_en": "Maid Marian",
+    "code": "",
+    "image": "images/series/kinder/robin-hood-by-kinder-1978/3-f-maid-marian.webp",
+    "year": 1978,
+    "manufacturer": "kinder"
+  },
+  {
+    "series_id": "robin-hood-by-kinder-1978",
+    "series_name_ru": "Родин Гуд от Киндер",
+    "series_name_en": "Robin Hood by Kinder",
+    "figure_id": "robin-hood-by-kinder-1978_variant1",
+    "type": "variant",
+    "name_ru": "Дева Мэриан в бирюзовом",
+    "name_en": "Maid Marian in turquoise",
+    "code": "",
+    "image": "images/series/kinder/robin-hood-by-kinder-1978/1-v-maid-marian-in-turquoise.webp",
+    "year": 1978,
+    "manufacturer": "kinder"
+  },
+  {
+    "series_id": "robin-hood-by-kinder-1978",
+    "series_name_ru": "Родин Гуд от Киндер",
+    "series_name_en": "Robin Hood by Kinder",
+    "figure_id": "robin-hood-by-kinder-1978_fig4",
+    "type": "figure",
+    "name_ru": "Малыш Джон",
+    "name_en": "Little John",
+    "code": "",
+    "image": "images/series/kinder/robin-hood-by-kinder-1978/4-f-little-john.webp",
+    "year": 1978,
+    "manufacturer": "kinder"
+  },
+  {
+    "series_id": "robin-hood-by-kinder-1978",
+    "series_name_ru": "Родин Гуд от Киндер",
+    "series_name_en": "Robin Hood by Kinder",
+    "figure_id": "robin-hood-by-kinder-1978_fig5",
+    "type": "figure",
+    "name_ru": "Принц Джон",
+    "name_en": "Prince John",
+    "code": "",
+    "image": "images/series/kinder/robin-hood-by-kinder-1978/5-f-prince-john.webp",
+    "year": 1978,
+    "manufacturer": "kinder"
+  },
+  {
+    "series_id": "robin-hood-by-kinder-1978",
+    "series_name_ru": "Родин Гуд от Киндер",
+    "series_name_en": "Robin Hood by Kinder",
+    "figure_id": "robin-hood-by-kinder-1978_fig1",
+    "type": "figure",
+    "name_ru": "Робин Гуд",
+    "name_en": "Robin Hood",
+    "code": "",
+    "image": "images/series/kinder/robin-hood-by-kinder-1978/1-f-robin-hood.webp",
+    "year": 1978,
+    "manufacturer": "kinder"
+  },
+  {
+    "series_id": "robin-hood-by-kinder-1978",
+    "series_name_ru": "Родин Гуд от Киндер",
+    "series_name_en": "Robin Hood by Kinder",
+    "figure_id": "robin-hood-by-kinder-1978_fig6",
+    "type": "figure",
+    "name_ru": "Шериф Ноттингемский",
+    "name_en": "Sheriff of Nottingham",
+    "code": "",
+    "image": "images/series/kinder/robin-hood-by-kinder-1978/6-f-sheriff-of-nottingham.webp",
+    "year": 1978,
+    "manufacturer": "kinder"
+  }
+]

@@ -187,16 +187,29 @@ function drawBackground(ctx, w, h) {
   ctx.fillStyle = blob2;
   ctx.fillRect(0, 0, w, h);
 
-  // Диагональная надпись MANSUR
+}
+
+// ============================================================
+// НАДПИСЬ MANSUR ПОВЕРХ ВСЕГО
+// ============================================================
+function drawMansurOverlay(ctx, w, h) {
   ctx.save();
-  ctx.globalAlpha = 0.08;
+  ctx.globalAlpha = 0.6;                        // было 0.08 — стало заметно
   ctx.translate(w / 2, h / 2);
   ctx.rotate(-Math.PI / 4);
-  ctx.font = 'bold 180px Inter, system-ui';
+  ctx.font = 'bold 200px Inter, system-ui';
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
+
+  // Обводка для контраста на любом фоне
+  ctx.lineWidth = 6;
+  ctx.strokeStyle = 'rgba(255,255,255,0.6)';
+  ctx.strokeText('MANSUR', 0, 0);
+
+  // Заливка
   ctx.fillStyle = '#4f46e5';
   ctx.fillText('MANSUR', 0, 0);
+
   ctx.restore();
 }
 
@@ -255,6 +268,9 @@ async function generateOneImage(item, index, total) {
     ctx.fillText('Нет фото', photoCenterX, photoTop + 150);
   }
 
+  // ===== MANSUR ПОВЕРХ ФОТО =====
+  drawMansurOverlay(ctx, CANVAS_SIZE, CANVAS_SIZE);
+
   // ===== НАЗВАНИЕ (под фото) =====
   const nameY = photoTop + photoMaxH + 80;
   const name = item.name || '';
@@ -299,20 +315,56 @@ async function generateOneImage(item, index, total) {
     });
   }
 
-  // ===== ОГРОМНЫЙ КОД (внизу) — целиком, с префиксом =====
+  // ===== СОСТОЯНИЕ (под названием) =====
+  const condition = (item.condition || item.condition_en || '').trim();
+  if (condition) {
+    ctx.save();
+    ctx.font = 'italic 32px Inter, system-ui';
+    ctx.fillStyle = '#b45309';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'top';
+
+    const maxCondWidth = CANVAS_SIZE - 160;
+    const words = condition.split(' ');
+    const lines = [];
+    let cur = '';
+    for (const w of words) {
+      const test = cur ? cur + ' ' + w : w;
+      if (ctx.measureText(test).width > maxCondWidth && cur) {
+        lines.push(cur);
+        cur = w;
+      } else {
+        cur = test;
+      }
+    }
+    if (cur) lines.push(cur);
+
+    const displayCondLines = lines.slice(0, 2);
+    const condLineHeight = 40;
+    const condStartY = 800;
+    displayCondLines.forEach((line, i) => {
+      ctx.fillText('⚠️ ' + line, CANVAS_SIZE / 2, condStartY + i * condLineHeight);
+    });
+    ctx.restore();
+  }
+
+  // ===== НИЖНИЙ БЛОК: код, а если кода нет — название =====
   const code = item.code && item.code.trim() ? item.code.trim() : '';
-  if (code) {
+  const bottomText = code || (item.name || '').trim();
+
+  if (bottomText) {
     ctx.save();
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.fillStyle = '#4f46e5';
     ctx.shadowColor = 'rgba(79, 70, 229, 0.25)';
     ctx.shadowBlur = 30;
     ctx.shadowOffsetY = 8;
 
+    // Цвет: код — фиолетовый, название (вместо кода) — тёмный
+    ctx.fillStyle = code ? '#4f46e5' : '#1e1b4b';
+
     // Плавный авто-подбор размера под ширину холста.
-    // Бинарный поиск максимального fontSize, при котором код влезает.
-    const maxCodeWidth = CANVAS_SIZE - 120; // отступы по 60px с каждой стороны
+    const maxTextWidth = CANVAS_SIZE - 120;
     const minFontSize = 40;
     const maxFontSize = 200;
 
@@ -321,7 +373,7 @@ async function generateOneImage(item, index, total) {
     while (hi - lo > 1) {
       const mid = Math.floor((lo + hi) / 2);
       ctx.font = `bold ${mid}px Inter, system-ui`;
-      if (ctx.measureText(code).width <= maxCodeWidth) {
+      if (ctx.measureText(bottomText).width <= maxTextWidth) {
         lo = mid;
       } else {
         hi = mid;
@@ -330,7 +382,7 @@ async function generateOneImage(item, index, total) {
     const fontSize = lo;
     ctx.font = `bold ${fontSize}px Inter, system-ui`;
 
-    ctx.fillText(code, CANVAS_SIZE / 2, CANVAS_SIZE - 160);
+    ctx.fillText(bottomText, CANVAS_SIZE / 2, CANVAS_SIZE - 160);
     ctx.restore();
   }
 
@@ -395,7 +447,12 @@ async function generateAll() {
         const numberPart = String(i + 1).padStart(3, '0');
         const filename = `${codePart}_${namePart}_${yearPart}_${numberPart}.jpg`;
 
-        generatedBlobs.push({ filename, blob });
+        // Папка по производителю (если пусто — other)
+        const manufacturerFolder = (item.manufacturer || 'other')
+          .toLowerCase()
+          .replace(/[^a-z0-9_-]/g, '') || 'other';
+
+        generatedBlobs.push({ filename, blob, manufacturerFolder });
 
         // Превью
         const url = URL.createObjectURL(blob);
@@ -437,8 +494,9 @@ async function downloadZip() {
 
   try {
     const zip = new JSZip();
-    generatedBlobs.forEach(({ filename, blob }) => {
-      zip.file(filename, blob);
+    generatedBlobs.forEach(({ filename, blob, manufacturerFolder }) => {
+      const folder = manufacturerFolder || 'other';
+      zip.file(`${folder}/${filename}`, blob);
     });
 
     progressText.textContent = 'Упаковка ZIP…';
