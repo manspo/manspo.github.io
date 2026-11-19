@@ -3713,6 +3713,7 @@ window.seriesLinkedIndexes = linkedIndexes;
             return `
               <div class="figure-item ${type !== 'inserts' ? (item.owned ? 'owned' : '') : ''} ${item.forsale ? 'forsale' : ''}">
                 <div class="figure-number">${idx + 1}</div>
+                ${item.wanted === true ? `<div class="wanted-badge" title="${currentLang === 'ru' ? 'Ищу' : 'Wanted'}">🔍</div>` : ''}
                 <img src="${imageUrl}" alt="${safeName}" loading="lazy" onerror="this.src='images/placeholder.svg'" onclick="openLightbox(${globalIndex}, window.seriesGalleryImages, window.seriesGalleryTitles)" style="cursor:pointer">
                 <div class="figure-info">
                   <div class="figure-name">${safeName}</div>
@@ -3722,9 +3723,6 @@ window.seriesLinkedIndexes = linkedIndexes;
                     ${insertBtnHtml}
                     ${hasDup
                       ? `<a href="same-figures.html?code=${encodeURIComponent(itemCode)}" class="same-code-link" title="Найти все фигурки с этим кодом">🔗</a>`
-                      : `<span class="figure-action-placeholder"></span>`}
-                    ${item.wanted === true
-                      ? `<span class="wanted-icon" title="${currentLang === 'ru' ? 'Ищу' : 'Wanted'}">🔍</span>`
                       : `<span class="figure-action-placeholder"></span>`}
                     ${item.forsale && item.avito
                       ? `<a href="${escapeHtml(item.avito)}" class="avito-link" target="_blank" rel="noopener noreferrer" title="Avito">🛒</a>`

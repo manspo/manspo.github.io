@@ -565,7 +565,8 @@ main {
   margin-top: 4px;
 }
 
-.figure-actions { display: flex; gap: 8px; margin-top: 4px; }
+.figure-actions { display: flex; gap: 8px; margin-top: 4px; flex-shrink: 0; }
+.figure-actions > * { flex-shrink: 0; }
 .qr-btn, .same-code-link, .avito-link { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: none; cursor: pointer; font-size: 16px; transition: all 0.2s; text-decoration: none; }
 .qr-btn { background: var(--clay-purple); color: #fff; }
 .qr-btn:hover { background: var(--clay-purple-dark); transform: scale(1.1); }
@@ -1855,18 +1856,25 @@ main {
   }
 }
 
-/* Значок «Ищу» на карточке фигурки */
-.wanted-icon {
-  width: 36px;
-  height: 36px;
+/* Значок «Ищу» — бейдж в левом верхнем углу карточки */
+.figure-item {
+  position: relative; /* На всякий случай, если не было */
+}
+
+.wanted-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
   font-size: 16px;
   background: var(--clay-blue-bg);
   color: var(--clay-blue-dark);
   box-shadow: 0 3px 0 var(--clay-blue-dark), 0 4px 8px rgba(74, 143, 212, 0.3);
+  z-index: 5;
   cursor: default;
-  flex-shrink: 0;
 }
