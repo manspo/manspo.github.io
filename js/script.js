@@ -429,7 +429,8 @@ function getFilterState() {
   const defaultState = {
     catalog: { manufacturer: 'all', kind: 'all', sort: 'date-desc', search: '' },
     mycollection: { manufacturer: 'all', kind: 'all', search: '' },
-    forsale: { manufacturer: 'all', kind: 'all', sort: 'date-desc', search: '', tab: 'figures' }
+    forsale: { manufacturer: 'all', kind: 'all', sort: 'date-desc', search: '', tab: 'figures' },
+    wanted: { manufacturer: 'all', type: 'all', year: 'all', sort: 'date-desc', search: '' }
   };
   if (saved) {
     try {
@@ -1301,6 +1302,12 @@ async function initHome() {
       filterState.forsale.manufacturer = 'all';
       filterState.forsale.tab = 'figures';
     }
+    if (filterState.wanted) {
+      filterState.wanted.search = '';
+      filterState.wanted.manufacturer = 'all';
+      filterState.wanted.type = 'all';
+      filterState.wanted.year = 'all';
+    }
     if (filterState.videos) {
       filterState.videos.search = '';
     }
@@ -1487,6 +1494,18 @@ async function loadForsale() {
     return await res.json();
   } catch (error) {
     console.error('Ошибка загрузки товаров:', error);
+    return [];
+  }
+}
+
+// ===== ЗАГРУЗКА СПИСКА ПОИСКА =====
+async function loadWanted() {
+  try {
+    const res = await fetch(`${BASE_URL}/data/wanted.json`);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    return await res.json();
+  } catch (error) {
+    console.error('Ошибка загрузки списка поиска:', error);
     return [];
   }
 }
@@ -2963,6 +2982,382 @@ if (currentSearch) {
     console.error('Ошибка инициализации for sale:', error);
     showError('Не удалось загрузить товары');
     grid.innerHTML = `<p class="error-message">❌ Ошибка загрузки товаров. Попробуйте обновить страницу.</p>`;
+  }
+}
+
+// ===== МОЙ ПОИСК (WANTED) =====
+async function initWanted() {
+  const grid = document.getElementById("wantedGrid");
+  if (!grid) return;
+  
+  try {
+    await loadManufacturers();
+    const manufacturers = await loadManufacturers();
+    let currentLang = localStorage.getItem("lang") || "ru";
+    
+    // ===== ЗАГРУЗКА ЧЕРЕЗ WANTED.JSON =====
+    const allItems = await loadWanted();
+    
+    // Порядок в wanted.json (для сортировки «как в файле»)
+    const wantedIndexOrder = {};
+    allItems.forEach((item, i) => { wantedIndexOrder[item.id] = i; });
+    
+    // Разбиваем по типам
+    let figureItems = [];       // figure + single
+    let extraItems = [];
+    let insertItems = [];
+    let variantItems = [];
+    
+    allItems.forEach(item => {
+      const mapped = {
+        id: item.figure_id || item.id,
+        seriesId: item.series_id || null,
+        name: (currentLang === 'en' && item.name_en) ? item.name_en : item.name_ru,
+        name_en: item.name_en || '',
+        image: item.image,
+        seriesName: (currentLang === 'en' && item.series_name_en) ? item.series_name_en : item.series_name_ru,
+        seriesName_en: item.series_name_en || '',
+        seriesName_ru: item.series_name_ru || '',
+        seriesYear: item.year || '',
+        manufacturer: item.manufacturer,
+        type: item.type,
+        code: item.code || ''
+      };
+      
+      if (item.type === 'figure' || item.type === 'single') figureItems.push(mapped);
+      else if (item.type === 'variant') variantItems.push(mapped);
+      else if (item.type === 'extra') extraItems.push(mapped);
+      else if (item.type === 'insert') insertItems.push(mapped);
+    });
+    
+    let currentManufacturer = filterState.wanted?.manufacturer || 'all';
+    let currentType = filterState.wanted?.type || 'all';
+    let currentYear = filterState.wanted?.year || 'all';
+    let currentSearch = filterState.wanted?.search || '';
+    let currentSort = filterState.wanted?.sort || 'date-desc';
+    
+    let figuresPage = 1, insertsPage = 1, seriesPage = 1;
+    
+    const searchInput = document.getElementById("searchInput");
+    const sortSelect = document.getElementById("sortSelect");
+    
+    if (searchInput) {
+      searchInput.value = currentSearch;
+      searchInput.oninput = debounce((e) => {
+        currentSearch = e.target.value.toLowerCase();
+        if (!filterState.wanted) filterState.wanted = {};
+        filterState.wanted.search = currentSearch;
+        saveFilterState(filterState);
+        figuresPage = 1; insertsPage = 1; seriesPage = 1;
+        renderItems();
+      }, CONFIG.DEBOUNCE_DELAY);
+    }
+    
+    if (sortSelect) {
+      sortSelect.value = currentSort;
+      sortSelect.onchange = () => {
+        currentSort = sortSelect.value;
+        if (!filterState.wanted) filterState.wanted = {};
+        filterState.wanted.sort = currentSort;
+        saveFilterState(filterState);
+        figuresPage = 1; insertsPage = 1; seriesPage = 1;
+        renderItems();
+      };
+    }
+    
+    // ===== УНИКАЛЬНЫЕ ГОДЫ ДЛЯ ФИЛЬТРА =====
+    const uniqueYears = [...new Set(allItems.map(i => i.year).filter(Boolean))].sort((a, b) => b - a);
+    
+    // ===== ФИЛЬТРЫ =====
+    function buildFilters() {
+      const filterGroup = document.getElementById('wantedFilterGroup');
+      if (!filterGroup) return;
+      
+      const uniqueMans = [...new Set(allItems.map(i => i.manufacturer).filter(Boolean))];
+      const sortedMans = manufacturerOrder.filter(m => uniqueMans.includes(m));
+      
+      filterGroup.innerHTML = '';
+      
+      const allBtn = document.createElement('button');
+      allBtn.className = 'filter-btn' + (currentManufacturer === 'all' ? ' active' : '');
+      allBtn.dataset.filter = 'all';
+      allBtn.textContent = currentLang === 'ru' ? 'Все' : 'All';
+      filterGroup.appendChild(allBtn);
+      
+      sortedMans.forEach(m => {
+        const displayName = manufacturers[m]?.[currentLang] || m;
+        const btn = document.createElement('button');
+        btn.className = 'filter-btn' + (currentManufacturer === m ? ' active' : '');
+        btn.dataset.filter = m;
+        btn.textContent = displayName;
+        filterGroup.appendChild(btn);
+      });
+      
+      filterGroup.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.onclick = () => {
+          filterGroup.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentManufacturer = btn.dataset.filter;
+          if (!filterState.wanted) filterState.wanted = {};
+          filterState.wanted.manufacturer = currentManufacturer;
+          saveFilterState(filterState);
+          figuresPage = 1; insertsPage = 1; seriesPage = 1;
+          renderItems();
+        };
+      });
+    }
+    
+    // ===== ФИЛЬТР + СОРТИРОВКА =====
+    function applyFiltersAndSort(items) {
+      let filtered = [...items];
+      
+      if (currentManufacturer !== 'all') {
+        filtered = filtered.filter(i => i.manufacturer === currentManufacturer);
+      }
+      
+      if (currentYear !== 'all') {
+        filtered = filtered.filter(i => String(i.seriesYear) === String(currentYear));
+      }
+      
+      if (currentSearch) {
+        const query = currentSearch.toLowerCase();
+        filtered = filtered.filter(i =>
+          (i.name || '').toLowerCase().includes(query) ||
+          (i.name_en || '').toLowerCase().includes(query) ||
+          (i.seriesName || '').toLowerCase().includes(query) ||
+          (i.seriesName_en || '').toLowerCase().includes(query) ||
+          (i.code && i.code.toLowerCase().includes(query)) ||
+          (i.seriesYear && String(i.seriesYear).includes(query))
+        );
+      }
+      
+      // ===== СОРТИРОВКА =====
+      if (currentSort === 'date-desc') {
+        filtered.sort((a, b) => (wantedIndexOrder[a.id] ?? 99999) - (wantedIndexOrder[b.id] ?? 99999));
+      } else if (currentSort === 'date-asc') {
+        filtered.sort((a, b) => (wantedIndexOrder[b.id] ?? -1) - (wantedIndexOrder[a.id] ?? -1));
+      } else if (currentSort === 'year') {
+        filtered.sort((a, b) => (a.seriesYear || 0) - (b.seriesYear || 0));
+      } else if (currentSort === 'year-desc') {
+        filtered.sort((a, b) => (b.seriesYear || 0) - (a.seriesYear || 0));
+      } else if (currentSort === 'name') {
+        filtered.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
+      } else if (currentSort === 'name-desc') {
+        filtered.sort((a, b) => (b.name || '').localeCompare(a.name || ''));
+      }
+      
+      return filtered;
+    }
+    
+    function getFilteredFigures()  { return applyFiltersAndSort(figureItems); }
+    function getFilteredVariants() { return applyFiltersAndSort(variantItems); }
+    function getFilteredExtras()   { return applyFiltersAndSort(extraItems); }
+    function getFilteredInserts()  { return applyFiltersAndSort(insertItems); }
+    
+    // ===== ПАГИНАЦИЯ =====
+    function renderPagination(totalItems, currentPage, itemsPerPage, type) {
+      const totalPages = Math.ceil(totalItems / itemsPerPage);
+      if (totalPages <= 1) return null;
+      
+      const container = document.createElement('div');
+      container.className = 'pagination';
+      
+      const prevBtn = document.createElement('button');
+      prevBtn.className = 'page-btn';
+      prevBtn.textContent = '‹';
+      prevBtn.disabled = currentPage <= 1;
+      prevBtn.onclick = () => {
+        const pageMap = {
+          'figures': () => figuresPage = Math.max(1, figuresPage - 1),
+          'inserts': () => insertsPage = Math.max(1, insertsPage - 1),
+          'series':  () => seriesPage  = Math.max(1, seriesPage  - 1)
+        };
+        if (pageMap[type]) pageMap[type]();
+        renderItems();
+      };
+      container.appendChild(prevBtn);
+      
+      let startPage = Math.max(1, currentPage - 2);
+      let endPage = Math.min(totalPages, startPage + 4);
+      if (endPage - startPage < 4) {
+        startPage = Math.max(1, endPage - 4);
+      }
+      
+      for (let i = startPage; i <= endPage; i++) {
+        const btn = document.createElement('button');
+        btn.className = 'page-btn' + (i === currentPage ? ' active' : '');
+        btn.textContent = i;
+        btn.onclick = () => {
+          const pageMap = {
+            'figures': () => figuresPage = i,
+            'inserts': () => insertsPage = i,
+            'series':  () => seriesPage  = i
+          };
+          if (pageMap[type]) pageMap[type]();
+          renderItems();
+        };
+        container.appendChild(btn);
+      }
+      
+      const nextBtn = document.createElement('button');
+      nextBtn.className = 'page-btn';
+      nextBtn.textContent = '›';
+      nextBtn.disabled = currentPage >= totalPages;
+      nextBtn.onclick = () => {
+        const pageMap = {
+          'figures': () => figuresPage = Math.min(totalPages, figuresPage + 1),
+          'inserts': () => insertsPage = Math.min(totalPages, insertsPage + 1),
+          'series':  () => seriesPage  = Math.min(totalPages, seriesPage  + 1)
+        };
+        if (pageMap[type]) pageMap[type]();
+        renderItems();
+      };
+      container.appendChild(nextBtn);
+      
+      return container;
+    }
+    
+    // ===== КАРТОЧКА ТОВАРА =====
+    function createItemCard(item) {
+      const div = document.createElement('div');
+      div.className = 'forsale-item-card';
+      if (item.type === 'single') div.classList.add('single-figure-card');
+      
+      const manufacturerName = manufacturers[item.manufacturer]?.[currentLang] || item.manufacturer;
+      
+      const typeLabels = {
+        'figure': currentLang === 'ru' ? 'Фигурка' : 'Figure',
+        'variant': currentLang === 'ru' ? 'Вариант' : 'Variant',
+        'extra': currentLang === 'ru' ? 'Доп' : 'Extra',
+        'insert': currentLang === 'ru' ? 'Вкладыш' : 'Insert',
+        'single': currentLang === 'ru' ? 'Без серии' : 'No series'
+      };
+      
+      const imageUrl = item.image ? `${BASE_URL}/${item.image}` : 'images/placeholder.svg';
+      
+      // ===== ССЫЛКА ПО ТИПУ =====
+      let linkUrl;
+      if (item.type === 'single') {
+        linkUrl = `single-figure.html?id=${encodeURIComponent(item.id)}&manufacturer=${encodeURIComponent(item.manufacturer)}`;
+      } else {
+        linkUrl = `figure.html?series=${encodeURIComponent(item.seriesId)}&fig=${encodeURIComponent(item.id)}`;
+      }
+      
+      // ===== БЛОК СЕРИИ =====
+      const seriesBlockHtml = item.type === 'single'
+        ? `
+          <div class="forsale-item-series">
+            <span style="color:var(--muted);font-style:italic;">
+              ${currentLang === 'ru' ? 'Без серии' : 'No series'}
+            </span>
+            <div class="forsale-item-manufacturer">
+              <a href="wanted.html?manufacturer=${encodeURIComponent(item.manufacturer)}">${escapeHtml(manufacturerName)}</a>
+            </div>
+          </div>
+        `
+        : `
+          <div class="forsale-item-series">
+            <a href="series.html?id=${encodeURIComponent(item.seriesId)}">${escapeHtml(item.seriesName || '')}</a>
+            <span style="margin:0 4px;">·</span>
+            ${escapeHtml(item.seriesYear || '')}
+            <div class="forsale-item-manufacturer">
+              <a href="wanted.html?manufacturer=${encodeURIComponent(item.manufacturer)}">${escapeHtml(manufacturerName)}</a>
+            </div>
+          </div>
+        `;
+      
+      div.innerHTML = `
+        <a href="${linkUrl}">
+          <img src="${imageUrl}" alt="${escapeHtml(item.name || '')}" loading="lazy" onerror="this.src='images/placeholder.svg'">
+        </a>
+        <div class="forsale-item-body">
+          <div class="forsale-item-header">
+            <span class="forsale-item-name">${escapeHtml(item.name || '')}</span>
+          </div>
+          <div class="forsale-item-tags">
+            <span class="tag tag-primary">${escapeHtml(typeLabels[item.type] || item.type)}</span>
+            ${item.code ? `<span class="tag tag-code">${escapeHtml(item.code)}</span>` : ''}
+          </div>
+          ${seriesBlockHtml}
+        </div>
+      `;
+      
+      return div;
+    }
+    
+    // ===== РЕНДЕР =====
+    function renderItems() {
+      const figures = getFilteredFigures();
+      const variants = getFilteredVariants();
+      const extras = getFilteredExtras();
+      const inserts = getFilteredInserts();
+      
+      // ===== ОБЩИЙ СПИСОК: фигурки (вкл. single) + варианты + допы =====
+      const mainItems = [...figures, ...variants, ...extras];
+      
+      const totalFigures = document.getElementById('totalWantedFigures');
+      const totalSeries = document.getElementById('totalWantedSeries');
+      if (totalFigures) totalFigures.textContent = mainItems.length + inserts.length;
+      
+      // Считаем уникальные серии
+      const uniqueSeriesIds = new Set();
+      mainItems.forEach(i => { if (i.seriesId) uniqueSeriesIds.add(i.seriesId); });
+      if (totalSeries) totalSeries.textContent = uniqueSeriesIds.size;
+      
+      grid.innerHTML = '';
+      
+      // ===== ОСНОВНОЙ РАЗДЕЛ: ФИГУРКИ/ВАРИАНТЫ/ДОПЫ =====
+      if (mainItems.length > 0) {
+        const totalPages = Math.ceil(mainItems.length / CONFIG.ITEMS_PER_PAGE);
+        if (figuresPage > totalPages) figuresPage = totalPages || 1;
+        const start = (figuresPage - 1) * CONFIG.ITEMS_PER_PAGE;
+        const end = start + CONFIG.ITEMS_PER_PAGE;
+        const paginated = mainItems.slice(start, end);
+        
+        const divider = document.createElement('div');
+        divider.className = 'section-divider';
+        divider.innerHTML = `🔍 ${currentLang === 'ru' ? 'Ищу' : 'Wanted'} <span class="badge">${mainItems.length}</span>`;
+        grid.appendChild(divider);
+        paginated.forEach(item => grid.appendChild(createItemCard(item)));
+        
+        if (totalPages > 1) {
+          const pag = renderPagination(mainItems.length, figuresPage, CONFIG.ITEMS_PER_PAGE, 'figures');
+          if (pag) grid.appendChild(pag);
+        }
+      }
+      
+      // ===== ВКЛАДЫШИ (отдельный раздел) =====
+      if (inserts.length > 0) {
+        const totalPages = Math.ceil(inserts.length / CONFIG.ITEMS_PER_PAGE);
+        if (insertsPage > totalPages) insertsPage = totalPages || 1;
+        const start = (insertsPage - 1) * CONFIG.ITEMS_PER_PAGE;
+        const end = start + CONFIG.ITEMS_PER_PAGE;
+        const paginated = inserts.slice(start, end);
+        
+        const divider = document.createElement('div');
+        divider.className = 'section-divider';
+        divider.innerHTML = `📄 ${currentLang === 'ru' ? 'Вкладыши' : 'Inserts'} <span class="badge">${inserts.length}</span>`;
+        grid.appendChild(divider);
+        paginated.forEach(item => grid.appendChild(createItemCard(item)));
+        
+        if (totalPages > 1) {
+          const pag = renderPagination(inserts.length, insertsPage, CONFIG.ITEMS_PER_PAGE, 'inserts');
+          if (pag) grid.appendChild(pag);
+        }
+      }
+      
+      // ===== ЕСЛИ НИЧЕГО НЕТ =====
+      if (mainItems.length === 0 && inserts.length === 0) {
+        grid.innerHTML = '<p class="empty-message">' + (currentLang === 'ru' ? 'Список поиска пуст' : 'Wanted list is empty') + '</p>';
+      }
+    }
+    
+    buildFilters();
+    renderItems();
+  } catch(error) {
+    console.error('Ошибка инициализации wanted:', error);
+    showError('Не удалось загрузить список поиска');
+    grid.innerHTML = `<p class="error-message">❌ Ошибка загрузки списка. Попробуйте обновить страницу.</p>`;
   }
 }
 
@@ -5344,6 +5739,8 @@ async function runInit() {
       initMyCollection();
     } else if (filename === 'forsale.html') {
       initForSale();
+    } else if (filename === 'wanted.html') {
+      initWanted();
     } else if (filename === 'same-figures.html') {
       initSameFigures();
     } else if (filename === 'all-duplicates.html') {

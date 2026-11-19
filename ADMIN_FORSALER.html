@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Генератор картинок для продажи — Капсула</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Inter, system-ui, sans-serif; background: #f5f7fb; color: #1f2937; padding: 20px; }
+  .container { max-width: 1200px; margin: 0 auto; }
+  h1 { margin-bottom: 10px; color: #4f46e5; font-size: 24px; }
+  .hint { color: #6b7280; font-size: 14px; margin-bottom: 20px; }
+  .card { background: white; padding: 20px; border-radius: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 20px; }
+  .row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+  button { padding: 10px 20px; background: #4f46e5; color: white; border: none; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+  button:hover { background: #6366f1; }
+  button:disabled { background: #c7d2fe; cursor: not-allowed; }
+  button.secondary { background: #10b981; }
+  button.secondary:hover { background: #34d399; }
+  .progress-wrap { width: 100%; height: 14px; background: #e5e7eb; border-radius: 10px; overflow: hidden; margin: 12px 0; }
+  .progress-bar { height: 100%; width: 0%; background: linear-gradient(90deg, #4f46e5, #818cf8); transition: width 0.2s; }
+  .progress-text { font-size: 13px; color: #6b7280; }
+  .preview-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; margin-top: 16px; }
+  .preview-item { background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 10px; padding: 8px; text-align: center; }
+  .preview-item img { width: 100%; height: auto; border-radius: 6px; display: block; }
+  .preview-item .label { font-size: 12px; color: #6b7280; margin-top: 6px; word-break: break-all; }
+  .preview-item .status { font-size: 11px; margin-top: 2px; }
+  .status-ok { color: #10b981; }
+  .status-err { color: #ef4444; }
+  .status-wait { color: #f59e0b; }
+  .stats { display: flex; gap: 20px; flex-wrap: wrap; font-size: 14px; color: #6b7280; margin-bottom: 12px; }
+  .stats b { color: #1f2937; }
+  .filter-row { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 12px; }
+  .filter-row label { font-size: 13px; font-weight: 600; color: #4f46e5; display: flex; align-items: center; gap: 6px; }
+  select, input[type="text"] { padding: 8px 12px; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 14px; }
+  select:focus, input:focus { outline: none; border-color: #4f46e5; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>🖼️ Генератор картинок для продажи</h1>
+  <p class="hint">
+    Источник: <code>data/forsale.json</code>. Берутся типы: <b>figure, extra, variant, insert, single</b>.
+    Тип <code>full</code> (полная серия) исключён.
+    Холст 1080×1080 JPEG q≈0.9. Имя файла: <code>{код}_{название}_{год}_{номер}.jpg</code>.
+    Номера сквозные, файлы не перезаписываются.
+  </p>
+
+  <div class="card">
+    <div class="row" style="margin-bottom:12px;">
+      <button id="loadBtn">📥 Загрузить data/forsale.json</button>
+      <button id="downloadBtn" class="secondary" disabled>📦 Скачать ZIP</button>
+    </div>
+    <div class="stats" id="stats"></div>
+    <div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
+    <div class="progress-text" id="progressText">Ожидание загрузки…</div>
+  </div>
+
+  <div class="card">
+    <div class="filter-row">
+      <label>Производитель:
+        <select id="filterManufacturer"><option value="all">Все</option></select>
+      </label>
+      <label>Тип:
+        <select id="filterType">
+          <option value="all">Все</option>
+          <option value="figure">Фигурка</option>
+          <option value="extra">Доп</option>
+          <option value="variant">Вариант</option>
+          <option value="insert">Вкладыш</option>
+          <option value="single">Без серии (Фигурка)</option>
+        </select>
+      </label>
+      <label>Поиск:
+        <input type="text" id="filterSearch" placeholder="код или название…" style="min-width:200px;">
+      </label>
+    </div>
+    <div class="preview-grid" id="previewGrid"></div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script>
+// ============================================================
+// КОНСТАНТЫ
+// ============================================================
+const BASE_URL = 'https://manspo.github.io';
+const CANVAS_SIZE = 1080;
+const JPEG_QUALITY = 0.9;
+
+const TYPE_LABELS = {
+  figure:  'Фигурка',
+  extra:   'Доп',
+  variant: 'Вариант',
+  insert:  'Вкладыш',
+  single:  'Фигурка'
+};
+
+// Порядок типов для сортировки
+const TYPE_ORDER = ['figure', 'single', 'variant', 'extra', 'insert'];
+
+// ============================================================
+// СОСТОЯНИЕ
+// ============================================================
+let allItems = [];       // отфильтрованные товары
+let generatedBlobs = []; // { filename, blob }
+let isGenerating = false;
+
+// ============================================================
+// ЗАГРУЗКА ДАННЫХ
+// ============================================================
+async function loadForsaleData() {
+  const res = await fetch(`${BASE_URL}/data/forsale.json`);
+  if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+  return await res.json();
+}
+
+// ============================================================
+// ФИЛЬТРАЦИЯ
+// ============================================================
+function applyFilters(rawItems) {
+  const manufacturer = document.getElementById('filterManufacturer').value;
+  const type = document.getElementById('filterType').value;
+  const search = document.getElementById('filterSearch').value.trim().toLowerCase();
+
+  return rawItems.filter(item => {
+    // Исключаем full
+    if (item.type === 'full') return false;
+    // Только известные типы
+    if (!TYPE_LABELS[item.type]) return false;
+    // Фильтр по производителю
+    if (manufacturer !== 'all' && item.manufacturer !== manufacturer) return false;
+    // Фильтр по типу
+    if (type !== 'all' && item.type !== type) return false;
+    // Поиск
+    if (search) {
+      const hay = [
+        item.code || '',
+        item.name || '',
+        item.name_en || '',
+        item.seriesName || '',
+        item.seriesName_en || ''
+      ].join(' ').toLowerCase();
+      if (!hay.includes(search)) return false;
+    }
+    return true;
+  });
+}
+
+// ============================================================
+// ЗАГРУЗКА ИЗОБРАЖЕНИЯ (CORS)
+// ============================================================
+async function loadImageBitmap(url) {
+  try {
+    const res = await fetch(url, { mode: 'cors' });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const blob = await res.blob();
+    return await createImageBitmap(blob);
+  } catch (e) {
+    console.warn('Не удалось загрузить:', url, e);
+    return null;
+  }
+}
+
+// ============================================================
+// ФОН + MANSUR (из генератора чек-листа)
+// ============================================================
+function drawBackground(ctx, w, h) {
+  // Лёгкий градиент
+  const bgGrad = ctx.createLinearGradient(0, 0, w, h);
+  bgGrad.addColorStop(0, '#fefce8');
+  bgGrad.addColorStop(0.5, '#f5f3ff');
+  bgGrad.addColorStop(1, '#ecfeff');
+  ctx.fillStyle = bgGrad;
+  ctx.fillRect(0, 0, w, h);
+
+  // Радиальные блики
+  const blob1 = ctx.createRadialGradient(w - 150, 150, 0, w - 150, 150, 400);
+  blob1.addColorStop(0, 'rgba(129, 140, 248, 0.15)');
+  blob1.addColorStop(1, 'rgba(129, 140, 248, 0)');
+  ctx.fillStyle = blob1;
+  ctx.fillRect(0, 0, w, h);
+
+  const blob2 = ctx.createRadialGradient(150, h - 150, 0, 150, h - 150, 400);
+  blob2.addColorStop(0, 'rgba(34, 211, 238, 0.10)');
+  blob2.addColorStop(1, 'rgba(34, 211, 238, 0)');
+  ctx.fillStyle = blob2;
+  ctx.fillRect(0, 0, w, h);
+
+  // Диагональная надпись MANSUR
+  ctx.save();
+  ctx.globalAlpha = 0.08;
+  ctx.translate(w / 2, h / 2);
+  ctx.rotate(-Math.PI / 4);
+  ctx.font = 'bold 180px Inter, system-ui';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillStyle = '#4f46e5';
+  ctx.fillText('MANSUR', 0, 0);
+  ctx.restore();
+}
+
+// ============================================================
+// ОТРИСОВКА ОДНОЙ КАРТИНКИ
+// ============================================================
+async function generateOneImage(item, index, total) {
+  const canvas = document.createElement('canvas');
+  canvas.width = CANVAS_SIZE;
+  canvas.height = CANVAS_SIZE;
+  const ctx = canvas.getContext('2d');
+  ctx.imageSmoothingEnabled = true;
+  ctx.imageSmoothingQuality = 'high';
+
+  drawBackground(ctx, CANVAS_SIZE, CANVAS_SIZE);
+
+  // ===== ФОТО ФИГУРКИ (сверху) =====
+  const img = item.image ? await loadImageBitmap(`${BASE_URL}/${item.image}`) : null;
+
+  const photoTop = 100;
+  const photoMaxH = 500;
+  const photoMaxW = 800;
+  const photoCenterX = CANVAS_SIZE / 2;
+
+  if (img) {
+    const ratio = Math.min(photoMaxW / img.width, photoMaxH / img.height);
+    const dw = img.width * ratio;
+    const dh = img.height * ratio;
+    const dx = photoCenterX - dw / 2;
+    const dy = photoTop + (photoMaxH - dh) / 2;
+
+    // Тень под фото
+    ctx.save();
+    ctx.shadowColor = 'rgba(79, 70, 229, 0.18)';
+    ctx.shadowBlur = 40;
+    ctx.shadowOffsetY = 12;
+    ctx.fillStyle = '#ffffff';
+    ctx.beginPath();
+    if (ctx.roundRect) ctx.roundRect(dx - 20, dy - 20, dw + 40, dh + 40, 30);
+    else ctx.rect(dx - 20, dy - 20, dw + 40, dh + 40);
+    ctx.fill();
+    ctx.restore();
+
+    ctx.drawImage(img, dx, dy, dw, dh);
+  } else {
+    // Плейсхолдер
+    ctx.fillStyle = '#e5e7eb';
+    ctx.beginPath();
+    if (ctx.roundRect) ctx.roundRect(photoCenterX - 200, photoTop, 400, 300, 20);
+    else ctx.rect(photoCenterX - 200, photoTop, 400, 300);
+    ctx.fill();
+    ctx.fillStyle = '#9ca3af';
+    ctx.font = 'bold 40px Inter, system-ui';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('Нет фото', photoCenterX, photoTop + 150);
+  }
+
+  // ===== НАЗВАНИЕ (под фото) =====
+  const nameY = photoTop + photoMaxH + 80;
+  const name = item.name || '';
+  const typeLabel = TYPE_LABELS[item.type] || '';
+
+  // Тип
+  if (typeLabel) {
+    ctx.font = 'bold 28px Inter, system-ui';
+    ctx.fillStyle = '#4f46e5';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'top';
+    ctx.fillText(typeLabel.toUpperCase(), CANVAS_SIZE / 2, nameY);
+  }
+
+  // Название (с переносом)
+  if (name) {
+    ctx.font = 'bold 48px Inter, system-ui';
+    ctx.fillStyle = '#1e1b4b';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'top';
+
+    const maxWidth = CANVAS_SIZE - 120;
+    const words = name.split(' ');
+    const lines = [];
+    let cur = '';
+    for (const w of words) {
+      const test = cur ? cur + ' ' + w : w;
+      if (ctx.measureText(test).width > maxWidth && cur) {
+        lines.push(cur);
+        cur = w;
+      } else {
+        cur = test;
+      }
+    }
+    if (cur) lines.push(cur);
+
+    const displayLines = lines.slice(0, 2);
+    const lineHeight = 56;
+    const startY = nameY + 50;
+    displayLines.forEach((line, i) => {
+      ctx.fillText(line, CANVAS_SIZE / 2, startY + i * lineHeight);
+    });
+  }
+
+  // ===== ОГРОМНЫЙ КОД (внизу) — целиком, с префиксом =====
+  const code = item.code && item.code.trim() ? item.code.trim() : '';
+  if (code) {
+    ctx.save();
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillStyle = '#4f46e5';
+    ctx.shadowColor = 'rgba(79, 70, 229, 0.25)';
+    ctx.shadowBlur = 30;
+    ctx.shadowOffsetY = 8;
+
+    // Плавный авто-подбор размера под ширину холста.
+    // Бинарный поиск максимального fontSize, при котором код влезает.
+    const maxCodeWidth = CANVAS_SIZE - 120; // отступы по 60px с каждой стороны
+    const minFontSize = 40;
+    const maxFontSize = 200;
+
+    let lo = minFontSize;
+    let hi = maxFontSize;
+    while (hi - lo > 1) {
+      const mid = Math.floor((lo + hi) / 2);
+      ctx.font = `bold ${mid}px Inter, system-ui`;
+      if (ctx.measureText(code).width <= maxCodeWidth) {
+        lo = mid;
+      } else {
+        hi = mid;
+      }
+    }
+    const fontSize = lo;
+    ctx.font = `bold ${fontSize}px Inter, system-ui`;
+
+    ctx.fillText(code, CANVAS_SIZE / 2, CANVAS_SIZE - 160);
+    ctx.restore();
+  }
+
+  // ===== ЭКСПОРТ =====
+  return new Promise(resolve => {
+    canvas.toBlob(blob => resolve(blob), 'image/jpeg', JPEG_QUALITY);
+  });
+}
+
+// ============================================================
+// ГЕНЕРАЦИЯ ВСЕХ КАРТИНОК
+// ============================================================
+async function generateAll() {
+  if (isGenerating) return;
+  if (allItems.length === 0) {
+    alert('Нет товаров для генерации. Загрузите data/forsale.json.');
+    return;
+  }
+
+  isGenerating = true;
+  generatedBlobs = [];
+  const progressBar = document.getElementById('progressBar');
+  const progressText = document.getElementById('progressText');
+  const downloadBtn = document.getElementById('downloadBtn');
+  const loadBtn = document.getElementById('loadBtn');
+  downloadBtn.disabled = true;
+  loadBtn.disabled = true;
+
+  // Очищаем превью
+  const grid = document.getElementById('previewGrid');
+  grid.innerHTML = '';
+
+  try {
+    for (let i = 0; i < allItems.length; i++) {
+      const item = allItems[i];
+      const percent = Math.round(((i) / allItems.length) * 100);
+      progressBar.style.width = percent + '%';
+      progressText.textContent = `Генерация ${i + 1} из ${allItems.length}…`;
+
+      // Превью-карточка
+      const previewItem = document.createElement('div');
+      previewItem.className = 'preview-item';
+      previewItem.innerHTML = `
+        <img src="" alt="">
+        <div class="label">${escapeHtml(item.name || '')}</div>
+        <div class="status status-wait">⏳ Генерация…</div>
+      `;
+      grid.appendChild(previewItem);
+      const previewImg = previewItem.querySelector('img');
+      const statusEl = previewItem.querySelector('.status');
+
+      try {
+        const blob = await generateOneImage(item, i, allItems.length);
+        if (!blob) throw new Error('Blob не создан');
+
+        // Имя файла: {код}_{название}_{год}_{номер}.jpg
+        const codePart = (item.code || 'nocode').replace(/[^a-zA-Z0-9]/g, '');
+        const namePart = (item.name || 'figure')
+          .replace(/[^a-zA-Zа-яА-ЯёЁ0-9]/g, '_')
+          .substring(0, 40);
+        const yearPart = item.seriesYear || item.year || 'year';
+        const numberPart = String(i + 1).padStart(3, '0');
+        const filename = `${codePart}_${namePart}_${yearPart}_${numberPart}.jpg`;
+
+        generatedBlobs.push({ filename, blob });
+
+        // Превью
+        const url = URL.createObjectURL(blob);
+        previewImg.src = url;
+        previewImg.onload = () => URL.revokeObjectURL(url);
+        statusEl.className = 'status status-ok';
+        statusEl.textContent = '✅ ' + filename;
+      } catch (e) {
+        console.error('Ошибка генерации:', item, e);
+        statusEl.className = 'status status-err';
+        statusEl.textContent = '❌ ' + e.message;
+      }
+
+      // Даём браузеру отрисовать
+      await new Promise(r => setTimeout(r, 0));
+    }
+
+    progressBar.style.width = '100%';
+    progressText.textContent = `Готово: ${generatedBlobs.length} из ${allItems.length}`;
+    if (generatedBlobs.length > 0) downloadBtn.disabled = false;
+  } catch (e) {
+    progressText.textContent = '❌ Ошибка: ' + e.message;
+  } finally {
+    isGenerating = false;
+    loadBtn.disabled = false;
+  }
+}
+
+// ============================================================
+// ZIP
+// ============================================================
+async function downloadZip() {
+  if (generatedBlobs.length === 0) return;
+
+  const downloadBtn = document.getElementById('downloadBtn');
+  const progressBar = document.getElementById('progressBar');
+  const progressText = document.getElementById('progressText');
+  downloadBtn.disabled = true;
+
+  try {
+    const zip = new JSZip();
+    generatedBlobs.forEach(({ filename, blob }) => {
+      zip.file(filename, blob);
+    });
+
+    progressText.textContent = 'Упаковка ZIP…';
+    progressBar.style.width = '0%';
+
+    const zipBlob = await zip.generateAsync(
+      { type: 'blob', compression: 'STORE' },
+      (meta) => {
+        progressBar.style.width = meta.percent + '%';
+        progressText.textContent = `Упаковка: ${Math.round(meta.percent)}%`;
+      }
+    );
+
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(zipBlob);
+    a.download = `forsale_images_${new Date().toISOString().slice(0, 19).replace(/:/g, '-')}.zip`;
+    a.click();
+    URL.revokeObjectURL(a.href);
+
+    progressText.textContent = `✅ ZIP скачан (${generatedBlobs.length} файлов)`;
+  } catch (e) {
+    progressText.textContent = '❌ Ошибка ZIP: ' + e.message;
+  } finally {
+    downloadBtn.disabled = false;
+  }
+}
+
+// ============================================================
+// УТИЛИТЫ
+// ============================================================
+function escapeHtml(str) {
+  if (!str) return '';
+  return String(str).replace(/[&<>"']/g, m => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  }[m]));
+}
+
+function renderStats() {
+  const stats = document.getElementById('stats');
+  if (!stats) return;
+  const byType = {};
+  allItems.forEach(i => {
+    byType[i.type] = (byType[i.type] || 0) + 1;
+  });
+  const parts = Object.entries(byType)
+    .sort((a, b) => (TYPE_ORDER.indexOf(a[0]) - TYPE_ORDER.indexOf(b[0])))
+    .map(([type, count]) => `<span><b>${TYPE_LABELS[type] || type}</b>: ${count}</span>`);
+  stats.innerHTML = `<span><b>Всего:</b> ${allItems.length}</span>` + parts.join('');
+}
+
+// ============================================================
+// ИНИЦИАЛИЗАЦИЯ
+// ============================================================
+async function init() {
+  const loadBtn = document.getElementById('loadBtn');
+  const downloadBtn = document.getElementById('downloadBtn');
+  const filterManufacturer = document.getElementById('filterManufacturer');
+  const filterType = document.getElementById('filterType');
+  const filterSearch = document.getElementById('filterSearch');
+
+  let rawItems = [];
+
+  loadBtn.onclick = async () => {
+    loadBtn.disabled = true;
+    document.getElementById('progressText').textContent = 'Загрузка data/forsale.json…';
+    try {
+      rawItems = await loadForsaleData();
+      console.log('Загружено товаров:', rawItems.length);
+
+      // Заполняем фильтр производителей
+      const manufacturers = [...new Set(rawItems.map(i => i.manufacturer).filter(Boolean))].sort();
+      filterManufacturer.innerHTML = '<option value="all">Все</option>' +
+        manufacturers.map(m => `<option value="${escapeHtml(m)}">${escapeHtml(m)}</option>`).join('');
+
+      // Применяем фильтры и рендерим
+      allItems = applyFilters(rawItems);
+      renderStats();
+
+      document.getElementById('progressText').textContent =
+        `Загружено: ${allItems.length} товаров (из ${rawItems.length}; full исключён)`;
+
+      // Автогенерация
+      await generateAll();
+    } catch (e) {
+      console.error(e);
+      document.getElementById('progressText').textContent = '❌ Ошибка загрузки: ' + e.message;
+    } finally {
+      loadBtn.disabled = false;
+    }
+  };
+
+  downloadBtn.onclick = downloadZip;
+
+  // Перегенерация при смене фильтров
+  function onFilterChange() {
+    if (rawItems.length === 0) return;
+    allItems = applyFilters(rawItems);
+    renderStats();
+    if (allItems.length === 0) {
+      document.getElementById('previewGrid').innerHTML = '';
+      document.getElementById('progressText').textContent = 'Нет товаров по фильтру';
+      downloadBtn.disabled = true;
+      return;
+    }
+    generatedBlobs = [];
+    downloadBtn.disabled = true;
+    document.getElementById('progressText').textContent = 'Фильтр изменён — нажмите «Загрузить» заново или дождитесь перегенерации';
+  }
+
+  filterManufacturer.onchange = onFilterChange;
+  filterType.onchange = onFilterChange;
+  let searchTimer = null;
+  filterSearch.oninput = () => {
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(onFilterChange, 300);
+  };
+}
+
+// ============================================================
+// СТАРТ
+// ============================================================
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>

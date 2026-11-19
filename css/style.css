@@ -1685,6 +1685,8 @@ main {
   }
 }
 
+
+
 @media (max-width: 480px) {
   .clay-four-buttons, .clay-stats { grid-template-columns: 1fr; }
   .clay-social-grid { grid-template-columns: 1fr; }
@@ -1796,4 +1798,59 @@ main {
   /* Отключаем клики, чтобы не мешал */
   pointer-events: none;
   user-select: none;
+}
+
+/* ===== РЯД: ХРОНОЛОГИЯ (75%) + МОЙ ПОИСК (25%) ===== */
+.clay-timeline-wanted-row {
+  display: flex;
+  gap: 24px;
+  align-items: stretch;
+  margin-top: 24px;
+  margin-bottom: 32px;
+}
+
+/* Хронология внутри ряда — 75% */
+.clay-wide-panel--in-row {
+  flex: 0 0 75%;
+  max-width: 75%;
+  margin-top: 0;
+  margin-bottom: 0;
+  min-width: 0;
+}
+
+/* Мой поиск — 25%, оформление как у .clay-mini-card */
+.clay-wanted-panel {
+  flex: 0 0 calc(25% - 24px);
+  max-width: calc(25% - 24px);
+  min-height: auto;
+  height: auto;
+  margin: 0;
+  padding: 24px 16px;
+  gap: 16px;
+  justify-content: center;
+  text-align: center;
+}
+
+/* На мобильных — друг под другом */
+@media (max-width: 992px) {
+  .clay-timeline-wanted-row {
+    flex-direction: column;
+  }
+  .clay-wide-panel--in-row {
+    flex: 1 1 auto;
+    max-width: 100%;
+  }
+  .clay-wanted-panel {
+    flex: 1 1 auto;
+    max-width: 100%;
+    min-height: 180px;
+  }
+}
+
+/* На совсем узких — иконка меньше */
+@media (max-width: 768px) {
+  .clay-wanted-panel .clay-mini-icon-img {
+    width: 64px !important;
+    height: 64px !important;
+  }
 }

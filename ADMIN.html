@@ -39,7 +39,7 @@
         .figure-item .row input { flex: 1; min-width: 80px; }
         .figure-item .row img { width: 160px; height: 160px; object-fit: contain; border-radius: 6px; border: 1px solid #e5e7eb; background: white; }
         .figure-number { display: inline-block; width: 28px; height: 28px; background: #4f46e5; color: white; border-radius: 50%; text-align: center; line-height: 28px; font-size: 13px; font-weight: bold; flex-shrink: 0; }
-        .stats { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; margin-bottom: 20px; }
+        .stats { display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px; margin-bottom: 20px; }
         .stat-card { background: white; padding: 12px; border-radius: 10px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
         .stat-number { font-size: 24px; font-weight: 700; color: #4f46e5; }
         .stat-label { font-size: 12px; color: #6b7280; }
@@ -75,6 +75,7 @@
         <div class="stat-card"><div class="stat-number" id="totalVariants">0</div><div class="stat-label">вариантов</div></div>
         <div class="stat-card"><div class="stat-number" id="totalInserts">0</div><div class="stat-label">вкладышей</div></div>
         <div class="stat-card"><div class="stat-number" id="totalOther">0</div><div class="stat-label">прочего</div></div>
+        <div class="stat-card"><div class="stat-number" id="totalWanted">0</div><div class="stat-label">ищу</div></div>
     </div>
     
     <!-- ЗАГРУЗКА ПАПКИ -->
@@ -414,6 +415,7 @@
                     
                     <div class="form-group"><label><input type="checkbox" id="singleOwned"> В коллекции</label></div>
                     <div class="form-group"><label><input type="checkbox" id="singleForsale"> В продаже</label></div>
+                    <div class="form-group"><label><input type="checkbox" id="singleWanted"> Ищу</label></div>
                     <div class="form-group"><input type="date" id="singleForsaleDate" placeholder="Дата выставления"></div>
                     <div class="form-group"><input type="text" id="singleAvito" placeholder="Ссылка Avito"></div>
                     <div class="form-group"><input type="text" id="singlePrice" placeholder="Цена"></div>
@@ -516,6 +518,7 @@
 
                 <div class="form-group"><label><input type="checkbox" id="singleEditOwned"> В коллекции</label></div>
                 <div class="form-group"><label><input type="checkbox" id="singleEditForsale"> В продаже</label></div>
+                <div class="form-group"><label><input type="checkbox" id="singleEditWanted"> Ищу</label></div>
                 <div class="form-group"><input type="date" id="singleEditForsaleDate" placeholder="Дата выставления"></div>
                 <div class="form-group"><input type="text" id="singleEditAvito" placeholder="Ссылка Avito"></div>
                 <div class="form-group"><input type="text" id="singleEditPrice" placeholder="Цена"></div>
@@ -618,6 +621,7 @@ function clearSingleForm() {
     document.getElementById('singleDescriptionEn').value = '';
     document.getElementById('singleOwned').checked = false;
     document.getElementById('singleForsale').checked = false;
+    document.getElementById('singleWanted').checked = false;
     document.getElementById('singleForsaleDate').value = '';
     document.getElementById('singleAvito').value = '';
     document.getElementById('singlePrice').value = '';
@@ -659,6 +663,7 @@ function addSingle() {
         description_en: document.getElementById('singleDescriptionEn').value.trim(),
         owned: document.getElementById('singleOwned').checked,
         forsale: document.getElementById('singleForsale').checked,
+        wanted: document.getElementById('singleWanted').checked,
         forsale_date: document.getElementById('singleForsaleDate').value.trim(),
         avito: document.getElementById('singleAvito').value.trim(),
         price: document.getElementById('singlePrice').value.trim(),
@@ -933,6 +938,7 @@ function commitSingleBatch() {
             description_en: '',
             owned: false,
             forsale: item.forsale === true,
+            wanted: false,
             forsale_date: item.forsale === true ? todayISO() : '',
             avito: '',
             price: '',
@@ -1043,6 +1049,7 @@ function editSingle(manufacturer, idx) {
     document.getElementById('singleEditDescriptionEn').value = item.description_en || '';
     document.getElementById('singleEditOwned').checked = item.owned === true;
     document.getElementById('singleEditForsale').checked = item.forsale === true;
+    document.getElementById('singleEditWanted').checked = item.wanted === true;
     document.getElementById('singleEditForsaleDate').value = item.forsale_date || '';
     document.getElementById('singleEditAvito').value = item.avito || '';
     document.getElementById('singleEditPrice').value = item.price || '';
@@ -1114,6 +1121,7 @@ function saveSingleEdit() {
         description_en: document.getElementById('singleEditDescriptionEn').value.trim(),
         owned: document.getElementById('singleEditOwned').checked,
         forsale: document.getElementById('singleEditForsale').checked,
+        wanted: document.getElementById('singleEditWanted').checked,
         forsale_date: document.getElementById('singleEditForsaleDate').value.trim(),
         avito: document.getElementById('singleEditAvito').value.trim(),
         price: document.getElementById('singleEditPrice').value.trim(),
@@ -1502,6 +1510,7 @@ function createItemElement(data, idx, type, seriesId) {
     
     let owned = data?.owned || false;
     let forsale = data?.forsale || false;
+    let wanted = data?.wanted || false;
     let forsaleDate = data?.forsale_date || '';
     let avito = data?.avito || '';
     let price = data?.price || '';
@@ -1545,6 +1554,7 @@ div.dataset.dateAdded = data?.date_added || todayISO();
         <div class="row" style="margin-top:5px;">
             <label style="font-weight:normal;font-size:13px;"><input type="checkbox" class="item-owned" ${owned ? 'checked' : ''}> В коллекции</label>
             <label style="font-weight:normal;font-size:13px;"><input type="checkbox" class="item-forsale" ${forsale ? 'checked' : ''}> В продаже</label>
+            <label style="font-weight:normal;font-size:13px;"><input type="checkbox" class="item-wanted" ${wanted ? 'checked' : ''}> Ищу</label>
             <input type="date" class="item-forsale-date" placeholder="Дата выставления" value="${escapeHtml(forsaleDate)}" style="width:140px;" title="Дата выставления на продажу">
             <input type="text" class="item-avito" placeholder="Ссылка Avito" value="${escapeHtml(avito)}" style="flex:1;min-width:100px;">
             <input type="text" class="item-price" placeholder="Цена" value="${escapeHtml(price)}" style="width:80px;">
@@ -1736,6 +1746,7 @@ function collectItems(container) {
             image: item.querySelector('.item-image')?.value || '',
             owned: item.querySelector('.item-owned')?.checked || false,
             forsale: item.querySelector('.item-forsale')?.checked || false,
+            wanted: item.querySelector('.item-wanted')?.checked || false,
             forsale_date: item.querySelector('.item-forsale-date')?.value || '',
             avito: item.querySelector('.item-avito')?.value || '',
             price: item.querySelector('.item-price')?.value || '',
@@ -2126,6 +2137,17 @@ function updateStats() {
     document.getElementById('totalVariants').textContent = variants;
     document.getElementById('totalInserts').textContent = inserts;
     document.getElementById('totalOther').textContent = other;
+
+    let wanted = 0;
+    existingSeries.forEach(s => {
+        ['figures', 'extras', 'variants', 'inserts', 'other'].forEach(cat => {
+            if (Array.isArray(s[cat])) wanted += s[cat].filter(x => x.wanted === true).length;
+        });
+    });
+    Object.keys(singlesData).forEach(m => {
+        if (Array.isArray(singlesData[m])) wanted += singlesData[m].filter(x => x.wanted === true).length;
+    });
+    document.getElementById('totalWanted').textContent = wanted;
 }
 
 function refreshExistingSeriesList() {
@@ -2915,6 +2937,82 @@ function generateFullForsaleData(seriesList, singlesData) {
     return all;
 }
 
+// ============================================================
+// ГЕНЕРАЦИЯ WANTED (СЕРИИ + ОТДЕЛЬНЫЕ ФИГУРКИ)
+// ============================================================
+
+function generateFullWantedData(seriesList, singlesData) {
+    const items = [];
+
+    const typeMap = {
+        'figures': 'figure',
+        'variants': 'variant',
+        'extras': 'extra',
+        'inserts': 'insert'
+    };
+
+    // ===== СЕРИИ =====
+    seriesList.forEach(s => {
+        Object.keys(typeMap).forEach(cat => {
+            if (!Array.isArray(s[cat])) return;
+
+            s[cat].forEach(item => {
+                if (item.wanted !== true) return;
+
+                items.push({
+                    series_id: s.id,
+                    series_name_ru: s.name || '',
+                    series_name_en: s.name_en || s.name || '',
+                    figure_id: item.id || '',
+                    type: typeMap[cat],
+                    name_ru: item.name || '',
+                    name_en: item.name_en || item.name || '',
+                    code: item.code || '',
+                    image: item.image || '',
+                    year: s.year || '',
+                    manufacturer: s.manufacturer || ''
+                });
+            });
+        });
+    });
+
+    // ===== ОТДЕЛЬНЫЕ ФИГУРКИ =====
+    Object.keys(singlesData || {}).forEach(manufacturer => {
+        const arr = singlesData[manufacturer];
+        if (!Array.isArray(arr)) return;
+
+        arr.forEach(item => {
+            if (item.wanted !== true) return;
+
+            items.push({
+                series_id: null,
+                series_name_ru: '',
+                series_name_en: '',
+                figure_id: item.id || '',
+                type: 'single',
+                name_ru: item.name || '',
+                name_en: item.name_en || item.name || '',
+                code: item.code || '',
+                image: item.image || '',
+                year: item.year || '',
+                manufacturer: manufacturer
+            });
+        });
+    });
+
+    // Сортировка: по коду (пустые — в конец), затем по названию
+    items.sort((a, b) => {
+        const codeA = (a.code || '').toUpperCase();
+        const codeB = (b.code || '').toUpperCase();
+        if (codeA && codeB) return codeA.localeCompare(codeB);
+        if (codeA) return -1;
+        if (codeB) return 1;
+        return (a.name_ru || '').localeCompare(b.name_ru || '');
+    });
+
+    return items;
+}
+
 function generateCollectionData(seriesList) {
     const items = [];
     
@@ -3076,6 +3174,10 @@ function downloadAsZip(seriesList, options = {}) {
 const forsaleData = generateFullForsaleData(seriesList, singlesData);
 zip.file("forsale.json", JSON.stringify(forsaleData, null, 2));
 console.log('✅ forsale.json:', forsaleData.length, 'товаров (серии + отдельные)');
+
+const wantedData = generateFullWantedData(seriesList, singlesData);
+zip.file("wanted.json", JSON.stringify(wantedData, null, 2));
+console.log('✅ wanted.json:', wantedData.length, 'позиций (серии + отдельные)');
     
     const collectionData = generateCollectionData(seriesList);
     zip.file("collection.json", JSON.stringify(collectionData, null, 2));

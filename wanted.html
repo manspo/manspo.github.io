@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <script>
+  (function() {
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+  })();
+  </script>
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Капсула">
+  <meta property="og:title" content="Капсула — каталог коллекций игрушек">
+  <meta property="og:description" content="Kinder, Nestle, Landrin и другие производители. Каталог серий, фигурок, вкладышей и коллекций.">
+  <meta property="og:url" content="https://manspo.github.io/">
+  <meta property="og:image" content="https://manspo.github.io/images/og-preview.jpg">
+  <meta property="og:image:secure_url" content="https://manspo.github.io/images/og-preview.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:locale:alternate" content="en_US">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Капсула — каталог коллекций игрушек">
+  <meta name="twitter:description" content="Kinder, Nestle, Landrin и другие производители.">
+  <meta name="twitter:image" content="https://manspo.github.io/images/og-preview.jpg">
+  <title data-i18n="title_wanted">Мой поиск — Капсула</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#ef4444">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Капсула">
+  <link rel="apple-touch-icon" href="images/icon-192x192.webp">
+  <script src="js/qrcode.min.js"></script>
+</head>
+
+<body>
+<header class="header">
+  <div class="header-left">
+    <a href="index.html" class="brand">
+      <img src="images/logo.webp" class="logo-img" alt="Logo">
+      <span class="logo" data-i18n="site_name">Капсула</span>
+    </a>
+  </div>
+  <div class="header-tagline">
+    <span class="tagline-main" data-i18n="home_title">Каталог коллекций игрушек</span>
+    <span class="tagline-sub" data-i18n="home_sub">Kinder, Nestle, Landrin и другие производители</span>
+  </div>
+</header>
+
+<main>
+  <button class="back-button" onclick="history.back()">
+    <span class="back-arrow">←</span> <span data-i18n="back">Назад</span>
+  </button>
+  
+  <div class="page-header">
+    <h1 data-i18n="wanted_title">Мой поиск</h1>
+  </div>
+  
+<div class="stats-cards">
+  <div class="stat-card-simple">
+    <div class="stat-number" id="totalWantedFigures">0</div>
+    <div class="stat-label" data-i18n="figures_wanted">Фигурок</div>
+  </div>
+  <div class="stat-card-simple">
+    <div class="stat-number" id="totalWantedSeries">0</div>
+    <div class="stat-label" data-i18n="series_wanted">Серий</div>
+  </div>
+</div>
+
+  <div class="catalog-header">
+    <div class="search-box">
+      <input type="text" id="searchInput" class="search-input" data-i18n="search_wanted_placeholder" placeholder="🔍 Поиск в списке...">
+    </div>
+    
+    <div class="controls-wrapper">
+      <!-- ===== БЛОК ФИЛЬТРОВ ===== -->
+      <div class="filter-group" id="wantedFilterGroup"></div>
+      <!-- ===== БЛОК СОРТИРОВКИ ===== -->
+      <div class="sort-group">
+        <select id="sortSelect" class="sort-select">
+  <option value="date-desc" data-i18n="sort_date_desc">По дате добавления (новые)</option>
+  <option value="date-asc" data-i18n="sort_date_asc">По дате добавления (старые)</option>
+  <option value="name" data-i18n="sort_name_asc">По названию (А-Я)</option>
+  <option value="name-desc" data-i18n="sort_name_desc">По названию (Я-А)</option>
+  <option value="year" data-i18n="sort_year_asc">По году (старые → новые)</option>
+  <option value="year-desc" data-i18n="sort_year_desc">По году (новые → старые)</option>
+</select>
+      </div>
+    </div>
+  </div>
+
+  <div id="wantedGrid" class="forsale-grid"></div>
+</main>
+
+<footer class="footer">
+  <div class="footer-controls">
+    <div class="lang-switch-footer">
+      <img src="images/flags/ru.png" data-lang="ru" class="flag" onclick="setLang('ru')" style="cursor: pointer;">
+      <img src="images/flags/en.png" data-lang="en" class="flag" onclick="setLang('en')" style="cursor: pointer;">
+    </div>
+    <div class="theme-switch">🌙</div>
+  </div>
+<div class="support-buttons">
+  <a href="https://dalink.to/mansurdm" class="support-btn" data-i18n="support_project">Поддержать проект</a>
+  <a href="AndroidCapsule.apk" class="support-btn apk-btn" download data-i18n="download_android">Скачать APK</a>
+  <a href="https://t.me/kinder_search_bot" class="support-btn tg-bot-btn" target="_blank" rel="noopener noreferrer" data-i18n="tg_bot">Telegram-бот</a>
+</div>
+    <div class="legal-links" style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin:8px 0;">
+      <a href="legal.html" data-i18n="legal_link" style="color:var(--clay-muted); font-size:14px; font-weight:700; text-decoration:none; transition: color 0.2s;">Правовая информация</a>
+    </div>
+  <div class="copyright" data-i18n="footer_copyright">© 2026 Капсула</div>
+</footer>
+
+<!-- Lightbox -->
+<div id="lightbox" class="lightbox" onclick="closeLightbox()">
+  <span class="lightbox-prev" onclick="event.stopPropagation(); prevLightboxImage()">&#10094;</span>
+  <span class="lightbox-next" onclick="event.stopPropagation(); nextLightboxImage()">&#10095;</span>
+  <div class="lightbox-zoom-container">
+    <img id="lightboxImg" class="lightbox-content">
+  </div>
+  <div id="imageCounter" class="lightbox-counter"></div>
+  <div class="lightbox-zoom-controls">
+    <button class="zoom-btn" id="zoomInBtn" title="Увеличить">➕</button>
+    <button class="zoom-btn" id="zoomOutBtn" title="Уменьшить">➖</button>
+    <button class="zoom-btn" id="zoomResetBtn" title="Сбросить">⟳</button>
+  </div>
+</div>
+
+<script src="js/script.js"></script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js')
+      .then(reg => console.log('✅ SW registered:', reg))
+      .catch(err => console.log('❌ SW error:', err));
+  });
+}
+</script>
+<script>
+let refreshing = false;
+navigator.serviceWorker.addEventListener('controllerchange', () => {
+  if (!refreshing) {
+    refreshing = true;
+    window.location.reload();
+  }
+});
+</script>
+</body>
+</html>
