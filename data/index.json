@@ -60,12 +60,12 @@
     "visible": true
   },
   {
-    "id": "three-bears-by-landrin-2008",
+    "id": "three-bears-by-landrin-2008.json",
     "name": "Три Медведя от Ландрин",
     "name_en": "Three Bears by Landrin",
     "year": 2008,
     "manufacturer": "landrin",
-    "cover": "images/series/landrin/three-bears-by-landrin-2008/cover.webp",
+    "cover": "images/series/landrin/three-bears-by-landrin-2008.json/cover.webp",
     "kind": "",
     "description": "Серия «Три Медведя», 2008 год.",
     "description_en": "\"The Three Bears\" series, 2008.",
