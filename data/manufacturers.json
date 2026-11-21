@@ -138,5 +138,21 @@
   "dodo-pizza": {
     "ru": "Додо Пицца",
     "en": "Dodo Pizza"
+  },
+  "bip": {
+    "ru": "БИП",
+    "en": "BIP"
+  },
+  "shoki-toki": {
+    "ru": "Шоки Токи",
+    "en": "Shoki Toki"
+  },
+  "sweetbox": {
+    "ru": "СвитБокс",
+    "en": "SweetBox"
+  },
+  "rostics": {
+    "ru": "Ростикс",
+    "en": "ROSTIC’S"
   }
  } 

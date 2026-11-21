@@ -57,7 +57,11 @@
   <div class="drop" id="dropZone">
     <input type="file" id="folderInput" webkitdirectory directory multiple>
     <p>📁 Перетащите сюда <strong>одну или несколько папок серий</strong></p>
-    <p style="font-size:12px;color:#6b7280;margin-top:6px;">Формат имени папки: <code>Том и Джерри @ Tom and Jerry @ K-Artel @ 2008</code></p>
+    <p style="font-size:12px;color:#6b7280;margin-top:6px;">
+      Формат имени папки: <code>Том и Джерри @ Tom and Jerry @ K-Artel @ 2008</code><br>
+      Служебные префиксы (строго верхний регистр): <code>EXTRA_</code>, <code>VARIANT_</code>, <code>OTHER_</code> — имена после них парсятся как <code>RU - EN</code><br>
+      Вкладыши — файлы с <code>BPZ</code> в имени. Обложка — <code>cover.webp</code>.
+    </p>
   </div>
 
   <div id="globalSummary"></div>
@@ -67,6 +71,7 @@
     <div class="actions">
       <button id="btnZip" onclick="downloadZip()">💾 Скачать ZIP (валидные серии + index.json)</button>
       <button id="btnIndex" class="secondary" onclick="downloadIndexFragment()">📄 Скачать index-фрагмент (только новые)</button>
+      <button class="secondary" onclick="reparseAllNames()">🔁 Перепарсить имена</button>
       <button class="danger" onclick="clearAll()">🗑️ Очистить всё</button>
     </div>
     <div id="indexStatus" class="index-status"></div>
@@ -83,7 +88,7 @@
 const PREPOSITIONS = new Set(['in','of','the','and','or','a','an','on','at','for','to','by','with','from','as']);
 
 let manufacturersData = {};
-let existingIndex = [];   // сюда грузим data/index.json
+let existingIndex = [];
 let seriesList = [];
 
 function todayISO() { return new Date().toISOString().slice(0,10); }
@@ -101,7 +106,6 @@ function slugify(text) {
 const TR = { 'а':'a','б':'b','в':'v','г':'g','д':'d','е':'e','ё':'e','ж':'zh','з':'z','и':'i','й':'y','к':'k','л':'l','м':'m','н':'n','о':'o','п':'p','р':'r','с':'s','т':'t','у':'u','ф':'f','х':'h','ц':'ts','ч':'ch','ш':'sh','щ':'sch','ъ':'','ы':'y','ь':'','э':'e','ю':'yu','я':'ya' };
 function translit(s){ return String(s||'').split('').map(ch => TR[ch] || ch).join(''); }
 
-// Убирает хвост "by X" / "от X" из базового имени, чтобы не дублировать
 function stripManufacturerSuffix(name, manufText, kind) {
   if (!name || !manufText) return name;
   const patterns = kind === 'ru'
@@ -115,7 +119,6 @@ function stripManufacturerSuffix(name, manufText, kind) {
 function escapeRegExp(s) { return String(s).replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
 
 function generateSeriesId(nameEnClean, manufacturerKey, year) {
-  // срезаем возможный хвост "by <manufacturer>" из базы, чтобы не было "...-by-x-by-x-..."
   const manufEn = manufacturersData[manufacturerKey]?.en || '';
   let base = stripManufacturerSuffix(nameEnClean || '', manufEn, 'en');
   const en = translit(base);
@@ -131,6 +134,9 @@ function titleCasePreservePrepositions(text) {
     if (i > 0 && PREPOSITIONS.has(low)) return low;
     return w.split('-').map((part, j) => {
       if (j > 0 && PREPOSITIONS.has(part.toLowerCase())) return part.toLowerCase();
+      // сохраняем слова с аббревиатурами/капсом: UK, USA, McDonald, iPhone
+      const upperCount = (part.match(/[A-ZА-ЯЁ]/g) || []).length;
+      if (upperCount >= 2) return part;
       return part.charAt(0).toUpperCase() + part.slice(1).toLowerCase();
     }).join('-');
   }).join(' ');
@@ -179,7 +185,7 @@ function parseFolderName(folderName) {
 }
 
 // ============================================================
-// ПАРСИНГ ИМЕНИ ФАЙЛА (—, –, - → " - "; кириллица не попадает в name_en)
+// ПАРСИНГ ИМЕНИ ФАЙЛА
 // ============================================================
 
 function parseFigureFilename(filename) {
@@ -188,10 +194,12 @@ function parseFigureFilename(filename) {
   // отрезаем числовой префикс "1-f-", "2-i-"
   base = base.replace(/^\d+-[a-zа-я]-/i, '');
 
-  // срезаем служебный маркер "= other"
-  base = base.replace(/\s*=\s*other\s*$/i, '').trim();
+  // отрезаем служебные префиксы (строго верхний регистр)
+  base = base.replace(/^EXTRA_/, '');
+  base = base.replace(/^VARIANT_/, '');
+  base = base.replace(/^OTHER_/, '');
 
-  // НОРМАЛИЗАЦИЯ РАЗДЕЛИТЕЛЕЙ: — (em), – (en), - (hyphen) с пробелами → " - "
+  // нормализация разделителей: — (em), – (en), - (hyphen) с пробелами → " - "
   base = base.replace(/\s+[—–-]\s+/g, ' - ');
 
   if (base.includes(' - ')) {
@@ -201,7 +209,6 @@ function parseFigureFilename(filename) {
     return { ru, en: titleCasePreservePrepositions(en) };
   }
 
-  // Нет разделителя: если есть кириллица — это RU-часть, EN пустой
   if (/[а-яё]/i.test(base)) {
     return { ru: base.trim(), en: '' };
   }
@@ -209,16 +216,19 @@ function parseFigureFilename(filename) {
 }
 
 function isInsertFile(filename) {
-  return /BPZ/i.test(filename);
+  return /BPZ/.test(filename);
 }
 
-function isOtherFile(filename) {
-  return /=\s*other\s*$/i.test(filename.replace(/\.[^.]+$/,''));
+function isExtraFile(filename) {
+  return /^EXTRA_/.test(filename);
 }
 
 function isVariantFile(filename) {
-  // 1-v.webp, 2-v.webp, 3-v.webp …
-  return /^\d+-v\.(webp|jpe?g|png)$/i.test(filename);
+  return /^VARIANT_/.test(filename);
+}
+
+function isOtherFile(filename) {
+  return /^OTHER_/.test(filename);
 }
 
 // ============================================================
@@ -261,6 +271,7 @@ async function handleFiles(fileList) {
       figures: [],
       inserts: [],
       variants: [],
+      extras: [],
       other: [],
       _coverFile: null,
       _coverPreviewUrl: ''
@@ -281,11 +292,8 @@ async function handleFiles(fileList) {
         _filename: f.name
       };
       if (isOtherFile(f.name)) series.other.push(item);
-      else if (isVariantFile(f.name)) {
-        item.name = '';
-        item.name_en = '';
-        series.variants.push(item);
-      }
+      else if (isVariantFile(f.name)) series.variants.push(item);
+      else if (isExtraFile(f.name)) series.extras.push(item);
       else if (isInsertFile(f.name)) {
         item.name = '';
         item.name_en = '';
@@ -304,6 +312,7 @@ async function handleFiles(fileList) {
     series.figures.sort(byNumericPrefix);
     series.inserts.sort(byNumericPrefix);
     series.variants.sort(byNumericPrefix);
+    series.extras.sort(byNumericPrefix);
     series.other.sort(byNumericPrefix);
 
     recalcSeries(series);
@@ -314,16 +323,16 @@ async function handleFiles(fileList) {
 }
 
 // ============================================================
-// ПЕРЕПАРС ИМЁН ИЗ ФАЙЛОВ (для уже загруженных серий)
+// ПЕРЕПАРС ИМЁН
 // ============================================================
 
 function reparseAllNames() {
   if (seriesList.length === 0) { alert('Список пуст — сначала загрузите папки.'); return; }
-  if (!confirm('Перепарсить имена фигурок и вкладышей из имён файлов?\n\nТекущие name/name_en у элементов будут заменены.')) return;
+  if (!confirm('Перепарсить имена фигурок, допов, вариантов и прочего из имён файлов?\n\nТекущие name/name_en у этих элементов будут заменены.')) return;
 
   let changed = 0;
   seriesList.forEach(s => {
-    [...s.figures, ...s.other].forEach(item => {
+    [...s.figures, ...s.extras, ...s.variants, ...s.other].forEach(item => {
       const names = parseFigureFilename(item._filename);
       const newRu = names.ru || item.name;
       const newEn = names.en || item.name_en;
@@ -349,10 +358,8 @@ function recalcSeries(series) {
   const manufRu = manufacturersData[manufKey]?.ru || '';
   const manufEn = manufacturersData[manufKey]?.en || '';
 
-  // === ID: из ЧИСТОГО name_en_base (без "by …") ===
   series.id = generateSeriesId(series.name_en_base || series._folderName, manufKey || 'other', series.year);
 
-  // === Полные названия (с производителем, без дублей) ===
   const baseRuClean = stripManufacturerSuffix(series.name_base, manufRu, 'ru');
   const baseEnClean = stripManufacturerSuffix(series.name_en_base, manufEn, 'en');
 
@@ -363,7 +370,6 @@ function recalcSeries(series) {
     ? (manufEn ? `${baseEnClean} by ${manufEn}` : baseEnClean)
     : '';
 
-  // === Description: простое ===
   series.description = baseRuClean
     ? `Серия «${baseRuClean}», ${series.year} год.`
     : '';
@@ -371,7 +377,6 @@ function recalcSeries(series) {
     ? `"${baseEnClean}" series, ${series.year}.`
     : '';
 
-  // === Пути и ID элементов ===
   const manufFolder = manufKey || 'other';
   series.cover = series._coverFile
     ? `images/series/${manufFolder}/${series.id}/cover.webp`
@@ -395,6 +400,12 @@ function recalcSeries(series) {
     item.name_en = item.name_en || `Variant ${idx+1}`;
     item.image = `images/series/${manufFolder}/${series.id}/${item._filename}`;
   });
+  series.extras.forEach((item, idx) => {
+    item.id = `${series.id}_extra${idx+1}`;
+    item.name = item.name || `Доп ${idx+1}`;
+    item.name_en = item.name_en || `Extra ${idx+1}`;
+    item.image = `images/series/${manufFolder}/${series.id}/${item._filename}`;
+  });
   series.other.forEach((item, idx) => {
     item.id = `${series.id}_other${idx+1}`;
     item.name = item.name || `Прочее ${idx+1}`;
@@ -415,6 +426,16 @@ function getSeriesErrors(series) {
   if (!series.year) errs.push('Пустой год');
   if (!series.manufacturer) errs.push(`Производитель не выбран${series._manufEnFromFolder ? ` (в папке: «${series._manufEnFromFolder}»)`:''}`);
   if (!series._coverFile) errs.push('cover.webp не найден');
+
+  // проверка неправильного регистра служебных префиксов
+  const badPrefixFile = series._files.find(f => {
+    const n = f.name;
+    if (/^(EXTRA_|VARIANT_|OTHER_)/.test(n)) return false; // корректный
+    return /^(extra|variant|other)_/i.test(n); // неправильный регистр
+  });
+  if (badPrefixFile) {
+    errs.push(`Файл «${badPrefixFile.name}»: служебный префикс должен быть в верхнем регистре (EXTRA_ / VARIANT_ / OTHER_)`);
+  }
   return errs;
 }
 
@@ -468,7 +489,7 @@ function buildSeriesJSON(series) {
     fullSeriesDescription: '',
     fullSeriesDescription_en: '',
     figures: series.figures.map(baseItem),
-    extras: [],
+    extras: series.extras.map(baseItem),
     variants: series.variants.map(baseItem),
     inserts: series.inserts.map(baseItem),
     other: series.other.map(baseItem),
@@ -615,6 +636,13 @@ function renderSeriesCard(s, si) {
         </div>
       </details>
 
+      <details ${s.extras.length?'open':''}>
+        <summary>Допы (${s.extras.length})</summary>
+        <div class="items">
+          ${s.extras.map((f, fi) => renderItem(f, si, fi, 'ext')).join('') || '<p style="color:#6b7280;font-size:13px;">Нет допов</p>'}
+        </div>
+      </details>
+
       <details ${s.other.length?'open':''}>
         <summary>Прочее (${s.other.length})</summary>
         <div class="items">
@@ -646,34 +674,27 @@ function renderItem(item, si, fi, kind) {
 function bindSeriesHandlers() {
   const list = document.getElementById('seriesList');
 
-  // Точечное обновление карточки без полной перерисовки списка
   function refreshSeriesCardFields(si) {
     const s = seriesList[si];
     const card = list.querySelector(`.card[data-si="${si}"]`);
     if (!card) return;
 
-    // Итоговые названия (readonly)
     const readonlyInputs = card.querySelectorAll('.series-head .field.readonly input');
     if (readonlyInputs[0]) readonlyInputs[0].value = s.name || '';
     if (readonlyInputs[1]) readonlyInputs[1].value = s.name_en || '';
 
-    // ID серии (readonly, третий readonly-инпут в блоке с описанием)
-    const idInput = card.querySelector('.series-head .field.readonly input[readonly]');
-    // Надёжнее — найти по порядку: в блоке с описанием первый readonly = ID
     const descBlock = card.querySelector('.s-desc')?.closest('.series-head');
     if (descBlock) {
       const idField = descBlock.querySelector('.field.readonly input');
       if (idField) idField.value = s.id;
     }
 
-    // Заголовок карточки (h3)
     const h3 = card.querySelector('h3');
     if (h3) {
       const isError = getSeriesErrors(s).length > 0;
       h3.textContent = `${isError ? '❌' : '✅'} ${s.name || s._folderName}`;
     }
 
-    // Обновить статус-баннер (валидные/ошибки) — без перерисовки карточек
     const validCount = seriesList.filter(isValidSeries).length;
     const invalidCount = seriesList.length - validCount;
     const summary = document.getElementById('globalSummary');
@@ -722,6 +743,7 @@ function bindSeriesHandlers() {
     if (kind === 'fig') return s.figures;
     if (kind === 'ins') return s.inserts;
     if (kind === 'var') return s.variants;
+    if (kind === 'ext') return s.extras;
     if (kind === 'oth') return s.other;
     return [];
   }
@@ -742,7 +764,7 @@ function removeSeries(si) {
   if (!confirm('Удалить серию из списка?')) return;
   const s = seriesList[si];
   if (s._coverPreviewUrl) try { URL.revokeObjectURL(s._coverPreviewUrl); } catch(e){}
-  [...s.figures, ...s.inserts, ...s.variants, ...s.other].forEach(i => { try { URL.revokeObjectURL(i._previewUrl); } catch(e){} });
+  [...s.figures, ...s.inserts, ...s.variants, ...s.extras, ...s.other].forEach(i => { try { URL.revokeObjectURL(i._previewUrl); } catch(e){} });
   seriesList.splice(si, 1);
   renderAll();
 }
@@ -751,14 +773,14 @@ function clearAll() {
   if (!confirm('Очистить всё?')) return;
   seriesList.forEach(s => {
     if (s._coverPreviewUrl) try { URL.revokeObjectURL(s._coverPreviewUrl); } catch(e){}
-    [...s.figures, ...s.inserts, ...s.variants, ...s.other].forEach(i => { try { URL.revokeObjectURL(i._previewUrl); } catch(e){} });
+    [...s.figures, ...s.inserts, ...s.variants, ...s.extras, ...s.other].forEach(i => { try { URL.revokeObjectURL(i._previewUrl); } catch(e){} });
   });
   seriesList = [];
   renderAll();
 }
 
 // ============================================================
-// ЭКСПОРТ (только валидные)
+// ЭКСПОРТ
 // ============================================================
 
 async function downloadOne(si) {
@@ -782,12 +804,10 @@ async function downloadZip() {
 
   const zip = new JSZip();
 
-  // === Серии ===
   valid.forEach(s => {
     zip.folder(`series/${s.manufacturer}`).file(`${s.id}.json`, JSON.stringify(buildSeriesJSON(s), null, 2));
   });
 
-  // === index.json: новые — в начало, дубли пропускаем ===
   let indexMsg = '';
   if (existingIndex.length > 0) {
     const existingIds = new Set(existingIndex.map(s => s && s.id).filter(Boolean));
@@ -916,7 +936,6 @@ async function loadExistingIndex() {
   }
 }
 
-// Экспорт в глобальный объект
 window.downloadOne = downloadOne;
 window.downloadZip = downloadZip;
 window.downloadIndexFragment = downloadIndexFragment;
