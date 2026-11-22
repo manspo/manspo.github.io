@@ -50371,6 +50371,23 @@
     "type": "inserts"
   },
   {
+    "id": "naruto-shipudden-by-union-2023_insert2",
+    "code": "",
+    "name": "Вкладыш 2",
+    "name_en": "Insert 2",
+    "image": "images/series/union/naruto-shipudden-by-union-2023/2-i.webp",
+    "seriesId": "naruto-shipudden-by-union-2023",
+    "seriesName": "Наруто Ураганные Хроники от Юнион",
+    "seriesName_en": "Naruto Shipudden by Union",
+    "seriesYear": 2023,
+    "manufacturer": "union",
+    "owned": false,
+    "forsale": false,
+    "avito": "",
+    "price": "",
+    "type": "inserts"
+  },
+  {
     "id": "simpsons-by-tombola-1991_insert2",
     "code": "",
     "name": "Вкладыш 2",
