@@ -948,18 +948,6 @@
     "visible": true
   },
   {
-    "id": "presepe-by-kinder-1998",
-    "name": "Рождество от Киндер",
-    "name_en": "Presepe by Kinder",
-    "year": 1998,
-    "manufacturer": "kinder",
-    "cover": "images/series/kinder/presepe-by-kinder-1998/cover.webp",
-    "kind": "",
-    "description": "Серия «Рождество», 1998 год.",
-    "description_en": "\"Presepe\" series, 1998.",
-    "visible": true
-  },
-  {
     "id": "elephants-in-the-circus-funny-fanten-stars-in-der-manege-by-kinder-1998",
     "name": "Слоны в цирке от Киндер",
     "name_en": "Elephants in the Circus / Funny Fanten Stars in der Manege by Kinder",
@@ -1381,10 +1369,10 @@
   },
   {
     "id": "spongebob-x-one-piece-by-mcdonalds-happy-meal-2026",
-    "name": "Губка Боб и Ван Пис от Макдоналдс / Хэппи Мил",
+    "name": "Губка Боб / Спанч Боб и Ван Пис от Макдоналдс / Хэппи Мил",
     "name_en": "SpongeBob x One Piece by McDonald’s / Happy Meal",
     "year": 2026,
-    "manufacturer": "mcdonalds",
+    "manufacturer": "",
     "cover": "images/series/mcdonalds-happy-meal/spongebob-x-one-piece-by-mcdonalds-happy-meal-2026/cover.webp",
     "kind": "",
     "description": "Двойная серия ",
@@ -1753,7 +1741,7 @@
   },
   {
     "id": "sponge-bob-by-burger-king-2025",
-    "name": "Губка Боб от Бургер Кинг",
+    "name": "Губка Боб / Спанч Боб от Бургер Кинг",
     "name_en": "Sponge Bob by Burger King",
     "year": 2025,
     "manufacturer": "burger-king",
