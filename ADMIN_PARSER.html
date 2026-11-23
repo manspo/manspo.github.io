@@ -199,6 +199,14 @@ function parseFigureFilename(filename) {
   base = base.replace(/^VARIANT_/, '');
   base = base.replace(/^OTHER_/, '');
 
+  // извлекаем код "= DV540" в конце (до нормализации разделителей)
+  let code = '';
+  const codeMatch = base.match(/\s*=\s*(.+?)\s*$/);
+  if (codeMatch) {
+    code = codeMatch[1];
+    base = base.slice(0, codeMatch.index).trim();
+  }
+
   // нормализация разделителей: — (em), – (en), - (hyphen) с пробелами → " - "
   base = base.replace(/\s+[—–-]\s+/g, ' - ');
 
@@ -206,13 +214,13 @@ function parseFigureFilename(filename) {
     const parts = base.split(' - ');
     const ru = parts[0].trim();
     const en = parts.slice(1).join(' - ').trim();
-    return { ru, en: titleCasePreservePrepositions(en) };
+    return { ru, en: titleCasePreservePrepositions(en), code };
   }
 
   if (/[а-яё]/i.test(base)) {
-    return { ru: base.trim(), en: '' };
+    return { ru: base.trim(), en: '', code };
   }
-  return { ru: '', en: titleCasePreservePrepositions(base.trim()) };
+  return { ru: '', en: titleCasePreservePrepositions(base.trim()), code };
 }
 
 function isInsertFile(filename) {
@@ -289,6 +297,7 @@ async function handleFiles(fileList) {
         _previewUrl: URL.createObjectURL(f),
         name: names.ru || '',
         name_en: names.en || '',
+        code: names.code || '',
         _filename: f.name
       };
       if (isOtherFile(f.name)) series.other.push(item);
@@ -330,17 +339,46 @@ function reparseAllNames() {
   if (seriesList.length === 0) { alert('Список пуст — сначала загрузите папки.'); return; }
   if (!confirm('Перепарсить имена фигурок, допов, вариантов и прочего из имён файлов?\n\nТекущие name/name_en у этих элементов будут заменены.')) return;
 
+  // Проверяет, является ли значение "пустым" или fallback'ом (можно перезаписывать)
+  function isPlaceholder(val, kind) {
+    if (!val || !String(val).trim()) return true;
+    const v = String(val).trim();
+    if (kind === 'fig')   return /^Фигурка \d+$/.test(v) || /^Figure \d+$/.test(v);
+    if (kind === 'ins')   return /^Вкладыш \d+$/.test(v) || /^Insert \d+$/.test(v);
+    if (kind === 'var')   return /^Вариант \d+$/.test(v) || /^Variant \d+$/.test(v);
+    if (kind === 'ext')   return /^Доп \d+$/.test(v)     || /^Extra \d+$/.test(v);
+    if (kind === 'oth')   return /^Прочее \d+$/.test(v)  || /^Other \d+$/.test(v);
+    return false;
+  }
+
   let changed = 0;
   seriesList.forEach(s => {
-    [...s.figures, ...s.extras, ...s.variants, ...s.other].forEach(item => {
-      const names = parseFigureFilename(item._filename);
-      const newRu = names.ru || item.name;
-      const newEn = names.en || item.name_en;
-      if (newRu !== item.name || newEn !== item.name_en) {
-        item.name = newRu;
-        item.name_en = newEn;
-        changed++;
-      }
+    const groups = [
+      ['fig', s.figures],
+      ['var', s.variants],
+      ['ext', s.extras],
+      ['oth', s.other]
+    ];
+    groups.forEach(([kind, arr]) => {
+      arr.forEach(item => {
+        const names = parseFigureFilename(item._filename);
+        let touched = false;
+
+        // name — обновляем только если пусто или fallback
+        if (names.ru && isPlaceholder(item.name, kind)) {
+          item.name = names.ru; touched = true;
+        }
+        // name_en — аналогично
+        if (names.en && isPlaceholder(item.name_en, kind)) {
+          item.name_en = names.en; touched = true;
+        }
+        // code — обновляем только если пусто
+        if (names.code && !item.code) {
+          item.code = names.code; touched = true;
+        }
+
+        if (touched) changed++;
+      });
     });
     recalcSeries(s);
   });
@@ -454,7 +492,7 @@ function buildSeriesJSON(series) {
       id: item.id,
       name: item.name,
       name_en: item.name_en,
-      code: '',
+      code: item.code || '',
       image: item.image,
       owned: false,
       forsale: false,
@@ -666,6 +704,7 @@ function renderItem(item, si, fi, kind) {
         <div class="num">${escapeHtml(item._filename)}</div>
         <input type="text" class="item-name" data-si="${si}" data-fi="${fi}" data-kind="${kind}" value="${escapeHtml(item.name)}" placeholder="Название (рус)">
         <input type="text" class="item-name-en" data-si="${si}" data-fi="${fi}" data-kind="${kind}" value="${escapeHtml(item.name_en)}" placeholder="Name (en)">
+        <input type="text" class="item-code" data-si="${si}" data-fi="${fi}" data-kind="${kind}" value="${escapeHtml(item.code || '')}" placeholder="Код (например, DV540)">
       </div>
     </div>
   `;
@@ -757,6 +796,11 @@ function bindSeriesHandlers() {
     const {si, fi, kind} = this.dataset;
     const arr = getItemsArr(si, kind);
     if (arr[+fi]) arr[+fi].name_en = this.value;
+  }));
+  list.querySelectorAll('.item-code').forEach(inp => inp.addEventListener('input', function(){
+    const {si, fi, kind} = this.dataset;
+    const arr = getItemsArr(si, kind);
+    if (arr[+fi]) arr[+fi].code = this.value;
   }));
 }
 
