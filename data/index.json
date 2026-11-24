@@ -1,5 +1,65 @@
 [
   {
+    "id": "sponge-bob-square-pants-double-face-by-kinder-2019",
+    "name": "Губка Боб Квадратные Штаны: Маски от Киндер",
+    "name_en": "Sponge Bob Square Pants: Double Face by Kinder",
+    "year": 2019,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/sponge-bob-square-pants-double-face-by-kinder-2019/cover.webp",
+    "kind": "",
+    "description": "Серия «Губка Боб Квадратные Штаны: Маски», 2019 год.",
+    "description_en": "\"Sponge Bob Square Pants: Double Face\" series, 2019.",
+    "visible": true
+  },
+  {
+    "id": "sponge-bob-square-pants-by-kinder-2012",
+    "name": "Губка Боб Квадратные Штаны от Киндер",
+    "name_en": "Sponge Bob Square Pants by Kinder",
+    "year": 2012,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/sponge-bob-square-pants-by-kinder-2012/cover.webp",
+    "kind": "",
+    "description": "Серия «Губка Боб Квадратные Штаны», 2012 год.",
+    "description_en": "\"Sponge Bob Square Pants\" series, 2012.",
+    "visible": true
+  },
+  {
+    "id": "sponge-bob-square-pants-hoppers-by-kinder-2016",
+    "name": "Губка Боб Квадратные Штаны: Попрыгунчики от Киндер",
+    "name_en": "Sponge Bob Square Pants: Hoppers by Kinder",
+    "year": 2016,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/sponge-bob-square-pants-hoppers-by-kinder-2016/cover.webp",
+    "kind": "",
+    "description": "Серия «Губка Боб Квадратные Штаны: Попрыгунчики», 2016 год.",
+    "description_en": "\"Sponge Bob Square Pants: Hoppers\" series, 2016.",
+    "visible": true
+  },
+  {
+    "id": "sponge-bob-square-pants-by-kinder-2005",
+    "name": "Губка Боб Квадратные Штаны от Киндер",
+    "name_en": "Sponge Bob Square Pants by Kinder",
+    "year": 2005,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/sponge-bob-square-pants-by-kinder-2005/cover.webp",
+    "kind": "",
+    "description": "Серия «Губка Боб Квадратные Штаны», 2005 год.",
+    "description_en": "\"Sponge Bob Square Pants\" series, 2005.",
+    "visible": true
+  },
+  {
+    "id": "madagascar-2-escape-africa-by-sweet-2008",
+    "name": "Мадагаскар 2 от Свит",
+    "name_en": "Madagascar 2 - Escape Africa by Sweet",
+    "year": 2008,
+    "manufacturer": "sweet",
+    "cover": "images/series/sweet/madagascar-2-escape-africa-by-sweet-2008/cover.webp",
+    "kind": "",
+    "description": "Серия «Мадагаскар 2», 2008 год.",
+    "description_en": "\"Madagascar 2 - Escape Africa\" series, 2008.",
+    "visible": true
+  },
+  {
     "id": "disney-animal-friends-by-zaini-2005",
     "name": "Друзья животные / Зверята Дисней от Заини",
     "name_en": "Disney Animal Friends by Zaini",
@@ -2534,10 +2594,10 @@
   {
     "id": "land-before-time-by-sweet-2007",
     "name": "Земля До Начала Времен от Свит",
-    "name_en": "Land Before Time by Sweet",
+    "name_en": "The Land Before Time by Sweet",
     "year": 2007,
     "manufacturer": "sweet",
-    "cover": "images/series/sweet/the-land-before-time-by-sweet-2007/cover.webp",
+    "cover": "images/series/sweet/land-before-time-by-sweet-2007/cover.webp",
     "kind": "",
     "description": "«Земля до начала времён» — это знаменитый анимационный фильм 1988 года от режиссера Дона Блута и продюсеров Стивена Спилберга с Джорджем Лукасом.",
     "description_en": "The Land Before Time is a famous 1988 animated film directed by Don Bluth and produced by Steven Spielberg and George Lucas.",

@@ -1,5 +1,25 @@
 [
   {
+    "id": "sponge-bob-square-pants-by-kinder-2005",
+    "name": "Губка Боб Квадратные Штаны от Киндер",
+    "name_en": "Sponge Bob Square Pants by Kinder",
+    "year": 2005,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/sponge-bob-square-pants-by-kinder-2005/cover.webp",
+    "kind": "",
+    "ownedFigures": 0,
+    "ownedExtras": 5,
+    "ownedVariants": 0,
+    "ownedInserts": 0,
+    "totalOwned": 5,
+    "totalFigures": 10,
+    "totalExtras": 5,
+    "totalVariants": 0,
+    "totalInserts": 14,
+    "totalItems": 29,
+    "forSaleCount": 5
+  },
+  {
     "id": "pocahontas-by-coca-cola-1995",
     "name": "Покахонтас от Кока-Кола",
     "name_en": "Pocahontas by Coca-Cola",
@@ -37,6 +57,26 @@
     "totalVariants": 0,
     "totalInserts": 14,
     "totalItems": 43,
+    "forSaleCount": 0
+  },
+  {
+    "id": "land-before-time-by-sweet-2007",
+    "name": "Земля До Начала Времен от Свит",
+    "name_en": "The Land Before Time by Sweet",
+    "year": 2007,
+    "manufacturer": "sweet",
+    "cover": "images/series/sweet/land-before-time-by-sweet-2007/cover.webp",
+    "kind": "",
+    "ownedFigures": 6,
+    "ownedExtras": 0,
+    "ownedVariants": 0,
+    "ownedInserts": 2,
+    "totalOwned": 8,
+    "totalFigures": 6,
+    "totalExtras": 0,
+    "totalVariants": 0,
+    "totalInserts": 2,
+    "totalItems": 8,
     "forSaleCount": 0
   },
   {
