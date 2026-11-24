@@ -5376,30 +5376,8 @@ async function initSingleFigure() {
     const figureInserts = Array.isArray(figure.inserts) ? figure.inserts : (figure.insert ? [figure.insert] : []);
     figureInserts.forEach(insert => {
       if (insert.image) galleryImages.push(`${BASE_URL}/${insert.image}`);
-    });    // Одиночные фигурки
-    let singlesFigures = [];
-    const singleKeys = Object.keys(singlesIndex || {});
-    for (const m of singleKeys) {
-      try {
-        const res = await fetch(`${BASE_URL}/data/singles/${m}.json`);
-        if (!res.ok) continue;
-        const arr = await res.json();
-        if (!Array.isArray(arr)) continue;
-        arr.forEach(item => {
-          singlesFigures.push({
-            ...item,
-            fromSeries: false,
-            seriesName: null,
-            seriesName_en: null,
-            year: item.year,
-            hasInsert: !!item.insert,
-            insert: item.insert || null
-          });
-        });
-      } catch (e) {
-        console.warn('Ошибка загрузки singles/', m, e);
-      }
-    }
+    });
+    
     window.seriesGalleryImages = galleryImages;
     window.seriesGalleryTitles = [
       isDefaultName(figure, 'figure') ? '' : name,
