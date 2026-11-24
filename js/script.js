@@ -5371,9 +5371,10 @@ async function initSingleFigure() {
 	    const figureForsaleDate = figure.forsale_date || '';
     
     const galleryImages = [imageUrl];
-    if (figure.insert && figure.insert.image) {
-      galleryImages.push(`${BASE_URL}/${figure.insert.image}`);
-    }
+    const figureInserts = Array.isArray(figure.inserts) ? figure.inserts : (figure.insert ? [figure.insert] : []);
+    figureInserts.forEach(insert => {
+      if (insert.image) galleryImages.push(`${BASE_URL}/${insert.image}`);
+    });
     window.seriesGalleryImages = galleryImages;
     window.seriesGalleryTitles = [
       isDefaultName(figure, 'figure') ? '' : name,
@@ -5400,29 +5401,42 @@ async function initSingleFigure() {
     
     // ===== БЛОК ВКЛАДЫША =====
     let insertBlockHtml = '';
-    if (figure.insert) {
-      const insertName = currentLang === 'en' && figure.insert.name_en ? figure.insert.name_en : (figure.insert.name || '');
-      const insertCode = figure.insert.code || '';
-      const insertImgUrl = figure.insert.image ? `${BASE_URL}/${figure.insert.image}` : 'images/placeholder.svg';
-      
-      insertBlockHtml = `
-        <div class="single-insert-block">
-          <h3 class="single-insert-title">📄 ${currentLang === 'ru' ? 'Вкладыш' : 'Insert'}</h3>
-          <div class="single-insert-content">
-            <div class="single-insert-image-wrap">
-              <img src="${insertImgUrl}" 
-                   alt="${escapeHtml(insertName)}" 
-                   class="single-insert-image" 
-                   onclick="openLightbox(1, window.seriesGalleryImages)"
-                   onerror="this.src='images/placeholder.svg'">
-            </div>
-            <div class="single-insert-info">
-              ${insertName ? `<div class="single-insert-name">${escapeHtml(insertName)}</div>` : ''}
-              ${insertCode ? `<div class="single-insert-code">${escapeHtml(insertCode)}</div>` : ''}
+    
+    // Собираем вкладыши (поддерживаем и старый insert, и новый inserts)
+    let figureInserts = [];
+    if (Array.isArray(figure.inserts)) {
+      figureInserts = figure.inserts;
+    } else if (figure.insert) {
+      figureInserts = [figure.insert];
+    }
+
+    if (figureInserts.length > 0) {
+      figureInserts.forEach((insert, idx) => {
+        const insertName = currentLang === 'en' && insert.name_en ? insert.name_en : (insert.name || '');
+        const insertCode = insert.code || '';
+        const insertImgUrl = insert.image ? `${BASE_URL}/${insert.image}` : 'images/placeholder.svg';
+        const insertGalleryIdx = galleryImages.length; // индекс в галерее
+        galleryImages.push(insertImgUrl);
+        
+        insertBlockHtml += `
+          <div class="single-insert-block" style="margin-top: 20px;">
+            <h3 class="single-insert-title">📄 ${currentLang === 'ru' ? 'Вкладыш' : 'Insert'} ${figureInserts.length > 1 ? (idx + 1) : ''}</h3>
+            <div class="single-insert-content">
+              <div class="single-insert-image-wrap">
+                <img src="${insertImgUrl}" 
+                     alt="${escapeHtml(insertName)}" 
+                     class="single-insert-image" 
+                     onclick="openLightbox(${insertGalleryIdx}, window.seriesGalleryImages, window.seriesGalleryTitles)"
+                     onerror="this.src='images/placeholder.svg'">
+              </div>
+              <div class="single-insert-info">
+                ${insertName ? `<div class="single-insert-name">${escapeHtml(insertName)}</div>` : ''}
+                ${insertCode ? `<div class="single-insert-code">${escapeHtml(insertCode)}</div>` : ''}
+              </div>
             </div>
           </div>
-        </div>
-      `;
+        `;
+      });
     } else {
       insertBlockHtml = `
         <div class="single-insert-block single-insert-empty">

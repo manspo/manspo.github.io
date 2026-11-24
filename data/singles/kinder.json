@@ -1224,5 +1224,39 @@
     "condition": "",
     "condition_en": "",
     "date_added": "2026-11-06"
+  },
+  {
+    "id": "kinder-single-vq426",
+    "code": "VQ426",
+    "name": "Юбилейный Золотой Киндерино (50 лет)",
+    "name_en": "Anniversary Golden Kinderino (50 Years)",
+    "year": 2025,
+    "manufacturer": "kinder",
+    "image": "images/singles/kinder/Золотой маскот Kinder с шарами 50.webp",
+    "description": "Очень редкая фигурка приуроченная к 50-летию",
+    "description_en": "Very rare 50th anniversary figurine",
+    "owned": false,
+    "forsale": false,
+    "wanted": false,
+    "forsale_date": "",
+    "avito": "",
+    "price": "",
+    "condition": "",
+    "condition_en": "",
+    "date_added": "2026-11-24",
+    "inserts": [
+      {
+        "name": "",
+        "name_en": "",
+        "code": "VQ426",
+        "image": "images/singles/kinder/Яркая открытка Kinder_ поздравление и золотая игрушка.webp"
+      },
+      {
+        "name": "",
+        "name_en": "",
+        "code": "VQ426",
+        "image": "images/singles/kinder/Яркая открытка Kinder с золотой цифрой 50.webp"
+      }
+    ]
   }
 ]

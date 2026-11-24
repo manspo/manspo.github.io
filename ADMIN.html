@@ -377,24 +377,17 @@
                     </div>
                     
                     <hr style="margin:15px 0;border-color:#e5e7eb;">
-                    <h3>📄 Вкладыш (необязательно)</h3>
-                    <div class="form-group"><label>Есть вкладыш</label>
-                        <label style="font-weight:normal;font-size:14px;"><input type="checkbox" id="singleHasInsert"> Приложить вкладыш к фигурке</label>
+                    <h3>📄 Вкладыши (необязательно)</h3>
+                    <div class="form-group">
+                        <label style="font-weight:normal;font-size:14px;">
+                            <input type="checkbox" id="singleHasInsert"> Приложить вкладыши к фигурке
+                        </label>
                     </div>
                     <div id="singleInsertFields" style="display:none;">
-                        <div class="form-group"><label>Название вкладыша (рус)</label><input type="text" id="singleInsertNameRu" placeholder="Немецкий вкладыш 1"></div>
-                        <div class="form-group"><label>Название вкладыша (англ)</label><input type="text" id="singleInsertNameEn" placeholder="German insert 1"></div>
-                        <div class="form-group"><label>Код вкладыша</label><input type="text" id="singleInsertCode" placeholder="BPZ"></div>
-                        <div class="form-group"><label>Картинка вкладыша</label>
-                            <div class="flex" style="gap:8px;">
-                                <div class="file-upload-box" style="flex:1;padding:6px;" onclick="document.getElementById('singleInsertImageFile').click()">
-                                    <input type="file" id="singleInsertImageFile" accept="image/*">
-                                    <span>📁 Выбрать</span>
-                                </div>
-                                <input type="text" id="singleInsertImage" placeholder="images/singles/kinder/vq999_insert.webp" style="flex:2;">
-                            </div>
-                            <div class="cover-preview" id="singleInsertImagePreview"></div>
+                        <div id="singleInsertsContainer">
+                            <!-- Сюда будут добавляться динамические блоки вкладышей -->
                         </div>
+                        <button type="button" class="secondary small" onclick="addSingleInsertField()">➕ Добавить ещё вкладыш</button>
                     </div>
                     
                     <hr style="margin:15px 0;border-color:#e5e7eb;">
@@ -480,24 +473,15 @@
                 </div>
 
                 <hr style="margin:15px 0;border-color:#e5e7eb;">
-                <h3>📄 Вкладыш</h3>
+                <h3>📄 Вкладыши</h3>
                 <div class="form-group">
-                    <label><input type="checkbox" id="singleEditHasInsert"> Приложить вкладыш</label>
+                    <label><input type="checkbox" id="singleEditHasInsert"> Приложить вкладыши</label>
                 </div>
                 <div id="singleEditInsertFields" style="display:none;">
-                    <div class="form-group"><label>Название вкладыша (рус)</label><input type="text" id="singleEditInsertNameRu"></div>
-                    <div class="form-group"><label>Название вкладыша (англ)</label><input type="text" id="singleEditInsertNameEn"></div>
-                    <div class="form-group"><label>Код вкладыша</label><input type="text" id="singleEditInsertCode"></div>
-                    <div class="form-group"><label>Картинка вкладыша</label>
-                        <div class="flex" style="gap:8px;">
-                            <div class="file-upload-box" style="flex:1;padding:6px;" onclick="document.getElementById('singleEditInsertImageFile').click()">
-                                <input type="file" id="singleEditInsertImageFile" accept="image/*">
-                                <span>📁 Выбрать</span>
-                            </div>
-                            <input type="text" id="singleEditInsertImage" placeholder="Путь" style="flex:2;">
-                        </div>
-                        <div class="cover-preview" id="singleEditInsertImagePreview"></div>
+                    <div id="singleEditInsertsContainer">
+                        <!-- Сюда будут добавляться динамические блоки вкладышей -->
                     </div>
+                    <button type="button" class="secondary small" onclick="addSingleEditInsertField()">➕ Добавить ещё вкладыш</button>
                 </div>
 
                 <hr style="margin:15px 0;border-color:#e5e7eb;">
@@ -630,14 +614,122 @@ function clearSingleForm() {
     document.getElementById('singleDateAdded').value = '';
     
     document.getElementById('singleHasInsert').checked = false;
-    document.getElementById('singleInsertNameRu').value = '';
-    document.getElementById('singleInsertNameEn').value = '';
-    document.getElementById('singleInsertCode').value = '';
-    document.getElementById('singleInsertImage').value = '';
-    document.getElementById('singleInsertImagePreview').innerHTML = '';
-    document.getElementById('singleInsertImageFile').value = '';
     document.getElementById('singleInsertFields').style.display = 'none';
+    const insertsContainer = document.getElementById('singleInsertsContainer');
+    if (insertsContainer) {
+        insertsContainer.innerHTML = '';
+        singleInsertIndex = 0;
+        addSingleInsertField(); // Добавляем один пустой блок по умолчанию
+    }
 }
+
+// ============================================================
+// ДИНАМИЧЕСКИЕ ВКЛАДЫШИ ДЛЯ ОТДЕЛЬНЫХ ФИГУРОК
+// ============================================================
+let singleInsertIndex = 0;
+
+function addSingleInsertField() {
+    const container = document.getElementById('singleInsertsContainer');
+    if (!container) return;
+    const idx = singleInsertIndex++;
+    const div = document.createElement('div');
+    div.className = 'single-insert-field-group';
+    div.dataset.insertIdx = idx;
+    div.style.cssText = 'border:1px solid #e5e7eb; border-radius:8px; padding:12px; margin-bottom:12px; position:relative;';
+    div.innerHTML = `
+        <button type="button" class="danger small" style="position:absolute; top:8px; right:8px;" onclick="this.closest('.single-insert-field-group').remove()">✖</button>
+        <h4 style="margin:0 0 8px;font-size:14px;color:#4f46e5;">Вкладыш ${idx + 1}</h4>
+        <div class="form-group"><label>Название (рус)</label><input type="text" class="insert-name-ru" placeholder="Вкладыш"></div>
+        <div class="form-group"><label>Название (англ)</label><input type="text" class="insert-name-en" placeholder="Insert"></div>
+        <div class="form-group"><label>Код</label><input type="text" class="insert-code" placeholder="BPZ"></div>
+        <div class="form-group"><label>Картинка</label>
+            <div class="flex" style="gap:8px;">
+                <div class="file-upload-box" style="flex:1;padding:6px;" onclick="this.querySelector('input[type=file]').click()">
+                    <input type="file" accept="image/*" class="insert-image-file" style="display:none;">
+                    <span>📁 Выбрать</span>
+                </div>
+                <input type="text" class="insert-image" placeholder="images/singles/kinder/xxx.webp" style="flex:2;">
+            </div>
+            <div class="cover-preview insert-preview"></div>
+        </div>
+    `;
+    container.appendChild(div);
+
+    const fileInput = div.querySelector('.insert-image-file');
+    const pathInput = div.querySelector('.insert-image');
+    const preview = div.querySelector('.insert-preview');
+    fileInput.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+        const manufacturer = document.getElementById('singleManufacturer')?.value || 'kinder';
+        const manufFolder = getManufacturerFolder(manufacturer);
+        pathInput.value = `images/singles/${manufFolder}/${file.name}`;
+        const url = URL.createObjectURL(file);
+        preview.innerHTML = `<div class="img-item"><img src="${url}"><button type="button" class="del" onclick="this.closest('.img-item').remove(); this.closest('.single-insert-field-group').querySelector('.insert-image').value='';">✖</button></div>`;
+    });
+}
+
+function addSingleEditInsertField(data = null) {
+    const container = document.getElementById('singleEditInsertsContainer');
+    if (!container) return;
+    const idx = singleInsertIndex++;
+    const div = document.createElement('div');
+    div.className = 'single-insert-field-group';
+    div.dataset.insertIdx = idx;
+    div.style.cssText = 'border:1px solid #e5e7eb; border-radius:8px; padding:12px; margin-bottom:12px; position:relative;';
+    div.innerHTML = `
+        <button type="button" class="danger small" style="position:absolute; top:8px; right:8px;" onclick="this.closest('.single-insert-field-group').remove()">✖</button>
+        <h4 style="margin:0 0 8px;font-size:14px;color:#4f46e5;">Вкладыш ${idx + 1}</h4>
+        <div class="form-group"><label>Название (рус)</label><input type="text" class="insert-name-ru" value="${escapeHtml(data?.name || '')}"></div>
+        <div class="form-group"><label>Название (англ)</label><input type="text" class="insert-name-en" value="${escapeHtml(data?.name_en || '')}"></div>
+        <div class="form-group"><label>Код</label><input type="text" class="insert-code" value="${escapeHtml(data?.code || '')}"></div>
+        <div class="form-group"><label>Картинка</label>
+            <div class="flex" style="gap:8px;">
+                <div class="file-upload-box" style="flex:1;padding:6px;" onclick="this.querySelector('input[type=file]').click()">
+                    <input type="file" accept="image/*" class="insert-image-file" style="display:none;">
+                    <span>📁 Выбрать</span>
+                </div>
+                <input type="text" class="insert-image" value="${escapeHtml(data?.image || '')}" style="flex:2;">
+            </div>
+            <div class="cover-preview insert-preview">
+                ${data?.image ? `<div class="img-item"><img src="${escapeHtml(data.image)}" onerror="this.style.display='none'"><button type="button" class="del" onclick="this.closest('.img-item').remove(); this.closest('.single-insert-field-group').querySelector('.insert-image').value='';">✖</button></div>` : ''}
+            </div>
+        </div>
+    `;
+    container.appendChild(div);
+
+    const fileInput = div.querySelector('.insert-image-file');
+    const pathInput = div.querySelector('.insert-image');
+    const preview = div.querySelector('.insert-preview');
+    fileInput.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+        const manufacturer = document.getElementById('singleEditManufacturerSelect')?.value || 'kinder';
+        const manufFolder = getManufacturerFolder(manufacturer);
+        pathInput.value = `images/singles/${manufFolder}/${file.name}`;
+        const url = URL.createObjectURL(file);
+        preview.innerHTML = `<div class="img-item"><img src="${url}"><button type="button" class="del" onclick="this.closest('.img-item').remove(); this.closest('.single-insert-field-group').querySelector('.insert-image').value='';">✖</button></div>`;
+    });
+}
+
+function collectSingleInserts(containerId) {
+    const container = document.getElementById(containerId);
+    if (!container) return [];
+    const inserts = [];
+    container.querySelectorAll('.single-insert-field-group').forEach(group => {
+        const name = group.querySelector('.insert-name-ru')?.value.trim() || '';
+        const name_en = group.querySelector('.insert-name-en')?.value.trim() || '';
+        const code = group.querySelector('.insert-code')?.value.trim() || '';
+        const image = group.querySelector('.insert-image')?.value.trim() || '';
+        if (name || name_en || code || image) {
+            inserts.push({ name, name_en, code, image });
+        }
+    });
+    return inserts;
+}
+
+window.addSingleInsertField = addSingleInsertField;
+window.addSingleEditInsertField = addSingleEditInsertField;
 
 function addSingle() {
     const manufacturer = document.getElementById('singleManufacturer').value;
@@ -672,13 +764,12 @@ function addSingle() {
         date_added: document.getElementById('singleDateAdded').value.trim() || todayISO()
     };
     
+    // ===== ВКЛАДЫШИ (массив) =====
     if (document.getElementById('singleHasInsert').checked) {
-        item.insert = {
-            name: document.getElementById('singleInsertNameRu').value.trim(),
-            name_en: document.getElementById('singleInsertNameEn').value.trim(),
-            code: document.getElementById('singleInsertCode').value.trim(),
-            image: document.getElementById('singleInsertImage').value.trim()
-        };
+        const inserts = collectSingleInserts('singleInsertsContainer');
+        if (inserts.length > 0) {
+            item.inserts = inserts;
+        }
     }
     
     if (!singlesData[manufacturer]) singlesData[manufacturer] = [];
@@ -1057,20 +1148,18 @@ function editSingle(manufacturer, idx) {
     document.getElementById('singleEditConditionEn').value = item.condition_en || '';
     document.getElementById('singleEditDateAdded').value = item.date_added || '';
 
-    const hasInsert = !!item.insert;
+    const itemInserts = Array.isArray(item.inserts) ? item.inserts : (item.insert ? [item.insert] : []);
+    const hasInsert = itemInserts.length > 0;
     document.getElementById('singleEditHasInsert').checked = hasInsert;
     document.getElementById('singleEditInsertFields').style.display = hasInsert ? 'block' : 'none';
 
-    if (hasInsert) {
-        document.getElementById('singleEditInsertNameRu').value = item.insert.name || '';
-        document.getElementById('singleEditInsertNameEn').value = item.insert.name_en || '';
-        document.getElementById('singleEditInsertCode').value = item.insert.code || '';
-        document.getElementById('singleEditInsertImage').value = item.insert.image || '';
-    } else {
-        document.getElementById('singleEditInsertNameRu').value = '';
-        document.getElementById('singleEditInsertNameEn').value = '';
-        document.getElementById('singleEditInsertCode').value = '';
-        document.getElementById('singleEditInsertImage').value = '';
+    const editContainer = document.getElementById('singleEditInsertsContainer');
+    if (editContainer) {
+        editContainer.innerHTML = '';
+        singleInsertIndex = 0;
+        if (hasInsert) {
+            itemInserts.forEach(insert => addSingleEditInsertField(insert));
+        }
     }
 
     const imgPreview = document.getElementById('singleEditImagePreview');
@@ -1078,10 +1167,7 @@ function editSingle(manufacturer, idx) {
         ? `<div class="img-item"><img src="${item.image}" onerror="this.style.display='none'"><button class="del" onclick="removeSingleEditCover()">✖</button></div>`
         : '';
 
-    const insertPreview = document.getElementById('singleEditInsertImagePreview');
-    insertPreview.innerHTML = item.insert?.image
-        ? `<div class="img-item"><img src="${item.insert.image}" onerror="this.style.display='none'"><button class="del" onclick="removeSingleEditInsertCover()">✖</button></div>`
-        : '';
+    // Удалён старый код для insertPreview (теперь динамические вкладыши)
 
     document.getElementById('singleEditForm').style.display = 'block';
     document.getElementById('singleEditForm').scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -1130,13 +1216,16 @@ function saveSingleEdit() {
         date_added: document.getElementById('singleEditDateAdded').value.trim() || todayISO()
     };
 
+    // ===== ВКЛАДЫШИ (массив) =====
     if (document.getElementById('singleEditHasInsert').checked) {
-        updated.insert = {
-            name: document.getElementById('singleEditInsertNameRu').value.trim(),
-            name_en: document.getElementById('singleEditInsertNameEn').value.trim(),
-            code: document.getElementById('singleEditInsertCode').value.trim(),
-            image: document.getElementById('singleEditInsertImage').value.trim()
-        };
+        const inserts = collectSingleInserts('singleEditInsertsContainer');
+        if (inserts.length > 0) {
+            updated.inserts = inserts;
+        } else {
+            delete updated.inserts; // Если пусто — удаляем
+        }
+    } else {
+        delete updated.inserts; // Если чекбокс снят — удаляем
     }
 
     if (oldManufacturer !== newManufacturer) {
@@ -1223,17 +1312,7 @@ function downloadSinglesZip() {
     });
 }
 
-function removeSingleInsertCover() {
-    const preview = document.getElementById('singleInsertImagePreview');
-    preview.querySelectorAll('img').forEach(img => {
-        if (img.src && img.src.startsWith('blob:')) {
-            try { URL.revokeObjectURL(img.src); } catch (e) {}
-        }
-    });
-    preview.innerHTML = '';
-    document.getElementById('singleInsertImageFile').value = '';
-    document.getElementById('singleInsertImage').value = '';
-}
+// (функция removeSingleInsertCover удалена — не используется)
 
 // сегодняшняя дата в формате YYYY-MM-DD
 function todayISO() {
@@ -3437,24 +3516,19 @@ document.addEventListener('DOMContentLoaded', async function() {
     const hasInsertCheckbox = document.getElementById('singleHasInsert');
     if (hasInsertCheckbox) {
         hasInsertCheckbox.addEventListener('change', function() {
-            document.getElementById('singleInsertFields').style.display = this.checked ? 'block' : 'none';
+            const fields = document.getElementById('singleInsertFields');
+            fields.style.display = this.checked ? 'block' : 'none';
+            if (this.checked) {
+                // Если контейнер пуст — добавляем первый блок
+                const container = document.getElementById('singleInsertsContainer');
+                if (container && container.children.length === 0) {
+                    addSingleInsertField();
+                }
+            }
         });
     }
     
-    const insertImgInput = document.getElementById('singleInsertImageFile');
-    if (insertImgInput) {
-        insertImgInput.addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (!file) return;
-            const preview = document.getElementById('singleInsertImagePreview');
-            const url = URL.createObjectURL(file);
-            preview.innerHTML = `<div class="img-item"><img src="${url}"><button class="del" onclick="removeSingleInsertCover()">✖</button></div>`;
-            
-            const manufacturer = document.getElementById('singleManufacturer').value;
-            const manufFolder = getManufacturerFolder(manufacturer);
-            document.getElementById('singleInsertImage').value = `images/singles/${manufFolder}/${file.name}`;
-        });
-    }
+    // (обработчик singleInsertImageFile удалён — теперь динамические вкладыши)
 	
 	    // Авто-дата fullSeriesForsaleDate при редактировании
     (function() {
@@ -3541,25 +3615,20 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
 
     // Превью вкладыша
-    const editInsertImgInput = document.getElementById('singleEditInsertImageFile');
-    if (editInsertImgInput) {
-        editInsertImgInput.addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (!file) return;
-            const url = URL.createObjectURL(file);
-            document.getElementById('singleEditInsertImagePreview').innerHTML = 
-                `<div class="img-item"><img src="${url}"><button class="del" onclick="removeSingleEditInsertCover()">✖</button></div>`;
-            const manufacturer = document.getElementById('singleEditManufacturerSelect').value;
-            const manufFolder = getManufacturerFolder(manufacturer);
-            document.getElementById('singleEditInsertImage').value = `images/singles/${manufFolder}/${file.name}`;
-        });
-    }
+    // (обработчик singleEditInsertImageFile удалён — теперь динамические вкладыши)
 
     // Показ/скрытие блока вкладыша
     const editHasInsertCheckbox = document.getElementById('singleEditHasInsert');
     if (editHasInsertCheckbox) {
         editHasInsertCheckbox.addEventListener('change', function() {
-            document.getElementById('singleEditInsertFields').style.display = this.checked ? 'block' : 'none';
+            const fields = document.getElementById('singleEditInsertFields');
+            fields.style.display = this.checked ? 'block' : 'none';
+            if (this.checked) {
+                const container = document.getElementById('singleEditInsertsContainer');
+                if (container && container.children.length === 0) {
+                    addSingleEditInsertField();
+                }
+            }
         });
     }
 
@@ -3643,18 +3712,8 @@ function removeSingleEditCover() {
 }
 window.removeSingleEditCover = removeSingleEditCover;
 
-function removeSingleEditInsertCover() {
-    const preview = document.getElementById('singleEditInsertImagePreview');
-    preview.querySelectorAll('img').forEach(img => {
-        if (img.src && img.src.startsWith('blob:')) {
-            try { URL.revokeObjectURL(img.src); } catch (e) {}
-        }
-    });
-    preview.innerHTML = '';
-    document.getElementById('singleEditInsertImageFile').value = '';
-    document.getElementById('singleEditInsertImage').value = '';
-}
-window.removeSingleEditInsertCover = removeSingleEditInsertCover;
+// (функция removeSingleEditInsertCover удалена — не используется)
+// (экспорт removeSingleEditInsertCover удалён)
 
 // Экспорт в глобальный объект для onclick
 window.addSeries = addSeries;
@@ -3689,7 +3748,7 @@ window.clearSingleForm = clearSingleForm;
 window.deleteSingle = deleteSingle;
 window.clearAllSingles = clearAllSingles;
 window.downloadSinglesZip = downloadSinglesZip;
-window.removeSingleInsertCover = removeSingleInsertCover;
+// (экспорт removeSingleInsertCover удалён)
 window.fillEmptyDates = fillEmptyDates;
 </script>
 </body>
