@@ -1232,7 +1232,7 @@
     "name_en": "Anniversary Golden Kinderino (50 Years)",
     "year": 2025,
     "manufacturer": "kinder",
-    "image": "images/singles/kinder/Золотой маскот Kinder с шарами 50.webp",
+    "image": "images/singles/kinder/VQ426.webp",
     "description": "Очень редкая фигурка приуроченная к 50-летию",
     "description_en": "Very rare 50th anniversary figurine",
     "owned": false,
@@ -1249,13 +1249,13 @@
         "name": "",
         "name_en": "",
         "code": "VQ426",
-        "image": "images/singles/kinder/Яркая открытка Kinder_ поздравление и золотая игрушка.webp"
+        "image": "images/singles/kinder/B_VQ426.webp"
       },
       {
         "name": "",
         "name_en": "",
         "code": "VQ426",
-        "image": "images/singles/kinder/Яркая открытка Kinder с золотой цифрой 50.webp"
+        "image": "images/singles/kinder/B2_VQ426.webp"
       }
     ]
   }
