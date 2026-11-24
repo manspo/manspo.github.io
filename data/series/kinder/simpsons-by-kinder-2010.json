@@ -28,13 +28,14 @@
       "image": "images/series/kinder/simpsons-by-kinder-2010/1-f-bart-un154.webp",
       "owned": true,
       "forsale": false,
+      "wanted": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-by-kinder-2010_fig2",
@@ -44,13 +45,14 @@
       "image": "images/series/kinder/simpsons-by-kinder-2010/2-f-homer-un155.webp",
       "owned": true,
       "forsale": false,
+      "wanted": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-by-kinder-2010_fig3",
@@ -60,13 +62,14 @@
       "image": "images/series/kinder/simpsons-by-kinder-2010/3-f-lisa-un156.webp",
       "owned": true,
       "forsale": false,
+      "wanted": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-by-kinder-2010_fig4",
@@ -76,13 +79,14 @@
       "image": "images/series/kinder/simpsons-by-kinder-2010/4-f-maggie-un157.webp",
       "owned": true,
       "forsale": false,
+      "wanted": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-by-kinder-2010_fig5",
@@ -92,13 +96,14 @@
       "image": "images/series/kinder/simpsons-by-kinder-2010/5-f-marge-un158.webp",
       "owned": true,
       "forsale": false,
+      "wanted": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-by-kinder-2010_fig6",
@@ -108,13 +113,14 @@
       "image": "images/series/kinder/simpsons-by-kinder-2010/6-f-mr-burns-un159.webp",
       "owned": true,
       "forsale": false,
+      "wanted": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-by-kinder-2010_fig7",
@@ -124,13 +130,14 @@
       "image": "images/series/kinder/simpsons-by-kinder-2010/7-f-nelson-un160.webp",
       "owned": true,
       "forsale": false,
+      "wanted": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-by-kinder-2010_fig8",
@@ -140,31 +147,33 @@
       "image": "images/series/kinder/simpsons-by-kinder-2010/8-f-milhouse-un161.webp",
       "owned": true,
       "forsale": false,
+      "wanted": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     }
   ],
   "extras": [
     {
       "id": "simpsons-by-kinder-2010_extra1",
       "name": "Флешка",
-      "name_en": "USB flash drive",
+      "name_en": "USB Flash Drive",
       "code": "UN183",
       "image": "images/series/kinder/simpsons-by-kinder-2010/1-e-usb-flash-drive-un183.webp",
       "owned": true,
       "forsale": false,
+      "wanted": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     }
   ],
   "variants": [],
@@ -177,13 +186,14 @@
       "image": "images/series/kinder/simpsons-by-kinder-2010/1-i-un154.webp",
       "owned": false,
       "forsale": false,
+      "wanted": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-by-kinder-2010_insert2",
@@ -193,13 +203,14 @@
       "image": "images/series/kinder/simpsons-by-kinder-2010/2-i-un155.webp",
       "owned": false,
       "forsale": false,
+      "wanted": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-by-kinder-2010_insert3",
@@ -209,13 +220,14 @@
       "image": "images/series/kinder/simpsons-by-kinder-2010/3-i-un156.webp",
       "owned": false,
       "forsale": false,
+      "wanted": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-by-kinder-2010_insert4",
@@ -225,13 +237,14 @@
       "image": "images/series/kinder/simpsons-by-kinder-2010/4-i-un157.webp",
       "owned": false,
       "forsale": false,
+      "wanted": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-by-kinder-2010_insert5",
@@ -241,13 +254,14 @@
       "image": "images/series/kinder/simpsons-by-kinder-2010/5-i-un158.webp",
       "owned": false,
       "forsale": false,
+      "wanted": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-by-kinder-2010_insert6",
@@ -257,13 +271,14 @@
       "image": "images/series/kinder/simpsons-by-kinder-2010/6-i-un159.webp",
       "owned": false,
       "forsale": false,
+      "wanted": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-by-kinder-2010_insert7",
@@ -273,13 +288,14 @@
       "image": "images/series/kinder/simpsons-by-kinder-2010/7-i-un160.webp",
       "owned": false,
       "forsale": false,
+      "wanted": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-by-kinder-2010_insert8",
@@ -289,13 +305,14 @@
       "image": "images/series/kinder/simpsons-by-kinder-2010/8-i-un161.webp",
       "owned": false,
       "forsale": false,
+      "wanted": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     },
     {
       "id": "simpsons-by-kinder-2010_insert9",
@@ -305,20 +322,22 @@
       "image": "images/series/kinder/simpsons-by-kinder-2010/9-i-un183.webp",
       "owned": false,
       "forsale": false,
+      "wanted": false,
+      "forsale_date": "",
       "avito": "",
       "price": "",
       "condition": "",
       "condition_en": "",
       "parentFigureId": "",
-      "date_added": "2026-09-17",
-      "forsale_date": ""
+      "date_added": "2026-09-17"
     }
   ],
   "other": [],
   "videos": {
     "youtube": [],
     "vk": [],
-    "tiktok": []
+    "tiktok": [],
+    "instagram": []
   },
   "contributors": []
 }
