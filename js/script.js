@@ -5405,13 +5405,7 @@ async function initSingleFigure() {
     // ===== БЛОК ВКЛАДЫША =====
     let insertBlockHtml = '';
     
-    // Собираем вкладыши (поддерживаем и старый insert, и новый inserts)
-    let figureInserts = [];
-    if (Array.isArray(figure.inserts)) {
-      figureInserts = figure.inserts;
-    } else if (figure.insert) {
-      figureInserts = [figure.insert];
-    }
+    // figureInserts уже объявлена выше (при сборке галереи)
 
     if (figureInserts.length > 0) {
       figureInserts.forEach((insert, idx) => {
