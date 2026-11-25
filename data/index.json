@@ -1,5 +1,29 @@
 [
   {
+    "id": "adventures-of-captain-vrungel-by-landrin-2002",
+    "name": "Приключение Капитана Врунгеля от Ландрин",
+    "name_en": "Adventures of Captain Vrungel by Landrin",
+    "year": 2002,
+    "manufacturer": "landrin",
+    "cover": "images/series/landrin/adventures-of-captain-vrungel-by-landrin-2002/cover.webp",
+    "kind": "",
+    "description": "Серия «Приключение Капитана Врунгеля», 2002 год.",
+    "description_en": "\"Adventures of Captain Vrungel\" series, 2002.",
+    "visible": true
+  },
+  {
+    "id": "bogatyr-strength-the-three-bogatyrs-by-landrin-2007",
+    "name": "Силушка Богатырская - Три Богатыря от Ландрин",
+    "name_en": "Bogatyr Strength (the Three Bogatyrs) by Landrin",
+    "year": 2007,
+    "manufacturer": "landrin",
+    "cover": "images/series/landrin/bogatyr-strength-the-three-bogatyrs-by-landrin-2007/cover.webp",
+    "kind": "",
+    "description": "Серия «Силушка Богатырская - Три Богатыря», 2007 год.",
+    "description_en": "\"Bogatyr Strength (the Three Bogatyrs)\" series, 2007.",
+    "visible": true
+  },
+  {
     "id": "sponge-bob-square-pants-double-face-by-kinder-2019",
     "name": "Губка Боб Квадратные Штаны: Маски от Киндер",
     "name_en": "Sponge Bob Square Pants: Double Face by Kinder",
