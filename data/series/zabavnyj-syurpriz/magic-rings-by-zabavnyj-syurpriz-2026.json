@@ -22,8 +22,8 @@
   "figures": [
     {
       "id": "magic-rings-by-zabavnyj-syurpriz-2026_fig1",
-      "name": "Фигурка 1",
-      "name_en": "Figure 1",
+      "name": "Медвежонок",
+      "name_en": "Teddy Bear",
       "code": "",
       "image": "images/series/zabavnyj-syurpriz/magic-rings-by-zabavnyj-syurpriz-2026/1-f.webp",
       "owned": false,
@@ -36,8 +36,8 @@
     },
     {
       "id": "magic-rings-by-zabavnyj-syurpriz-2026_fig2",
-      "name": "Фигурка 2",
-      "name_en": "Figure 2",
+      "name": "Малина",
+      "name_en": "Raspberry",
       "code": "",
       "image": "images/series/zabavnyj-syurpriz/magic-rings-by-zabavnyj-syurpriz-2026/2-f.webp",
       "owned": false,
@@ -50,8 +50,8 @@
     },
     {
       "id": "magic-rings-by-zabavnyj-syurpriz-2026_fig3",
-      "name": "Фигурка 3",
-      "name_en": "Figure 3",
+      "name": "Альпака",
+      "name_en": "Alpaca",
       "code": "",
       "image": "images/series/zabavnyj-syurpriz/magic-rings-by-zabavnyj-syurpriz-2026/3-f.webp",
       "owned": false,
@@ -64,8 +64,8 @@
     },
     {
       "id": "magic-rings-by-zabavnyj-syurpriz-2026_fig4",
-      "name": "Фигурка 4",
-      "name_en": "Figure 4",
+      "name": "Сердце",
+      "name_en": "Heart",
       "code": "",
       "image": "images/series/zabavnyj-syurpriz/magic-rings-by-zabavnyj-syurpriz-2026/4-f.webp",
       "owned": false,
@@ -78,8 +78,8 @@
     },
     {
       "id": "magic-rings-by-zabavnyj-syurpriz-2026_fig5",
-      "name": "Фигурка 5",
-      "name_en": "Figure 5",
+      "name": "Банан",
+      "name_en": "Banana",
       "code": "",
       "image": "images/series/zabavnyj-syurpriz/magic-rings-by-zabavnyj-syurpriz-2026/5-f.webp",
       "owned": false,
@@ -92,8 +92,8 @@
     },
     {
       "id": "magic-rings-by-zabavnyj-syurpriz-2026_fig6",
-      "name": "Фигурка 6",
-      "name_en": "Figure 6",
+      "name": "Бутылка Колы",
+      "name_en": "Cola bottle",
       "code": "",
       "image": "images/series/zabavnyj-syurpriz/magic-rings-by-zabavnyj-syurpriz-2026/6-f.webp",
       "owned": false,
@@ -106,8 +106,8 @@
     },
     {
       "id": "magic-rings-by-zabavnyj-syurpriz-2026_fig7",
-      "name": "Фигурка 7",
-      "name_en": "Figure 7",
+      "name": "Череп",
+      "name_en": "Scull",
       "code": "",
       "image": "images/series/zabavnyj-syurpriz/magic-rings-by-zabavnyj-syurpriz-2026/7-f.webp",
       "owned": false,

@@ -23,7 +23,7 @@
     {
       "id": "cats-in-furniture-by-kinder-1998_fig1",
       "name": "Гитарист",
-      "name_en": "Figure 1",
+      "name_en": "Guitarist",
       "code": "K98 N.43",
       "image": "images/series/kinder/cats-in-furniture-by-kinder-1998/1-f-k98-n-43.webp",
       "owned": false,
@@ -39,7 +39,7 @@
     {
       "id": "cats-in-furniture-by-kinder-1998_fig2",
       "name": "Спортсмен",
-      "name_en": "Figure 2",
+      "name_en": "Athlete",
       "code": "K98 N.44",
       "image": "images/series/kinder/cats-in-furniture-by-kinder-1998/2-f-k98-n-44.webp",
       "owned": false,
@@ -55,7 +55,7 @@
     {
       "id": "cats-in-furniture-by-kinder-1998_fig3",
       "name": "Повар",
-      "name_en": "Figure 3",
+      "name_en": "Cook",
       "code": "K98 N.45",
       "image": "images/series/kinder/cats-in-furniture-by-kinder-1998/3-f-k98-n-45.webp",
       "owned": false,
@@ -71,7 +71,7 @@
     {
       "id": "cats-in-furniture-by-kinder-1998_fig4",
       "name": "Садовник-пианист",
-      "name_en": "Figure 4",
+      "name_en": "Gardener-pianist",
       "code": "K98 N.46",
       "image": "images/series/kinder/cats-in-furniture-by-kinder-1998/4-f-k98-n-46.webp",
       "owned": false,
@@ -87,7 +87,7 @@
     {
       "id": "cats-in-furniture-by-kinder-1998_fig5",
       "name": "Малыш",
-      "name_en": "Figure 5",
+      "name_en": "Baby",
       "code": "K98 N.47",
       "image": "images/series/kinder/cats-in-furniture-by-kinder-1998/5-f-k98-n-47.webp",
       "owned": false,
@@ -103,7 +103,7 @@
     {
       "id": "cats-in-furniture-by-kinder-1998_fig6",
       "name": "Художник",
-      "name_en": "Figure 6",
+      "name_en": "Artist",
       "code": "K98 N.48",
       "image": "images/series/kinder/cats-in-furniture-by-kinder-1998/6-f-k98-n-48.webp",
       "owned": false,

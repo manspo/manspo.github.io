@@ -22,8 +22,8 @@
   "figures": [
     {
       "id": "soyuzmultfilm-by-konfitoy-2025_fig1",
-      "name": "Багира",
-      "name_en": "Figure 1",
+      "name": "Багира (Маугли)",
+      "name_en": "Bagheera (Mowgli)",
       "code": "",
       "image": "images/series/konfitoy/soyuzmultfilm-by-konfitoy-2025/1-f.webp",
       "owned": true,
@@ -35,8 +35,8 @@
     },
     {
       "id": "soyuzmultfilm-by-konfitoy-2025_fig2",
-      "name": "Балу",
-      "name_en": "Figure 2",
+      "name": "Балу (Маугли)",
+      "name_en": "Baloo (Mowgli)",
       "code": "",
       "image": "images/series/konfitoy/soyuzmultfilm-by-konfitoy-2025/2-f.webp",
       "owned": true,
@@ -48,8 +48,8 @@
     },
     {
       "id": "soyuzmultfilm-by-konfitoy-2025_fig3",
-      "name": "Волк",
-      "name_en": "Figure 3",
+      "name": "Волк (Ну погоди)",
+      "name_en": "Wolf (Well, wait a minute)",
       "code": "",
       "image": "images/series/konfitoy/soyuzmultfilm-by-konfitoy-2025/3-f.webp",
       "owned": true,
@@ -59,8 +59,8 @@
     },
     {
       "id": "soyuzmultfilm-by-konfitoy-2025_fig4",
-      "name": "Заяц",
-      "name_en": "Figure 4",
+      "name": "Заяц (Ну погоди)",
+      "name_en": "Hare (Well, wait a minute)",
       "code": "",
       "image": "images/series/konfitoy/soyuzmultfilm-by-konfitoy-2025/4-f.webp",
       "owned": true,
@@ -73,7 +73,7 @@
     {
       "id": "soyuzmultfilm-by-konfitoy-2025_fig5",
       "name": "Карлсон",
-      "name_en": "Figure 5",
+      "name_en": "Carlson",
       "code": "",
       "image": "images/series/konfitoy/soyuzmultfilm-by-konfitoy-2025/5-f.webp",
       "owned": true,
@@ -86,7 +86,7 @@
     {
       "id": "soyuzmultfilm-by-konfitoy-2025_fig6",
       "name": "Кот Василий",
-      "name_en": "Figure 6",
+      "name_en": "Cat Vasily",
       "code": "",
       "image": "images/series/konfitoy/soyuzmultfilm-by-konfitoy-2025/6-f.webp",
       "owned": true,
@@ -99,7 +99,7 @@
     {
       "id": "soyuzmultfilm-by-konfitoy-2025_fig7",
       "name": "Котенок Гав",
-      "name_en": "Figure 7",
+      "name_en": "Kitten Woof",
       "code": "",
       "image": "images/series/konfitoy/soyuzmultfilm-by-konfitoy-2025/7-f.webp",
       "owned": true,
@@ -112,7 +112,7 @@
     {
       "id": "soyuzmultfilm-by-konfitoy-2025_fig8",
       "name": "Львенок",
-      "name_en": "Figure 8",
+      "name_en": "Lion cub",
       "code": "",
       "image": "images/series/konfitoy/soyuzmultfilm-by-konfitoy-2025/8-f.webp",
       "owned": true,
@@ -123,7 +123,7 @@
     {
       "id": "soyuzmultfilm-by-konfitoy-2025_fig9",
       "name": "Малыш",
-      "name_en": "Figure 9",
+      "name_en": "Baby",
       "code": "",
       "image": "images/series/konfitoy/soyuzmultfilm-by-konfitoy-2025/9-f.webp",
       "owned": true,
@@ -134,7 +134,7 @@
     {
       "id": "soyuzmultfilm-by-konfitoy-2025_fig10",
       "name": "Маугли",
-      "name_en": "Figure 10",
+      "name_en": "Mowgli",
       "code": "",
       "image": "images/series/konfitoy/soyuzmultfilm-by-konfitoy-2025/10-f.webp",
       "owned": true,
@@ -147,7 +147,7 @@
     {
       "id": "soyuzmultfilm-by-konfitoy-2025_fig11",
       "name": "Попугай Кеша",
-      "name_en": "Figure 11",
+      "name_en": "Parrot Kesha",
       "code": "",
       "image": "images/series/konfitoy/soyuzmultfilm-by-konfitoy-2025/11-f.webp",
       "owned": true,
@@ -160,7 +160,7 @@
     {
       "id": "soyuzmultfilm-by-konfitoy-2025_fig12",
       "name": "Умка",
-      "name_en": "Figure 12",
+      "name_en": "Umka",
       "code": "",
       "image": "images/series/konfitoy/soyuzmultfilm-by-konfitoy-2025/12-f.webp",
       "owned": true,
@@ -171,7 +171,7 @@
     {
       "id": "soyuzmultfilm-by-konfitoy-2025_fig13",
       "name": "Черепаха",
-      "name_en": "Figure 13",
+      "name_en": "Turtle",
       "code": "",
       "image": "images/series/konfitoy/soyuzmultfilm-by-konfitoy-2025/13-f.webp",
       "owned": true,
@@ -184,7 +184,7 @@
     {
       "id": "soyuzmultfilm-by-konfitoy-2025_fig14",
       "name": "Шарик",
-      "name_en": "Figure 14",
+      "name_en": "Ball",
       "code": "",
       "image": "images/series/konfitoy/soyuzmultfilm-by-konfitoy-2025/14-f.webp",
       "owned": true,

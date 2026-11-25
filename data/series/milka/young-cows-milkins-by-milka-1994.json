@@ -22,8 +22,8 @@
   "figures": [
     {
       "id": "young-cows-milkins-by-milka-1994_fig1",
-      "name": "Фигурка 1",
-      "name_en": "Figure 1",
+      "name": "Корова / Милка с бутылкой молока",
+      "name_en": "Cow / Milka with a bottle of milk",
       "code": "",
       "image": "images/series/milka/young-cows-milkins-by-milka-1994/1-f.webp",
       "owned": false,
@@ -39,8 +39,8 @@
     },
     {
       "id": "young-cows-milkins-by-milka-1994_fig2",
-      "name": "Фигурка 2",
-      "name_en": "Figure 2",
+      "name": "Корова / Милка с гамбургером",
+      "name_en": "Cow / Milka with hamburger",
       "code": "",
       "image": "images/series/milka/young-cows-milkins-by-milka-1994/2-f.webp",
       "owned": false,
@@ -56,8 +56,8 @@
     },
     {
       "id": "young-cows-milkins-by-milka-1994_fig3",
-      "name": "Фигурка 3",
-      "name_en": "Figure 3",
+      "name": "Корова / Милка с камерой",
+      "name_en": "Cow / Milka with camera",
       "code": "",
       "image": "images/series/milka/young-cows-milkins-by-milka-1994/3-f.webp",
       "owned": false,
@@ -73,8 +73,8 @@
     },
     {
       "id": "young-cows-milkins-by-milka-1994_fig4",
-      "name": "Фигурка 4",
-      "name_en": "Figure 4",
+      "name": "Корова / Милка с сердцем",
+      "name_en": "Cow / Milka with a heart",
       "code": "",
       "image": "images/series/milka/young-cows-milkins-by-milka-1994/4-f.webp",
       "owned": false,
@@ -90,8 +90,8 @@
     },
     {
       "id": "young-cows-milkins-by-milka-1994_fig5",
-      "name": "Фигурка 5",
-      "name_en": "Figure 5",
+      "name": "Корова / Милка с цветами",
+      "name_en": "Cow / Milka with flowers",
       "code": "",
       "image": "images/series/milka/young-cows-milkins-by-milka-1994/5-f.webp",
       "owned": false,
@@ -107,8 +107,8 @@
     },
     {
       "id": "young-cows-milkins-by-milka-1994_fig6",
-      "name": "Фигурка 6",
-      "name_en": "Figure 6",
+      "name": "Корова / Милка с гитарой",
+      "name_en": "Cow / Milka with a guitar",
       "code": "",
       "image": "images/series/milka/young-cows-milkins-by-milka-1994/6-f.webp",
       "owned": false,
@@ -124,8 +124,8 @@
     },
     {
       "id": "young-cows-milkins-by-milka-1994_fig7",
-      "name": "Фигурка 7",
-      "name_en": "Figure 7",
+      "name": "Корова / Милка с пустышкой",
+      "name_en": "Cow / Milka with pacifier",
       "code": "",
       "image": "images/series/milka/young-cows-milkins-by-milka-1994/7-f.webp",
       "owned": false,
@@ -141,8 +141,8 @@
     },
     {
       "id": "young-cows-milkins-by-milka-1994_fig8",
-      "name": "Фигурка 8",
-      "name_en": "Figure 8",
+      "name": "Корова / Милка со знаком «Стоп»",
+      "name_en": "Cow / Milka with a stop sign",
       "code": "",
       "image": "images/series/milka/young-cows-milkins-by-milka-1994/8-f.webp",
       "owned": false,

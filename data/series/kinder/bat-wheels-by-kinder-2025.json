@@ -22,8 +22,8 @@
   "figures": [
     {
       "id": "bat-wheels-by-kinder-2025_fig1",
-      "name": "Фигурка 1",
-      "name_en": "Figure 1",
+      "name": "Бэтмен",
+      "name_en": "Batman",
       "code": "VQ370",
       "image": "images/series/kinder/bat-wheels-by-kinder-2025/1-f-vq370.webp",
       "owned": false,
@@ -38,8 +38,8 @@
     },
     {
       "id": "bat-wheels-by-kinder-2025_fig2",
-      "name": "Фигурка 2",
-      "name_en": "Figure 2",
+      "name": "Бэтмобиль",
+      "name_en": "Batmobile",
       "code": "VQ371",
       "image": "images/series/kinder/bat-wheels-by-kinder-2025/2-f-vq371.webp",
       "owned": false,
@@ -54,8 +54,8 @@
     },
     {
       "id": "bat-wheels-by-kinder-2025_fig3",
-      "name": "Фигурка 3",
-      "name_en": "Figure 3",
+      "name": "Бэтмотоцикл",
+      "name_en": "Batmotorcycle",
       "code": "VQ372",
       "image": "images/series/kinder/bat-wheels-by-kinder-2025/3-f-vq372.webp",
       "owned": false,
@@ -70,8 +70,8 @@
     },
     {
       "id": "bat-wheels-by-kinder-2025_fig4",
-      "name": "Фигурка 4",
-      "name_en": "Figure 4",
+      "name": "Бэтквадроцикл",
+      "name_en": "Batquad",
       "code": "VQ373",
       "image": "images/series/kinder/bat-wheels-by-kinder-2025/4-f-vq373.webp",
       "owned": false,
@@ -86,8 +86,8 @@
     },
     {
       "id": "bat-wheels-by-kinder-2025_fig5",
-      "name": "Фигурка 5",
-      "name_en": "Figure 5",
+      "name": "Квизз — вертолёт Загадочника",
+      "name_en": "Quizz - The Riddler's helicopter",
       "code": "VQ375",
       "image": "images/series/kinder/bat-wheels-by-kinder-2025/5-f-vq375.webp",
       "owned": false,
@@ -102,8 +102,8 @@
     },
     {
       "id": "bat-wheels-by-kinder-2025_fig6",
-      "name": "Фигурка 6",
-      "name_en": "Figure 6",
+      "name": "Редберд",
+      "name_en": "Redbird",
       "code": "VQ376",
       "image": "images/series/kinder/bat-wheels-by-kinder-2025/6-f-vq376.webp",
       "owned": false,
@@ -118,8 +118,8 @@
     },
     {
       "id": "bat-wheels-by-kinder-2025_fig7",
-      "name": "Фигурка 7",
-      "name_en": "Figure 7",
+      "name": "Сноуи — ледовый грузовик Мистера Фриза",
+      "name_en": "Snowy - Mister Freeze's ice truck",
       "code": "VQ377",
       "image": "images/series/kinder/bat-wheels-by-kinder-2025/7-f-vq377.webp",
       "owned": false,
@@ -134,8 +134,8 @@
     },
     {
       "id": "bat-wheels-by-kinder-2025_fig8",
-      "name": "Фигурка 8",
-      "name_en": "Figure 8",
+      "name": "Бэтвинг / Уинг",
+      "name_en": "Batwing / Wing",
       "code": "VQ378",
       "image": "images/series/kinder/bat-wheels-by-kinder-2025/8-f-vq378.webp",
       "owned": false,

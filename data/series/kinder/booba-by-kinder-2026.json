@@ -23,7 +23,7 @@
     {
       "id": "booba-by-kinder-2026_fig1",
       "name": "Буба Джинн",
-      "name_en": "Figure 1",
+      "name_en": "Booba Genie",
       "code": "VC360",
       "image": "images/series/kinder/booba-by-kinder-2026/1-f-vc360.webp",
       "owned": false,
@@ -40,7 +40,7 @@
     {
       "id": "booba-by-kinder-2026_fig2",
       "name": "Буба Инопланетянин",
-      "name_en": "Figure 2",
+      "name_en": "Booba Alien",
       "code": "VC359",
       "image": "images/series/kinder/booba-by-kinder-2026/2-f-vc359.webp",
       "owned": false,
@@ -57,7 +57,7 @@
     {
       "id": "booba-by-kinder-2026_fig3",
       "name": "Буба из будущего",
-      "name_en": "Figure 3",
+      "name_en": "Booba from the future",
       "code": "VC362",
       "image": "images/series/kinder/booba-by-kinder-2026/3-f-vc362.webp",
       "owned": false,
@@ -74,7 +74,7 @@
     {
       "id": "booba-by-kinder-2026_fig4",
       "name": "Буба Йети",
-      "name_en": "Figure 4",
+      "name_en": "Booba Yeti",
       "code": "VC357",
       "image": "images/series/kinder/booba-by-kinder-2026/4-f-vc357.webp",
       "owned": false,
@@ -91,7 +91,7 @@
     {
       "id": "booba-by-kinder-2026_fig5",
       "name": "Буба Мумия",
-      "name_en": "Figure 5",
+      "name_en": "Booba Mummy",
       "code": "VC363",
       "image": "images/series/kinder/booba-by-kinder-2026/5-f-vc363.webp",
       "owned": false,
@@ -108,7 +108,7 @@
     {
       "id": "booba-by-kinder-2026_fig6",
       "name": "Буба Призрак",
-      "name_en": "Figure 6",
+      "name_en": "Booba Ghost",
       "code": "VC364",
       "image": "images/series/kinder/booba-by-kinder-2026/6-f-vc364.webp",
       "owned": false,
@@ -125,7 +125,7 @@
     {
       "id": "booba-by-kinder-2026_fig7",
       "name": "Буба Рыцарь",
-      "name_en": "Figure 7",
+      "name_en": "Booba Knight",
       "code": "VC361",
       "image": "images/series/kinder/booba-by-kinder-2026/7-f-vc361.webp",
       "owned": false,
@@ -142,7 +142,7 @@
     {
       "id": "booba-by-kinder-2026_fig8",
       "name": "Пещерный Буба",
-      "name_en": "Figure 8",
+      "name_en": "Cave Buba",
       "code": "VC358",
       "image": "images/series/kinder/booba-by-kinder-2026/8-f-vc358.webp",
       "owned": false,

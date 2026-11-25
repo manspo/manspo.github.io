@@ -22,8 +22,8 @@
   "figures": [
     {
       "id": "cars-by-ozmo-2025_fig1",
-      "name": "Фигурка 1",
-      "name_en": "Figure 1",
+      "name": "Фиолетовый автомобиль",
+      "name_en": "Purple car",
       "code": "",
       "image": "images/series/ozmo/cars-by-ozmo-2025/1-f.webp",
       "owned": false,
@@ -36,8 +36,8 @@
     },
     {
       "id": "cars-by-ozmo-2025_fig2",
-      "name": "Фигурка 2",
-      "name_en": "Figure 2",
+      "name": "Желтый автомобиль",
+      "name_en": "Yellow car",
       "code": "",
       "image": "images/series/ozmo/cars-by-ozmo-2025/2-f.webp",
       "owned": false,
