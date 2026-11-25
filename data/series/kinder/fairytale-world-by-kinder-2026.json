@@ -22,8 +22,8 @@
   "figures": [
     {
       "id": "fairytale-world-by-kinder-2026_fig1",
-      "name": "Фигурка 1",
-      "name_en": "Figure 1",
+      "name": "Фея в фиолетовом",
+      "name_en": "Fairy in purple",
       "code": "VS372",
       "image": "images/series/kinder/fairytale-world-by-kinder-2026/1-f-vs372.webp",
       "owned": false,
@@ -38,8 +38,8 @@
     },
     {
       "id": "fairytale-world-by-kinder-2026_fig2",
-      "name": "Фигурка 2",
-      "name_en": "Figure 2",
+      "name": "Фея в оранжевом",
+      "name_en": "Fairy in orange",
       "code": "VS384",
       "image": "images/series/kinder/fairytale-world-by-kinder-2026/2-f-vs384.webp",
       "owned": false,
@@ -54,8 +54,8 @@
     },
     {
       "id": "fairytale-world-by-kinder-2026_fig3",
-      "name": "Фигурка 3",
-      "name_en": "Figure 3",
+      "name": "Фея в розовом",
+      "name_en": "Fairy in pink",
       "code": "VS385",
       "image": "images/series/kinder/fairytale-world-by-kinder-2026/3-f-vs385.webp",
       "owned": false,
@@ -70,8 +70,8 @@
     },
     {
       "id": "fairytale-world-by-kinder-2026_fig4",
-      "name": "Фигурка 4",
-      "name_en": "Figure 4",
+      "name": "Фея в желтом",
+      "name_en": "Fairy in yellow",
       "code": "VS387",
       "image": "images/series/kinder/fairytale-world-by-kinder-2026/4-f-vs387.webp",
       "owned": false,
@@ -86,8 +86,8 @@
     },
     {
       "id": "fairytale-world-by-kinder-2026_fig5",
-      "name": "Фигурка 5",
-      "name_en": "Figure 5",
+      "name": "Фея в белом",
+      "name_en": "Fairy in white",
       "code": "VS383",
       "image": "images/series/kinder/fairytale-world-by-kinder-2026/5-f-vs383.webp",
       "owned": false,
@@ -102,8 +102,8 @@
     },
     {
       "id": "fairytale-world-by-kinder-2026_fig6",
-      "name": "Фигурка 6",
-      "name_en": "Figure 6",
+      "name": "Фея в синем",
+      "name_en": "Fairy in blue",
       "code": "VS386",
       "image": "images/series/kinder/fairytale-world-by-kinder-2026/6-f-vs386.webp",
       "owned": false,
@@ -120,8 +120,8 @@
   "extras": [
     {
       "id": "fairytale-world-by-kinder-2026_extra1",
-      "name": "Доп 1",
-      "name_en": "Extra 1",
+      "name": "Фиолетовое кольцо",
+      "name_en": "Purple ring",
       "code": "VS004",
       "image": "images/series/kinder/fairytale-world-by-kinder-2026/1-e-vs004.webp",
       "owned": false,
@@ -136,8 +136,8 @@
     },
     {
       "id": "fairytale-world-by-kinder-2026_extra2",
-      "name": "Доп 2",
-      "name_en": "Extra 2",
+      "name": "Оранжевое кольцо",
+      "name_en": "Orange ring",
       "code": "VS005",
       "image": "images/series/kinder/fairytale-world-by-kinder-2026/2-e-vs005.webp",
       "owned": false,
@@ -152,8 +152,8 @@
     },
     {
       "id": "fairytale-world-by-kinder-2026_extra3",
-      "name": "Доп 3",
-      "name_en": "Extra 3",
+      "name": "Заколка",
+      "name_en": "Barrette",
       "code": "VS075",
       "image": "images/series/kinder/fairytale-world-by-kinder-2026/3-e-vs075.webp",
       "owned": false,
@@ -168,8 +168,8 @@
     },
     {
       "id": "fairytale-world-by-kinder-2026_extra4",
-      "name": "Доп 4",
-      "name_en": "Extra 4",
+      "name": "Заколка с сердцем",
+      "name_en": "Hairpin with heart",
       "code": "VS076",
       "image": "images/series/kinder/fairytale-world-by-kinder-2026/4-e-vs076.webp",
       "owned": false,
@@ -184,8 +184,8 @@
     },
     {
       "id": "fairytale-world-by-kinder-2026_extra5",
-      "name": "Доп 5",
-      "name_en": "Extra 5",
+      "name": "Фиолетовый браслет с зеленой черепахой",
+      "name_en": "Purple bracelet with green turtle",
       "code": "VS114",
       "image": "images/series/kinder/fairytale-world-by-kinder-2026/5-e-vs114.webp",
       "owned": false,
@@ -200,8 +200,8 @@
     },
     {
       "id": "fairytale-world-by-kinder-2026_extra6",
-      "name": "Доп 6",
-      "name_en": "Extra 6",
+      "name": "Розовый браслет с зеленым дельфином",
+      "name_en": "Pink bracelet with green dolphin",
       "code": "VS115",
       "image": "images/series/kinder/fairytale-world-by-kinder-2026/6-e-vs115.webp",
       "owned": false,
