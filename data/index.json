@@ -2700,12 +2700,12 @@
     "visible": true
   },
   {
-    "id": "adventurous-by-kinder-2025",
-    "name": "Авантюристы от Киндер",
-    "name_en": "Adventurous by Kinder",
+    "id": "adventurous-dragons-by-kinder-2025",
+    "name": "Авантюристы / Драконы от Киндер",
+    "name_en": "Adventurous / Dragons by Kinder",
     "year": 2025,
     "manufacturer": "kinder",
-    "cover": "images/series/kinder/adventurous-by-kinder-2025/kinderjoy_adventurous_banner_dsk.webp",
+    "cover": "images/series/kinder/adventurous-dragons-by-kinder-2025/kinderjoy_adventurous_banner_dsk.webp",
     "kind": "",
     "description": "Серия про авантюристов очень схожая с серией Драконы.",
     "description_en": "The series about adventurers is very similar to the Dragons series.",
