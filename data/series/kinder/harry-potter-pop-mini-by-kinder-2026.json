@@ -22,8 +22,8 @@
   "figures": [
     {
       "id": "harry-potter-pop-mini-by-kinder-2026_fig1",
-      "name": "Фигурка 1",
-      "name_en": "Figure 1",
+      "name": "Джинни Уизли",
+      "name_en": "Ginny Weasley",
       "code": "VT395",
       "image": "images/series/kinder/harry-potter-pop-mini-by-kinder-2026/1-f-vt395.webp",
       "owned": false,
@@ -38,8 +38,8 @@
     },
     {
       "id": "harry-potter-pop-mini-by-kinder-2026_fig2",
-      "name": "Фигурка 2",
-      "name_en": "Figure 2",
+      "name": "Драко Малфой",
+      "name_en": "Draco Malfoy",
       "code": "VT394",
       "image": "images/series/kinder/harry-potter-pop-mini-by-kinder-2026/2-f-vt394.webp",
       "owned": false,
@@ -54,8 +54,8 @@
     },
     {
       "id": "harry-potter-pop-mini-by-kinder-2026_fig3",
-      "name": "Фигурка 3",
-      "name_en": "Figure 3",
+      "name": "Седрик Диггори",
+      "name_en": "Cedric Diggory",
       "code": "VT393",
       "image": "images/series/kinder/harry-potter-pop-mini-by-kinder-2026/3-f-vt393.webp",
       "owned": false,
@@ -70,8 +70,8 @@
     },
     {
       "id": "harry-potter-pop-mini-by-kinder-2026_fig4",
-      "name": "Фигурка 4",
-      "name_en": "Figure 4",
+      "name": "Альбус Дамблдор",
+      "name_en": "Albus Dumbledore",
       "code": "VD391",
       "image": "images/series/kinder/harry-potter-pop-mini-by-kinder-2026/4-f-vd391.webp",
       "owned": false,
@@ -86,8 +86,8 @@
     },
     {
       "id": "harry-potter-pop-mini-by-kinder-2026_fig5",
-      "name": "Фигурка 5",
-      "name_en": "Figure 5",
+      "name": "Северус Снегг",
+      "name_en": "Severus Snape",
       "code": "VD390",
       "image": "images/series/kinder/harry-potter-pop-mini-by-kinder-2026/5-f-vd390.webp",
       "owned": false,
@@ -102,8 +102,8 @@
     },
     {
       "id": "harry-potter-pop-mini-by-kinder-2026_fig6",
-      "name": "Фигурка 6",
-      "name_en": "Figure 6",
+      "name": "Гарри Поттер",
+      "name_en": "Harry Potter",
       "code": "VT396",
       "image": "images/series/kinder/harry-potter-pop-mini-by-kinder-2026/6-f-vt396.webp",
       "owned": false,
@@ -118,8 +118,8 @@
     },
     {
       "id": "harry-potter-pop-mini-by-kinder-2026_fig7",
-      "name": "Фигурка 7",
-      "name_en": "Figure 7",
+      "name": "Чжоу Чанг",
+      "name_en": "Zhou Chang",
       "code": "VT436",
       "image": "images/series/kinder/harry-potter-pop-mini-by-kinder-2026/7-f-vt436.webp",
       "owned": false,
@@ -134,8 +134,8 @@
     },
     {
       "id": "harry-potter-pop-mini-by-kinder-2026_fig8",
-      "name": "Фигурка 8",
-      "name_en": "Figure 8",
+      "name": "Гарри Поттер (золотой)",
+      "name_en": "Harry Potter (golden)",
       "code": "VT413",
       "image": "images/series/kinder/harry-potter-pop-mini-by-kinder-2026/8-f-vt413.webp",
       "owned": false,
@@ -150,8 +150,8 @@
     },
     {
       "id": "harry-potter-pop-mini-by-kinder-2026_fig9",
-      "name": "Фигурка 9",
-      "name_en": "Figure 9",
+      "name": "Гарри Поттер 2 (золотой)",
+      "name_en": "Harry Potter 2 (Gold)",
       "code": "VT401",
       "image": "images/series/kinder/harry-potter-pop-mini-by-kinder-2026/9-f-vt401.webp",
       "owned": false,
@@ -166,8 +166,8 @@
     },
     {
       "id": "harry-potter-pop-mini-by-kinder-2026_fig10",
-      "name": "Фигурка 10",
-      "name_en": "Figure 10",
+      "name": "Мадам Трюк / Хуч",
+      "name_en": "Madame Trick / Madam Hooch",
       "code": "VT399",
       "image": "images/series/kinder/harry-potter-pop-mini-by-kinder-2026/10-f-vt399.webp",
       "owned": false,
@@ -182,8 +182,8 @@
     },
     {
       "id": "harry-potter-pop-mini-by-kinder-2026_fig11",
-      "name": "Фигурка 11",
-      "name_en": "Figure 11",
+      "name": "Полумна Лавгуд",
+      "name_en": "Luna Lovegood",
       "code": "VT398",
       "image": "images/series/kinder/harry-potter-pop-mini-by-kinder-2026/11-f-vt398.webp",
       "owned": false,
@@ -200,8 +200,8 @@
   "extras": [
     {
       "id": "harry-potter-pop-mini-by-kinder-2026_extra1",
-      "name": "Доп 1",
-      "name_en": "Extra 1",
+      "name": "Поп-ит Фред и Джордж Уизли",
+      "name_en": "Pop-it Fred and George Weasley",
       "code": "VT406",
       "image": "images/series/kinder/harry-potter-pop-mini-by-kinder-2026/1-e-vt406.webp",
       "owned": false,
