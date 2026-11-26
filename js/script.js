@@ -1820,7 +1820,13 @@ async function initCatalog() {
         });
       }
       
-            // Счётчик найденных серий
+      // ===== ПАГИНАЦИЯ =====
+      const totalPages = Math.ceil(list.length / ITEMS_PER_PAGE);
+      if (currentPage > totalPages) currentPage = totalPages || 1;
+      const startIdx = (currentPage - 1) * ITEMS_PER_PAGE;
+      const pageList = list.slice(startIdx, startIdx + ITEMS_PER_PAGE);
+
+      // Счётчик найденных серий
       const catalogSubtitle = document.getElementById('catalogSubtitle');
       if (catalogSubtitle) {
         const totalCount = list.length;

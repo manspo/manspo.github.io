@@ -410,6 +410,12 @@
                     <div class="form-group"><label><input type="checkbox" id="singleOwned"> В коллекции</label></div>
                     <div class="form-group"><label><input type="checkbox" id="singleForsale"> В продаже</label></div>
                     <div class="form-group"><label><input type="checkbox" id="singleWanted"> Ищу</label></div>
+                    <div class="form-group" style="border-top:1px dashed #e5e7eb;padding-top:10px;margin-top:10px;">
+                        <span style="font-size:12px;color:#6b7280;">Статусы для кода 2 (если есть)</span>
+                        <label style="font-weight:normal;font-size:14px;"><input type="checkbox" id="singleOwned2"> В коллекции</label>
+                        <label style="font-weight:normal;font-size:14px;"><input type="checkbox" id="singleForsale2"> В продаже</label>
+                        <label style="font-weight:normal;font-size:14px;"><input type="checkbox" id="singleWanted2"> Ищу</label>
+                    </div>
                     <div class="form-group"><input type="date" id="singleForsaleDate" placeholder="Дата выставления"></div>
                     <div class="form-group"><input type="text" id="singleAvito" placeholder="Ссылка Avito"></div>
                     <div class="form-group"><input type="text" id="singlePrice" placeholder="Цена"></div>
@@ -505,6 +511,12 @@
                 <div class="form-group"><label><input type="checkbox" id="singleEditOwned"> В коллекции</label></div>
                 <div class="form-group"><label><input type="checkbox" id="singleEditForsale"> В продаже</label></div>
                 <div class="form-group"><label><input type="checkbox" id="singleEditWanted"> Ищу</label></div>
+                <div class="form-group" style="border-top:1px dashed #e5e7eb;padding-top:10px;margin-top:10px;">
+                    <span style="font-size:12px;color:#6b7280;">Статусы для кода 2</span>
+                    <label style="font-weight:normal;font-size:14px;"><input type="checkbox" id="singleEditOwned2"> В коллекции</label>
+                    <label style="font-weight:normal;font-size:14px;"><input type="checkbox" id="singleEditForsale2"> В продаже</label>
+                    <label style="font-weight:normal;font-size:14px;"><input type="checkbox" id="singleEditWanted2"> Ищу</label>
+                </div>
                 <div class="form-group"><input type="date" id="singleEditForsaleDate" placeholder="Дата выставления"></div>
                 <div class="form-group"><input type="text" id="singleEditAvito" placeholder="Ссылка Avito"></div>
                 <div class="form-group"><input type="text" id="singleEditPrice" placeholder="Цена"></div>
@@ -609,6 +621,9 @@ function clearSingleForm() {
     document.getElementById('singleOwned').checked = false;
     document.getElementById('singleForsale').checked = false;
     document.getElementById('singleWanted').checked = false;
+    document.getElementById('singleOwned2').checked = false;
+    document.getElementById('singleForsale2').checked = false;
+    document.getElementById('singleWanted2').checked = false;
     document.getElementById('singleForsaleDate').value = '';
     document.getElementById('singleAvito').value = '';
     document.getElementById('singlePrice').value = '';
@@ -760,6 +775,9 @@ function addSingle() {
         owned: document.getElementById('singleOwned').checked,
         forsale: document.getElementById('singleForsale').checked,
         wanted: document.getElementById('singleWanted').checked,
+        owned2: document.getElementById('singleOwned2').checked,
+        forsale2: document.getElementById('singleForsale2').checked,
+        wanted2: document.getElementById('singleWanted2').checked,
         forsale_date: document.getElementById('singleForsaleDate').value.trim(),
         avito: document.getElementById('singleAvito').value.trim(),
         price: document.getElementById('singlePrice').value.trim(),
@@ -1035,6 +1053,9 @@ function commitSingleBatch() {
             owned: false,
             forsale: item.forsale === true,
             wanted: false,
+            owned2: false,
+            forsale2: false,
+            wanted2: false,
             forsale_date: item.forsale === true ? todayISO() : '',
             avito: '',
             price: '',
@@ -1147,6 +1168,9 @@ function editSingle(manufacturer, idx) {
     document.getElementById('singleEditOwned').checked = item.owned === true;
     document.getElementById('singleEditForsale').checked = item.forsale === true;
     document.getElementById('singleEditWanted').checked = item.wanted === true;
+    document.getElementById('singleEditOwned2').checked = item.owned2 === true;
+    document.getElementById('singleEditForsale2').checked = item.forsale2 === true;
+    document.getElementById('singleEditWanted2').checked = item.wanted2 === true;
     document.getElementById('singleEditForsaleDate').value = item.forsale_date || '';
     document.getElementById('singleEditAvito').value = item.avito || '';
     document.getElementById('singleEditPrice').value = item.price || '';
@@ -1215,6 +1239,9 @@ function saveSingleEdit() {
         owned: document.getElementById('singleEditOwned').checked,
         forsale: document.getElementById('singleEditForsale').checked,
         wanted: document.getElementById('singleEditWanted').checked,
+        owned2: document.getElementById('singleEditOwned2').checked,
+        forsale2: document.getElementById('singleEditForsale2').checked,
+        wanted2: document.getElementById('singleEditWanted2').checked,
         forsale_date: document.getElementById('singleEditForsaleDate').value.trim(),
         avito: document.getElementById('singleEditAvito').value.trim(),
         price: document.getElementById('singleEditPrice').value.trim(),
@@ -1599,6 +1626,10 @@ function createItemElement(data, idx, type, seriesId) {
     let forsale = data?.forsale || false;
     let wanted = data?.wanted || false;
     let forsaleDate = data?.forsale_date || '';
+    let owned2 = data?.owned2 || false;
+    let forsale2 = data?.forsale2 || false;
+    let wanted2 = data?.wanted2 || false;
+    let forsaleDate2 = data?.forsale_date2 || '';
     let avito = data?.avito || '';
     let price = data?.price || '';
     let condition = data?.condition || '';
@@ -1644,6 +1675,11 @@ div.dataset.dateAdded = data?.date_added || todayISO();
             <label style="font-weight:normal;font-size:13px;"><input type="checkbox" class="item-forsale" ${forsale ? 'checked' : ''}> В продаже</label>
             <label style="font-weight:normal;font-size:13px;"><input type="checkbox" class="item-wanted" ${wanted ? 'checked' : ''}> Ищу</label>
             <input type="date" class="item-forsale-date" placeholder="Дата выставления" value="${escapeHtml(forsaleDate)}" style="width:140px;" title="Дата выставления на продажу">
+            <span style="font-size:12px;color:#6b7280;">Код 2:</span>
+            <label style="font-weight:normal;font-size:13px;"><input type="checkbox" class="item-owned2" ${owned2 ? 'checked' : ''}> В коллекции</label>
+            <label style="font-weight:normal;font-size:13px;"><input type="checkbox" class="item-forsale2" ${forsale2 ? 'checked' : ''}> В продаже</label>
+            <label style="font-weight:normal;font-size:13px;"><input type="checkbox" class="item-wanted2" ${wanted2 ? 'checked' : ''}> Ищу</label>
+            <input type="date" class="item-forsale-date2" placeholder="Дата выставления (код 2)" value="${escapeHtml(forsaleDate2)}" style="width:160px;" title="Дата выставления на продажу (код 2)">
             <input type="text" class="item-avito" placeholder="Ссылка Avito" value="${escapeHtml(avito)}" style="flex:1;min-width:100px;">
             <input type="text" class="item-price" placeholder="Цена" value="${escapeHtml(price)}" style="width:80px;">
             <input type="text" class="item-condition" placeholder="Состояние (рус)" value="${escapeHtml(condition)}" style="flex:1;min-width:80px;">
@@ -1837,6 +1873,10 @@ function collectItems(container) {
             forsale: item.querySelector('.item-forsale')?.checked || false,
             wanted: item.querySelector('.item-wanted')?.checked || false,
             forsale_date: item.querySelector('.item-forsale-date')?.value || '',
+            owned2: item.querySelector('.item-owned2')?.checked || false,
+            forsale2: item.querySelector('.item-forsale2')?.checked || false,
+            wanted2: item.querySelector('.item-wanted2')?.checked || false,
+            forsale_date2: item.querySelector('.item-forsale-date2')?.value || '',
             avito: item.querySelector('.item-avito')?.value || '',
             price: item.querySelector('.item-price')?.value || '',
             condition: item.querySelector('.item-condition')?.value || '',
@@ -3175,6 +3215,9 @@ function generateSearchData(seriesList) {
                     manufacturer: s.manufacturer,
                     owned: item.owned === true,
                     forsale: item.forsale === true,
+                    owned2: item.owned2 === true,
+                    forsale2: item.forsale2 === true,
+                    wanted2: item.wanted2 === true,
                     avito: item.avito || '',
                     price: item.price || '',
                     type: cat,

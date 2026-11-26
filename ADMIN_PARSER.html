@@ -48,6 +48,12 @@
   .index-status { font-size:12px; color:#6b7280; margin-top:6px; }
   .index-status.ok { color:#065f46; }
   .index-status.err { color:#b91c1c; }
+  
+  /* Поле «Код 2» в карточке элемента */
+  .item .fields input.item-code2 {
+    border-color: #b8d9f7;
+    background: #f0f9ff;
+  }
 </style>
 </head>
 <body>
@@ -199,12 +205,18 @@ function parseFigureFilename(filename) {
   base = base.replace(/^VARIANT_/, '');
   base = base.replace(/^OTHER_/, '');
 
-  // извлекаем код "= DV540" в конце (до нормализации разделителей)
+  // ===== ИЗВЛЕКАЕМ КОДЫ (поддерживаем 1 или 2 кода) =====
+  // Формат: "Имя - Name = VC100 = VC100A" (второй код опционален)
   let code = '';
-  const codeMatch = base.match(/\s*=\s*(.+?)\s*$/);
-  if (codeMatch) {
-    code = codeMatch[1];
-    base = base.slice(0, codeMatch.index).trim();
+  let code2 = '';
+  const codesMatch = base.match(/\s*=\s*(.+)$/);
+  if (codesMatch) {
+    const codesRaw = codesMatch[1].trim();
+    // Разбиваем оставшуюся часть по "=" (если есть второй код)
+    const codesParts = codesRaw.split(/\s*=\s*/).map(s => s.trim()).filter(Boolean);
+    code = codesParts[0] || '';
+    code2 = codesParts[1] || '';
+    base = base.slice(0, codesMatch.index).trim();
   }
 
   // нормализация разделителей: — (em), – (en), - (hyphen) с пробелами → " - "
@@ -214,13 +226,13 @@ function parseFigureFilename(filename) {
     const parts = base.split(' - ');
     const ru = parts[0].trim();
     const en = parts.slice(1).join(' - ').trim();
-    return { ru, en: titleCasePreservePrepositions(en), code };
+    return { ru, en: titleCasePreservePrepositions(en), code, code2 };
   }
 
   if (/[а-яё]/i.test(base)) {
-    return { ru: base.trim(), en: '', code };
+    return { ru: base.trim(), en: '', code, code2 };
   }
-  return { ru: '', en: titleCasePreservePrepositions(base.trim()), code };
+  return { ru: '', en: titleCasePreservePrepositions(base.trim()), code, code2 };
 }
 
 function isInsertFile(filename) {
@@ -298,6 +310,7 @@ async function handleFiles(fileList) {
         name: names.ru || '',
         name_en: names.en || '',
         code: names.code || '',
+        code2: names.code2 || '',
         _filename: f.name
       };
       if (isOtherFile(f.name)) series.other.push(item);
@@ -375,6 +388,10 @@ function reparseAllNames() {
         // code — обновляем только если пусто
         if (names.code && !item.code) {
           item.code = names.code; touched = true;
+        }
+        // code2 — обновляем только если пусто
+        if (names.code2 && !item.code2) {
+          item.code2 = names.code2; touched = true;
         }
 
         if (touched) changed++;
@@ -493,6 +510,7 @@ function buildSeriesJSON(series) {
       name: item.name,
       name_en: item.name_en,
       code: item.code || '',
+      code2: item.code2 || '',
       image: item.image,
       owned: false,
       forsale: false,
@@ -705,6 +723,7 @@ function renderItem(item, si, fi, kind) {
         <input type="text" class="item-name" data-si="${si}" data-fi="${fi}" data-kind="${kind}" value="${escapeHtml(item.name)}" placeholder="Название (рус)">
         <input type="text" class="item-name-en" data-si="${si}" data-fi="${fi}" data-kind="${kind}" value="${escapeHtml(item.name_en)}" placeholder="Name (en)">
         <input type="text" class="item-code" data-si="${si}" data-fi="${fi}" data-kind="${kind}" value="${escapeHtml(item.code || '')}" placeholder="Код (например, DV540)">
+        <input type="text" class="item-code2" data-si="${si}" data-fi="${fi}" data-kind="${kind}" value="${escapeHtml(item.code2 || '')}" placeholder="Код 2 (если есть)">
       </div>
     </div>
   `;
@@ -801,6 +820,11 @@ function bindSeriesHandlers() {
     const {si, fi, kind} = this.dataset;
     const arr = getItemsArr(si, kind);
     if (arr[+fi]) arr[+fi].code = this.value;
+  }));
+  list.querySelectorAll('.item-code2').forEach(inp => inp.addEventListener('input', function(){
+    const {si, fi, kind} = this.dataset;
+    const arr = getItemsArr(si, kind);
+    if (arr[+fi]) arr[+fi].code2 = this.value;
   }));
 }
 
