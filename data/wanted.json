@@ -26,6 +26,19 @@
     "manufacturer": "kinder"
   },
   {
+    "series_id": "natoons-dinosaurs-baby-by-kinder-2025",
+    "series_name_ru": "Натунс Детеныши Динозавров от Киндер",
+    "series_name_en": "Natoons Dinosaurs Baby by Kinder",
+    "figure_id": "natoons-dinosaurs-baby-by-kinder-2025_fig1",
+    "type": "figure",
+    "name_ru": "Стегозавр",
+    "name_en": "Stegosaurus",
+    "code": "VC097",
+    "image": "images/series/kinder/natoons-dinosaurs-baby-by-kinder-2025/1-f-stegosaurus-vc097.webp",
+    "year": 2025,
+    "manufacturer": "kinder"
+  },
+  {
     "series_id": "playmobil-dc-by-kinder-2025",
     "series_name_ru": "Плеймобил ДС от Киндер",
     "series_name_en": "PlayMobil DC by Kinder",
