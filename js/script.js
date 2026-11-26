@@ -1621,6 +1621,10 @@ async function initCatalog() {
     const yearParam = urlParams.get('year');
     const manufacturerParam = urlParams.get('manufacturer');
     
+    // ===== ПАГИНАЦИЯ =====
+    const ITEMS_PER_PAGE = 24;
+    let currentPage = parseInt(urlParams.get('page')) || 1;
+    
     let currentFilter = filterState.catalog.manufacturer || 'all';
     let currentKindFilter = filterState.catalog.kind || 'all';
     let currentSort = filterState.catalog.sort || 'date-desc';
@@ -1819,9 +1823,11 @@ async function initCatalog() {
             // Счётчик найденных серий
       const catalogSubtitle = document.getElementById('catalogSubtitle');
       if (catalogSubtitle) {
+        const totalCount = list.length;
+        const pageInfo = totalPages > 1 ? ` · стр. ${currentPage}/${totalPages}` : '';
         catalogSubtitle.textContent = currentLang === 'ru'
-          ? `Найдено серий: ${list.length}`
-          : `Series found: ${list.length}`;
+          ? `Найдено серий: ${totalCount}${pageInfo}`
+          : `Series found: ${totalCount}${pageInfo}`;
       }
 	  
 	  grid.innerHTML = '';
@@ -1832,8 +1838,14 @@ async function initCatalog() {
         return;
       }
       
+      // ===== ПАГИНАЦИЯ =====
+      const totalPages = Math.ceil(list.length / ITEMS_PER_PAGE);
+      if (currentPage > totalPages) currentPage = totalPages || 1;
+      const startIdx = (currentPage - 1) * ITEMS_PER_PAGE;
+      const pageList = list.slice(startIdx, startIdx + ITEMS_PER_PAGE);
+
       // ===== КАРТОЧКИ СЕРИЙ =====
-      for (const s of list) {
+      for (const s of pageList) {
         const card = document.createElement('a');
         card.href = `series.html?id=${s.id}`;
         card.className = 'catalog-card';
@@ -1929,6 +1941,43 @@ async function initCatalog() {
           
           grid.appendChild(card);
         });
+      }
+      
+      // ===== ПАГИНАЦИЯ =====
+      if (totalPages > 1) {
+        const pag = document.createElement('div');
+        pag.className = 'pagination';
+        
+        const mkPageBtn = (page, label, disabled, active) => {
+          const btn = document.createElement('button');
+          btn.className = 'page-btn' + (active ? ' active' : '');
+          btn.textContent = label;
+          btn.disabled = disabled;
+          btn.type = 'button';
+          btn.addEventListener('click', () => {
+            if (disabled) return;
+            currentPage = page;
+            const url = new URL(window.location.href);
+            url.searchParams.set('page', page);
+            window.history.replaceState({}, '', url);
+            render();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          });
+          return btn;
+        };
+        
+        pag.appendChild(mkPageBtn(currentPage - 1, '‹', currentPage <= 1, false));
+        
+        let startPage = Math.max(1, currentPage - 2);
+        let endPage = Math.min(totalPages, startPage + 4);
+        if (endPage - startPage < 4) startPage = Math.max(1, endPage - 4);
+        
+        for (let i = startPage; i <= endPage; i++) {
+          pag.appendChild(mkPageBtn(i, String(i), false, i === currentPage));
+        }
+        
+        pag.appendChild(mkPageBtn(currentPage + 1, '›', currentPage >= totalPages, false));
+        grid.appendChild(pag);
       }
       
       applyTranslations();
@@ -3718,6 +3767,7 @@ window.seriesLinkedIndexes = linkedIndexes;
                 <div class="figure-info">
                   <div class="figure-name">${safeName}</div>
                   ${itemCode ? `<div class="figure-code copyable-code" data-code="${escapeHtml(itemCode)}" title="Нажмите, чтобы скопировать" style="margin-top: 4px; font-size: 13px; color: var(--muted); background: transparent; padding: 0;">${escapeHtml(itemCode)}</div>` : ''}
+                  ${item.code2 ? `<div class="figure-code2 copyable-code" data-code="${escapeHtml(item.code2)}" title="Нажмите, чтобы скопировать" style="margin-top: 4px; font-size: 13px; color: var(--clay-blue-dark); background: transparent; padding: 0;">${escapeHtml(item.code2)}</div>` : ''}
                   <div class="figure-actions">
                     <button class="qr-btn" onclick="generateQRCode('${safeId}', '${safeSeriesId}', '${safeName.replace(/'/g, "\\'")}')" title="QR-код">📱</button>
                     ${insertBtnHtml}
@@ -4028,7 +4078,13 @@ async function initFigure() {
               ${figureCode ? `
                 <div class="figure-meta-item">
                   <span class="meta-icon">📇</span>
-                  <span class="figure-code-value">${escapeHtml(figureCode)}</span>
+                  <span class="figure-code-value copyable-code" data-code="${escapeHtml(figureCode)}" title="Нажмите, чтобы скопировать">${escapeHtml(figureCode)}</span>
+                </div>
+              ` : ''}
+              ${figure.code2 ? `
+                <div class="figure-meta-item">
+                  <span class="meta-icon">📇</span>
+                  <span class="figure-code-value copyable-code" data-code="${escapeHtml(figure.code2)}" title="Нажмите, чтобы скопировать">${escapeHtml(figure.code2)}</span>
                 </div>
               ` : ''}
             </div>
@@ -5196,6 +5252,7 @@ await loadData(); // ← отдельным вызовом
         const q = searchQuery;
         list = list.filter(f => 
           (f.code || '').toLowerCase().includes(q) ||
+          (f.code2 || '').toLowerCase().includes(q) ||
           (f.name || '').toLowerCase().includes(q) ||
           (f.name_en || '').toLowerCase().includes(q)
         );
@@ -5207,18 +5264,17 @@ await loadData(); // ← отдельным вызовом
 
       // Сортировка
       if (currentSort === 'date-desc') {
-        // Новые серии — первыми, внутри серии — по позиции в JSON
         list.sort((a, b) => {
-          const ia = a.seriesId ? (seriesOrder[a.seriesId] ?? 99999) : 99999;
-          const ib = b.seriesId ? (seriesOrder[b.seriesId] ?? 99999) : 99999;
-          if (ia !== ib) return ia - ib;
+          const da = a.date_added || '';
+          const db = b.date_added || '';
+          if (db !== da) return db.localeCompare(da);
           return (a.name || '').localeCompare(b.name || '');
         });
       } else if (currentSort === 'date-asc') {
         list.sort((a, b) => {
-          const ia = a.seriesId ? (seriesOrder[a.seriesId] ?? -1) : -1;
-          const ib = b.seriesId ? (seriesOrder[b.seriesId] ?? -1) : -1;
-          if (ib !== ia) return ib - ia;
+          const da = a.date_added || '';
+          const db = b.date_added || '';
+          if (da !== db) return da.localeCompare(db);
           return (a.name || '').localeCompare(b.name || '');
         });
       } else if (currentSort === 'name') {
@@ -5298,6 +5354,7 @@ card.innerHTML = `
     <div class="figure-catalog-codes">
       ${typeLabel ? `<span class="figure-catalog-type">${typeLabel}</span>` : ''}
       ${item.code ? `<span class="figure-catalog-code">${escapeHtml(item.code)}</span>` : ''}
+      ${item.code2 ? `<span class="figure-catalog-code figure-catalog-code2">${escapeHtml(item.code2)}</span>` : ''}
     </div>
     <div class="figure-catalog-meta">
       ${item.fromSeries 
@@ -5510,7 +5567,13 @@ async function initSingleFigure() {
               ${figureCode ? `
                 <div class="figure-meta-item">
                   <span class="meta-icon">📇</span>
-                  <span class="figure-code-value">${escapeHtml(figureCode)}</span>
+                  <span class="figure-code-value copyable-code" data-code="${escapeHtml(figureCode)}" title="Нажмите, чтобы скопировать">${escapeHtml(figureCode)}</span>
+                </div>
+              ` : ''}
+              ${figure.code2 ? `
+                <div class="figure-meta-item">
+                  <span class="meta-icon">📇</span>
+                  <span class="figure-code-value copyable-code" data-code="${escapeHtml(figure.code2)}" title="Нажмите, чтобы скопировать">${escapeHtml(figure.code2)}</span>
                 </div>
               ` : ''}
             </div>

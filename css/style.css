@@ -1878,3 +1878,27 @@ main {
   z-index: 5;
   cursor: default;
 }
+
+/* Второй код фигурки */
+.figure-code2 {
+  font-family: 'Nunito', monospace;
+  font-size: 13px !important;
+  font-weight: 800;
+  color: var(--clay-blue-dark);
+  background: var(--clay-blue-bg);
+  padding: 4px 10px;
+  border-radius: 10px;
+  display: inline-block;
+  width: fit-content;
+  border: 1px solid #b8d9f7;
+  letter-spacing: 0.5px;
+  margin-top: 4px;
+}
+
+/* Второй код в каталоге фигурок — фиксированная ширина, чтобы сетка не прыгала */
+.figure-catalog-code2 {
+  background: var(--clay-blue-bg);
+  color: var(--clay-blue-dark);
+  min-width: 60px;
+  text-align: center;
+}

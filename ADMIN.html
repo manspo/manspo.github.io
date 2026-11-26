@@ -371,6 +371,7 @@
                     <div class="form-group"><label>Название (рус) *</label><input type="text" id="singleNameRu" placeholder="Неизвестная фигурка"></div>
                     <div class="form-group"><label>Название (англ)</label><input type="text" id="singleNameEn" placeholder="Unknown figure"></div>
                     <div class="form-group"><label>Код</label><input type="text" id="singleCode" placeholder="VQ999"></div>
+                    <div class="form-group"><label>Код 2 (если есть)</label><input type="text" id="singleCode2" placeholder="Например, VQ999A"></div>
                     <div class="form-group"><label>Год *</label><input type="number" id="singleYear" value="2026"></div>
                     <div class="form-group"><label>Производитель *</label>
                         <select id="singleManufacturer"></select>
@@ -467,6 +468,7 @@
                 <div class="form-group"><label>Название (рус) *</label><input type="text" id="singleEditNameRu"></div>
                 <div class="form-group"><label>Название (англ)</label><input type="text" id="singleEditNameEn"></div>
                 <div class="form-group"><label>Код</label><input type="text" id="singleEditCode"></div>
+                <div class="form-group"><label>Код 2 (если есть)</label><input type="text" id="singleEditCode2"></div>
                 <div class="form-group"><label>Год *</label><input type="number" id="singleEditYear"></div>
                 <div class="form-group"><label>Производитель *</label>
                     <select id="singleEditManufacturerSelect"></select>
@@ -597,6 +599,7 @@ function clearSingleForm() {
     document.getElementById('singleNameRu').value = '';
     document.getElementById('singleNameEn').value = '';
     document.getElementById('singleCode').value = '';
+    document.getElementById('singleCode2').value = '';
     document.getElementById('singleYear').value = '2026';
     document.getElementById('singleImage').value = '';
     document.getElementById('singleImagePreview').innerHTML = '';
@@ -746,6 +749,7 @@ function addSingle() {
     const item = {
         id: id,
         code: code,
+        code2: document.getElementById('singleCode2').value.trim(),
         name: nameRu,
         name_en: document.getElementById('singleNameEn').value.trim() || nameRu,
         year: parseInt(year),
@@ -1020,6 +1024,7 @@ function commitSingleBatch() {
         const newItem = {
             id: id,
             code: code,
+            code2: '',
             name: nameRu,
             name_en: nameEn,
             year: year,
@@ -1122,6 +1127,7 @@ function editSingle(manufacturer, idx) {
     document.getElementById('singleEditNameRu').value = item.name || '';
     document.getElementById('singleEditNameEn').value = item.name_en || '';
     document.getElementById('singleEditCode').value = item.code || '';
+    document.getElementById('singleEditCode2').value = item.code2 || '';
     document.getElementById('singleEditYear').value = item.year || 2026;
 
     const sel = document.getElementById('singleEditManufacturerSelect');
@@ -1198,6 +1204,7 @@ function saveSingleEdit() {
     const updated = {
         id: `${newManufacturer}-single-${(code || Date.now()).toLowerCase().replace(/[^a-z0-9]/g, '')}`,
         code: code,
+        code2: document.getElementById('singleEditCode2').value.trim(),
         name: nameRu,
         name_en: document.getElementById('singleEditNameEn').value.trim() || nameRu,
         year: parseInt(year),
@@ -1580,6 +1587,7 @@ function createItemElement(data, idx, type, seriesId) {
     
     let imagePath = data?.image || '';
     let code = data?.code || '';
+    let code2 = data?.code2 || '';
     // Код из имени файла подставляем ТОЛЬКО для новых элементов (data === null).
     // Для существующих берём data.code как есть — даже если это пустая строка.
     if (!data && !code && imagePath) {
@@ -1623,6 +1631,7 @@ div.dataset.dateAdded = data?.date_added || todayISO();
         </div>
         <div class="row" style="margin-top:5px;justify-content:flex-end;">
             <input type="text" class="item-code" placeholder="Код" value="${escapeHtml(code)}" style="width:180px;flex:0 0 180px;">
+            <input type="text" class="item-code2" placeholder="Код 2 (если есть)" value="${escapeHtml(data?.code2 || '')}" style="width:180px;flex:0 0 180px;">
         </div>
         <div class="row" style="margin-top:5px;">
             <button type="button" class="small secondary item-pick-file" data-input-id="${fileInputId}">📁 Выбрать</button>
@@ -1822,6 +1831,7 @@ function collectItems(container) {
             name: item.querySelector('.item-name')?.value || '',
             name_en: item.querySelector('.item-name-en')?.value || '',
             code: item.querySelector('.item-code')?.value || '',
+            code2: item.querySelector('.item-code2')?.value || '',
             image: item.querySelector('.item-image')?.value || '',
             owned: item.querySelector('.item-owned')?.checked || false,
             forsale: item.querySelector('.item-forsale')?.checked || false,
@@ -3151,7 +3161,8 @@ function generateSearchData(seriesList) {
             if (!s[cat]) return;
             
             s[cat].forEach(item => {
-                items.push({
+                const code2 = (item.code2 || '').trim();
+                const entry = {
                     id: item.id,
                     code: item.code || '',
                     name: item.name || '',
@@ -3166,8 +3177,11 @@ function generateSearchData(seriesList) {
                     forsale: item.forsale === true,
                     avito: item.avito || '',
                     price: item.price || '',
-                    type: cat
-                });
+                    type: cat,
+                    date_added: item.date_added || s.date_added || s.fullSeriesDateAdded || ''
+                };
+                if (code2) entry.code2 = code2;
+                items.push(entry);
             });
         });
     });
