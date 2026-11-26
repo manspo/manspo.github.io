@@ -1752,6 +1752,21 @@ div.dataset.dateAdded = data?.date_added || todayISO();
         });
     }
     
+    // ===== АВТОПОДСТАНОВКА И ОЧИСТКА ДАТЫ ДЛЯ КОДА 2 =====
+    const forsaleCheckbox2 = div.querySelector('.item-forsale2');
+    const forsaleDateInput2 = div.querySelector('.item-forsale-date2');
+    if (forsaleCheckbox2 && forsaleDateInput2) {
+        forsaleCheckbox2.addEventListener('change', function() {
+            if (this.checked) {
+                if (!forsaleDateInput2.value) {
+                    forsaleDateInput2.value = new Date().toISOString().slice(0, 10);
+                }
+            } else {
+                forsaleDateInput2.value = '';
+            }
+        });
+    }
+    
     return div;
 }
 

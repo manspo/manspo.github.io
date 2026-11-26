@@ -551,12 +551,12 @@ main {
 /* Код фигурки (увеличенный, с фоном) */
 .figure-item .figure-code {
   font-family: 'Nunito', monospace;
-  font-size: 16px !important;
+  font-size: 14px !important;
   font-weight: 800;
   color: var(--clay-purple-dark);
   background: var(--clay-purple-bg);
-  padding: 6px 14px;
-  border-radius: 12px;
+  padding: 5px 12px;
+  border-radius: 10px;
   display: inline-block;
   width: fit-content;
   border: 2px solid #d4c7f0;
@@ -565,7 +565,7 @@ main {
   margin-top: 4px;
 }
 
-.figure-actions { display: flex; gap: 8px; margin-top: 4px; flex-shrink: 0; }
+.figure-actions { display: flex; gap: 6px; margin-top: 4px; flex-wrap: wrap; }
 .figure-actions > * { flex-shrink: 0; }
 .qr-btn, .same-code-link, .avito-link { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: none; cursor: pointer; font-size: 16px; transition: all 0.2s; text-decoration: none; }
 .qr-btn { background: var(--clay-purple); color: #fff; }
@@ -1882,15 +1882,16 @@ main {
 /* Второй код фигурки */
 .figure-code2 {
   font-family: 'Nunito', monospace;
-  font-size: 13px !important;
+  font-size: 14px !important;
   font-weight: 800;
   color: var(--clay-blue-dark);
   background: var(--clay-blue-bg);
-  padding: 4px 10px;
+  padding: 5px 12px;
   border-radius: 10px;
   display: inline-block;
   width: fit-content;
-  border: 1px solid #b8d9f7;
+  border: 2px solid #b8d9f7;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
   letter-spacing: 0.5px;
   margin-top: 4px;
 }

@@ -3777,6 +3777,9 @@ window.seriesLinkedIndexes = linkedIndexes;
                     ${item.forsale && item.avito
                       ? `<a href="${escapeHtml(item.avito)}" class="avito-link" target="_blank" rel="noopener noreferrer" title="Avito">🛒</a>`
                       : `<span class="figure-action-placeholder"></span>`}
+                    ${item.forsale2 ? `<span class="avito-link" title="Код 2 в продаже" style="cursor:default;">🛒</span>` : ''}
+                    ${item.wanted2 ? `<span class="avito-link" title="Код 2 в поиске" style="cursor:default;background:var(--clay-blue-bg);color:var(--clay-blue-dark);">🔍</span>` : ''}
+                    ${item.owned2 ? `<span class="avito-link" title="Код 2 в коллекции" style="cursor:default;background:var(--clay-mint-bg);color:var(--clay-mint-dark);">✅</span>` : ''}
                   </div>
                 </div>
               </div>
