@@ -3072,12 +3072,12 @@
     "visible": true
   },
   {
-    "id": "penguins-by-kinder-2026",
-    "name": "Пингвины от Киндер",
-    "name_en": "Penguins by Kinder",
+    "id": "penguins-musicians-by-kinder-2026",
+    "name": "Пингвины Музыканты от Киндер",
+    "name_en": "Penguins Musicians by Kinder",
     "year": 2026,
     "manufacturer": "kinder",
-    "cover": "images/series/kinder/penguins-by-kinder-2026/cover.webp",
+    "cover": "images/series/kinder/penguins-musicians-by-kinder-2026/cover.webp",
     "kind": "",
     "description": "Легендарное возвращение тех самых пингвинов!",
     "description_en": "The legendary return of those same penguins!",
