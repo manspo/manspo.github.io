@@ -120,6 +120,26 @@
     "forSaleCount": 1
   },
   {
+    "id": "penguins-musicians-by-kinder-2026",
+    "name": "Пингвины Музыканты от Киндер",
+    "name_en": "Penguins Musicians by Kinder",
+    "year": 2026,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/penguins-musicians-by-kinder-2026/cover.webp",
+    "kind": "",
+    "ownedFigures": 6,
+    "ownedExtras": 0,
+    "ownedVariants": 0,
+    "ownedInserts": 0,
+    "totalOwned": 6,
+    "totalFigures": 8,
+    "totalExtras": 0,
+    "totalVariants": 0,
+    "totalInserts": 0,
+    "totalItems": 8,
+    "forSaleCount": 2
+  },
+  {
     "id": "simpsons-by-kinder-2010",
     "name": "Симпсоны от Киндер",
     "name_en": "Simpsons by Kinder",
@@ -158,6 +178,26 @@
     "totalInserts": 44,
     "totalItems": 67,
     "forSaleCount": 0
+  },
+  {
+    "id": "playmobil-disney-by-kinder-2026",
+    "name": "Плеймобил Дисней от Киндер",
+    "name_en": "Playmobil Disney by Kinder",
+    "year": 2026,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/playmobil-disney-by-kinder-2026/cover.webp",
+    "kind": "",
+    "ownedFigures": 9,
+    "ownedExtras": 0,
+    "ownedVariants": 0,
+    "ownedInserts": 0,
+    "totalOwned": 9,
+    "totalFigures": 18,
+    "totalExtras": 0,
+    "totalVariants": 0,
+    "totalInserts": 0,
+    "totalItems": 18,
+    "forSaleCount": 2
   },
   {
     "id": "wrestling-2-by-dolci-preziosi-2006",
@@ -417,7 +457,7 @@
     "totalVariants": 0,
     "totalInserts": 16,
     "totalItems": 32,
-    "forSaleCount": 7
+    "forSaleCount": 11
   },
   {
     "id": "paw-patrol-by-kinder-2025",
