@@ -1632,8 +1632,11 @@ function createItemElement(data, idx, type, seriesId) {
     let forsaleDate2 = data?.forsale_date2 || '';
     let avito = data?.avito || '';
     let price = data?.price || '';
+    let price2 = data?.price2 || '';
     let condition = data?.condition || '';
     let conditionEn = data?.condition_en || '';
+    let condition2 = data?.condition2 || '';
+    let condition2En = data?.condition2_en || '';
     let parentFigureId = data?.parentFigureId || '';
     
     let div = document.createElement('div');
@@ -1649,43 +1652,67 @@ div.dataset.dateAdded = data?.date_added || todayISO();
     const fileInputId = `img_file_${seriesId}_${type}_${num}_${Date.now()}_${Math.random().toString(36).slice(2,7)}`;
     
     div.innerHTML = `
-        <div class="row">
+        <div class="row" style="align-items:center; gap:10px; margin-bottom:8px;">
             <span class="drag-handle" draggable="true" title="Перетащить">≡</span>
             <span class="figure-number">${num}</span>
+            <button class="danger small" onclick="removeItem(this)" style="margin-left:auto;">✖</button>
             <input type="hidden" class="item-id" value="${seriesId}_${prefix}${num}">
         </div>
-        <div class="row" style="margin-top:5px;">
-            <input type="text" class="item-name" placeholder="Название (рус)" value="${escapeHtml(nameRu)}" style="flex:1;width:100%;">
+
+        <div style="display:flex; gap:12px; margin-bottom:10px;">
+            <div style="flex:1; display:flex; flex-direction:column; gap:8px;">
+                <input type="text" class="item-name" placeholder="Название (рус)" value="${escapeHtml(nameRu)}" style="width:100%; font-weight:600; padding:10px;">
+                <input type="text" class="item-name-en" placeholder="Name (en)" value="${escapeHtml(nameEn)}" style="width:100%; padding:10px;">
+            </div>
+            <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px;">
+                <img class="item-preview" src="${previewUrl}" onerror="this.style.display='none'" style="height:140px;width:140px;object-fit:contain;border-radius:8px;border:1px solid #e5e7eb;background:white;${previewUrl ? '' : 'display:none;'}">
+            </div>
         </div>
-        <div class="row" style="margin-top:5px;">
-            <input type="text" class="item-name-en" placeholder="Name (en)" value="${escapeHtml(nameEn)}" style="flex:1;width:100%;">
-        </div>
-        <div class="row" style="margin-top:5px;justify-content:flex-end;">
-            <input type="text" class="item-code" placeholder="Код" value="${escapeHtml(code)}" style="width:180px;flex:0 0 180px;">
-            <input type="text" class="item-code2" placeholder="Код 2 (если есть)" value="${escapeHtml(data?.code2 || '')}" style="width:180px;flex:0 0 180px;">
-        </div>
-        <div class="row" style="margin-top:5px;">
+
+        <div class="row" style="margin-bottom:10px;">
             <button type="button" class="small secondary item-pick-file" data-input-id="${fileInputId}">📁 Выбрать</button>
             <input type="file" id="${fileInputId}" accept="image/*" style="display:none;">
             <input type="text" class="item-image" placeholder="Путь к картинке" value="${escapeHtml(imagePath)}" style="flex:1;min-width:100px;">
-            <img class="item-preview" src="${previewUrl}" onerror="this.style.display='none'" style="${previewUrl ? '' : 'display:none;'}">
         </div>
-        <div class="row" style="margin-top:5px;">
-            <label style="font-weight:normal;font-size:13px;"><input type="checkbox" class="item-owned" ${owned ? 'checked' : ''}> В коллекции</label>
-            <label style="font-weight:normal;font-size:13px;"><input type="checkbox" class="item-forsale" ${forsale ? 'checked' : ''}> В продаже</label>
-            <label style="font-weight:normal;font-size:13px;"><input type="checkbox" class="item-wanted" ${wanted ? 'checked' : ''}> Ищу</label>
-            <input type="date" class="item-forsale-date" placeholder="Дата выставления" value="${escapeHtml(forsaleDate)}" style="width:140px;" title="Дата выставления на продажу">
-            <span style="font-size:12px;color:#6b7280;">Код 2:</span>
-            <label style="font-weight:normal;font-size:13px;"><input type="checkbox" class="item-owned2" ${owned2 ? 'checked' : ''}> В коллекции</label>
-            <label style="font-weight:normal;font-size:13px;"><input type="checkbox" class="item-forsale2" ${forsale2 ? 'checked' : ''}> В продаже</label>
-            <label style="font-weight:normal;font-size:13px;"><input type="checkbox" class="item-wanted2" ${wanted2 ? 'checked' : ''}> Ищу</label>
-            <input type="date" class="item-forsale-date2" placeholder="Дата выставления (код 2)" value="${escapeHtml(forsaleDate2)}" style="width:160px;" title="Дата выставления на продажу (код 2)">
-            <input type="text" class="item-avito" placeholder="Ссылка Avito" value="${escapeHtml(avito)}" style="flex:1;min-width:100px;">
-            <input type="text" class="item-price" placeholder="Цена" value="${escapeHtml(price)}" style="width:80px;">
-            <input type="text" class="item-condition" placeholder="Состояние (рус)" value="${escapeHtml(condition)}" style="flex:1;min-width:80px;">
-            <input type="text" class="item-condition-en" placeholder="Condition (en)" value="${escapeHtml(conditionEn)}" style="flex:1;min-width:80px;">
-            <input type="text" class="item-parent-id" placeholder="ID основной фиг." value="${escapeHtml(parentFigureId)}" style="flex:1;min-width:80px;">
-            <button class="danger small" onclick="removeItem(this)">✖</button>
+
+        <!-- ===== БЛОК КОД 1 ===== -->
+        <div style="margin-top:10px; padding:8px; background:#eef2ff; border-radius:6px; border:1px solid #c7d2fe;">
+            <div style="font-size:12px; font-weight:bold; color:#4338ca; margin-bottom:6px;">🔵 Код 1</div>
+            <div class="row">
+                <input type="text" class="item-code" placeholder="Код 1" value="${escapeHtml(code)}" style="width:120px;font-family:monospace;">
+                <label style="font-weight:normal;font-size:13px;"><input type="checkbox" class="item-owned" ${owned ? 'checked' : ''}> В коллекции</label>
+                <label style="font-weight:normal;font-size:13px;"><input type="checkbox" class="item-forsale" ${forsale ? 'checked' : ''}> В продаже</label>
+                <label style="font-weight:normal;font-size:13px;"><input type="checkbox" class="item-wanted" ${wanted ? 'checked' : ''}> Ищу</label>
+                <input type="date" class="item-forsale-date" placeholder="Дата выставления" value="${escapeHtml(forsaleDate)}" style="width:130px;" title="Дата выставления на продажу">
+            </div>
+            <div class="row" style="margin-top:5px;">
+                <input type="text" class="item-price" placeholder="Цена (Код 1)" value="${escapeHtml(price)}" style="width:100px;">
+                <input type="text" class="item-condition" placeholder="Состояние (Код 1, рус)" value="${escapeHtml(condition)}" style="flex:1;min-width:100px;">
+                <input type="text" class="item-condition-en" placeholder="Condition (Код 1, en)" value="${escapeHtml(conditionEn)}" style="flex:1;min-width:100px;">
+            </div>
+        </div>
+
+        <!-- ===== БЛОК КОД 2 ===== -->
+        <div style="margin-top:10px; padding:8px; background:#f0fdf4; border-radius:6px; border:1px solid #bbf7d0;">
+            <div style="font-size:12px; font-weight:bold; color:#15803d; margin-bottom:6px;">🟢 Код 2</div>
+            <div class="row">
+                <input type="text" class="item-code2" placeholder="Код 2" value="${escapeHtml(data?.code2 || '')}" style="width:120px;font-family:monospace;">
+                <label style="font-weight:normal;font-size:13px;"><input type="checkbox" class="item-owned2" ${owned2 ? 'checked' : ''}> В коллекции</label>
+                <label style="font-weight:normal;font-size:13px;"><input type="checkbox" class="item-forsale2" ${forsale2 ? 'checked' : ''}> В продаже</label>
+                <label style="font-weight:normal;font-size:13px;"><input type="checkbox" class="item-wanted2" ${wanted2 ? 'checked' : ''}> Ищу</label>
+                <input type="date" class="item-forsale-date2" placeholder="Дата выставления" value="${escapeHtml(forsaleDate2)}" style="width:130px;" title="Дата выставления на продажу (Код 2)">
+            </div>
+            <div class="row" style="margin-top:5px;">
+                <input type="text" class="item-price2" placeholder="Цена (Код 2)" value="${escapeHtml(price2)}" style="width:100px;">
+                <input type="text" class="item-condition2" placeholder="Состояние (Код 2, рус)" value="${escapeHtml(condition2)}" style="flex:1;min-width:100px;">
+                <input type="text" class="item-condition2-en" placeholder="Condition (Код 2, en)" value="${escapeHtml(condition2En)}" style="flex:1;min-width:100px;">
+            </div>
+        </div>
+
+        <!-- ===== ОБЩИЕ ПОЛЯ ===== -->
+        <div class="row" style="margin-top:10px; padding-top:10px; border-top:1px dashed #e5e7eb;">
+            <input type="text" class="item-avito" placeholder="Ссылка Avito (общая для обоих кодов)" value="${escapeHtml(avito)}" style="flex:1;min-width:150px;">
+            <input type="text" class="item-parent-id" placeholder="ID основной фигурки" value="${escapeHtml(parentFigureId)}" style="width:150px;">
         </div>
     `;
     
@@ -1894,8 +1921,11 @@ function collectItems(container) {
             forsale_date2: item.querySelector('.item-forsale-date2')?.value || '',
             avito: item.querySelector('.item-avito')?.value || '',
             price: item.querySelector('.item-price')?.value || '',
+            price2: item.querySelector('.item-price2')?.value || '',
             condition: item.querySelector('.item-condition')?.value || '',
             condition_en: item.querySelector('.item-condition-en')?.value || '',
+            condition2: item.querySelector('.item-condition2')?.value || '',
+            condition2_en: item.querySelector('.item-condition2-en')?.value || '',
             parentFigureId: item.querySelector('.item-parent-id')?.value || '',
             date_added: item.dataset.dateAdded || todayISO()
         };
@@ -2879,10 +2909,17 @@ function generateStatsData(seriesList, singlesData) {
         totalFigures += s.extras?.length || 0;
         totalFigures += s.variants?.length || 0;
         totalInserts += s.inserts?.length || 0;
-        totalForSale += s.figures?.filter(f => f.forsale).length || 0;
-        totalForSale += s.extras?.filter(e => e.forsale).length || 0;
-        totalForSale += s.inserts?.filter(i => i.forsale).length || 0;
-        totalForSale += s.variants?.filter(v => v.forsale).length || 0;
+        
+        // Считаем отдельно каждый код, выставленный на продажу
+        const countForsale = arr => (arr || []).reduce((acc, item) => 
+            acc + (item.forsale === true ? 1 : 0) + (item.forsale2 === true ? 1 : 0), 0
+        );
+
+        totalForSale += countForsale(s.figures);
+        totalForSale += countForsale(s.extras);
+        totalForSale += countForsale(s.inserts);
+        totalForSale += countForsale(s.variants);
+        
         if (s.fullSeriesForSale) totalForSale += 1;
     });
     
@@ -2892,7 +2929,10 @@ function generateStatsData(seriesList, singlesData) {
             const arr = singlesData[m];
             if (!Array.isArray(arr)) return;
             totalFigures += arr.length;
-            totalForSale += arr.filter(i => i.forsale === true).length;
+            // Для отдельных фигурок тоже считаем оба кода
+            totalForSale += arr.reduce((acc, item) => 
+                acc + (item.forsale === true ? 1 : 0) + (item.forsale2 === true ? 1 : 0), 0
+            );
         });
     }
     
@@ -2986,7 +3026,7 @@ function generateForsaleData(seriesList) {
             if (!s[cat]) return;
             
             s[cat].forEach(item => {
-                if (item.forsale !== true) return;
+                if (item.forsale !== true && item.forsale2 !== true) return;
                 
                 items.push({
                     type: typeMap[cat],
@@ -2999,22 +3039,31 @@ function generateForsaleData(seriesList) {
                     name: item.name || '',
                     name_en: item.name_en || item.name || '',
                     image: item.image || '',
-                    avito: item.avito || '',
+                    // ===== Код 1 =====
+                    code: item.code || '',
+                    forsale: item.forsale === true,
+                    forsale_date: item.forsale === true ? (item.forsale_date || '') : '',
                     price: item.price || '',
                     condition: item.condition || '',
                     condition_en: item.condition_en || '',
-                    code: item.code || '',
-                    date_added: item.date_added || s.date_added || '',
-                    forsale_date: item.forsale_date || item.date_added || s.date_added || ''
+                    // ===== Код 2 =====
+                    code2: item.code2 || '',
+                    forsale2: item.forsale2 === true,
+                    forsale_date2: item.forsale2 === true ? (item.forsale_date2 || '') : '',
+                    price2: item.price2 || '',
+                    condition2: item.condition2 || '',
+                    condition2_en: item.condition2_en || '',
+                    // ===== Общее =====
+                    avito: item.avito || '',
+                    date_added: item.date_added || s.date_added || ''
                 });
             });
         });
     });
     
-    // Сортировка: новые выставленные на продажу — первыми
     items.sort((a, b) => {
-        const da = a.forsale_date || a.date_added || '';
-        const db = b.forsale_date || b.date_added || '';
+        const da = a.forsale_date || a.forsale_date2 || a.date_added || '';
+        const db = b.forsale_date || b.forsale_date2 || b.date_added || '';
         if (db !== da) return db.localeCompare(da);
         return (a.name || '').localeCompare(b.name || '');
     });
@@ -3034,7 +3083,7 @@ function generateSinglesForsaleData(singlesData) {
         if (!Array.isArray(arr)) return;
         
         arr.forEach(item => {
-            if (item.forsale !== true) return;
+            if (item.forsale !== true && item.forsale2 !== true) return;
             
             items.push({
                 type: 'single',
@@ -3047,13 +3096,23 @@ function generateSinglesForsaleData(singlesData) {
                 name: item.name || '',
                 name_en: item.name_en || item.name || '',
                 image: item.image || '',
-                avito: item.avito || '',
+                // ===== Код 1 =====
+                code: item.code || '',
+                forsale: item.forsale === true,
+                forsale_date: item.forsale === true ? (item.forsale_date || '') : '',
                 price: item.price || '',
                 condition: item.condition || '',
                 condition_en: item.condition_en || '',
-                code: item.code || '',
-                date_added: item.date_added || '',
-                forsale_date: item.forsale_date || item.date_added || ''
+                // ===== Код 2 =====
+                code2: item.code2 || '',
+                forsale2: item.forsale2 === true,
+                forsale_date2: item.forsale2 === true ? (item.forsale_date2 || '') : '',
+                price2: item.price2 || '',
+                condition2: item.condition2 || '',
+                condition2_en: item.condition2_en || '',
+                // ===== Общее =====
+                avito: item.avito || '',
+                date_added: item.date_added || ''
             });
         });
     });
@@ -3101,7 +3160,7 @@ function generateFullWantedData(seriesList, singlesData) {
             if (!Array.isArray(s[cat])) return;
 
             s[cat].forEach(item => {
-                if (item.wanted !== true) return;
+                if (item.wanted !== true && item.wanted2 !== true) return;
 
                 items.push({
                     series_id: s.id,
@@ -3111,7 +3170,13 @@ function generateFullWantedData(seriesList, singlesData) {
                     type: typeMap[cat],
                     name_ru: item.name || '',
                     name_en: item.name_en || item.name || '',
+                    // Код 1
                     code: item.code || '',
+                    wanted: item.wanted === true,
+                    // Код 2
+                    code2: item.code2 || '',
+                    wanted2: item.wanted2 === true,
+                    // Общее
                     image: item.image || '',
                     year: s.year || '',
                     manufacturer: s.manufacturer || ''
@@ -3126,7 +3191,7 @@ function generateFullWantedData(seriesList, singlesData) {
         if (!Array.isArray(arr)) return;
 
         arr.forEach(item => {
-            if (item.wanted !== true) return;
+            if (item.wanted !== true && item.wanted2 !== true) return;
 
             items.push({
                 series_id: null,
@@ -3136,7 +3201,13 @@ function generateFullWantedData(seriesList, singlesData) {
                 type: 'single',
                 name_ru: item.name || '',
                 name_en: item.name_en || item.name || '',
+                // Код 1
                 code: item.code || '',
+                wanted: item.wanted === true,
+                // Код 2
+                code2: item.code2 || '',
+                wanted2: item.wanted2 === true,
+                // Общее
                 image: item.image || '',
                 year: item.year || '',
                 manufacturer: manufacturer
@@ -3267,8 +3338,14 @@ function generateCodeCountsData(seriesList) {
             
             s[cat].forEach(item => {
                 const code = (item.code || '').trim().toLowerCase();
-                if (!code) return;
-                counts[code] = (counts[code] || 0) + 1;
+                if (code) {
+                    counts[code] = (counts[code] || 0) + 1;
+                }
+
+                const code2 = (item.code2 || '').trim().toLowerCase();
+                if (code2) {
+                    counts[code2] = (counts[code2] || 0) + 1;
+                }
             });
         });
     });

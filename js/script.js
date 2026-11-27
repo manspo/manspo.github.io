@@ -1759,10 +1759,11 @@ async function initCatalog() {
         // 2. Поиск по фигуркам из серий
         window.searchIndex.forEach(item => {
           const code = (item.code || '').toLowerCase();
+          const code2 = (item.code2 || '').toLowerCase();
           const nameRu = (item.name || '').toLowerCase();
           const nameEn = (item.name_en || '').toLowerCase();
           
-          if (code.includes(query) || nameRu.includes(query) || nameEn.includes(query)) {
+          if (code.includes(query) || code2.includes(query) || nameRu.includes(query) || nameEn.includes(query)) {
             matchedSeriesIds.add(item.seriesId);
           }
         });
@@ -1777,9 +1778,10 @@ async function initCatalog() {
             if (!Array.isArray(arr)) continue;
             arr.forEach(item => {
               const code = (item.code || '').toLowerCase();
+              const code2 = (item.code2 || '').toLowerCase();
               const nameRu = (item.name || '').toLowerCase();
               const nameEn = (item.name_en || '').toLowerCase();
-              if (code.includes(query) || nameRu.includes(query) || nameEn.includes(query)) {
+              if (code.includes(query) || code2.includes(query) || nameRu.includes(query) || nameEn.includes(query)) {
                 window.__matchedSingles.push({ ...item, manufacturer: m });
               }
             });
@@ -2123,12 +2125,13 @@ async function initMyCollection() {
         
         // 2. Поиск по фигуркам (только owned)
         window.searchIndex.forEach(item => {
-          if (!item.owned) return;
+          if (!item.owned && !item.owned2) return; // Если есть в коллекции хотя бы один код
           const code = (item.code || '').toLowerCase();
+          const code2 = (item.code2 || '').toLowerCase();
           const nameRu = (item.name || '').toLowerCase();
           const nameEn = (item.name_en || '').toLowerCase();
           
-          if (code.includes(query) || nameRu.includes(query) || nameEn.includes(query)) {
+          if (code.includes(query) || code2.includes(query) || nameRu.includes(query) || nameEn.includes(query)) {
             matchedSeriesIds.add(item.seriesId);
           }
         });
@@ -2619,31 +2622,64 @@ async function initForSale() {
     let fullSeriesItems = [];
     
     allItems.forEach(item => {
-      const mapped = {
-        id: item.id,
-        seriesId: item.seriesId,
-        name: (currentLang === 'en' && item.name_en) ? item.name_en : item.name,
-        name_en: item.name_en || '',
-        image: item.image,
-        avito: item.avito,
-        seriesName: (currentLang === 'en' && item.seriesName_en) ? item.seriesName_en : item.seriesName,
-        seriesName_en: item.seriesName_en || '',
-        seriesYear: item.seriesYear,
-        manufacturer: item.manufacturer,
-        price: (currentLang === 'en' && item.price_en) ? item.price_en : (item.price || ''),
-        condition: (currentLang === 'en' ? item.condition_en : item.condition) || '',
-        type: item.type,
-        code: item.code || '',
-        date_added: item.date_added || '',
-        forsale_date: item.forsale_date || ''
-      };
-      
-      if (item.type === 'full') fullSeriesItems.push(mapped);
-      else if (item.type === 'figure') figureItems.push(mapped);
-      else if (item.type === 'variant') variantItems.push(mapped);
-      else if (item.type === 'extra') extraItems.push(mapped);
-      else if (item.type === 'insert') insertItems.push(mapped);
-      else if (item.type === 'single') figureItems.push(mapped); // ← отдельные фигурки идут в общий список
+      // ===== КОД 1 =====
+      if (item.forsale !== false && item.code) { 
+        // Пушим только если forsale != false (или если forsale === undefined, для обратной совместимости)
+        const mapped1 = {
+          id: item.id,
+          seriesId: item.seriesId,
+          name: (currentLang === 'en' && item.name_en) ? item.name_en : item.name,
+          name_en: item.name_en || '',
+          image: item.image,
+          avito: item.avito,
+          seriesName: (currentLang === 'en' && item.seriesName_en) ? item.seriesName_en : item.seriesName,
+          seriesName_en: item.seriesName_en || '',
+          seriesYear: item.seriesYear,
+          manufacturer: item.manufacturer,
+          price: (currentLang === 'en' && item.price_en) ? item.price_en : (item.price || ''),
+          condition: (currentLang === 'en' ? item.condition_en : item.condition) || '',
+          type: item.type,
+          code: item.code || '',
+          date_added: item.date_added || '',
+          forsale_date: item.forsale_date || ''
+        };
+        
+        if (item.type === 'full') fullSeriesItems.push(mapped1);
+        else if (item.type === 'figure') figureItems.push(mapped1);
+        else if (item.type === 'variant') variantItems.push(mapped1);
+        else if (item.type === 'extra') extraItems.push(mapped1);
+        else if (item.type === 'insert') insertItems.push(mapped1);
+        else if (item.type === 'single') figureItems.push(mapped1);
+      }
+
+      // ===== КОД 2 =====
+      if (item.forsale2 === true && item.code2) {
+        const mapped2 = {
+          id: item.id + '_code2', // Уникальный ID, чтобы не путался с первым
+          seriesId: item.seriesId,
+          name: (currentLang === 'en' && item.name_en) ? item.name_en : item.name,
+          name_en: item.name_en || '',
+          image: item.image,
+          avito: item.avito, // Ссылка Авито общая
+          seriesName: (currentLang === 'en' && item.seriesName_en) ? item.seriesName_en : item.seriesName,
+          seriesName_en: item.seriesName_en || '',
+          seriesYear: item.seriesYear,
+          manufacturer: item.manufacturer,
+          price: (currentLang === 'en' && item.price2_en) ? item.price2_en : (item.price2 || ''),
+          condition: (currentLang === 'en' ? item.condition2_en : item.condition2) || '',
+          type: item.type,
+          code: item.code2 || '', // Код 2 как основной код для карточки
+          date_added: item.date_added || '',
+          forsale_date: item.forsale_date2 || ''
+        };
+        
+        if (item.type === 'full') fullSeriesItems.push(mapped2);
+        else if (item.type === 'figure') figureItems.push(mapped2);
+        else if (item.type === 'variant') variantItems.push(mapped2);
+        else if (item.type === 'extra') extraItems.push(mapped2);
+        else if (item.type === 'insert') insertItems.push(mapped2);
+        else if (item.type === 'single') figureItems.push(mapped2);
+      }
     });
     
     let currentManufacturer = filterState.forsale.manufacturer || 'all';
@@ -3176,6 +3212,7 @@ async function initWanted() {
           (i.seriesName || '').toLowerCase().includes(query) ||
           (i.seriesName_en || '').toLowerCase().includes(query) ||
           (i.code && i.code.toLowerCase().includes(query)) ||
+          (i.code2 && i.code2.toLowerCase().includes(query)) || // ← Поиск по Коду 2
           (i.seriesYear && String(i.seriesYear).includes(query))
         );
       }
@@ -3732,6 +3769,7 @@ window.seriesLinkedIndexes = linkedIndexes;
             const itemName = currentLang === 'en' && item.name_en ? item.name_en : item.name;
             const globalIndex = startIndex + idx;
             const itemCode = item.code || '';
+            const itemCode2 = item.code2 || '';
             const safeName = escapeHtml(itemName);
             const safeId = escapeHtml(item.id || idx);
             const safeSeriesId = escapeHtml(s.id);
@@ -3745,7 +3783,6 @@ window.seriesLinkedIndexes = linkedIndexes;
               ? window.seriesLinkedIndexes[globalIndex]
               : undefined;
             const hasLinkedInsert = linkedInsertIndex !== undefined && linkedInsertIndex !== null;
-            // Кнопка "Вкладыш" — только для фигурок/допов/вариантов
             const showInsertBtn = type !== 'inserts' && type !== 'other';
             const insertBtnLabel = currentLang === 'ru' ? 'Вкладыш' : 'BPZ';
 
@@ -3759,39 +3796,49 @@ window.seriesLinkedIndexes = linkedIndexes;
                              title="${currentLang === 'ru' ? 'Вкладыш отсутствует' : 'No insert'}">${insertBtnLabel}</button>`)
               : `<span class="figure-action-placeholder"></span>`;
 
-                        return `
+            // ===== СТАТУСЫ (всегда все, неактивные — прозрачные) =====
+            const statusIcon = (active, cls, title, emoji) => `
+              <span class="status-icon ${cls}" title="${title}" style="${active ? '' : 'opacity: 0.15;'}">${emoji}</span>
+            `;
+
+            return `
               <div class="figure-item ${type !== 'inserts' ? (item.owned ? 'owned' : '') : ''} ${item.forsale ? 'forsale' : ''}">
-                <div class="figure-number">${idx + 1}</div>
-                ${item.wanted === true ? `<div class="wanted-badge" title="${currentLang === 'ru' ? 'Ищу' : 'Wanted'}">🔍</div>` : ''}
-                <div class="figure-item-top">
+                <div class="figure-top-row">
+                  <div class="figure-number">${idx + 1}</div>
+                  <div class="figure-name">${safeName}</div>
+                </div>
+                <div class="figure-photo-row">
                   <img src="${imageUrl}" alt="${safeName}" loading="lazy" onerror="this.src='images/placeholder.svg'" onclick="openLightbox(${globalIndex}, window.seriesGalleryImages, window.seriesGalleryTitles)" style="cursor:pointer">
-                  <div class="figure-main-info">
-                    <div class="figure-name">${safeName}</div>
-                    <div class="figure-codes-row">
-                      ${itemCode ? `<div class="figure-code copyable-code" data-code="${escapeHtml(itemCode)}" title="Нажмите, чтобы скопировать">${escapeHtml(itemCode)}</div>` : ''}
-                      ${itemCode ? `<div class="figure-status-row">
-                        ${item.forsale ? `<span class="status-icon status-forsale" title="В продаже">🛒</span>` : ''}
-                        ${item.wanted ? `<span class="status-icon status-wanted" title="Ищу">🔍</span>` : ''}
-                        ${item.owned ? `<span class="status-icon status-owned" title="В коллекции">✅</span>` : ''}
-                      </div>` : ''}
-                      ${item.code2 ? `<div class="figure-code2 copyable-code" data-code="${escapeHtml(item.code2)}" title="Нажмите, чтобы скопировать">${escapeHtml(item.code2)}</div>` : ''}
-                      ${item.code2 ? `<div class="figure-status-row">
-                        ${item.forsale2 ? `<span class="status-icon status-forsale" title="Код 2 в продаже">🛒</span>` : ''}
-                        ${item.wanted2 ? `<span class="status-icon status-wanted" title="Код 2 в поиске">🔍</span>` : ''}
-                        ${item.owned2 ? `<span class="status-icon status-owned" title="Код 2 в коллекции">✅</span>` : ''}
-                      </div>` : ''}
-                    </div>
+                </div>
+                <div class="figure-codes-row">
+                  <div class="figure-code copyable-code" data-code="${escapeHtml(itemCode)}" title="Нажмите, чтобы скопировать">${escapeHtml(itemCode) || '—'}</div>
+                  <div class="figure-code2 copyable-code" data-code="${escapeHtml(itemCode2)}" title="Нажмите, чтобы скопировать">${escapeHtml(itemCode2) || '—'}</div>
+                </div>
+                <div class="figure-status-row">
+                  <div class="status-group">
+                    ${statusIcon(item.forsale, 'status-forsale', currentLang === 'ru' ? 'В продаже' : 'For sale', '🛒')}
+                    ${statusIcon(item.wanted, 'status-wanted', currentLang === 'ru' ? 'Ищу' : 'Wanted', '🔍')}
+                    ${statusIcon(item.owned, 'status-owned', currentLang === 'ru' ? 'В коллекции' : 'In collection', '✅')}
+                  </div>
+                  <div class="status-group">
+                    ${statusIcon(item.forsale2, 'status-forsale', currentLang === 'ru' ? 'Код 2 в продаже' : 'Code 2 for sale', '🛒')}
+                    ${statusIcon(item.wanted2, 'status-wanted', currentLang === 'ru' ? 'Код 2 в поиске' : 'Code 2 wanted', '🔍')}
+                    ${statusIcon(item.owned2, 'status-owned', currentLang === 'ru' ? 'Код 2 в коллекции' : 'Code 2 in collection', '✅')}
                   </div>
                 </div>
                 <div class="figure-actions-bottom">
-                  <button class="qr-btn" onclick="generateQRCode('${safeId}', '${safeSeriesId}', '${safeName.replace(/'/g, "\\'")}')" title="QR-код">📱</button>
-                  ${insertBtnHtml}
-                  ${hasDup
-                    ? `<a href="same-figures.html?code=${encodeURIComponent(itemCode)}" class="same-code-link" title="Найти все фигурки с этим кодом">🔗</a>`
-                    : `<span class="figure-action-placeholder"></span>`}
-                  ${item.forsale && item.avito
-                    ? `<a href="${escapeHtml(item.avito)}" class="avito-link" target="_blank" rel="noopener noreferrer" title="Avito">🛒</a>`
-                    : `<span class="figure-action-placeholder"></span>`}
+                  <div class="figure-actions-left">
+                    <button class="qr-btn" onclick="generateQRCode('${safeId}', '${safeSeriesId}', '${safeName.replace(/'/g, "\\'")}')" title="QR-код">📱</button>
+                    ${insertBtnHtml}
+                  </div>
+                  <div class="figure-actions-right">
+                    ${hasDup
+                      ? `<a href="same-figures.html?code=${encodeURIComponent(itemCode)}" class="same-code-link" title="Найти все фигурки с этим кодом">🔗</a>`
+                      : `<span class="figure-action-placeholder"></span>`}
+                    ${item.forsale && item.avito
+                      ? `<a href="${escapeHtml(item.avito)}" class="insert-btn buy-btn" target="_blank" rel="noopener noreferrer" title="Купить">🛒 Купить</a>`
+                      : `<span class="figure-action-placeholder"></span>`}
+                  </div>
                 </div>
               </div>
             `;

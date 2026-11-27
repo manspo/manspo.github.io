@@ -8,6 +8,9 @@
     "name_ru": "Круэлла Де Виль / Стервелла Де Виль",
     "name_en": "Cruella",
     "code": "cruella",
+    "wanted": true,
+    "code2": "",
+    "wanted2": false,
     "image": "images/series/nestle/101-dalmatians-by-nestle-1997/14-f-cruella-cruella.webp",
     "year": 1997,
     "manufacturer": "nestle"
@@ -21,6 +24,9 @@
     "name_ru": "Техна",
     "name_en": "Tecna",
     "code": "S-556",
+    "wanted": true,
+    "code2": "",
+    "wanted2": false,
     "image": "images/series/kinder/winx-club-by-kinder-2005/6-f-tecna-s-556.webp",
     "year": 2005,
     "manufacturer": "kinder"
@@ -34,6 +40,9 @@
     "name_ru": "Стегозавр",
     "name_en": "Stegosaurus",
     "code": "VC097",
+    "wanted": true,
+    "code2": "VC097A",
+    "wanted2": true,
     "image": "images/series/kinder/natoons-dinosaurs-baby-by-kinder-2025/1-f-stegosaurus-vc097.webp",
     "year": 2025,
     "manufacturer": "kinder"
@@ -47,6 +56,9 @@
     "name_ru": "Бэтмен",
     "name_en": "Batman",
     "code": "VC298",
+    "wanted": true,
+    "code2": "",
+    "wanted2": false,
     "image": "images/series/kinder/playmobil-dc-by-kinder-2025/8-f-batman-vc298.webp",
     "year": 2025,
     "manufacturer": "kinder"
@@ -60,6 +72,9 @@
     "name_ru": "Робин",
     "name_en": "Robin",
     "code": "VC305",
+    "wanted": true,
+    "code2": "",
+    "wanted2": false,
     "image": "images/series/kinder/playmobil-dc-by-kinder-2025/15-f-robin-vc305.webp",
     "year": 2025,
     "manufacturer": "kinder"
@@ -73,6 +88,9 @@
     "name_ru": "Заряженный Крипер",
     "name_en": "Charged Creeper",
     "code": "VC309A",
+    "wanted": true,
+    "code2": "",
+    "wanted2": false,
     "image": "images/series/kinder/minecraft-by-kinder-2026/4-f-charged-creeper-vc309a.webp",
     "year": 2026,
     "manufacturer": "kinder"
@@ -86,6 +104,9 @@
     "name_ru": "Алекс в Золотой броне",
     "name_en": "Alex in Golden armor",
     "code": "VC312",
+    "wanted": true,
+    "code2": "",
+    "wanted2": false,
     "image": "images/series/kinder/minecraft-by-kinder-2026/7-f-alex-in-golden-armor-vc312.webp",
     "year": 2026,
     "manufacturer": "kinder"
@@ -99,6 +120,9 @@
     "name_ru": "Стив в Алмазной броне",
     "name_en": "Steve in Diamond armor",
     "code": "VC314",
+    "wanted": true,
+    "code2": "",
+    "wanted2": false,
     "image": "images/series/kinder/minecraft-by-kinder-2026/8-f-steve-in-diamond-armor-vc314.webp",
     "year": 2026,
     "manufacturer": "kinder"
@@ -112,6 +136,9 @@
     "name_ru": "Паук",
     "name_en": "Spider",
     "code": "VC321",
+    "wanted": true,
+    "code2": "",
+    "wanted2": false,
     "image": "images/series/kinder/minecraft-by-kinder-2026/14-f-spider-vc321.webp",
     "year": 2026,
     "manufacturer": "kinder"
@@ -125,6 +152,9 @@
     "name_ru": "Редстоун руда",
     "name_en": "Redstone Ore",
     "code": "VC334A",
+    "wanted": true,
+    "code2": "",
+    "wanted2": false,
     "image": "images/series/kinder/minecraft-by-kinder-2026/22-f-redstone-ore-vc334a.webp",
     "year": 2026,
     "manufacturer": "kinder"
@@ -138,6 +168,9 @@
     "name_ru": "Черный браслет",
     "name_en": "Black bracelet",
     "code": "VC354A",
+    "wanted": true,
+    "code2": "",
+    "wanted2": false,
     "image": "images/series/kinder/spider-man-by-kinder-2026/1-e-black-bracelet-vc354a.webp",
     "year": 2026,
     "manufacturer": "kinder"
@@ -151,6 +184,9 @@
     "name_ru": "Сине-красный браслет",
     "name_en": "Blue and red bracelet",
     "code": "VC354B",
+    "wanted": true,
+    "code2": "",
+    "wanted2": false,
     "image": "images/series/kinder/spider-man-by-kinder-2026/2-e-blue-and-red-bracelet-vc354b.webp",
     "year": 2026,
     "manufacturer": "kinder"
@@ -164,6 +200,9 @@
     "name_ru": "Бело-розовый браслет",
     "name_en": "White and pink bracelet",
     "code": "VC354C",
+    "wanted": true,
+    "code2": "",
+    "wanted2": false,
     "image": "images/series/kinder/spider-man-by-kinder-2026/4-e-white-and-pink-bracelet-vc354c.webp",
     "year": 2026,
     "manufacturer": "kinder"
@@ -177,6 +216,9 @@
     "name_ru": "Пещерный Буба",
     "name_en": "Cave Buba",
     "code": "VC358",
+    "wanted": true,
+    "code2": "",
+    "wanted2": false,
     "image": "images/series/kinder/booba-by-kinder-2026/8-f-cave-buba-vc358.webp",
     "year": 2026,
     "manufacturer": "kinder"
@@ -190,6 +232,9 @@
     "name_ru": "Буба из будущего",
     "name_en": "Booba from the future",
     "code": "VC362",
+    "wanted": true,
+    "code2": "",
+    "wanted2": false,
     "image": "images/series/kinder/booba-by-kinder-2026/3-f-booba-from-the-future-vc362.webp",
     "year": 2026,
     "manufacturer": "kinder"
@@ -203,6 +248,9 @@
     "name_ru": "Аид вместе с Болью и Паник",
     "name_en": "Hades with Pain and Panic",
     "code": "",
+    "wanted": true,
+    "code2": "",
+    "wanted2": false,
     "image": "images/series/nesquik/hercules-by-nesquik-1997/4-f-hades-with-pain-and-panic.webp",
     "year": 1997,
     "manufacturer": "nesquik"
@@ -216,6 +264,9 @@
     "name_ru": "Боль и Паник",
     "name_en": "Pain and Panic",
     "code": "",
+    "wanted": true,
+    "code2": "",
+    "wanted2": false,
     "image": "images/series/nesquik/hercules-by-nesquik-1997/2-f-pain-and-panic.webp",
     "year": 1997,
     "manufacturer": "nesquik"
@@ -229,6 +280,9 @@
     "name_ru": "Геркулес и Каледонский вепрь",
     "name_en": "Hercules and the Caledonian Boar",
     "code": "",
+    "wanted": true,
+    "code2": "",
+    "wanted2": false,
     "image": "images/series/nesquik/hercules-by-nesquik-1997/1-f-hercules-and-the-caledonian-boar.webp",
     "year": 1997,
     "manufacturer": "nesquik"
@@ -242,6 +296,9 @@
     "name_ru": "Гигантская Гидра",
     "name_en": "Hydra Giant",
     "code": "",
+    "wanted": true,
+    "code2": "",
+    "wanted2": false,
     "image": "images/series/nesquik/hercules-by-nesquik-1997/9-f-hydra-giant.webp",
     "year": 1997,
     "manufacturer": "nesquik"
@@ -255,6 +312,9 @@
     "name_ru": "Пегас и Филоктет",
     "name_en": "Pegasus and Philoctetes",
     "code": "",
+    "wanted": true,
+    "code2": "",
+    "wanted2": false,
     "image": "images/series/nesquik/hercules-by-nesquik-1997/6-f-pegasus-and-philoctetes.webp",
     "year": 1997,
     "manufacturer": "nesquik"
@@ -268,6 +328,9 @@
     "name_ru": "Перламутровая Гидра",
     "name_en": "Pearl Hydra",
     "code": "",
+    "wanted": true,
+    "code2": "",
+    "wanted2": false,
     "image": "images/series/nesquik/hercules-by-nesquik-1997/8-f-pearl-hydra.webp",
     "year": 1997,
     "manufacturer": "nesquik"
