@@ -1650,83 +1650,52 @@ main {
 /* ===== СТРАНИЦА ФИГУРКИ (ФИКС) ===== */
 .figure-content {
   display: grid;
-  grid-template-columns: 280px 1fr;
-  gap: 30px;
+  grid-template-columns: 300px 1fr;
+  gap: 40px;
   align-items: start;
   margin-bottom: 30px;
 }
 
+.figure-left-col {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
 .figure-image-wrapper {
-  width: 100%;
   position: relative;
+  width: 100%;
 }
 
 .figure-image {
   width: 100%;
-  height: 280px;
+  height: auto;
+  aspect-ratio: 1 / 1;
   object-fit: contain;
   background: linear-gradient(135deg, #f5f7fb 0%, #eef2f6 100%);
   border-radius: 20px;
   padding: 20px;
-  cursor: pointer;
-  transition: transform 0.2s;
   border: 1px solid var(--clay-border);
-}
-
-.figure-image:hover {
-  transform: scale(1.02);
-}
-
-.figure-type-badge {
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  background: var(--clay-purple);
-  color: white;
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 700;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-}
-
-.figure-insert-right {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  width: 100%;
-}
-
-.figure-insert-right .single-insert-image-wrap {
-  max-width: 400px;
-  width: 100%;
-  margin: 0 auto;
-}
-
-.figure-insert-right .single-insert-image {
-  width: 100%;
-  height: auto;
-  border-radius: 12px;
-  border: 2px solid var(--clay-border);
-  object-fit: contain;
+  cursor: pointer;
 }
 
 .figure-sale-block {
-  grid-column: 1 / -1; 
   display: flex;
   justify-content: center;
-  margin: 10px 0 20px;
+  width: 100%;
 }
 
+/* Кнопка купить */
 .figure-btn {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 14px 32px;
+  justify-content: center;
+  width: 100%; /* Растягиваем кнопку под ширину фото */
+  padding: 14px 20px;
   border: none;
-  border-radius: 40px;
+  border-radius: 30px;
   font-size: 16px;
-  font-weight: 700;
+  font-weight: 800;
   cursor: pointer;
   text-decoration: none;
   transition: all 0.2s;
@@ -1734,21 +1703,22 @@ main {
 }
 
 .figure-btn-buy {
-  background: var(--clay-yellow);
-  color: #7a5a10;
-  box-shadow: 0 6px 0 var(--clay-yellow-dark), 0 8px 16px rgba(212,168,58,0.3);
+  background: linear-gradient(180deg, #fdf0c8 0%, #f7d774 100%) !important;
+  color: #7a5a10 !important;
+  box-shadow: 0 5px 0 #d4a83a, 0 8px 16px rgba(212,168,58,0.3), inset 0 -2px 4px rgba(0,0,0,0.05) !important;
+  border: 2px solid rgba(255,255,255,0.5) !important;
 }
 
 .figure-btn-buy:hover {
+  background: linear-gradient(180deg, #f7d774 0%, #d4a83a 100%) !important;
+  color: #fff !important;
   transform: translateY(-2px);
-  background: var(--clay-yellow-dark);
-  color: white;
-  box-shadow: 0 8px 0 var(--clay-yellow-dark), 0 12px 20px rgba(212,168,58,0.4);
+  box-shadow: 0 7px 0 #b8922e, 0 10px 20px rgba(212,168,58,0.4) !important;
 }
 
 .figure-btn-buy:active {
-  transform: translateY(4px);
-  box-shadow: 0 2px 0 var(--clay-yellow-dark);
+  transform: translateY(4px) !important;
+  box-shadow: 0 1px 0 #d4a83a !important;
 }
 
 .figure-btn-disabled {
@@ -1756,19 +1726,74 @@ main {
   color: var(--clay-muted);
   cursor: not-allowed;
   box-shadow: none;
-  padding: 14px 32px;
 }
 
+/* Восстановление стилей мета-данных */
 .figure-bottom {
-  grid-column: 1 / -1;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+  grid-column: 1 / -1; /* На всю ширину */
   background: var(--clay-card);
-  padding: 24px;
+  padding: 24px 30px;
   border-radius: var(--radius-lg);
   border: 3px solid rgba(255,255,255,0.7);
   box-shadow: var(--clay-shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.figure-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.figure-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--clay-text);
+}
+
+.meta-icon {
+  font-size: 20px;
+  width: 24px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.meta-link {
+  color: var(--clay-purple-dark);
+  text-decoration: none;
+  font-weight: 700;
+  transition: color 0.2s;
+}
+
+.meta-link:hover {
+  color: var(--clay-purple);
+  text-decoration: underline;
+}
+
+.figure-code-value {
+  font-family: monospace;
+  font-size: 14px;
+  font-weight: 700;
+  background: var(--clay-purple-bg);
+  color: var(--clay-purple-dark);
+  padding: 4px 10px;
+  border-radius: 8px;
+  border: 1px solid #d4c7f0;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.figure-code-value:hover {
+  background: var(--clay-purple-bg2);
+}
+
+.figure-code-value:active {
+  transform: scale(0.95);
 }
 
 /* ===== МОБИЛЬНАЯ АДАПТАЦИЯ ===== */
@@ -2041,7 +2066,41 @@ main {
   }
 }
 
-/* ФИКС СТРАНИЦЫ ФИГУРКИ */
+/* Стили для выбора кода в модалке «Мой поиск» */
+.wanted-code-row {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.wanted-code-label {
+  font-family: monospace;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--clay-purple-dark);
+  background: var(--clay-purple-bg);
+  padding: 4px 10px;
+  border-radius: 6px;
+  width: fit-content;
+}
+
+.wanted-item-statuses {
+  flex: 1;
+  min-width: 0;
+}
+
+/* На мобильных — кнопки переносятся под коды */
+@media (min-width: 600px) {
+  .wanted-code-row {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+}
+
+/* ===== СТРАНИЦА ФИГУРКИ (ФИКС СЕТКИ) ===== */
 .figure-content {
   display: grid;
   grid-template-columns: 300px 1fr;
@@ -2084,7 +2143,7 @@ main {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 100%; /* Растягиваем кнопку под ширину фото */
+  width: 100%;
   padding: 14px 20px;
   border: none;
   border-radius: 30px;
@@ -2097,21 +2156,22 @@ main {
 }
 
 .figure-btn-buy {
-  background: var(--clay-yellow);
-  color: #5a4000; /* Темный текст для контраста */
-  box-shadow: 0 6px 0 var(--clay-yellow-dark), 0 8px 16px rgba(212,168,58,0.3);
+  background: linear-gradient(180deg, #fdf0c8 0%, #f7d774 100%) !important;
+  color: #7a5a10 !important;
+  box-shadow: 0 6px 0 var(--clay-yellow-dark), 0 8px 16px rgba(212,168,58,0.3), inset 0 -2px 4px rgba(0,0,0,0.05) !important;
+  border: 2px solid rgba(255,255,255,0.5) !important;
 }
 
 .figure-btn-buy:hover {
   transform: translateY(-2px);
-  background: var(--clay-yellow-dark);
-  color: white;
-  box-shadow: 0 8px 0 var(--clay-yellow-dark), 0 12px 20px rgba(212,168,58,0.4);
+  background: linear-gradient(180deg, #f7d774 0%, #d4a83a 100%) !important;
+  color: white !important;
+  box-shadow: 0 8px 0 var(--clay-yellow-dark), 0 12px 20px rgba(212,168,58,0.4) !important;
 }
 
 .figure-btn-buy:active {
-  transform: translateY(4px);
-  box-shadow: 0 2px 0 var(--clay-yellow-dark);
+  transform: translateY(4px) !important;
+  box-shadow: 0 2px 0 var(--clay-yellow-dark) !important;
 }
 
 .figure-btn-disabled {
@@ -2123,7 +2183,7 @@ main {
 
 /* Восстановление стилей мета-данных */
 .figure-bottom {
-  grid-column: 1 / -1; /* На всю ширину */
+  grid-column: 1 / -1;
   background: var(--clay-card);
   padding: 24px 30px;
   border-radius: var(--radius-lg);
@@ -2189,165 +2249,54 @@ main {
   transform: scale(0.95);
 }
 
-/* Убираем некрасивую белую корзину из кнопки */
-.figure-btn-buy::before {
-  content: '🛍️';
-  margin-right: 8px;
-  font-size: 18px;
-}
-
-/* Правая колонка (вкладыш) */
-.figure-insert-right {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  width: 100%;
-  align-items: center; /* Центрируем содержимое */
-}
-
-/* Заголовок вкладыша */
-.figure-insert-right .multi-inserts-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-}
-
-.figure-insert-right .single-insert-title {
-  text-align: center;
-  margin-bottom: 15px;
-  font-size: 18px;
-  font-weight: 800;
-  color: var(--clay-text);
-}
-
-/* Блок вкладыша и картинка */
-.figure-insert-right .single-insert-block {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-
-.figure-insert-right .single-insert-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-}
-
-.figure-insert-right .single-insert-image-wrap {
-  max-width: 500px;
-  width: 100%;
-}
-
-.figure-insert-right .single-insert-image {
-  width: 100%;
-  height: auto;
-  border-radius: 12px;
-  border: 2px solid var(--clay-border);
-  object-fit: contain;
-  display: block;
-}
-
-/* Если вкладыша нет — центрируем заглушку */
-.figure-insert-right .single-insert-empty {
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
-
-/* ===== СТРАНИЦА ФИГУРКИ (МОБИЛЬНАЯ ВЕРСИЯ) ===== */
+/* ===== МОБИЛЬНАЯ АДАПТАЦИЯ СТРАНИЦЫ ФИГУРКИ ===== */
 @media (max-width: 768px) {
-  /* Сетка становится в одну колонку */
   .figure-content {
     grid-template-columns: 1fr;
     gap: 20px;
   }
 
-  /* Левая колонка (фото + кнопка) */
   .figure-left-col {
-    max-width: 320px; /* Чтобы на планшетах фото не было гигантским */
+    max-width: 320px; 
     margin: 0 auto;
     width: 100%;
   }
 
-  /* Само фото */
   .figure-image {
     height: auto;
     max-height: 300px;
     padding: 10px;
   }
 
-  /* Правая колонка (вкладыш) */
   .figure-insert-right {
     margin: 0 auto;
     width: 100%;
   }
 
-  /* Заголовок вкладыша */
   .figure-insert-right .single-insert-title {
     font-size: 16px;
     margin-bottom: 10px;
   }
 
-  /* Картинка вкладыша на мобильном */
   .figure-insert-right .single-insert-image-wrap {
     max-width: 100%;
   }
 
-  /* Кнопка "Купить" */
   .figure-btn {
     font-size: 15px;
     padding: 12px 20px;
   }
 
-  /* Нижний блок (мета-данные) */
   .figure-bottom {
     padding: 16px 20px;
   }
 
-  /* Текст в мета-данных */
   .figure-meta-item {
     font-size: 14px;
-    align-items: flex-start; /* Текст не съезжает при переносе строк */
+    align-items: flex-start; 
   }
 
-  /* Чтобы длинные названия серий не вылезали за экран */
   .meta-link {
     word-break: break-word;
-  }
-}
-
-/* Стили для выбора кода в модалке «Мой поиск» */
-.wanted-code-row {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  width: 100%;
-}
-
-.wanted-code-label {
-  font-family: monospace;
-  font-size: 13px;
-  font-weight: 800;
-  color: var(--clay-purple-dark);
-  background: var(--clay-purple-bg);
-  padding: 4px 10px;
-  border-radius: 6px;
-  width: fit-content;
-}
-
-.wanted-item-statuses {
-  flex: 1;
-  min-width: 0;
-}
-
-/* На мобильных — кнопки переносятся под коды */
-@media (min-width: 600px) {
-  .wanted-code-row {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
   }
 }

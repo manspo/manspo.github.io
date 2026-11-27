@@ -3810,7 +3810,7 @@ window.seriesLinkedIndexes = linkedIndexes;
                 </div>
                 <div class="figure-codes-row">
                   <div class="figure-code copyable-code" data-code="${escapeHtml(itemCode)}" title="Нажмите, чтобы скопировать">${escapeHtml(itemCode) || '—'}</div>
-                  <div class="figure-code2 copyable-code" data-code="${escapeHtml(itemCode2)}" title="Нажмите, чтобы скопировать">${escapeHtml(itemCode2) || '—'}</div>
+                  ${itemCode2 ? `<div class="figure-code2 copyable-code" data-code="${escapeHtml(itemCode2)}" title="Нажмите, чтобы скопировать">${escapeHtml(itemCode2)}</div>` : ''}
                 </div>
                 <div class="figure-status-row">
                   <div class="status-group">
@@ -4199,12 +4199,18 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
         ...variants.map(f => ({ ...f, _type: 'variant', _typeLabel: lang === 'en' ? 'VARIANT' : 'ВАРИАНТ' }))
       ];
 
+      if (allItems.length === 0) {
+        return reject(new Error(lang === 'ru' ? 'Нет элементов для чек-листа' : 'No items for checklist'));
+      }
+
       // ===== КАРТИНКИ =====
       const imageMap = new Map();
       for (const item of allItems) {
         const imageUrl = item.image ? `${BASE_URL}/${item.image}` : 'images/placeholder.svg';
         const img = await loadImage(imageUrl);
-        imageMap.set(item.id || item.name, img || createEmptyImage());
+        // Ключом делаем id + вариант (code1/code2), чтобы не было путаницы с одинаковыми id
+        const key = item.id + '_' + (item._variant || 'default');
+        imageMap.set(key, img || createEmptyImage());
       }
 
       const qrImage = await loadImage(`${BASE_URL}/images/qrcodesite.png`);
@@ -4516,7 +4522,9 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
         else ctx.rect(x + innerPad, photoY + innerPad, innerW, innerH);
         ctx.fill();
 
-        const img = imageMap.get(item.id || item.name);
+        // Достаём картинку по ключу (id + вариант)
+        const key = item.id + '_' + (item._variant || 'default');
+        const img = imageMap.get(key);
         if (img && img.complete && img.naturalWidth > 0) {
           const maxImgW = innerW - 8;
           const maxImgH = innerH - 8;
@@ -4612,7 +4620,6 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
         else ctx.rect(codeX, labelY, codeW, codeH);
         ctx.stroke();
 
-        // Текст кода ИЛИ черта
         if (itemCode) {
           let displayCode = itemCode;
           ctx.font = 'bold 17px monospace';
@@ -4636,7 +4643,6 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
           ctx.fillStyle = PALETTE.primary;
           ctx.fillText(displayCode, textCX, textCY);
         } else {
-          // Черта вместо кода
           const lineY = labelY + codeH / 2;
           const lineX1 = codeX + 20;
           const lineX2 = codeX + codeW - 20;
@@ -4687,7 +4693,6 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
         else ctx.rect(nameX, nameY, nameW, nameH);
         ctx.stroke();
 
-        // Текст названия ИЛИ черта
         if (!isDefault && itemName) {
           ctx.font = 'bold 15px Inter, system-ui';
           ctx.textAlign = 'center';
@@ -4720,7 +4725,6 @@ async function generateCollage(seriesId, seriesName, figures, extras, variants, 
             ctx.fillText(line, nameX + nameW / 2, ly);
           });
         } else {
-          // Черта вместо названия
           const lineY = nameY + nameH / 2;
           const lineX1 = nameX + 20;
           const lineX2 = nameX + nameW - 20;
@@ -4813,9 +4817,23 @@ async function downloadCollage(seriesId, seriesName, onlyForSale = false) {
         let variants = series.variants || [];
         
         if (onlyForSale) {
-            figures = figures.filter(f => f.forsale === true);
-            extras = extras.filter(e => e.forsale === true);
-            variants = variants.filter(v => v.forsale === true);
+            // Функция для разворачивания фигурки в две карточки, если оба кода в продаже
+            const expandForsaleItems = (arr) => {
+                const result = [];
+                (arr || []).forEach(item => {
+                    if (item.forsale === true) {
+                        result.push({ ...item, _variant: 'code1', code: item.code });
+                    }
+                    if (item.forsale2 === true && item.code2) {
+                        result.push({ ...item, _variant: 'code2', code: item.code2 });
+                    }
+                });
+                return result;
+            };
+
+            figures = expandForsaleItems(figures);
+            extras = expandForsaleItems(extras);
+            variants = expandForsaleItems(variants);
         }
         
         if (figures.length === 0 && extras.length === 0 && variants.length === 0) {
@@ -4830,21 +4848,21 @@ async function downloadCollage(seriesId, seriesName, onlyForSale = false) {
         }
         
         // Название чек-листа — добавляем пометку для версии "на продажу"
-let seriesTitle = lang === 'en' && series.name_en ? series.name_en : series.name;
+        let seriesTitle = lang === 'en' && series.name_en ? series.name_en : series.name;
+        const seriesYear = series.year || '';
+        
+        if (onlyForSale) {
+            seriesTitle += lang === 'ru' ? ' (на продажу)' : ' (for sale)';
+        }
 
-const seriesYear = series.year || '';
-const seriesYearSuffix = seriesYear ? ` (${seriesYear})` : '';
-if (onlyForSale) {
-    seriesTitle += lang === 'ru' ? ' (на продажу)' : ' (for sale)';
-}
-
-const jpegData = await generateCollage(seriesId, seriesTitle, figures, extras, variants, lang, seriesYear);
+        const jpegData = await generateCollage(seriesId, seriesTitle, figures, extras, variants, lang, seriesYear);
         const safeName = seriesTitle.replace(/[^a-zа-яё0-9]/gi, '_');
         const fileName = `checklist_${safeName}_${Date.now()}.jpg`;
         
         if (window.Capacitor && window.Capacitor.isNativePlatform()) {
             if (window.FileHelper) {
                 try {
+                    const base64Data = jpegData.split(',')[1];
                     const savedPath = await saveChecklistNative(base64Data, fileName);
                     if (savedPath) {
                         alert(`✅ Чек-лист сохранен!\n\n📁 ${savedPath}`);
@@ -4859,6 +4877,7 @@ const jpegData = await generateCollage(seriesId, seriesTitle, figures, extras, v
             try {
                 const Filesystem = window.Capacitor.Plugins.Filesystem;
                 if (Filesystem) {
+                    const base64Data = jpegData.split(',')[1];
                     const dirs = [
                         { dir: 3, name: 'Documents' },
                         { dir: 2, name: 'Cache' },
@@ -5998,7 +6017,6 @@ async function openWantedList(seriesId) {
   }
 
   const statusLabels = {
-    'have':  { icon: '✅', label_ru: 'Имеется',  label_en: 'Have',    color: '#10b981' },
     'need':  { icon: '🔍', label_ru: 'Ищу',      label_en: 'Looking', color: '#ef4444' },
     'trade': { icon: '🔄', label_ru: 'На обмен', label_en: 'Trade',   color: '#f59e0b' }
   };
@@ -6041,13 +6059,16 @@ async function openWantedList(seriesId) {
           return `
             <div class="wanted-item" data-id="${escapeHtml(item.id)}" data-type="${item._type}">
               <div class="wanted-item-info">
-                <img class="wanted-item-preview" 
-                     src="${itemImage}" 
-                     alt="${escapeHtml(itemName)}"
-                     onerror="this.src='images/placeholder.svg'">
+                <div class="wanted-item-preview-wrap" style="position:relative; flex-shrink:0;">
+                  <img class="wanted-item-preview" 
+                       src="${itemImage}" 
+                       alt="${escapeHtml(itemName)}"
+                       onerror="this.src='images/placeholder.svg'"
+                       style="margin:0;">
+                  <span style="position:absolute; top:-5px; left:-5px; background:var(--clay-purple); color:white; width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:800; box-shadow:0 2px 4px rgba(0,0,0,0.2); z-index:2;">${idx + 1}</span>
+                </div>
                 <div class="wanted-item-text">
-                  <span class="wanted-item-num">${idx + 1}</span>
-                  <span class="wanted-item-name">${escapeHtml(itemName)}</span>
+                  <span class="wanted-item-name" style="margin:0;">${escapeHtml(itemName)}</span>
                 </div>
               </div>
               <div class="wanted-item-statuses" style="display:flex; flex-direction:column; gap:12px; width:100%;">
@@ -6132,13 +6153,30 @@ async function generateWantedListImage(seriesId, items, statuses, lang, userName
     const seriesName = lang === 'en' && series.name_en ? series.name_en : series.name;
     const seriesYear = series.year || '';
 
-    // ===== РАЗДЕЛ 1: ВСЕ ЭЛЕМЕНТЫ =====
-    const allItems = items.slice();
+    // ===== РАЗДЕЛ 1: ТОЛЬКО "ИЩУ" =====
+    const allItems = [];
+    items.forEach(it => {
+      const s = statuses[it.id] || {};
+      const c1 = s.code1 || {};
+      const c2 = s.code2 || {};
+
+      // В основной список "Мой поиск" добавляем ТОЛЬКО если нажато "Ищу"
+      if (c1.need) { 
+        allItems.push({ ...it, _variant: 'code1', _status: c1, code: it.code });
+      }
+      if (c2.need) { 
+        allItems.push({ ...it, _variant: 'code2', _status: c2, code: it.code2 });
+      }
+    });
 
     // ===== РАЗДЕЛ 2: ТОЛЬКО НА ОБМЕН =====
-    const tradeOnly = items.filter(it => {
+    const tradeOnly = [];
+    items.forEach(it => {
       const s = statuses[it.id] || {};
-      return s.trade;
+      const c1 = s.code1 || {};
+      const c2 = s.code2 || {};
+      if (c1.trade) tradeOnly.push({ ...it, _variant: 'code1', _status: c1, code: it.code });
+      if (c2.trade) tradeOnly.push({ ...it, _variant: 'code2', _status: c2, code: it.code2 });
     });
 
     // ===== ГРУППИРУЕМ ПО ТИПАМ =====
@@ -6413,7 +6451,7 @@ async function generateWantedListImage(seriesId, items, statuses, lang, userName
     // ============================================================
     function drawCell(x, y, item, num, forceOpaque = false) {
       const tc = typeColors[item._type] || typeColors.figure;
-      const status = statuses[item.id] || {};
+      const status = item._status || {};
       const isSelected = status.have || status.need || status.trade;
 
       // ===== ПРОЗРАЧНОСТЬ =====
@@ -6901,18 +6939,12 @@ document.addEventListener('click', function(e) {
   // Логика переключения статусов
   if (currentStatus[status]) {
     delete currentStatus[status];
-    if (status === 'trade') delete currentStatus['have']; // снимаем have при снятии trade
   } else {
     currentStatus[status] = true;
     if (status === 'need') {
-      delete currentStatus['have'];
-      delete currentStatus['trade'];
-    }
-    if (status === 'have') {
-      delete currentStatus['need'];
+      delete currentStatus['trade']; // Нельзя одновременно "Ищу" и "На обмен"
     }
     if (status === 'trade') {
-      currentStatus['have'] = true;
       delete currentStatus['need'];
     }
   }
