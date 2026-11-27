@@ -1,5 +1,17 @@
 [
   {
+    "id": "sponge-bob-square-pants-easter-2014",
+    "name": "Губка Боб / Спанч Боб: Квадратные Штаны (Пасхальная)",
+    "name_en": "Sponge Bob: Square Pants (Easter)",
+    "year": 2014,
+    "manufacturer": "kinder",
+    "cover": "images/series/kinder/sponge-bob-square-pants-easter-2014/cover.webp",
+    "kind": "joy",
+    "description": "Серия приуроченная к пасхе",
+    "description_en": "Easter series",
+    "visible": true
+  },
+  {
     "id": "sheep-maxi-by-kinder-2016",
     "name": "Овцы Макси от Киндер",
     "name_en": "Sheep Maxi by Kinder",
