@@ -538,15 +538,44 @@ main {
 /* Карточки фигурок в серии */
 .figures-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; margin: 20px 0 40px; }
 .figure-item {
-  display: flex; align-items: center; gap: 16px; background: var(--clay-card);
-  border-radius: var(--radius-md); padding: 20px; box-shadow: var(--clay-shadow);
-  position: relative; border: 3px solid rgba(255,255,255,0.8); transition: all 0.25s ease;
+  position: relative;
+  background: var(--clay-card);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  box-shadow: var(--clay-shadow);
+  border: 3px solid rgba(255,255,255,0.8);
+  transition: all 0.25s ease;
 }
-.figure-item:hover { transform: translateY(-6px); box-shadow: var(--clay-shadow-hover); border-color: var(--clay-purple); }
-.figure-item .figure-number { width: 36px; height: 36px; background: linear-gradient(180deg, #c4b5fd, #8b5cf6); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 15px; box-shadow: 0 4px 0 #6d28d9, inset 0 2px 4px rgba(255,255,255,0.3); flex-shrink: 0; }
+.figure-item:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--clay-shadow-hover);
+  border-color: var(--clay-purple);
+}
+.figure-item .figure-number {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(180deg, #c4b5fd, #8b5cf6);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 15px;
+  box-shadow: 0 4px 0 #6d28d9, inset 0 2px 4px rgba(255,255,255,0.3);
+  z-index: 10;
+}
 .figure-item > img { width: 110px; height: 110px; object-fit: contain; background: var(--clay-bg); border-radius: var(--radius-sm); padding: 10px; cursor: pointer; flex-shrink: 0; box-shadow: inset 0 4px 8px rgba(0,0,0,0.05); border: 2px solid var(--clay-card-warm); }
 .figure-item .figure-info { display: flex; flex-direction: column; gap: 8px; min-width: 0; flex-grow: 1; }
-.figure-item .figure-name { font-weight: 800; font-size: 16px; color: var(--clay-text); line-height: 1.3; }
+.figure-item .figure-name {
+  font-weight: 800;
+  font-size: 20px;
+  color: var(--clay-text);
+  line-height: 1.3;
+}
 
 /* Код фигурки (увеличенный, с фоном) */
 .figure-item .figure-code {
@@ -574,8 +603,12 @@ main {
 .same-code-link:hover { background: var(--clay-blue); color: #fff; }
 .avito-link { background: var(--clay-yellow); color: #fff; }
 .avito-link:hover { background: var(--clay-yellow-dark); transform: scale(1.1); }
-.figure-item.owned { border-left: 6px solid var(--clay-mint-dark); }
-.figure-item.forsale { border-right: 6px solid var(--clay-yellow-dark); }
+.figure-item.owned {
+  border-left: 6px solid var(--clay-mint-dark);
+}
+.figure-item.forsale {
+  border-right: 6px solid var(--clay-yellow-dark);
+}
 
 /* Заголовки секций */
 .series-section-title { display: flex; align-items: center; gap: 12px; font-family: 'Fredoka', sans-serif; font-size: 28px; font-weight: 700; color: var(--clay-text); margin: 40px 0 20px; padding-left: 16px; position: relative; }

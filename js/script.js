@@ -3759,28 +3759,34 @@ window.seriesLinkedIndexes = linkedIndexes;
                              title="${currentLang === 'ru' ? 'Вкладыш отсутствует' : 'No insert'}">${insertBtnLabel}</button>`)
               : `<span class="figure-action-placeholder"></span>`;
 
-            return `
+                        return `
               <div class="figure-item ${type !== 'inserts' ? (item.owned ? 'owned' : '') : ''} ${item.forsale ? 'forsale' : ''}">
                 <div class="figure-number">${idx + 1}</div>
                 ${item.wanted === true ? `<div class="wanted-badge" title="${currentLang === 'ru' ? 'Ищу' : 'Wanted'}">🔍</div>` : ''}
-                <img src="${imageUrl}" alt="${safeName}" loading="lazy" onerror="this.src='images/placeholder.svg'" onclick="openLightbox(${globalIndex}, window.seriesGalleryImages, window.seriesGalleryTitles)" style="cursor:pointer">
-                <div class="figure-info">
-                  <div class="figure-name">${safeName}</div>
-                  ${itemCode ? `<div class="figure-code copyable-code" data-code="${escapeHtml(itemCode)}" title="Нажмите, чтобы скопировать" style="margin-top: 4px; font-size: 13px; color: var(--muted); background: transparent; padding: 0;">${escapeHtml(itemCode)}</div>` : ''}
-                  ${item.code2 ? `<div class="figure-code2 copyable-code" data-code="${escapeHtml(item.code2)}" title="Нажмите, чтобы скопировать" style="margin-top: 4px; font-size: 13px; color: var(--clay-blue-dark); background: transparent; padding: 0;">${escapeHtml(item.code2)}</div>` : ''}
-                  <div class="figure-actions">
-                    <button class="qr-btn" onclick="generateQRCode('${safeId}', '${safeSeriesId}', '${safeName.replace(/'/g, "\\'")}')" title="QR-код">📱</button>
-                    ${insertBtnHtml}
-                    ${hasDup
-                      ? `<a href="same-figures.html?code=${encodeURIComponent(itemCode)}" class="same-code-link" title="Найти все фигурки с этим кодом">🔗</a>`
-                      : `<span class="figure-action-placeholder"></span>`}
-                    ${item.forsale && item.avito
-                      ? `<a href="${escapeHtml(item.avito)}" class="avito-link" target="_blank" rel="noopener noreferrer" title="Avito">🛒</a>`
-                      : `<span class="figure-action-placeholder"></span>`}
-                    ${item.forsale2 ? `<span class="avito-link" title="Код 2 в продаже" style="cursor:default;">🛒</span>` : ''}
-                    ${item.wanted2 ? `<span class="avito-link" title="Код 2 в поиске" style="cursor:default;background:var(--clay-blue-bg);color:var(--clay-blue-dark);">🔍</span>` : ''}
-                    ${item.owned2 ? `<span class="avito-link" title="Код 2 в коллекции" style="cursor:default;background:var(--clay-mint-bg);color:var(--clay-mint-dark);">✅</span>` : ''}
+                <div class="figure-item-top">
+                  <img src="${imageUrl}" alt="${safeName}" loading="lazy" onerror="this.src='images/placeholder.svg'" onclick="openLightbox(${globalIndex}, window.seriesGalleryImages, window.seriesGalleryTitles)" style="cursor:pointer">
+                  <div class="figure-main-info">
+                    <div class="figure-name">${safeName}</div>
+                    <div class="figure-codes-row">
+                      ${itemCode ? `<div class="figure-code copyable-code" data-code="${escapeHtml(itemCode)}" title="Нажмите, чтобы скопировать">${escapeHtml(itemCode)}</div>` : ''}
+                      ${item.code2 ? `<div class="figure-code2 copyable-code" data-code="${escapeHtml(item.code2)}" title="Нажмите, чтобы скопировать">${escapeHtml(item.code2)}</div>` : ''}
+                    </div>
+                    <div class="figure-status-row">
+                      ${item.forsale2 ? `<span class="status-icon status-forsale" title="Код 2 в продаже">🛒</span>` : ''}
+                      ${item.wanted2 ? `<span class="status-icon status-wanted" title="Код 2 в поиске">🔍</span>` : ''}
+                      ${item.owned2 ? `<span class="status-icon status-owned" title="Код 2 в коллекции">✅</span>` : ''}
+                    </div>
                   </div>
+                </div>
+                <div class="figure-actions-bottom">
+                  <button class="qr-btn" onclick="generateQRCode('${safeId}', '${safeSeriesId}', '${safeName.replace(/'/g, "\\'")}')" title="QR-код">📱</button>
+                  ${insertBtnHtml}
+                  ${hasDup
+                    ? `<a href="same-figures.html?code=${encodeURIComponent(itemCode)}" class="same-code-link" title="Найти все фигурки с этим кодом">🔗</a>`
+                    : `<span class="figure-action-placeholder"></span>`}
+                  ${item.forsale && item.avito
+                    ? `<a href="${escapeHtml(item.avito)}" class="avito-link" target="_blank" rel="noopener noreferrer" title="Avito">🛒</a>`
+                    : `<span class="figure-action-placeholder"></span>`}
                 </div>
               </div>
             `;
