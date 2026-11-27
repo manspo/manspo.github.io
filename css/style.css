@@ -1746,7 +1746,6 @@ main {
   
   .timeline-year { font-size: 36px; }
 
-  /* ФИКС ЦЕНТРОВКИ В ЛАЙТБОКСЕ */
   .lightbox .lightbox-zoom-container {
     display: flex;
     align-items: center;
@@ -1757,7 +1756,7 @@ main {
   
   .lightbox .lightbox-content {
     margin: auto;
-    max-width: 100%; /* Заменили 95vw на 100% */
+    max-width: 100%;
     max-height: 70vh;
     object-fit: contain;
   }
@@ -1768,7 +1767,6 @@ main {
   .lightbox .lightbox-up { top: 100px; }
   .lightbox .lightbox-down { bottom: 80px; }
   
-  /* ФИКС НИЖНЕЙ ЧАСТИ ФИГУРКИ */
   .figure-meta {
     text-align: left;
     display: flex;
@@ -1802,8 +1800,6 @@ main {
   }
 }
 
-
-
 @media (max-width: 480px) {
   .clay-four-buttons, .clay-stats { grid-template-columns: 1fr; }
   .clay-social-grid { grid-template-columns: 1fr; }
@@ -1814,23 +1810,23 @@ main {
 /* ===== АДАПТИВ ДЛЯ ДУБЛИКАТОВ (МОБИЛЬНЫЕ) ===== */
 @media (max-width: 768px) {
   .duplicates-grid { 
-    grid-template-columns: repeat(2, 1fr); /* На мобилках строго 2 в ряд */
-    gap: 12px; /* Уменьшаем отступ между карточками */
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
   }
   
   .duplicate-card {
-    padding: 12px; /* Уменьшаем внутренние отступы */
+    padding: 12px;
     gap: 8px;
   }
 
   .duplicate-image-wrapper {
-    height: 120px; /* Уменьшаем высоту фона, чтобы карточки не были слишком длинными */
+    height: 120px;
     padding: 5px;
     border-width: 2px;
   }
 
   .duplicate-code {
-    font-size: 14px; /* Чуть уменьшаем шрифт кода */
+    font-size: 14px;
   }
 
   .duplicate-count-num {
@@ -1896,13 +1892,11 @@ main {
 
 .lightbox-counter {
   position: absolute;
-  bottom: 30px; /* Прижимаем к низу */
+  bottom: 30px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 10002;
-  
-  /* Красивый внешний вид */
-  background: rgba(0, 0, 0, 0.8); /* Чуть темнее фон для контраста */
+  background: rgba(0, 0, 0, 0.8);
   color: #ffffff;
   font-family: 'Nunito', sans-serif;
   font-size: 15px;
@@ -1910,9 +1904,7 @@ main {
   padding: 6px 16px;
   border-radius: 20px;
   backdrop-filter: blur(4px);
-  border: 1px solid rgba(255,255,255,0.1); /* Легкая окантовка */
-  
-  /* Отключаем клики, чтобы не мешал */
+  border: 1px solid rgba(255,255,255,0.1);
   pointer-events: none;
   user-select: none;
 }
@@ -1926,7 +1918,6 @@ main {
   margin-bottom: 32px;
 }
 
-/* Хронология внутри ряда — 75% */
 .clay-wide-panel--in-row {
   flex: 0 0 75%;
   max-width: 75%;
@@ -1935,7 +1926,6 @@ main {
   min-width: 0;
 }
 
-/* Мой поиск — 25%, оформление как у .clay-mini-card */
 .clay-wanted-panel {
   flex: 0 0 calc(25% - 24px);
   max-width: calc(25% - 24px);
@@ -1948,7 +1938,6 @@ main {
   text-align: center;
 }
 
-/* На мобильных — друг под другом */
 @media (max-width: 992px) {
   .clay-timeline-wanted-row {
     flex-direction: column;
@@ -1964,7 +1953,6 @@ main {
   }
 }
 
-/* На совсем узких — иконка меньше */
 @media (max-width: 768px) {
   .clay-wanted-panel .clay-mini-icon-img {
     width: 64px !important;
@@ -1972,47 +1960,23 @@ main {
   }
 }
 
-/* Значок «Ищу» — бейдж в левом верхнем углу карточки */
-.figure-item {
-  position: relative; /* На всякий случай, если не было */
-}
-
-.wanted-badge {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  background: var(--clay-blue-bg);
-  color: var(--clay-blue-dark);
-  box-shadow: 0 3px 0 var(--clay-blue-dark), 0 4px 8px rgba(74, 143, 212, 0.3);
-  z-index: 5;
-  cursor: default;
-}
-
-/* Второй код фигурки */
+/* ===== ВТОРОЙ КОД ФИГУРКИ ===== */
 .figure-code2 {
   font-family: 'Nunito', monospace;
-  font-size: 14px !important;
+  font-size: 16px !important;
   font-weight: 800;
   color: var(--clay-blue-dark);
   background: var(--clay-blue-bg);
-  padding: 5px 12px;
-  border-radius: 10px;
+  padding: 6px 14px;
+  border-radius: 12px;
   display: inline-block;
   width: fit-content;
   border: 2px solid #b8d9f7;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
   letter-spacing: 0.5px;
   margin-top: 4px;
 }
 
-/* Второй код в каталоге фигурок — фиксированная ширина, чтобы сетка не прыгала */
+/* Второй код в каталоге фигурок */
 .figure-catalog-code2 {
   background: var(--clay-blue-bg);
   color: var(--clay-blue-dark);
