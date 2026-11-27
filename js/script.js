@@ -3772,6 +3772,9 @@ window.seriesLinkedIndexes = linkedIndexes;
                       ${item.code2 ? `<div class="figure-code2 copyable-code" data-code="${escapeHtml(item.code2)}" title="Нажмите, чтобы скопировать">${escapeHtml(item.code2)}</div>` : ''}
                     </div>
                     <div class="figure-status-row">
+                      ${item.forsale ? `<span class="status-icon status-forsale" title="В продаже">🛒</span>` : ''}
+                      ${item.wanted ? `<span class="status-icon status-wanted" title="Ищу">🔍</span>` : ''}
+                      ${item.owned ? `<span class="status-icon status-owned" title="В коллекции">✅</span>` : ''}
                       ${item.forsale2 ? `<span class="status-icon status-forsale" title="Код 2 в продаже">🛒</span>` : ''}
                       ${item.wanted2 ? `<span class="status-icon status-wanted" title="Код 2 в поиске">🔍</span>` : ''}
                       ${item.owned2 ? `<span class="status-icon status-owned" title="Код 2 в коллекции">✅</span>` : ''}
