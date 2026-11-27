@@ -557,7 +557,7 @@ main {
   display: flex;
   gap: 16px;
   align-items: flex-start;
-  margin-top: 30px;
+  margin-top: 56px; /* было 30px — опустили, чтобы не прилипало к номеру */
 }
 .figure-item-top > img {
   width: 140px;
@@ -724,8 +724,8 @@ main {
 /* Лампа «Ищу» в углу */
 .wanted-badge {
   position: absolute;
-  top: 10px;
-  left: 10px;
+  top: 12px;
+  left: 56px; /* было 10px — сдвинули вправо, чтобы не перекрывать номер */
   width: 32px;
   height: 32px;
   border-radius: 50%;
