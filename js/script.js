@@ -2622,10 +2622,9 @@ async function initForSale() {
     let fullSeriesItems = [];
     
     allItems.forEach(item => {
-      // ===== КОД 1 =====
-      if (item.forsale !== false && item.code) { 
-        // Пушим только если forsale != false (или если forsale === undefined, для обратной совместимости)
-        const mapped1 = {
+      // ===== ПОЛНЫЕ СЕРИИ =====
+      if (item.type === 'full') {
+        const mappedFull = {
           id: item.id,
           seriesId: item.seriesId,
           name: (currentLang === 'en' && item.name_en) ? item.name_en : item.name,
@@ -2638,47 +2637,46 @@ async function initForSale() {
           manufacturer: item.manufacturer,
           price: (currentLang === 'en' && item.price_en) ? item.price_en : (item.price || ''),
           condition: (currentLang === 'en' ? item.condition_en : item.condition) || '',
-          type: item.type,
-          code: item.code || '',
+          type: 'full',
+          code: '',
+          code2: '',
           date_added: item.date_added || '',
           forsale_date: item.forsale_date || ''
         };
-        
-        if (item.type === 'full') fullSeriesItems.push(mapped1);
-        else if (item.type === 'figure') figureItems.push(mapped1);
-        else if (item.type === 'variant') variantItems.push(mapped1);
-        else if (item.type === 'extra') extraItems.push(mapped1);
-        else if (item.type === 'insert') insertItems.push(mapped1);
-        else if (item.type === 'single') figureItems.push(mapped1);
+        fullSeriesItems.push(mappedFull);
+        return;
       }
 
-      // ===== КОД 2 =====
-      if (item.forsale2 === true && item.code2) {
-        const mapped2 = {
-          id: item.id + '_code2', // Уникальный ID, чтобы не путался с первым
+      // ===== ФИГУРКИ, ВАРИАНТЫ, ДОПЫ, ВКЛАДЫШИ =====
+      // Добавляем одну карточку, если в продаже хотя бы один код
+      if (item.forsale === true || item.forsale2 === true) {
+        const mapped = {
+          id: item.id,
           seriesId: item.seriesId,
           name: (currentLang === 'en' && item.name_en) ? item.name_en : item.name,
           name_en: item.name_en || '',
           image: item.image,
-          avito: item.avito, // Ссылка Авито общая
+          avito: item.avito,
           seriesName: (currentLang === 'en' && item.seriesName_en) ? item.seriesName_en : item.seriesName,
           seriesName_en: item.seriesName_en || '',
           seriesYear: item.seriesYear,
           manufacturer: item.manufacturer,
-          price: (currentLang === 'en' && item.price2_en) ? item.price2_en : (item.price2 || ''),
-          condition: (currentLang === 'en' ? item.condition2_en : item.condition2) || '',
+          // Если продан код 1, берем цену 1, иначе цену 2
+          price: item.forsale ? ((currentLang === 'en' && item.price_en) ? item.price_en : (item.price || '')) : ((currentLang === 'en' && item.price2_en) ? item.price2_en : (item.price2 || '')),
+          condition: item.forsale ? ((currentLang === 'en' ? item.condition_en : item.condition) || '') : ((currentLang === 'en' ? item.condition2_en : item.condition2) || ''),
           type: item.type,
-          code: item.code2 || '', // Код 2 как основной код для карточки
+          code: item.code || '',
+          code2: item.code2 || '', // Сохраняем второй код
+          forsale: item.forsale === true,
+          forsale2: item.forsale2 === true,
           date_added: item.date_added || '',
-          forsale_date: item.forsale_date2 || ''
+          forsale_date: item.forsale_date || item.forsale_date2 || ''
         };
         
-        if (item.type === 'full') fullSeriesItems.push(mapped2);
-        else if (item.type === 'figure') figureItems.push(mapped2);
-        else if (item.type === 'variant') variantItems.push(mapped2);
-        else if (item.type === 'extra') extraItems.push(mapped2);
-        else if (item.type === 'insert') insertItems.push(mapped2);
-        else if (item.type === 'single') figureItems.push(mapped2);
+        if (item.type === 'figure' || item.type === 'single') figureItems.push(mapped);
+        else if (item.type === 'variant') variantItems.push(mapped);
+        else if (item.type === 'extra') extraItems.push(mapped);
+        else if (item.type === 'insert') insertItems.push(mapped);
       }
     });
     
@@ -2721,21 +2719,24 @@ async function initForSale() {
         filtered = filtered.filter(i => i.manufacturer === currentManufacturer);
       }
       
-if (currentSearch) {
-  const query = currentSearch.toLowerCase();
-  filtered = filtered.filter(i =>
-    (i.name || '').toLowerCase().includes(query) ||
-    (i.name_en || '').toLowerCase().includes(query) ||
-    (i.seriesName || '').toLowerCase().includes(query) ||
-    (i.seriesName_en || '').toLowerCase().includes(query) ||
-    (i.code && i.code.toLowerCase().includes(query)) ||
-    (i.seriesYear && String(i.seriesYear).includes(query))   // ← добавлено
-  );
-}
+      if (currentSearch) {
+        const query = currentSearch.toLowerCase();
+        filtered = filtered.filter(i => {
+          const textToSearch = [
+            i.name || '',
+            i.name_en || '',
+            i.seriesName || '',
+            i.seriesName_en || '',
+            i.code || '',
+            i.code2 || '',
+            i.seriesYear ? String(i.seriesYear) : ''
+          ].join(' ').toLowerCase();
+          
+          return textToSearch.includes(query);
+        });
+      }
       
-      // ===== СОРТИРОВКА =====
       if (currentSort === 'date-desc') {
-        // Новые выставленные на продажу — первыми
         filtered.sort((a, b) => {
           const da = a.forsale_date || a.date_added || '';
           const db = b.forsale_date || b.date_added || '';
@@ -2743,7 +2744,6 @@ if (currentSearch) {
           return (forsaleIndexOrder[a.id] ?? 99999) - (forsaleIndexOrder[b.id] ?? 99999);
         });
       } else if (currentSort === 'date-asc') {
-        // Старые выставленные — первыми
         filtered.sort((a, b) => {
           const da = a.forsale_date || a.date_added || '';
           const db = b.forsale_date || b.date_added || '';
@@ -2913,13 +2913,11 @@ if (currentSearch) {
         <div class="forsale-item-body">
           <div class="forsale-item-header">
             <span class="forsale-item-name">${escapeHtml(item.name || '')}</span>
-<span class="forsale-item-price" style="${!item.price ? 'opacity: 0;' : ''}">
-  ${escapeHtml(item.price || '0')}
-</span>
           </div>
           <div class="forsale-item-tags">
             <span class="tag tag-primary">${escapeHtml(typeLabels[item.type] || item.type)}</span>
-            ${item.code ? `<span class="tag tag-code">${escapeHtml(item.code)}</span>` : ''}
+            ${item.forsale && item.code ? `<span class="tag tag-code">${escapeHtml(item.code)}</span>` : ''}
+            ${item.forsale2 && item.code2 ? `<span class="tag tag-code tag-code2" style="background:#dbeafe; color:#1e40af;">${escapeHtml(item.code2)}</span>` : ''}
             ${item.condition ? `<span class="tag tag-condition">⚠️ ${escapeHtml(item.condition)}</span>` : ''}
           </div>
           ${seriesBlockHtml}
@@ -3994,21 +3992,16 @@ async function initFigure() {
     window.seriesGalleryImages = allSeriesImages;
     window.seriesGalleryTitles = allTitles;
     
-    const condition = currentLang === 'en' ? figure.condition_en : figure.condition;
-    const price = figure.price || '';
-    const avitoLink = figure.avito || '#';
-    const isForsale = figure.forsale === true;
-    
-    const figureCode = figure.code || '';
     const imageUrl = figure.image ? `${BASE_URL}/${figure.image}` : 'images/placeholder.svg';
     
     // ===== БЛОК ПРОДАЖИ =====
     let saleBlockHtml = '';
-    if (isForsale) {
+    if (figure.forsale || figure.forsale2) {
+      const avitoLink = figure.avito || '#';
       if (avitoLink && avitoLink !== '#') {
         saleBlockHtml = `
           <a href="${escapeHtml(avitoLink)}" class="figure-btn figure-btn-buy" target="_blank" rel="noopener noreferrer">
-            🛒 ${currentLang === 'ru' ? 'Купить' : 'Buy'}${price ? ' · ' + escapeHtml(price) : ''}
+            🛒 ${currentLang === 'ru' ? 'Купить' : 'Buy'}
           </a>
         `;
       } else {
@@ -4059,10 +4052,6 @@ async function initFigure() {
                        onclick="openLightbox(${insertGalleryIdx}, window.seriesGalleryImages, window.seriesGalleryTitles)"
                        onerror="this.src='images/placeholder.svg'">
                 </div>
-                <div class="single-insert-info">
-                  ${insertName ? `<div class="single-insert-name">${escapeHtml(insertName)}</div>` : ''}
-                  ${insertCode ? `<div class="single-insert-code">${escapeHtml(insertCode)}</div>` : ''}
-                </div>
               </div>
             </div>
           `;
@@ -4070,7 +4059,7 @@ async function initFigure() {
 
         insertBlockHtml = `
           <div class="multi-inserts-wrapper">
-            <h3 class="single-insert-title">📄 ${insertTitle}</h3>
+            <h3 class="single-insert-title" style="text-align:center;">📄 ${insertTitle}</h3>
             ${insertsHtml}
           </div>
         `;
@@ -4084,73 +4073,84 @@ async function initFigure() {
       }
     }
     
-    // ===== НИЖНИЙ БЛОК: состояние =====
-    let descriptionBlockHtml = '';
-    if (condition) {
-      descriptionBlockHtml += `
-        <div class="figure-condition">
-          <span class="condition-icon">⚠️</span>
-          <span class="condition-text">${escapeHtml(condition)}</span>
+    // ===== МЕТА-ДАННЫЕ =====
+    let metaHtml = `
+      <div class="figure-meta">
+        <div class="figure-meta-item">
+          <span class="meta-icon">📦</span>
+          <a href="series.html?id=${escapeHtml(series.id)}" class="meta-link">${escapeHtml(seriesName)} (${escapeHtml(figureYear)})</a>
+        </div>
+        <div class="figure-meta-item">
+          <span class="meta-icon">🏭</span>
+          <a href="forsale.html?manufacturer=${escapeHtml(series.manufacturer)}" class="meta-link">${escapeHtml(manufacturerName)}</a>
+        </div>
+        <div class="figure-meta-item">
+          <span class="meta-icon">📅</span>
+          <span>${escapeHtml(figureYear)}</span>
+        </div>
+    `;
+
+    if (figure.code || figure.code2) {
+      metaHtml += `
+        <div class="figure-meta-item" style="flex-wrap:wrap; gap:8px;">
+          <span class="meta-icon">📇</span>
+          <div style="display:flex; gap:8px; flex-wrap:wrap;">
+            ${figure.code ? `<span class="figure-code-value copyable-code" data-code="${escapeHtml(figure.code)}" title="Нажмите, чтобы скопировать">${escapeHtml(figure.code)}</span>` : ''}
+            ${figure.code2 ? `<span class="figure-code-value copyable-code" data-code="${escapeHtml(figure.code2)}" title="Нажмите, чтобы скопировать" style="background:var(--clay-blue-bg); color:var(--clay-blue-dark); border-color:#b8d9f7;">${escapeHtml(figure.code2)}</span>` : ''}
+          </div>
         </div>
       `;
     }
-    
-    // ===== РЕНДЕР (правильная структура) =====
+
+    // Выводим цены только если они есть (без надписей "Код 1:" и "Код 2:")
+    let pricesHtml = '';
+    if (figure.forsale && figure.price) {
+      pricesHtml += `<span style="background:var(--clay-yellow-bg); color:var(--clay-yellow-dark); padding:4px 12px; border-radius:12px; font-weight:800; font-size:14px; display:inline-block;">${escapeHtml(figure.price)}</span>`;
+    }
+    if (figure.forsale2 && figure.price2) {
+      pricesHtml += `<span style="background:var(--clay-yellow-bg); color:var(--clay-yellow-dark); padding:4px 12px; border-radius:12px; font-weight:800; font-size:14px; display:inline-block;">${escapeHtml(figure.price2)}</span>`;
+    }
+
+    if (pricesHtml) {
+      metaHtml += `
+        <div class="figure-meta-item" style="flex-wrap:wrap; gap:8px;">
+          <span class="meta-icon">💰</span>
+          <div style="display:flex; gap:8px; flex-wrap:wrap;">${pricesHtml}</div>
+        </div>
+      `;
+    }
+
+    metaHtml += `</div>`;
+
+    // ===== РЕНДЕР =====
     container.innerHTML = `
       <div class="figure-container">
         <h1 class="figure-title">${escapeHtml(name)}</h1>
         <div class="figure-content">
           
-          <!-- Фигурка -->
-          <div class="figure-image-wrapper">
-            <img src="${imageUrl}" 
-                 alt="${escapeHtml(name)}" 
-                 class="figure-image" 
-                 onclick="openLightbox(${imageIndex}, window.seriesGalleryImages || [], window.seriesGalleryTitles || [])" 
-                 onerror="this.src='images/placeholder.svg'">
-            <div class="figure-type-badge">
-              ${escapeHtml(typeIcon)} ${escapeHtml(typeName)}${figureNumber ? ' #' + figureNumber : ''}
+          <!-- Левая колонка: Фото и Кнопка -->
+          <div class="figure-left-col">
+            <div class="figure-image-wrapper">
+              <img src="${imageUrl}" 
+                   alt="${escapeHtml(name)}" 
+                   class="figure-image" 
+                   onclick="openLightbox(${imageIndex}, window.seriesGalleryImages || [], window.seriesGalleryTitles || [])" 
+                   onerror="this.src='images/placeholder.svg'">
+              <div class="figure-type-badge">
+                ${escapeHtml(typeIcon)} ${escapeHtml(typeName)}${figureNumber ? ' #' + figureNumber : ''}
+              </div>
             </div>
+            ${saleBlockHtml ? `<div class="figure-sale-block">${saleBlockHtml}</div>` : ''}
           </div>
           
-          <!-- Кнопка по центру -->
-          <div class="figure-sale-block">
-            ${saleBlockHtml}
+          <!-- Правая колонка: Вкладыш -->
+          <div class="figure-insert-right">
+            ${insertBlockHtml}
           </div>
           
-          <!-- Вкладыши внизу, 3 в ряд -->
-          ${insertBlockHtml}
-          
-          <!-- Нижний блок: мета + описание -->
+          <!-- Нижний блок: Мета-данные -->
           <div class="figure-bottom">
-            <div class="figure-meta">
-              <div class="figure-meta-item">
-                <span class="meta-icon">📦</span>
-                <a href="series.html?id=${escapeHtml(series.id)}" class="meta-link">${escapeHtml(seriesName)} (${escapeHtml(figureYear)})</a>
-              </div>
-              <div class="figure-meta-item">
-                <span class="meta-icon">🏭</span>
-                <a href="forsale.html?manufacturer=${escapeHtml(series.manufacturer)}" class="meta-link">${escapeHtml(manufacturerName)}</a>
-              </div>
-              <div class="figure-meta-item">
-                <span class="meta-icon">📅</span>
-                <span>${escapeHtml(figureYear)}</span>
-              </div>
-              ${figureCode ? `
-                <div class="figure-meta-item">
-                  <span class="meta-icon">📇</span>
-                  <span class="figure-code-value copyable-code" data-code="${escapeHtml(figureCode)}" title="Нажмите, чтобы скопировать">${escapeHtml(figureCode)}</span>
-                </div>
-              ` : ''}
-              ${figure.code2 ? `
-                <div class="figure-meta-item">
-                  <span class="meta-icon">📇</span>
-                  <span class="figure-code-value copyable-code" data-code="${escapeHtml(figure.code2)}" title="Нажмите, чтобы скопировать">${escapeHtml(figure.code2)}</span>
-                </div>
-              ` : ''}
-            </div>
-            
-            ${descriptionBlockHtml}
+            ${metaHtml}
           </div>
           
         </div>
@@ -5963,33 +5963,37 @@ async function openWantedList(seriesId) {
   const series = await loadSeriesById(seriesId);
   if (!series) return;
 
-  // Загружаем сохранённые статусы
-  const storageKey = `wantedList_${seriesId}`;
+  // Загружаем и мигрируем сохранённые статусы
+  const oldKey = `wantedList_${seriesId}`;
+  const storageKey = `wantedList_v2_${seriesId}`;
   let statuses = {};
+  
   try {
-    statuses = JSON.parse(localStorage.getItem(storageKey) || '{}');
+    const savedV2 = localStorage.getItem(storageKey);
+    if (savedV2) {
+      statuses = JSON.parse(savedV2);
+    } else {
+      // Миграция со старого формата
+      const savedOld = JSON.parse(localStorage.getItem(oldKey) || '{}');
+      Object.keys(savedOld).forEach(itemId => {
+        const s = savedOld[itemId];
+        if (typeof s === 'object' && s !== null) {
+          statuses[itemId] = { code1: s };
+        }
+      });
+      localStorage.setItem(storageKey, JSON.stringify(statuses));
+    }
   } catch (e) { statuses = {}; }
 
-  // Миграция старого формата (строка → объект)
-  Object.keys(statuses).forEach(key => {
-    if (typeof statuses[key] !== 'object' || statuses[key] === null) {
-      statuses[key] = {};
-    }
-  });
-  localStorage.setItem(storageKey, JSON.stringify(statuses));
-
-  // ⚠️ ТОЛЬКО фигурки, допы и варианты
+  // Собираем элементы: фигурки, допы, варианты
   const allItems = [
     ...(series.figures  || []).map(f => ({ ...f, _type: 'figure'  })),
     ...(series.extras   || []).map(f => ({ ...f, _type: 'extra'   })),
     ...(series.variants || []).map(f => ({ ...f, _type: 'variant' }))
   ];
 
-  // Если вообще нет элементов — выходим
   if (allItems.length === 0) {
-    showError(currentLang === 'ru' 
-      ? 'В этой серии нет фигурок для поиска' 
-      : 'No figures in this series for wanted list');
+    showError(currentLang === 'ru' ? 'В этой серии нет фигурок для поиска' : 'No figures in this series for wanted list');
     return;
   }
 
@@ -6002,6 +6006,7 @@ async function openWantedList(seriesId) {
   const modal = document.createElement('div');
   modal.className = 'wanted-modal';
   modal.dataset.storageKey = storageKey;
+  
   modal.innerHTML = `
     <div class="wanted-modal-content">
       <button type="button" class="wanted-modal-close">×</button>
@@ -6009,15 +6014,30 @@ async function openWantedList(seriesId) {
       <p class="wanted-modal-subtitle">${escapeHtml(currentLang === 'en' && series.name_en ? series.name_en : series.name)}</p>
       <p class="wanted-modal-hint">
         ${currentLang === 'ru' 
-          ? 'Отметьте статус для каждой фигурки. Можно одновременно «Имеется» и «На обмен».' 
-          : 'Set a status for each figure. You can combine "Have" and "Trade".'}
+          ? 'Отметьте статус для каждого кода отдельно. Можно одновременно «Имеется» и «На обмен».' 
+          : 'Set a status for each code separately. You can combine "Have" and "Trade".'}
       </p>
       <div class="wanted-list">
         ${allItems.map((item, idx) => {
           const itemName = currentLang === 'en' && item.name_en ? item.name_en : item.name;
-          const itemCode = item.code || '';
           const itemImage = item.image ? `${BASE_URL}/${item.image}` : 'images/placeholder.svg';
-          const curStatus = statuses[item.id] || {};
+          
+          // Генерируем кнопки для одного набора статусов
+          const renderStatusButtons = (itemId, codeSuffix) => {
+            const curStatus = (statuses[itemId] && statuses[itemId][codeSuffix]) || {};
+            return Object.entries(statusLabels).map(([key, val]) => `
+              <button type="button" 
+                      class="wanted-btn ${curStatus[key] ? 'active' : ''}" 
+                      data-status="${key}" 
+                      data-item="${escapeHtml(itemId)}"
+                      data-code="${codeSuffix}"
+                      style="--btn-color: ${val.color}">
+                <span class="wanted-btn-icon">${val.icon}</span>
+                <span class="wanted-btn-label">${currentLang === 'ru' ? val.label_ru : val.label_en}</span>
+              </button>
+            `).join('');
+          };
+
           return `
             <div class="wanted-item" data-id="${escapeHtml(item.id)}" data-type="${item._type}">
               <div class="wanted-item-info">
@@ -6028,20 +6048,21 @@ async function openWantedList(seriesId) {
                 <div class="wanted-item-text">
                   <span class="wanted-item-num">${idx + 1}</span>
                   <span class="wanted-item-name">${escapeHtml(itemName)}</span>
-                  ${itemCode ? `<span class="wanted-item-code">${escapeHtml(itemCode)}</span>` : ''}
                 </div>
               </div>
-              <div class="wanted-item-buttons">
-                ${Object.entries(statusLabels).map(([key, val]) => `
-                  <button type="button" 
-                          class="wanted-btn ${curStatus[key] ? 'active' : ''}" 
-                          data-status="${key}" 
-                          data-item="${escapeHtml(item.id)}"
-                          style="--btn-color: ${val.color}">
-                    <span class="wanted-btn-icon">${val.icon}</span>
-                    <span class="wanted-btn-label">${currentLang === 'ru' ? val.label_ru : val.label_en}</span>
-                  </button>
-                `).join('')}
+              <div class="wanted-item-statuses" style="display:flex; flex-direction:column; gap:12px; width:100%;">
+                <!-- Код 1 -->
+                <div class="wanted-code-row">
+                  ${item.code ? `<div class="wanted-code-label">${escapeHtml(item.code)}</div>` : `<div class="wanted-code-label">${currentLang === 'ru' ? 'Без кода' : 'No code'}</div>`}
+                  <div class="wanted-item-buttons">${renderStatusButtons(item.id, 'code1')}</div>
+                </div>
+                <!-- Код 2 -->
+                ${item.code2 ? `
+                <div class="wanted-code-row" style="border-top:1px dashed var(--clay-border); padding-top:12px;">
+                  <div class="wanted-code-label" style="color:var(--clay-blue-dark);">${escapeHtml(item.code2)}</div>
+                  <div class="wanted-item-buttons">${renderStatusButtons(item.id, 'code2')}</div>
+                </div>
+                ` : ''}
               </div>
             </div>
           `;
@@ -6072,22 +6093,18 @@ async function openWantedList(seriesId) {
 
   const closeBtn = modal.querySelector('.wanted-modal-close');
   if (closeBtn) closeBtn.onclick = () => modal.remove();
-
   modal.onclick = (e) => { if (e.target === modal) modal.remove(); };
 
   // Сохраняем имя при вводе
   const nameInput = document.getElementById('wantedNameInput');
   if (nameInput) {
-    nameInput.oninput = () => {
-      localStorage.setItem('wantedName', nameInput.value.trim());
-    };
+    nameInput.oninput = () => localStorage.setItem('wantedName', nameInput.value.trim());
   }
 
   // ===== КНОПКА СКАЧИВАНИЯ =====
   const saveBtn = document.getElementById('wantedSaveBtn');
   if (saveBtn) {
     saveBtn.onclick = async () => {
-      // Перечитываем АКТУАЛЬНЫЕ статусы из localStorage
       let freshStatuses = {};
       try {
         freshStatuses = JSON.parse(localStorage.getItem(storageKey) || '{}');
@@ -6097,9 +6114,8 @@ async function openWantedList(seriesId) {
 
       await generateWantedListImage(seriesId, allItems, freshStatuses, currentLang, userName);
 
-      // Сбрасываем статусы ПОСЛЕ успешной генерации
+      // Очищаем статусы после генерации
       localStorage.removeItem(storageKey);
-
       modal.remove();
     };
   }
@@ -6863,7 +6879,9 @@ document.addEventListener('click', function(e) {
 
   const itemId = btn.dataset.item;
   const status = btn.dataset.status;
-  if (!itemId || !status) return;
+  const codeSuffix = btn.dataset.code; // 'code1' или 'code2'
+  
+  if (!itemId || !status || !codeSuffix) return;
 
   const modal = btn.closest('.wanted-modal');
   const storageKey = modal.dataset.storageKey;
@@ -6874,42 +6892,37 @@ document.addEventListener('click', function(e) {
     statuses = JSON.parse(localStorage.getItem(storageKey) || '{}');
   } catch (err) { statuses = {}; }
 
-  if (!statuses[itemId] || typeof statuses[itemId] !== 'object') {
-    statuses[itemId] = {};
-  }
+  // Инициализация структуры
+  if (!statuses[itemId]) statuses[itemId] = {};
+  if (!statuses[itemId][codeSuffix]) statuses[itemId][codeSuffix] = {};
 
-  if (statuses[itemId][status]) {
-    // ===== СНЯТИЕ СТАТУСА =====
-    delete statuses[itemId][status];
-    // Если сняли trade — снимаем и have (он был автоматическим)
-    if (status === 'trade') {
-      delete statuses[itemId].have;
-    }
+  const currentStatus = statuses[itemId][codeSuffix];
+
+  // Логика переключения статусов
+  if (currentStatus[status]) {
+    delete currentStatus[status];
+    if (status === 'trade') delete currentStatus['have']; // снимаем have при снятии trade
   } else {
-    // ===== УСТАНОВКА СТАТУСА =====
-    statuses[itemId][status] = true;
-
+    currentStatus[status] = true;
     if (status === 'need') {
-      // Ищу — снимаем have и trade
-      delete statuses[itemId].have;
-      delete statuses[itemId].trade;
+      delete currentStatus['have'];
+      delete currentStatus['trade'];
     }
     if (status === 'have') {
-      // Имеется — снимаем need
-      delete statuses[itemId].need;
+      delete currentStatus['need'];
     }
     if (status === 'trade') {
-      // На обмен — автоматически ставим have, снимаем need
-      statuses[itemId].have = true;
-      delete statuses[itemId].need;
+      currentStatus['have'] = true;
+      delete currentStatus['need'];
     }
   }
 
-  const parent = btn.closest('.wanted-item');
-  if (parent) {
-    parent.querySelectorAll('.wanted-btn').forEach(b => {
+  // Обновляем визуально кнопки ТОЛЬКО для этого кода
+  const parentRow = btn.closest('.wanted-code-row');
+  if (parentRow) {
+    parentRow.querySelectorAll('.wanted-btn').forEach(b => {
       const s = b.dataset.status;
-      b.classList.toggle('active', !!statuses[itemId][s]);
+      b.classList.toggle('active', !!currentStatus[s]);
     });
   }
 
